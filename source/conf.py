@@ -26,8 +26,8 @@ import os
 import sys
 
 # Following 3 lines avoid the need of importing load_dbenv() for compiling the documentation -> works also without verdi install
-sys.path.append(os.path.join(os.path.split(__file__)[0], os.pardir, os.pardir))
-sys.path.append(os.path.join(os.path.split(__file__)[0], os.pardir))
+sys.path.append(os.path.join(os.path.split(__file__)[0], os.pardir, 'aiida_core'))
+sys.path.append(os.path.join(os.path.split(__file__)[0], os.pardir, 'aiida_core/aiida'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'rtd_settings'
 
 import aiida
@@ -274,7 +274,7 @@ def run_apidoc(_):
     """
     source_dir = os.path.abspath(os.path.dirname(__file__))
     apidoc_dir = os.path.join(source_dir, 'apidoc')
-    package_dir = os.path.join(source_dir, os.pardir, os.pardir, 'aiida_core/aiida')
+    package_dir = os.path.join(source_dir, os.pardir, 'aiida_core/aiida')
 
     # In #1139, they suggest the route below, but for me this ended up
     # calling sphinx-build, not sphinx-apidoc
