@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 13:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/working_with_aiida/caching.rst:5
+msgid "Caching"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:7
+msgid "When working with AiiDA, you might sometimes re-run calculations which were already successfully executed. Because this can waste a lot of computational resources, you can enable AiiDA to **cache** calculations, which means that it will re-use existing calculations if a calculation with the same inputs is submitted again."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:9
+msgid "When a calculation is cached, a copy of the original calculation is created. This copy will keep the input links of the new calculation. The outputs of the original calculation are also copied, and linked to the new calculation. This allows for the new calculation to be a separate Node in the provenance graph and, critically, preserves the acyclicity of the graph."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:11
+msgid "Caching is also implemented for Data nodes. This is not very useful in practice (yet), but is an easy way to show how the caching mechanism works:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:36
+msgid "As you can see, passing ``use_cache=True`` to the ``store`` method enables using the cache. The fact that ``n2`` was created from ``n1`` is stored in the ``_aiida_cached_from`` extra of ``n2``."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:38
+msgid "When running a ``CalcJob`` through the ``Process`` interface, you cannot directly set the ``use_cache`` flag when the calculation node is stored internally. Instead, you can pass the ``_use_cache`` flag to the ``run`` or ``submit`` method."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:40
+msgid "Caching is **not** implemented for workchains and workfunctions. Unlike calculations, they can not only create new data nodes, but also return exsting ones. When copying a cached workchain, it's not clear which node should be returned without actually running the workchain. This is explained in more detail in the section :ref:`caching_provenance`."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:43
+msgid "Configuration"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:45
+msgid "Of course, using caching would be quite tedious if you had to set ``use_cache`` manually everywhere. To fix this, the default for ``use_cache`` can be set in the ``.aiida/cache_config.yml`` file. You can specify a global default, or enable / disable caching for specific calculation or data classes. An example configuration file might look like this:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:57
+msgid "This means that caching is enabled for ``TemplatereplacerCalculation`` and ``Str``, and disabled for all other classes. In this example, manually disabling ``aiida.orm.nodes.data.float.Float`` is actually not needed, since the ``default: False`` configuration means that caching is disabled for all classes unless it is manually enabled. Note also that the fully qualified class import name (e.g., ``aiida.orm.nodes.data.str.Str``) must be given, not just the class name (``Str``). This is to avoid accidentally matching classes with the same name. You can get this name by combining the module name and class name, or (usually) from the string representation of the class:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:68
+msgid "Note that this is not the same as the type string stored in the database."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:73
+msgid "How are cached nodes matched?"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:75
+msgid "To determine wheter a given node is identical to an existing one, a hash of the content of the node is created. If a node of the same class with the same hash already exists in the database, this is considered a cache match. You can manually check the hash of a given node with the :meth:`.get_hash() <aiida.orm.nodes.Node.get_hash>` method. Once a node is stored in the database, its hash is stored in the ``_aiida_hash`` extra, and this is used to find matching nodes."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:77
+msgid "By default, this hash is created from:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:79
+msgid "all attributes of a node, except the ``_updatable_attributes``"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:80
+msgid "the ``__version__`` of the module which defines the node class"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:81
+msgid "the content of the repository folder of the node"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:82
+msgid "the UUID of the computer, if the node has one"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:84
+msgid "In the case of calculations, the hashes of the inputs are also included. When developing calculation and data classes, there are some methods you can use to determine how the hash is created:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:86
+msgid "To ignore specific attributes, a ``Node`` subclass can have a ``_hash_ignored_attributes`` attribute. This is a list of attribute names which are ignored when creating the hash."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:87
+msgid "For calculations, the ``_hash_ignored_inputs`` attribute lists inputs that should be ignored when creating the hash."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:88
+msgid "To add things which should be considered in the hash, you can override the :meth:`_get_objects_to_hash <aiida.orm.nodes.Node._get_objects_to_hash>` method. Note that doing so overrides the behavior described above, so you should make sure to use the ``super()`` method."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:89
+msgid "Pass a keyword argument to :meth:`.get_hash <aiida.orm.nodes.Node.get_hash>`. These are passed on to ``aiida.common.hashing.make_hash``. For example, the ``ignored_folder_content`` keyword is used by the :class:`JobCalculation <aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>` to ignore the ``raw_input`` subfolder of its repository folder."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:91
+msgid "Additionally, there are two methods you can use to disable caching for particular nodes:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:93
+msgid "The :meth:`~aiida.orm.nodes.Node.is_valid_cache` property determines whether a particular node can be used as a cache. This is used for example to disable caching from failed calculations."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:94
+msgid "Node classes have a ``_cachable`` attribute, which can be set to ``False`` to completely switch off caching for nodes of that class. This avoids performing queries for the hash altogether."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:96
+msgid "There are two ways in which the hash match can go wrong: False negatives, where two nodes should have the same hash but do not, or false positives, where two different nodes have the same hash. It is important to understand that false negatives are **highly preferrable**, because they only increase the runtime of your calculations, as if caching was disabled. False positives however can break the logic of your calculations. Be mindful of this when modifying the caching behaviour of your calculation and data classes."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:101
+msgid "What to do when caching is used when it shouldn't"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:103
+msgid "In general, the caching mechanism should trigger only when the output of a calculation will be exactly the same as if it is run again. However, there might be some edge cases where this is not true."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:105
+msgid "For example, if the parser is in a different python module than the calculation, the version number used in the hash will not change when the parser is updated. While the \"correct\" solution to this problem is to increase the version number of a calculation when the behavior of its parser changes, there might still be cases (e.g. during development) when you manually want to stop a particular node from being cached."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:107
+msgid "In such cases, you can follow these steps to disable caching:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:109
+msgid "If you suspect that a node has been cached in error, check that it has a ``_aiida_cached_from`` extra. If that's not the case, it is not a problem of caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:110
+msgid "Get all nodes which match your node, and clear their hash:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:116
+msgid "Run your calculation again. Now it should not use caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:118
+msgid "If you instead think that there is a bug in the AiiDA implementation, please open an issue (with enough information to be able to reproduce the error, otherwise it is hard for us to help you) in the AiiDA GitHub repository: https://github.com/aiidateam/aiida_core/issues/new."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:123
+msgid "Caching and the Provenance Graph"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:125
+msgid "The goal of the caching mechanism is to speed up AiiDA calculations by re-using duplicate calculations. However, the resulting provenance graph should be exactly the same as if caching was disabled. This has important consequences on the kind of caching operations that are possible."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:127
+msgid "The provenance graph consists of nodes describing data, calculations and workchains, and links describing the relationship between these nodes. We have seen that the hash of a node is used to determine whether two nodes are equivalent. To successfully use a cached node however, we also need to know how the new node should be linked to its parents and children."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:129
+msgid "In the case of a plain data node, this is simple: Copying a data node from an equivalent node should not change its links, so we just need to preserve the links which this new node already has."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:131
+msgid "For calculations, the situation is a bit more complex: The node can have inputs and creates new data nodes as outputs. Again, the new node needs to keep its existing links. For the outputs, the calculation needs to create a copy of each node and link these as its outputs. This makes it look as if the calculation had produced these outputs itself, without caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:133
+msgid "Finally, workchains can create links not only to nodes which they create themselves, but also to nodes created by a calculation that they called, or even their ancestors. This is where caching becomes impossible. Consider the following example (using workfunctions for simplicity):"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:148
+msgid "The two ``select`` workfunctions have the same inputs as far as their hashes go. However, the first call uses the same input node twice, while the second one has two different inputs. If the second call should be cached from the first one, it is not clear which of the two input nodes should be returned."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:150
+msgid "While this example might seem contrived, the conclusion is valid more generally: Because workchains can return nodes from their history, they cannot be cached. Since even two equivalent workchains (with the same inputs) can have a different history, there is no way to deduce which links should be created on the new workchain without actually running it."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:152
+msgid "Overall, this limitation is acceptable: The runtime of AiiDA workchains is usually dominated by time spent inside expensive calculations. Since these can be avoided with the caching mechanism, it still improves the runtime and required computer resources a lot."
+msgstr ""
+

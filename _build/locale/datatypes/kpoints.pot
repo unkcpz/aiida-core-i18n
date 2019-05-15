@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 13:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/datatypes/kpoints.rst:4
+msgid "Automatic computation of k-point paths"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:5
+msgid "AiiDA provides a number of tools and wrappers to automatically compute k-point paths given a cell or a crystal structure."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:8
+msgid "The main interface is provided by the two methods :py:func:`aiida.tools.data.array.kpoints.get_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.get_explicit_kpoints_path`."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:11
+msgid "These methods are also conveniently exported directly as, e.g., ``aiida.tools.get_kpoints_path``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:13
+msgid "The difference between the two methods is the following:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:15
+msgid ":py:func:`~aiida.tools.data.array.kpoints.get_kpoints_path` returns a dictionary of k-point coordinates (e.g. ``{'GAMMA': [0. ,0. ,0. ], 'X': [0.5, 0., 0.], 'L': [0.5, 0.5, 0.5]}``, and then a list of tuples of endpoints of each segment, e.g. ``[('GAMMA', 'X'), ('X', 'L'), ('L', 'GAMMA')]`` for the :math:`\\Gamma-X-L-\\Gamma` path."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:19
+msgid ":py:func:`~aiida.tools.data.array.kpoints.get_explicit_kpoints_path`, instead, returns a list of kpoints that follow that path, with some predefined (but user-customizable) distance between points, e.g. something like ``[[0., 0., 0.], [0.05, 0., 0.], [0.1, 0., 0.], ...]``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:23
+msgid "Depending on how the underlying code works, one method might be preferred on the other."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:25
+msgid "The docstring of the methods describes the expected parameters. The general interface requires always a StructureData as the first parameter ``structure``, as well as a string for the method to use (by default this is `seekpath <https://github.com/giovannipizzi/seekpath/>`_, but also the ``legacy`` method implemented in earlier versions of AiiDA is available; see description below)."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:30
+msgid "Additional parameters are passed as ``kwargs`` to the underlying implementation, that ofen accepts a different number of parameters."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:34
+msgid "Seekpath implementation"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:35
+msgid "When specifying ``method='seekpath'``, the `seekpath <https://github.com/giovannipizzi/seekpath/>`_ library is used to generate the path. Note that this requires that ``seekpath`` is installed (this is not available by default, in order to reduce the dependencies of AiiDA core, but can be easily installed using ``pip install seekpath``)."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:39
+msgid "For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.seekpath.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.seekpath.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:44
+msgid "If you use this implementation, please cite the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:52
+msgid "Legacy implementation"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:53
+msgid "This refers to the implementation that has been available since the early versions of AiiDA."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:55
+msgid "In the 3D case (all three directions have periodic boundary conditions), this implementation expects that the structure is already standardized according to the Setyawan paper. If this is not the case, the kpoints and band structure returned will be incorrect. The only case that is dealt correctly by the library is the case when axes are swapped, where the library correctly takes this swapping/rotation into account to assign kpoint labels and coordinates."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:61
+msgid "We therefore suggest that you use the seekpath implementation, that is able to automatically correctly identify the standardized crystal structure (primitive and conventional) as described in the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:65
+msgid "For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.legacy.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.legacy.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:70
+msgid "If you use this implementation, please cite the correct reference from the following ones:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:72
+msgid "The 3D implementation is based on the `Setyawan paper <https://doi.org/10.1016/j.commatsci.2010.05.010>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:79
+msgid "The 2D implementation is based on the `Ramirez paper <https://doi.org/10.1002/qua.560300306>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:88
+msgid "Deprecated methods"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:89
+msgid "Originally, the ``legacy`` implementation was implemented directly into the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` class."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:92
+msgid "In order to implement more than one method, and to simplify the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` class, and to decouple the underlying logic from AiiDA, we have deprecated those methods, factored out the logic into the :py:class:`~aiida.tools.data.array.kpoints.legacy` module. The methods are currently still available but will be removed in future versions of AiiDA; plese use directly the wrappers :py:func:`aiida.tools.data.array.kpoints.get_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.get_explicit_kpoints_path` instead, passing as option ``method='legacy'``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:100
+msgid "The list of deprecated methods include:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:102
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:104
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData._get_or_create_bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:106
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.set_kpoints_path`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:108
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData._find_bravais_info`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:110
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.find_bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:112
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.get_special_points`"
+msgstr ""
+

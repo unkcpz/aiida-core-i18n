@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 13:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/working/calculations.rst:5
+msgid "Calculations"
+msgstr ""
+
+#: ../../source/working/calculations.rst:7
+msgid "A calculation is a process (see the :ref:`process section<concepts_processes>` for details) that *creates* new data. Currently, there are two ways of implementing a calculation process:"
+msgstr ""
+
+#: ../../source/working/calculations.rst:10
+msgid ":ref:`calculation function<working_calcfunctions>`"
+msgstr ""
+
+#: ../../source/working/calculations.rst:11
+msgid ":ref:`calculation job<working_calcjobs>`"
+msgstr ""
+
+#: ../../source/working/calculations.rst:13
+msgid "This section will provide detailed information and best practices on how to implement these two calculation types."
+msgstr ""
+
+#: ../../source/working/calculations.rst:16
+msgid "This chapter assumes that the basic concept and difference between calculation functions and calculation jobs is known and when one should use on or the other. It is therefore crucial that, before you continue, you have read and understood the basic concept of :ref:`calculation processes<concepts_calculations>`."
+msgstr ""
+
+#: ../../source/working/calculations.rst:22
+msgid "Calculation functions"
+msgstr ""
+
+#: ../../source/working/calculations.rst:24
+msgid "The section on the :ref:`concept of calculation functions<concepts_calcfunctions>` already addressed their aim: automatic recording of their execution with their inputs and outputs in the provenance graph. The :ref:`section on process functions<working_process_functions>` subsequently detailed the rules that apply when implementing them, all of which to calculation functions, which are a sub type, just like work functions. However, there are some differences given that calculation functions are 'calculation'-like processes and work function behave like 'workflow'-like processes. What this entails in terms of intended usage and limitations for calculation functions is the scope of this section."
+msgstr ""
+
+#: ../../source/working/calculations.rst:30
+msgid "Creating data"
+msgstr ""
+
+#: ../../source/working/calculations.rst:31
+msgid "It has been said many times before: calculation functions, like all 'calculation'-like processes, `create` data, but what does `create` mean exactly? In this context, the term 'create' is not intended to refer to the simple creation of a new data node in the graph, in an interactive shell or a script for example. But rather it indicates the creation of a new piece of data from some other data through a computation implemented by a process. This is then exactly what the calculation function does. It takes one or more data nodes as inputs and returns one or more data nodes as outputs, whose content is based on those inputs. As explained in the :ref:`technical section<working_process_functions>`, outputs are created simply by returning the nodes from the function. The engine will inspect the return value from the function and attach the output nodes to the calculation node that represents the calculation function. To verify that the output nodes are in fact 'created', the engine will check that the nodes are not stored. Therefore, it is very important that you **do not store the nodes you create yourself**, or the engine will raise an exception, as shown in the following example:"
+msgstr ""
+
+#: ../../source/working/calculations.rst:44
+msgid "Because the returned node is already stored, the engine will raise the following exception:"
+msgstr ""
+
+#: ../../source/working/calculations.rst:52
+msgid "The reason for this strictness is that a node that was stored after being created in the function body, is indistinguishable from a node that was already stored and had simply been loaded in the function body and returned, e.g.:"
+msgstr ""
+
+#: ../../source/working/calculations.rst:57
+msgid "The loaded node would also have gotten a `create` link from the calculation function, even though it was not really created by it at all. It is exactly to prevent this ambiguity that calculation functions require all returned output nodes to be *unstored*."
+msgstr ""
+
+#: ../../source/working/calculations.rst:60
+msgid "Note that work functions have exactly the opposite required and all the outputs that it returns **have to be stored**, because as a 'workflow'-like process, it *cannot* create new data. For more details refer to the :ref:`work function section<working_workfunctions>`."
+msgstr ""
+
+#: ../../source/working/calculations.rst:66
+msgid "Calculation jobs"
+msgstr ""
+
+#: ../../source/working/calculations.rst:68
+msgid "`Issue [#2628] <https://github.com/aiidateam/aiida_core/issues/2628>`_"
+msgstr ""
+

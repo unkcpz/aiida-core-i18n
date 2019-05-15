@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 13:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:4
+msgid "Writing tests for plugin"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:6
+msgid "When developing a plugin it is important to write tests. The main concern of running tests is that the test environment has to be separated from the production environment and care should be taken to avoid any unwanted change to the user's database. You may have noticed that ``aiida_core`` has its own test framework for developments. While it is possible to use the same framework for the plugins, it is not ideal as any tests of plugins has to be run with the ``verdi devel tests`` command-line interface. Special profiles also have to be set mannually by the user and in automated test environments."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:15
+msgid "AiiDA ships with tools to simplify tests for plugins. The recommended way is to use the `pytest`_ framework, while the `unittest`_ package is also supported. Internally, test environments are created and managed by the :py:func:`aiida.manage.fixtures.fixture_manager` defined in :py:mod:`aiida.manage.fixtures`."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:24
+msgid "Using the pytest framework"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:26
+msgid "In this section we will introduce using the ``pytest`` framework to write tests for plugins."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:30
+msgid "Preparing the fixtures"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:32
+msgid "One important concept of the pytest framework is the `fixture`_. A fixture is something that a test requires. It could be a predefined object that the test act on, resources for the tests, or just some code you want to run before the test starts. Please see pytest's `documentation <https://docs.pytest.org/en/latest/>`_ for details, especially if you are new to writing testes."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:38
+msgid "To utilize the ``fixture_manager``, we first need to define the actual fixtures:"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:43
+msgid "The ``aiida_profile`` fixture initialize the ``fixture_manager`` yields it to the test function. By using the *with* clause, we ensure that the test profile to run tests are destroyed in the end. The scope of this fixture should be *session*, since there is no need to re-initialize the test profile mid-way. The next fixture ``new_database`` request the ``aiida_profile`` fixture and tells the received ``FixtureManager`` instance to reset the database. By requesting the ``new_database`` fixture, the test function will start with a fresh aiida environment. The next fixture, ``new_workdir``, returns an temporary directory for file operations and delete it when the test is finished. You may also want to define other fixtures such as those setup and return ``Data`` nodes or prepare calculations."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:52
+msgid "To make these fixtures available to all tests, they can be put into the ``conftest.py`` in root level of the package or ``tests`` sub-packages. The code shown above can be downloaded :download:`here <conftest.py>`."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:56
+msgid "More information of ``conftest.py`` can be found `here <conftest>`_."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:61
+msgid "Import statements in tests"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:63
+msgid "When running test, it is important that you DO NOT explicitly load the aiida database via ``load_dbenv()``, which could result in corruption of your database with actual data. However, many AiiDA modules, such as those in ``aiida.orm`` cannot be loaded without calling ``load_dbenv()`` first. Modules in your plugin may also import such aiida modules at the top level. Hence, they can not be imported directly in test modules. To solve this issue, import should be delayed until the test profile has been loaded. You can always import these required modules inside the test function. A better way is to define a fixture as a loader for module imports. For example, instead of having::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:75
+msgid "at the module level, you can define a fixture::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:82
+msgid "and simply request this fixture for your test function::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:89
+msgid "We set ``'scope='module'`` to declare that this is module scope fixture and avoids repetitively doing the import for each test. It is also possible to group many imports in a single fixture::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:106
+msgid "Requesting the ``aiida_profile`` fixture in the ``imps`` fixture guarantees that the test environment will be loaded before the any import statement are executed."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:111
+msgid "Running the tests"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:112
+msgid "Finally, to run the tests, simply type::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:116
+msgid "in your terminal from the code directory. The discovery of the tests will be handled by pytest (file, class and function name should start with the word **test**)"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:120
+msgid "Your terminal will print something out during the creation of a test profile. Do not panic, as and the aiida profile and database are completely isolated and will not affect your ``.aiida`` folder and file repositories. Internally, at temporary folder is used as the ``.aiida`` folder and the test database are created using the `pgtest <https://github.com/jamesnunn/pgtest>`_ package."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:128
+msgid "Before jumping in and start writing your own tests, please takes a look at the tests provided in the `aiida-cutter`_ plugin template."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:134
+msgid "Using the unittest framework"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:136
+msgid "The ``uniitest`` package is included in the python standard library. It is widely used despite some limitations (it is also used for testing ``aiida_core``). We provide a :py:class:`aiida.manage.fixtures.PluginTestCase` to be used for inheritance. By default, each test method in the test case class runs with a fresh aiida database. Due to the limitation of ``uniitest``, sub-clasess of ``PluginTestCase`` has to be run with the special runner in  :py:class:`aiida.manage.fixtures.TestRunner`. To run the actually tests, you need to prepare a run script in python::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:150
+msgid "Save it as ``run_tests.py`` and tests can be discovered and run using::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:157
+msgid "Migrating existing AiidaTestCase tests"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:159
+msgid "The ``pytest`` framework can also be used to run ``unittest`` tests. Here, we will explain how to migrate existing tests for the plugins, written as sub-classes of ``AiidaTestCase`` to work with ``pytest``. First, let's see a typical test class using the ``unittest``::"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:196
+msgid "We can modify this test class using some of the pytest features to allow it to be run with ``pytest`` directly, as shown below:"
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:246
+msgid "To allow pytest to run the tests, we first swap the ``AiidaTestCase`` with the generic ``TestCase``. We define a module scope fixture ``module_import`` to import the required AiiDA modules and make them available in the module namespace. All previous module levels imports should be encapsulated inside this fixture. The `request`_ is a built-in fixture in pytest to allow introspect of the function from which the fixture is requested. Here, we simply add every things in the function scope back into the module of the class which requested the fixture."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:255
+msgid "Instead of the ``setUp`` and ``tearDown`` methods, we define a ``reset_db`` fixture to reset the database for every tests. The ``autouse=True`` flag tells all test methods inside the class to use it automatically."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:259
+msgid "When migrating your code to use the pytest, you may define a base class with these modifications and use it as the superclass for other test classes."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:265
+msgid "More details can be found in the `pytest documentation`_ about running ``unittest`` tests."
+msgstr ""
+
+#: ../../source/developer_guide/devel_tutorial/plugin_tests.rst:268
+msgid "The modification will break the compatibility of ``uniitest`` and you will not be able to run with ``verdi devel tests`` interface. Do not forget to remove redundant entry points in your setup.json."
+msgstr ""
+

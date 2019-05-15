@@ -1,0 +1,569 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 13:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/developer_guide/core/internals.rst:3
+msgid "AiiDA internals"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:6
+msgid "Node"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:8
+msgid "The :py:class:`~aiida.orm.nodes.Node` class is the basic class that represents all the possible objects at the AiiDA world. More precisely it is inherited by many classes including (among others) the :py:class:`~aiida.orm.nodes.process.ProcessNode` class, representing computations that convert data into a different form, the :py:class:`~aiida.orm.nodes.data.code.Code` class representing executables and file collections that are used by calculations and the :py:class:`~aiida.orm.nodes.data.data.Data` class which represents data that can be input or output of calculations."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:12
+msgid "Immutability concept"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:13
+msgid "A node can store information through attributes. Since AiiDA guarantees a certain level of provenance, these attributes become immutable as soon as the node is stored. This means that as soon as a node is stored any attempt to alter its attributes, changing its value or deleting it altogether, shall be met with a raised exception. Certain subclasses of nodes need to adapt this behavior however, as for example in the case of the :py:class:`~aiida.orm.nodes.process.ProcessNode` class (see `calculation updatable attributes`_), but since the immutability of stored nodes is a core concept of AiiDA, this behavior is nonetheless enforced on the node level. This guarantees that any subclasses of the Node class will respect this behavior unless it is explicitly overriden."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:19
+msgid "Node methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:20
+msgid ":py:meth:`~aiida.orm.utils.node.clean_value` takes a value and returns an object which can be serialized for storage in the database. Such an object must be able to be subsequently deserialized without changing value. If a simple datatype is passed (integer, float, etc.), a check is performed to see if it has a value of ``nan`` or ``inf``, as these cannot be stored. Otherwise, if a list, tuple, dictionary, etc., is  passed, this check is performed for each value it contains. This is done recursively, automatically handling the case of nested objects. It is important to note that iterable type objects are converted to lists during this process, and mappings, such as dictionaries, are converted to normal dictionaries. This cleaning process is used by default when setting node attributes via :py:meth:`~aiida.orm.nodes.Node.set_attribute` and :py:meth:`~aiida.orm.nodes.Node.append_to_attr`, although it can be disabled by setting ``clean=False``. Values are also cleaned when setting extras on a stored node using :py:meth:`~aiida.orm.nodes.Node.set_extras` or :py:meth:`~aiida.orm.nodes.Node.reset_extras`, but this cannot be disabled."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:24
+msgid "Node methods & properties"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:25
+msgid "In the following sections, the most important methods and properties of the :py:class:`~aiida.orm.nodes.Node` class will be described."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:28
+msgid "Node subclasses organization"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:29
+msgid "The :py:class:`~aiida.orm.nodes.Node` class has two important variables:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:31
+msgid "``~aiida.orm.nodes.Node._plugin_type_string`` characterizes the class of the object."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:32
+msgid "``~aiida.orm.nodes.Node._query_type_string`` characterizes the class and all its subclasses (by pointing to the package or Python file that contain the class)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:34
+msgid "The convention for all the :py:class:`~aiida.orm.nodes.Node` subclasses is that if a ``class B`` is inherited by a ``class A`` then there should be a package ``A`` under ``aiida/orm`` that has a file ``__init__.py`` and a ``B.py`` in that directory (or a ``B`` package with the corresponding ``__init__.py``)"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:36
+msgid "An example of this is the :py:class:`~aiida.orm.nodes.data.array.ArrayData` and the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`. :py:class:`~aiida.orm.nodes.data.array.ArrayData` is placed in ``aiida/orm/data/array/__init__.py`` and :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` which inherits from :py:class:`~aiida.orm.nodes.data.array.ArrayData` is placed in ``aiida/orm/data/array/kpoints.py``"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:38
+msgid "This is an implicit & quick way to check the inheritance of the :py:class:`~aiida.orm.nodes.Node` subclasses."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:41
+msgid "General purpose methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:42
+msgid ":py:meth:`~aiida.orm.nodes.Node.__init__`: The initialization of the Node class can be done by not providing any attributes or by providing a DbNode as initialization. E.g.::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:47
+msgid ":py:meth:`~aiida.orm.nodes.Node.ctime` and :py:meth:`~aiida.orm.nodes.Node.mtime` provide the creation and the modification time of the node."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:49
+msgid ":py:meth:`~aiida.orm.nodes.Node.computer` returns the computer associated to this node."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:51
+msgid ":py:meth:`~aiida.orm.nodes.Node._validate` does a validation check for the node. This is important for :py:class:`~aiida.orm.nodes.Node` subclasses where various attributes should be checked for consistency before storing."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:53
+msgid ":py:meth:`~aiida.orm.nodes.Node.user` returns the user that created the node."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:55
+msgid ":py:meth:`~aiida.orm.nodes.Node.uuid` returns the universally unique identifier (UUID) of the node."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:59
+msgid "Annotation methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:60
+msgid "The :py:class:`~aiida.orm.nodes.Node` can be annotated with labels, description and comments. The following methods can be used for the management of these properties."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:62
+msgid "*Label management:*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:64
+msgid ":py:meth:`~aiida.orm.nodes.Node.label` returns the label of the node and can be used as a setter property."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:66
+msgid "*Description management:*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:68
+msgid ":py:meth:`~aiida.orm.nodes.Node.description`: the description of the node (more detailed than the label) and can be used as a setter property."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:70
+msgid "*Comment management:*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:72
+msgid ":py:meth:`~aiida.orm.nodes.Node.add_comment` adds a comment."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:74
+msgid ":py:meth:`~aiida.orm.nodes.Node.get_comments` returns a sorted list of the comments."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:76
+msgid ":py:meth:`~aiida.orm.nodes.Node.update_comment` updates the node comment. It can be done by ``verdi comment update``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:78
+msgid ":py:meth:`~aiida.orm.nodes.Node.remove_comment` removes the node comment. It can be done by ``verdi comment remove``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:83
+msgid "Link management methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:84
+msgid ":py:class:`~aiida.orm.nodes.Node` objects and objects of its subclasses can have ancestors and descendants. These are connected with links. The following methods exist for the processing & management of these links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:86
+msgid ":py:meth:`~aiida.orm.nodes.Node.has_cached_links` shows if there are cached links to other nodes."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:88
+msgid ":py:meth:`~aiida.orm.nodes.Node.add_incoming` adds a link to the current node from the 'src' node with the given label. Depending on whether the nodes are stored or node, the linked are written to the database or to the cache."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:90
+msgid "*Listing links example*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:92
+msgid "Assume that the user wants to see the available links of a node in order to understand the structure of the graph and maybe traverse it. In the following example, we load a specific node and we list its input and output links. The returned dictionaries have as keys the link name and as value the linked ``node``. Here is the code::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:137
+msgid "*Understanding link names*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:139
+msgid "The nodes may have input and output links. Every input link of a ``node`` should have a unique name and this unique name is mapped to a specific ``node``. On the other hand, given a ``node`` ``c``, many output ``nodes`` may share the same output link name. To differentiate between the output nodes of ``c`` that have the same link name, the ``pk`` of the output node is added next to the link name (please see the input & output nodes in the above example)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:143
+msgid "Input/output related methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:144
+msgid "The input/output links of the node can be accessed by the following methods."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:146
+msgid "*Methods to get the input data*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:148
+msgid ":py:meth:`~aiida.orm.nodes.Node.get_incoming` returns the iterator of input nodes"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:150
+msgid "*Methods to get the output data*"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:152
+msgid ":py:meth:`~aiida.orm.nodes.Node.get_outgoing` returns the iterator of output nodes."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:156
+msgid "Attributes related methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:157
+msgid "Each :py:meth:`~aiida.orm.nodes.Node` object can have attributes which are properties that characterize the node. Such properties can be the energy, the atom symbols or the lattice vectors. The following methods can be used for the management of the attributes."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:159
+msgid ":py:meth:`~aiida.orm.nodes.Node.set_attribute` adds a new attribute to the node. The key of the attribute is the property name (e.g. ``energy``, ``lattice_vectors`` etc) and the value of the attribute is the value of that property."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:161
+msgid ":py:meth:`~aiida.orm.nodes.Node.delete_attribute` & :py:meth:`~aiida.orm.nodes.Node.delete_attributes` delete a specific or all attributes."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:163
+msgid ":py:meth:`~aiida.orm.nodes.Node.get_attribute` returns a specific attribute."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:167
+msgid "Extras related methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:168
+msgid "``Extras`` are additional information that are added to the calculations. In contrast to ``files`` and ``attributes``, ``extras`` are information added by the user (user specific)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:170
+msgid ":py:meth:`~aiida.orm.nodes.Node.set_extra` adds an ``extra`` to the database. To add a more ``extras`` at once, :py:meth:`~aiida.orm.nodes.Node.set_extras` can be used."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:172
+msgid ":py:meth:`~aiida.orm.nodes.Node.get_extra` and :py:meth:`~aiida.orm.nodes.Node.get_extras` return a specific ``extra`` or all the available ``extras`` respectively."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:174
+msgid ":py:meth:`~aiida.orm.nodes.Node.delete_extra` deletes an ``extra``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:178
+msgid "Folder management"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:179
+msgid "``Folder`` objects represent directories on the disk (virtual or not) where extra information for the node are stored. These folders can be temporary or permanent."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:183
+msgid "Store & deletion"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:184
+msgid ":py:meth:`~aiida.orm.nodes.Node.store_all` stores all the input ``nodes``, then it stores the current ``node`` and in the end, it stores the cached input links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:186
+msgid ":py:meth:`~aiida.orm.nodes.Node.verify_are_parents_stored` checks that the parents are stored."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:188
+msgid ":py:meth:`~aiida.orm.nodes.Node.store` method checks that the ``node`` data is valid, then check if ``node``'s parents are stored, then moves the contents of the temporary folder to the repository folder and in the end, it stores in the database the information that are in the cache. The latter happens with a database transaction. In case this transaction fails, then the data transfered to the repository folder are moved back to the temporary folder."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:192
+msgid "DbNode"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:194
+msgid "The :py:class:`~aiida.backends.djsite.db.models.DbNode` is the Django class that corresponds to the :py:class:`~aiida.orm.nodes.Node` class allowing to store and retrieve the needed information from and to the database. Other classes extending the :py:class:`~aiida.orm.nodes.Node` class, like :py:class:`~aiida.orm.nodes.data.data.Data`, :py:class:`~aiida.orm.nodes.process.ProcessNode` and :py:class:`~aiida.orm.nodes.data.code.Code` use the :py:class:`~aiida.backends.djsite.db.models.DbNode` code too to interact with the database.  The main methods are:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:196
+msgid ":py:meth:`~aiida.backends.djsite.db.models.DbNode.get_simple_name` which returns a string with the type of the class (by stripping the path before the class name)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:198
+msgid ":py:meth:`~aiida.backends.djsite.db.models.DbNode.attributes` which returns the all the attributes of the specific node as a dictionary."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:200
+msgid ":py:meth:`~aiida.backends.djsite.db.models.DbNode.extras` which returns all the extras of the specific node as a dictionary."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:205
+msgid "Folders"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:206
+msgid "AiiDA uses :py:class:`~aiida.common.folders.Folder` and its subclasses to add an abstraction layer between the functions and methods working directly on the file-system and AiiDA. This is particularly useful when we want to easily change between different folder options (temporary, permanent etc) and storage options (plain local directories, compressed files, remote files & directories etc)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:209
+msgid ":py:class:`~aiida.common.folders.Folder`"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:210
+msgid "This is the main class of the available ``Folder`` classes. Apart from the abstraction provided to the OS operations needed by AiiDA, one of its main features is that it can restrict all the available operations within a given folder limit. The available methods are:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:212
+msgid ":py:meth:`~aiida.common.folders.Folder.mode_dir` and :py:meth:`~aiida.common.folders.Folder.mode_file` return the mode with which folders and files should be writable."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:213
+msgid ":py:meth:`~aiida.common.folders.Folder.get_subfolder` returns the subfolder matching the given name"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:215
+msgid ":py:meth:`~aiida.common.folders.Folder.get_content_list` returns the contents matching a pattern."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:217
+msgid ":py:meth:`~aiida.common.folders.Folder.insert_path` adds a file/folder to a specific location and :py:meth:`~aiida.common.folders.Folder.remove_path` removes a file/folder"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:219
+msgid ":py:meth:`~aiida.common.folders.Folder.get_abs_path` returns the absolute path of a file/folder under a given folder and :py:meth:`~aiida.common.folders.Folder.abspath` returns the absolute path of the folder."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:221
+msgid ":py:meth:`~aiida.common.folders.Folder.create_symlink` creates a symlink pointing the given location inside the ``folder``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:223
+msgid ":py:meth:`~aiida.common.folders.Folder.create_file_from_filelike` creates a file from the given contents."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:225
+msgid ":py:meth:`~aiida.common.folders.Folder.open` opens a file in the ``folder``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:227
+msgid ":py:meth:`~aiida.common.folders.Folder.folder_limit` returns the limit under which the creation of files/folders is restrained."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:229
+msgid ":py:meth:`~aiida.common.folders.Folder.exists` returns true or false depending whether a folder exists or not."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:231
+msgid ":py:meth:`~aiida.common.folders.Folder.isfile` and py:meth:`~aiida.common.folders.Folder.isdir` return true or false depending on the existence of the given file/folder."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:233
+msgid ":py:meth:`~aiida.common.folders.Folder.create` creates the ``folder``, :py:meth:`~aiida.common.folders.Folder.erase` deletes the ``folder`` and :py:meth:`~aiida.common.folders.Folder.replace_with_folder` copies/moves a given folder."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:236
+msgid ":py:class:`~aiida.common.folders.RepositoryFolder`"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:237
+msgid "Objects of this class correspond to the repository folders. The :py:class:`~aiida.common.folders.RepositoryFolder` specific methods are:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:239
+msgid ":py:meth:`~aiida.common.folders.RepositoryFolder.__init__` initializes the object with the necessary folder names and limits."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:241
+msgid ":py:meth:`~aiida.common.folders.RepositoryFolder.get_topdir` returns the top directory."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:243
+msgid ":py:meth:`~aiida.common.folders.RepositoryFolder.section` returns the section to which the ``folder`` belongs. This can be for the moment only  ``node``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:245
+msgid ":py:meth:`~aiida.common.folders.RepositoryFolder.subfolder` returns the subfolder within the section/uuid folder."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:247
+msgid ":py:meth:`~aiida.common.folders.RepositoryFolder.uuid` the UUID of the corresponding ``node``."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:251
+msgid ":py:class:`~aiida.common.folders.SandboxFolder`"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:252
+msgid ":py:class:`~aiida.common.folders.SandboxFolder` objects correspond to temporary (\"sandbox\") folders. The main methods are:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:254
+msgid ":py:meth:`~aiida.common.folders.SandboxFolder.__init__` creates a new temporary folder"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:256
+msgid ":py:meth:`~aiida.common.folders.SandboxFolder.__exit__` destroys the folder on exit."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:259
+msgid "Data"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:262
+#: ../../source/developer_guide/core/internals.rst:271
+#: ../../source/developer_guide/core/internals.rst:280
+#: ../../source/developer_guide/core/internals.rst:360
+msgid "Navigating inputs and outputs"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:263
+msgid ":py:meth:`~aiida.orm.nodes.data.Data.creator` returns either the CalculationNode that created it or ``None`` if this Data node created by a calculation."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:269
+msgid "ProcessNode"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:272
+msgid ":py:meth:`~aiida.orm.nodes.process.ProcessNode.caller` returns either the caller WorkflowNode or ``None`` if this ProcessNode was not called by a process"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:277
+msgid "CalculationNode"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:281
+msgid ":py:meth:`~aiida.orm.nodes.process.calculation.CalculationNode.inputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's incoming INPUT_CALC links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:285
+msgid "The ``NodeLinksManager`` can be used to quickly go from a node to a neighboring node. For example::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:338
+msgid "The ``.inputs`` manager for ``WorkflowNode`` and the ``.outputs`` manager both for ``CalculationNode`` and ``WorkflowNode`` work in the same way (see below)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:342
+msgid ":py:meth:`~aiida.orm.nodes.process.calculation.CalculationNode.outputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's outgoing CREATE links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:349
+msgid "Updatable attributes"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:350
+msgid "The :py:class:`~aiida.orm.nodes.process.ProcessNode` class is a subclass of the :py:class:`~aiida.orm.nodes.Node` class, which means that its attributes become immutable once stored. However, for a ``Calculation`` to be runnable it needs to be stored, but that would mean that its state, which is stored in an attribute can no longer be updated. To solve this issue the :py:class:`~aiida.orm.utils.mixins.Sealable` mixin is introduced. This mixin can be used for subclasses of ``Node`` that need to have updatable attributes even after the node has been stored in the database. The mixin defines the ``_updatable_attributes`` tuple, which defines the attributes that are considered to be mutable even when the node is stored. It also allows the node to be *sealed*, after which even the updatable attributes become immutable."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:357
+msgid "WorkflowNode"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:361
+msgid ":py:meth:`~aiida.orm.nodes.process.workflow.WorkflowNode.inputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's incoming INPUT_WORK links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:365
+msgid ":py:meth:`~aiida.orm.nodes.process.workflow.WorkflowNode.outputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's outgoing RETURN links."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:372
+msgid "ORM overview"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:374
+msgid "Below you find an overview of the main classes in the AiiDA object-relational mapping. For the **complete** API documentation see :py:mod:`aiida.orm`."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:383
+msgid "Deprecated features, renaming, and adding new methods"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:384
+msgid "In case a method is renamed or removed, this is the procedure to follow:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:386
+msgid "(If you want to rename) move the code to the new function name. Then, in the docstring, add something like::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:392
+msgid "Don't remove directly the old function, but just change the code to use the new function, and add in the docstring::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:398
+msgid "Moreover, at the beginning of the function, add something like::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:408
+msgid "(of course replace the parts between ``< >`` symbols with the correct strings)."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:411
+msgid "The advantage of the method above is:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:413
+msgid "pycharm will still show the method crossed out"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:414
+msgid "Our ``AiidaDeprecationWarning`` does not inherit from ``DeprecationWarning``, so it will not be \"hidden\" by python"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:415
+msgid "User can disable our warnings (and only those) by using AiiDA properties with::"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:421
+msgid "Changing the config.json structure"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:423
+msgid "In general, changes to ``config.json`` should be avoided if possible. However, if there is a need to modify it, the following procedure should be used to create a migration:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:425
+msgid "Determine whether the change will be backwards-compatible. This means that an older version of AiiDA will still be able to run with the new ``config.json`` structure. It goes without saying that it's preferable to change ``config.json`` in a backwards-compatible way."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:427
+msgid "In ``aiida/manage/configuration/migrations/migrations.py``, increase the ``CURRENT_CONFIG_VERSION`` by one. If the change is **not** backwards-compatible, set ``OLDEST_COMPATIBLE_CONFIG_VERSION`` to the same value."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:429
+msgid "Write a function which transforms the old config dict into the new version. It is possible that you need user input for the migration, in which case this should also be handled in that function."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:431
+msgid "Add an entry in ``_MIGRATION_LOOKUP`` where the key is the version **before** the migration, and the value is a ``ConfigMigration`` object. The ``ConfigMigration`` is constructed from your migration function, and the **hard-coded** values of ``CURRENT_CONFIG_VERSION`` and ``OLDEST_COMPATIBLE_CONFIG_VERSION``. If these values are not hard-coded, the migration will break as soon as the values are changed again."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:433
+msgid "Add tests for the migration, in ``aiida/backends/tests/manage/configuration/migrations/test_migrations.py``. You can add two types of tests:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:435
+msgid "Tests that run the entire migration, using the ``check_and_migrate_config`` function. Make sure to run it with ``store=False``, otherwise it will overwrite your ``config.json`` file. For these tests, you will have to update the reference files."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:436
+msgid "Tests that run a single step in the migration, using the ``ConfigMigration.apply`` method. This can be used if you need to test different edge cases of the migration."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:438
+msgid "There are examples for both types of tests."
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:441
+msgid "Daemon and signal handling"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:443
+msgid "While the AiiDA daemon is running, interrupt signals (``SIGINT`` and ``SIGTERM``) are captured so that the daemon can shut down gracefully. This is implemented using Python's ``signal`` module, as shown in the following dummy example:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:454
+msgid "You should be aware of this while developing code which runs in the daemon. In particular, it's important when creating subprocesses. When a signal is sent, the whole process group receives that signal. As a result, the subprocess can be killed even though the Python main process captures the signal. This can be avoided by creating a new process group for the subprocess, meaning that it will not receive the signal. To do this, you need to pass ``preexec_fn=os.setsid`` to the ``subprocess`` function:"
+msgstr ""
+
+#: ../../source/developer_guide/core/internals.rst:465
+msgid "When dropping python 2.7 support, ``preexec_fn=os.setsid`` should be replaced by the thread safe ``start_new_session=True`` introduced in python 3.2."
+msgstr ""
+
