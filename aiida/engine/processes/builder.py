@@ -1,0 +1,149 @@
+# -*- coding: utf-8 -*-
+###########################################################################
+# Copyright (c), The AiiDA team. All rights reserved.                     #
+# This file is part of the AiiDA code.                                    #
+#                                                                         #
+# The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #
+# For further information on the license, see the LICENSE.txt file        #
+# For further information please visit http://www.aiida.net               #
+###########################################################################
+# pylint: disable=cell-var-from-loop
+"""Convenience classes to help building the input dictionaries for Processes."""
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
+import collections
+
+from aiida.engine.processes.ports import PortNamespace
+
+__all__ = ('ProcessBuilder', 'ProcessBuilderNamespace')
+
+
+class ProcessBuilderNamespace(collections.MutableMapping):
+    """Input namespace for the `ProcessBuilder`.
+
+    Dynamically generates the getters and setters for the input ports of a given PortNamespace
+    """
+
+    def __init__(self, port_namespace):
+        """
+        Dynamically construct the get and set properties for the ports of the given port namespace
+
+        For each port in the given port namespace a get and set property will be constructed dynamically
+        and added to the ProcessBuilderNamespace. The docstring for these properties will be defined
+        by calling str() on the Port, which should return the description of the Port.
+
+        :param port_namespace: the inputs PortNamespace for which to construct the builder
+        """
+        # pylint: disable=super-init-not-called
+        self._port_namespace = port_namespace
+        self._valid_fields = []
+        self._data = {}
+
+        for name, port in port_namespace.items():
+
+            self._valid_fields.append(name)
+
+            if isinstance(port, PortNamespace):
+                self._data[name] = ProcessBuilderNamespace(port)
+
+                def fgetter(self, name=name):
+                    return self._data.get(name)
+            elif port.has_default():
+
+                def fgetter(self, name=name, default=port.default):
+                    return self._data.get(name, default)
+            else:
+
+                def fgetter(self, name=name):
+                    return self._data.get(name, None)
+
+            def fsetter(self, value):
+                self._data[name] = value
+
+            fgetter.__doc__ = str(port)
+            getter = property(fgetter)
+            getter.setter(fsetter)
+            setattr(self.__class__, name, getter)
+
+    def __setattr__(self, attr, value):
+        """
+        Any attributes without a leading underscore being set correspond to inputs and should hence
+        be validated with respect to the corresponding input port from the process spec
+        """
+        if attr.startswith('_'):
+            object.__setattr__(self, attr, value)
+        else:
+            try:
+                port = self._port_namespace[attr]
+            except KeyError:
+                if not self._port_namespace.dynamic:
+                    raise AttributeError('Unknown builder parameter: {}'.format(attr))
+            else:
+                value = port.serialize(value)
+                validation_error = port.validate(value)
+                if validation_error:
+                    raise ValueError('invalid attribute value {}'.format(validation_error.message))
+
+            self._data[attr] = value
+
+    def __repr__(self):
+        return self._data.__repr__()
+
+    def __dir__(self):
+        return sorted(set(self._valid_fields + [key for key, _ in self.__dict__.items() if key.startswith('_')]))
+
+    def __iter__(self):
+        for key in self._data:
+            yield key
+
+    def __len__(self):
+        return len(self._data)
+
+    def __getitem__(self, item):
+        return self._data[item]
+
+    def __setitem__(self, item, value):
+        self.__setattr__(item, value)
+
+    def __delitem__(self, item):
+        self._data.__delitem__(item)
+
+    def _update(self, *args, **kwds):
+        """Update the values of the builder namespace passing a mapping as argument or individual keyword value pairs.
+
+        The method is prefixed with an underscore in order to not reserve the name for a potential port, but in
+        principle the method functions just as `collections.MutableMapping.update`.
+
+        :param args: a single mapping that should be mapped on the namespace
+        :param kwds: keyword value pairs that should be mapped onto the ports
+        """
+        if len(args) > 1:
+            raise TypeError('update expected at most 1 arguments, got %d' % len(args))
+
+        if args:
+            for key, value in args[0].items():
+                if isinstance(value, collections.Mapping):
+                    self[key].update(value)
+                else:
+                    self.__setattr__(key, value)
+
+        for key, value in kwds.items():
+            if isinstance(value, collections.Mapping):
+                self[key].update(value)
+            else:
+                self.__setattr__(key, value)
+
+
+class ProcessBuilder(ProcessBuilderNamespace):
+    """A process builder that helps setting up the inputs for creating a new process."""
+
+    def __init__(self, process_class):
+        self._process_class = process_class
+        self._process_spec = self._process_class.spec()
+        super(ProcessBuilder, self).__init__(port_namespace=self._process_spec.inputs)
+
+    @property
+    def process_class(self):
+        return self._process_class
