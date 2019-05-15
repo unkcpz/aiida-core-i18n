@@ -1,0 +1,1065 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 14:09+0800\n"
+"PO-Revision-Date: 2019-05-15 06:24+0000\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/scut-ccmp/teams/98995/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/working_with_aiida/caching.rst:5
+#: ../../source/working_with_aiida/index.rst:113
+msgid "Caching"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:7
+msgid ""
+"When working with AiiDA, you might sometimes re-run calculations which were "
+"already successfully executed. Because this can waste a lot of computational"
+" resources, you can enable AiiDA to **cache** calculations, which means that"
+" it will re-use existing calculations if a calculation with the same inputs "
+"is submitted again."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:9
+msgid ""
+"When a calculation is cached, a copy of the original calculation is created."
+" This copy will keep the input links of the new calculation. The outputs of "
+"the original calculation are also copied, and linked to the new calculation."
+" This allows for the new calculation to be a separate Node in the provenance"
+" graph and, critically, preserves the acyclicity of the graph."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:11
+msgid ""
+"Caching is also implemented for Data nodes. This is not very useful in "
+"practice (yet), but is an easy way to show how the caching mechanism works:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:36
+msgid ""
+"As you can see, passing ``use_cache=True`` to the ``store`` method enables "
+"using the cache. The fact that ``n2`` was created from ``n1`` is stored in "
+"the ``_aiida_cached_from`` extra of ``n2``."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:38
+msgid ""
+"When running a ``CalcJob`` through the ``Process`` interface, you cannot "
+"directly set the ``use_cache`` flag when the calculation node is stored "
+"internally. Instead, you can pass the ``_use_cache`` flag to the ``run`` or "
+"``submit`` method."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:40
+msgid ""
+"Caching is **not** implemented for workchains and workfunctions. Unlike "
+"calculations, they can not only create new data nodes, but also return "
+"exsting ones. When copying a cached workchain, it's not clear which node "
+"should be returned without actually running the workchain. This is explained"
+" in more detail in the section :ref:`caching_provenance`."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:43
+msgid "Configuration"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:45
+msgid ""
+"Of course, using caching would be quite tedious if you had to set "
+"``use_cache`` manually everywhere. To fix this, the default for "
+"``use_cache`` can be set in the ``.aiida/cache_config.yml`` file. You can "
+"specify a global default, or enable / disable caching for specific "
+"calculation or data classes. An example configuration file might look like "
+"this:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:57
+msgid ""
+"This means that caching is enabled for ``TemplatereplacerCalculation`` and "
+"``Str``, and disabled for all other classes. In this example, manually "
+"disabling ``aiida.orm.nodes.data.float.Float`` is actually not needed, since"
+" the ``default: False`` configuration means that caching is disabled for all"
+" classes unless it is manually enabled. Note also that the fully qualified "
+"class import name (e.g., ``aiida.orm.nodes.data.str.Str``) must be given, "
+"not just the class name (``Str``). This is to avoid accidentally matching "
+"classes with the same name. You can get this name by combining the module "
+"name and class name, or (usually) from the string representation of the "
+"class:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:68
+msgid ""
+"Note that this is not the same as the type string stored in the database."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:73
+msgid "How are cached nodes matched?"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:75
+msgid ""
+"To determine wheter a given node is identical to an existing one, a hash of "
+"the content of the node is created. If a node of the same class with the "
+"same hash already exists in the database, this is considered a cache match. "
+"You can manually check the hash of a given node with the :meth:`.get_hash() "
+"<aiida.orm.nodes.Node.get_hash>` method. Once a node is stored in the "
+"database, its hash is stored in the ``_aiida_hash`` extra, and this is used "
+"to find matching nodes."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:77
+msgid "By default, this hash is created from:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:79
+msgid "all attributes of a node, except the ``_updatable_attributes``"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:80
+msgid "the ``__version__`` of the module which defines the node class"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:81
+msgid "the content of the repository folder of the node"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:82
+msgid "the UUID of the computer, if the node has one"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:84
+msgid ""
+"In the case of calculations, the hashes of the inputs are also included. "
+"When developing calculation and data classes, there are some methods you can"
+" use to determine how the hash is created:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:86
+msgid ""
+"To ignore specific attributes, a ``Node`` subclass can have a "
+"``_hash_ignored_attributes`` attribute. This is a list of attribute names "
+"which are ignored when creating the hash."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:87
+msgid ""
+"For calculations, the ``_hash_ignored_inputs`` attribute lists inputs that "
+"should be ignored when creating the hash."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:88
+msgid ""
+"To add things which should be considered in the hash, you can override the "
+":meth:`_get_objects_to_hash <aiida.orm.nodes.Node._get_objects_to_hash>` "
+"method. Note that doing so overrides the behavior described above, so you "
+"should make sure to use the ``super()`` method."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:89
+msgid ""
+"Pass a keyword argument to :meth:`.get_hash "
+"<aiida.orm.nodes.Node.get_hash>`. These are passed on to "
+"``aiida.common.hashing.make_hash``. For example, the "
+"``ignored_folder_content`` keyword is used by the :class:`JobCalculation "
+"<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>` to ignore the "
+"``raw_input`` subfolder of its repository folder."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:91
+msgid ""
+"Additionally, there are two methods you can use to disable caching for "
+"particular nodes:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:93
+msgid ""
+"The :meth:`~aiida.orm.nodes.Node.is_valid_cache` property determines whether"
+" a particular node can be used as a cache. This is used for example to "
+"disable caching from failed calculations."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:94
+msgid ""
+"Node classes have a ``_cachable`` attribute, which can be set to ``False`` "
+"to completely switch off caching for nodes of that class. This avoids "
+"performing queries for the hash altogether."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:96
+msgid ""
+"There are two ways in which the hash match can go wrong: False negatives, "
+"where two nodes should have the same hash but do not, or false positives, "
+"where two different nodes have the same hash. It is important to understand "
+"that false negatives are **highly preferrable**, because they only increase "
+"the runtime of your calculations, as if caching was disabled. False "
+"positives however can break the logic of your calculations. Be mindful of "
+"this when modifying the caching behaviour of your calculation and data "
+"classes."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:101
+msgid "What to do when caching is used when it shouldn't"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:103
+msgid ""
+"In general, the caching mechanism should trigger only when the output of a "
+"calculation will be exactly the same as if it is run again. However, there "
+"might be some edge cases where this is not true."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:105
+msgid ""
+"For example, if the parser is in a different python module than the "
+"calculation, the version number used in the hash will not change when the "
+"parser is updated. While the \"correct\" solution to this problem is to "
+"increase the version number of a calculation when the behavior of its parser"
+" changes, there might still be cases (e.g. during development) when you "
+"manually want to stop a particular node from being cached."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:107
+msgid "In such cases, you can follow these steps to disable caching:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:109
+msgid ""
+"If you suspect that a node has been cached in error, check that it has a "
+"``_aiida_cached_from`` extra. If that's not the case, it is not a problem of"
+" caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:110
+msgid "Get all nodes which match your node, and clear their hash:"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:116
+msgid "Run your calculation again. Now it should not use caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:118
+msgid ""
+"If you instead think that there is a bug in the AiiDA implementation, please"
+" open an issue (with enough information to be able to reproduce the error, "
+"otherwise it is hard for us to help you) in the AiiDA GitHub repository: "
+"https://github.com/aiidateam/aiida_core/issues/new."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:123
+msgid "Caching and the Provenance Graph"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:125
+msgid ""
+"The goal of the caching mechanism is to speed up AiiDA calculations by re-"
+"using duplicate calculations. However, the resulting provenance graph should"
+" be exactly the same as if caching was disabled. This has important "
+"consequences on the kind of caching operations that are possible."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:127
+msgid ""
+"The provenance graph consists of nodes describing data, calculations and "
+"workchains, and links describing the relationship between these nodes. We "
+"have seen that the hash of a node is used to determine whether two nodes are"
+" equivalent. To successfully use a cached node however, we also need to know"
+" how the new node should be linked to its parents and children."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:129
+msgid ""
+"In the case of a plain data node, this is simple: Copying a data node from "
+"an equivalent node should not change its links, so we just need to preserve "
+"the links which this new node already has."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:131
+msgid ""
+"For calculations, the situation is a bit more complex: The node can have "
+"inputs and creates new data nodes as outputs. Again, the new node needs to "
+"keep its existing links. For the outputs, the calculation needs to create a "
+"copy of each node and link these as its outputs. This makes it look as if "
+"the calculation had produced these outputs itself, without caching."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:133
+msgid ""
+"Finally, workchains can create links not only to nodes which they create "
+"themselves, but also to nodes created by a calculation that they called, or "
+"even their ancestors. This is where caching becomes impossible. Consider the"
+" following example (using workfunctions for simplicity):"
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:148
+msgid ""
+"The two ``select`` workfunctions have the same inputs as far as their hashes"
+" go. However, the first call uses the same input node twice, while the "
+"second one has two different inputs. If the second call should be cached "
+"from the first one, it is not clear which of the two input nodes should be "
+"returned."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:150
+msgid ""
+"While this example might seem contrived, the conclusion is valid more "
+"generally: Because workchains can return nodes from their history, they "
+"cannot be cached. Since even two equivalent workchains (with the same "
+"inputs) can have a different history, there is no way to deduce which links "
+"should be created on the new workchain without actually running it."
+msgstr ""
+
+#: ../../source/working_with_aiida/caching.rst:152
+msgid ""
+"Overall, this limitation is acceptable: The runtime of AiiDA workchains is "
+"usually dominated by time spent inside expensive calculations. Since these "
+"can be avoided with the caching mechanism, it still improves the runtime and"
+" required computer resources a lot."
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:2
+msgid "AiiDA cookbook (useful code snippets)"
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:4
+msgid ""
+"This cookbook is intended to be a collection of useful short scripts and "
+"code snippets that may be useful in the everyday usage of AiiDA. Please read"
+" carefully the notes (if any) before running the scripts!"
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:9
+msgid "Checking the queued jobs on a scheduler"
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:11
+msgid ""
+"If you want to know if which jobs are currently on the scheduler (e.g. to "
+"dynamically decide on which computer to submit, or to delay submission, "
+"etc.) you can use a modification of the following script::"
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:64
+msgid "The last part shows how to use the function."
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:66
+msgid ""
+"Every time you call the function, an ssh connection is executed! So be "
+"careful and run this function sparsely, or your supercomputer centre might "
+"block your account."
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:70
+msgid ""
+"Another alternative if you want to call many times the function is to pass "
+"the transport as a parameter, and keep it open from the outside."
+msgstr ""
+
+#: ../../source/working_with_aiida/cookbook.rst:73
+msgid "An example output would be::"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:2
+#: ../../source/working_with_aiida/index.rst:79
+msgid "Groups"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:4
+msgid ""
+"Groups provide an additional level of data organization based on some common"
+" property(ies) shared between them. As by default AiiDA manages only casual "
+"relationships between calculations and data objecs -- it is often desired to"
+" organize them in Groups."
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:9
+msgid ""
+"Nodes of any types may be organized in Groups. Unlike Nodes, Groups can be "
+"modified at any time. Here we profide the list of typical operations that "
+"may be performed with Groups:"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:13
+msgid ""
+"Any deletion operation like delition of a Group or nodes from a Group will "
+"not delete the nodes themselfs. They will remain in you AiiDA database."
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:29
+msgid "**Create a new Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:18
+#: ../../source/working_with_aiida/groups.rst:53
+#: ../../source/working_with_aiida/groups.rst:71
+#: ../../source/working_with_aiida/groups.rst:78
+#: ../../source/working_with_aiida/groups.rst:84
+#: ../../source/working_with_aiida/groups.rst:95
+#: ../../source/working_with_aiida/groups.rst:104
+msgid "From command line interface::"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:22
+#: ../../source/working_with_aiida/groups.rst:38
+#: ../../source/working_with_aiida/groups.rst:59
+#: ../../source/working_with_aiida/groups.rst:88
+#: ../../source/working_with_aiida/groups.rst:108
+msgid "From python interface::"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:50
+msgid "**List available Groups.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:32
+msgid "> verdi group list"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:34
+msgid ""
+"By default ``verdi group list`` only shows groups of type *user*. In case "
+"you want to show groups of other type use ``-t/--type`` options. If you want"
+" to show groups of all types, use ``-a/--all-types`` option."
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:68
+msgid "**Add nodes to a Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:57
+msgid "Here we are adding Node with pk number 1 to the group we just created"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:74
+msgid "**Show information about a Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:76
+msgid "**Remove nodes from a Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:92
+msgid "**Rename Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:97
+msgid "**Delete Group.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:116
+msgid "**Copy one group into anohter.**"
+msgstr ""
+
+#: ../../source/working_with_aiida/groups.rst:100
+msgid ""
+"This operation will copy the content of source group into the destination "
+"group. Moreover, if the destination group does not exist it will be created "
+"automatically."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:3
+msgid "Command line interface"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:5
+msgid ""
+"The main way of interacting with AiiDA is through a command line interface "
+"tool called ``verdi``. Below you will find an overview of all the commands "
+"that are available with a link to a more detailed explanation of their usage"
+" and available parameters. But before you dive in, take a few minutes to "
+"read the :ref:`general concepts<cli_concepts>` that apply to the entire "
+"interface of ``verdi``. This will make understanding and using ``verdi`` a "
+"lot easier!"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:12
+msgid ":ref:`calcjob<verdi_calcjob>`:  Inspect and manage calcjobs."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:13
+msgid ":ref:`code<verdi_code>`:  Setup and manage codes."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:14
+msgid ""
+":ref:`comment<verdi_comment>`:  Inspect, create and manage node comments."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:15
+msgid ""
+":ref:`completioncommand<verdi_completioncommand>`:  Return the bash code to "
+"activate completion."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:16
+msgid ":ref:`computer<verdi_computer>`:  Setup and manage computers."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:17
+msgid ""
+":ref:`config<verdi_config>`:  Set, unset and get profile specific or global "
+"configuration options."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:18
+msgid ":ref:`daemon<verdi_daemon>`:  Inspect and manage the daemon."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:19
+msgid ":ref:`data<verdi_data>`:  Inspect, create and manage data nodes."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:20
+msgid ":ref:`database<verdi_database>`:  Inspect and manage the database."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:21
+msgid ":ref:`devel<verdi_devel>`:  Commands for developers."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:22
+msgid ":ref:`export<verdi_export>`:  Create and manage export archives."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:23
+msgid ""
+":ref:`graph<verdi_graph>`:  Create visual representations of part of the "
+"provenance graph."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:24
+msgid ":ref:`group<verdi_group>`:  Create, inspect and manage groups."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:25
+msgid ""
+":ref:`import<verdi_import>`:  Import one or multiple exported AiiDA archives"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:26
+msgid ":ref:`node<verdi_node>`:  Inspect, create and manage nodes."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:27
+msgid ""
+":ref:`plugin<verdi_plugin>`:  Inspect installed plugins for various entry "
+"point categories."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:28
+msgid ":ref:`process<verdi_process>`:  Inspect and manage processes."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:29
+msgid ""
+":ref:`profile<verdi_profile>`:  Inspect and manage the configured profiles."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:30
+msgid ""
+":ref:`quicksetup<verdi_quicksetup>`:  Setup a new profile where the database"
+" is automatically created and configured."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:31
+msgid ""
+":ref:`rehash<verdi_rehash>`:  Recompute the hash for nodes in the database"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:32
+msgid ":ref:`restapi<verdi_restapi>`:  Run the AiiDA REST API server"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:33
+msgid ":ref:`run<verdi_run>`:  Execute an AiiDA script."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:34
+msgid ":ref:`setup<verdi_setup>`:  Setup a new profile."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:35
+msgid ""
+":ref:`shell<verdi_shell>`:  Start a python shell with preloaded AiiDA "
+"environment."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:36
+msgid ":ref:`status<verdi_status>`:  Print status of AiiDA services."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:37
+msgid ":ref:`user<verdi_user>`:  Inspect and manage users."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:49
+msgid "Scripting"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:51
+msgid ""
+"While many common functionalities are provided by either command-line tools "
+"(via ``verdi``) or the web interface, for fine tuning (or automatization) it"
+" is useful to directly access the python objects and call their methods."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:55
+msgid ""
+"This is possible in two ways, either via an interactive shell, or writing "
+"and running a script. Both methods are described below."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:67
+msgid "Data types"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:88
+msgid "Schedulers"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:90
+msgid ""
+"As described in the section about calculations, ``CalcJobNode`` instances "
+"are submitted by the daemon to an external scheduler. For this functionality"
+" to work, AiiDA needs to be able to interact with these schedulers. "
+"Interfaces have been written for some of the most used schedulers."
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:101
+msgid "Querying data"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:122
+msgid "Result manager"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:132
+msgid "Backups"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:141
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:150
+msgid "REST API"
+msgstr ""
+
+#: ../../source/working_with_aiida/index.rst:159
+msgid "Cookbook"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:3
+msgid "Retrieving results"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:5
+msgid ""
+"In this section, we describe how to get the results of a calculation after "
+"it has been parsed by AiiDA, or the input and output of a generic Node. When"
+" a calculation is done on the remote computer, AiiDA will retrieve the "
+"results and try to parse the results with the default parser, if one is "
+"available for the given calculation. These results are stored in new nodes, "
+"and connected as output of the calculation. Of course, it is possible to "
+":ref:`directly check the output nodes <db_input_output>` for a given "
+"calculation and get their content. However, AiiDA provides a way to directly"
+" access the results, using the "
+":py:class:`CalcJobResultManager<aiida.orm.utils.calcjob.CalcJobResultManager>`"
+" class, described in the next section."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:9
+msgid "The CalcJobResultManager"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:12
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:14
+msgid ""
+"Before getting the calculation results, we need a correctly finished and "
+"parsed "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`."
+" For example this can be a Quantum ESPRESSO ``pw.x`` calculation. You can "
+"load such a calculation -- we'll call it ``calc`` -- with the command"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:24
+msgid ""
+"either in ``verdi shell``, or in a python script (as described :doc:`here "
+"<../working_with_aiida/scripting>`). ``YOURPK`` should be substituted by a "
+"valid calculation PK in your database."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:28
+msgid "Using the CalcJobResultManager instance"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:30
+msgid ""
+"Each "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`"
+" has a ``res`` attribute that is a "
+":class:`~aiida.orm.utils.calcjob.CalcJobResultManager` instance and gives "
+"direct access to parsed data. You can access it as ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:37
+msgid ""
+"To get all the possible keys that were parsed, you can convert the instance "
+"into a list. For instance, if you type ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:43
+msgid "you will get something like this::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:47
+msgid ""
+"(the list of keys has been cut for clarity: you will get many more keys)."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:50
+msgid ""
+"Once you know which keys have been parsed, you can access the parsed value "
+"simply as an attribute of the ``res`` "
+":class:`~aiida.orm.utils.calcjob.CalcJobResultManager`. For instance, to get"
+" the final total energy, you can use ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:56
+msgid ""
+"that will print the total energy in units of eV, as also stated in the "
+"``energy_units`` key ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:61
+msgid ""
+"Similarly, you can get any other parsed value, for any code that provides a "
+"parser."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:65
+msgid ""
+"The :class:`~aiida.orm.utils.calcjob.CalcJobResultManager` is also "
+"integrated with the iPython/verdi shell completion mechanism: if ``calc`` is"
+" a valid "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`,"
+" you can type ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:70
+msgid ""
+"and then press the TAB key of the keyboard to get/complete the list of valid"
+" parsed properties for the calculation ``calc``."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:75
+msgid "Calculations and workflows inputs and outputs"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:77
+msgid ""
+"In the following, we will show the methods to access the input and output "
+"nodes of a given calculation or workflow."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:79
+msgid ""
+"Again, we start by loading a node from the database. Unlike before, this can"
+" be any type of node. For example, we can load the node with PK 17::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:84
+msgid ""
+"Now, we want to find the nodes which have a direct input or output link to "
+"this node. The node has several methods to extract this information: "
+":meth:`get_outgoing() <aiida.orm.nodes.Node.get_outgoing>`, "
+":meth:`get_incoming() <aiida.orm.nodes.Node.get_incoming>`. The most "
+"practical way to access this information for a calculation (or workflow), "
+"when limiting solely to ``INPUT_CALC`` and ``CREATE`` (or ``INPUT_WORK`` and"
+" ``RETURN``, respectively), especially when working on the ``verdi shell``, "
+"is by means of the ``.inputs`` and ``.outputs`` attributes."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:91
+msgid ""
+"The ``.inputs`` attribute can be used to list and access the input nodes. "
+"The names of the input links can be printed by ``list(calc.inputs)`` or "
+"interactively by ``calc.inputs. + TAB``. As an example, suppose that "
+"``calc`` has an input ``KpointsData`` object under the linkname ``kpoints``."
+" The command ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:99
+msgid "returns the ``KpointsData`` object."
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:101
+msgid ""
+"Similarly the ``.outputs`` attribute can be used to display the outputs of "
+"``calc``. Suppose that ``calc`` has an output ``FolderData`` with linkname "
+"``retrieved``, then the command ::"
+msgstr ""
+
+#: ../../source/working_with_aiida/resultmanager.rst:107
+msgid "returns the ``FolderData`` object."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:2
+msgid "Verdi shell"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:3
+msgid ""
+"By running ``verdi shell`` on the terminal, a new interactive `IPython "
+"<http://ipython.org/>`_ shell will be opened (this requires that IPython is "
+"installed on your computer)."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:7
+msgid ""
+"Note that simply opening IPython and loading the AiiDA modules will not work"
+" (unless you perform the operations described in the :ref:`following section"
+" <writing_python_scripts_for_aiida>`) because the database settings are not "
+"loaded by default and AiiDA does not know how to access the database."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:13
+msgid ""
+"Moreover, by calling ``verdi shell``, you have the additional advantage that"
+" some classes and modules are automatically loaded. In particular the "
+"following modules/classes are already loaded and available::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:21
+msgid ""
+"It is possible to customize the shell by adding modules to be loaded "
+"automatically, thanks to the ``verdi config verdishell.modules`` command."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:24
+msgid ""
+"A further advantage is that bash completion is enabled, allowing to press "
+"the ``TAB`` key to see available submethods of a given object (see for "
+"instance the documentation of the :doc:`ResultManager "
+"<../working_with_aiida/resultmanager>`)."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:31
+msgid "Python scripts"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:32
+msgid ""
+"Alternatively, if you do not need an interactive shell but you prefer to "
+"write a script and then launch it from the command line, you can just write "
+"a standard python ``.py`` file. The only modification that you need to do is"
+" to add, at the beginning of the file and before loading any other AiiDA "
+"module, the following two lines::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:41
+msgid ""
+"that will load the database settings and allow AiiDA to reach your database."
+" Then, you can load as usual python and AiiDA modules and classes, and use "
+"them. If you want to have the same environment of the ``verdi shell`` "
+"interactive shell, you can also add (below the ``load_dbenv`` call) the "
+"following lines::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:51
+msgid "or simply import the only modules that you will need in the script."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:53
+msgid ""
+"While this method will work, we strongly suggest to use instead the ``verdi "
+"run`` command, described here below."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:57
+msgid "The ``verdi run`` command and the ``runaiida`` executable"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:59
+msgid ""
+"In order to simplify the procedure described above, it is possible to "
+"execute a python file using ``verdi run``: this command will accept as "
+"parameter the name of a file, and will execute it after having loaded the "
+"modules described above."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:64
+msgid ""
+"The command ``verdi run`` has the additional advantage of adding all stored "
+"nodes to suitable special groups, of type ``autogroup.run``, for later "
+"usage. You can get the list of all these groups with the command::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:71
+msgid ""
+"Some further command line options of ``verdi run`` allow the user to fine-"
+"tune the autogrouping behavior; for more details, refer to the output of "
+"``verdi run -h``. Note also that further command line parameters to ``verdi "
+"run`` are passed to the script as ``sys.argv``."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:77
+msgid ""
+"It is not possible to run multiple times the ``load_dbenv()`` command. Since"
+" calling ``verdi run`` will automatically call the ``load_dbenv()`` command,"
+" you cannot run a script that contains this call (this is instead needed if "
+"you want to run the script simply via ``python scriptname.py``). If you want"
+" to allow for both options, use the following method to discover if the db "
+"environment was already loaded::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:90
+msgid ""
+"Finally, we also defined a ``runaiida`` command, that simply will pass all "
+"its parameters to ``verdi run``. The reason for this is that one can define "
+"a new script to be run with ``verdi run``, add as the first line the shebang"
+" command ``#!/usr/bin/env runaiida``, and give to the file execution "
+"permissions, and the file will become an executable that is run using AiiDA."
+" A simple example could be::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:108
+msgid "Daemon as system service"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:110
+msgid ""
+"If you would like the AiiDA daemon to run at startup of your linux system, "
+"you can set up a `systemd service "
+"<https://www.freedesktop.org/software/systemd/man/systemd.service.html>`_ "
+"for it."
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:115
+msgid ""
+"Create a file ``aiida-daemon@.service`` using the template below, replacing "
+"``{{ venv_dir }}``, ``{{ home_dir }}`` and  ``{{ user }}`` by appropriate "
+"values::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:145
+msgid "Install the service like so::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:150
+msgid "Start the AiiDA daemon service for a profile ``profile``::"
+msgstr ""
+
+#: ../../source/working_with_aiida/scripting.rst:154
+msgid ""
+"After this, the AiiDA daemon should start together with your system. To "
+"remove the service again::"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:2
+msgid "Some tricks"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:11
+msgid "Increasing the debug level"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:13
+msgid ""
+"By default, the logging level of AiiDA is minimal to avoid filling logfiles."
+" Only warnings and errors are logged to the daemon log files, while info and"
+" debug messages are discarded."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:17
+msgid ""
+"If you are experiencing a problem, you can change the default minimum "
+"logging level of AiiDA messages (and circus messages -- circus is the "
+"library that we use to manage the daemon process) using, on the command "
+"line, the two following commands::"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:25
+msgid ""
+"For each profile that runs a daemon, there will be two unique logfiles, one "
+"for AiiDA log messages and one from the circus daemonizer. These files can "
+"be found in the ``.aiida`` log folder, which by default can be found at "
+"``~/.aiida/daemon/log/aiida_daemon.log``. After rebooting the daemon "
+"(``verdi daemon restart``), the number of messages logged will increase "
+"significantly and may help in understanding the source of the problem."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:32
+msgid ""
+"In the command above, you can use a different level than ``DEBUG``. The list"
+" of the levels and their order is the same of the `standard python logging "
+"module <https://docs.python.org/2/library/logging.html#logging-levels>`_."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:36
+msgid ""
+"When the problem is solved, we suggest to bring back the default logging "
+"level, using the two commands::"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:42
+msgid "to avoid to fill the logfiles."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:47
+msgid "Tips to ease the life of the hard drive (for large databases)"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:49
+msgid ""
+"Those tips are useful when your database is very large, i.e. several "
+"hundreds of thousands of nodes or more. With such large databases the hard "
+"drive may be constantly working and the computer slowed down a lot. Below "
+"are some solutions to take care of the most typical reasons."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:55
+msgid "Repository backup"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:57
+msgid ""
+"The backup of the repository takes an extensively long time if it is done "
+"through a standard rsync or backup software, since it contains as many "
+"folders as the number of nodes (and each folder can contain many files!). A "
+"solution is to use instead the incremental backup described in the "
+":ref:`repository backup section<repository_backup>`."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:65
+msgid "mlocate cron job"
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:67
+msgid ""
+"Under typical Linux distributions, there is a cron job (called "
+"``updatedb.mlocate``) running every day to update a database of files and "
+"folders -- this is to be used by the ``locate`` command. This might become "
+"problematic since the repository contains many folders and will be scanned "
+"everyday. The net effect is a hard drive almost constantly working."
+msgstr ""
+
+#: ../../source/working_with_aiida/troubleshooting.rst:74
+msgid ""
+"To avoid this issue, edit as root the file ``/etc/updatedb.conf`` and put in"
+" ``PRUNEPATHS`` the name of the repository folder."
+msgstr ""

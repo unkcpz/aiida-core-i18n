@@ -1,0 +1,705 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 14:09+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/datatypes/bands.rst:4
+#: ../../source/datatypes/functionality.rst:97
+#: ../../source/datatypes/index.rst:122
+msgid "BandsData"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:6
+msgid "``BandsData`` object is dedicated to store bands object of different types (electronic bands, phonons). In this section we describe the usage of the ``BandsData`` to store the (part of) electronic band structure of silicon and some logic behind its methods."
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:11
+msgid "To start working with ``BandsData`` we should import it using the ``DataFactory`` and create an object of type ``BandsData``::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:18
+msgid "To import the bands we need to make sure to have two arrays: one containing kpoints and another containing bands. The shape of the kpoints object should be ``nkpoints * 3``, while the shape of the bands should be ``nkpoints * nstates``. Let's assume the number of kpoints is 12, and the number of states is 5. So the kpoints and the bands array will look as follows::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:51
+msgid "To insert kpoints and bands in the ``bs`` object we should employ ``set_kpoints()`` and ``set_bands()`` methods::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:59
+msgid "From now the band structure can be visualized. Last thing that we may want to add is the array of kpoint labels::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:70
+msgid "The resulting band structure will look as follows"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:74
+msgid "Once the ``bs`` object is stored (``bs.store()``) -- it won't accept any modifications."
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:79
+msgid "Plotting the band structure"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:81
+msgid "You may notice that depending on how you assign the kpoints labels the output of the ``show_mpl()`` method looks different. Please compare::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:96
+msgid "In the first case two neighboring kpoints with ``X`` and ``Y`` labels will look like ``X|Y``, while in the second case they will be separated by a certain distance. The logic behind such a difference is the following. In the first case the plotting method discovers the two neighboring kpoints and assumes them to be a discontinuity point in the band structure (e.g. Gamma-X|Y-U). In the second case the kpoints labelled ``X`` and ``Y`` are not neighbors anymore, so they are plotted with a certain distance between them. The intervals between the kpoints on the X axis are proportional to the cartesian distance between them."
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:106
+msgid "Dealing with spins"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:108
+msgid "The ``BandsData`` object can also deal with the results of spin-polarized calculations. Two provide different bands for two different spins you should just merge them in one array and import them again using the ``set_bands()`` method::"
+msgstr ""
+
+#: ../../source/datatypes/bands.rst:116
+msgid "Now the shape of the bands array becomes ``nspins * nkpoints * nstates``"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:4
+msgid "Export data nodes to various formats"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:5
+msgid "Each data node has a :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method that allows to export the given data node to file in a variety of available formats, e.g. to pass it to a visualization software."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:9
+msgid "The :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method asks for a filename, and it will write to file the result. It is possible that more than one file is written (example: if you produce a gnuplot script, the data will typically be in a different .dat file). The return value of the function is a list of files that have been created."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:14
+msgid "The list of export formats depends on the specific Data plugin. The export format is typically inferred from the file extension, but if this is not possible (or you want to specify a given format), you can pass an additional ``fileformat`` parameter to :py:meth:`~aiida.orm.nodes.data.data.Data.export()`. The list of all valid export formats can be obtained calling ``Data.get_export_formats()`` method, that returns a list of strings with all valid formats."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:22
+msgid "If you don't want to export directly to a file, but want to get simply the content of the file as a string, then you can call the :py:meth:`~aiida.orm.nodes.data.data.Data._exportcontent()` method, passing also a ``fileformat`` parameter. The return value is a tuple of length 2: the first element is a string with the content of the \"main\" file, while the second is a dictionary (possibly empty) with a list of additional files that should be created/needed: the keys are filenames, and the values are the files content."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:31
+msgid "Exporting from the command line"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:32
+msgid "Most data types expose the export functionality on the command line."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:34
+msgid "For instance, if you want to export a StructureData object with given ``PK``, you can run on the command line::"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:39
+msgid "that will export the node with PK=``PK`` in the format ``FORMAT_NAME``. This will print on screen the file content; a few command line options allow to change this behaviour:"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:43
+msgid "``-o FILENAME`` asks to write directly on a file named ``FILENAME``. This is compulsory in some cases, e.g. if more than one file needs to be created."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:45
+msgid "``-y`` asks to overwrite the file(s), if present. If not specified, the call will fail if any of the files to create are present."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:48
+msgid "Additional options (often format-specific) exist, and can be discovered passing the ``-h`` option to the command line. For instance:"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:51
+msgid "``verdi data structure export`` accepts a number of formats including ``xsf``, ``cif``, ``xyz`` and ``tcod``, and additional parameters like ``--no-reduce-symmetry`` (to be used in combination with the ``tcod`` format to tell AiiDA not to try to reduce simmetry in the output CIF file, etc."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:55
+msgid "``verdi data trajectory export`` accepts a number of formats including ``xsf``, ``cif`` and ``tcod``, and additional parameters like ``--step NUM`` (to choose to export only a given trajectory step)."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:59
+msgid "``verdi data bands export`` accepts a number of formats including (see also below) and additional parameters like ``--prettify-format FORMATNAME``, see valid formats below, or ``--y-min-lim``, ``--y-max-lim`` to specify the ``y``-axis limits."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:66
+msgid "Export formats for specific Data types"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:67
+msgid "As the formats are specific to the data types, here is a list of some of the export formats available for some of the AiiDA data classes."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:71
+#: ../../source/datatypes/index.rst:59
+msgid "StructureData"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:72
+#: ../../source/datatypes/functionality.rst:86
+#: ../../source/datatypes/functionality.rst:98
+msgid "The following export formats are available:"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:74
+#: ../../source/datatypes/functionality.rst:88
+msgid "``xsf`` (format supported by e.g. XCrySDen and other visualization software; supports periodic cells)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:76
+msgid "``xyz`` (classical xyz format, does not typically support periodic cells (even if the cell is indicated in the comment line)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:78
+msgid "``cif`` (export to CIF format, without symmetry reduction, i.e. always storing the structure as P1 symmetry)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:80
+msgid "``tcod`` (extension to the CIF format, supports symmetry reduction, and typically adds in the CIF file a number of additional information, including the full provenance of the crystal structure node)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:85
+#: ../../source/datatypes/index.rst:93
+msgid "TrajectoryData"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:90
+msgid "``cif`` (export to CIF format, without symmetry reduction, i.e. always storing the structures as P1 symmetry)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:92
+msgid "``tcod`` (extension to the CIF format, supports symmetry reduction, and typically adds in the CIF file a number of additional information, including the full provenance of the crystal trajecotry node)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:100
+msgid "``agr``: export a Xmgrace .agr file with the band plot"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:101
+msgid "``agr_batch``: export a Xmgrace batch file together with an independent .dat file"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:102
+msgid "``dat_blocks``: export a .dat file, where each line has a data point (xy) and bands are separated in blocks with empty lines"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:104
+msgid "``dat_multicolumn``: export a .dat file, where each line has all the values for a given x coordinate: ``x y1 y2 y3 y4 ...`` (``x`` being a linear coordinate along the band path and ``yN`` being the band energies)"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:107
+msgid "``gnuplot``: export a gnuplot file, together with a .dat file"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:108
+msgid "``json``: export a json file with the bands divided into segments"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:109
+msgid "``mpl_singlefile``: export a python file that when executed shows a plot using the ``matplotlib`` module. All data is included in the same python file as a multiline string containing the data in json format."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:112
+msgid "``mpl_withjson``: As above, but the json data is stored separately in a different file"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:113
+msgid "``mpl_pdf``: As above, but after creating the .py file it runs it to export the band structure in a PDF file (vectorial). **NOTE**: it requires that you have the python ``matplotlib`` module installed. If ``use_latex`` is true, it requires that you have LaTeX installed on your system to typeset the labels, as well as the ``dvipng`` binary."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:117
+msgid "``mpl_png``: As above, but after creating the .py file it runs it to export the band structure in a PDF file (vectorial). **NOTE**: this format has the same dependencies as the ``mpl_pdf`` format above."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:122
+msgid "Label prettifiers"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:123
+msgid "AiiDA provides a number of functions to \"prettify\" the labels of band structures (if labels are present in the data node), i.e., replace ``GAMMA`` with :math:`\\Gamma` or ``K_1`` with :math:`K_{1}` for instance. This makes sense for some output formats (e.g. Xmgrace, Gnuplot, matplotlib)."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:129
+msgid "The prettifier functions are defined as methods of the :py:class:`~aiida.common.utils.Prettifier` class. and can be obtained calling :py:meth:`Prettifier.get_prettifiers()<aiida.common.utils.Prettifier.get_prettifiers>`."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:134
+msgid "The prettifiers should be chosen depending on two aspects:"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:136
+msgid "how the raw labels are stored in the database. Two types exist currently: ``seekpath``, as used in the ``seekpath`` module, where Greek letters are written explicitly (e.g. ``GAMMA``) and underscores are used to indicate a subscript (``K_1``); and the \"old\" ``simple`` format, where :math:`\\Gamma` is indicated with ``G`` and there is no underscore symbol)."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:142
+msgid "depending on the output format: xmgrace has a specific syntax for Greek letters and subscripts, matplotlib uses LaTeX syntax, etc."
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:145
+msgid "Most export formats already decide which prettifier is best to use, but if you need to change it, you can do it passing the ``prettify_format`` parameter to the :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method. Valid prettifiers include:"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:149
+msgid "``'agr_seekpath``: format for Xmgrace, using ``seekpath`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:150
+msgid "``agr_simple``: format for Xmgrace, using ``simple`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:151
+msgid "``latex_simple``: format for LaTeX (including dollar signs), using ``seekpath`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:152
+msgid "``latex_seekpath``: format for LaTeX (including dollar signs), using ``simple`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:153
+msgid "``gnuplot_simple``: format for GNUPlot (Unicode for Greek letters, LaTeX syntax `without` dollar signs for underscores), using ``seekpath`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:154
+msgid "gnuplot_seekpath``: format for GNUPlot (Unicode for Greek letters, LaTeX syntax `without` dollar signs for underscores), using ``simple`` raw label syntax"
+msgstr ""
+
+#: ../../source/datatypes/functionality.rst:155
+msgid "``pass``: no-op prettifier: leaves all strings unchanged to their raw value"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:5
+msgid "AiiDA data types"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:7
+msgid "There are a number of data types distributed with AiiDA."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:9
+msgid "We summarize here the most common, and some useful features/functionalities to work with them."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:13
+msgid "Most common datatypes"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:15
+msgid "Here follows a short summary of common datatypes already provided with AiiDA. This list is not complete, see also inside `aiida.orm.nodes.data` for the list of all available plugins."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:18
+msgid "We also mention, when relevant, what is stored in the database (as attributes, so that it can be easily queried e.g. with the :ref:`QueryBuilder <UsingQueryBuilder>`) and what is stored in the file repository (providing access to the file contents, but not efficiently querable: this is useful for e.g. big data files that don't need to be queried for)."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:23
+msgid "For all data types, you can follow the link to the data class to read more about the methods provided, how to access them ..."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:26
+msgid "If you need to work with some specific type of data, first check the list of data types/plugins below, and if you don't find what you need, give a look to :ref:`how to write a new data plugin <DevelopDataPluginTutorialFloat>`."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:31
+msgid "Base types"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:32
+msgid "In the :py:mod:`aiida.orm.nodes.data.base` module you find a number of useful classes that wrap base python datatypes (like :py:class:`~aiida.orm.nodes.data.int.Int`, :py:class:`~aiida.orm.nodes.data.float.Float`, :py:class:`~aiida.orm.nodes.data.str.Str`, ...). These are particularly useful when you need to provide a single parameter to e.g. a :py:class:`~aiida.engine.processes.functions.workfunction`."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:38
+msgid "Each of these classes can most often be used transparently (e.g. you can sum two :py:class:`~aiida.orm.nodes.data.int.Int` objects, etc.). If you need to access the bare value and not the whole AiiDA class, use the `.value` property."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:42
+msgid "In the same module, there is also a :py:class:`~aiida.orm.nodes.data.list.List` class to store a list of base data types."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:46
+msgid "Dict"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:48
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.dict.Dict`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:49
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``parameter``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:50
+msgid "**Aim**: store a dictionary of python base types in the database. It can store any dictionary where elements can be a base python type (strings, floats, integers, booleans, None type, datetime objects) and lists or dictionaries of them, at any depth level (e.g. a dictionary where a value is a list of dictionaries of strings and floats)."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:55
+msgid "**What is stored in the database**: all key/values pairs as attributes"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:56
+#: ../../source/datatypes/index.rst:65
+#: ../../source/datatypes/index.rst:171
+msgid "**What is stored in the file repository**: ---"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:61
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.structure.StructureData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:62
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``structure``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:63
+msgid "**Aim**: store a crystal structure to be used by atomistic codes"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:64
+msgid "**What is stored in the database**: all atomic positions, species, kinds,"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:66
+#: ../../source/datatypes/index.rst:102
+#: ../../source/datatypes/index.rst:117
+#: ../../source/datatypes/index.rst:129
+msgid "**Additional functionality**:"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:68
+#: ../../source/datatypes/index.rst:104
+msgid ":ref:`Export to a number of formats (xsf, cif, ...)<ExportDataNodes>`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:71
+msgid "UpfData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:73
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.upf.UpfData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:74
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``upf``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:75
+msgid "**Aim**: store a pseudopotential in the .UPF format (e.g. used by `Quantum ESPRESSO`_ - see also the `AiiDA Quantum ESPRESSO plugin`_)"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:76
+msgid "**What is stored in the database**: the MD5 of the UPF; the element the pseudopotential is associated to"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:78
+msgid "**What is stored in the file repository**: the pseudopotential file"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:84
+msgid "ArrayData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:86
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.array.ArrayData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:87
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``array``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:88
+msgid "**Aim**: store generic numeric arrays"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:89
+msgid "**What is stored in the database**: the shape of the arrays and the name of the arrays"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:90
+#: ../../source/datatypes/index.rst:116
+#: ../../source/datatypes/index.rst:128
+#: ../../source/datatypes/index.rst:140
+msgid "**What is stored in the file repository**: the array data in numpy format"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:94
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.array.trajectory.TrajectoryData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:95
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``array.trajectory``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:96
+msgid "**Aim**: store molecular trajectories (i.e. sequences of StructureData objects, where then number of atomic kinds and sites does not change over time). beside the coordinates, it can also optionally store velocities."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:99
+#: ../../source/datatypes/index.rst:115
+#: ../../source/datatypes/index.rst:127
+#: ../../source/datatypes/index.rst:139
+msgid "**What is stored in the database**: like ``ArrayData``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:100
+msgid "**What is stored in the file repository**: the array data in numpy format: cells over time, integer indices over time, atomic positions over time, the list of kinds, ..."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:107
+msgid "KpointsData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:109
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:110
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``array.kpoints``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:111
+msgid "**Aim**: store grids of k-points (in reciprocal space, for crystal structures), or explicit list of k-points (optionally with a weight associated to each one). Can also associate labels to (some of the) points, which is very useful for later plottings band structures (and store them in ``BandsData`` objects)."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:119
+msgid ":ref:`Automatically compute k-points path given a crystal structure<AutomaticKpoints>`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:124
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.array.bands.BandsData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:125
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``array.bands``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:126
+msgid "**Aim**: store electronic structure bands (of phonon bands)"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:131
+msgid ":ref:`Export to a number of formats (xmgrace, gnuplot, png, pdf, ...)<ExportDataNodes>`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:134
+msgid "XyData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:136
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.array.xy.XyData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:137
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``array.xy``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:138
+msgid "**Aim**: store data for a 2D (xy) plot"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:143
+msgid "FolderData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:145
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.folder.FolderData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:146
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``folder``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:147
+msgid "**Aim**: store a set of files/folders (with possibly a folder/subfolder structure)"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:148
+msgid "**What is stored in the database**: ---"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:149
+msgid "**What is stored in the file repository**: all files and folders"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:152
+msgid "SinglefileData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:153
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:154
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``singlefile``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:155
+msgid "**Aim**: the same as ``FolderData``, but allows to store only one single file."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:156
+msgid "**What is stored in the database**: the filename"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:157
+msgid "**What is stored in the file repository**: the file"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:160
+msgid "RemoteData"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:162
+msgid "**Class**: :py:class:`~aiida.orm.nodes.data.remote.RemoteData`"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:163
+msgid "**String to pass to the** :py:func:`~aiida.plugins.factories.DataFactory`: ``remote``"
+msgstr ""
+
+#: ../../source/datatypes/index.rst:164
+msgid "**Aim**: this basically represents a \"symbolic link\" to a specific folder on a remote computer. Its main use is to allow users to persist the provenance when e.g. a calculation produces data in a raw/scratch folder, and the whole folder needs to be provided to restart/continue."
+msgstr ""
+
+#: ../../source/datatypes/index.rst:169
+msgid "**What is stored in the database**: the path of the folder (and the remote computer as a `.computer` property, not as an attribute)"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:4
+msgid "Automatic computation of k-point paths"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:5
+msgid "AiiDA provides a number of tools and wrappers to automatically compute k-point paths given a cell or a crystal structure."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:8
+msgid "The main interface is provided by the two methods :py:func:`aiida.tools.data.array.kpoints.get_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.get_explicit_kpoints_path`."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:11
+msgid "These methods are also conveniently exported directly as, e.g., ``aiida.tools.get_kpoints_path``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:13
+msgid "The difference between the two methods is the following:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:15
+msgid ":py:func:`~aiida.tools.data.array.kpoints.get_kpoints_path` returns a dictionary of k-point coordinates (e.g. ``{'GAMMA': [0. ,0. ,0. ], 'X': [0.5, 0., 0.], 'L': [0.5, 0.5, 0.5]}``, and then a list of tuples of endpoints of each segment, e.g. ``[('GAMMA', 'X'), ('X', 'L'), ('L', 'GAMMA')]`` for the :math:`\\Gamma-X-L-\\Gamma` path."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:19
+msgid ":py:func:`~aiida.tools.data.array.kpoints.get_explicit_kpoints_path`, instead, returns a list of kpoints that follow that path, with some predefined (but user-customizable) distance between points, e.g. something like ``[[0., 0., 0.], [0.05, 0., 0.], [0.1, 0., 0.], ...]``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:23
+msgid "Depending on how the underlying code works, one method might be preferred on the other."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:25
+msgid "The docstring of the methods describes the expected parameters. The general interface requires always a StructureData as the first parameter ``structure``, as well as a string for the method to use (by default this is `seekpath <https://github.com/giovannipizzi/seekpath/>`_, but also the ``legacy`` method implemented in earlier versions of AiiDA is available; see description below)."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:30
+msgid "Additional parameters are passed as ``kwargs`` to the underlying implementation, that ofen accepts a different number of parameters."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:34
+msgid "Seekpath implementation"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:35
+msgid "When specifying ``method='seekpath'``, the `seekpath <https://github.com/giovannipizzi/seekpath/>`_ library is used to generate the path. Note that this requires that ``seekpath`` is installed (this is not available by default, in order to reduce the dependencies of AiiDA core, but can be easily installed using ``pip install seekpath``)."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:39
+msgid "For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.seekpath.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.seekpath.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:44
+msgid "If you use this implementation, please cite the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:52
+msgid "Legacy implementation"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:53
+msgid "This refers to the implementation that has been available since the early versions of AiiDA."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:55
+msgid "In the 3D case (all three directions have periodic boundary conditions), this implementation expects that the structure is already standardized according to the Setyawan paper. If this is not the case, the kpoints and band structure returned will be incorrect. The only case that is dealt correctly by the library is the case when axes are swapped, where the library correctly takes this swapping/rotation into account to assign kpoint labels and coordinates."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:61
+msgid "We therefore suggest that you use the seekpath implementation, that is able to automatically correctly identify the standardized crystal structure (primitive and conventional) as described in the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:65
+msgid "For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.legacy.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.legacy.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:70
+msgid "If you use this implementation, please cite the correct reference from the following ones:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:72
+msgid "The 3D implementation is based on the `Setyawan paper <https://doi.org/10.1016/j.commatsci.2010.05.010>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:79
+msgid "The 2D implementation is based on the `Ramirez paper <https://doi.org/10.1002/qua.560300306>`_::"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:88
+msgid "Deprecated methods"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:89
+msgid "Originally, the ``legacy`` implementation was implemented directly into the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` class."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:92
+msgid "In order to implement more than one method, and to simplify the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` class, and to decouple the underlying logic from AiiDA, we have deprecated those methods, factored out the logic into the :py:class:`~aiida.tools.data.array.kpoints.legacy` module. The methods are currently still available but will be removed in future versions of AiiDA; plese use directly the wrappers :py:func:`aiida.tools.data.array.kpoints.get_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.get_explicit_kpoints_path` instead, passing as option ``method='legacy'``."
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:100
+msgid "The list of deprecated methods include:"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:102
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:104
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData._get_or_create_bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:106
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.set_kpoints_path`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:108
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData._find_bravais_info`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:110
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.find_bravais_lattice`"
+msgstr ""
+
+#: ../../source/datatypes/kpoints.rst:112
+msgid ":py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.get_special_points`"
+msgstr ""
+

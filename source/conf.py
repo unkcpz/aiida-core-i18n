@@ -196,7 +196,7 @@ numfig = True
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'aiidadoc'
 locale_dirs = ['locale/']   # path is example but recommended.
-gettext_compact = False     # optional.
+gettext_compact = True     # optional.
 
 # -- Options for LaTeX output --------------------------------------------------
 

@@ -1,0 +1,1611 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-15 14:09+0800\n"
+"PO-Revision-Date: 2019-05-15 06:22+0000\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/scut-ccmp/teams/98995/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/concepts/calculations.rst:5
+msgid "Calculations"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:7
+msgid ""
+"A calculation is a process (see the :ref:`process "
+"section<concepts_processes>` for details) that *creates* new data. "
+"Currently, there are two ways of implementing a calculation process:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:10
+msgid ":ref:`calculation function<concepts_calcfunctions>`"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:11
+msgid ":ref:`calculation job<concepts_calcjobs>`"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:13
+msgid ""
+"The first one is the simplest of the two and is basically a python function "
+"that is magically transformed into a process. This is ideal for calculations"
+" that are not very computationally intensive and can be easily implemented "
+"in a python function. For more taxing calculations, typically performed by "
+"external codes that are optionally run on remote computing clusters, the "
+"calculation job is the better alternative."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:17
+msgid ""
+"In the following sections, both concepts will be explained but without going"
+" too much into detail on how to implement or run them. For a more detailed "
+"exposé, please refer to the respective advanced sections on "
+":ref:`calculation functions<working_calcfunctions>` and :ref:`calculation "
+"jobs<working_calcjobs>`."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:24
+msgid "Calculation functions"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:26
+msgid "Consider the following computational task at hand:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:29
+msgid ""
+"Given three integers, add the first two and then multiply the sum by the "
+"third."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:31
+msgid ""
+"In plain python code, the solution would look something like the following:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:36
+msgid ""
+"This simple code snippet will achieve the goal of getting the desired "
+"result, however, the provenance is lost. There is no connection between the "
+"output of the functions and their inputs. The remedy to this problem is the "
+":py:meth:`~aiida.engine.processes.functions.calcfunction`. The "
+"``calcfunction`` in AiiDA is a `function decorator "
+"<https://docs.python.org/3/glossary.html#term-decorator>`_ that transforms a"
+" regular python function in a calculation process, which automatically "
+"stores the provenance of its output in the :ref:`provenance "
+"graph<concepts_provenance>` when executed. Updating the previous snippet "
+"with ``calcfunction`` decorators yields:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:45
+msgid ""
+"The only thing we had to do to decorate the two functions was to add the "
+"line ``@calcfunction`` just before the function definition. Adding the "
+"decorator tells AiiDA that the provenance for this function should be stored"
+" in the provenance graph when it is executed. This means linking up the "
+"inputs and the outputs for a calculation node, which represents the function"
+" that was executed. The final change that has to be performed to make this "
+"possible, is to make the inputs and the outputs storable. In the previous "
+"snippet, the inputs are plain python integer types, which cannot be "
+"automatically stored in the provenance graph as nodes. To solve this, one "
+"only has to wrap them in the :py:class:`~aiida.orm.nodes.data.int.Int` node "
+"sub class, which makes them storable in the database:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:55
+msgid ""
+"The only difference with the previous snippet is that all inputs have been "
+"wrapped in the :py:class:`~aiida.orm.nodes.data.int.Int` class. The result "
+"that is returned by the function, likewise, is a "
+":py:class:`~aiida.orm.nodes.data.int.Int` node that contains the result of "
+"the computation."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:59
+msgid ""
+"Since ``x`` and ``y`` inside the function are already "
+":py:class:`~aiida.orm.nodes.data.int.Int` instances the sum will also be "
+"one, since all arithmetic operators are overloaded. It is important to "
+"realize though that only :py:class:`~aiida.orm.nodes.node.Node` instances, "
+"or sub classes thereof can be stored. For more information on how to return "
+"results from process function, refer to the :ref:`advanced "
+"section<working_calcfunctions>`"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:63
+msgid ""
+"With these trivial changes, the full provenance of result produced by "
+"running the function is maintained and looks like the following:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:68
+msgid "The provenance generated by the calcfunction example"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:70
+msgid ""
+"The examples above already showed how a calcfunction can be run: simply by "
+"calling it. The value that is returned is the result returned by the "
+"definition of the function. However, sometimes one would also like to have a"
+" reference to the calculation node that represents the execution of the "
+"function in the provenance graph. The following snippet shows two additional"
+" launch functions that will return a tuple, that in addition to the results,"
+" also return the ``pk`` or the node associated with the process"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:78
+msgid ""
+"This was a very short and limited description of calculation functions. For "
+"a more detailed description of launching them, please refer to the section "
+"on :ref:`launching processes<working_processes_launching>`. If you want more"
+" details on implementing calculation functions and best practices, refer to "
+"the section on :ref:`calculation function "
+"development<working_calcfunctions>`."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:86
+msgid "Calculation jobs"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:88
+msgid ""
+"In the previous section on :ref:`calculation "
+"functions<concepts_calcfunctions>`, we showed how a simple python function "
+"can be transformed into a process, such that when it is launched, its "
+"execution is recorded automatically in the provenance graph. However, not "
+"all computations are well suited to be implemented as a python function, but"
+" rather are implemented as a separate code, external to AiiDA. To interface "
+"an external code with the engine of AiiDA, the "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` process class "
+"was introduced. A detailed explanation of how to implement it, the interface"
+" and best practices, can be found in a :ref:`later "
+"section<working_calcjobs>`. Here, instead, we will focus on the big picture "
+"and explain in broad lines how a calculation job models the execution of an "
+"external code and what tasks it performs when launched."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:94
+msgid ""
+"To illustrate how a calculation job operates, we need an example external "
+"code. Let's imagine an external code that consists of a bash script that "
+"reads an input file containing two integers, sums them and echoes the "
+"result, for example:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:108
+msgid ""
+"When run, this script reads the content of a file called ``aiida.in`` and "
+"expects that it contains two integers, that it will parse into the variables"
+" ``x`` and ``y``, whose sum it will echo. When you want to run this 'code' "
+"through AiiDA, you need to tell *how* AiiDA should run it. The "
+":py:class:`~aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation`"
+" is a calculation job implementation that forms an interface to accomplish "
+"exactly that for the example bash script. A ``CalcJob`` implementation for a"
+" specific code, often referred to as a calculation plugin, essentially "
+"instructs the engine how it should be run. This includes how the necessary "
+"input files should be created based on the inputs that it receives, how the "
+"code executable should be called and what files should be retrieved when the"
+" calculation is complete. Note the files should be 'retrieved' because "
+"calculation jobs can be run not just on the localhost, but on any "
+":ref:`computer that is configured in AiiDA<setup_computer>`, including "
+"remote machines accessible over for example SSH."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:115
+msgid ""
+"Since a ``CalcJob`` is a process just like the :ref:`calculation "
+"functions<concepts_calcfunctions>` described before, they can be run in an "
+"identical way."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:120
+msgid ""
+"the provenance generated by running the calculation job will look something "
+"like this:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:125
+msgid "The provenance generated by the calculation job example"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:127
+msgid ""
+"The execution of the calculation job is represented in the provenance graph "
+"by a process node, i.e. the pink square labeled `C1` in "
+":numref:`fig_calculation_jobs_provenance_arithmetic_add`. The integer data "
+"nodes ``x`` and ``y`` that were passed as inputs are linked to the "
+"calculation job as such, as well as the third input ``code``. This input is "
+"required for *all* calculation jobs as it represents the external code that "
+"is actually executed. These code nodes are instances of "
+":py:class:`~aiida.orm.nodes.data.code.Code` class, which is a sub class of "
+":py:class:`~aiida.orm.nodes.data.data.Data`, which means that code instances"
+" are a sort of data node. Its function is to record the path to the "
+"executable and some other code related attributes defined during the "
+":ref:`code setup<setup_code>`."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:133
+msgid ""
+"The calculation job produced two outputs, an integer node, containing the "
+"sum of ``x`` and ``y`` and a "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData` node, containing the "
+"output files that were retrieved. Note that all outputs of calculation jobs "
+"(except for the ``retrieved`` node) are technically not created by the "
+"calculation job itself, but rather by an implementation of the "
+":py:class:`~aiida.parsers.parser.Parser` class. In principle, this step is "
+"optional, and so a calculation job is therefore not required to produce any "
+"outputs, except for the ``retrieved`` folder data node, which will always be"
+" there. How the parser fits into the concept of calculation jobs will be "
+"addressed in :ref:`this section<concepts_calcjobs_parsers>`."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:141
+msgid "Transport tasks"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:143
+msgid ""
+"To arrive at the provenance graph shown above in "
+":numref:`fig_calculation_jobs_provenance_arithmetic_add`, the engine "
+"performed quite some tasks. When a calculation job is launched, the engine "
+"will take it roughly through the following steps:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:146
+msgid ""
+"Upload: the calculation job implementation is used to transform the input "
+"nodes into the required input files, which are uploaded to a 'working' "
+"directory on the target machine"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:147
+msgid ""
+"Submit: a job to execute the calculation is submitted to the scheduler of "
+"the computer on which the input `code` is configured."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:148
+msgid ""
+"Update: the engine will query the scheduler to check for the status of the "
+"calculation job"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:149
+msgid ""
+"Retrieve: once the job has finished, the engine will retrieve the output "
+"files, specified by the plugin and store them in a node attached as ouput "
+"node to the calculation"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:151
+msgid ""
+"All of these tasks require the engine to interact with the computer, or "
+"machine, that will actually run the external code. Since the "
+":py:class:`~aiida.orm.nodes.data.code.Code` that is used as an input for the"
+" calculation job, which is configured for a specific "
+":py:class:`~aiida.orm.computers.Computer`, the engine knows exactly how to "
+"execute all these tasks. The ``CalcJob`` implementation itself then is "
+"completely independent of the machine that the code will be run on. To run "
+"the calculation job on a different machine, all you have to do is change the"
+" ``code`` input to one that is configured for that machine."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:156
+msgid ""
+"As mentioned before, calculation jobs can be run both on the same computer "
+"as where the engine is running, but they can also be run on remote machines."
+" Which machine will be used, is determined by the 'code' that is used as an "
+"input, which in turn will have been configured for a specific machine. If "
+"the machine is *not* the localhost, the engine will need a way to connect to"
+" the remote machine in order to perform each of the four tasks listed above."
+" The mechanism that allows the engine to connect to the remote machine is "
+"called a 'transport' and therefore the tasks it performs using this "
+"transport are called 'transport tasks'"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:165
+msgid "Exponential backoff mechanism"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:167
+msgid ""
+"In the case of calculation jobs being executed on a remote machine, the "
+"engine will have to connect to the machine for each of the transport tasks. "
+"In connecting to the remote, a whole host of potential problems may occur, "
+"that would cause the calculation job to fail. For example, the remote "
+"machine may be down and as a result unreachable, or the engine itself may "
+"lose its internet connection. However, these problems are often temporary. "
+"To prevent the calculation job from excepting and it being lost forever, an "
+"'exponential backoff mechanism' has been implemented. Whenever the engine "
+"performs a transport task but encounters an exception, instead of letting "
+"the calculation job fail, it will reschedule the same task to be executed "
+"again at a later time. The task will be automatically rescheduled until it "
+"finishes successfully, where the interval between tries increases "
+"exponentially. If after 5 consecutive tries, the task still fails, instead "
+"of rescheduling it, the engine will simply pause the calculation job. The "
+"output of ``verdi process list`` will give more information on why the task "
+"failed:"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:186
+msgid ""
+"When there are calculation jobs that have been paused because the transport "
+"tasks have failed multiple times, the user has the time to investigate the "
+"problem. If the problem is determined to be temporary and it has been "
+"resolved, one can use ``verdi process play`` to resume the paused processes."
+" The engine will then automatically reschedule the task that failed last and"
+" the calculation job will continue where it left off."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:190
+msgid ""
+"This exponential backoff mechanism makes the engine very robust with respect"
+" to calculation jobs, reducing the loss of computational resources due to "
+"temporary problems to an absolute minimum. The parameters, such as the "
+"delays between retries and the maximum number of retries are currently not "
+"configurable, but they might be in the future."
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:196
+msgid "Parsers"
+msgstr ""
+
+#: ../../source/concepts/calculations.rst:197
+msgid ""
+"The previous section explained how the ``CalcJob`` class functions as an "
+"interface between AiiDA's engine and an external piece of code. The "
+"calculation job plugin will instruct the engine how the :ref:`transport "
+"tasks<concepts_calcjobs_transport_tasks>` should be accomplished. However, "
+"as mentioned before, those tasks stop after the output files have been "
+"retrieved, which the engine will attach as an "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData` node with the label "
+"``retrieved`` to the calculation job node. As far as the calculation job "
+"goes, that is all that is absolutely required. However, often one wants to "
+"parse those output files into some specific outputs that should be "
+"represented as individual outputs nodes in the provenance graph. This can be"
+" accomplished by implementing the :py:class:`~aiida.parsers.parser.Parser` "
+"class and specifying it in the inputs of the calculation job. In that case, "
+"the engine will call the parser after the output files created by the job "
+"have been successfully retrieved. In the parser implementation, the "
+"retrieved files can then be parsed and converted into output nodes. For "
+"technical details on how to implement a parser for a calculation job and how"
+" to specify it in the inputs, please refer to the :ref:`detailed parser "
+"section<working_calcjobs_parsers>`,"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:5
+msgid "Processes"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:7
+msgid ""
+"Anything that runs in AiiDA is an instance of the "
+":py:class:`~aiida.engine.processes.process.Process` class. The ``Process`` "
+"class contains all the information and logic to tell, whoever is handling "
+"it, how to run it to completion. Typically the one responsible for running "
+"the processes is an instance of a :py:class:`~aiida.engine.runners.Runner`. "
+"This can be a local runner or one of the daemon runners in case of the "
+"daemon running the process."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:12
+msgid ""
+"In addition to those run instructions, any ``Process`` that has been "
+"executed needs some sort of record in the database to store what happened "
+"during its execution. For example it needs to record what its exact inputs "
+"were, the log messages that were reported and what the final outputs were. "
+"For this purpose, every process will utilize an instance of a sub class of "
+"the :py:class:`~aiida.orm.nodes.process.ProcessNode` class. This "
+"``ProcessNode`` class is a sub class of :py:class:`~aiida.orm.nodes.Node` "
+"and serves as the record of the process' execution in the database and by "
+"extension the provenance graph."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:17
+msgid ""
+"It is very important to understand this division of labor. A ``Process`` "
+"describes how something should be run, and the ``ProcessNode`` serves as a "
+"mere record in the database of what actually happened during execution. A "
+"good thing to remember is that while it is running, we are dealing with the "
+"``Process`` and when it is finished we interact with the ``ProcessNode``."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:24
+msgid "Process types"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:26
+msgid "Processes in AiiDA come in two flavors:"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:28
+msgid "Calculation-like"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:29
+msgid "Workflow-like"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:31
+msgid ""
+"The calculation-like processes have the capability to *create* data, whereas"
+" the workflow-like processes orchestrate other processes and have the "
+"ability to *return* data produced by other calculations. Again, this is a "
+"distinction that plays a big role in AiiDA and is crucial to understand. For"
+" this reason, these different types of processes also get a different sub "
+"class of the ``ProcessNode`` class. The hierarchy of these node classes and "
+"the link types that are allowed between them and ``Data`` nodes, is "
+"explained in detail in the :ref:`provenance "
+"implementation<concepts_provenance_implementation>` documentation."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:36
+msgid ""
+"Currently, there are four types of processes in ``aiida-core`` and the "
+"following table shows with which node class it is represented in the "
+"provenance graph and what the process is used for."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:39
+msgid "Process class"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:39
+msgid "Node class"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:39
+msgid "Used for"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:41
+msgid ":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:41
+msgid ":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:41
+msgid "Calculations performed by external codes"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:42
+msgid ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:42
+msgid ":py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:42
+msgid "Workflows that run multiple calculations"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:43
+#: ../../source/concepts/processes.rst:44
+msgid ":py:class:`~aiida.engine.processes.functions.FunctionProcess`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:43
+msgid ""
+":py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:43
+msgid "Python functions decorated with the ``calcfunction`` decorator"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:44
+msgid ""
+":py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:44
+msgid "Python functions decorated with the ``workfunction`` decorator"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:47
+msgid ""
+"For basic information on the concept of a ``CalcJob`` or ``calcfunction``, "
+"refer to the :ref:`calculations concept<concepts_calculations>` and the same"
+" for the ``WorkChain`` and ``workfunction`` is described in the "
+":ref:`workflows concept<concepts_workflows>`. After having read and "
+"understood the basic concept of calculation and workflow processes, detailed"
+" information on how to implement and use them can be found in the dedicated "
+"developing sections for :ref:`calculations<working_calculations>` and "
+":ref:`workflows<working_workflows>`, respectively."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:50
+msgid ""
+"A ``FunctionProcess`` is never explicitly implemented but will be generated "
+"dynamically by the engine when a python function decorated with a "
+":py:meth:`~aiida.engine.processes.functions.calcfunction` or "
+":py:meth:`~aiida.engine.processes.functions.workfunction` is run."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:56
+msgid "Process state"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:57
+msgid ""
+"Each instance of a ``Process`` class that is being executed has a process "
+"state. This property tells you about the current status of the process. It "
+"is stored in the instance of the ``Process`` itself and the workflow engine,"
+" the ``plumpy`` library, operates only on that value. However, the "
+"``Process`` instance 'dies' as soon as its is terminated, so therefore we "
+"also write the process state to the calculation node that the process uses "
+"as its database record, under the ``process_state`` attribute. The process "
+"can be in one of six states:"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:64
+msgid "*Active*"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:64
+msgid "*Terminated*"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:66
+msgid "Created"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:66
+msgid "Killed"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:67
+msgid "Running"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:67
+msgid "Excepted"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:68
+msgid "Waiting"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:68
+msgid "Finished"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:71
+msgid ""
+"The three states in the left column are 'active' states, whereas the right "
+"column displays the three 'terminal' states. Once a process reaches a "
+"terminal state, it will never leave it, its execution is permanently "
+"terminated. When a process is first created, it is put in the ``Created`` "
+"state. As soon as it is picked up by a runner and it is active, it will be "
+"in the ``Running`` state. If the process is waiting for another process, "
+"that it called, to be finished, it will be in the ``Waiting`` state. A "
+"process that is in the ``Killed`` state, means that the user issued a "
+"command to kill it, or its parent process was killed. The ``Excepted`` state"
+" indicates that during execution an exception occurred that was not caught "
+"and the process was unexpectedly terminated. The final option is the "
+"``Finished`` state, which means that the process was successfully executed, "
+"and the execution was nominal. Note that this does not automatically mean "
+"that the result of the process can also considered to be successful, it just"
+" executed without any problems."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:81
+msgid ""
+"To distinghuis between a successful and a failed execution, there is the "
+":ref:`exit status<concepts_process_exit_codes>`. This is another attribute "
+"that is stored in the node of the process and is an integer that can be set "
+"by the process. A zero means that the result of the process was successful, "
+"and a non-zero value indicates a failure. All the process nodes used by the "
+"various processes are a sub class of "
+":py:class:`~aiida.orm.nodes.process.ProcessNode`, which defines handy "
+"properties to query the process state and exit status."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:87
+msgid "Property"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:87
+msgid "Meaning"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:89
+msgid "``process_state``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:89
+msgid "Returns the current process state"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:90
+msgid "``exit_status``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:90
+msgid "Returns the exit status, or None if not set"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:91
+msgid "``exit_message``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:91
+msgid "Returns the exit message, or None if not set"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:92
+msgid "``is_terminated``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:92
+msgid ""
+"Returns ``True`` if the process was either ``Killed``, ``Excepted`` or "
+"``Finished``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:93
+msgid "``is_killed``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:93
+msgid "Returns ``True`` if the process is ``Killed``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:94
+msgid "``is_excepted``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:94
+msgid "Returns ``True`` if the process is ``Excepted``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:95
+msgid "``is_finished``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:95
+msgid "Returns ``True`` if the process is ``Finished``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:96
+msgid "``is_finished_ok``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:96
+msgid ""
+"Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
+"equal to zero"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:97
+msgid "``is_failed``"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:97
+msgid ""
+"Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
+"non-zero"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:100
+msgid ""
+"When you load a calculation node from the database, you can use these "
+"property methods to inquire about its state and exit status."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:106
+msgid "Process exit codes"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:107
+msgid ""
+"The previous section about the process state showed that a process that is "
+"``Finished`` does not say anything about whether the result is 'successful' "
+"or 'failed'. The ``Finished`` state means nothing more than that the engine "
+"managed to run the process to the end of execution without it encountering "
+"exceptions or being killed. To distinguish between a 'successful' and "
+"'failed' process, an 'exit status' can be defined. The `exit status is a "
+"common concept in programming <https://en.wikipedia.org/wiki/Exit_status>`_ "
+"and is a small integer, where zero means that the result of the process was "
+"successful, and a non-zero value indicates a failure. By default a process "
+"that terminates nominally will get a zero exit status. To mark a process as "
+"failed, one can return an instance of the "
+":py:class:`~aiida.engine.processes.exit_code.ExitCode` named tuple, which "
+"allows to set an integer ``exit_status`` and a string message as "
+"``exit_message``. When the engine receives such an ``ExitCode`` as the "
+"return value from a process, it will set the exit status and message on the "
+"corresponding attributes of the process node representing the process in the"
+" provenance graph. How exit codes can be defined and returned depends on the"
+" process type and will be documented in detail in the respective "
+":ref:`calculation<working_calculations>` and "
+":ref:`workflow<working_workflows>` development sections."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:120
+msgid "Process lifetime"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:122
+msgid ""
+"The lifetime of a process is defined as the time from the moment it is "
+"launched until it reaches a :ref:`terminal state<concepts_process_state>`."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:127
+msgid "Process and node distinction"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:128
+msgid ""
+"As explained in the :ref:`introduction of this section<concepts_processes>`,"
+" there is a clear and important distinction between the 'process' and the "
+"'node' that represents its execution in the provenance graph. When a process"
+" is launched, an instance of the ``Process`` class is created in memory "
+"which will be propagated to completion by the responsible runner. This "
+"'process' instance only exists in the memory of the python interpreter that "
+"it is running in, for example that of a daemon runner, and so we cannot "
+"directly inspect its state. That is why the process will write any of its "
+"state changes to the corresponding node representing it in the provenance "
+"graph. In this way, the node acts as a 'proxy' or a mirror image that "
+"reflects the state of the process in memory. This means that the output of "
+"many of the ``verdi`` commands, such as ``verdi process list``, do not "
+"actually show the state of the process instances, but rather the state of "
+"the node to which they have last written their state."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:136
+msgid "Process tasks"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:137
+msgid ""
+"The previous section explained how launching a process means creating an "
+"instance of the ``Process`` class in memory. When the process is being 'ran'"
+" (see the section on :ref:`launching processes<working_processes_launch>` "
+"for more details), that is to say in a local interpreter, that process "
+"instance will die as soon as the interpreter dies. This is what makes "
+"'submitting' a process, often times the preferred launching method. When a "
+"process is 'submitted', an instance of the ``Process`` is created, along "
+"with the node that represents it in the database, and its state is then "
+"persisted to the database. This is called a 'process checkpoint', more "
+"information on which :ref:`will follow later<concepts_process_checkpoints>`."
+" Subsequently, the process instance is shutdown and a 'continuation task' is"
+" sent to the process queue of RabbitMQ. This task is simply a small message "
+"that just contains an identifier for the process."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:145
+msgid ""
+"All the daemon runners, when they are launched, subscribe to the process "
+"queue and RabbitMQ will distribute the continuation tasks to them as they "
+"come in, making sure that each task is only sent to one runner at a time. "
+"The receiving daemon runner can restore the process instance in memory from "
+"the checkpoint that was stored in the database and continue the execution. "
+"As soon as the process reaches a terminal state, the daemon worker will "
+"acknowledge to RabbitMQ that the task has been completed. Until the runner "
+"has confirmed that a task is completed, RabbitMQ will consider the task as "
+"incomplete. If a daemon runner is shutdown or dies before it got the chance "
+"to finish running a process, the task will automatically be requeued by "
+"RabbitMQ and sent to another. Together with the fact that all the tasks in "
+"the process queue are persisted to disk by RabbitMQ, guarantees that once a "
+"continuation task has been sent to RabbitMQ, it will at some point be "
+"finished, while allowing the machine to be shutdown."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:152
+msgid ""
+"Each daemon runner has a maximum number of tasks that it can run "
+"concurrently, which means that if there are more active tasks than available"
+" slots, some of the tasks will remain queued. Processes whose task is in the"
+" queue and not with any runner, though technically 'active' as it is not "
+"terminated, it is not actually being run at the moment. While a process is "
+"not actually being run, i.e. it is not in memory with a runner, one also "
+"cannot interact with it. Similarly, as soon as the task disappears, either "
+"because the process was intentionally terminated, or unintentionally due to "
+"a bug or problem, the process will never continue running again."
+msgstr ""
+
+#: ../../source/concepts/processes.rst:161
+msgid "Process checkpoints"
+msgstr ""
+
+#: ../../source/concepts/processes.rst:162
+msgid ""
+"A process checkpoint is a complete representation of a ``Process`` instance "
+"in memory that can be stored in the database. Since it is a complete "
+"representation, the ``Process`` instance can also be fully reconstructed "
+"from such a checkpoint. At any state transition of a process, a checkpoint "
+"will be created, by serializing the process instance and storing it as an "
+"attribute on the corresponding process node. This mechanism is the final cog"
+" in the machine, together with the persisted process queue of RabbitMQ as "
+"explained in the previous section, that allows processes to continue after "
+"the machine they were running on, has been shutdown and restarted."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:5
+msgid "Provenance"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:8
+msgid "Graph concept"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:11
+msgid "Nodes and links"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:13
+msgid ""
+"The two most important concepts in AiiDA are **data** and **processes**. The"
+" former are pieces of data, such as a simple integer or float, all the way "
+"to more complex data concepts such as a dictionary of parameters, a folder "
+"of files or a crystal structure. Processes operate on this data in order to "
+"produce new data."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:17
+msgid "Processes come in two different forms:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:19
+msgid ""
+"**Calculations** are processes that are able to **create** new data. This is"
+" the case, for instance, for externals simulation codes, that generate new "
+"data"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:20
+msgid ""
+"**Workflows** are processes that **orchestrate** other workflows and "
+"calculations, i.e. they manage the logical flow, being able to **call** "
+"other processes. Workflows have data inputs, but cannot generate new data. "
+"They can only return data that is already in the database (one typical case "
+"is to return data created by a calculation they called)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:22
+msgid ""
+"Data and processes are represented in the AiiDA provenance graph as the "
+"**nodes** of that graph. The graph edges are referred to as **links** and "
+"come in different forms:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:25
+msgid ""
+"**input** links: connect data nodes to the process nodes that used them as "
+"input, both calculations and workflows"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:26
+msgid ""
+"**create** links: connect calculation nodes to the data nodes that they "
+"created"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:27
+msgid ""
+"**return** links: connect workflow nodes to the data nodes that they "
+"returned"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:28
+msgid ""
+"**call** links: connecting workflow nodes to the process nodes that they "
+"directly called, be it calculations or workflows"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:30
+msgid ""
+"Note that the **create** and **return** links are often collectively "
+"referred to as **output** links."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:34
+msgid "Data provenance and logical provenance"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:36
+msgid ""
+"AiiDA automatically stores entities in its database and links them forming a"
+" **directed graph**. This directed graph automatically tracks the "
+"**provenance** of all data produced by calculations or returned by "
+"workflows. By tracking the provenance in this way, one can always fully "
+"retrace how a particular piece of data came into existence, thus ensuring "
+"its reproducibility."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:40
+msgid "In particular, we define two types of provenance:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:42
+msgid ""
+"The **data provenance**, consisting of the part of the graph that *only* "
+"consists of data and calculations (i.e. without considering workflows), and "
+"only the **input** and **create** links that connect them. The data "
+"provenance records the full history of how data has been generated. Due to "
+"the causality principle, the data provenance part of the graph is a "
+"**directed acyclic graph** (DAG), i.e. its nodes are connected by directed "
+"edges and it does not contain any cycles."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:43
+msgid ""
+"The **logical provenance** which consists of workflow and data nodes, "
+"together with the **input**, **return** and **call** links that connect "
+"them. The logical provenance is *not* acyclic, e.g. a workflow that acts as "
+"a filter can return one of its own inputs, directly introducing a cycle."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:45
+msgid ""
+"The data provenance is essentially a log of which calculation generated what"
+" data using certain inputs. The data provenance alone already guarantees "
+"reproducibility (one could run again one by one the calculations with the "
+"provided input and would obtain the same outputs). The logical provenance "
+"gives additional information on why a specific calculation was run. Imagine "
+"the case in which you start from 100 structures, you have a filter operation"
+" that picks one, and then you run a simulation on it. The data provenance "
+"only shows the simulation you run on the structure that was picked, while "
+"the logical provenance can also show that the specific structure was not "
+"picked at random but via a specific workflow logic."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:52
+msgid "Other entities"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:54
+msgid ""
+"Beside nodes (data and processes), AiiDA defines a few more entities, like a"
+" :py:class:`~aiida.orm.computers.Computer` (representing a computer, "
+"supercomputer or computer cluster where calculations are run or data is "
+"stored), a :py:class:`~aiida.orm.groups.Group` (that group nodes together "
+"for organizational purposes) and the :py:class:`~aiida.orm.users.User` (to "
+"keep track of the user who first generated a given node, computer or group)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:56
+msgid ""
+"In the following section we describe in more detail how the general "
+"provenance concepts above are actually implemented in AiiDA, with specific "
+"reference to the python classes that implement them and the class-"
+"inheritance relationships."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:61
+#: ../../source/concepts/workflows.rst:119
+msgid "Implementation"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:64
+msgid "Graph nodes"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:66
+msgid ""
+"The **nodes** of the AiiDA provenance graph can be grouped into two main "
+"**types**: **process nodes** (``ProcessNode``), that represent the execution"
+" of calculations or workflows, and **data nodes** (``Data``), that represent"
+" pieces of data."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:68
+msgid "In particular, **process nodes** are divided into two sub categories:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:70
+msgid ""
+"**calculation nodes** (``CalculationNode``): Represent code execution that "
+"creates new data. These are further subdivided in two subclasses:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:72
+msgid ""
+"``CalcJobNode``: Represents the execution of a calculation external to "
+"AiiDA, typically via a job batch scheduler (see the concept of "
+":ref:`calculation jobs<concepts_calcjobs>`)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:73
+msgid ""
+"``CalcFunctionNode``: Represents the execution of a python function (see the"
+" concept of :ref:`calculation functions<concepts_calcfunctions>`)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:75
+msgid ""
+"**workflow nodes** (``WorkflowNode``): Represent python code that "
+"orchestrates the execution of other workflows and calculations, that "
+"optionally return the data created by the processes they called. These are "
+"further subdivided in two subclasses:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:77
+msgid ""
+"``WorkChainNode``: Represents the execution of a python class instance with "
+"built-in checkpoints, such that the process may be paused/stopped/resumed "
+"(see the concept of :ref:`work chains<concepts_workchains>`)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:78
+msgid ""
+"``WorkFunctionNode``: Represents the execution of a python function calling "
+"other processes (see the concept of :ref:`work "
+"functions<concepts_workfunctions>`)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:80
+msgid "The class hierarchy of the process nodes is shown in the figure below."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:85
+msgid ""
+"The hierarchy of the ORM classes for the process nodes. Only instances of "
+"the lowest level of classes will actually enter into the provenance graph. "
+"The two upper levels have a mostly taxonomical purpose as they allow us to "
+"refer to multiple classes at once when reasoning about the graph as well as "
+"a place to define common functionality (see section on :ref:`processes "
+"<concepts_processes>`)."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:88
+msgid ""
+"For what concerns data nodes, the base class (``Data``) is subclassed to "
+"provide functionalities specific to the data type and python methods to "
+"operate on it. Often, the name of the subclass contains the word “Data” "
+"appended to it, but this is not a requirement. A few examples:"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:91
+msgid "**Float, Int, Bool, Str, List**, ..."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:92
+msgid ""
+"**Dict**: represents a dictionary of key-value pairs - these are parameters "
+"of a general nature that do not need to belong to more specific data sub-"
+"classes"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:93
+msgid ""
+"**StructureData**: represents crystal structure data (containing chemical "
+"symbols, atomic positions of the atoms, periodic cell for periodic "
+"structures, …)"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:94
+msgid ""
+"**ArrayData**: represents generic numerical arrays of data (python numpy "
+"arrays)"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:96
+msgid "For more detailed information see :ref:`AiiDA data types <DataTypes>`."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:98
+msgid ""
+"In the next section we introduce the links between nodes, creating the AiiDA"
+" graph, and then we show some examples to clarify what we introduced up to "
+"now."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:101
+msgid "Graph links"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:103
+msgid ""
+"Process nodes are connected to their input and output data nodes through "
+"directed links. Calculation processes can *create* data, while workflow "
+"processes can *call* calculations and *return* their outputs. Consider the "
+"following graph example, where we represent **data nodes** with circles, "
+"**calculation nodes** with squares and **workflow nodes** with diamond "
+"shapes."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:110
+msgid ""
+"Simple provenance graph for a workflow (W\\ :sub:`1`) *calling* a "
+"calculation (C\\ :sub:`1`). The workflow takes a single **data node** (D\\ "
+":sub:`1`\\) as input, and passes it to the calculation when *calling* it. "
+"The calculation *creates* a new **data node** (D\\ :sub:`2`\\) that is also "
+"*returned* by the **workflow node**."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:112
+msgid ""
+"Notice that the different style and names for the two links coming into D\\ "
+":sub:`2` is intentional, because it was the calculation that *created* the "
+"new data, whereas the workflow merely *returned* it. This subtle distinction"
+" has big consequences. By allowing workflow processes to *return* data, it "
+"can also *return* data that was among its inputs."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:119
+msgid ""
+"Provenance graph example of a **workflow node** that receives three **data "
+"nodes** as input and *returns* one of those inputs. The input link from D\\ "
+":sub:`3` to W\\ :sub:`1` and the return link from W\\ :sub:`1` to D\\ "
+":sub:`3` introduce a cycle in the graph."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:121
+msgid ""
+"A scenario like this, represented in :numref:`fig_provenance_cycle`, would "
+"create a cycle in the provenance graph, breaking the “acyclicity” of the "
+"DAG. To restore the directed acyclic graph, we separate the entire "
+"provenance graph into two planes: the **creation provenance** and the "
+"**logical provenance**. All calculation processes inhabit the creation plane"
+" and can only have *create* links to the data they produce, whereas the "
+"workflow processes in the logical plane can only have *return* links to "
+"data. With this provision, the acyclicity of the graph is restored in the "
+"creation plane."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:126
+msgid ""
+"An additional benefit of thinking of the provenance graph in these two "
+"layers, is that it allows you to inspect it with different layers of "
+"granularity. Imagine a high level workflow that calls a large number of "
+"calculations and sub-workflows, that each may also call more sub-processes, "
+"to finally produce and return one or more data nodes as its result."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:131
+msgid "Graph examples"
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:133
+msgid ""
+"With these basic definitions of AiiDA’s provenance graph in place, let’s "
+"take a look at some more interesting. Consider the sequence of computations "
+"that adds two number `x` and `y` and multiplies the result with a third "
+"number `z`. This sequence as represented in the provenance graph would look "
+"something like is shown in :numref:`fig_provenance_add_multiply_data`."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:140
+msgid ""
+"The DAG for computing `(x+y)*z`. We have two simple calculations: C\\ "
+":sub:`1` represents the sum and C\\ :sub:`2` the multiplication. The two "
+"data nodes D\\ :sub:`1` and D\\ :sub:`2` are the inputs of C\\ :sub:`1`, "
+"which *creates* the data node D\\ :sub:`4`\\. Together with D\\ :sub:`3`, "
+"D\\ :sub:`4` then forms the input of C\\ :sub:`2` which multiplies their "
+"values in order to *creates* the product, represented by D\\ :sub:`5`."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:142
+msgid ""
+"In this simple example, there was no external process that controlled the "
+"exact sequence of these operations. When introducing a workflow, that calls "
+"the two calculations in succession, we get a graph as is shown in "
+":numref:`fig_provenance_add_multiply_full`."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:148
+msgid ""
+"The same calculation `(x+y)*z` is performed using a workflow. Here the data "
+"nodes D\\ :sub:`1`, D\\ :sub:`2` and D\\ :sub:`3` are the inputs of the "
+"workflow W\\ :sub:`1`, which *calls* calculation C\\ :sub:`1` with inputs "
+"D\\ :sub:`1` and D\\ :sub:`2`, and then *calls* calculation C\\ :sub:`2`, "
+"using as inputs D\\ :sub:`3` and D\\ :sub:`4` (which was *created* by C\\ "
+":sub:`2`\\). Calculation C\\ :sub:`2` *creates* data node D\\ :sub:`5`, "
+"which is finally *returned* by workflow W\\ :sub:`1`\\."
+msgstr ""
+
+#: ../../source/concepts/provenance.rst:150
+msgid ""
+"Notice that if we were to omit the workflow nodes and all its links from the"
+" provenance graph in :numref:`fig_provenance_add_multiply_full`, one would "
+"end up with the exact same graph as shown in "
+":numref:`fig_provenance_add_multiply_data`."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:5
+msgid "Workflows"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:7
+msgid ""
+"A workflow in AiiDA is a process (see the :ref:`process "
+"section<concepts_processes>` for details) that calls other workflows and "
+"calculations and optionally *returns* data and as such can encode the logic "
+"of a typical scientific workflow. Currently, there are two ways of "
+"implementing a workflow process:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:10
+msgid ":ref:`work functions<concepts_workfunctions>`"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:11
+msgid ":ref:`work chains<concepts_workchains>`"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:13
+msgid ""
+"The first one is the simplest of the two and is basically a python function "
+"that is magically transformed into a process. This is ideal for workflows "
+"that are not very computationally intensive and can be easily implemented in"
+" a python function. For more complex workflows, the work chain is a better "
+"alternative. By chaining work chains and work functions together, that each "
+"can run other sub processes, we can define a workflow. For simplicity, from "
+"here on out, we will use the terms, workflows, work chains and work "
+"functions interchangeably, as a 'pars pro toto' and 'totum pro parte'."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:19
+msgid ""
+"In the following sections, both concepts will be explained but without going"
+" too much into detail on how to implement or run them. For a more detailed "
+"exposé, please refer to the respective advanced sections on :ref:`work "
+"functions<working_workfunctions>` and :ref:`work "
+"chains<working_workchains>`."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:26
+msgid "Work functions"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:28
+msgid ""
+"A work function is implemented just as a :ref:`calculation "
+"function<concepts_calcfunctions>`, however, they have very distinct use "
+"cases. Since the work function is a 'workflow-like' process, it can only "
+"*return* existing data, whereas the calculation function creates a "
+"'calculation-like' process which can only *create* new data. This difference"
+" is addressed in greater detail in the "
+":ref:`process<concepts_process_types>` section and it is very important that"
+" you understand this distinction."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:32
+msgid ""
+"To explain the use of the ``workfunction``, we will continue with the "
+"example of the :ref:`calculation functions<concepts_calcfunctions>`, so "
+"before continuing, read that section first. The example showed how the "
+"``calcfunction`` decorator can be used to create two functions that, for "
+"three given integers, computes the sum of the first two which is then "
+"multiplied with the third, while keeping the provenance. Even though the "
+"calculation functions ensured that the provenance of the data was kept, the "
+"logic of *who* called these functions was not explicitly kept. From the "
+"provenance graph generated by the calculation functions, it is impossible to"
+" deduce of the functions where called straight after another in a single "
+"script, or whether first the ``add`` function was called and a long time "
+"later, the output was used as an input for the ``multiply`` call. Capturing "
+"this logical provenance of the *sequence of calls* of processes is exactly "
+"what workflow-like processes, such as the ``workfunction`` are designed for."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:38
+msgid ""
+"Consider the following example, where we implement a function called "
+"``add_and_multiply`` that we decorate with the ``workfunction`` decorator."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:43
+msgid ""
+"Instead of calling the calculation functions directly in the script, we call"
+" the work function, which then consecutively calls the calculation "
+"functions, passing the intermediate result from the first to the second. If "
+"we look at the provenance graph generated by this example, we would see "
+"something like the following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:49
+msgid "The full provenance generated by the work function example"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:51
+msgid ""
+"It is clear that this provenance graph contains a lot more information than "
+"the one for the calculation function example. Whether this information is "
+"actually necessary or useful depends on the situation and is entirely up to "
+"the user, but there is a big advantage. The strict separation between "
+"calculation-like and workflow-like processes and the different allowed links"
+" between them, as codified in the :ref:`provenance graph "
+"implementation<concepts_provenance_implementation>`, may seem a bit "
+"excessive at a first glance and to new users. However, the addition of this "
+"parallel yet distinct workflow layer, that represents the logical "
+"provenance, allows one to ignore all the details of the computation. This is"
+" demonstrated by the provenance graph below, which is the exact same as the "
+"one before, except only data and workflow nodes are shown:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:60
+msgid ""
+"The 'logical' provenance generated by the work function example, where only "
+"the workflow and data nodes, with their links, are shown"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:62
+msgid ""
+"With this reduced representation, the big picture of how the original inputs"
+" led to the final result becomes immediately clear. Conversely, none of the "
+"actual data provenance is lost. In the figure below, all the workflow nodes "
+"are omitted and what we end up with is the exact same provenance graph in "
+":numref:`fig_calculation_functions_provenance_add_multiply` of the "
+":ref:`original example<concepts_calcfunctions>` that only used calculation "
+"functions."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:69
+msgid ""
+"The 'data' provenance generated by the work function example, where only the"
+" calculation and data nodes, with their links, are shown"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:71
+msgid ""
+"In this simple example, the power of being able to select what part of the "
+"provenance graph one is interested in is obviously limited. But workflows "
+"can quickly become complex and deeply nested at which point the ability to "
+"'hide' parts of the provenance graph in a transparent way, becomes "
+"invaluable."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:74
+msgid ""
+"In addition to the 'orchestration' role that the work function can fullfill,"
+" it can also be used as a filter or selection function. Imagine that you "
+"want to write a process function that takes a set of input integer nodes and"
+" returns the one with the highest value. We cannot employ the "
+"``calcfunction`` for this, because it would have to return one of its input "
+"nodes, which is explicitly forbidden. However, for the ``workfunction``, "
+"returning existing nodes, even one of its inputs, is perfectly fine. An "
+"example implementation might look like the following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:83
+msgid ""
+"The work function above will return the input node ``x`` as one of its "
+"outputs as it has the highest value. The provenance of the execution of this"
+" select work function will look like the following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:89
+msgid ""
+"The provenance generated by the work function that selects one of its input "
+"nodes"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:92
+msgid ""
+"It is important to realize once again, that in the work function examples "
+"given above, all the nodes returned by the work functions are *already "
+"stored*. That is to say, they were either created by a calculation function "
+"called by the work function or were passed in as one of the inputs. This is "
+"no accident, as the work function **can** only return stored nodes. Trying "
+"to return a node that was created by the work function itself, will raise an"
+" exception. A more detailed explanation for the reasoning behind this design"
+" choice you can find in the documentation on the various :ref:`process "
+"types<concepts_process_types>` present in AiiDA and the :ref:`implementation"
+" of the provenance graph<concepts_provenance_implementation>`."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:102
+msgid "Work chains"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:105
+msgid "Why?"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:107
+msgid ""
+"Now that we have demonstrated how easily ``workfunctions`` can be used to "
+"write your workflow that automatically keeps the provenance, it is time to "
+"confess that work functions are not perfect and have their shortcomings. In "
+"the simple example of adding and multiplying numbers, the time to execute "
+"the functions is very short, but imagine that you are performing a more "
+"costly calculation, e.g. you want to run an actual ``CalcJob`` that will be "
+"submitted to the scheduler and may run for a long time. If anywhere during "
+"the chain, the workflow is interrupted, for whatever reason, all progress is"
+" lost. There are no 'checkpoints', so to speak, by simply chaining work "
+"functions together."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:112
+msgid ""
+"But fret not! To tackle this problem, AiiDA defines the concept of the work "
+"chain. As the name suggests, this construct is a way to chain multiple "
+"logical steps of a workflow together in a way that allows to save the "
+"progress between those steps as soon as they are successfully completed. The"
+" work chain is therefore the preferred solution for parts of the workflow "
+"that involve more expensive and complex calculations. To define a work "
+"chain, AiiDA provides the "
+":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:121
+msgid ""
+"If we were to reimplement our work function solution of the simple example "
+"problem of the previous section, but this time using a work chain, it would "
+"look something like the following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:126
+msgid ""
+"Don't be intimidated by all the code in this snippet. The point of this "
+"example is not to explain the exact syntax, which will be done in greater "
+"detail in the :ref:`advanced workflows<working_workchains>` section, but to "
+"merely introduce the concept of the work chain. The core attributes of a "
+"work chain are defined by its :ref:`process "
+"specification<working_processes_spec>` which is setup in the "
+":py:meth:`~aiida.engine.processes.process.Process.define` method. The only "
+"thing you need to notice here is that it defines the *inputs* that the work "
+"chain takes, its logical *outline* and the *outputs* that it will produce. "
+"The steps of the outline are implemented as class methods of the work chain."
+" The ``add`` step will add the first two integers by calling the ``add`` "
+"calculation function, and store the sum temporarily in the "
+":ref:`context<working_workchains_context>`. The next step in the outline, "
+"``multiply``, will take the sum stored in the context that was computed in "
+"the first outline step and call the ``multiply`` calculation function with "
+"the third input integer. Finally, the ``result`` step will take the product "
+"produced by the previous step and record it as an output of the work chain. "
+"The resulting provenance when we run this work chain looks like the "
+"following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:139
+msgid ""
+"The provenance generated by the work chain example calling calculation "
+"functions to perform the addition and multiplication."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:141
+msgid ""
+"As you can see, the produced provenance graph is identical to that of "
+":numref:`fig_work_functions_provenance_add_multiply_full` that was produced "
+"by the work function solution, except that the workflow node is a work chain"
+" instead of a work function node. Full data provenance is kept as the "
+"calculation of the sum and the product through the work chain are "
+"represented explicitly by the calculation nodes of the ``add`` and "
+"``multiply`` calculation functions that it called."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:146
+msgid ""
+"The usage of calculation functions for the computation of the sum and the "
+"product is not an accident but a concious design choice. Since work chains "
+"are 'workflow'-like process and as such cannot 'create' data, performing the"
+" calculations directly in the work chain outline steps itself would lose "
+"data provenance."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:149
+msgid ""
+"To illustrate what it means for worklow processes not being able to 'create'"
+" new data and how doing so causes a loss of data provenance, let's change "
+"the previous implementation to perform the sum and product in the work chain"
+" outline steps itself, instead of calling the calculation functions."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:154
+msgid "The resulting provenance would look like the following:"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:159
+msgid ""
+"The provenance generated by the work chain example that computers the sum "
+"and product directly in its outline steps instead of delegating it to "
+"calculation functions."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:161
+msgid ""
+"Note how, in contrast with the provenance of the previous correct solution "
+"from :numref:`fig_work_chains_provenance_add_multiply_workchain_full`, there"
+" are no explicit calculation nodes representing the computation of the sum "
+"and the product. Instead, all that computation is abstracted and represented"
+" by the single workflow node that represents the execution of the work "
+"chain. The logic inside of those outline steps is then 'hidden' or "
+"'encapsulated' in the provenance graph by a single workflow node. "
+"Additionally, the output node representing the final product, only has a "
+"``return`` link, even though it was 'created' by the work chain. This is "
+"because :ref:`workflow processes do not have the capacity to create new "
+"nodes<working_workfunctions_returning_data>`, and therefore in a sense in "
+"this example, the data provenance is lost."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:167
+msgid ""
+"An important thing to remember is that *any computation* that happens in the"
+" body of outline steps of a work chain, will not be explicitly represented "
+"but will be encapsulated by a single node in the graph that represents that "
+"work chain execution. Whether that loss of data provenance is relevant "
+"depends on the use case and is left to the developer of the workflow. These "
+"two examples demonstrate that AiiDA does not force any particular method but"
+" allows the user to choose exactly what level of granularity they would like"
+" to maintain in the provenance. However, the rule of thumb is that if you "
+"want to reduce the loss, or 'hiding' of provenance to a minimum, one should "
+"keep real computation within the body of work functions and work chains to a"
+" minimum and delegate that to calculations. For any real computational work "
+"that is relevant to the data provenance, it is better to implement it in "
+"explicit calculation processes, usually a separate calculation function."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:174
+msgid "Advantages"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:175
+msgid ""
+"The work chain solution to the add-multiply problem, requires significantly "
+"more code compared to the work function solution presented in the beginning "
+"of this section. Why should one bother using the work chain then? The "
+"advantages for this trivial example may be difficult to see, but imagine "
+"that the logic of the workflow becomes more complicated and the calculations"
+" become more intensive. The process specification of the work chain provides"
+" a central way of defining the inputs and outputs, making it easy to see at "
+"a glance how the work chain operates. In addition, the ``outline`` can give "
+"a succinct summary of the logical steps that the work chain will perform, "
+"all of which a work function does not have. The outline in this example was "
+"trivially simple, but the :ref:`advanced work chain development "
+"section<working_workchains>` will show how complex logic can be implemented "
+"directly in the process specification. The process specification also makes "
+"it easy to 'wrap' existing work chains into more complex work chains through"
+" the :ref:`expose functionality<working_workchains_expose_inputs_outputs>`."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:183
+msgid ""
+"Finally, as mentioned before, the work chain provides the possibility of "
+"checkpoints, i.e. to save progress at certain points from which the "
+"computation can be continued after it had been interrupted. The state of the"
+" work chain is saved after each outline step. If expensive calculation jobs "
+"are performed in an individual outline step, they will be saved as soon as "
+"they finish. This is impossible for work functions and if it were to be "
+"interrupted before *all* the computations had been completed, all "
+"intermediate progress would be lost. The rule of thumb therefore is, as soon"
+" as the worfklow becomes only slightly complex or computationally intensive,"
+" preference should be given to :ref:`work chains<concepts_workchains>` and "
+":ref:`calculation jobs<concepts_calcjobs>`."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:189
+msgid ""
+"This was a very quick overview of the intended use is of work chain works "
+"and how they work, but of course it has a lot more features. To learn how to"
+" write work chains for real life problems, continue reading at the "
+":ref:`work chain development<working_workchains>` section, but before you "
+"do, read the following part on when to use a work function and when it is "
+"better to use a work chain."
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:194
+msgid "When to use which"
+msgstr ""
+
+#: ../../source/concepts/workflows.rst:195
+msgid ""
+"Now that we know how the two workflow components, workflows and work chains,"
+" work in AiiDA, you might wonder: when should I use which one? For simple "
+"operations that do not take long, the simplicity of the work function may be"
+" all you need, so by all means use it. However, a good rule of thumb is that"
+" as soon as the code is expected to take longer, for example when you want "
+"to launch a :ref:`calculation job<concepts_calcjobs>` or another complex "
+"workflow, it is always best to go for the work chain. The automatic "
+"checkpointing, which guarantees that work between steps is saved, becomes "
+"very important. But the work chain offers a lot more features than just "
+"checkpointing that may make it more preferable over the work function, which"
+" you can read about in the advanced :ref:`work chain development "
+"<working_workchains>` section."
+msgstr ""
