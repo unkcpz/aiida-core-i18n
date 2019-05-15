@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.parsers.parser &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.parsers.parser</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.parsers.parser</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module implements a generic output plugin, that is general enough</span>
+<span class="sd">to allow the reading of the outputs of a calculation.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span><span class="p">,</span> <span class="n">extendeddicts</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.engine.processes.ports</span> <span class="k">import</span> <span class="n">CalcJobOutputPort</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Parser&#39;</span><span class="p">,)</span>
+
+
+<div class="viewcode-block" id="Parser"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Parser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for a Parser that can parse the outputs produced by a CalcJob process.&quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=useless-object-inheritance</span>
+
+<div class="viewcode-block" id="Parser.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct the Parser instance.</span>
+
+<span class="sd">        :param node: the `CalcJobNode` that contains the results of the executed `CalcJob` process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.log</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.utils.log</span> <span class="k">import</span> <span class="n">create_logger_adapter</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">create_logger_adapter</span><span class="p">(</span><span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;parser&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span> <span class="n">node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the logger preconfigured for the calculation node associated with this parser instance.</span>
+
+<span class="sd">        :return: `logging.Logger`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node instance</span>
+
+<span class="sd">        :return: the `CalcJobNode` instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exit_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the exit codes defined for the process class of the node being parsed.</span>
+
+<span class="sd">        :returns: ExitCodesNamespace of ExitCode named tuples</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">process_class</span><span class="o">.</span><span class="n">exit_codes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">retrieved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">()</span><span class="o">.</span><span class="n">get_node_by_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">process_class</span><span class="o">.</span><span class="n">link_label_retrieved</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the dictionary of outputs that have been registered.</span>
+
+<span class="sd">        :return: an AttributeDict instance with the registered output nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span>
+
+<div class="viewcode-block" id="Parser.out"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser.out">[docs]</a>    <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register a node as an output with the given link label.</span>
+
+<span class="sd">        :param link_label: the name of the link label</span>
+<span class="sd">        :param node: the node to register as an output</span>
+<span class="sd">        :raises aiida.common.ModificationNotAllowed: if an output node was already registered with the same link label</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">link_label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ModificationNotAllowed</span><span class="p">(</span><span class="s1">&#39;the output </span><span class="si">{}</span><span class="s1"> already exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">link_label</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">[</span><span class="n">link_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="Parser.get_outputs_for_parsing"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser.get_outputs_for_parsing">[docs]</a>    <span class="k">def</span> <span class="nf">get_outputs_for_parsing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the dictionary of nodes that should be passed to the `Parser.parse` call.</span>
+
+<span class="sd">        Output nodes can be marked as being required by the `parse` method, by setting the `pass_to_parser` attribute,</span>
+<span class="sd">        in the `spec.output` call in the process spec of the `CalcJob`, to True.</span>
+
+<span class="sd">        :return: dictionary of nodes that are required by the `parse` method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">link_triples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">process_class</span><span class="o">.</span><span class="n">spec</span><span class="p">()</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">CalcJobOutputPort</span><span class="p">)</span> <span class="ow">and</span> <span class="n">port</span><span class="o">.</span><span class="n">pass_to_parser</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">result</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">link_triples</span><span class="o">.</span><span class="n">get_node_by_label</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">port</span><span class="o">.</span><span class="n">required</span><span class="p">:</span>
+                        <span class="k">raise</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Parser.parse_from_node"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser.parse_from_node">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse_from_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">store_provenance</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parse the outputs directly from the `CalcJobNode`.</span>
+
+<span class="sd">        If `store_provenance` is set to False, a `CalcFunctionNode` will still be generated, but it will not be stored.</span>
+<span class="sd">        It&#39;s storing method will also be disabled, making it impossible to store, because storing it afterwards would</span>
+<span class="sd">        not have the expected effect, as the outputs it produced will not be stored with it.</span>
+
+<span class="sd">        :param node: a `CalcJobNode` instance</span>
+<span class="sd">        :param store_provenance: bool, if True will store the parsing as a `CalcFunctionNode` in the provenance</span>
+<span class="sd">        :return: a tuple of the parsed results and the `CalcFunctionNode`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">parse_calcfunction</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;A wrapper function that will turn calling the `Parser.parse` method into a `CalcFunctionNode`.</span>
+
+<span class="sd">            :param kwargs: keyword arguments that are passed to `Parser.parse` after it has been constructed</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">exit_code</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">outputs</span>
+
+            <span class="k">if</span> <span class="n">exit_code</span> <span class="ow">and</span> <span class="n">exit_code</span><span class="o">.</span><span class="n">status</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">exit_code</span>
+
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;store_provenance&#39;</span><span class="p">:</span> <span class="n">store_provenance</span><span class="p">}}</span>
+        <span class="n">inputs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">get_outputs_for_parsing</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">parse_calcfunction</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Parser.parse"><a class="viewcode-back" href="../../../apidoc/aiida.parsers.html#aiida.parsers.Parser.parse">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parse the contents of the output files retrieved in the `FolderData`.</span>
+
+<span class="sd">        This method should be implemented in the sub class. Outputs can be registered through the `out` method.</span>
+<span class="sd">        After the `parse` call finishes, the runner will automatically link them up to the underlying `CalcJobNode`.</span>
+
+<span class="sd">        :param kwargs: output nodes attached to the `CalcJobNode` of the parser instance.</span>
+<span class="sd">        :return: an instance of ExitCode or None</span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

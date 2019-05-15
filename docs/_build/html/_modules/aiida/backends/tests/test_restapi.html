@@ -1,0 +1,1224 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.test_restapi &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.test_restapi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.test_restapi</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Unittests for REST API</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span>
+<span class="kn">from</span> <span class="nn">aiida.restapi.api</span> <span class="k">import</span> <span class="n">App</span><span class="p">,</span> <span class="n">AiidaApi</span>
+
+
+<div class="viewcode-block" id="RESTApiTestCase"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase">[docs]</a><span class="k">class</span> <span class="nc">RESTApiTestCase</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Setup of the tests for the AiiDA RESTful-api</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_url_prefix</span> <span class="o">=</span> <span class="s2">&quot;/api/v3&quot;</span>
+    <span class="n">_dummy_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_PERPAGE_DEFAULT</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">_LIMIT_DEFAULT</span> <span class="o">=</span> <span class="mi">400</span>
+
+<div class="viewcode-block" id="RESTApiTestCase.setUpClass"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-many-locals, too-many-statements</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Basides the standard setup we need to add few more objects in the</span>
+<span class="sd">        database to be able to explore different requests/filters/orderings etc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># call parent setUpClass method</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RESTApiTestCase</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">()</span>
+
+        <span class="c1"># connect the app and the api</span>
+        <span class="c1"># Init the api by connecting it the the app (N.B. respect the following</span>
+        <span class="c1"># order, api.__init__)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PREFIX</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_url_prefix</span><span class="p">,</span> <span class="n">PERPAGE_DEFAULT</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_PERPAGE_DEFAULT</span><span class="p">,</span> <span class="n">LIMIT_DEFAULT</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_LIMIT_DEFAULT</span><span class="p">)</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;TESTING&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">AiidaApi</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># create test inputs</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="p">((</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">))</span>
+        <span class="n">structure</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">StructureData</span><span class="p">(</span><span class="n">cell</span><span class="o">=</span><span class="n">cell</span><span class="p">)</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">append_atom</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="n">symbols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Ba&#39;</span><span class="p">])</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">cif</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CifData</span><span class="p">(</span><span class="n">ase</span><span class="o">=</span><span class="n">structure</span><span class="o">.</span><span class="n">get_ase</span><span class="p">())</span>
+        <span class="n">cif</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">parameter1</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">parameter1</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">parameter2</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+        <span class="n">parameter2</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">KpointsData</span><span class="p">()</span>
+        <span class="n">kpoint</span><span class="o">.</span><span class="n">set_kpoints_mesh</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+        <span class="n">kpoint</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">resources</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+
+        <span class="n">calcfunc</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcFunctionNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">calcfunc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;attr1&quot;</span><span class="p">,</span> <span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;attr2&quot;</span><span class="p">,</span> <span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+
+        <span class="n">calc</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;link_structure&#39;</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">parameter1</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;link_parameter&#39;</span><span class="p">)</span>
+
+        <span class="n">aiida_in</span> <span class="o">=</span> <span class="s1">&#39;The input file</span><span class="se">\n</span><span class="s1">of the CalcJob node&#39;</span>
+        <span class="c1"># Add the calcjob_inputs folder with the aiida.in file to the CalcJobNode repository</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">aiida_in</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">put_object_from_filelike</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;calcjob_inputs/aiida.in&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">aiida_out</span> <span class="o">=</span> <span class="s1">&#39;The output file</span><span class="se">\n</span><span class="s1">of the CalcJob node&#39;</span>
+        <span class="n">retrieved_outputs</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">FolderData</span><span class="p">()</span>
+        <span class="c1"># Add the calcjob_outputs folder with the aiida.out file to the FolderData node</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">aiida_out</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">retrieved_outputs</span><span class="o">.</span><span class="n">put_object_from_filelike</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;calcjob_outputs/aiida.out&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">retrieved_outputs</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">retrieved_outputs</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calc</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;retrieved&#39;</span><span class="p">)</span>
+
+        <span class="n">kpoint</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calc</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;create&#39;</span><span class="p">)</span>
+
+        <span class="n">calc1</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">dummy_computers</span> <span class="o">=</span> <span class="p">[{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test1.epfl.ch&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;transport_type&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scheduler_type&quot;</span><span class="p">:</span> <span class="s2">&quot;pbspro&quot;</span><span class="p">,</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test2.epfl.ch&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;transport_type&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scheduler_type&quot;</span><span class="p">:</span> <span class="s2">&quot;torque&quot;</span><span class="p">,</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test3.epfl.ch&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;transport_type&quot;</span><span class="p">:</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scheduler_type&quot;</span><span class="p">:</span> <span class="s2">&quot;slurm&quot;</span><span class="p">,</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test4.epfl.ch&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;transport_type&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scheduler_type&quot;</span><span class="p">:</span> <span class="s2">&quot;slurm&quot;</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+        <span class="k">for</span> <span class="n">dummy_computer</span> <span class="ow">in</span> <span class="n">dummy_computers</span><span class="p">:</span>
+            <span class="n">computer</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Computer</span><span class="p">(</span><span class="o">**</span><span class="n">dummy_computer</span><span class="p">)</span>
+            <span class="n">computer</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Prepare typical REST responses</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">process_dummy_data</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RESTApiTestCase.get_dummy_data"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.get_dummy_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummy_data</span></div>
+
+<div class="viewcode-block" id="RESTApiTestCase.get_url_prefix"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.get_url_prefix">[docs]</a>    <span class="k">def</span> <span class="nf">get_url_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url_prefix</span></div>
+
+<div class="viewcode-block" id="RESTApiTestCase.process_dummy_data"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.process_dummy_data">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">process_dummy_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=fixme</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This functions prepare atomic chunks of typical responses from the</span>
+<span class="sd">        RESTapi and puts them into class attributes</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Storing the different nodes as lists and accessing them</span>
+        <span class="c1"># by their list index is very fragile and a pain to debug.</span>
+        <span class="c1"># Please change this!</span>
+        <span class="n">computer_projections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;hostname&quot;</span><span class="p">,</span> <span class="s2">&quot;transport_type&quot;</span><span class="p">,</span> <span class="s2">&quot;scheduler_type&quot;</span><span class="p">]</span>
+        <span class="n">computers</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">orm</span><span class="o">.</span><span class="n">Computer</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;comp&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">computer_projections</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span>
+                <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;asc&#39;</span>
+                    <span class="p">}</span>
+                <span class="p">}]</span>
+            <span class="p">})</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+
+        <span class="c1"># Cast UUID into a string (e.g. in sqlalchemy it comes as a UUID object)</span>
+        <span class="n">computers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s1">&#39;comp&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">computers</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">computers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">comp</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">comp</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="s2">&quot;computers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">computers</span>
+
+        <span class="n">calculation_projections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s2">&quot;node_type&quot;</span><span class="p">]</span>
+        <span class="n">calculations</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">orm</span><span class="o">.</span><span class="n">CalculationNode</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;calc&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">calculation_projections</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span>
+                <span class="s1">&#39;calc&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span>
+                    <span class="p">}</span>
+                <span class="p">}]</span>
+            <span class="p">})</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+
+        <span class="n">calculations</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s1">&#39;calc&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">calculations</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">calc</span> <span class="ow">in</span> <span class="n">calculations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">calc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">calc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="s2">&quot;calculations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculations</span>
+
+        <span class="n">data_projections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s2">&quot;node_type&quot;</span><span class="p">]</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cifdata&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">CifData</span><span class="p">,</span>
+            <span class="s1">&#39;parameterdata&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Dict</span><span class="p">,</span>
+            <span class="s1">&#39;structuredata&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">StructureData</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">dataclass</span> <span class="ow">in</span> <span class="n">data_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">dataclass</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">data_projections</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span>
+                        <span class="p">}</span>
+                    <span class="p">}]</span>
+                <span class="p">})</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datum</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">datum</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datum</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span>
+
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="RESTApiTestCase.split_path"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.split_path">[docs]</a>    <span class="k">def</span> <span class="nf">split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=no-self-use</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Split the url with &quot;?&quot; to get url path and it&#39;s parameters</span>
+<span class="sd">        :param url: Web url</span>
+<span class="sd">        :return: url path and url parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">query_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">parts</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">query_string</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">query_string</span></div>
+
+<div class="viewcode-block" id="RESTApiTestCase.compare_extra_response_data"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.compare_extra_response_data">[docs]</a>    <span class="k">def</span> <span class="nf">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_type</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        In url response, we pass some extra information/data along with the node</span>
+<span class="sd">        results. e.g. url method, node_type, path, pk, query_string, url,</span>
+<span class="sd">        url_root,</span>
+<span class="sd">        etc.</span>
+
+<span class="sd">        :param node_type: url requested fot the type of the node</span>
+<span class="sd">        :param url: web url</span>
+<span class="sd">        :param response: url response</span>
+<span class="sd">        :param uuid: url requested for the node pk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">query_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_path</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">],</span> <span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;resource_type&quot;</span><span class="p">],</span> <span class="n">node_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;query_string&quot;</span><span class="p">],</span> <span class="n">query_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span> <span class="s2">&quot;http://localhost&quot;</span> <span class="o">+</span> <span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;url_root&quot;</span><span class="p">],</span> <span class="s2">&quot;http://localhost/&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># node details and list with limit, offset, page, perpage</span>
+<div class="viewcode-block" id="RESTApiTestCase.process_test"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestCase.process_test">[docs]</a>    <span class="k">def</span> <span class="nf">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">entity_type</span><span class="p">,</span>
+                     <span class="n">url</span><span class="p">,</span>
+                     <span class="n">full_list</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">empty_list</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">expected_list_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">expected_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">expected_errormsg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">uuid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">result_node_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">result_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=too-many-arguments</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether response matches expected values.</span>
+
+<span class="sd">        :param entity_type: url requested fot the type of the node</span>
+<span class="sd">        :param url: web url</span>
+<span class="sd">        :param full_list: if url is requested to get full list</span>
+<span class="sd">        :param empty_list: if the response list is empty</span>
+<span class="sd">        :param expected_list_ids: list of expected ids from data</span>
+<span class="sd">        :param expected_range: [start, stop] range of expected ids from data</span>
+<span class="sd">        :param expected_errormsg: expected error message in response</span>
+<span class="sd">        :param uuid: url requested for the node pk</span>
+<span class="sd">        :param result_node_type: node type in response data</span>
+<span class="sd">        :param result_name: result name in response e.g. inputs, outputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">expected_list_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">expected_list_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">expected_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">expected_range</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">result_node_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result_node_type</span> <span class="o">=</span> <span class="n">entity_type</span>
+            <span class="n">result_name</span> <span class="o">=</span> <span class="n">entity_type</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url_prefix</span> <span class="o">+</span> <span class="n">url</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">expected_errormsg</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span> <span class="n">expected_errormsg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">full_list</span><span class="p">:</span>
+                    <span class="n">expected_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="n">result_node_type</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">empty_list</span><span class="p">:</span>
+                    <span class="n">expected_data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">elif</span> <span class="n">expected_list_ids</span><span class="p">:</span>
+                    <span class="n">expected_data</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="n">result_node_type</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">expected_list_ids</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">expected_range</span> <span class="o">!=</span> <span class="p">[]:</span>
+                    <span class="n">expected_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummy_data</span><span class="p">[</span><span class="n">result_node_type</span><span class="p">][</span><span class="n">expected_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">expected_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">InputValidationError</span>
+                    <span class="k">raise</span> <span class="n">InputValidationError</span><span class="p">(</span><span class="s2">&quot;Pass the expected range of the dummydata&quot;</span><span class="p">)</span>
+
+                <span class="n">expected_node_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">expected_data</span><span class="p">]</span>
+                <span class="n">result_node_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="n">result_name</span><span class="p">]]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected_node_uuids</span><span class="p">,</span> <span class="n">result_node_uuids</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="n">entity_type</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RESTApiTestSuite"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite">[docs]</a><span class="k">class</span> <span class="nc">RESTApiTestSuite</span><span class="p">(</span><span class="n">RESTApiTestCase</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=too-many-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define unittests for rest api</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_details"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_details">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requests the details of single computer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">),</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the full list of computers from database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?orderby=+id&quot;</span><span class="p">,</span> <span class="n">full_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_limit_offset"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_limit_offset">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_limit_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of computers from database using limit</span>
+<span class="sd">        and offset parameter.</span>
+<span class="sd">        It should return the no of rows specified in limit from</span>
+<span class="sd">        database starting from the no. specified in offset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?limit=2&amp;offset=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_range</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_limit_only"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_limit_only">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_limit_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of computers from database using limit</span>
+<span class="sd">        parameter.</span>
+<span class="sd">        It should return the no of rows specified in limit from</span>
+<span class="sd">        database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?limit=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_range</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_offset_only"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_offset_only">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_offset_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of computers from database using offset</span>
+<span class="sd">        parameter</span>
+<span class="sd">        It should return all the rows from database starting from</span>
+<span class="sd">        the no. specified in offset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?offset=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_range</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_limit_offset_perpage"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_limit_offset_perpage">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_limit_offset_perpage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If we pass the limit, offset and perpage at same time, it</span>
+<span class="sd">        would return the error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expected_error</span> <span class="o">=</span> <span class="s2">&quot;perpage key is incompatible with limit and offset&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?offset=2&amp;limit=1&amp;perpage=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_errormsg</span><span class="o">=</span><span class="n">expected_error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_page_limit_offset"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_page_limit_offset">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_page_limit_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If we use the page, limit and offset at same time, it</span>
+<span class="sd">        would return the error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expected_error</span> <span class="o">=</span> <span class="s2">&quot;requesting a specific page is incompatible with &quot;</span> \
+                         <span class="s2">&quot;limit and offset&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers/page/2?offset=2&amp;limit=1&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_errormsg</span><span class="o">=</span><span class="n">expected_error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_complist_pagelimitoffset_perpage"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_complist_pagelimitoffset_perpage">[docs]</a>    <span class="k">def</span> <span class="nf">test_complist_pagelimitoffset_perpage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If we use the page, limit, offset and perpage at same time, it</span>
+<span class="sd">        would return the error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expected_error</span> <span class="o">=</span> <span class="s2">&quot;perpage key is incompatible with limit and offset&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/computers/page/2?offset=2&amp;limit=1&amp;perpage=2&amp;orderby=+id&quot;</span><span class="p">,</span>
+            <span class="n">expected_errormsg</span><span class="o">=</span><span class="n">expected_error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_page_default"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_page_default">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_page_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        it returns the no. of rows defined as default perpage option</span>
+<span class="sd">        from database.</span>
+
+<span class="sd">        no.of pages = total no. of computers in database / perpage</span>
+<span class="sd">        &quot;/page&quot; acts as &quot;/page/1?perpage=default_value&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers/page?orderby=+id&quot;</span><span class="p">,</span> <span class="n">full_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_page_perpage"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_page_perpage">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_page_perpage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        no.of pages = total no. of computers in database / perpage</span>
+<span class="sd">        Using this formula it returns the no. of rows for requested page</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers/page/1?perpage=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_range</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_list_page_perpage_exceed"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_list_page_perpage_exceed">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_list_page_perpage_exceed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        no.of pages = total no. of computers in database / perpage</span>
+
+<span class="sd">        If we request the page which exceeds the total no. of pages then</span>
+<span class="sd">        it would return the error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expected_error</span> <span class="o">=</span> <span class="s2">&quot;Non existent page requested. The page range is [1 : &quot;</span> \
+                         <span class="s2">&quot;3]&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers/page/4?perpage=2&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_errormsg</span><span class="o">=</span><span class="n">expected_error</span><span class="p">)</span></div>
+
+    <span class="c1">############### list filters ########################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_id1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_id1">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_id1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter on the id of computer and get the filtered computer</span>
+<span class="sd">        list (e.g. id=1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?id=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">),</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_id2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_id2">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_id2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter on the id of computer and get the filtered computer</span>
+<span class="sd">        list (e.g. id &gt; 2)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?id&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_range</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_pk"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_pk">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_pk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter on the id of computer and get the filtered computer</span>
+<span class="sd">        list (e.g. id=1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?pk=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">),</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_name"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter for the name of computer and get the filtered computer</span>
+<span class="sd">        list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?name=&quot;test1&quot;&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_hostname"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_hostname">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_hostname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter for the hostname of computer and get the filtered computer</span>
+<span class="sd">        list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?hostname=&quot;test1.epfl.ch&quot;&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_transport_type"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_transport_type">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_transport_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter for the transport_type of computer and get the filtered</span>
+<span class="sd">        computer</span>
+<span class="sd">        list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?transport_type=&quot;local&quot;&amp;name=&quot;test3&quot;&amp;orderby=+id&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
+
+    <span class="c1">############### list orderby ########################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_id_asc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_id_asc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_id_asc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;id&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?orderby=id&quot;</span><span class="p">,</span> <span class="n">full_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_id_asc_sign"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_id_asc_sign">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_id_asc_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;+id&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?orderby=+id&quot;</span><span class="p">,</span> <span class="n">full_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_id_desc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_id_desc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_id_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;id&quot; in descending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?orderby=-id&quot;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_name_asc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_name_asc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_name_asc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;name&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=name&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_name_asc_sign"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_name_asc_sign">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_name_asc_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;+name&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=+name&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_name_desc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_name_desc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_name_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;name&quot; in descending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=-name&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_scheduler_type_asc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_scheduler_type_asc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_scheduler_type_asc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;scheduler_type&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?transport_type=&quot;ssh&quot;&amp;pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=scheduler_type&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_comp_orderby_scheduler_ascsign"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_comp_orderby_scheduler_ascsign">[docs]</a>    <span class="k">def</span> <span class="nf">test_comp_orderby_scheduler_ascsign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;+scheduler_type&quot; in ascending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?transport_type=&quot;ssh&quot;&amp;pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=+scheduler_type&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_schedulertype_desc"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_schedulertype_desc">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_schedulertype_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list ordered by &quot;scheduler_type&quot; in descending</span>
+<span class="sd">        order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;transport_type=&quot;ssh&quot;&amp;orderby=-scheduler_type&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
+
+    <span class="c1">############### list orderby combinations #######################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_mixed1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_mixed1">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_mixed1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list first order by &quot;transport_type&quot; in</span>
+<span class="sd">        ascending order and if it is having same transport_type, order it</span>
+<span class="sd">        by &quot;id&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=transport_type,id&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_mixed2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_mixed2">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_mixed2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list first order by &quot;scheduler_type&quot; in</span>
+<span class="sd">        descending order and if it is having same scheduler_type, order it</span>
+<span class="sd">        by &quot;name&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?pk&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;orderby=-scheduler_type,name&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_orderby_mixed3"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_orderby_mixed3">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_orderby_mixed3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the computers list first order by &quot;scheduler_type&quot; in</span>
+<span class="sd">        ascending order and if it is having same scheduler_type, order it</span>
+<span class="sd">        by &quot;hostname&quot; descending order</span>
+
+<span class="sd">        Response::</span>
+<span class="sd">        test4 slurm</span>
+<span class="sd">        test3 slurm</span>
+<span class="sd">        test2 torque</span>
+<span class="sd">        test1 pbspro</span>
+<span class="sd">        localhost pbspro</span>
+<span class="sd">        ==========</span>
+<span class="sd">        Expected::</span>
+<span class="sd">        test1 pbspro</span>
+<span class="sd">        localhost pbspro</span>
+<span class="sd">        test4 slurm</span>
+<span class="sd">        test3 slurm</span>
+<span class="sd">        test2 torque</span>
+<span class="sd">        test1 test4</span>
+
+
+<span class="sd">        RESTApiTestCase.process_test(self, &quot;computers&quot;,</span>
+<span class="sd">                                  &quot;/computers?orderby=+scheduler_type,</span>
+<span class="sd">                                  -hostname&quot;,</span>
+<span class="sd">                                  expected_list_ids=[1,0,4,3,2])</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="c1">############### list filter combinations #######################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_mixed1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_mixed1">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_mixed1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter for the hostname and id of computer and get the</span>
+<span class="sd">        filtered computer list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s1">&#39;/computers?id&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;hostname=&quot;test1.epfl.ch&quot;&#39;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_filter_mixed2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_filter_mixed2">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_filter_mixed2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add filter for the id, hostname and transport_type of the computer</span>
+<span class="sd">        and get the filtered computer list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?id&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;hostname=&quot;test3.epfl.ch&quot;&amp;transport_type=&quot;ssh&quot;&#39;</span><span class="p">,</span>
+            <span class="n">empty_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+    <span class="c1">############### list all parameter combinations #######################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_mixed1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_mixed1">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_mixed1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        url parameters: id, limit and offset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;/computers?id&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&amp;limit=2&amp;offset=3&quot;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_mixed2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_mixed2">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_mixed2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        url parameters: id, page, perpage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/computers/page/2?id&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&amp;perpage=2&amp;orderby=+id&quot;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_mixed3"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_mixed3">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_mixed3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        url parameters: id, transport_type, orderby</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;computers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;computers&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/computers?id&gt;=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_pk</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;transport_type=&quot;ssh&quot;&amp;orderby=-id&amp;limit=2&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></div>
+
+    <span class="c1">########## pass unknown url parameter ###########</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_computers_unknown_param"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_computers_unknown_param">[docs]</a>    <span class="k">def</span> <span class="nf">test_computers_unknown_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        url parameters: id, limit and offset</span>
+
+<span class="sd">        from aiida.common.exceptions import InputValidationError</span>
+<span class="sd">        RESTApiTestCase.node_exception(self, &quot;/computers?aa=bb&amp;id=2&quot;, InputValidationError)</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="c1">############### single calculation ########################</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculations_details"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculations_details">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculations_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requests the details of single calculation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="s2">&quot;/calculations/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">),</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+    <span class="c1">############### full list with limit, offset, page, perpage #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculations_list"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculations_list">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculations_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the full list of calculations from database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="s2">&quot;/calculations?orderby=-id&quot;</span><span class="p">,</span> <span class="n">full_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculations_list_limit_offset"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculations_list_limit_offset">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculations_list_limit_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of calculations from database using limit</span>
+<span class="sd">        and offset parameter.</span>
+<span class="sd">        It should return the no of rows specified in limit from</span>
+<span class="sd">        database starting from the no. specified in offset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="s2">&quot;/calculations?limit=1&amp;offset=1&amp;orderby=+id&quot;</span><span class="p">,</span> <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+    <span class="c1">############### calculation retrieved_inputs and retrieved_outputs  #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_retrieved_inputs"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_retrieved_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_retrieved_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of given calculation retrieved_inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/io/retrieved_inputs&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response_value</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response_value</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;retrieved_inputs&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;calcjob_inputs/aiida.in&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_retrieved_outputs"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_retrieved_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_retrieved_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of given calculation retrieved_outputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/io/retrieved_outputs&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response_value</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response_value</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;retrieved_outputs&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;calcjob_outputs/aiida.out&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calcfunction_retrieved_inputs"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calcfunction_retrieved_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_calcfunction_retrieved_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that the given calcfunction does not have retrieved_inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="s2">&quot;calculations&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/calculations/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/io/retrieved_inputs&quot;</span><span class="p">,</span>
+            <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">,</span>
+            <span class="n">result_name</span><span class="o">=</span><span class="s2">&quot;retrieved_inputs&quot;</span><span class="p">,</span>
+            <span class="n">empty_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calcfunction_retrieved_outputs"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calcfunction_retrieved_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_calcfunction_retrieved_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that the given calcfunction does not have retrieved_outputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="s2">&quot;calculations&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/calculations/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/io/retrieved_outputs&quot;</span><span class="p">,</span>
+            <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">,</span>
+            <span class="n">result_name</span><span class="o">=</span><span class="s2">&quot;retrieved_outputs&quot;</span><span class="p">,</span>
+            <span class="n">empty_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+    <span class="c1">############### calculation inputs  #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_inputs"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of give calculation inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="s2">&quot;calculations&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/calculations/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/io/inputs?orderby=id&quot;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">,</span>
+            <span class="n">result_node_type</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">result_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_input_filters"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_input_filters">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_input_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get filtered inputs list for given calculations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_test</span><span class="p">(</span>
+            <span class="s2">&quot;calculations&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/io/inputs?node_type=&quot;data.dict.Dict.&quot;&#39;</span><span class="p">,</span>
+            <span class="n">expected_list_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">,</span>
+            <span class="n">result_node_type</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">result_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_iotree"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_iotree">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_iotree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get filtered inputs list for given calculations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/io/tree?in_limit=1&amp;out_limit=1&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response_value</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response_value</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;nodes&quot;</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;edges&quot;</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">expected_attr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nodelabel&quot;</span><span class="p">,</span> <span class="s2">&quot;nodetype&quot;</span><span class="p">,</span> <span class="s2">&quot;linklabel&quot;</span><span class="p">,</span> <span class="s2">&quot;linktype&quot;</span><span class="p">,</span> <span class="s2">&quot;nodeuuid&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">]</span>
+            <span class="n">received_attr</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;nodes&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">expected_attr</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">received_attr</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+    <span class="c1">############### calculation attributes #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get list of calculation attributes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;attr1&#39;</span><span class="p">:</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;attr2&#39;</span><span class="p">:</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;resources&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;/calculations/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/content/attributes&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;attributes&quot;</span><span class="p">],</span> <span class="n">attributes</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_attributes_nalist_filter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_attributes_nalist_filter">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_attributes_nalist_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get list of calculation attributes with filter nalist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;attr2&#39;</span><span class="p">:</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;resources&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/content/attributes?nalist=&quot;attr1&quot;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;attributes&quot;</span><span class="p">],</span> <span class="n">attributes</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_calculation_attributes_alist_filter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_calculation_attributes_alist_filter">[docs]</a>    <span class="k">def</span> <span class="nf">test_calculation_attributes_alist_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get list of calculation attributes with filter alist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;calculations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/calculations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/content/attributes?alist=&quot;attr1&quot;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;attributes&quot;</span><span class="p">],</span> <span class="p">{</span><span class="s1">&#39;attr1&#39;</span><span class="p">:</span> <span class="s1">&#39;OK&#39;</span><span class="p">})</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+    <span class="c1">############### Structure visualization and download #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_structure_visualization"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_structure_visualization">[docs]</a>    <span class="k">def</span> <span class="nf">test_structure_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of give calculation inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.tests.test_dataclasses</span> <span class="k">import</span> <span class="n">simplify</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;structuredata&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/structures/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/content/visualization?visformat=cif&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+            <span class="n">expected_visdata</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2">##########################################################################</span><span class="se">\n</span><span class="s2">#               Crystallographic Information Format file </span><span class="se">\n</span><span class="s2">#               Produced by PyCifRW module</span><span class="se">\n</span><span class="s2"># </span><span class="se">\n</span><span class="s2">#  This is a CIF file.  CIF has been adopted by the International</span><span class="se">\n</span><span class="s2">#  Union of Crystallography as the standard for data archiving and </span><span class="se">\n</span><span class="s2">#  transmission.</span><span class="se">\n</span><span class="s2">#</span><span class="se">\n</span><span class="s2">#  For information on this file format, follow the CIF links at</span><span class="se">\n</span><span class="s2">#  http://www.iucr.org</span><span class="se">\n</span><span class="s2">##########################################################################</span><span class="se">\n\n</span><span class="s2">data_0</span><span class="se">\n</span><span class="s2">loop_</span><span class="se">\n</span><span class="s2">  _atom_site_label</span><span class="se">\n</span><span class="s2">  _atom_site_fract_x</span><span class="se">\n</span><span class="s2">  _atom_site_fract_y</span><span class="se">\n</span><span class="s2">  _atom_site_fract_z</span><span class="se">\n</span><span class="s2">  _atom_site_type_symbol</span><span class="se">\n</span><span class="s2">   Ba1  0.0  0.0  0.0  Ba</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2">_cell_angle_alpha                       90.0</span><span class="se">\n</span><span class="s2">_cell_angle_beta                        90.0</span><span class="se">\n</span><span class="s2">_cell_angle_gamma                       90.0</span><span class="se">\n</span><span class="s2">_cell_length_a                          2.0</span><span class="se">\n</span><span class="s2">_cell_length_b                          2.0</span><span class="se">\n</span><span class="s2">_cell_length_c                          2.0</span><span class="se">\n</span><span class="s2">loop_</span><span class="se">\n</span><span class="s2">  _symmetry_equiv_pos_as_xyz</span><span class="se">\n</span><span class="s2">   &#39;x, y, z&#39;</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2">_symmetry_int_tables_number             1</span><span class="se">\n</span><span class="s2">_symmetry_space_group_name_H-M          &#39;P 1&#39;</span><span class="se">\n</span><span class="s2">&quot;&quot;&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+                <span class="n">simplify</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]),</span> <span class="n">simplify</span><span class="p">(</span><span class="n">expected_visdata</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;format&quot;</span><span class="p">],</span> <span class="s2">&quot;cif&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;dimensionality&quot;</span><span class="p">],</span> <span class="p">{</span>
+                <span class="sa">u</span><span class="s1">&#39;dim&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">8.0</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;volume&#39;</span>
+            <span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;pbc&quot;</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;formula&quot;</span><span class="p">],</span> <span class="s2">&quot;Ba&quot;</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;structures&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_xsf_visualization"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_xsf_visualization">[docs]</a>    <span class="k">def</span> <span class="nf">test_xsf_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of given calculation inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.tests.test_dataclasses</span> <span class="k">import</span> <span class="n">simplify</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;structuredata&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/structures/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/content/visualization?visformat=xsf&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+            <span class="n">expected_visdata</span> <span class="o">=</span> <span class="s2">&quot;CRYSTAL</span><span class="se">\n</span><span class="s2">PRIMVEC 1</span><span class="se">\n</span><span class="s2">      2.0000000000       0.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">      0.0000000000       2.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">      0.0000000000       0.0000000000       2.0000000000</span><span class="se">\n</span><span class="s2">PRIMCOORD 1</span><span class="se">\n</span><span class="s2">1 1</span><span class="se">\n</span><span class="s2">56       0.0000000000       0.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+                <span class="n">simplify</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]),</span> <span class="n">simplify</span><span class="p">(</span><span class="n">expected_visdata</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;format&quot;</span><span class="p">],</span> <span class="s2">&quot;xsf&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;dimensionality&quot;</span><span class="p">],</span> <span class="p">{</span>
+                <span class="sa">u</span><span class="s1">&#39;dim&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">8.0</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;volume&#39;</span>
+            <span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;pbc&quot;</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;formula&quot;</span><span class="p">],</span> <span class="s2">&quot;Ba&quot;</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;structures&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_visualization"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_visualization">[docs]</a>    <span class="k">def</span> <span class="nf">test_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of given calculation inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.tests.test_dataclasses</span> <span class="k">import</span> <span class="n">simplify</span>
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;structuredata&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/structures/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/content/visualization&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+            <span class="n">expected_visdata</span> <span class="o">=</span> <span class="s2">&quot;CRYSTAL</span><span class="se">\n</span><span class="s2">PRIMVEC 1</span><span class="se">\n</span><span class="s2">      2.0000000000       0.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">      0.0000000000       2.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">      0.0000000000       0.0000000000       2.0000000000</span><span class="se">\n</span><span class="s2">PRIMCOORD 1</span><span class="se">\n</span><span class="s2">1 1</span><span class="se">\n</span><span class="s2">56       0.0000000000       0.0000000000       0.0000000000</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+                <span class="n">simplify</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]),</span> <span class="n">simplify</span><span class="p">(</span><span class="n">expected_visdata</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;str_viz_info&quot;</span><span class="p">][</span><span class="s2">&quot;format&quot;</span><span class="p">],</span> <span class="s2">&quot;xsf&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;dimensionality&quot;</span><span class="p">],</span> <span class="p">{</span>
+                <span class="sa">u</span><span class="s1">&#39;dim&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">8.0</span><span class="p">,</span>
+                <span class="sa">u</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;volume&#39;</span>
+            <span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;pbc&quot;</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;visualization&quot;</span><span class="p">][</span><span class="s2">&quot;formula&quot;</span><span class="p">],</span> <span class="s2">&quot;Ba&quot;</span><span class="p">)</span>
+            <span class="n">RESTApiTestCase</span><span class="o">.</span><span class="n">compare_extra_response_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;structures&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RESTApiTestSuite.test_cif"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_cif">[docs]</a>    <span class="k">def</span> <span class="nf">test_cif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test download of cif file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">load_node</span>
+
+        <span class="n">node_uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_data</span><span class="p">()[</span><span class="s2">&quot;cifdata&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/cifs/&#39;</span> <span class="o">+</span> <span class="n">node_uuid</span> <span class="o">+</span> <span class="s1">&#39;/content/download&#39;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="n">cif</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="n">node_uuid</span><span class="p">)</span><span class="o">.</span><span class="n">_prepare_cif</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># pylint: disable=protected-access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cif</span><span class="p">)</span></div>
+
+    <span class="c1">############### schema #############</span>
+<div class="viewcode-block" id="RESTApiTestSuite.test_schema"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_restapi.RESTApiTestSuite.test_schema">[docs]</a>    <span class="k">def</span> <span class="nf">test_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        test schema</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">nodetype</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="s2">&quot;calculations&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;codes&quot;</span><span class="p">,</span> <span class="s2">&quot;computers&quot;</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">,</span> <span class="s2">&quot;groups&quot;</span><span class="p">]:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_prefix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">nodetype</span> <span class="o">+</span> <span class="s1">&#39;/schema&#39;</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+                <span class="n">rv_obj</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rv_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+                <span class="n">expected_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;display_name&quot;</span><span class="p">,</span> <span class="s2">&quot;help_text&quot;</span><span class="p">,</span> <span class="s2">&quot;is_display&quot;</span><span class="p">,</span> <span class="s2">&quot;is_foreign_key&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">]</span>
+
+                <span class="c1"># check fields</span>
+                <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pinfo</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">available_keys</span> <span class="o">=</span> <span class="n">pinfo</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">expected_keys</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">available_keys</span><span class="p">)</span>
+
+                <span class="c1"># check order</span>
+                <span class="n">available_properties</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;ordering&quot;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">available_properties</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

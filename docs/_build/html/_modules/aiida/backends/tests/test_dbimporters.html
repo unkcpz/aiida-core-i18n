@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.test_dbimporters &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.test_dbimporters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.test_dbimporters</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tests for subclasses of DbImporter, DbSearchResults and DbEntry</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+
+
+<div class="viewcode-block" id="TestCodDbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestCodDbImporter">[docs]</a><span class="k">class</span> <span class="nc">TestCodDbImporter</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the CodDbImporter class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.cif</span> <span class="k">import</span> <span class="n">has_pycifrw</span>
+
+<div class="viewcode-block" id="TestCodDbImporter.test_query_construction_1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestCodDbImporter.test_query_construction_1">[docs]</a>    <span class="k">def</span> <span class="nf">test_query_construction_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.cod</span> <span class="k">import</span> <span class="n">CodDbImporter</span>
+        <span class="kn">import</span> <span class="nn">re</span>
+
+        <span class="n">codi</span> <span class="o">=</span> <span class="n">CodDbImporter</span><span class="p">()</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">codi</span><span class="o">.</span><span class="n">query_sql</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;1000000&quot;</span><span class="p">,</span> <span class="mi">3000000</span><span class="p">],</span>
+                           <span class="n">element</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;Cl&quot;</span><span class="p">],</span>
+                           <span class="n">number_of_elements</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                           <span class="n">chemical_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;caffeine&quot;</span><span class="p">,</span> <span class="s2">&quot;serotonine&quot;</span><span class="p">],</span>
+                           <span class="n">formula</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C6 H6&quot;</span><span class="p">],</span>
+                           <span class="n">volume</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mf">120.005</span><span class="p">],</span>
+                           <span class="n">spacegroup</span><span class="o">=</span><span class="s2">&quot;P -1&quot;</span><span class="p">,</span>
+                           <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mf">10.0</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                           <span class="n">alpha</span><span class="o">=</span><span class="p">[</span><span class="mf">10.0</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="n">measurement_temp</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">],</span>
+                           <span class="n">measurement_pressure</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1001</span><span class="p">],</span>
+                           <span class="n">determination_method</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;single crystal&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+
+        <span class="c1"># Rounding errors occurr in Python 2 and Python 3 thus they are averted using</span>
+        <span class="c1"># the following precision stripping regular expressions.</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d\.\d</span><span class="si">{6}</span><span class="s1">)\d+&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(120.00)39+&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt;4&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> \
+                          <span class="s2">&quot;SELECT file, svnrevision FROM data WHERE &quot;</span>
+                          <span class="s2">&quot;(status IS NULL OR status != &#39;retracted&#39;) AND &quot;</span>
+                          <span class="s2">&quot;(a BETWEEN 3.332333 AND 3.334333 OR &quot;</span>
+                          <span class="s2">&quot;a BETWEEN 0.999 AND 1.001) AND &quot;</span>
+                          <span class="s2">&quot;(alpha BETWEEN 1.665666 AND 1.667666 OR &quot;</span>
+                          <span class="s2">&quot;alpha BETWEEN -0.001 AND 0.001) AND &quot;</span>
+                          <span class="s2">&quot;(chemname LIKE &#39;</span><span class="si">%c</span><span class="s2">affeine%&#39; OR &quot;</span>
+                          <span class="s2">&quot;chemname LIKE &#39;</span><span class="si">%s</span><span class="s2">erotonine%&#39;) AND &quot;</span>
+                          <span class="s2">&quot;(method IN (&#39;single crystal&#39;) OR method IS NULL) AND &quot;</span>
+                          <span class="s2">&quot;(formula REGEXP &#39; C[0-9 ]&#39; AND &quot;</span>
+                          <span class="s2">&quot;formula REGEXP &#39; H[0-9 ]&#39; AND &quot;</span>
+                          <span class="s2">&quot;formula REGEXP &#39; Cl[0-9 ]&#39;) AND &quot;</span>
+                          <span class="s2">&quot;(formula IN (&#39;- C6 H6 -&#39;)) AND &quot;</span>
+                          <span class="s2">&quot;(file IN (1000000, 3000000)) AND &quot;</span>
+                          <span class="s2">&quot;(cellpressure BETWEEN 999 AND 1001 OR &quot;</span>
+                          <span class="s2">&quot;cellpressure BETWEEN 1000 AND 1002) AND &quot;</span>
+                          <span class="s2">&quot;(celltemp BETWEEN -0.001 AND 0.001 OR &quot;</span>
+                          <span class="s2">&quot;celltemp BETWEEN 10.499 AND 10.501) AND &quot;</span>
+                          <span class="s2">&quot;(nel IN (5)) AND (sg IN (&#39;P -1&#39;)) AND &quot;</span>
+                          <span class="s2">&quot;(vol BETWEEN 99.999 AND 100.001 OR &quot;</span>
+                          <span class="s2">&quot;vol BETWEEN 120.004 AND 120.006)&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCodDbImporter.test_datatype_checks"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestCodDbImporter.test_datatype_checks">[docs]</a>    <span class="k">def</span> <span class="nf">test_datatype_checks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rather complicated, but wide-coverage test for data types, accepted</span>
+<span class="sd">        and rejected by CodDbImporter._*_clause methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.cod</span> <span class="k">import</span> <span class="n">CodDbImporter</span>
+
+        <span class="n">codi</span> <span class="o">=</span> <span class="n">CodDbImporter</span><span class="p">()</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;incorrect value for keyword &#39;test&#39; -- &quot;</span> <span class="o">+</span> \
+                    <span class="s2">&quot;only integers and strings are accepted&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;incorrect value for keyword &#39;test&#39; -- &quot;</span> <span class="o">+</span> \
+                    <span class="s2">&quot;only strings are accepted&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;incorrect value for keyword &#39;test&#39; -- &quot;</span> <span class="o">+</span> \
+                    <span class="s2">&quot;only integers and floats are accepted&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;invalid literal for int() with base 10: &#39;text&#39;&quot;</span><span class="p">]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+        <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">codi</span><span class="o">.</span><span class="n">_int_clause</span><span class="p">,</span>
+                   <span class="n">codi</span><span class="o">.</span><span class="n">_str_exact_clause</span><span class="p">,</span>
+                   <span class="n">codi</span><span class="o">.</span><span class="n">_formula_clause</span><span class="p">,</span>
+                   <span class="n">codi</span><span class="o">.</span><span class="n">_str_fuzzy_clause</span><span class="p">,</span>
+                   <span class="n">codi</span><span class="o">.</span><span class="n">_composition_clause</span><span class="p">,</span>
+                   <span class="n">codi</span><span class="o">.</span><span class="n">_volume_clause</span><span class="p">]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">methods</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">messages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">methods</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="n">j</span><span class="p">]])</span>
+                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">messages</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]])</span></div>
+
+<div class="viewcode-block" id="TestCodDbImporter.test_dbentry_creation"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestCodDbImporter.test_dbentry_creation">[docs]</a>    <span class="k">def</span> <span class="nf">test_dbentry_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of CodEntry from CodSearchResults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.cod</span> \
+            <span class="kn">import</span> <span class="nn">CodSearchResults</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">CodSearchResults</span><span class="p">([{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;1000000&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                                    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;1000001&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">},</span>
+                                    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;2000000&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">}])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Crystallography Open Database&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/cod&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;1000001&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="s1">&#39;CC0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/cod/1000001.cif@1234&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+                          <span class="p">[</span><span class="s2">&quot;http://www.crystallography.net/cod/1000000.cif&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;http://www.crystallography.net/cod/1000001.cif@1234&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;http://www.crystallography.net/cod/2000000.cif@1234&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestCodDbImporter.test_dbentry_to_cif_node"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestCodDbImporter.test_dbentry_to_cif_node">[docs]</a>    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skipIf</span><span class="p">(</span><span class="ow">not</span> <span class="n">has_pycifrw</span><span class="p">(),</span> <span class="s2">&quot;Unable to import PyCifRW&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_dbentry_to_cif_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of CifData node from CodEntry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">CifData</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.cod</span> <span class="k">import</span> <span class="n">CodEntry</span>
+
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">CodEntry</span><span class="p">(</span><span class="s2">&quot;http://www.crystallography.net/cod/1000000.cif&quot;</span><span class="p">)</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">cif</span> <span class="o">=</span> <span class="s2">&quot;data_test _publ_section_title &#39;Test structure&#39;&quot;</span>
+
+        <span class="n">cif</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get_cif_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">cif</span><span class="p">,</span> <span class="n">CifData</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">cif</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">),</span>
+                          <span class="s1">&#39;070711e8e99108aade31d20cd5c94c48&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">cif</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Crystallography Open Database&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/cod&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="s1">&#39;070711e8e99108aade31d20cd5c94c48&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/cod/1000000.cif&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="s1">&#39;CC0&#39;</span><span class="p">,</span>
+        <span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="TestTcodDbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestTcodDbImporter">[docs]</a><span class="k">class</span> <span class="nc">TestTcodDbImporter</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the TcodDbImporter class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestTcodDbImporter.test_dbentry_creation"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestTcodDbImporter.test_dbentry_creation">[docs]</a>    <span class="k">def</span> <span class="nf">test_dbentry_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of TcodEntry from TcodSearchResults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.tcod</span> <span class="k">import</span> <span class="n">TcodSearchResults</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">TcodSearchResults</span><span class="p">([{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;10000000&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                                     <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;10000001&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">},</span>
+                                     <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;20000000&#39;</span><span class="p">,</span> <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">}])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Theoretical Crystallography Open Database&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/tcod&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;10000001&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="s1">&#39;CC0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/tcod/10000001.cif@1234&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+                          <span class="p">[</span><span class="s2">&quot;http://www.crystallography.net/tcod/10000000.cif&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;http://www.crystallography.net/tcod/10000001.cif@1234&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;http://www.crystallography.net/tcod/20000000.cif@1234&quot;</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="TestPcodDbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestPcodDbImporter">[docs]</a><span class="k">class</span> <span class="nc">TestPcodDbImporter</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the PcodDbImporter class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestPcodDbImporter.test_dbentry_creation"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestPcodDbImporter.test_dbentry_creation">[docs]</a>    <span class="k">def</span> <span class="nf">test_dbentry_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of PcodEntry from PcodSearchResults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.pcod</span> <span class="k">import</span> <span class="n">PcodSearchResults</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">PcodSearchResults</span><span class="p">([{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;12345678&#39;</span><span class="p">}])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Predicted Crystallography Open Database&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/pcod&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;12345678&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="s1">&#39;CC0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.crystallography.net/pcod/cif/1/123/12345678.cif&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="TestMpodDbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestMpodDbImporter">[docs]</a><span class="k">class</span> <span class="nc">TestMpodDbImporter</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the MpodDbImporter class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestMpodDbImporter.test_dbentry_creation"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestMpodDbImporter.test_dbentry_creation">[docs]</a>    <span class="k">def</span> <span class="nf">test_dbentry_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of MpodEntry from MpodSearchResults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.mpod</span> <span class="k">import</span> <span class="n">MpodSearchResults</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">MpodSearchResults</span><span class="p">([{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;1234567&#39;</span><span class="p">}])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Material Properties Open Database&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://mpod.cimav.edu.mx&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;1234567&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://mpod.cimav.edu.mx/datafiles/1234567.mpod&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="TestNnincDbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestNnincDbImporter">[docs]</a><span class="k">class</span> <span class="nc">TestNnincDbImporter</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the UpfEntry class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestNnincDbImporter.test_upfentry_creation"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_dbimporters.TestNnincDbImporter.test_upfentry_creation">[docs]</a>    <span class="k">def</span> <span class="nf">test_upfentry_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the creation of NnincEntry from NnincSearchResults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+
+        <span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.plugins.nninc</span> <span class="k">import</span> <span class="n">NnincSearchResults</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ParsingError</span>
+        <span class="kn">import</span> <span class="nn">aiida</span>
+
+        <span class="n">upf</span> <span class="o">=</span> <span class="s1">&#39;Ba.pbesol-spn-rrkjus_psl.0.2.3-tot-pslib030&#39;</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">NnincSearchResults</span><span class="p">([{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">upf</span><span class="p">}])</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">path_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">aiida</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">path_pseudos</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_root</span><span class="p">,</span> <span class="s1">&#39;backends&#39;</span><span class="p">,</span> <span class="s1">&#39;tests&#39;</span><span class="p">,</span> <span class="s1">&#39;fixtures&#39;</span><span class="p">,</span> <span class="s1">&#39;pseudos&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_pseudos</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.UPF&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">upf</span><span class="p">)),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">entry</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">upfnode</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get_upf_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">upfnode</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="s1">&#39;Ba&#39;</span><span class="p">)</span>
+
+        <span class="n">entry</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;O.pbesol-n-rrkjus_psl.0.1-tested-pslib030.UPF&#39;</span><span class="p">}</span>
+
+        <span class="c1"># get_upf_node() will name pseudopotential file after source[&#39;id&#39;],</span>
+        <span class="c1"># thus UpfData parser will complain about the mismatch of chemical</span>
+        <span class="c1"># element, mentioned in file name, and the one described in the</span>
+        <span class="c1"># pseudopotential file.</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">ParsingError</span><span class="p">):</span>
+            <span class="n">upfnode</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get_upf_node</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,910 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.engine.daemon package &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>aiida.engine.daemon package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apidoc/aiida.engine.daemon.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aiida.engine.daemon">
+<span id="aiida-engine-daemon-package"></span><h1>aiida.engine.daemon package<a class="headerlink" href="#module-aiida.engine.daemon" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-aiida.engine.daemon.client">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-aiida.engine.daemon.client" title="Permalink to this headline">¶</a></h2>
+<p>Controls the daemon</p>
+<dl class="class">
+<dt id="aiida.engine.daemon.client.ControllerProtocol">
+<em class="property">class </em><code class="descclassname">aiida.engine.daemon.client.</code><code class="descname">ControllerProtocol</code><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#ControllerProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.ControllerProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>The protocol to use to for the controller of the Circus daemon</p>
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.ControllerProtocol.IPC">
+<code class="descname">IPC</code><em class="property"> = 0</em><a class="headerlink" href="#aiida.engine.daemon.client.ControllerProtocol.IPC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.ControllerProtocol.TCP">
+<code class="descname">TCP</code><em class="property"> = 1</em><a class="headerlink" href="#aiida.engine.daemon.client.ControllerProtocol.TCP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.ControllerProtocol.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.engine.daemon.client'</em><a class="headerlink" href="#aiida.engine.daemon.client.ControllerProtocol.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.engine.daemon.client.DaemonClient">
+<em class="property">class </em><code class="descclassname">aiida.engine.daemon.client.</code><code class="descname">DaemonClient</code><span class="sig-paren">(</span><em>profile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Extension of the Profile which also provides handles to retrieve profile specific
+properties related to the daemon client</p>
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.DAEMON_ERROR_NOT_RUNNING">
+<code class="descname">DAEMON_ERROR_NOT_RUNNING</code><em class="property"> = 'daemon-error-not-running'</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.DAEMON_ERROR_NOT_RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.DAEMON_ERROR_TIMEOUT">
+<code class="descname">DAEMON_ERROR_TIMEOUT</code><em class="property"> = 'daemon-error-timeout'</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.DAEMON_ERROR_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient._DAEMON_NAME">
+<code class="descname">_DAEMON_NAME</code><em class="property"> = 'aiida-{name}'</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient._DAEMON_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient._DEFAULT_LOGLEVEL">
+<code class="descname">_DEFAULT_LOGLEVEL</code><em class="property"> = 'INFO'</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient._DEFAULT_LOGLEVEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient._ENDPOINT_PROTOCOL">
+<code class="descname">_ENDPOINT_PROTOCOL</code><em class="property"> = 0</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient._ENDPOINT_PROTOCOL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.engine.daemon.client', '__doc__': '\n    Extension of the Profile which also provides handles to retrieve profile specific\n    properties related to the daemon client\n    ', 'DAEMON_ERROR_NOT_RUNNING': 'daemon-error-not-running', 'DAEMON_ERROR_TIMEOUT': 'daemon-error-timeout', '_DAEMON_NAME': 'aiida-{name}', '_DEFAULT_LOGLEVEL': 'INFO', '_ENDPOINT_PROTOCOL': &lt;ControllerProtocol.IPC: 0&gt;, '__init__': &lt;function DaemonClient.__init__&gt;, 'profile': &lt;property object&gt;, 'daemon_name': &lt;property object&gt;, 'cmd_string': &lt;property object&gt;, 'loglevel': &lt;property object&gt;, 'virtualenv': &lt;property object&gt;, 'circus_log_file': &lt;property object&gt;, 'circus_pid_file': &lt;property object&gt;, 'circus_port_file': &lt;property object&gt;, 'circus_socket_file': &lt;property object&gt;, 'circus_socket_endpoints': &lt;property object&gt;, 'daemon_log_file': &lt;property object&gt;, 'daemon_pid_file': &lt;property object&gt;, 'get_circus_port': &lt;function DaemonClient.get_circus_port&gt;, 'get_circus_socket_directory': &lt;function DaemonClient.get_circus_socket_directory&gt;, 'get_daemon_pid': &lt;function DaemonClient.get_daemon_pid&gt;, 'is_daemon_running': &lt;property object&gt;, 'delete_circus_socket_directory': &lt;function DaemonClient.delete_circus_socket_directory&gt;, 'get_available_port': &lt;classmethod object&gt;, 'get_controller_endpoint': &lt;function DaemonClient.get_controller_endpoint&gt;, 'get_pubsub_endpoint': &lt;function DaemonClient.get_pubsub_endpoint&gt;, 'get_stats_endpoint': &lt;function DaemonClient.get_stats_endpoint&gt;, 'get_ipc_endpoint': &lt;function DaemonClient.get_ipc_endpoint&gt;, 'get_tcp_endpoint': &lt;function DaemonClient.get_tcp_endpoint&gt;, 'client': &lt;property object&gt;, 'call_client': &lt;function DaemonClient.call_client&gt;, 'get_status': &lt;function DaemonClient.get_status&gt;, 'get_numprocesses': &lt;function DaemonClient.get_numprocesses&gt;, 'get_worker_info': &lt;function DaemonClient.get_worker_info&gt;, 'get_daemon_info': &lt;function DaemonClient.get_daemon_info&gt;, 'increase_workers': &lt;function DaemonClient.increase_workers&gt;, 'decrease_workers': &lt;function DaemonClient.decrease_workers&gt;, 'stop_daemon': &lt;function DaemonClient.stop_daemon&gt;, 'restart_daemon': &lt;function DaemonClient.restart_daemon&gt;, '__dict__': &lt;attribute '__dict__' of 'DaemonClient' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'DaemonClient' objects&gt;})</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>profile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a DaemonClient instance for a given profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> – the profile instance <a class="reference internal" href="aiida.manage.configuration.html#aiida.manage.configuration.profile.Profile" title="aiida.manage.configuration.profile.Profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.manage.configuration.profile.Profile</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.engine.daemon.client'</em><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.call_client">
+<code class="descname">call_client</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.call_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.call_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the client with a specific command. Will check whether the daemon is running first
+by checking for the pid file. When the pid is found yet the call still fails with a
+timeout, this means the daemon was actually not running and it was terminated unexpectedly
+causing the pid file to not be cleaned up properly</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> – command to call the circus client with</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the result of the circus client call</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.circus_log_file">
+<code class="descname">circus_log_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.circus_log_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.circus_pid_file">
+<code class="descname">circus_pid_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.circus_pid_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.circus_port_file">
+<code class="descname">circus_port_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.circus_port_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.circus_socket_endpoints">
+<code class="descname">circus_socket_endpoints</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.circus_socket_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.circus_socket_file">
+<code class="descname">circus_socket_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.circus_socket_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.client">
+<code class="descname">client</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an instance of the CircusClient with the endpoint defined by the controller endpoint, which
+used the port that was written to the port file upon starting of the daemon</p>
+<p>N.B. This is quite slow the first time it is run due to the import of zmq.ssh
+in circus/utils.py in circus 0.15.0, which ultimately follows the import of CircusClient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">CircusClient instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.cmd_string">
+<code class="descname">cmd_string</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.cmd_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the command string to start the AiiDA daemon</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.daemon_log_file">
+<code class="descname">daemon_log_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.daemon_log_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.daemon_name">
+<code class="descname">daemon_name</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.daemon_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the daemon name which is tied to the profile name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.daemon_pid_file">
+<code class="descname">daemon_pid_file</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.daemon_pid_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.decrease_workers">
+<code class="descname">decrease_workers</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.decrease_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.decrease_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrease the number of workers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>number</strong> – the number of workers to remove</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.delete_circus_socket_directory">
+<code class="descname">delete_circus_socket_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.delete_circus_socket_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.delete_circus_socket_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to delete the directory used to store the circus endpoint sockets. Will not raise if the
+directory does not exist</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_available_port">
+<em class="property">classmethod </em><code class="descname">get_available_port</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_available_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_available_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an available port from the operating system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a currently available port</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_circus_port">
+<code class="descname">get_circus_port</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_circus_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_circus_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the port for the circus controller, which should be written to the circus port file. If the
+daemon is running, the port file should exist and contain the port to which the controller is connected.
+If it cannot be read, a RuntimeError will be thrown. If the daemon is not running, an available port
+will be requested from the operating system, written to the port file and returned</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the port for the circus controller</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_circus_socket_directory">
+<code class="descname">get_circus_socket_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_circus_socket_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_circus_socket_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the absolute path of the directory where the circus sockets are stored if the IPC protocol is
+used and the daemon is running. If the daemon is running, the sockets file should exist and contain the
+absolute path of the directory that contains the sockets of the circus endpoints. If it cannot be read,
+a RuntimeError will be thrown. If the daemon is not running, a temporary directory will be created and
+its path will be written to the sockets file and returned.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A temporary folder needs to be used for the sockets because UNIX limits the filepath length to
+107 bytes. Placing the socket files in the AiiDA config folder might seem like the more logical choice
+but that folder can be placed in an arbitrarily nested directory, the socket filename will exceed the
+limit. The solution is therefore to always store them in the temporary directory of the operation system
+whose base path is typically short enough as to not exceed the limit</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the absolute path of directory to write the sockets to</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_controller_endpoint">
+<code class="descname">get_controller_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_controller_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_controller_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the endpoint string for the circus controller. For the IPC protocol a profile specific
+socket will be used, whereas for the TCP protocol an available port will be found and
+saved in the profile specific port file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the endpoint string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_daemon_info">
+<code class="descname">get_daemon_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_daemon_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_daemon_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get statistics about this daemon itself</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_daemon_pid">
+<code class="descname">get_daemon_pid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_daemon_pid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_daemon_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the daemon pid which should be written in the daemon pid file specific to the profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the pid of the circus daemon process or None if not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_ipc_endpoint">
+<code class="descname">get_ipc_endpoint</code><span class="sig-paren">(</span><em>endpoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_ipc_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_ipc_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ipc endpoint string for a circus daemon endpoint for a given socket</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>endpoint</strong> – the circus endpoint for which to return a socket</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the ipc endpoint string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_numprocesses">
+<code class="descname">get_numprocesses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_numprocesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_numprocesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of running daemon processes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_pubsub_endpoint">
+<code class="descname">get_pubsub_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_pubsub_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_pubsub_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the endpoint string for the circus pubsub endpoint. For the IPC protocol a profile specific
+socket will be used, whereas for the TCP protocol any available port will be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the endpoint string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_stats_endpoint">
+<code class="descname">get_stats_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_stats_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_stats_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the endpoint string for the circus stats endpoint. For the IPC protocol a profile specific
+socket will be used, whereas for the TCP protocol any available port will be used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the endpoint string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_status">
+<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the daemon running status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_tcp_endpoint">
+<code class="descname">get_tcp_endpoint</code><span class="sig-paren">(</span><em>port=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_tcp_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_tcp_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the tcp endpoint string for a circus daemon endpoint. If the port is unspecified,
+the operating system will be asked for a currently available port.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>port</strong> – a port to use for the endpoint</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the tcp endpoint string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.get_worker_info">
+<code class="descname">get_worker_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.get_worker_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.get_worker_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get workers statistics for this daemon</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.increase_workers">
+<code class="descname">increase_workers</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.increase_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.increase_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase the number of workers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>number</strong> – the number of workers to add</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.is_daemon_running">
+<code class="descname">is_daemon_running</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.is_daemon_running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the daemon is running, which is determined by seeing if the daemon pid file is present</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if daemon is running, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.loglevel">
+<code class="descname">loglevel</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.loglevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.profile">
+<code class="descname">profile</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.restart_daemon">
+<code class="descname">restart_daemon</code><span class="sig-paren">(</span><em>wait</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.restart_daemon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.restart_daemon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart the daemon</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> – boolean to indicate whether to wait for the result of the command</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.engine.daemon.client.DaemonClient.stop_daemon">
+<code class="descname">stop_daemon</code><span class="sig-paren">(</span><em>wait</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#DaemonClient.stop_daemon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.stop_daemon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the daemon</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> – boolean to indicate whether to wait for the result of the command</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the client call response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.engine.daemon.client.DaemonClient.virtualenv">
+<code class="descname">virtualenv</code><a class="headerlink" href="#aiida.engine.daemon.client.DaemonClient.virtualenv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.client.get_daemon_client">
+<code class="descclassname">aiida.engine.daemon.client.</code><code class="descname">get_daemon_client</code><span class="sig-paren">(</span><em>profile_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/client.html#get_daemon_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.client.get_daemon_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the daemon client for the given profile or the current profile if not specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>profile_name</strong> – the profile name, will use the current profile if None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the daemon client</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#aiida.engine.daemon.client.DaemonClient" title="aiida.engine.daemon.client.DaemonClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.engine.daemon.client.DaemonClient</span></code></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="aiida.common.html#aiida.common.MissingConfigurationError" title="aiida.common.MissingConfigurationError"><strong>aiida.common.MissingConfigurationError</strong></a> – if the configuration file cannot be found</li>
+<li><a class="reference internal" href="aiida.common.html#aiida.common.ProfileConfigurationError" title="aiida.common.ProfileConfigurationError"><strong>aiida.common.ProfileConfigurationError</strong></a> – if the given profile does not exist</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-aiida.engine.daemon.execmanager"></span><p>This file contains the main routines to submit, check and retrieve calculation
+results. These are general and contain only the main logic; where appropriate,
+the routines make reference to the suitable plugins for all
+plugin-specific operations.</p>
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager._retrieve_singlefiles">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">_retrieve_singlefiles</code><span class="sig-paren">(</span><em>job</em>, <em>transport</em>, <em>folder</em>, <em>retrieve_file_list</em>, <em>logger_extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#_retrieve_singlefiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager._retrieve_singlefiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.kill_calculation">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">kill_calculation</code><span class="sig-paren">(</span><em>calculation</em>, <em>transport</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#kill_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.kill_calculation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill the calculation through the scheduler</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>calculation</strong> – the instance of CalcJobNode to kill.</li>
+<li><strong>transport</strong> – an already opened transport to use to address the scheduler</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.parse_results">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">parse_results</code><span class="sig-paren">(</span><em>process</em>, <em>retrieved_temporary_folder=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#parse_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.parse_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the results for a given CalcJobNode (job)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">integer exit code, where 0 indicates success and non-zero failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.retrieve_calculation">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">retrieve_calculation</code><span class="sig-paren">(</span><em>calculation</em>, <em>transport</em>, <em>retrieved_temporary_folder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#retrieve_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.retrieve_calculation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all the files of a completed job calculation using the given transport.</p>
+<p>If the job defined anything in the <cite>retrieve_temporary_list</cite>, those entries will be stored in the
+<cite>retrieved_temporary_folder</cite>. The caller is responsible for creating and destroying this folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>calculation</strong> – the instance of CalcJobNode to update.</li>
+<li><strong>transport</strong> – an already opened transport to use for the retrieval.</li>
+<li><strong>retrieved_temporary_folder</strong> – the absolute path to a directory in which to store the files
+listed, if any, in the <cite>retrieved_temporary_folder</cite> of the jobs CalcInfo</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.retrieve_files_from_list">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">retrieve_files_from_list</code><span class="sig-paren">(</span><em>calculation</em>, <em>transport</em>, <em>folder</em>, <em>retrieve_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#retrieve_files_from_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.retrieve_files_from_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all the files in the retrieve_list from the remote into the
+local folder instance through the transport. The entries in the retrieve_list
+can be of two types:</p>
+<blockquote>
+<div><ul class="simple">
+<li>a string</li>
+<li>a list</li>
+</ul>
+</div></blockquote>
+<p>If it is a string, it represents the remote absolute filepath of the file.
+If the item is a list, the elements will correspond to the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>remotepath</li>
+<li>localpath</li>
+<li>depth</li>
+</ul>
+</div></blockquote>
+<p>If the remotepath contains file patterns with wildcards, the localpath will be
+treated as the work directory of the folder and the depth integer determines
+upto what level of the original remotepath nesting the files will be copied.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>transport</strong> – the Transport instance</li>
+<li><strong>folder</strong> – an absolute path to a folder to copy files in</li>
+<li><strong>retrieve_list</strong> – the list of files to retrieve</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.submit_calculation">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">submit_calculation</code><span class="sig-paren">(</span><em>calculation</em>, <em>transport</em>, <em>calc_info</em>, <em>script_filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#submit_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.submit_calculation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a calculation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>calculation</strong> – the instance of CalcJobNode to submit.</li>
+<li><strong>transport</strong> – an already opened transport to use to submit the calculation.</li>
+<li><strong>calc_info</strong> – the calculation info datastructure returned by <cite>CalcJobNode._presubmit</cite></li>
+<li><strong>script_filename</strong> – the job launch script returned by <cite>CalcJobNode._presubmit</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.engine.daemon.execmanager.upload_calculation">
+<code class="descclassname">aiida.engine.daemon.execmanager.</code><code class="descname">upload_calculation</code><span class="sig-paren">(</span><em>node</em>, <em>transport</em>, <em>calc_info</em>, <em>script_filename</em>, <em>dry_run=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/execmanager.html#upload_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.execmanager.upload_calculation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a <cite>CalcJob</cite> instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>node</strong> – the <cite>CalcJobNode</cite>.</li>
+<li><strong>transport</strong> – an already opened transport to use to submit the calculation.</li>
+<li><strong>calc_info</strong> – the calculation info datastructure returned by <cite>CalcJobNode.presubmit</cite></li>
+<li><strong>script_filename</strong> – the job launch script returned by <cite>CalcJobNode.presubmit</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-aiida.engine.daemon.runner"></span><p>Function that starts a daemon runner.</p>
+<dl class="function">
+<dt id="aiida.engine.daemon.runner.start_daemon">
+<code class="descclassname">aiida.engine.daemon.runner.</code><code class="descname">start_daemon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/engine/daemon/runner.html#start_daemon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.engine.daemon.runner.start_daemon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a daemon runner for the currently configured profile</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

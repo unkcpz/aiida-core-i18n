@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Processes &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculation and work functions" href="functions.html" />
+    <link rel="prev" title="Workflows" href="../concepts/workflows.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#defining-processes">Defining processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process-specification">Process specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ports-and-port-namespaces">Ports and Port namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation-and-defaults">Validation and defaults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-namespaces">Dynamic namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#non-storable-inputs">Non storable inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#automatic-input-serialization">Automatic input serialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exit-codes">Exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#process-metadata">Process metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#launching-processes">Launching processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process-launch">Process launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-builder">Process builder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-processes">Monitoring processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verdi-process-list">verdi process list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verdi-process-report">verdi process report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verdi-process-status">verdi process status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verdi-process-show">verdi process show</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#manipulating-processes">Manipulating processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verdi-process-pause-play-kill">verdi process pause/play/kill</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Processes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/working/processes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="processes">
+<span id="working-processes"></span><h1>Processes<a class="headerlink" href="#processes" title="Permalink to this headline">¶</a></h1>
+<p>Before you start working with processes, make sure you have read and understood the <a class="reference internal" href="../concepts/processes.html#concepts-processes"><span class="std std-ref">basic concept</span></a>.
+This section will explain the aspects of working with processes that apply to all the various types of processes.
+Details that only pertain to a specific sub type of process, will be documented in their respective sections:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="calculations.html#working-calcfunctions"><span class="std std-ref">calculation functions</span></a></li>
+<li><a class="reference internal" href="calculations.html#working-calcjobs"><span class="std std-ref">calculation jobs</span></a></li>
+<li><a class="reference internal" href="workflows.html#working-workfunctions"><span class="std std-ref">work functions</span></a></li>
+<li><a class="reference internal" href="workflows.html#working-workchains"><span class="std std-ref">work chains</span></a></li>
+</ul>
+</div></blockquote>
+<p>Since all of these are types of processes, everything that will be explained in this section, will apply to each and everyone of them.
+That makes it very useful to read and understand this section well, as the concepts apply so broadly.
+However, for the same reason, at times this section may feel a bit abstract.
+It may therefore be advisable to start reading a section on one of the more specific processes listed above first, to get a more concrete example, and then simply refer back here for a more extensive explanation of the details.</p>
+<div class="section" id="defining-processes">
+<span id="working-processes-defining"></span><h2>Defining processes<a class="headerlink" href="#defining-processes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="process-specification">
+<span id="working-processes-spec"></span><h3>Process specification<a class="headerlink" href="#process-specification" title="Permalink to this headline">¶</a></h3>
+<p>How a process defines the inputs that it requires or can optionally take, depends on the process type.
+The inputs of <a class="reference internal" href="../apidoc/aiida.engine.processes.calcjobs.html#aiida.engine.processes.calcjobs.calcjob.CalcJob" title="aiida.engine.processes.calcjobs.calcjob.CalcJob"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalcJob</span></code></a> and <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a> are given by the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process_spec.ProcessSpec" title="aiida.engine.processes.process_spec.ProcessSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessSpec</span></code></a> class, which is defined though  the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.define" title="aiida.engine.processes.process.Process.define"><code class="xref py py-meth docutils literal notranslate"><span class="pre">define()</span></code></a> method.
+For process functions, the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process_spec.ProcessSpec" title="aiida.engine.processes.process_spec.ProcessSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessSpec</span></code></a> is dynamically generated by the engine from the signature of the decorated function.
+Therefore, to determine what inputs a process takes, one simply has to look at the process specification in the <code class="docutils literal notranslate"><span class="pre">define</span></code> method or the function signature.
+For the <a class="reference internal" href="../apidoc/aiida.engine.processes.calcjobs.html#aiida.engine.processes.calcjobs.calcjob.CalcJob" title="aiida.engine.processes.calcjobs.calcjob.CalcJob"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalcJob</span></code></a> and <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a> there is also the concept of the <a class="reference internal" href="#working-processes-builder"><span class="std std-ref">process builder</span></a>, which will allow one to inspect the inputs with tab-completion and help strings in the shell.</p>
+<p>The three most important attributes of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process_spec.ProcessSpec" title="aiida.engine.processes.process_spec.ProcessSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessSpec</span></code></a> are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">inputs</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">outputs</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">exit_codes</span></code></li>
+</ul>
+</div></blockquote>
+<p>Through these attributes, one can define what inputs a process takes, what outputs it will produce and what potential exit codes it can return in case of errors.
+Just by looking at a process specification then, one will know exactly <em>what</em> will happen, just not <em>how</em> it will happen.
+The <code class="docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="docutils literal notranslate"><span class="pre">outputs</span></code> attributes are <em>namespaces</em> that contain so called <em>ports</em>, each one of which represents a specific input or output.
+The namespaces can be arbitrarily nested with ports and so are called <em>port namespaces</em>.
+The port and port namespace are implemented by the <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> and <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.ports.PortNamespace" title="aiida.engine.processes.ports.PortNamespace"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortNamespace</span></code></a> class, respectively.</p>
+<div class="section" id="ports-and-port-namespaces">
+<span id="working-processes-ports-portnamespaces"></span><h4>Ports and Port namespaces<a class="headerlink" href="#ports-and-port-namespaces" title="Permalink to this headline">¶</a></h4>
+<p>To define an input for a process specification, we only need to add a port to the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> port namespace, as follows:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> method, will create an instance of <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.ports.InputPort" title="aiida.engine.processes.ports.InputPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputPort</span></code></a>, a sub class of the base <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code>, and will add it to the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> port namespace of the spec.
+Creating an output is just as easy, but one should use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">output()</span></code> method instead:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will cause an instance of <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.ports.OutputPort" title="aiida.engine.processes.ports.OutputPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputPort</span></code></a>, also a sub class of the base <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code>, to be created and to be added to the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> specifcation attribute.
+Recall, that the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="docutils literal notranslate"><span class="pre">output</span></code> are instances of a <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.ports.PortNamespace" title="aiida.engine.processes.ports.PortNamespace"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortNamespace</span></code></a>, which means that they can contain any port.
+But the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.ports.PortNamespace" title="aiida.engine.processes.ports.PortNamespace"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortNamespace</span></code></a> itself is also a port itself, so it can be added to another port namespace, allowing one to create nested port namespaces.
+Creating a new namespace in for example the inputs namespace is as simple as:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">input_namespace</span><span class="p">(</span><span class="s1">&#39;namespace&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will create a new <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> named <code class="docutils literal notranslate"><span class="pre">namespace</span></code> in the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> namespace of the spec.
+You can create arbitrarily nested namespaces in one statement, by separating them with a <code class="docutils literal notranslate"><span class="pre">.</span></code> as shown here:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">input_namespace</span><span class="p">(</span><span class="s1">&#39;nested.namespace&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This command will result in the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> name <code class="docutils literal notranslate"><span class="pre">namespace</span></code> to be nested inside another <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> called <code class="docutils literal notranslate"><span class="pre">nested</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because the period is reserved to denote different nested namespaces, it cannot be used in the name of terminal input and output ports as that could be misinterpreted later as a port nested in a namespace.</p>
+</div>
+<p>Graphically, this can be visualized as a nested dictionary and will look like the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;nested&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;namespace&#39;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">outputs</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">ProcessSpec</span></code> is also a <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> just as the <code class="docutils literal notranslate"><span class="pre">inputs</span></code>, with the only different that it will create <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code> instead of <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> instances.
+Therefore the same concept of nesting through <code class="docutils literal notranslate"><span class="pre">PortNamespaces</span></code> applies to the outputs of a <code class="docutils literal notranslate"><span class="pre">ProcessSpec</span></code>.</p>
+</div>
+<div class="section" id="validation-and-defaults">
+<span id="working-processes-validation-defaults"></span><h4>Validation and defaults<a class="headerlink" href="#validation-and-defaults" title="Permalink to this headline">¶</a></h4>
+<p>In the previous section, we saw that the <code class="docutils literal notranslate"><span class="pre">ProcessSpec</span></code> uses the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code>, <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code> to define the inputs and outputs structure of the <code class="docutils literal notranslate"><span class="pre">Process</span></code>.
+The underlying concept that allows this nesting of ports is that the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code>, <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code>, are all a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code>.
+And as different subclasses of the same class, they have more properties and attributes in common, for example related to the concept of validation and default values.
+All three have the following attributes (with the exception of the <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code> not having a <code class="docutils literal notranslate"><span class="pre">default</span></code> attribute):</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">default</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">required</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">valid_type</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">validator</span></code></li>
+</ul>
+</div></blockquote>
+<p>These attributes can all be set upon construction of the port or after the fact, as long as the spec has not been sealed, which means that they can be altered without limit as long as it is within the <code class="docutils literal notranslate"><span class="pre">define</span></code> method of the corresponding <code class="docutils literal notranslate"><span class="pre">Process</span></code>.
+An example input port that explicitly sets all these attributes is the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;positive_number&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">valid_type</span><span class="o">=</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">),</span> <span class="n">validator</span><span class="o">=</span><span class="n">is_number_positive</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we define an input named <code class="docutils literal notranslate"><span class="pre">positive_number</span></code> that is not required, if a value is not explicitly passed, the default <code class="docutils literal notranslate"><span class="pre">Int(1)</span></code> will be used and if a value <em>is</em> passed, it should be of type <code class="docutils literal notranslate"><span class="pre">Int</span></code> or <code class="docutils literal notranslate"><span class="pre">Float</span></code> and it should be valid according to the <code class="docutils literal notranslate"><span class="pre">is_number_positive</span></code> validator.
+Note that the validator is nothing more than a free function which takes a single argument, being the value that is to be validated and should return <code class="docutils literal notranslate"><span class="pre">True</span></code> if that value is valid or <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise, for example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_number_positive</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">number</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">valid_type</span></code> can define a single type, or a tuple of valid types.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note that by default all ports are required, but specifying a default value implies that the input is not required and as such specifying <code class="docutils literal notranslate"><span class="pre">required=False</span></code> is not necessary in that case.
+It was added to the example above simply for clarity.</p>
+</div>
+<p>The validation of input or output values with respect to the specification of the corresponding port, happens at the instantiation of the process and when it is finalized, respectively.
+If the inputs are invalid, a corresponding exception will be thrown and the process instantiation will fail.
+When the outputs fail to be validated, likewise an exception will be thrown and the process state will be set to <code class="docutils literal notranslate"><span class="pre">Excepted</span></code>.</p>
+</div>
+<div class="section" id="dynamic-namespaces">
+<span id="working-processes-dynamic-namespaces"></span><h4>Dynamic namespaces<a class="headerlink" href="#dynamic-namespaces" title="Permalink to this headline">¶</a></h4>
+<p>In the previous section we described the various attributes related to validation and claimed that all the port variants share those attributes, yet we only discussed the <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code> explicitly.
+The statement, however, is still correct and the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> has the same attributes.
+You might then wonder what the meaning is of a <code class="docutils literal notranslate"><span class="pre">valid_type</span></code> or <code class="docutils literal notranslate"><span class="pre">default</span></code> for a <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> if all it does is contain <code class="docutils literal notranslate"><span class="pre">InputPorts</span></code>, <code class="docutils literal notranslate"><span class="pre">OutputPorts</span></code> or other <code class="docutils literal notranslate"><span class="pre">PortNamespaces</span></code>.
+The answer to this question lies in the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> attribute <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>.</p>
+<p>Often when designing the specification of a <code class="docutils literal notranslate"><span class="pre">Process</span></code>, we cannot know exactly which inputs we want to be able to pass to the process.
+However, with the concept of the <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputPort</span></code> one <em>does</em> need to know exactly, how many value one expects at least, as they do have to be defined.
+This is where the <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code> comes in.
+By default this is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, but by setting it to <code class="docutils literal notranslate"><span class="pre">True</span></code>, one indicates that that namespace can take a number of values that is unknown at the time of definition of the specification.
+This now explains the meaning of the <code class="docutils literal notranslate"><span class="pre">valid_type</span></code>, <code class="docutils literal notranslate"><span class="pre">validator</span></code> and <code class="docutils literal notranslate"><span class="pre">default</span></code> attributes in the context of the <code class="docutils literal notranslate"><span class="pre">PortNamespace</span></code>.
+If you do mark a namespace as dynamic, you may still want to limit the set of values that are acceptable, which you can do by specifying the valid type and or validator.
+The values that will eventually be passed to the port namespace will then be validated according to these rules exactly as a value for a regular input port would be.</p>
+</div>
+<div class="section" id="non-storable-inputs">
+<span id="working-processes-non-db"></span><h4>Non storable inputs<a class="headerlink" href="#non-storable-inputs" title="Permalink to this headline">¶</a></h4>
+<p>In principle, the only valid types for inputs and outputs should be instances of a <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data" title="aiida.orm.nodes.data.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a> node, or one of its sub classes, as that is the only data type that can be recorded in the provenance graph as an input or output of a process.
+However, there are cases where you might want to pass an input to a process, whose provenance you do not care about and therefore would want to pass a non-database storable type anyway.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AiiDA allows you to break the provenance as to be not too restrictive, but always tries to urge you and guide you in a direction to keep the provenance.
+There are legitimate reasons to break it regardless, but make sure you think about the implications and whether you are really willing to lose the information.</p>
+</div>
+<p>For this situation, the <code class="docutils literal notranslate"><span class="pre">InputPort</span></code> has the attribute <code class="docutils literal notranslate"><span class="pre">non_db</span></code>.
+By default this is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, but by setting it to <code class="docutils literal notranslate"><span class="pre">True</span></code> the port is marked that the values that are passed to it should not be stored as a node in the provenance graph and linked to the process node.
+This allows one to pass any normal value that one would also be able to pass to a normal function.</p>
+</div>
+<div class="section" id="automatic-input-serialization">
+<span id="working-processes-serialize-inputs"></span><h4>Automatic input serialization<a class="headerlink" href="#automatic-input-serialization" title="Permalink to this headline">¶</a></h4>
+<p>Quite often, inputs which are given as python data types need to be cast to the corresponding AiiDA type before passing them to a process.
+Doing this manually can be cumbersome, so you can define a function when defining the process specification, which does the conversion automatically.
+This function, passed as <code class="docutils literal notranslate"><span class="pre">serializer</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">spec.input</span></code>, is invoked if the given input is <em>not</em> already an AiiDA type.</p>
+<p>For inputs which are stored in the database (<code class="docutils literal notranslate"><span class="pre">non_db=False</span></code>), the serialization function should return an AiiDA data type.
+For <code class="docutils literal notranslate"><span class="pre">non_db</span></code> inputs, the function must be idempotent because it might be applied more than once.</p>
+<p>The following example work chain takes three inputs <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, and simply returns the given inputs. The <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.base.to_aiida_type" title="aiida.orm.nodes.data.base.to_aiida_type"><code class="xref py py-func docutils literal notranslate"><span class="pre">aiida.orm.nodes.data.base.to_aiida_type()</span></code></a> function is used as serialization function.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span>
+<span class="kn">from</span> <span class="nn">aiida.orm.nodes.data</span> <span class="k">import</span> <span class="n">to_aiida_type</span>
+<span class="c1"># The basic types need to be loaded such that they are registered with</span>
+<span class="c1"># the &#39;to_aiida_type&#39; function.</span>
+<span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.base</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">SerializeWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SerializeWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="n">to_aiida_type</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="n">to_aiida_type</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="n">to_aiida_type</span><span class="p">)</span>
+
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">echo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This work chain can now be called with native Python types, which will automatically converted to AiiDA types by the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.base.to_aiida_type" title="aiida.orm.nodes.data.base.to_aiida_type"><code class="xref py py-func docutils literal notranslate"><span class="pre">aiida.orm.nodes.data.base.to_aiida_type()</span></code></a> function. Note that the module which defines the corresponding AiiDA type must be loaded for it to be recognized by <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.base.to_aiida_type" title="aiida.orm.nodes.data.base.to_aiida_type"><code class="xref py py-func docutils literal notranslate"><span class="pre">aiida.orm.nodes.data.base.to_aiida_type()</span></code></a>.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env runaiida</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+
+<span class="kn">from</span> <span class="nn">serialize_workchain</span> <span class="k">import</span> <span class="n">SerializeWorkChain</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">SerializeWorkChain</span><span class="p">,</span>
+        <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">))</span>
+    <span class="c1"># Result: {&#39;a&#39;: 1, &#39;b&#39;: 1.2, &#39;c&#39;: True}</span>
+</pre></div>
+</div>
+<p>Of course, you can also use the serialization feature to perform a more complex serialization of the inputs.</p>
+</div>
+<div class="section" id="exit-codes">
+<span id="working-processes-exit-codes"></span><h4>Exit codes<a class="headerlink" href="#exit-codes" title="Permalink to this headline">¶</a></h4>
+<p>Any <code class="docutils literal notranslate"><span class="pre">Process</span></code> most likely will have one or multiple expected failure modes.
+To clearly communicate to the caller what went wrong, the <code class="docutils literal notranslate"><span class="pre">Process</span></code> supports setting its <code class="docutils literal notranslate"><span class="pre">exit_status</span></code>.
+This <code class="docutils literal notranslate"><span class="pre">exit_status</span></code>, a positive integer, is an attribute of the process node and by convention, when it is zero means the process was successful, whereas any other value indicates failure.
+This concept of an exit code, with a positive integer as the exit status, <a class="reference external" href="https://shapeshed.com/unix-exit-codes/">is a common concept in programming</a> and a standard way for programs to communicate the result of their execution.</p>
+<p>Potential exit codes for the <code class="docutils literal notranslate"><span class="pre">Process</span></code> can be defined through the <code class="docutils literal notranslate"><span class="pre">ProcessSpec</span></code>, just like inputs and ouputs.
+Any exit code consists of a positive non-zero integer, a string label to reference it and a more detailed description of the problem that triggers the exit code.
+Consider the following example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">exit_code</span><span class="p">(</span><span class="mi">418</span><span class="p">,</span> <span class="s1">&#39;ERROR_I_AM_A_TEAPOT&#39;</span><span class="p">,</span> <span class="s1">&#39;the process had an identity crisis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This defines an exit code for the <code class="docutils literal notranslate"><span class="pre">Process</span></code> with exit status <code class="docutils literal notranslate"><span class="pre">418</span></code> and exit message <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">work</span> <span class="pre">chain</span> <span class="pre">had</span> <span class="pre">an</span> <span class="pre">identity</span> <span class="pre">crisis</span></code>.
+The string <code class="docutils literal notranslate"><span class="pre">ERROR_I_AM_A_TEAPOT</span></code> is a label that the developer can use to reference this particular exit code somewhere in the <code class="docutils literal notranslate"><span class="pre">Process</span></code> code itself.</p>
+<p>Whenever a <code class="docutils literal notranslate"><span class="pre">Process</span></code> exits through a particular error code, the caller will be able to introspect it through the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code> and <code class="docutils literal notranslate"><span class="pre">exit_message</span></code> attributes of the node.
+Assume for example that we ran a <code class="docutils literal notranslate"><span class="pre">Process</span></code> that threw the exit code described above, the caller would be able to do the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">node</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="o">&lt;</span><span class="n">pk</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="ow">in</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">node</span><span class="o">.</span><span class="n">exit_status</span>
+<span class="n">out</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="mi">418</span>
+<span class="ow">in</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">node</span><span class="o">.</span><span class="n">exit_message</span>
+<span class="n">out</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="s1">&#39;the process had an identity crisis&#39;</span>
+</pre></div>
+</div>
+<p>This is useful, because the caller can now programmatically, based on the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code>, decide how to proceed.
+This is an infinitely more robust way of communcating specific errors to a non-human then parsing text based logs or reports.
+Additionally, The exit codes make it also very easy to query for failed processes with specific error codes.</p>
+</div>
+</div>
+<div class="section" id="process-metadata">
+<span id="working-processes-metadata"></span><h3>Process metadata<a class="headerlink" href="#process-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Each process, in addition to the normal inputs defined through its process specifcation, can take optional ‘metadata’.
+These metadata differ from inputs in the sense that they are not nodes that will show up as inputs in the provenance graph of the executed process.
+Rather, these are inputs that slightly modify the behavior of the process or allow to set attributes on the process node that represents its execution.
+The following metadata inputs are available for <em>all</em> process classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">label</span></code>: will set the label on the <code class="docutils literal notranslate"><span class="pre">ProcessNode</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">description</span></code>: will set the description on the <code class="docutils literal notranslate"><span class="pre">ProcessNode</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">store_provenance</span></code>: boolean flag, by default <code class="docutils literal notranslate"><span class="pre">True</span></code>, that when set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, will ensure that the execution of the process <strong>is not</strong> stored in the provenance graph</li>
+</ul>
+</div></blockquote>
+<p>Sub classes of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process" title="aiida.engine.processes.process.Process"><code class="xref py py-class docutils literal notranslate"><span class="pre">Process</span></code></a> class can specify further metadata inputs, refer to their specific documentation for details.
+To pass any of these metadata options to a process, simply pass them in a dictionary under the key <code class="docutils literal notranslate"><span class="pre">metadata</span></code> in the inputs when launching the process.
+How a process can be launched is explained the following section.</p>
+</div>
+</div>
+<div class="section" id="launching-processes">
+<span id="working-processes-launching"></span><h2>Launching processes<a class="headerlink" href="#launching-processes" title="Permalink to this headline">¶</a></h2>
+<p>Any process can be launched by ‘running’ or ‘submitting’ it.
+Running means to run the process in the current python interpreter in a blocking way, whereas submitting means to send it to a daemon worker over RabbitMQ.
+For long running processes, such as calculation jobs or complex workflows, it is best advised to submit to the daemon.
+This has the added benefit that it will directly return control to your interpreter and allow the daemon to save intermediate progress during checkpoints and reload the process from those if it has to restart.
+Running processes can be useful for trivial computational tasks, such as simple calcfunctions or workfunctions, or for debugging and testing purposes.</p>
+<div class="section" id="process-launch">
+<span id="working-processes-launch"></span><h3>Process launch<a class="headerlink" href="#process-launch" title="Permalink to this headline">¶</a></h3>
+<p>To launch a process, one can use the free functions that can be imported from the <a class="reference internal" href="../apidoc/aiida.engine.html#module-aiida.engine" title="aiida.engine"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiida.engine</span></code></a> module.
+There are four different functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run" title="aiida.engine.launch.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+<li><a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run_get_node" title="aiida.engine.launch.run_get_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_get_node()</span></code></a></li>
+<li><a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run_get_pk" title="aiida.engine.launch.run_get_pk"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_get_pk()</span></code></a></li>
+<li><a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.submit" title="aiida.engine.launch.submit"><code class="xref py py-func docutils literal notranslate"><span class="pre">submit()</span></code></a></li>
+</ul>
+</div></blockquote>
+<p>As the name suggest, the first three will ‘run’ the process and the latter will ‘submit’ it to the daemon.
+Running means that the process will be executed in the same interpreter in which it is launched, blocking the interpreter, until the process is terminated.
+Submitting to the daemon, in contrast, means that the process will be sent to the daemon for execution, and the interpreter is released straight away.</p>
+<p>All functions have the exact same interface <code class="docutils literal notranslate"><span class="pre">launch(process,</span> <span class="pre">**inputs)</span></code> where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">process</span></code> is the process class or process function to launch</li>
+<li><code class="docutils literal notranslate"><span class="pre">inputs</span></code> are the inputs as keyword arguments to pass to the process.</li>
+</ul>
+</div></blockquote>
+<p>What inputs can be passed depends on the exact process class that is to be launched.
+For example, when we want to run an instance of the <a class="reference internal" href="../apidoc/aiida.calculations.plugins.arithmetic.html#aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation" title="aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code></a> process, which takes two <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> nodes as inputs under the name <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> <a class="footnote-reference" href="#f1" id="id1">[1]</a>, we would do the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">submit</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="n">submit</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The function will submit the calculation to the daemon and immediately return control to the interpreter, returning the node that is used to represent the process in the provenance graph.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Process functions, i.e. python functions decorated with the <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code> or <code class="docutils literal notranslate"><span class="pre">workfunction</span></code> decorators, <strong>cannot be submitted</strong> but can only be run.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> function is called identically:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>except that it does not submit the process to the daemon, but executes it in the current interpreter, blocking it until the process is terminated.
+The return value of the <code class="docutils literal notranslate"><span class="pre">run</span></code> function is also <strong>not</strong> the node that represents the executed process, but the results returned by the process, which is a dictionary of the nodes that were produced as outputs.
+If you would still like to have the process node or the pk of the process node you can use one of the following variants:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run_get_node</span><span class="p">,</span> <span class="n">run_get_pk</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">run_get_node</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">run_get_pk</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally, the <a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run" title="aiida.engine.launch.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> launcher has two attributes <code class="docutils literal notranslate"><span class="pre">get_node</span></code> and <code class="docutils literal notranslate"><span class="pre">get_pk</span></code> that are simple proxies to the <a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run_get_node" title="aiida.engine.launch.run_get_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_get_node()</span></code></a> and <a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.run_get_pk" title="aiida.engine.launch.run_get_pk"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_get_pk()</span></code></a> methods.
+This is a handy shortcut, as now you can choose to use any of the three variants with just a single import:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">get_pk</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If you want to launch a process class that takes a lot more inputs, often it is useful to define them in a dictionary and use the python syntax <code class="docutils literal notranslate"><span class="pre">**</span></code> that automatically expands it into keyword argument and value pairs.
+The examples used above would look like the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">submit</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">node</span> <span class="o">=</span> <span class="n">submit</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Process functions, i.e. <a class="reference internal" href="../concepts/calculations.html#concepts-calcfunctions"><span class="std std-ref">calculation functions</span></a> and <a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">work functions</span></a>, can be launched like any other process as explained above, with the only exception that they <strong>cannot be submitted</strong>.
+In addition to this limitation, process functions have two additional methods of being launched:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Simply <em>calling</em> the function</li>
+<li>Using the internal run method attributes</li>
+</ul>
+</div></blockquote>
+<p>Using a calculation function to add two numbers as an example, these two methods look like the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">run_get_pk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process-builder">
+<span id="working-processes-builder"></span><h3>Process builder<a class="headerlink" href="#process-builder" title="Permalink to this headline">¶</a></h3>
+<p>As explained in a <a class="reference internal" href="#working-processes-spec"><span class="std std-ref">previous section</span></a>, the inputs for a <a class="reference internal" href="../apidoc/aiida.engine.processes.calcjobs.html#aiida.engine.processes.calcjobs.calcjob.CalcJob" title="aiida.engine.processes.calcjobs.calcjob.CalcJob"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalcJob</span></code></a> and <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a> are defined in the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.define" title="aiida.engine.processes.process.Process.define"><code class="xref py py-meth docutils literal notranslate"><span class="pre">define()</span></code></a> method.
+To know then what inputs they take, one would have to read the implementation, which can be annoying if you are not a developer.
+To simplify this process, these two process classes provide a utility called the ‘process builder’.
+The process builder is essentially a tool that helps you build the inputs for the specific process class that you want to run.
+To get a <em>builder</em> for a particular <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> or a <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> implementation, all you need is the class itself, which can be loaded through the <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.CalculationFactory" title="aiida.plugins.factories.CalculationFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalculationFactory</span></code></a> and <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.WorkflowFactory" title="aiida.plugins.factories.WorkflowFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowFactory</span></code></a>, respectively.
+Let’s take the <a class="reference internal" href="../apidoc/aiida.calculations.plugins.arithmetic.html#aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation" title="aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code></a> as an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">ArithmeticAddCalculation</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The string <code class="docutils literal notranslate"><span class="pre">arithmetic.add</span></code> is the entry point of the <code class="docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code> and passing it to the <code class="docutils literal notranslate"><span class="pre">CalculationFactory</span></code> will return the corresponding class.
+Calling the <code class="docutils literal notranslate"><span class="pre">get_builder</span></code> method on that class will return an instance of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.builder.ProcessBuilder" title="aiida.engine.processes.builder.ProcessBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessBuilder</span></code></a> class that is tailored for the <code class="docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code>.
+The builder will help you in defining the inputs that the <code class="docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code> requires and has a few handy tools to simplify this process.</p>
+<p>To find out which inputs the builder exposes, you can simply use tab completion.
+In an interactive python shell, by simply typing <code class="docutils literal notranslate"><span class="pre">builder.</span></code> and hitting the tab key, a complete list of all the available inputs will be shown.
+Each input of the builder can also show additional information about what sort of input it expects.
+In an interactive shell, you can get this information to display as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>builder.code?
+Type:        property
+String form: &lt;property object at 0x7f04c8ce1c00&gt;
+Docstring:
+    &quot;name&quot;: &quot;code&quot;,
+    &quot;required&quot;: &quot;True&quot;
+    &quot;non_db&quot;: &quot;False&quot;
+    &quot;valid_type&quot;: &quot;&lt;class &#39;aiida.orm.nodes.data.code.Code&#39;&gt;&quot;
+    &quot;help&quot;: &quot;The Code to use for this job.&quot;,
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">Docstring</span></code> you will see a <code class="docutils literal notranslate"><span class="pre">help</span></code> string that contains more detailed information about the input port.
+Additionally, it will display a <code class="docutils literal notranslate"><span class="pre">valid_type</span></code>, which when defined shows which data types are expected.
+If a default value has been defined, that will also be displayed.
+The <code class="docutils literal notranslate"><span class="pre">non_db</span></code> attribute defines whether that particular input will be stored as a proper input node in the database, if the process is submitted.</p>
+<p>Defining an input through the builder is as simple as assigning a value to the attribute.
+The following example shows how to set the <code class="docutils literal notranslate"><span class="pre">parameters</span></code> input, as well as the <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">label</span></code> metadata inputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;This is my calculation label&#39;</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;An example calculation to demonstrate the process builder&#39;</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you evaluate the <code class="docutils literal notranslate"><span class="pre">builder</span></code> instance, simply by typing the variable name and hitting enter, the current values of the builder’s inputs will be displayed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span>
+<span class="p">{</span>
+    <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;An example calculation to demonstrate the process builder&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;This is my calculation label&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">Int</span><span class="o">&lt;</span><span class="n">uuid</span><span class="o">=</span><span class="s1">&#39;a1798492-bbc9-4b92-a630-5f54bb2e865c&#39;</span> <span class="n">unstored</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">Int</span><span class="o">&lt;</span><span class="n">uuid</span><span class="o">=</span><span class="s1">&#39;39384da4-6203-41dc-9b07-60e6df24e621&#39;</span> <span class="n">unstored</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, you can see the value that we just set for the <code class="docutils literal notranslate"><span class="pre">description</span></code> and the <code class="docutils literal notranslate"><span class="pre">label</span></code>.
+In addition, it will also show any namespaces, as the inputs of processes support nested namespaces, such as the <code class="docutils literal notranslate"><span class="pre">metadata.options</span></code> namespace in this example.
+Note that nested namespaces are also all autocompleted, and you can traverse them recursively with tab-completion.</p>
+<p>All that remains is to fill in all the required inputs and we are ready to launch the process builder.
+When all the inputs have been defined for the builder, it can be used to actually launch the <code class="docutils literal notranslate"><span class="pre">Process</span></code>.
+The process can be launched by passing the builder to any of the free functions <a class="reference internal" href="../apidoc/aiida.engine.html#module-aiida.engine.launch" title="aiida.engine.launch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">launch</span></code></a> module, just as you would do a normal process as <a class="reference internal" href="#working-processes-launching"><span class="std std-ref">described above</span></a>, i.e.:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">submit</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+
+<span class="n">builder</span> <span class="o">=</span> <span class="n">ArithmeticAddCalculation</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">node</span> <span class="o">=</span> <span class="n">submit</span><span class="p">(</span><span class="n">builder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the process builder is in principle designed to be used in an interactive shell, as there is where the tab-completion and automatic input documentation really shines.
+However, it is perfectly possible to use the same builder in scripts where you simply use it as an input container, instead of a plain python dictionary.</p>
+</div>
+</div>
+<div class="section" id="monitoring-processes">
+<span id="working-processes-monitoring"></span><h2>Monitoring processes<a class="headerlink" href="#monitoring-processes" title="Permalink to this headline">¶</a></h2>
+<p>When you have launched a process, you may want to investigate its status, progression and the results.
+The <a class="reference internal" href="../working_with_aiida/index.html#verdi-overview"><span class="std std-ref">verdi</span></a> command line tool provides various commands to do just this.</p>
+<div class="section" id="verdi-process-list">
+<span id="working-processes-monitoring-list"></span><h3>verdi process list<a class="headerlink" href="#verdi-process-list" title="Permalink to this headline">¶</a></h3>
+<p>Your first point of entry will be the <code class="docutils literal notranslate"><span class="pre">verdi</span></code> command <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span></code>.
+This command will print a list of all active processes through the <code class="docutils literal notranslate"><span class="pre">ProcessNode</span></code> stored in the database that it uses to represent its execution.
+A typical example may look something like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created     State           Process label                 Process status
+----  ----------  ------------    --------------------------    ----------------------
+ <span class="m">151</span>  3h ago      ⏵ Running       ArithmeticAddCalculation
+ <span class="m">156</span>  1s ago      ⏹ Created       ArithmeticAddCalculation
+
+
+Total results: <span class="m">2</span>
+</pre></div>
+</div>
+<p>The ‘State’ column is a concatenation of the <code class="docutils literal notranslate"><span class="pre">process_state</span></code> and the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code> of the <code class="docutils literal notranslate"><span class="pre">ProcessNode</span></code>.
+By default, the command will only show active items, i.e. <code class="docutils literal notranslate"><span class="pre">ProcessNodes</span></code> that have not yet reached a terminal state.
+If you want to also show the nodes in a terminal states, you can use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag and call <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span> <span class="pre">-a</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created     State              Process label                  Process status
+----  ----------  ---------------    --------------------------     ----------------------
+ <span class="m">143</span>  3h ago      ⏹ Finished <span class="o">[</span><span class="m">0</span><span class="o">]</span>     add
+ <span class="m">146</span>  3h ago      ⏹ Finished <span class="o">[</span><span class="m">0</span><span class="o">]</span>     multiply
+ <span class="m">151</span>  3h ago      ⏵ Running          ArithmeticAddCalculation
+ <span class="m">156</span>  1s ago      ⏹ Created          ArithmeticAddCalculation
+
+
+Total results: <span class="m">4</span>
+</pre></div>
+</div>
+<p>For more information on the meaning of the ‘state’ column, please refer to the documentation of the <a class="reference internal" href="../concepts/processes.html#concepts-process-state"><span class="std std-ref">process state</span></a>.
+The <code class="docutils literal notranslate"><span class="pre">-S</span></code> flag let’s you query for specific process states, i.e. issuing <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span> <span class="pre">-S</span> <span class="pre">created</span></code> will return:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created     State           Process label                  Process status
+----  ----------  ------------    --------------------------     ----------------------
+ <span class="m">156</span>  1s ago      ⏹ Created       ArithmeticAddCalculation
+
+
+Total results: <span class="m">1</span>
+</pre></div>
+</div>
+<p>To query for a specific exit status, one can use <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span> <span class="pre">-E</span> <span class="pre">0</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created     State             Process label                 Process status
+----  ----------  ------------      --------------------------    ----------------------
+ <span class="m">143</span>  3h ago      ⏹ Finished <span class="o">[</span><span class="m">0</span><span class="o">]</span>    add
+ <span class="m">146</span>  3h ago      ⏹ Finished <span class="o">[</span><span class="m">0</span><span class="o">]</span>    multiply
+
+
+Total results: <span class="m">2</span>
+</pre></div>
+</div>
+<p>This simple tool should give you a good idea of the current status of running processes and the status of terminated ones.
+For a complete list of all the available options, please refer to the documentation of <a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-process"><span class="std std-ref">verdi process</span></a>.</p>
+<p>If you are looking for information about a specific process node, the following three commands are at your disposal:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">report</span></code> gives a list of the log messages attached to the process</li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">status</span></code> print the call hierarchy of the process and status of all its nodes</li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">show</span></code> print details about the status, inputs, outputs, callers and callees of the process</li>
+</ul>
+</div></blockquote>
+<p>In the following sections, we will explain briefly how the commands work.
+For the purpose of example, we will show the output of the commands for a completed <code class="docutils literal notranslate"><span class="pre">PwBaseWorkChain</span></code> from the <code class="docutils literal notranslate"><span class="pre">aiida-quantumespresso</span></code> plugin, which simply calls a <code class="docutils literal notranslate"><span class="pre">PwCalculation</span></code>.</p>
+</div>
+<div class="section" id="verdi-process-report">
+<span id="working-processes-monitoring-report"></span><h3>verdi process report<a class="headerlink" href="#verdi-process-report" title="Permalink to this headline">¶</a></h3>
+<p>The developer of a process can attach log messages to the node of a process through the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.report" title="aiida.engine.processes.process.Process.report"><code class="xref py py-meth docutils literal notranslate"><span class="pre">report()</span></code></a> method.
+The <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">report</span></code> command will display all the log messages in chronological order:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2018</span>-04-08 <span class="m">21</span>:18:51 <span class="o">[</span><span class="m">164</span> <span class="p">|</span> REPORT<span class="o">]</span>: <span class="o">[</span><span class="m">164</span><span class="p">|</span>PwBaseWorkChain<span class="p">|</span>run_calculation<span class="o">]</span>: launching PwCalculation&lt;<span class="m">167</span>&gt; iteration <span class="c1">#1</span>
+<span class="m">2018</span>-04-08 <span class="m">21</span>:18:55 <span class="o">[</span><span class="m">164</span> <span class="p">|</span> REPORT<span class="o">]</span>: <span class="o">[</span><span class="m">164</span><span class="p">|</span>PwBaseWorkChain<span class="p">|</span>inspect_calculation<span class="o">]</span>: PwCalculation&lt;<span class="m">167</span>&gt; completed successfully
+<span class="m">2018</span>-04-08 <span class="m">21</span>:18:56 <span class="o">[</span><span class="m">164</span> <span class="p">|</span> REPORT<span class="o">]</span>: <span class="o">[</span><span class="m">164</span><span class="p">|</span>PwBaseWorkChain<span class="p">|</span>results<span class="o">]</span>: work chain completed after <span class="m">1</span> iterations
+<span class="m">2018</span>-04-08 <span class="m">21</span>:18:56 <span class="o">[</span><span class="m">164</span> <span class="p">|</span> REPORT<span class="o">]</span>: <span class="o">[</span><span class="m">164</span><span class="p">|</span>PwBaseWorkChain<span class="p">|</span>on_terminated<span class="o">]</span>: remote folders will not be cleaned
+</pre></div>
+</div>
+<p>The log message will include a timestamp followed by the level of the log, which is always <code class="docutils literal notranslate"><span class="pre">REPORT</span></code>.
+The second block has the format <code class="docutils literal notranslate"><span class="pre">pk|class</span> <span class="pre">name|function</span> <span class="pre">name</span></code> detailing information about, in this case, the work chain itself and the step in which the message was fired.
+Finally, the message itself is displayed.
+Of course how many messages are logged and how useful they are is up to the process developer.
+In general they can be very useful for a user to understand what has happened during the execution of the process, however, one has to realize that each entry is stored in the database, so overuse can unnecessarily bloat the database.</p>
+</div>
+<div class="section" id="verdi-process-status">
+<span id="working-processes-monitoring-status"></span><h3>verdi process status<a class="headerlink" href="#verdi-process-status" title="Permalink to this headline">¶</a></h3>
+<p>This command is most useful for <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> instances, but also works for <code class="docutils literal notranslate"><span class="pre">CalcJobs</span></code>.
+One of the more powerful aspect of work chains, is that they can call <code class="docutils literal notranslate"><span class="pre">CalcJobs</span></code> and other <code class="docutils literal notranslate"><span class="pre">WorkChains</span></code> to create a nested call hierarchy.
+If you want to inspect the status of a work chain and all the children that it called, <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">status</span></code> is the go-to tool.
+An example output is the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PwBaseWorkChain &lt;<span class="nv">pk</span><span class="o">=</span><span class="m">164</span>&gt; <span class="o">[</span>ProcessState.FINISHED<span class="o">]</span> <span class="o">[</span><span class="m">4</span>:results<span class="o">]</span>
+    └── PwCalculation &lt;<span class="nv">pk</span><span class="o">=</span><span class="m">167</span>&gt; <span class="o">[</span>FINISHED<span class="o">]</span>
+</pre></div>
+</div>
+<p>The command prints a tree representation of the hierarchical call structure, that recurses all the way down.
+In this example, there is just a single <code class="docutils literal notranslate"><span class="pre">PwBaseWorkChain</span></code> which called a <code class="docutils literal notranslate"><span class="pre">PwCalculation</span></code>, which is indicated by it being indented one level.
+In addition to the call tree, each node also shows its current process state and for work chains at which step in the outline it is.
+This tool can be very useful to inspect while a work chain is running at which step in the outline it currently is, as well as the status of all the children calculations it called.</p>
+</div>
+<div class="section" id="verdi-process-show">
+<span id="working-processes-monitoring-show"></span><h3>verdi process show<a class="headerlink" href="#verdi-process-show" title="Permalink to this headline">¶</a></h3>
+<p>Finally, there is a command that displays detailed information about the <code class="docutils literal notranslate"><span class="pre">ProcessNode</span></code>, such as its inputs, outputs and the optional other processes it called and or was called by.
+An example output for a <code class="docutils literal notranslate"><span class="pre">PwBaseWorkChain</span></code> would look like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Property       Value
+-------------  ------------------------------------
+<span class="nb">type</span>           WorkChainNode
+pk             <span class="m">164</span>
+uuid           08bc5a3c-da7d-44e0-a91c-dda9ddcb638b
+label
+description
+ctime          <span class="m">2018</span>-04-08 <span class="m">21</span>:18:50.850361+02:00
+mtime          <span class="m">2018</span>-04-08 <span class="m">21</span>:18:50.850372+02:00
+process state  ProcessState.FINISHED
+<span class="nb">exit</span> status    <span class="m">0</span>
+code           pw-v6.1
+
+Inputs            PK  Type
+--------------  ----  -------------
+parameters       <span class="m">158</span>  Dict
+structure        <span class="m">140</span>  StructureData
+kpoints          <span class="m">159</span>  KpointsData
+pseudo_family    <span class="m">161</span>  Str
+max_iterations   <span class="m">163</span>  Int
+clean_workdir    <span class="m">160</span>  Bool
+options          <span class="m">162</span>  Dict
+
+Outputs              PK  Type
+-----------------  ----  -------------
+output_band         <span class="m">170</span>  BandsData
+remote_folder       <span class="m">168</span>  RemoteData
+output_parameters   <span class="m">171</span>  Dict
+output_array        <span class="m">172</span>  ArrayData
+
+Called      PK  Type
+--------  ----  -------------
+CALL       <span class="m">167</span>  PwCalculation
+
+Log messages
+---------------------------------------------
+There are <span class="m">4</span> log messages <span class="k">for</span> this calculation
+Run <span class="s1">&#39;verdi process report 164&#39;</span> to see them
+</pre></div>
+</div>
+<p>This overview should give you all the information if you want to inspect a process’ inputs and outputs in closer detail as it provides you their pk’s.</p>
+</div>
+</div>
+<div class="section" id="manipulating-processes">
+<span id="working-processes-manipulating"></span><h2>Manipulating processes<a class="headerlink" href="#manipulating-processes" title="Permalink to this headline">¶</a></h2>
+<p>To understand how one can manipulate running processes, one has to understand the principles of the <a class="reference internal" href="../concepts/processes.html#concepts-process-node-distinction"><span class="std std-ref">process/node distinction</span></a> and a <a class="reference internal" href="../concepts/processes.html#concepts-process-lifetime"><span class="std std-ref">process’ lifetime</span></a> first, so be sure to have read those sections first.</p>
+<div class="section" id="verdi-process-pause-play-kill">
+<span id="working-processes-manipulating-pause-play-kill"></span><h3>verdi process pause/play/kill<a class="headerlink" href="#verdi-process-pause-play-kill" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">verdi</span></code> command line interface provides three commands to interact with ‘live’ processes.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">pause</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">play</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">kill</span></code></li>
+</ul>
+</div></blockquote>
+<p>The first pauses a process temporarily, the second resumes any paused processes and the third one permanently kills them.
+The sub command names might seem to tell you this already and it might look like that is all there is to know, but the functionality underneath is quite complicated and deserves additional explanation nonetheless.</p>
+<p>As the section on <a class="reference internal" href="../concepts/processes.html#concepts-process-node-distinction"><span class="std std-ref">the distinction between the process and the node</span></a> explained, manipulating a process means interacting with the live process instance that lives in the memory of the runner that is running it.
+By definition, these runners will always run in a different system process then the one from which you want to interact, because otherwise, you would <em>be</em> the runner, given that there can only be a single runner in an interpreter and if it is running, the interpreter would be blocked from performing any other operations.
+This means that in order to interact with the live process, one has to interact with another interpreter running in a different system process.
+This is once again facilitated by the RabbitMQ message broker.
+When a runner starts to run a process, it will also add listeners for incoming messages that are being sent for that specific process over RabbitMQ.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This does not just apply to daemon runners, but also normal runners.
+That is to say that if you were to launch a process in a local runner, that interpreter will be blocked, but it will still setup the listeners for that process on RabbitMQ.
+This means that you can manipulate the process from another terminal, just as if you would do with a process that is being run by a daemon runner.</p>
+</div>
+<p>In the case of ‘pause’, ‘play’ and ‘kill’, one is sending what is called a Remote Procedure Call (RPC) over RabbitMQ.
+The RPC will include the process identifier for which the action is intended and RabbitMQ will send it to whoever registered itself to be listening for that specific process, in this case the runner that is running the process.
+This immediately reveals a potential problem: the RPC will fall on deaf ears if there is no one listening, which can have multiple causes.
+For example, as explained in the section on a <a class="reference internal" href="../concepts/processes.html#concepts-process-lifetime"><span class="std std-ref">process’ lifetime</span></a>, this can be the case for a submitted process, where the corresponding task is still queued, as all available process slots are occupied.
+But even if the task <em>were</em> to be with a runner, it might be too busy to respond to the RPC and the process appears to be unreachable.
+Whenever a process is unreachable for an RPC, the command will return an error:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">Process</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span> <span class="ow">is</span> <span class="n">unreachable</span>
+</pre></div>
+</div>
+<p>Depending on the cause of the process being unreachable, the problem may resolve itself automatically over time and one can try again at a later time, as for example in the case of the runner being too busy to respond.
+However, to prevent this from happening, the runner has been designed to have the communication happen over a separate thread and to schedule callbacks for any necessary actions on the main thread, which performs all the heavy lifting.
+This should make occurrences of the runner being too busy to respond very rare.
+If you think the
+The problem is, however, there is unfortunately no way of telling what the actual problem is for the process not being reachable.
+The problem will manifest itself identically if the runner just could not respond in time or if the task has accidentally been lost forever due to a bug, even though these are two completely separate situations.</p>
+<p>This brings us to another potential unintuitive aspect of interacting with processes.
+The previous paragraph already mentioned it in passing, but when a remote procedure call is sent, it first needs to be answered by the responsible runner, if applicable, but it will not <em>directly execute</em> the call.
+This is because the call will be incoming on the communcation thread who is not allowed to have direct access to the process instance, but instead it will schedule a callback on the main thread who can perform the action.
+The callback will however not necessarily be executed directly, as there may be other actions waiting to be performed.
+So when you pause, play or kill a process, you are not doing so directly, but rather you are <em>scheduling</em> a request to do so.
+If the runner has successfully received the request and scheduled the callback, the command will therefore show something like the following:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Success</span><span class="p">:</span> <span class="n">scheduled</span> <span class="n">killing</span> <span class="n">Process</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The ‘scheduled’ indicates that the actual killing might not necessarily have happened just yet.
+This means that even after having called <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">kill</span></code> and getting the success message, the corresponding process may still be listed as active in the output of <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span></code>.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">pause</span></code>, <code class="docutils literal notranslate"><span class="pre">play</span></code> and <code class="docutils literal notranslate"><span class="pre">kill</span></code> commands will only ask for the confirmation of the runner that the request has been scheduled and not actually wait for the command to have been executed.
+This is because, as explained, the actual action being performed might not be instantaneous as the runner may be busy working with other processes, which would mean that the command would block for a long time.
+If you want to send multiple requests to a lot of processes in one go, this would be ineffective, as each one would have to wait for the previous one to be completed.
+To change the default and actually wait for the action to be completed and await its response, you can use the <code class="docutils literal notranslate"><span class="pre">--wait</span></code> flag.
+If you know that your daemon runners may be experiencing a heavy load, you can also increase the time that the command waits before timing out, with the <code class="docutils literal notranslate"><span class="pre">-t/--timeout</span></code> flag.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Note that the <a class="reference internal" href="../apidoc/aiida.calculations.plugins.arithmetic.html#aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation" title="aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code></a> process class also takes a <code class="docutils literal notranslate"><span class="pre">code</span></code> as input, but that has been omitted for the purposes of the example.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="functions.html" class="btn btn-neutral float-right" title="Calculation and work functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../concepts/workflows.html" class="btn btn-neutral float-left" title="Workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.implementation.django.groups &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.orm.implementation.django.groups</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.implementation.django.groups</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Django Group entity&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sized</span>  <span class="c1"># only works on python 3.3+</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sized</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="c1"># pylint: disable=no-name-in-module, import-error</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">transaction</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+
+<span class="kn">from</span> <span class="nn">aiida.orm.implementation.groups</span> <span class="k">import</span> <span class="n">BackendGroup</span><span class="p">,</span> <span class="n">BackendGroupCollection</span>
+<span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">type_check</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.djsite.db</span> <span class="k">import</span> <span class="n">models</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">entities</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">users</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">utils</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;DjangoGroup&#39;</span><span class="p">,</span> <span class="s1">&#39;DjangoGroupCollection&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DjangoGroup"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup">[docs]</a><span class="k">class</span> <span class="nc">DjangoGroup</span><span class="p">(</span><span class="n">entities</span><span class="o">.</span><span class="n">DjangoModelEntity</span><span class="p">[</span><span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="p">],</span> <span class="n">BackendGroup</span><span class="p">):</span>  <span class="c1"># pylint: disable=abstract-method</span>
+    <span class="sd">&quot;&quot;&quot;The Django group object&quot;&quot;&quot;</span>
+    <span class="n">MODEL_CLASS</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span>
+
+<div class="viewcode-block" id="DjangoGroup.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct a new Django group&quot;&quot;&quot;</span>
+        <span class="n">type_check</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">DjangoUser</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DjangoGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ModelWrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">dbmodel</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="n">type_string</span><span class="p">))</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">label</span>
+
+    <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to change the label of the group instance. If the group is already stored</span>
+<span class="sd">        and the another group of the same type already exists with the desired label, a</span>
+<span class="sd">        UniquenessError will be raised</span>
+
+<span class="sd">        :param label : the new group label</span>
+<span class="sd">        :raises aiida.common.UniquenessError: if another group of same type and label already exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">description</span>
+
+    <span class="nd">@description</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">type_string</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">from_dbmodel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="nd">@user</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_user</span><span class="p">):</span>
+        <span class="n">type_check</span><span class="p">(</span><span class="n">new_user</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">DjangoUser</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">new_user</span><span class="o">.</span><span class="n">backend</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span> <span class="s2">&quot;User from a different backend&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">new_user</span><span class="o">.</span><span class="n">dbmodel</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DjangoGroup.__int__"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.__int__">[docs]</a>    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbnode</span><span class="o">.</span><span class="n">pk</span></div>
+
+<div class="viewcode-block" id="DjangoGroup.store"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.store">[docs]</a>    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+                    <span class="c1"># We now have to reset the model&#39;s user entry because</span>
+                    <span class="c1"># django will have assigned the user an ID but this</span>
+                    <span class="c1"># is not automatically propagated to us</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">dbmodel</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># To allow to do directly g = Group(...).store()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="DjangoGroup.count"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.count">[docs]</a>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the number of entities in this group.</span>
+
+<span class="sd">        :return: integer number of entities contained within the group</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">dbnodes</span><span class="o">.</span><span class="n">count</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DjangoGroup.clear"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove all the nodes from this group.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">dbnodes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get an iterator to the nodes in the group&quot;&quot;&quot;</span>
+
+        <span class="k">class</span> <span class="nc">NodesIterator</span><span class="p">(</span><span class="n">Iterator</span><span class="p">,</span> <span class="n">Sized</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;The nodes iterator&quot;&quot;&quot;</span>
+
+            <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbnodes</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+                <span class="nb">super</span><span class="p">(</span><span class="n">NodesIterator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="n">backend</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dbnodes</span> <span class="o">=</span> <span class="n">dbnodes</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_genfunction</span><span class="p">()</span>
+
+            <span class="k">def</span> <span class="nf">_genfunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="c1"># Best to use dbnodes.iterator() so we load entities from the database as we need them</span>
+                <span class="c1"># see: http://blog.etianen.com/blog/2013/06/08/django-querysets/</span>
+                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbnodes</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+                    <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">get_backend_entity</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span>
+
+            <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbnodes</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">get_backend_entity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbnodes</span><span class="p">[</span><span class="n">value</span><span class="p">]]</span>
+
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">get_backend_entity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbnodes</span><span class="p">[</span><span class="n">value</span><span class="p">])</span>
+
+            <span class="c1"># For future python-3 compatibility</span>
+            <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">NodesIterator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">dbnodes</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DjangoGroup.add_nodes"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.add_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">add_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.nodes</span> <span class="k">import</span> <span class="n">DjangoNode</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">DjangoGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">add_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+
+        <span class="n">node_pks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">DjangoNode</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;invalid type </span><span class="si">{}</span><span class="s1">, has to be </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">DjangoNode</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of the provided nodes is unstored, stopping...&#39;</span><span class="p">)</span>
+
+            <span class="n">node_pks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">dbnodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="n">node_pks</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DjangoGroup.remove_nodes"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroup.remove_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">remove_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.nodes</span> <span class="k">import</span> <span class="n">DjangoNode</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">DjangoGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">remove_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+
+        <span class="n">node_pks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">DjangoNode</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;invalid type </span><span class="si">{}</span><span class="s1">, has to be </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">DjangoNode</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of the provided nodes is unstored, stopping...&#39;</span><span class="p">)</span>
+
+            <span class="n">node_pks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">dbnodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="o">*</span><span class="n">node_pks</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DjangoGroupCollection"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroupCollection">[docs]</a><span class="k">class</span> <span class="nc">DjangoGroupCollection</span><span class="p">(</span><span class="n">BackendGroupCollection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The Django Group collection&quot;&quot;&quot;</span>
+
+    <span class="n">ENTITY_CLASS</span> <span class="o">=</span> <span class="n">DjangoGroup</span>
+
+<div class="viewcode-block" id="DjangoGroupCollection.query"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroupCollection.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">type_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">pk</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">uuid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">node_attributes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">past_days</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">label_filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+        <span class="c1"># pylint: disable=too-many-branches,too-many-locals</span>
+        <span class="kn">from</span> <span class="nn">.nodes</span> <span class="k">import</span> <span class="n">DjangoNode</span>
+
+        <span class="c1"># Analyze args and kwargs to create the query</span>
+        <span class="n">queryobject</span> <span class="o">=</span> <span class="n">Q</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_string</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">type_string</span><span class="o">=</span><span class="n">type_string</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">uuid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">past_days</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">time__gte</span><span class="o">=</span><span class="n">past_days</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nodes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pk_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+                <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">nodes</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">DjangoNode</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">DbNode</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;At least one of the elements passed as &quot;</span>
+                                    <span class="s2">&quot;nodes for the query on Group is neither &quot;</span>
+                                    <span class="s2">&quot;a Node nor a DbNode&quot;</span><span class="p">)</span>
+                <span class="n">pk_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">dbnodes__in</span><span class="o">=</span><span class="n">pk_list</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">user__email</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">label_filters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label_filters_list</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name__&quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">label_filters</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span><span class="p">}</span>
+            <span class="n">queryobject</span> <span class="o">&amp;=</span> <span class="n">Q</span><span class="p">(</span><span class="o">**</span><span class="n">label_filters_list</span><span class="p">)</span>
+
+        <span class="n">groups_pk</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">queryobject</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">node_attributes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">vlist</span> <span class="ow">in</span> <span class="n">node_attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vlist</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vlist</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+                    <span class="n">vlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">vlist</span><span class="p">]</span>
+
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">vlist</span><span class="p">:</span>
+                    <span class="c1"># This will be a dictionary of the type</span>
+                    <span class="c1"># {&#39;datatype&#39;: &#39;txt&#39;, &#39;tval&#39;: &#39;xxx&#39;) for instance, if</span>
+                    <span class="c1"># the passed data is a string</span>
+                    <span class="n">base_query_dict</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbAttribute</span><span class="o">.</span><span class="n">get_query_dict</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="c1"># prepend to the key the right django string to SQL-join</span>
+                    <span class="c1"># on the right table</span>
+                    <span class="n">query_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dbnodes__dbattributes__</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k2</span><span class="p">):</span> <span class="n">v2</span> <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v2</span> <span class="ow">in</span> <span class="n">base_query_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+                    <span class="c1"># I narrow down the list of groups.</span>
+                    <span class="c1"># I had to do it in this way, with multiple DB hits and</span>
+                    <span class="c1"># not a single, complicated query because in SQLite</span>
+                    <span class="c1"># there is a maximum of 64 tables in a join.</span>
+                    <span class="c1"># Since typically one requires a small number of filters,</span>
+                    <span class="c1"># this should be ok.</span>
+                    <span class="n">groups_pk</span> <span class="o">=</span> <span class="n">groups_pk</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span>
+                        <span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">groups_pk</span><span class="p">,</span> <span class="n">dbnodes__dbattributes__key</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+                                                      <span class="o">**</span><span class="n">query_dict</span><span class="p">)</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+        <span class="n">retlist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Return sorted by pk</span>
+        <span class="k">for</span> <span class="n">dbgroup</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">groups_pk</span><span class="p">):</span>
+            <span class="n">retlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DjangoGroup</span><span class="o">.</span><span class="n">from_dbmodel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">dbgroup</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">retlist</span></div>
+
+<div class="viewcode-block" id="DjangoGroupCollection.delete"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.implementation.django.html#aiida.orm.implementation.django.groups.DjangoGroupCollection.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+        <span class="n">models</span><span class="o">.</span><span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

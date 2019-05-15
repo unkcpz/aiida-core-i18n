@@ -1,0 +1,1010 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.transports.transport &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.transports.transport</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.transports.transport</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Transport interface.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">InternalError</span>
+<span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">classproperty</span>
+
+<span class="n">DEFAULT_TRANSPORT_INTERVAL</span> <span class="o">=</span> <span class="mf">30.</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Transport&#39;</span><span class="p">,)</span>
+
+
+<div class="viewcode-block" id="Transport"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Transport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract class for a generic transport (ssh, local, ...)</span>
+<span class="sd">    Contains the set of minimal methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># pylint: disable=too-many-public-methods,useless-object-inheritance,bad-option-value</span>
+
+    <span class="c1"># To be defined in the subclass</span>
+    <span class="c1"># See the ssh or local plugin to see the format</span>
+    <span class="n">_valid_auth_params</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_MAGIC_CHECK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[*?[]&#39;</span><span class="p">)</span>
+    <span class="n">_valid_auth_options</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_common_auth_options</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;safe_interval&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s1">&#39;prompt&#39;</span><span class="p">:</span> <span class="s1">&#39;Connection cooldown time (sec)&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="s1">&#39;Minimum time between connections in sec&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;non_interactive_default&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">})]</span>
+
+<div class="viewcode-block" id="Transport.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __init__ method of the Transport base class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;transport&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger_extra</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_safe_open_interval</span> <span class="o">=</span> <span class="n">DEFAULT_TRANSPORT_INTERVAL</span></div>
+
+<div class="viewcode-block" id="Transport.__enter__"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For transports that require opening a connection, opens</span>
+<span class="sd">        all required channels (used in &#39;with&#39; statements).</span>
+
+<span class="sd">        This object can be used in nested `with` statements and the connection</span>
+<span class="sd">        will only be opened once and closed when the final `with` scope</span>
+<span class="sd">        finishes e.g.::</span>
+
+<span class="sd">            t = Transport()</span>
+<span class="sd">            with t:</span>
+<span class="sd">                # Connection is now open..</span>
+<span class="sd">                with t:</span>
+<span class="sd">                    # ..still open..</span>
+<span class="sd">                    pass</span>
+<span class="sd">                # ..still open..</span>
+<span class="sd">            # ...closed</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Keep track of how many times enter has been called</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_open</span><span class="p">:</span>
+                <span class="c1"># Already open, so just add one to the entered counter</span>
+                <span class="c1"># this way on the final exit we will not close</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Transport.__exit__"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes connections, if needed (used in &#39;with&#39; statements).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enters</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span>
+
+<div class="viewcode-block" id="Transport.open"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens a local transport channel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.close"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes the local transport channel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.__repr__"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+    <span class="c1"># redefine this in each subclass</span>
+<div class="viewcode-block" id="Transport.__str__"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;[Transport class or subclass]&quot;</span></div>
+
+<div class="viewcode-block" id="Transport.set_logger_extra"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.set_logger_extra">[docs]</a>    <span class="k">def</span> <span class="nf">set_logger_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger_extra</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass the data that should be passed automatically to self.logger</span>
+<span class="sd">        as &#39;extra&#39; keyword. This is typically useful if you pass data</span>
+<span class="sd">        obtained using get_dblogger_extra in aiida.backends.djsite.utils, to automatically</span>
+<span class="sd">        log also to the DbLog table.</span>
+
+<span class="sd">        :param logger_extra: data that you want to pass as extra to the</span>
+<span class="sd">          self.logger. To write to DbLog, it should be created by the</span>
+<span class="sd">          aiida.backends.djsite.utils.get_dblogger_extra function. Pass None if you</span>
+<span class="sd">          do not want to have extras passed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger_extra</span> <span class="o">=</span> <span class="n">logger_extra</span></div>
+
+<div class="viewcode-block" id="Transport.get_short_doc"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_short_doc">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_short_doc</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the first non-empty line of the class docstring, if available</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Remove empty lines</span>
+        <span class="n">docstring</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">docstring</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;No documentation available&quot;</span>
+
+        <span class="n">doclines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">docstring</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">doclines</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">doclines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;No documentation available&quot;</span></div>
+
+<div class="viewcode-block" id="Transport.get_valid_transports"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_valid_transports">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_valid_transports</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a list of existing plugin names</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.plugins.entry_point</span> <span class="k">import</span> <span class="n">get_entry_point_names</span>
+
+        <span class="k">return</span> <span class="n">get_entry_point_names</span><span class="p">(</span><span class="s1">&#39;aiida.transports&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.get_valid_auth_params"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_valid_auth_params">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_valid_auth_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the internal list of valid auth_params</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_valid_auth_options</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_options</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span></div>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">auth_options</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>  <span class="c1"># pylint: disable=no-self-argument</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_valid_auth_options</span> <span class="o">+</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_common_auth_options</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transport._get_safe_interval_suggestion_string"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport._get_safe_interval_suggestion_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_get_safe_interval_suggestion_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">computer</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Default time in seconds between consecutive checks.</span>
+
+<span class="sd">        Set to a non-zero value to be safe e.g. in the case of transports with a connection limit,</span>
+<span class="sd">        to avoid overloading the server (and being banned). Should be overriden</span>
+<span class="sd">        in plugins. This is anyway just a default, as the value can be changed</span>
+<span class="sd">        by the user in the Computer properties, for instance.</span>
+<span class="sd">        Currently both the local and the ssh transport override this value, so this is not used,</span>
+<span class="sd">        but it will be the default for possible new plugins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">DEFAULT_TRANSPORT_INTERVAL</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the internal logger.</span>
+<span class="sd">        If you have set extra parameters using set_logger_extra(), a</span>
+<span class="sd">        suitable LoggerAdapter instance is created, bringing with itself</span>
+<span class="sd">        also the extras.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">logging</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger_extra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger_extra</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InternalError</span><span class="p">(</span><span class="s2">&quot;No self._logger configured for </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transport.get_safe_open_interval"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_safe_open_interval">[docs]</a>    <span class="k">def</span> <span class="nf">get_safe_open_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an interval (in seconds) that suggests how long the user should wait</span>
+<span class="sd">        between consecutive calls to open the transport.  This can be used as</span>
+<span class="sd">        a way to get the user to not swamp a limited number of connections, etc.</span>
+<span class="sd">        However it is just advisory.</span>
+
+<span class="sd">        If returns 0, it is taken that there are no reasons to limit the</span>
+<span class="sd">        frequency of open calls.</span>
+
+<span class="sd">        In the main class, it returns a default value (&gt;0 for safety), set in</span>
+<span class="sd">        the _DEFAULT_SAFE_OPEN_INTERVAL attribute of the class. Plugins should override it.</span>
+
+<span class="sd">        :return: The safe interval between calling open, in seconds</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_safe_open_interval</span></div>
+
+<div class="viewcode-block" id="Transport.chdir"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.chdir">[docs]</a>    <span class="k">def</span> <span class="nf">chdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change directory to &#39;path&#39;</span>
+
+<span class="sd">        :param str path: path to change working directory into.</span>
+<span class="sd">        :raises: IOError, if the requested path does not exist</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.chmod"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.chmod">[docs]</a>    <span class="k">def</span> <span class="nf">chmod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change permissions of a path.</span>
+
+<span class="sd">        :param str path: path to file</span>
+<span class="sd">        :param int mode: new permissions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.chown"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.chown">[docs]</a>    <span class="k">def</span> <span class="nf">chown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the owner (uid) and group (gid) of a file.</span>
+<span class="sd">        As with python&#39;s os.chown function, you must pass both arguments,</span>
+<span class="sd">        so if you only want to change one, use stat first to retrieve the</span>
+<span class="sd">        current owner and group.</span>
+
+<span class="sd">        :param str path: path to the file to change the owner and group of</span>
+<span class="sd">        :param int uid: new owner&#39;s uid</span>
+<span class="sd">        :param int gid: new group id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.copy"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy a file or a directory from remote source to remote destination</span>
+<span class="sd">        (On the same remote machine)</span>
+
+<span class="sd">        :param str remotesource: path of the remote source directory / file</span>
+<span class="sd">        :param str remotedestination: path of the remote destination directory / file</span>
+<span class="sd">        :param dereference: if True copy the contents of any symlinks found, otherwise copy the symlinks themselves</span>
+<span class="sd">        :type dereference: bool</span>
+<span class="sd">        :param recursive: if True copy directories recursively, otherwise only copy the specified file(s)</span>
+<span class="sd">        :type recursive: bool</span>
+
+<span class="sd">        :raises: IOError, if one of src or dst does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.copyfile"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.copyfile">[docs]</a>    <span class="k">def</span> <span class="nf">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy a file from remote source to remote destination</span>
+<span class="sd">        (On the same remote machine)</span>
+
+<span class="sd">        :param str remotesource: path of the remote source directory / file</span>
+<span class="sd">        :param str remotedestination: path of the remote destination directory / file</span>
+<span class="sd">        :param dereference: if True copy the contents of any symlinks found, otherwise copy the symlinks themselves</span>
+<span class="sd">        :type dereference: bool</span>
+
+<span class="sd">        :raises IOError: if one of src or dst does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.copytree"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.copytree">[docs]</a>    <span class="k">def</span> <span class="nf">copytree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy a folder from remote source to remote destination</span>
+<span class="sd">        (On the same remote machine)</span>
+
+<span class="sd">        :param str remotesource: path of the remote source directory / file</span>
+<span class="sd">        :param str remotedestination: path of the remote destination directory / file</span>
+<span class="sd">        :param dereference: if True copy the contents of any symlinks found, otherwise copy the symlinks themselves</span>
+<span class="sd">        :type dereference: bool</span>
+
+<span class="sd">        :raise IOError: if one of src or dst does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.copy_from_remote_to_remote"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.copy_from_remote_to_remote">[docs]</a>    <span class="k">def</span> <span class="nf">copy_from_remote_to_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transportdestination</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy files or folders from a remote computer to another remote computer.</span>
+
+<span class="sd">        :param transportdestination: transport to be used for the destination computer</span>
+<span class="sd">        :param str remotesource: path to the remote source directory / file</span>
+<span class="sd">        :param str remotedestination: path to the remote destination directory / file</span>
+<span class="sd">        :param kwargs: keyword parameters passed to the call to transportdestination.put,</span>
+<span class="sd">            except for &#39;dereference&#39; that is passed to self.get</span>
+
+<span class="sd">        .. note:: the keyword &#39;dereference&#39; SHOULD be set to False for the</span>
+<span class="sd">         final put (onto the destination), while it can be set to the</span>
+<span class="sd">         value given in kwargs for the get from the source. In that</span>
+<span class="sd">         way, a symbolic link would never be followed in the final</span>
+<span class="sd">         copy to the remote destination. That way we could avoid getting</span>
+<span class="sd">         unknown (potentially malicious) files into the destination computer.</span>
+<span class="sd">         HOWEVER, since dereference=False is currently NOT</span>
+<span class="sd">         supported by all plugins, we still force it to True for the final put.</span>
+
+<span class="sd">        .. note:: the supported keys in kwargs are callback, dereference,</span>
+<span class="sd">           overwrite and ignore_nonexisting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.folders</span> <span class="k">import</span> <span class="n">SandboxFolder</span>
+
+        <span class="n">kwargs_get</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;dereference&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;dereference&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="s1">&#39;overwrite&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;ignore_nonexisting&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">kwargs_put</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;callback&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s1">&#39;dereference&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;overwrite&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="s1">&#39;ignore_nonexisting&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ignore_nonexisting&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unknown parameters passed to copy_from_remote_to_remote&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">SandboxFolder</span><span class="p">()</span> <span class="k">as</span> <span class="n">sandbox</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">remotesource</span><span class="p">,</span> <span class="n">sandbox</span><span class="o">.</span><span class="n">abspath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_get</span><span class="p">)</span>
+            <span class="c1"># Then we scan the full sandbox directory with get_content_list,</span>
+            <span class="c1"># because copying directly from sandbox.abspath would not work</span>
+            <span class="c1"># to copy a single file into another single file, and copying</span>
+            <span class="c1"># from sandbox.get_abs_path(&#39;*&#39;) would not work for files</span>
+            <span class="c1"># beginning with a dot (&#39;.&#39;).</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">sandbox</span><span class="o">.</span><span class="n">get_content_list</span><span class="p">():</span>
+                <span class="n">transportdestination</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sandbox</span><span class="o">.</span><span class="n">abspath</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_put</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport._exec_command_internal"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport._exec_command_internal">[docs]</a>    <span class="k">def</span> <span class="nf">_exec_command_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute the command on the shell, similarly to os.system.</span>
+
+<span class="sd">        Enforce the execution to be run from the cwd (as given by</span>
+<span class="sd">        self.getcwd), if this is not None.</span>
+
+<span class="sd">        If possible, use the higher-level</span>
+<span class="sd">        exec_command_wait function.</span>
+
+<span class="sd">        :param str command: execute the command given as a string</span>
+<span class="sd">        :return: stdin, stdout, stderr and the session, when this exists \</span>
+<span class="sd">                 (can be None).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.exec_command_wait"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.exec_command_wait">[docs]</a>    <span class="k">def</span> <span class="nf">exec_command_wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute the command on the shell, waits for it to finish,</span>
+<span class="sd">        and return the retcode, the stdout and the stderr.</span>
+
+<span class="sd">        Enforce the execution to be run from the pwd (as given by</span>
+<span class="sd">        self.getcwd), if this is not None.</span>
+
+<span class="sd">        :param str command: execute the command given as a string</span>
+<span class="sd">        :return: a list: the retcode (int), stdout (str) and stderr (str).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.get"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a file or folder from remote source to local destination</span>
+<span class="sd">        dst must be an absolute path (src not necessarily)</span>
+
+<span class="sd">        :param remotepath: (str) remote_folder_path</span>
+<span class="sd">        :param localpath: (str) local_folder_path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.getfile"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.getfile">[docs]</a>    <span class="k">def</span> <span class="nf">getfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a file from remote source to local destination</span>
+<span class="sd">        dst must be an absolute path (src not necessarily)</span>
+
+<span class="sd">        :param str remotepath: remote_folder_path</span>
+<span class="sd">        :param str localpath: local_folder_path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.gettree"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.gettree">[docs]</a>    <span class="k">def</span> <span class="nf">gettree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a folder recursively from remote source to local destination</span>
+<span class="sd">        dst must be an absolute path (src not necessarily)</span>
+
+<span class="sd">        :param str remotepath: remote_folder_path</span>
+<span class="sd">        :param str localpath: local_folder_path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.getcwd"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.getcwd">[docs]</a>    <span class="k">def</span> <span class="nf">getcwd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get working directory</span>
+
+<span class="sd">        :return: a string identifying the current working directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.get_attribute"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an object FixedFieldsAttributeDict for file in a given path,</span>
+<span class="sd">        as defined in aiida.common.extendeddicts</span>
+<span class="sd">        Each attribute object consists in a dictionary with the following keys:</span>
+
+<span class="sd">        * st_size: size of files, in bytes</span>
+
+<span class="sd">        * st_uid: user id of owner</span>
+
+<span class="sd">        * st_gid: group id of owner</span>
+
+<span class="sd">        * st_mode: protection bits</span>
+
+<span class="sd">        * st_atime: time of most recent access</span>
+
+<span class="sd">        * st_mtime: time of most recent modification</span>
+
+<span class="sd">        :param str path: path to file</span>
+<span class="sd">        :return: object FixedFieldsAttributeDict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.get_mode"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.get_mode">[docs]</a>    <span class="k">def</span> <span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the portion of the file&#39;s mode that can be set by chmod().</span>
+
+<span class="sd">        :param str path: path to file</span>
+<span class="sd">        :return: the portion of the file&#39;s mode that can be set by chmod()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">stat</span>
+
+        <span class="k">return</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IMODE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">st_mode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.isdir"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.isdir">[docs]</a>    <span class="k">def</span> <span class="nf">isdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        True if path is an existing directory.</span>
+
+<span class="sd">        :param str path: path to directory</span>
+<span class="sd">        :return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.isfile"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.isfile">[docs]</a>    <span class="k">def</span> <span class="nf">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return True if path is an existing file.</span>
+
+<span class="sd">        :param str path: path to file</span>
+<span class="sd">        :return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.listdir"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.listdir">[docs]</a>    <span class="k">def</span> <span class="nf">listdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of the names of the entries in the given path.</span>
+<span class="sd">        The list is in arbitrary order. It does not include the special</span>
+<span class="sd">        entries &#39;.&#39; and &#39;..&#39; even if they are present in the directory.</span>
+
+<span class="sd">        :param str path: path to list (default to &#39;.&#39;)</span>
+<span class="sd">        :param str pattern: if used, listdir returns a list of files matching</span>
+<span class="sd">                            filters in Unix style. Unix only.</span>
+<span class="sd">        :return: a list of strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.listdir_withattributes"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.listdir_withattributes">[docs]</a>    <span class="k">def</span> <span class="nf">listdir_withattributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of the names of the entries in the given path.</span>
+<span class="sd">        The list is in arbitrary order. It does not include the special</span>
+<span class="sd">        entries &#39;.&#39; and &#39;..&#39; even if they are present in the directory.</span>
+
+<span class="sd">        :param str path: path to list (default to &#39;.&#39;)</span>
+<span class="sd">        :param str pattern: if used, listdir returns a list of files matching</span>
+<span class="sd">                            filters in Unix style. Unix only.</span>
+<span class="sd">        :return: a list of dictionaries, one per entry.</span>
+<span class="sd">            The schema of the dictionary is</span>
+<span class="sd">            the following::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                   &#39;name&#39;: String,</span>
+<span class="sd">                   &#39;attributes&#39;: FileAttributeObject,</span>
+<span class="sd">                   &#39;isdir&#39;: Bool</span>
+<span class="sd">                }</span>
+
+<span class="sd">            where &#39;name&#39; is the file or folder directory, and any other information is metadata</span>
+<span class="sd">            (if the file is a folder, a directory, ...). &#39;attributes&#39; behaves as the output of</span>
+<span class="sd">            transport.get_attribute(); isdir is a boolean indicating if the object is a directory or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">retlist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listdir</span><span class="p">():</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">retlist</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="n">attributes</span><span class="p">,</span> <span class="s1">&#39;isdir&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">filepath</span><span class="p">)})</span>
+        <span class="k">return</span> <span class="n">retlist</span></div>
+
+<div class="viewcode-block" id="Transport.makedirs"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.makedirs">[docs]</a>    <span class="k">def</span> <span class="nf">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Super-mkdir; create a leaf directory and all intermediate ones.</span>
+<span class="sd">        Works like mkdir, except that any intermediate path segment (not</span>
+<span class="sd">        just the rightmost) will be created if it does not exist.</span>
+
+<span class="sd">        :param str path: directory to create</span>
+<span class="sd">        :param bool ignore_existing: if set to true, it doesn&#39;t give any error</span>
+<span class="sd">                                     if the leaf directory does already exist</span>
+
+<span class="sd">        :raises: OSError, if directory at path already exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.mkdir"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.mkdir">[docs]</a>    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a folder (directory) named path.</span>
+
+<span class="sd">        :param str path: name of the folder to create</span>
+<span class="sd">        :param bool ignore_existing: if True, does not give any error if the</span>
+<span class="sd">                                     directory already exists</span>
+
+<span class="sd">        :raises: OSError, if directory at path already exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.normalize"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the normalized path (on the server) of a given path.</span>
+<span class="sd">        This can be used to quickly resolve symbolic links or determine</span>
+<span class="sd">        what the server is considering to be the &quot;current folder&quot;.</span>
+
+<span class="sd">        :param str path: path to be normalized</span>
+
+<span class="sd">        :raise IOError: if the path can&#39;t be resolved on the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.put"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Put a file or a directory from local src to remote dst.</span>
+<span class="sd">        src must be an absolute path (dst not necessarily))</span>
+<span class="sd">        Redirects to putfile and puttree.</span>
+
+<span class="sd">        :param str localpath: absolute path to local source</span>
+<span class="sd">        :param str remotepath: path to remote destination</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.putfile"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.putfile">[docs]</a>    <span class="k">def</span> <span class="nf">putfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Put a file from local src to remote dst.</span>
+<span class="sd">        src must be an absolute path (dst not necessarily))</span>
+
+<span class="sd">        :param str localpath: absolute path to local file</span>
+<span class="sd">        :param str remotepath: path to remote file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.puttree"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.puttree">[docs]</a>    <span class="k">def</span> <span class="nf">puttree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Put a folder recursively from local src to remote dst.</span>
+<span class="sd">        src must be an absolute path (dst not necessarily))</span>
+
+<span class="sd">        :param str localpath: absolute path to local folder</span>
+<span class="sd">        :param str remotepath: path to remote folder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.remove"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove the file at the given path. This only works on files;</span>
+<span class="sd">        for removing folders (directories), use rmdir.</span>
+
+<span class="sd">        :param str path: path to file to remove</span>
+
+<span class="sd">        :raise IOError: if the path is a directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.rename"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldpath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rename a file or folder from oldpath to newpath.</span>
+
+<span class="sd">        :param str oldpath: existing name of the file or folder</span>
+<span class="sd">        :param str newpath: new name for the file or folder</span>
+
+<span class="sd">        :raises IOError: if oldpath/newpath is not found</span>
+<span class="sd">        :raises ValueError: if oldpath/newpath is not a valid string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.rmdir"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.rmdir">[docs]</a>    <span class="k">def</span> <span class="nf">rmdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove the folder named path.</span>
+<span class="sd">        This works only for empty folders. For recursive remove, use rmtree.</span>
+
+<span class="sd">        :param str path: absolute path to the folder to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.rmtree"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.rmtree">[docs]</a>    <span class="k">def</span> <span class="nf">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove recursively the content at path</span>
+
+<span class="sd">        :param str path: absolute path to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.gotocomputer_command"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.gotocomputer_command">[docs]</a>    <span class="k">def</span> <span class="nf">gotocomputer_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotedir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string to be run using os.system in order to connect</span>
+<span class="sd">        via the transport to the remote directory.</span>
+
+<span class="sd">        Expected behaviors:</span>
+
+<span class="sd">        * A new bash session is opened</span>
+
+<span class="sd">        * A reasonable error message is produced if the folder does not exist</span>
+
+<span class="sd">        :param str remotedir: the full path of the remote directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.symlink"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.symlink">[docs]</a>    <span class="k">def</span> <span class="nf">symlink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a symbolic link between the remote source and the remote</span>
+<span class="sd">        destination.</span>
+
+<span class="sd">        :param remotesource: remote source</span>
+<span class="sd">        :param remotedestination: remote destination</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Transport.whoami"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.whoami">[docs]</a>    <span class="k">def</span> <span class="nf">whoami</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the remote username</span>
+
+<span class="sd">        :return: list of username (str),</span>
+<span class="sd">                 retval (int),</span>
+<span class="sd">                 stderr (str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;whoami&#39;</span>
+        <span class="n">retval</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exec_command_wait</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">retval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;There was nonempty stderr in the whoami command: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stderr</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">username</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem executing whoami. Exit code: </span><span class="si">{}</span><span class="s2">, stdout: &#39;</span><span class="si">{}</span><span class="s2">&#39;, &quot;</span>
+                          <span class="s2">&quot;stderr: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Error while executing whoami. Exit code: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Transport.path_exists"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.path_exists">[docs]</a>    <span class="k">def</span> <span class="nf">path_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns True if path exists, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1"># The following definitions are almost copied and pasted</span>
+    <span class="c1"># from the python module glob.</span>
+<div class="viewcode-block" id="Transport.glob"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.glob">[docs]</a>    <span class="k">def</span> <span class="nf">glob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of paths matching a pathname pattern.</span>
+
+<span class="sd">        The pattern may contain simple shell-style wildcards a la fnmatch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">pathname</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Transport.iglob"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.iglob">[docs]</a>    <span class="k">def</span> <span class="nf">iglob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pathname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator which yields the paths matching a pathname pattern.</span>
+
+<span class="sd">        The pattern may contain simple shell-style wildcards a la fnmatch.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+            <span class="c1"># if os.path.lexists(pathname): # ORIGINAL</span>
+            <span class="c1"># our implementation</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_exists</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">pathname</span>
+            <span class="k">return</span>
+        <span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dirname</span><span class="p">:</span>
+            <span class="c1"># for name in self.glob1(os.curdir, basename): # ORIGINAL</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">basename</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">name</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+            <span class="n">dirs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">dirname</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">basename</span><span class="p">):</span>
+            <span class="n">glob_in_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">glob_in_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob0</span>
+        <span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">glob_in_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+    <span class="c1"># These 2 helper functions non-recursively glob inside a literal directory.</span>
+    <span class="c1"># They return a list of basenames. `glob1` accepts a pattern while `glob0`</span>
+    <span class="c1"># takes a literal basename (so it only has to check for its existence).</span>
+
+<div class="viewcode-block" id="Transport.glob1"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.glob1">[docs]</a>    <span class="k">def</span> <span class="nf">glob1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Match subpaths of dirname against pattern.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dirname</span><span class="p">:</span>
+            <span class="c1"># dirname = os.curdir # ORIGINAL</span>
+            <span class="n">dirname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">):</span>
+            <span class="n">dirname</span> <span class="o">=</span> <span class="n">dirname</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">getfilesystemencoding</span><span class="p">()</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># names = os.listdir(dirname)</span>
+            <span class="c1"># print dirname</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">EnvironmentError</span><span class="p">:</span>  <span class="c1"># in PY2 a superclass of OS/IOError, in PY3 an alias for OSError, like IOError</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">pattern</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.glob0"><a class="viewcode-back" href="../../../developer_guide/core/transport.html#aiida.transports.Transport.glob0">[docs]</a>    <span class="k">def</span> <span class="nf">glob0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrap basename i a list if it is empty or if dirname/basename is an existing path, else return empty list.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">basename</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="c1"># `os.path.split()` returns an empty basename for paths ending with a</span>
+            <span class="c1"># directory separator.  &#39;q*x/&#39; should match only directories.</span>
+            <span class="c1"># if os.path.isdir(dirname):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">basename</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span><span class="p">)):</span>
+            <span class="c1"># if os.path.lexists(os.path.join(dirname, basename)):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">basename</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Transport.has_magic"><a class="viewcode-back" href="../../../apidoc/aiida.transports.html#aiida.transports.Transport.has_magic">[docs]</a>    <span class="k">def</span> <span class="nf">has_magic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_MAGIC_CHECK</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">TransportInternalError</span><span class="p">(</span><span class="n">InternalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if there is a transport error that is raised to an internal error (e.g.</span>
+<span class="sd">    a transport method called without opening the channel first).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

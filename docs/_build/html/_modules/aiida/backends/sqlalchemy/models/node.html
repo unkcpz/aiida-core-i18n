@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.sqlalchemy.models.node &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../sqlalchemy.html">aiida.backends.sqlalchemy</a> &raquo;</li>
+        
+      <li>aiida.backends.sqlalchemy.models.node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.sqlalchemy.models.node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">relationship</span><span class="p">,</span> <span class="n">backref</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.schema</span> <span class="k">import</span> <span class="n">Column</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="k">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">Text</span>
+<span class="c1"># Specific to PGSQL. If needed to be agnostic</span>
+<span class="c1"># http://docs.sqlalchemy.org/en/rel_0_9/core/custom_types.html?highlight=guid#backend-agnostic-guid-type</span>
+<span class="c1"># Or maybe rely on sqlalchemy-utils UUID type</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.dialects.postgresql</span> <span class="k">import</span> <span class="n">UUID</span><span class="p">,</span> <span class="n">JSONB</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.sqlalchemy.models.base</span> <span class="k">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">get_new_uuid</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.sqlalchemy.utils</span> <span class="k">import</span> <span class="n">flag_modified</span>
+
+
+<div class="viewcode-block" id="DbNode"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode">[docs]</a><span class="k">class</span> <span class="nc">DbNode</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;db_dbnode&quot;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">UUID</span><span class="p">(</span><span class="n">as_uuid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">get_new_uuid</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">node_type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">process_type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># Does it make sense to be nullable and have a default?</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ctime</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">(</span><span class="n">timezone</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">mtime</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">(</span><span class="n">timezone</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="n">onupdate</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">nodeversion</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">public</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">attributes</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">JSONB</span><span class="p">)</span>
+    <span class="n">extras</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">JSONB</span><span class="p">)</span>
+
+    <span class="n">dbcomputer_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Integer</span><span class="p">,</span>
+        <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;db_dbcomputer.id&#39;</span><span class="p">,</span> <span class="n">deferrable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">initially</span><span class="o">=</span><span class="s2">&quot;DEFERRED&quot;</span><span class="p">,</span> <span class="n">ondelete</span><span class="o">=</span><span class="s2">&quot;RESTRICT&quot;</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="c1"># This should have the same ondelete behaviour as db_computer_id, right?</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Integer</span><span class="p">,</span>
+        <span class="n">ForeignKey</span><span class="p">(</span>
+            <span class="s1">&#39;db_dbuser.id&#39;</span><span class="p">,</span> <span class="n">deferrable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">initially</span><span class="o">=</span><span class="s2">&quot;DEFERRED&quot;</span><span class="p">,</span> <span class="n">ondelete</span><span class="o">=</span><span class="s2">&quot;restrict&quot;</span>
+        <span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+    <span class="c1"># TODO SP: The &#39;passive_deletes=all&#39; argument here means that SQLAlchemy</span>
+    <span class="c1"># won&#39;t take care of automatic deleting in the DbLink table. This still</span>
+    <span class="c1"># isn&#39;t exactly the same behaviour than with Django. The solution to</span>
+    <span class="c1"># this is probably a ON DELETE inside the DB. On removing node with id=x,</span>
+    <span class="c1"># we would remove all link with x as an output.</span>
+
+    <span class="n">dbcomputer</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="s1">&#39;DbComputer&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;dbnodes&#39;</span><span class="p">,</span> <span class="n">passive_deletes</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># User</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="s1">&#39;DbUser&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;dbnodes&#39;</span><span class="p">,</span> <span class="n">passive_deletes</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># outputs via db_dblink table</span>
+    <span class="n">outputs_q</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
+        <span class="s2">&quot;DbNode&quot;</span><span class="p">,</span> <span class="n">secondary</span><span class="o">=</span><span class="s2">&quot;db_dblink&quot;</span><span class="p">,</span>
+        <span class="n">primaryjoin</span><span class="o">=</span><span class="s2">&quot;DbNode.id == DbLink.input_id&quot;</span><span class="p">,</span>
+        <span class="n">secondaryjoin</span><span class="o">=</span><span class="s2">&quot;DbNode.id == DbLink.output_id&quot;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s2">&quot;inputs_q&quot;</span><span class="p">,</span> <span class="n">passive_deletes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">),</span>
+        <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">,</span>
+        <span class="n">passive_deletes</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DbNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># The behavior of an unstored Node instance should be that all its attributes should be initialized in</span>
+        <span class="c1"># accordance with the defaults specified on the colums, i.e. if a default is specified for the `uuid` column,</span>
+        <span class="c1"># then an unstored `DbNode` instance should have a default value for the `uuid` attribute. The exception here</span>
+        <span class="c1"># is the `mtime`, that we do not want to be set upon instantiation, but only upon storing. However, in</span>
+        <span class="c1"># SqlAlchemy a default *has* to be defined if one wants to get that value upon storing. But since defining a</span>
+        <span class="c1"># default on the column in combination with the hack in `aiida.backend.SqlAlchemy.models.__init__` to force all</span>
+        <span class="c1"># defaults to be populated upon instantiation, we have to unset the `mtime` attribute here manually.</span>
+        <span class="c1">#</span>
+        <span class="c1"># The only time that we allow mtime not to be null is when we explicitly pass mtime as a kwarg. This covers</span>
+        <span class="c1"># the case that a node is constructed based on some very predefined data like when we create nodes at the</span>
+        <span class="c1"># AiiDA import functions.</span>
+        <span class="k">if</span> <span class="s1">&#39;mtime&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extras</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extras</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs_q</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs_q</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DbNode.get_simple_name"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.get_simple_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_simple_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invalid_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string with the last part of the type name.</span>
+
+<span class="sd">        If the type is empty, use &#39;Node&#39;.</span>
+<span class="sd">        If the type is invalid, return the content of the input variable</span>
+<span class="sd">        ``invalid_result``.</span>
+
+<span class="sd">        :param invalid_result: The value to be returned if the node type is</span>
+<span class="sd">            not recognized.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">thistype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span>
+        <span class="c1"># Fix for base class</span>
+        <span class="k">if</span> <span class="n">thistype</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">thistype</span> <span class="o">=</span> <span class="s2">&quot;node.Node.&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">thistype</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">invalid_result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">thistype</span> <span class="o">=</span> <span class="n">thistype</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Strip final dot</span>
+            <span class="k">return</span> <span class="n">thistype</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="DbNode.set_attr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.set_attr">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">DbNode</span><span class="o">.</span><span class="n">_set_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;attributes&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.reset_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.reset_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">reset_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attributes</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbNode.set_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.set_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">set_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">DbNode</span><span class="o">.</span><span class="n">_set_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;attributes&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.set_extra"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.set_extra">[docs]</a>    <span class="k">def</span> <span class="nf">set_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">DbNode</span><span class="o">.</span><span class="n">_set_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extras</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;extras&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.set_extras"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.set_extras">[docs]</a>    <span class="k">def</span> <span class="nf">set_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extras</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">extras</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">DbNode</span><span class="o">.</span><span class="n">_set_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extras</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;extras&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.reset_extras"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.reset_extras">[docs]</a>    <span class="k">def</span> <span class="nf">reset_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_extras</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extras</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extras</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_extras</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;extras&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.del_attr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.del_attr">[docs]</a>    <span class="k">def</span> <span class="nf">del_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">DbNode</span><span class="o">.</span><span class="n">_del_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;attributes&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode.del_extra"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.del_extra">[docs]</a>    <span class="k">def</span> <span class="nf">del_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">DbNode</span><span class="o">.</span><span class="n">_del_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extras</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">flag_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;extras&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbNode._set_attr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode._set_attr">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_set_attr</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;We don&#39;t know how to treat key with dot in it yet&quot;</span><span class="p">)</span>
+
+        <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="DbNode._del_attr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode._del_attr">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_del_attr</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;We don&#39;t know how to treat key with dot in it yet&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Key </span><span class="si">{}</span><span class="s2"> does not exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+<div class="viewcode-block" id="DbNode.__str__"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbNode.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">simplename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simple_name</span><span class="p">(</span><span class="n">invalid_result</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+        <span class="c1"># node pk + type</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> node [</span><span class="si">{}</span><span class="s2">]: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simplename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> node [</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simplename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DbLink"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbLink">[docs]</a><span class="k">class</span> <span class="nc">DbLink</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;db_dblink&quot;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">input_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Integer</span><span class="p">,</span>
+        <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;db_dbnode.id&#39;</span><span class="p">,</span> <span class="n">deferrable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">initially</span><span class="o">=</span><span class="s2">&quot;DEFERRED&quot;</span><span class="p">),</span>
+        <span class="n">index</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">output_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Integer</span><span class="p">,</span>
+        <span class="n">ForeignKey</span><span class="p">(</span>
+            <span class="s1">&#39;db_dbnode.id&#39;</span><span class="p">,</span>
+            <span class="n">ondelete</span><span class="o">=</span><span class="s2">&quot;CASCADE&quot;</span><span class="p">,</span>
+            <span class="n">deferrable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">initially</span><span class="o">=</span><span class="s2">&quot;DEFERRED&quot;</span>
+        <span class="p">),</span>
+        <span class="n">index</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;DbNode&quot;</span><span class="p">,</span> <span class="n">primaryjoin</span><span class="o">=</span><span class="s2">&quot;DbLink.input_id == DbNode.id&quot;</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;DbNode&quot;</span><span class="p">,</span> <span class="n">primaryjoin</span><span class="o">=</span><span class="s2">&quot;DbLink.output_id == DbNode.id&quot;</span><span class="p">)</span>
+
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># A calculation can have both a &#39;return&#39; and a &#39;create&#39; link to</span>
+    <span class="c1"># a single data output node, which would violate the unique constraint</span>
+    <span class="c1"># defined below, since the difference in link type is not considered.</span>
+    <span class="c1"># The distinction between the type of a &#39;create&#39; and a &#39;return&#39; link is not</span>
+    <span class="c1"># implemented at the moment, so the unique constraint is disabled.</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="c1"># I cannot add twice the same link</span>
+        <span class="c1"># I want unique labels among all inputs of a node</span>
+        <span class="c1"># UniqueConstraint(&#39;output_id&#39;, &#39;label&#39;),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DbLink.__str__"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.sqlalchemy.models.html#aiida.backends.sqlalchemy.models.node.DbLink.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">) --&gt; </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">get_simple_name</span><span class="p">(</span><span class="n">invalid_result</span><span class="o">=</span><span class="s2">&quot;Unknown node&quot;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">get_simple_name</span><span class="p">(</span><span class="n">invalid_result</span><span class="o">=</span><span class="s2">&quot;Unknown node&quot;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">pk</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

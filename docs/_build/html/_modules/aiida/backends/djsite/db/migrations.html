@@ -1,0 +1,1041 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.djsite.db.migrations &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.backends.djsite.db.migrations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.djsite.db.migrations</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="k">import</span> <span class="n">ObjectDoesNotExist</span>
+<span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">AiidaException</span><span class="p">,</span> <span class="n">DbContentError</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+
+
+<div class="viewcode-block" id="DeserializationException"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.DeserializationException">[docs]</a><span class="k">class</span> <span class="nc">DeserializationException</span><span class="p">(</span><span class="n">AiidaException</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<span class="n">LATEST_MIGRATION</span> <span class="o">=</span> <span class="s1">&#39;0033_replace_text_field_with_json_field&#39;</span>
+
+
+<div class="viewcode-block" id="_update_schema_version"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations._update_schema_version">[docs]</a><span class="k">def</span> <span class="nf">_update_schema_version</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">apps</span><span class="p">,</span> <span class="n">schema_editor</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">aiida.backends.djsite.utils</span> <span class="k">import</span> <span class="n">set_db_schema_version</span>
+    <span class="n">set_db_schema_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="upgrade_schema_version"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.upgrade_schema_version">[docs]</a><span class="k">def</span> <span class="nf">upgrade_schema_version</span><span class="p">(</span><span class="n">up_revision</span><span class="p">,</span> <span class="n">down_revision</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+    <span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">migrations</span>
+
+    <span class="k">return</span> <span class="n">migrations</span><span class="o">.</span><span class="n">RunPython</span><span class="p">(</span>
+        <span class="n">partial</span><span class="p">(</span><span class="n">_update_schema_version</span><span class="p">,</span> <span class="n">up_revision</span><span class="p">),</span>
+        <span class="n">reverse_code</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">_update_schema_version</span><span class="p">,</span> <span class="n">down_revision</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="current_schema_version"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.current_schema_version">[docs]</a><span class="k">def</span> <span class="nf">current_schema_version</span><span class="p">():</span>
+    <span class="c1"># Have to use this ugly way of importing because the django migration</span>
+    <span class="c1"># files start with numbers which are not a valid package name</span>
+    <span class="n">latest_migration</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span>
+        <span class="s1">&#39;aiida.backends.djsite.db.migrations.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">LATEST_MIGRATION</span><span class="p">),</span>
+        <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;REVISION&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">latest_migration</span><span class="o">.</span><span class="n">REVISION</span></div>
+
+
+<span class="c1"># Here I copied the class method definitions from aiida.backends.djsite.db.models</span>
+<span class="c1"># used to set and delete values for nodes.</span>
+<span class="c1"># This was done because:</span>
+<span class="c1"># 1) The DbAttribute object loaded with apps.get_model() does not provide the class methods</span>
+<span class="c1"># 2) When the django model changes the migration will continue to work</span>
+<span class="c1"># 3) If we defined in the migration a new class with these methodds as an extension of the DbAttribute class,</span>
+<span class="c1"># django detects a change in the model and creates a new migration</span>
+
+
+<div class="viewcode-block" id="_deserialize_attribute"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations._deserialize_attribute">[docs]</a><span class="k">def</span> <span class="nf">_deserialize_attribute</span><span class="p">(</span><span class="n">mainitem</span><span class="p">,</span> <span class="n">subitems</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">original_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">original_pk</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lesserrors</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deserialize a single attribute.</span>
+
+<span class="sd">    :param mainitem: the main item (either the attribute itself for base</span>
+<span class="sd">      types (None, string, ...) or the main item for lists and dicts.</span>
+<span class="sd">      Must contain the &#39;key&#39; key and also the following keys:</span>
+<span class="sd">      datatype, tval, fval, ival, bval, dval.</span>
+<span class="sd">      NOTE that a type check is not performed! tval is expected to be a string,</span>
+<span class="sd">      dval a date, etc.</span>
+<span class="sd">    :param subitems: must be a dictionary of dictionaries. In the top-level dictionary,</span>
+<span class="sd">      the key must be the key of the attribute, stripped of all prefixes</span>
+<span class="sd">      (i.e., if the mainitem has key &#39;a.b&#39; and we pass subitems</span>
+<span class="sd">      &#39;a.b.0&#39;, &#39;a.b.1&#39;, &#39;a.b.1.c&#39;, their keys must be &#39;0&#39;, &#39;1&#39;, &#39;1.c&#39;).</span>
+<span class="sd">      It must be None if the value is not iterable (int, str,</span>
+<span class="sd">      float, ...).</span>
+<span class="sd">      It is an empty dictionary if there are no subitems.</span>
+<span class="sd">    :param sep: a string, the separator between subfields (to separate the</span>
+<span class="sd">      name of a dictionary from the keys it contains, for instance)</span>
+<span class="sd">    :param original_class: if these elements come from a specific subclass</span>
+<span class="sd">      of DbMultipleValueAttributeBaseClass, pass here the class (note: the class,</span>
+<span class="sd">      not the instance!). This is used only in case the wrong number of elements</span>
+<span class="sd">      is found in the raw data, to print a more meaningful message (if the class</span>
+<span class="sd">      has a dbnode associated to it)</span>
+<span class="sd">    :param original_pk: if the elements come from a specific subclass</span>
+<span class="sd">      of DbMultipleValueAttributeBaseClass that has a dbnode associated to it,</span>
+<span class="sd">      pass here the PK integer. This is used only in case the wrong number</span>
+<span class="sd">      of elements is found in the raw data, to print a more meaningful message</span>
+<span class="sd">    :param lesserrors: If set to True, in some cases where the content of the</span>
+<span class="sd">      DB is not consistent but data is still recoverable,</span>
+<span class="sd">      it will just log the message rather than raising</span>
+<span class="sd">      an exception (e.g. if the number of elements of a dictionary is different</span>
+<span class="sd">      from the number declared in the ival field).</span>
+
+<span class="sd">    :return: the deserialized value</span>
+<span class="sd">    :raise aiida.backends.djsite.db.models.DeserializationException: if an error occurs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.timezone</span> <span class="k">import</span> <span class="p">(</span>
+        <span class="n">is_naive</span><span class="p">,</span> <span class="n">make_aware</span><span class="p">,</span> <span class="n">get_current_timezone</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span>
+
+    <span class="k">if</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;bval&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;ival&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;fval&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;txt&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;tval&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;date&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subitems</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is of a base type, &quot;</span>
+                                           <span class="s2">&quot;but has subitems!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mainitem</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">is_naive</span><span class="p">(</span><span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;dval&#39;</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">make_aware</span><span class="p">(</span><span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;dval&#39;</span><span class="p">],</span> <span class="n">get_current_timezone</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;dval&#39;</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span>
+        <span class="c1"># subitems contains all subitems, here I store only those of</span>
+        <span class="c1"># deepness 1, i.e. if I have subitems &#39;0&#39;, &#39;1&#39; and &#39;1.c&#39; I</span>
+        <span class="c1"># store only &#39;0&#39; and &#39;1&#39;</span>
+        <span class="n">firstlevelsubdict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subitems</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                             <span class="k">if</span> <span class="n">sep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">k</span><span class="p">}</span>
+
+        <span class="c1"># For checking, I verify the expected values</span>
+        <span class="n">expected_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;ival&#39;</span><span class="p">])])</span>
+        <span class="n">received_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">firstlevelsubdict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="c1"># If there are more entries than expected, but all expected</span>
+        <span class="c1"># ones are there, I just issue an error but I do not stop.</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">expected_set</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">received_set</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">original_class</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2"> and &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">,</span>
+                    <span class="n">original_pk</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">original_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="s2">&quot;the data passed&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="n">original_class</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;Wrong list elements stored in </span><span class="si">{}</span><span class="s2"> for &quot;</span>
+                                           <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">key=&#39;</span><span class="si">{}</span><span class="s2">&#39; (</span><span class="si">{}</span><span class="s2"> vs </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sourcestr</span><span class="p">,</span>
+                <span class="n">subspecifier_string</span><span class="p">,</span>
+                <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">],</span> <span class="n">expected_set</span><span class="p">,</span> <span class="n">received_set</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">expected_set</span> <span class="o">!=</span> <span class="n">received_set</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">original_class</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+                    <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2"> and &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">,</span>
+                    <span class="n">original_pk</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">original_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="s2">&quot;the data passed&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="n">original_class</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Wrong list elements stored in </span><span class="si">{}</span><span class="s2"> for &quot;</span>
+                   <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">key=&#39;</span><span class="si">{}</span><span class="s2">&#39; (</span><span class="si">{}</span><span class="s2"> vs </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sourcestr</span><span class="p">,</span>
+                <span class="n">subspecifier_string</span><span class="p">,</span>
+                <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">],</span> <span class="n">expected_set</span><span class="p">,</span> <span class="n">received_set</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">lesserrors</span><span class="p">:</span>
+                <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># I get the values in memory as a dictionary</span>
+        <span class="n">tempdict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">firstsubk</span><span class="p">,</span> <span class="n">firstsubv</span> <span class="ow">in</span> <span class="n">firstlevelsubdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># I call recursively the same function to get subitems</span>
+            <span class="n">newsubitems</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">firstsubk</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">):]:</span> <span class="n">v</span>
+                           <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subitems</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                           <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">firstsubk</span> <span class="o">+</span> <span class="n">sep</span><span class="p">)}</span>
+            <span class="n">tempdict</span><span class="p">[</span><span class="n">firstsubk</span><span class="p">]</span> <span class="o">=</span> <span class="n">_deserialize_attribute</span><span class="p">(</span><span class="n">mainitem</span><span class="o">=</span><span class="n">firstsubv</span><span class="p">,</span>
+                                                         <span class="n">subitems</span><span class="o">=</span><span class="n">newsubitems</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">original_class</span><span class="o">=</span><span class="n">original_class</span><span class="p">,</span>
+                                                         <span class="n">original_pk</span><span class="o">=</span><span class="n">original_pk</span><span class="p">)</span>
+
+        <span class="c1"># And then I put them in a list</span>
+        <span class="n">retlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">tempdict</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;ival&#39;</span><span class="p">])]</span>
+        <span class="k">return</span> <span class="n">retlist</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+        <span class="c1"># subitems contains all subitems, here I store only those of</span>
+        <span class="c1"># deepness 1, i.e. if I have subitems &#39;0&#39;, &#39;1&#39; and &#39;1.c&#39; I</span>
+        <span class="c1"># store only &#39;0&#39; and &#39;1&#39;</span>
+        <span class="n">firstlevelsubdict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subitems</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                             <span class="k">if</span> <span class="n">sep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">k</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">firstlevelsubdict</span><span class="p">)</span> <span class="o">!=</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;ival&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">original_class</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+                    <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2"> and &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">original_class</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">,</span>
+                    <span class="n">original_pk</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subspecifier_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">original_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="s2">&quot;the data passed&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sourcestr</span> <span class="o">=</span> <span class="n">original_class</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Wrong dict length stored in </span><span class="si">{}</span><span class="s2"> for &quot;</span>
+                   <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">key=&#39;</span><span class="si">{}</span><span class="s2">&#39; (</span><span class="si">{}</span><span class="s2"> vs </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sourcestr</span><span class="p">,</span>
+                <span class="n">subspecifier_string</span><span class="p">,</span>
+                <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">firstlevelsubdict</span><span class="p">),</span>
+                <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;ival&#39;</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">lesserrors</span><span class="p">:</span>
+                <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># I get the values in memory as a dictionary</span>
+        <span class="n">tempdict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">firstsubk</span><span class="p">,</span> <span class="n">firstsubv</span> <span class="ow">in</span> <span class="n">firstlevelsubdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># I call recursively the same function to get subitems</span>
+            <span class="n">newsubitems</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">firstsubk</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">):]:</span> <span class="n">v</span>
+                           <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">subitems</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                           <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">firstsubk</span> <span class="o">+</span> <span class="n">sep</span><span class="p">)}</span>
+            <span class="n">tempdict</span><span class="p">[</span><span class="n">firstsubk</span><span class="p">]</span> <span class="o">=</span> <span class="n">_deserialize_attribute</span><span class="p">(</span><span class="n">mainitem</span><span class="o">=</span><span class="n">firstsubv</span><span class="p">,</span>
+                                                         <span class="n">subitems</span><span class="o">=</span><span class="n">newsubitems</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">original_class</span><span class="o">=</span><span class="n">original_class</span><span class="p">,</span>
+                                                         <span class="n">original_pk</span><span class="o">=</span><span class="n">original_pk</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tempdict</span>
+    <span class="k">elif</span> <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;tval&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;Error in the content of the json field&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;The type field &#39;</span><span class="si">{}</span><span class="s2">&#39; is not recognized&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]))</span></div>
+
+
+<div class="viewcode-block" id="deserialize_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.deserialize_attributes">[docs]</a><span class="k">def</span> <span class="nf">deserialize_attributes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">original_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">original_pk</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deserialize the attributes from the format internally stored in the DB</span>
+<span class="sd">    to the actual format (dictionaries, lists, integers, ...</span>
+
+<span class="sd">    :param data: must be a dictionary of dictionaries. In the top-level dictionary,</span>
+<span class="sd">      the key must be the key of the attribute. The value must be a dictionary</span>
+<span class="sd">      with the following keys: datatype, tval, fval, ival, bval, dval. Other</span>
+<span class="sd">      keys are ignored.</span>
+<span class="sd">      NOTE that a type check is not performed! tval is expected to be a string,</span>
+<span class="sd">      dval a date, etc.</span>
+<span class="sd">    :param sep: a string, the separator between subfields (to separate the</span>
+<span class="sd">      name of a dictionary from the keys it contains, for instance)</span>
+<span class="sd">    :param original_class: if these elements come from a specific subclass</span>
+<span class="sd">      of DbMultipleValueAttributeBaseClass, pass here the class (note: the class,</span>
+<span class="sd">      not the instance!). This is used only in case the wrong number of elements</span>
+<span class="sd">      is found in the raw data, to print a more meaningful message (if the class</span>
+<span class="sd">      has a dbnode associated to it)</span>
+<span class="sd">    :param original_pk: if the elements come from a specific subclass</span>
+<span class="sd">      of DbMultipleValueAttributeBaseClass that has a dbnode associated to it,</span>
+<span class="sd">      pass here the PK integer. This is used only in case the wrong number</span>
+<span class="sd">      of elements is found in the raw data, to print a more meaningful message</span>
+
+<span class="sd">    :return: a dictionary, where for each entry the corresponding value is</span>
+<span class="sd">      returned, deserialized back to lists, dictionaries, etc.</span>
+<span class="sd">      Example: if ``data = {&#39;a&#39;: {&#39;datatype&#39;: &quot;list&quot;, &quot;ival&quot;: 2, ...},</span>
+<span class="sd">      &#39;a.0&#39;: {&#39;datatype&#39;: &quot;int&quot;, &quot;ival&quot;: 2, ...},</span>
+<span class="sd">      &#39;a.1&#39;: {&#39;datatype&#39;: &quot;txt&quot;, &quot;tval&quot;:  &quot;yy&quot;}]``,</span>
+<span class="sd">      it will return ``{&quot;a&quot;: [2, &quot;yy&quot;]}``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+    <span class="c1"># I group results by zero-level entity</span>
+    <span class="n">found_mainitems</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">found_subitems</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mainkey</span><span class="p">,</span> <span class="n">descriptiondict</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">thissep</span><span class="p">,</span> <span class="n">postfix</span> <span class="o">=</span> <span class="n">mainkey</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">thissep</span><span class="p">:</span>
+            <span class="n">found_subitems</span><span class="p">[</span><span class="n">prefix</span><span class="p">][</span><span class="n">postfix</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span>
+                                               <span class="ow">in</span> <span class="n">descriptiondict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;key&quot;</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mainitem</span> <span class="o">=</span> <span class="n">descriptiondict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">mainitem</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prefix</span>
+            <span class="n">found_mainitems</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">mainitem</span>
+
+    <span class="c1"># There can be mainitems without subitems, but there should not be subitems</span>
+    <span class="c1"># without mainitmes.</span>
+    <span class="n">lone_subitems</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">found_subitems</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">found_mainitems</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">lone_subitems</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DeserializationException</span><span class="p">(</span><span class="s2">&quot;Missing base keys for the following &quot;</span>
+                                       <span class="s2">&quot;items: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lone_subitems</span><span class="p">)))</span>
+
+    <span class="c1"># For each zero-level entity, I call the _deserialize_attribute function</span>
+    <span class="n">retval</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">found_mainitems</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Note: found_subitems[k] will return an empty dictionary it the</span>
+        <span class="c1"># key does not exist, as it is a defaultdict</span>
+        <span class="n">retval</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_deserialize_attribute</span><span class="p">(</span><span class="n">mainitem</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
+                                           <span class="n">subitems</span><span class="o">=</span><span class="n">found_subitems</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">original_class</span><span class="o">=</span><span class="n">original_class</span><span class="p">,</span>
+                                           <span class="n">original_pk</span><span class="o">=</span><span class="n">original_pk</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">retval</span></div>
+
+
+<div class="viewcode-block" id="ModelModifierV0025"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025">[docs]</a><span class="k">class</span> <span class="nc">ModelModifierV0025</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">aiida.backends.utils</span> <span class="k">import</span> <span class="n">AIIDA_ATTRIBUTE_SEP</span>
+
+    <span class="n">_subspecifier_field_name</span> <span class="o">=</span> <span class="s1">&#39;dbnode&#39;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="n">AIIDA_ATTRIBUTE_SEP</span>
+
+<div class="viewcode-block" id="ModelModifierV0025.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apps</span><span class="p">,</span> <span class="n">model_class</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apps</span> <span class="o">=</span> <span class="n">apps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span> <span class="o">=</span> <span class="n">model_class</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">apps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apps</span>
+
+<div class="viewcode-block" id="ModelModifierV0025.subspecifiers_dict"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifiers_dict">[docs]</a>    <span class="k">def</span> <span class="nf">subspecifiers_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a dict to narrow down the query to only those matching also the</span>
+<span class="sd">        subspecifier.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">)}</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.subspecifier_pk"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifier_pk">[docs]</a>    <span class="k">def</span> <span class="nf">subspecifier_pk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the subspecifier PK in the database (or None, if no</span>
+<span class="sd">        subspecifier should be used)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">)</span><span class="o">.</span><span class="n">pk</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.validate_key"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.validate_key">[docs]</a>    <span class="k">def</span> <span class="nf">validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the key string to check if it is valid (e.g., if it does not</span>
+<span class="sd">        contain the separator symbol.).</span>
+
+<span class="sd">        :return: None if the key is valid</span>
+<span class="sd">        :raise aiida.common.ValidationError: if the key is not valid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.utils</span> <span class="k">import</span> <span class="n">validate_attribute_key</span>
+        <span class="k">return</span> <span class="n">validate_attribute_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.get_value_for_node"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.get_value_for_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_value_for_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbnode</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an attribute from the database for the given dbnode.</span>
+
+<span class="sd">        :return: the value stored in the Db table, correctly converted</span>
+<span class="sd">            to the right type.</span>
+<span class="sd">        :raise AttributeError: if no key is found for the given dbnode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span>
+        <span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dbnode</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">integer_types</span><span class="p">):</span>
+            <span class="n">dbnode_node</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">dbnode</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dbnode_node</span> <span class="o">=</span> <span class="n">dbnode</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dbnode</span><span class="o">=</span><span class="n">dbnode_node</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> with key </span><span class="si">{}</span><span class="s2"> for node </span><span class="si">{}</span><span class="s2"> not found in db&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">dbnode</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.getvalue"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.getvalue">[docs]</a>    <span class="k">def</span> <span class="nf">getvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This can be called on a given row and will get the corresponding value, casting it correctly. &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">datatype</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span> <span class="ow">or</span> <span class="n">attr</span><span class="o">.</span><span class="n">datatype</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+                <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+                <span class="n">prefix_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+                <span class="n">dballsubvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                    <span class="n">key__startswith</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
+                    <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">subspecifiers_dict</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span>
+                                                           <span class="s1">&#39;datatype&#39;</span><span class="p">,</span> <span class="s1">&#39;tval&#39;</span><span class="p">,</span> <span class="s1">&#39;fval&#39;</span><span class="p">,</span>
+                                                           <span class="s1">&#39;ival&#39;</span><span class="p">,</span> <span class="s1">&#39;bval&#39;</span><span class="p">,</span> <span class="s1">&#39;dval&#39;</span><span class="p">)</span>
+                <span class="c1"># Strip the FULL prefix and replace it with the simple</span>
+                <span class="c1"># &quot;attr&quot; prefix</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;attr.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">prefix_len</span><span class="p">:]):</span> <span class="p">{</span>
+                    <span class="s2">&quot;datatype&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="s2">&quot;tval&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="s2">&quot;fval&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                    <span class="s2">&quot;ival&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                    <span class="s2">&quot;bval&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                    <span class="s2">&quot;dval&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                <span class="p">}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dballsubvalues</span>
+                <span class="p">}</span>
+                <span class="c1"># for _ in dballsubvalues}</span>
+                <span class="c1"># Append also the item itself</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;attr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="c1"># Replace the key (which may contain the separator) with the</span>
+                    <span class="c1"># simple &quot;attr&quot; key. In any case I do not need to return it!</span>
+                    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;attr&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;datatype&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
+                    <span class="s2">&quot;tval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">tval</span><span class="p">,</span>
+                    <span class="s2">&quot;fval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">fval</span><span class="p">,</span>
+                    <span class="s2">&quot;ival&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">ival</span><span class="p">,</span>
+                    <span class="s2">&quot;bval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">bval</span><span class="p">,</span>
+                    <span class="s2">&quot;dval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">dval</span><span class="p">}</span>
+                <span class="k">return</span> <span class="n">deserialize_attributes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">,</span>
+                                              <span class="n">original_class</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span><span class="p">,</span>
+                                              <span class="n">original_pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subspecifier_pk</span><span class="p">(</span><span class="n">attr</span><span class="p">))[</span><span class="s1">&#39;attr&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;attr&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="c1"># Replace the key (which may contain the separator) with the</span>
+                    <span class="c1"># simple &quot;attr&quot; key. In any case I do not need to return it!</span>
+                    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;attr&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;datatype&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
+                    <span class="s2">&quot;tval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">tval</span><span class="p">,</span>
+                    <span class="s2">&quot;fval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">fval</span><span class="p">,</span>
+                    <span class="s2">&quot;ival&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">ival</span><span class="p">,</span>
+                    <span class="s2">&quot;bval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">bval</span><span class="p">,</span>
+                    <span class="s2">&quot;dval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">dval</span><span class="p">}}</span>
+
+                <span class="k">return</span> <span class="n">deserialize_attributes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">,</span>
+                                              <span class="n">original_class</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span><span class="p">,</span>
+                                              <span class="n">original_pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subspecifier_pk</span><span class="p">(</span><span class="n">attr</span><span class="p">))[</span><span class="s1">&#39;attr&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="n">DeserializationException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">exc</span> <span class="o">=</span> <span class="n">DbContentError</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+            <span class="n">exc</span><span class="o">.</span><span class="n">original_exception</span> <span class="o">=</span> <span class="n">exc</span>
+            <span class="k">raise</span> <span class="n">exc</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.set_value_for_node"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value_for_node">[docs]</a>    <span class="k">def</span> <span class="nf">set_value_for_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbnode</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">with_transaction</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                           <span class="n">stop_if_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the raw-level method that accesses the DB. No checks are done</span>
+<span class="sd">        to prevent the user from (re)setting a valid key.</span>
+<span class="sd">        To be used only internally.</span>
+
+<span class="sd">        :todo: there may be some error on concurrent write;</span>
+<span class="sd">           not checked in this unlucky case!</span>
+
+<span class="sd">        :param dbnode: the dbnode for which the attribute should be stored;</span>
+<span class="sd">          in an integer is passed, this is used as the PK of the dbnode,</span>
+<span class="sd">          without any further check (for speed reasons)</span>
+<span class="sd">        :param key: the key of the attribute to store; must be a level-zero</span>
+<span class="sd">          attribute (i.e., no separators in the key)</span>
+<span class="sd">        :param value: the value of the attribute to store</span>
+<span class="sd">        :param with_transaction: if True (default), do this within a transaction,</span>
+<span class="sd">           so that nothing gets stored if a subitem cannot be created.</span>
+<span class="sd">           Otherwise, if this parameter is False, no transaction management</span>
+<span class="sd">           is performed.</span>
+<span class="sd">        :param stop_if_existing: if True, it will stop with an</span>
+<span class="sd">           UniquenessError exception if the key already exists</span>
+<span class="sd">           for the given node. Otherwise, it will</span>
+<span class="sd">           first delete the old value, if existent. The use with True is</span>
+<span class="sd">           useful if you want to use a given attribute as a &quot;locking&quot; value,</span>
+<span class="sd">           e.g. to avoid to perform an action twice on the same node.</span>
+<span class="sd">           Note that, if you are using transactions, you may get the error</span>
+<span class="sd">           only when the transaction is committed.</span>
+
+<span class="sd">        :raise ValueError: if the key contains the separator symbol used</span>
+<span class="sd">            internally to unpack dictionaries and lists (defined in cls._sep).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span>
+        <span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dbnode</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">integer_types</span><span class="p">):</span>
+            <span class="n">dbnode_node</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">dbnode</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dbnode_node</span> <span class="o">=</span> <span class="n">dbnode</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">with_transaction</span><span class="o">=</span><span class="n">with_transaction</span><span class="p">,</span>
+                      <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">dbnode_node</span><span class="p">,</span>
+                      <span class="n">stop_if_existing</span><span class="o">=</span><span class="n">stop_if_existing</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.del_value_for_node"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value_for_node">[docs]</a>    <span class="k">def</span> <span class="nf">del_value_for_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbnode</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete an attribute from the database for the given dbnode.</span>
+
+<span class="sd">        :note: no exception is raised if no attribute with the given key is</span>
+<span class="sd">          found in the DB.</span>
+
+<span class="sd">        :param dbnode: the dbnode for which you want to delete the key.</span>
+<span class="sd">        :param key: the key to delete.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">del_value</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">dbnode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.del_value"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value">[docs]</a>    <span class="k">def</span> <span class="nf">del_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">only_children</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subspecifier_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a value associated with the given key (if existing).</span>
+
+<span class="sd">        :note: No exceptions are raised if no entry is found.</span>
+
+<span class="sd">        :param key: the key to delete. Can contain the separator self._sep if</span>
+<span class="sd">          you want to delete a subkey.</span>
+<span class="sd">        :param only_children: if True, delete only children and not the</span>
+<span class="sd">          entry itself.</span>
+<span class="sd">        :param subspecifier_value: must be None if this class has no</span>
+<span class="sd">          subspecifier set (e.g., the DbSetting class).</span>
+<span class="sd">          Must be the value of the subspecifier (e.g., the dbnode) for classes</span>
+<span class="sd">          that define it (e.g. DbAttribute and DbExtra)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span>
+        <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subspecifier_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You cannot specify a subspecifier value for &quot;</span>
+                                 <span class="s2">&quot;class </span><span class="si">{}</span><span class="s2"> because it has no subspecifiers&quot;</span>
+                                 <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="n">subspecifiers_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subspecifier_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You also have to specify a subspecifier value &quot;</span>
+                                 <span class="s2">&quot;for class </span><span class="si">{}</span><span class="s2"> (the </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                                                <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">))</span>
+            <span class="n">subspecifiers_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">:</span>
+                                      <span class="n">subspecifier_value</span><span class="p">}</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="n">key__startswith</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{parentkey}{sep}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">parentkey</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">subspecifiers_dict</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">only_children</span><span class="p">:</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">subspecifiers_dict</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">OR</span><span class="p">)</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.set_value"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">with_transaction</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">subspecifier_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_attribs</span><span class="o">=</span><span class="p">{},</span>
+                  <span class="n">stop_if_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a new value in the DB, possibly associated to the given subspecifier.</span>
+
+<span class="sd">        :note: This method also stored directly in the DB.</span>
+
+<span class="sd">        :param key: a string with the key to create (must be a level-0</span>
+<span class="sd">          attribute, that is it cannot contain the separator cls._sep).</span>
+<span class="sd">        :param value: the value to store (a basic data type or a list or a dict)</span>
+<span class="sd">        :param subspecifier_value: must be None if this class has no</span>
+<span class="sd">          subspecifier set (e.g., the DbSetting class).</span>
+<span class="sd">          Must be the value of the subspecifier (e.g., the dbnode) for classes</span>
+<span class="sd">          that define it (e.g. DbAttribute and DbExtra)</span>
+<span class="sd">        :param with_transaction: True if you want this function to be managed</span>
+<span class="sd">          with transactions. Set to False if you already have a manual</span>
+<span class="sd">          management of transactions in the block where you are calling this</span>
+<span class="sd">          function (useful for speed improvements to avoid recursive</span>
+<span class="sd">          transactions)</span>
+<span class="sd">        :param other_attribs: a dictionary of other parameters, to store</span>
+<span class="sd">          only on the level-zero attribute (e.g. for description in DbSetting).</span>
+<span class="sd">        :param stop_if_existing: if True, it will stop with an</span>
+<span class="sd">           UniquenessError exception if the new entry would violate an</span>
+<span class="sd">           uniqueness constraint in the DB (same key, or same key+node,</span>
+<span class="sd">           depending on the specific subclass). Otherwise, it will</span>
+<span class="sd">           first delete the old value, if existent. The use with True is</span>
+<span class="sd">           useful if you want to use a given attribute as a &quot;locking&quot; value,</span>
+<span class="sd">           e.g. to avoid to perform an action twice on the same node.</span>
+<span class="sd">           Note that, if you are using transactions, you may get the error</span>
+<span class="sd">           only when the transaction is committed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span>
+        <span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">transaction</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">with_transaction</span><span class="p">:</span>
+                <span class="n">sid</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">savepoint</span><span class="p">()</span>
+
+            <span class="c1"># create_value returns a list of nodes to store</span>
+            <span class="n">to_store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_value</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span>
+                                        <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">subspecifier_value</span><span class="p">,</span>
+                                        <span class="n">other_attribs</span><span class="o">=</span><span class="n">other_attribs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">to_store</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">stop_if_existing</span><span class="p">:</span>
+                    <span class="c1"># Delete the old values if stop_if_existing is False,</span>
+                    <span class="c1"># otherwise don&#39;t delete them and hope they don&#39;t</span>
+                    <span class="c1"># exist. If they exist, I&#39;ll get an UniquenessError</span>
+
+                    <span class="c1"># NOTE! Be careful in case the extra/attribute to</span>
+                    <span class="c1"># store is not a simple attribute but a list or dict:</span>
+                    <span class="c1"># like this, it should be ok because if we are</span>
+                    <span class="c1"># overwriting an entry it will stop anyway to avoid</span>
+                    <span class="c1"># to overwrite the main entry, but otherwise</span>
+                    <span class="c1"># there is the risk that trailing pieces remain</span>
+                    <span class="c1"># so in general it is good to recursively clean</span>
+                    <span class="c1"># all sub-items.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">del_value</span><span class="p">(</span><span class="n">key</span><span class="p">,</span>
+                                  <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">subspecifier_value</span><span class="p">)</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">to_store</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">with_transaction</span><span class="p">:</span>
+                <span class="n">transaction</span><span class="o">.</span><span class="n">savepoint_commit</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># All exceptions including CTRL+C, ...</span>
+            <span class="kn">from</span> <span class="nn">django.db.utils</span> <span class="k">import</span> <span class="n">IntegrityError</span>
+            <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">UniquenessError</span>
+
+            <span class="k">if</span> <span class="n">with_transaction</span><span class="p">:</span>
+                <span class="n">transaction</span><span class="o">.</span><span class="n">savepoint_rollback</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">IntegrityError</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stop_if_existing</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">UniquenessError</span><span class="p">(</span><span class="s2">&quot;Impossible to create the required &quot;</span>
+                                      <span class="s2">&quot;entry &quot;</span>
+                                      <span class="s2">&quot;in table &#39;</span><span class="si">{}</span><span class="s2">&#39;, &quot;</span>
+                                      <span class="s2">&quot;another entry already exists and the creation would &quot;</span>
+                                      <span class="s2">&quot;violate an uniqueness constraint.</span><span class="se">\n</span><span class="s2">Further details: &quot;</span>
+                                      <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">exc</span><span class="p">))</span>
+            <span class="k">raise</span></div>
+
+<div class="viewcode-block" id="ModelModifierV0025.create_value"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.djsite.db.migrations.html#aiida.backends.djsite.db.migrations.ModelModifierV0025.create_value">[docs]</a>    <span class="k">def</span> <span class="nf">create_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">subspecifier_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">other_attribs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new list of attributes, without storing them, associated</span>
+<span class="sd">        with the current key/value pair (and to the given subspecifier,</span>
+<span class="sd">        e.g. the DbNode for DbAttributes and DbExtras).</span>
+
+<span class="sd">        :note: No hits are done on the DB, in particular no check is done</span>
+<span class="sd">          on the existence of the given nodes.</span>
+
+<span class="sd">        :param key: a string with the key to create (can contain the</span>
+<span class="sd">          separator self._sep if this is a sub-attribute: indeed, this</span>
+<span class="sd">          function calls itself recursively)</span>
+<span class="sd">        :param value: the value to store (a basic data type or a list or a dict)</span>
+<span class="sd">        :param subspecifier_value: must be None if this class has no</span>
+<span class="sd">          subspecifier set (e.g., the DbSetting class).</span>
+<span class="sd">          Must be the value of the subspecifier (e.g., the dbnode) for classes</span>
+<span class="sd">          that define it (e.g. DbAttribute and DbExtra)</span>
+<span class="sd">        :param other_attribs: a dictionary of other parameters, to store</span>
+<span class="sd">          only on the level-zero attribute (e.g. for description in DbSetting).</span>
+
+<span class="sd">        :return: always a list of class instances; it is the user</span>
+<span class="sd">          responsibility to store such entries (typically with a Django</span>
+<span class="sd">          bulk_create() call).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_class</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.timezone</span> <span class="k">import</span> <span class="n">is_naive</span><span class="p">,</span> <span class="n">make_aware</span><span class="p">,</span> <span class="n">get_current_timezone</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subspecifier_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You cannot specify a subspecifier value for &quot;</span>
+                                 <span class="s2">&quot;class </span><span class="si">{}</span><span class="s2"> because it has no subspecifiers&quot;</span>
+                                 <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="n">new_entry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">other_attribs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subspecifier_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You also have to specify a subspecifier value &quot;</span>
+                                 <span class="s2">&quot;for class </span><span class="si">{}</span><span class="s2"> (the </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                                                <span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">))</span>
+            <span class="n">further_params</span> <span class="o">=</span> <span class="n">other_attribs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">further_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_subspecifier_field_name</span><span class="p">:</span>
+                                       <span class="n">subspecifier_value</span><span class="p">})</span>
+            <span class="n">new_entry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">further_params</span><span class="p">)</span>
+
+        <span class="n">list_to_return</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_entry</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;bool&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">integer_types</span><span class="p">):</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;int&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;txt&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+
+            <span class="c1"># current timezone is taken from the settings file of django</span>
+            <span class="k">if</span> <span class="n">is_naive</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">value_to_set</span> <span class="o">=</span> <span class="n">make_aware</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">get_current_timezone</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value_to_set</span> <span class="o">=</span> <span class="n">value</span>
+
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span>
+            <span class="c1"># TODO: time-aware and time-naive datetime objects, see</span>
+            <span class="c1"># https://docs.djangoproject.com/en/dev/topics/i18n/timezones/#naive-and-aware-datetime-objects</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="n">value_to_set</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;list&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">subv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="c1"># I do not need get_or_create here, because</span>
+                <span class="c1"># above I deleted all children (and I</span>
+                <span class="c1"># expect no concurrency)</span>
+                <span class="c1"># NOTE: I do not pass other_attribs</span>
+                <span class="n">list_to_return</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_value</span><span class="p">(</span>
+                    <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}{}{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">,</span> <span class="n">i</span><span class="p">)),</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">subv</span><span class="p">,</span>
+                    <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">subspecifier_value</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;dict&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">dval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">for</span> <span class="n">subk</span><span class="p">,</span> <span class="n">subv</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">validate_key</span><span class="p">(</span><span class="n">subk</span><span class="p">)</span>
+
+                <span class="c1"># I do not need get_or_create here, because</span>
+                <span class="c1"># above I deleted all children (and I</span>
+                <span class="c1"># expect no concurrency)</span>
+                <span class="c1"># NOTE: I do not pass other_attribs</span>
+                <span class="n">list_to_return</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_value</span><span class="p">(</span>
+                    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">,</span> <span class="n">subk</span><span class="p">),</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">subv</span><span class="p">,</span>
+                    <span class="n">subspecifier_value</span><span class="o">=</span><span class="n">subspecifier_value</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">jsondata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to store the value: it must be either a basic datatype, or json-serializable: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">value</span><span class="p">))</span>
+
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">tval</span> <span class="o">=</span> <span class="n">jsondata</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">bval</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">ival</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_entry</span><span class="o">.</span><span class="n">fval</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">list_to_return</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

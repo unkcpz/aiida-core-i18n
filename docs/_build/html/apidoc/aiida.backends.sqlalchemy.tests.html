@@ -1,0 +1,1387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.sqlalchemy.tests package &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>aiida.backends.sqlalchemy.tests package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apidoc/aiida.backends.sqlalchemy.tests.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aiida.backends.sqlalchemy.tests">
+<span id="aiida-backends-sqlalchemy-tests-package"></span><h1>aiida.backends.sqlalchemy.tests package<a class="headerlink" href="#module-aiida.backends.sqlalchemy.tests" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-aiida.backends.sqlalchemy.tests.test_generic">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-aiida.backends.sqlalchemy.tests.test_generic" title="Permalink to this headline">¶</a></h2>
+<p>Generic tests that need the be specific to sqlalchemy</p>
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestComputer">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_generic.</code><code class="descname">TestComputer</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestComputer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestComputer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>Test the Computer class.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestComputer.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_generic'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestComputer.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestComputer.test_deletion">
+<code class="descname">test_deletion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestComputer.test_deletion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestComputer.test_deletion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_generic.</code><code class="descname">TestDbExtrasSqla</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestDbExtrasSqla"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>Characterized functions</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_generic'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla.test_replacement_1">
+<code class="descname">test_replacement_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestDbExtrasSqla.test_replacement_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestDbExtrasSqla.test_replacement_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_generic.</code><code class="descname">TestGroupNoOrmSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupNoOrmSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>These tests check that the group node addition works ok when the skip_orm=True flag is used</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_generic'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.test_group_batch_size">
+<code class="descname">test_group_batch_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupNoOrmSQLA.test_group_batch_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.test_group_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the group addition in batches works as expected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.test_group_general">
+<code class="descname">test_group_general</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupNoOrmSQLA.test_group_general"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupNoOrmSQLA.test_group_general" title="Permalink to this definition">¶</a></dt>
+<dd><p>General tests to verify that the group addition with the skip_orm=True flag
+work properly</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_generic.</code><code class="descname">TestGroupsSqla</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupsSqla"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>Characterized functions</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_generic'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupsSqla.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.test_query">
+<code class="descname">test_query</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_generic.html#TestGroupsSqla.test_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_generic.TestGroupsSqla.test_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if queries are working</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_migrations"></span><p>Tests for the migration engine (Alembic) as well as for the AiiDA migrations for SQLAlchemy.</p>
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestBackwardMigrationsSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestBackwardMigrationsSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>This is the equivalent of TestMigrationsSQLA for backward migrations.
+It assumes that the migrate_from revision is higher in the hierarchy
+than the migrate_to revision.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestBackwardMigrationsSQLA.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to the migrate_from revision, apply setUpBeforeMigration, then
+run the migration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestCalcAttributeKeysMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestCalcAttributeKeysMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration of the keys of certain attribute for ProcessNodes and CalcJobNodes.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_ENVIRONMENT_VARIABLES_NEW">
+<code class="descname">KEY_ENVIRONMENT_VARIABLES_NEW</code><em class="property"> = 'environment_variables'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_ENVIRONMENT_VARIABLES_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_ENVIRONMENT_VARIABLES_OLD">
+<code class="descname">KEY_ENVIRONMENT_VARIABLES_OLD</code><em class="property"> = 'custom_environment_variables'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_ENVIRONMENT_VARIABLES_OLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PARSER_NAME_NEW">
+<code class="descname">KEY_PARSER_NAME_NEW</code><em class="property"> = 'parser_name'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PARSER_NAME_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PARSER_NAME_OLD">
+<code class="descname">KEY_PARSER_NAME_OLD</code><em class="property"> = 'parser'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PARSER_NAME_OLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PROCESS_LABEL_NEW">
+<code class="descname">KEY_PROCESS_LABEL_NEW</code><em class="property"> = 'process_label'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PROCESS_LABEL_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PROCESS_LABEL_OLD">
+<code class="descname">KEY_PROCESS_LABEL_OLD</code><em class="property"> = '_process_label'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_PROCESS_LABEL_OLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_RESOURCES_NEW">
+<code class="descname">KEY_RESOURCES_NEW</code><em class="property"> = 'resources'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_RESOURCES_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_RESOURCES_OLD">
+<code class="descname">KEY_RESOURCES_OLD</code><em class="property"> = 'jobresource_params'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.KEY_RESOURCES_OLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = 'e72ad251bcdb'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '7ca08c391c49'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestCalcAttributeKeysMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.test_attribute_key_changes">
+<code class="descname">test_attribute_key_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestCalcAttributeKeysMigration.test_attribute_key_changes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestCalcAttributeKeysMigration.test_attribute_key_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the keys are successfully changed of the affected attributes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestDataMoveWithinNodeMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDataMoveWithinNodeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration of Data nodes after the data module was moved within the node moduel.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '041a79fc615f'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '6a5c2ea1439d'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDataMoveWithinNodeMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.test_data_node_type_string">
+<code class="descname">test_data_node_type_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDataMoveWithinNodeMigration.test_data_node_type_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDataMoveWithinNodeMigration.test_data_node_type_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that type string of the Data node was successfully adapted.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestDbLogMigrationBackward</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationBackward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestBackwardMigrationsSQLA</span></code></a></p>
+<p>Check that backward migrations work also for the DbLog migration(s).</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '041a79fc615f'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '7ca08c391c49'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationBackward.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.test_objpk_objname">
+<code class="descname">test_objpk_objname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationBackward.test_objpk_objname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationBackward.test_objpk_objname" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test verifies that the objpk and objname have the right values
+after a forward and a backward migration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestDbLogMigrationRecordCleaning</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration of the keys of certain attribute for ProcessNodes and CalcJobNodes.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '7ca08c391c49'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '041a79fc615f'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.tearDown">
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Need to manually delete all the workflows created for the test because the model does not exist any more.</p>
+<p>Because the model does not exist anymore, they are no longer being cleaned in the database reset of the test
+base class. To prevent foreign keys from other tables still referencing these tables, we have to make sure to
+clean them here manually, before we call the parent, which will call the standard reset database methods.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_calculation_node">
+<code class="descname">test_dblog_calculation_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning.test_dblog_calculation_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_calculation_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that after the migration there is only two log records left and verify that they corresponds to
+the CalculationNodes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_correct_export_of_logs">
+<code class="descname">test_dblog_correct_export_of_logs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning.test_dblog_correct_export_of_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_correct_export_of_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that export log methods for legacy workflows, unknown entities and log records that
+don’t correspond to nodes, work as expected</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_metadata_correctness">
+<code class="descname">test_metadata_correctness</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogMigrationRecordCleaning.test_metadata_correctness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogMigrationRecordCleaning.test_metadata_correctness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the metadata of the remaining records don’t have an objpk and objmetadata values.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestDbLogUUIDAddition</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogUUIDAddition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test that the UUID column is correctly added to the DbLog table and that the uniqueness
+constraint is added without problems (if the migration arrives until 375c2db70663 then the
+constraint is added properly.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '041a79fc615f'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '375c2db70663'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogUUIDAddition.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.test_dblog_unique_uuids">
+<code class="descname">test_dblog_unique_uuids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestDbLogUUIDAddition.test_dblog_unique_uuids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestDbLogUUIDAddition.test_dblog_unique_uuids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the UUIDs of the log records are unique</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestGroupRenamingMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestGroupRenamingMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration that renames the DbGroup type strings</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = 'b8b23ddefad4'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = 'e72ad251bcdb'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestGroupRenamingMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the DbGroups with the old type strings</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.test_group_string_update">
+<code class="descname">test_group_string_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestGroupRenamingMigration.test_group_string_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestGroupRenamingMigration.test_group_string_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that the type strings are properly migrated</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestMigrationEngine</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationEngine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Just a simple test to verify that the TestMigrationsSQLA class indeed
+works and moves between the expected migration revisions</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = 'b8b23ddefad4'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = 'e72ad251bcdb'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationEngine.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache the start revision</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.test_revision_numbers">
+<code class="descname">test_revision_numbers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationEngine.test_revision_numbers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationEngine.test_revision_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that we went to the correct version</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestMigrationSchemaVsModelsSchema</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationSchemaVsModelsSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>This class checks that the schema that results from a migration is the
+same generated by the models. This is important since migrations are
+frequently written by hand or extended manually and we have to ensure
+that the final result is what is conceived in the SQLA models.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.alembic_cfg_left">
+<code class="descname">alembic_cfg_left</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.alembic_cfg_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.alembic_dpath">
+<code class="descname">alembic_dpath</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.alembic_dpath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.db_url_left">
+<code class="descname">db_url_left</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.db_url_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.db_url_right">
+<code class="descname">db_url_right</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.db_url_right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.migr_method_dir_path">
+<code class="descname">migr_method_dir_path</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.migr_method_dir_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationSchemaVsModelsSchema.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.tearDown">
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationSchemaVsModelsSchema.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.test_model_and_migration_schemas_are_the_same">
+<code class="descname">test_model_and_migration_schemas_are_the_same</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationSchemaVsModelsSchema.test_model_and_migration_schemas_are_the_same"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationSchemaVsModelsSchema.test_model_and_migration_schemas_are_the_same" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two databases.</p>
+<p>Compares the database obtained with all migrations against the
+one we get out of the models.  It produces a text file with the
+results to help debug differences.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestMigrationsSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>This class contains tests for the migration mechanism of SQLAlchemy called
+alembic. It checks if the migrations can be applied and removed correctly.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA._reset_database_and_schema">
+<code class="descname">_reset_database_and_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA._reset_database_and_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA._reset_database_and_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bring back the DB to the correct state.</p>
+<p>It is important to also reset the database content to avoid hanging
+of tests.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.alembic_dpath">
+<code class="descname">alembic_dpath</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.alembic_dpath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.current_rev">
+<code class="descname">current_rev</code><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.current_rev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to get the current revision string</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_auto_base">
+<em class="property">static </em><code class="descname">get_auto_base</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.get_auto_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_auto_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the automap_base class that automatically inspects the current
+database and return SQLAlchemy Models.</p>
+<p>Note that these are NOT the ones in AiiDA SQLAlchemy models, so do not
+have the special methods that we define there (like .save()).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_current_table">
+<code class="descname">get_current_table</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.get_current_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_current_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Model instantiated at the correct migration.
+Note that this is obtained by inspecting the database and not
+by looking into the models file. So, special methods possibly defined
+in the models files/classes are not present.</p>
+<p>For instance, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DbGroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_table</span><span class="p">(</span><span class="s1">&#39;db_dbgroup&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table_name</strong> – the name of the table.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_node_array">
+<em class="property">static </em><code class="descname">get_node_array</code><span class="sig-paren">(</span><em>node</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.get_node_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_node_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_session">
+<em class="property">static </em><code class="descname">get_session</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.get_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.get_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a session that is properly closed after use.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migr_method_dir_path">
+<code class="descname">migr_method_dir_path</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migr_method_dir_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_db_down">
+<code class="descname">migrate_db_down</code><span class="sig-paren">(</span><em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.migrate_db_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_db_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a migration downwards (downgrade) with alembic</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>destination</strong> – the name of the destination migration</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_db_up">
+<code class="descname">migrate_db_up</code><span class="sig-paren">(</span><em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.migrate_db_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_db_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a migration upwards (upgrade) with alembic</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>destination</strong> – the name of the destination migration</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to the migrate_from revision, apply setUpBeforeMigration, then
+run the migration.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUpClass">
+<em class="property">classmethod </em><code class="descname">setUpClass</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the test class with the alembivc configuration</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.set_node_array">
+<em class="property">static </em><code class="descname">set_node_array</code><span class="sig-paren">(</span><em>node</em>, <em>name</em>, <em>array</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.set_node_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.set_node_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a new numpy array inside a node. Possibly overwrite the array if it already existed.</p>
+<p>Internally, it stores a name.npy file in numpy format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – The name of the array.</li>
+<li><strong>array</strong> – The numpy array to store.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.tearDown">
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestMigrationsSQLA.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets both the database content and the schema to prepare for the
+next test</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestNodePrefixRemovalMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestNodePrefixRemovalMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration of Data nodes after the data module was moved within the node moduel.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = 'ce56d84bcc35'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '61fc0913fae9'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestNodePrefixRemovalMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.test_data_node_type_string">
+<code class="descname">test_data_node_type_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestNodePrefixRemovalMigration.test_data_node_type_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestNodePrefixRemovalMigration.test_data_node_type_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that type string of the Data node was successfully adapted.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestParameterDataToDictMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestParameterDataToDictMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the data migration after <cite>ParameterData</cite> was renamed to <cite>Dict</cite>.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '61fc0913fae9'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = 'd254fdfed416'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestParameterDataToDictMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.test_type_string">
+<code class="descname">test_type_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestParameterDataToDictMigration.test_type_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestParameterDataToDictMigration.test_type_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that type string of the Data node was successfully adapted.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestProvenanceRedesignMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestProvenanceRedesignMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the data migration part of the provenance redesign migration.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '140c971ae0a3'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = '239cea6d2452'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestProvenanceRedesignMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.test_verify_migration">
+<code class="descname">test_verify_migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestProvenanceRedesignMigration.test_verify_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestProvenanceRedesignMigration.test_verify_migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that type string of the Data node was successfully adapted.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_migrations.</code><code class="descname">TestTrajectoryDataMigration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestTrajectoryDataMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA" title="aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.sqlalchemy.tests.test_migrations.TestMigrationsSQLA</span></code></a></p>
+<p>Test the migration of the symbols from numpy array to attribute for TrajectoryData nodes.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_migrations'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.cells">
+<code class="descname">cells</code><em class="property"> = array([[[2., 0., 0.],         [0., 2., 0.],         [0., 0., 2.]],         [[3., 0., 0.],         [0., 3., 0.],         [0., 0., 3.]]])</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.cells" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.migrate_from">
+<code class="descname">migrate_from</code><em class="property"> = '37f3d4882837'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.migrate_from" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.migrate_to">
+<code class="descname">migrate_to</code><em class="property"> = 'ce56d84bcc35'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.migrate_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.numpy">
+<code class="descname">numpy</code><em class="property"> = &lt;module 'numpy' from '/home/unkcpz/PYENV/aiida-l10n-zh/lib/python3.7/site-packages/numpy/__init__.py'&gt;</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.numpy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.positions">
+<code class="descname">positions</code><em class="property"> = array([[[0. , 0. , 0. ],         [0.5, 0.5, 0.5],         [1.5, 1.5, 1.5]],         [[0. , 0. , 0. ],         [0.5, 0.5, 0.5],         [1.5, 1.5, 1.5]]])</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.setUpBeforeMigration">
+<code class="descname">setUpBeforeMigration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestTrajectoryDataMigration.setUpBeforeMigration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.setUpBeforeMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Anything to do before running the migrations.
+This is typically implemented in test subclasses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.stepids">
+<code class="descname">stepids</code><em class="property"> = array([60, 70])</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.stepids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.test_trajectory_symbols">
+<code class="descname">test_trajectory_symbols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_migrations.html#TestTrajectoryDataMigration.test_trajectory_symbols"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.test_trajectory_symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that migration of symbols from repository array to attribute works properly.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.times">
+<code class="descname">times</code><em class="property"> = array([0.6, 0.7])</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.times" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.velocities">
+<code class="descname">velocities</code><em class="property"> = array([[[ 0. ,  0. ,  0. ],         [ 0. ,  0. ,  0. ],         [ 0. ,  0. ,  0. ]],         [[ 0.5,  0.5,  0.5],         [ 0.5,  0.5,  0.5],         [-0.5, -0.5, -0.5]]])</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_migrations.TestTrajectoryDataMigration.velocities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_nodes"></span><p>Tests for nodes, attributes and links</p>
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_nodes.</code><code class="descname">TestNodeBasicSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_nodes.html#TestNodeBasicSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>These tests check the basic features of nodes
+(setting of attributes, copying of files, …)</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_nodes'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_load_nodes">
+<code class="descname">test_load_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_nodes.html#TestNodeBasicSQLA.test_load_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_load_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for load_node() function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_multiple_node_creation">
+<code class="descname">test_multiple_node_creation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_nodes.html#TestNodeBasicSQLA.test_multiple_node_creation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_multiple_node_creation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test checks that a node is not added automatically to the session
+(and subsequently committed) when a user is in the session.
+It tests the fix for the issue #234</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_settings">
+<code class="descname">test_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_nodes.html#TestNodeBasicSQLA.test_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_nodes.TestNodeBasicSQLA.test_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the settings table (similar to Attributes, but without the key.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_query"></span><dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_query.</code><code class="descname">QueryBuilderLimitOffsetsTestSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_query.html#QueryBuilderLimitOffsetsTestSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_query'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA.test_ordering_limits_offsets_of_results_for_SQLA">
+<code class="descname">test_ordering_limits_offsets_of_results_for_SQLA</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_query.html#QueryBuilderLimitOffsetsTestSQLA.test_ordering_limits_offsets_of_results_for_SQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.QueryBuilderLimitOffsetsTestSQLA.test_ordering_limits_offsets_of_results_for_SQLA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_query.</code><code class="descname">TestQueryBuilderSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_query.html#TestQueryBuilderSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_query'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA.test_clsf_sqla">
+<code class="descname">test_clsf_sqla</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_query.html#TestQueryBuilderSQLA.test_clsf_sqla"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_query.TestQueryBuilderSQLA.test_clsf_sqla" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_schema"></span><dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_schema.</code><code class="descname">TestRelationshipsSQLA</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>Class of tests concerning the schema and the correct
+implementation of relationships within the AiiDA ORM</p>
+<p>The genereal naming convention is the following:
+1)tests on one-to-many relationships: test_&lt;Parent&gt;_&lt;child&gt; (Parent class is capitalized)
+2)tests on many-to-many relationships: test_&lt;peer&gt;_&lt;peer&gt; (none is
+capitalized)</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_schema'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_1">
+<code class="descname">test_User_node_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_User_node_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that when a user and a node having that user are created,
+storing NODE induces storage of the USER</p>
+<p>Assert the correct storage of user and node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_2">
+<code class="descname">test_User_node_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_User_node_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that when a user and a node having that user are created,
+storing USER does NOT induce storage of the NODE</p>
+<p>Assert the correct storage of user and node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_3">
+<code class="descname">test_User_node_3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_User_node_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that when a user and two nodes having that user are created,
+storing only ONE NODE induces storage of that node, of the user but
+not of the other node</p>
+<p>Assert the correct storage of the user and node. Assert the
+non-storage of the other node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_4">
+<code class="descname">test_User_node_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_User_node_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_User_node_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that when several nodes are created with the same user and each
+of them is assigned to the same name, storage of last node object
+associated to that node does not trigger storage of all objects.</p>
+<p>Assert the correct storage of the user and node. Assert the
+non-storage of the other nodes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_inputs_parents_relationship">
+<code class="descname">test_inputs_parents_relationship</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_inputs_parents_relationship"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_inputs_parents_relationship" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test checks that the inputs_q, parents_q relationship and the
+corresponding properties work as expected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_outputs_children_relationship">
+<code class="descname">test_outputs_children_relationship</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_schema.html#TestRelationshipsSQLA.test_outputs_children_relationship"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_schema.TestRelationshipsSQLA.test_outputs_children_relationship" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test checks that the outputs_q, children_q relationship and the
+corresponding properties work as expected.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_session"></span><p>Testing Session possible problems.</p>
+<dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.test_session.</code><code class="descname">TestSessionSqla</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testbase.AiidaTestCase" title="aiida.backends.testbase.AiidaTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testbase.AiidaTestCase</span></code></a></p>
+<p>The following tests check that the session works as expected in some
+problematic examples. When a session is initialized with
+expire_on_commit=False allows more permissive behaviour since committed
+objects that remain in the session do not need refresh. The opposite
+happens when expire_on_commit=True.</p>
+<p>Moreover, 2 ways of storing objects are tested, i.e. adding the objects
+manually to the session and committing it &amp; by using the build-in store
+method of the ORM objects.</p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.test_session'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.drop_connection">
+<code class="descname">drop_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.drop_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.drop_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.set_connection">
+<code class="descname">set_connection</code><span class="sig-paren">(</span><em>expire_on_commit=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.set_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.set_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_node_access_with_sessions">
+<code class="descname">test_node_access_with_sessions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.test_node_access_with_sessions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_node_access_with_sessions" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks that changes to a node from a different session (e.g. different interpreter,
+or the daemon) are immediately reflected on the AiiDA node when read directly e.g. a change
+to node.description will immediately be seen.</p>
+<p>Tests for bug #1372</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_1">
+<code class="descname">test_session_update_and_expiration_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.test_session_update_and_expiration_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>expire_on_commit=True &amp; adding manually and committing
+computer and code objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_2">
+<code class="descname">test_session_update_and_expiration_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.test_session_update_and_expiration_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>expire_on_commit=True &amp; committing computer and code objects with
+their built-in store function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_3">
+<code class="descname">test_session_update_and_expiration_3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.test_session_update_and_expiration_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>expire_on_commit=False &amp; adding manually and committing
+computer and code objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_4">
+<code class="descname">test_session_update_and_expiration_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_session.html#TestSessionSqla.test_session_update_and_expiration_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_session.TestSessionSqla.test_session_update_and_expiration_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>expire_on_commit=False &amp; committing computer and code objects with
+their built-in store function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.test_utils"></span><p>In this file various data management functions, needed for the SQLA test,
+are added. They are “heavily inspired” by the sqlalchemy_utils.functions.database
+(SQLAlchemy-Utils package).</p>
+<p>However, they were corrected to work properly with a SQlAlchemy and PostgreSQL.
+The main problem of the SQLAlchemy-Utils that were rewritten was that they
+were not properly disposing the (SQLA) engine, resulting to error messages
+from PostgreSQL.</p>
+<dl class="function">
+<dt id="aiida.backends.sqlalchemy.tests.test_utils.create_database">
+<code class="descclassname">aiida.backends.sqlalchemy.tests.test_utils.</code><code class="descname">create_database</code><span class="sig-paren">(</span><em>url</em>, <em>encoding='utf8'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_utils.html#create_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_utils.create_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Issue the appropriate CREATE DATABASE statement.</p>
+<p>This is a modification of sqlalchemy_utils.functions.database.create_database
+since the latter one did not correctly work with SQLAlchemy and PostgreSQL.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> – A SQLAlchemy engine URL.</li>
+<li><strong>encoding</strong> – The encoding to create the database as.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It currently supports only PostgreSQL and the psycopg2 driver.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.sqlalchemy.tests.test_utils.database_exists">
+<code class="descclassname">aiida.backends.sqlalchemy.tests.test_utils.</code><code class="descname">database_exists</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_utils.html#database_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_utils.database_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a database exists.</p>
+<p>This is a modification of sqlalchemy_utils.functions.database.database_exists
+since the latter one did not correctly work with SQLAlchemy and PostgreSQL.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> – A SQLAlchemy engine URL.</td>
+</tr>
+</tbody>
+</table>
+<p>Performs backend-specific testing to quickly determine if a database
+exists on the server.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.sqlalchemy.tests.test_utils.destroy_database">
+<code class="descclassname">aiida.backends.sqlalchemy.tests.test_utils.</code><code class="descname">destroy_database</code><span class="sig-paren">(</span><em>uri</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_utils.html#destroy_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_utils.destroy_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the database at <code class="docutils literal notranslate"><span class="pre">uri</span></code>, if it exists.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.sqlalchemy.tests.test_utils.new_database">
+<code class="descclassname">aiida.backends.sqlalchemy.tests.test_utils.</code><code class="descname">new_database</code><span class="sig-paren">(</span><em>uri</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/test_utils.html#new_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.test_utils.new_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop the database at <code class="docutils literal notranslate"><span class="pre">uri</span></code> and create a brand new one.</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.sqlalchemy.tests.testbase"></span><dl class="class">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests">
+<em class="property">class </em><code class="descclassname">aiida.backends.sqlalchemy.tests.testbase.</code><code class="descname">SqlAlchemyTests</code><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.backends.html#aiida.backends.testimplbase.AiidaTestImplementation" title="aiida.backends.testimplbase.AiidaTestImplementation"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.backends.testimplbase.AiidaTestImplementation</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.__abstractmethods__">
+<code class="descname">__abstractmethods__</code><em class="property"> = frozenset()</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.sqlalchemy.tests.testbase'</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests._abc_impl">
+<code class="descname">_abc_impl</code><em class="property"> = &lt;_abc_data object&gt;</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.clean_db">
+<code class="descname">clean_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests.clean_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.clean_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method implements the logic to fully clean the DB.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.connection">
+<code class="descname">connection</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.setUpClass_method">
+<code class="descname">setUpClass_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests.setUpClass_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.setUpClass_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class prepares the database (cleans it up and installs some basic entries).
+You have also to set a self.computer and a self.user_email as explained in the docstring of the
+AiidaTestImplemention docstring.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.setUp_method">
+<code class="descname">setUp_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests.setUp_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.setUp_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.tearDownClass_method">
+<code class="descname">tearDownClass_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests.tearDownClass_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.tearDownClass_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backend-specific tasks for tearing down the test environment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.tearDown_method">
+<code class="descname">tearDown_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/sqlalchemy/tests/testbase.html#SqlAlchemyTests.tearDown_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.tearDown_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.test_session">
+<code class="descname">test_session</code><em class="property"> = None</em><a class="headerlink" href="#aiida.backends.sqlalchemy.tests.testbase.SqlAlchemyTests.test_session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

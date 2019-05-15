@@ -1,0 +1,2068 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.schedulers package &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>aiida.schedulers package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apidoc/aiida.schedulers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aiida.schedulers">
+<span id="aiida-schedulers-package"></span><h1>aiida.schedulers package<a class="headerlink" href="#module-aiida.schedulers" title="Permalink to this headline">¶</a></h1>
+<p>Module for classes and utilities to interact with cluster schedulers.</p>
+<dl class="class">
+<dt id="aiida.schedulers.JobState">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">JobState</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enumeration of possible scheduler states of a CalcJob.</p>
+<p>There is no FAILED state as every completed job is put in DONE, regardless of success.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.DONE">
+<code class="descname">DONE</code><em class="property"> = 'done'</em><a class="headerlink" href="#aiida.schedulers.JobState.DONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.QUEUED">
+<code class="descname">QUEUED</code><em class="property"> = 'queued'</em><a class="headerlink" href="#aiida.schedulers.JobState.QUEUED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.QUEUED_HELD">
+<code class="descname">QUEUED_HELD</code><em class="property"> = 'queued held'</em><a class="headerlink" href="#aiida.schedulers.JobState.QUEUED_HELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.RUNNING">
+<code class="descname">RUNNING</code><em class="property"> = 'running'</em><a class="headerlink" href="#aiida.schedulers.JobState.RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.SUSPENDED">
+<code class="descname">SUSPENDED</code><em class="property"> = 'suspended'</em><a class="headerlink" href="#aiida.schedulers.JobState.SUSPENDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.UNDETERMINED">
+<code class="descname">UNDETERMINED</code><em class="property"> = 'undetermined'</em><a class="headerlink" href="#aiida.schedulers.JobState.UNDETERMINED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobState.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.JobState.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.JobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">JobResource</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>A class to store the job resources. It must be inherited and redefined by the specific
+plugin, that should contain a <code class="docutils literal notranslate"><span class="pre">_job_resource_class</span></code> attribute pointing to the correct
+JobResource subclass.</p>
+<p>It should at least define the get_tot_num_mpiprocs() method, plus an __init__ to accept
+its set of variables.</p>
+<p>Typical attributes are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">num_machines</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs_per_machine</span></code></li>
+</ul>
+<p>or (e.g. for SGE)</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tot_num_mpiprocs</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">parallel_env</span></code></li>
+</ul>
+<p>The __init__ should take care of checking the values.
+The init should raise only ValueError or TypeError on invalid parameters.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.JobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.JobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ()</em><a class="headerlink" href="#aiida.schedulers.JobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.JobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+<p>Should be implemented in each subclass.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.JobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.JobResource.get_valid_keys">
+<em class="property">classmethod </em><code class="descname">get_valid_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.get_valid_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobResource.get_valid_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of valid keys to be passed to the __init__</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.JobTemplate">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">JobTemplate</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>A template for submitting jobs. This contains all required information
+to create the job header.</p>
+<dl class="docutils">
+<dt>The required fields are: working_directory, job_name, num_machines,</dt>
+<dd>num_mpiprocs_per_machine, argv.</dd>
+</dl>
+<p>Fields:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">shebang</span> <span class="pre">line</span></code>: The first line of the submission script</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">submit_as_hold</span></code>: if set, the job will be in a ‘hold’ status right
+after the submission</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">rerunnable</span></code>: if the job is rerunnable (boolean)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_environment</span></code>: a dictionary with environment variables to set
+before the execution of the code.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">working_directory</span></code>: the working directory for this job. During
+submission, the transport will first do a ‘chdir’ to this directory,
+and then possibly set a scheduler parameter, if this is supported
+by the scheduler.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email</span></code>: an email address for sending emails on job events.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email_on_started</span></code>: if True, ask the scheduler to send an email when the
+job starts.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email_on_terminated</span></code>: if True, ask the scheduler to send an email when
+the job ends. This should also send emails on job failure, when
+possible.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_name</span></code>: the name of this job. The actual name of the job can be
+different from the one specified here, e.g. if there are unsupported
+characters, or the name is too long.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_output_path</span></code>: a (relative) file name for the stdout of this job</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_error_path</span></code>: a (relative) file name for the stdout of this job</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_join_files</span></code>: if True, write both stdout and stderr on the same
+file (the one specified for stdout)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">queue_name</span></code>: the name of the scheduler queue (sometimes also called
+partition), on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">account</span></code>: the name of the scheduler account (sometimes also called
+projectid), on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">qos</span></code>: the quality of service of the scheduler account,
+on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_resource</span></code>: a suitable <a class="reference internal" href="#aiida.schedulers.JobResource" title="aiida.schedulers.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">JobResource</span></code></a>
+subclass with information on how many
+nodes and cpus it should use. It must be an instance of the
+<code class="docutils literal notranslate"><span class="pre">aiida.schedulers.Scheduler.job_resource_class</span></code> class.
+Use the Scheduler.create_job_resource method to create it.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">num_machines</span></code>: how many machines (or nodes) should be used</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">num_mpiprocs_per_machine</span></code>: how many MPI procs should be used on each
+machine (or node).</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">priority</span></code>: a priority for this job. Should be in the format accepted
+by the specific scheduler.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">max_memory_kb</span></code>: The maximum amount of memory the job is allowed
+to allocate ON EACH NODE, in kilobytes</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">max_wallclock_seconds</span></code>: The maximum wall clock time that all processes
+of a job are allowed to exist, in seconds</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">custom_scheduler_commands</span></code>: a string that will be inserted right
+after the last scheduler command, and before any other non-scheduler
+command; useful if some specific flag needs to be added and is not
+supported by the plugin</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">prepend_text</span></code>: a (possibly multi-line) string to be inserted
+in the scheduler script before the main execution line</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">append_text</span></code>: a (possibly multi-line) string to be inserted
+in the scheduler script after the main execution line</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">import_sys_environment</span></code>: import the system environment variables</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">codes_info</span></code>: a list of aiida.common.datastructures.CalcInfo objects.
+Each contains the information necessary to run a single code. At the
+moment, it can contain:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmdline_parameters</span></code>: a list of strings with the command line arguments
+of the program to run. This is the main program to be executed.
+NOTE: The first one is the executable name.
+For MPI runs, this will probably be “mpirun” or a similar program;
+this has to be chosen at a upper level.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stdin_name</span></code>: the (relative) file name to be used as stdin for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stdout_name</span></code>: the (relative) file name to be used as stdout for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stderr_name</span></code>: the (relative) file name to be used as stderr for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">join_files</span></code>: if True, stderr is redirected on the same file
+specified for stdout.</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">codes_run_mode</span></code>: sets the run_mode with which the (multiple) codes
+have to be executed. For example, parallel execution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">8</span> <span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;</span>
+<span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">8</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;</span>
+<span class="n">wait</span>
+</pre></div>
+</div>
+<p>The serial execution would be without the &amp;’s.
+Values are given by aiida.common.datastructures.CodeRunMode.</p>
+</li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="aiida.schedulers.JobTemplate.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.JobTemplate.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobTemplate._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('shebang', 'submit_as_hold', 'rerunnable', 'job_environment', 'working_directory', 'email', 'email_on_started', 'email_on_terminated', 'job_name', 'sched_output_path', 'sched_error_path', 'sched_join_files', 'queue_name', 'account', 'qos', 'job_resource', 'priority', 'max_memory_kb', 'max_wallclock_seconds', 'custom_scheduler_commands', 'prepend_text', 'append_text', 'import_sys_environment', 'codes_run_mode', 'codes_info')</em><a class="headerlink" href="#aiida.schedulers.JobTemplate._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.JobInfo">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">JobInfo</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>Contains properties for a job in the queue.
+Most of the fields are taken from DRMAA v.2.</p>
+<p>Note that default fields may be undefined. This
+is an expected behavior and the application must cope with this
+case. An example for instance is the exit_status for jobs that have
+not finished yet; or features not supported by the given scheduler.</p>
+<p>Fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">job_id</span></code>: the job ID on the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">title</span></code>: the job title, as known by the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">exit_status</span></code>: the exit status of the job as reported by the operating
+system on the execution host</li>
+<li><code class="docutils literal notranslate"><span class="pre">terminating_signal</span></code>: the UNIX signal that was responsible for the end
+of the job.</li>
+<li><code class="docutils literal notranslate"><span class="pre">annotation</span></code>: human-readable description of the reason for the job
+being in the current state or substate.</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_state</span></code>: the job state (one of those defined in
+<code class="docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobState</span></code>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_substate</span></code>: a string with the implementation-specific sub-state</li>
+<li><code class="docutils literal notranslate"><span class="pre">allocated_machines</span></code>: a list of machines used for the current job.
+This is a list of <a class="reference internal" href="#aiida.schedulers.datastructures.MachineInfo" title="aiida.schedulers.datastructures.MachineInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.MachineInfo</span></code></a> objects.</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_owner</span></code>: the job owner as reported by the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs</span></code>: the <em>total</em> number of requested MPI procs</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_cpus</span></code>: the <em>total</em> number of requested CPUs (cores) [may be undefined]</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_machines</span></code>: the number of machines (i.e., nodes), required by the
+job. If <code class="docutils literal notranslate"><span class="pre">allocated_machines</span></code> is not None, this number must be equal to
+<code class="docutils literal notranslate"><span class="pre">len(allocated_machines)</span></code>. Otherwise, for schedulers not supporting
+the retrieval of the full list of allocated machines, this
+attribute can be used to know at least the number of machines.</li>
+<li><code class="docutils literal notranslate"><span class="pre">queue_name</span></code>: The name of the queue in which the job is queued or
+running.</li>
+<li><code class="docutils literal notranslate"><span class="pre">account</span></code>: The account/projectid in which the job is queued or
+running in.</li>
+<li><code class="docutils literal notranslate"><span class="pre">qos</span></code>: The quality of service in which the job is queued or
+running in.</li>
+<li><code class="docutils literal notranslate"><span class="pre">wallclock_time_seconds</span></code>: the accumulated wallclock time, in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">requested_wallclock_time_seconds</span></code>: the requested wallclock time,
+in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">cpu_time</span></code>: the accumulated cpu time, in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">submission_time</span></code>: the absolute time at which the job was submitted,
+of type datetime.datetime</li>
+<li><code class="docutils literal notranslate"><span class="pre">dispatch_time</span></code>: the absolute time at which the job first entered the
+‘started’ state, of type datetime.datetime</li>
+<li><code class="docutils literal notranslate"><span class="pre">finish_time</span></code>: the absolute time at which the job first entered the
+‘finished’ state, of type datetime.datetime</li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="aiida.schedulers.JobInfo.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.JobInfo.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobInfo._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('job_id', 'title', 'exit_status', 'terminating_signal', 'annotation', 'job_state', 'job_substate', 'allocated_machines', 'job_owner', 'num_mpiprocs', 'num_cpus', 'num_machines', 'queue_name', 'account', 'qos', 'wallclock_time_seconds', 'requested_wallclock_time_seconds', 'cpu_time', 'submission_time', 'dispatch_time', 'finish_time')</em><a class="headerlink" href="#aiida.schedulers.JobInfo._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.JobInfo._deserialize_date">
+<em class="property">static </em><code class="descname">_deserialize_date</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._deserialize_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo._deserialize_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialise a date
+:param value: The date vlue
+:return: The deserialised date</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.JobInfo._deserialize_job_state">
+<em class="property">static </em><code class="descname">_deserialize_job_state</code><span class="sig-paren">(</span><em>job_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._deserialize_job_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo._deserialize_job_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an instance of JobState from the job_state string.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.JobInfo._serialize_date">
+<em class="property">static </em><code class="descname">_serialize_date</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._serialize_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo._serialize_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise a data value
+:param value: The value to serialise
+:return: The serialised value</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.JobInfo._serialize_job_state">
+<em class="property">static </em><code class="descname">_serialize_job_state</code><span class="sig-paren">(</span><em>job_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._serialize_job_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo._serialize_job_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the serialized value of the JobState instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.JobInfo._special_serializers">
+<code class="descname">_special_serializers</code><em class="property"> = {'dispatch_time': 'date', 'finish_time': 'date', 'job_state': 'job_state', 'submission_time': 'date'}</em><a class="headerlink" href="#aiida.schedulers.JobInfo._special_serializers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.JobInfo.deserialize_field">
+<code class="descname">deserialize_field</code><span class="sig-paren">(</span><em>value</em>, <em>field_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.deserialize_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo.deserialize_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialise the value of a particular field with a type
+:param value: The value
+:param field_type: The field type
+:return: The deserialised value</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.JobInfo.load_from_serialized">
+<code class="descname">load_from_serialized</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.load_from_serialized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo.load_from_serialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load value from serialised data
+:param data: The data to load from
+:return: The value after loading</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.JobInfo.serialize">
+<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.serialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise the current data
+:return: A serialised representation of the current data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.JobInfo.serialize_field">
+<code class="descname">serialize_field</code><span class="sig-paren">(</span><em>value</em>, <em>field_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.serialize_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.JobInfo.serialize_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise a particular field value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> – The value to serialise</li>
+<li><strong>field_type</strong> – The field type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The serialised value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.NodeNumberJobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">NodeNumberJobResource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.datastructures.JobResource" title="aiida.schedulers.datastructures.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobResource</span></code></a></p>
+<p>An implementation of JobResource for schedulers that support
+the specification of a number of nodes and a number of cpus per node</p>
+<dl class="method">
+<dt id="aiida.schedulers.NodeNumberJobResource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the job resources from the passed arguments (the valid keys can be
+obtained with the function self.get_valid_keys()).</p>
+<p>Should raise only ValueError or TypeError on invalid parameters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.NodeNumberJobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.NodeNumberJobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('num_machines', 'num_mpiprocs_per_machine', 'num_cores_per_machine', 'num_cores_per_mpiproc')</em><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.NodeNumberJobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.NodeNumberJobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.NodeNumberJobResource.get_valid_keys">
+<em class="property">classmethod </em><code class="descname">get_valid_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.get_valid_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.NodeNumberJobResource.get_valid_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of valid keys to be passed to the __init__</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.ParEnvJobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">ParEnvJobResource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.datastructures.JobResource" title="aiida.schedulers.datastructures.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobResource</span></code></a></p>
+<p>An implementation of JobResource for schedulers that support
+the specification of a parallel environment (a string) + the total number of nodes</p>
+<dl class="method">
+<dt id="aiida.schedulers.ParEnvJobResource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the job resources from the passed arguments (the valid keys can be
+obtained with the function self.get_valid_keys()).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ValueError</strong> – on invalid parameters.</li>
+<li><strong>TypeError</strong> – on invalid parameters.</li>
+<li><a class="reference internal" href="aiida.common.html#aiida.common.ConfigurationError" title="aiida.common.ConfigurationError"><strong>aiida.common.ConfigurationError</strong></a> – if default_mpiprocs_per_machine was set for this
+computer, since ParEnvJobResource cannot accept this parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.ParEnvJobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.ParEnvJobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('parallel_env', 'tot_num_mpiprocs', 'default_mpiprocs_per_machine')</em><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.ParEnvJobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.ParEnvJobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.ParEnvJobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.MachineInfo">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">MachineInfo</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#MachineInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.MachineInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>Similarly to what is defined in the DRMAA v.2 as SlotInfo; this identifies
+each machine (also called ‘node’ on some schedulers)
+on which a job is running, and how many CPUs are being used. (Some of them
+could be undefined)</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: name of the machine</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_cpus</span></code>: number of cores used by the job on this machine</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs</span></code>: number of MPI processes used by the job on this machine</li>
+</ul>
+<dl class="attribute">
+<dt id="aiida.schedulers.MachineInfo.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.MachineInfo.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.MachineInfo._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('name', 'num_mpiprocs', 'num_cpus')</em><a class="headerlink" href="#aiida.schedulers.MachineInfo._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.Scheduler">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.</code><code class="descname">Scheduler</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for all schedulers.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.__abstractmethods__">
+<code class="descname">__abstractmethods__</code><em class="property"> = frozenset({'_get_submit_script_header', '_parse_joblist_output', '_parse_submit_output', '_get_joblist_command', '_get_submit_command'})</em><a class="headerlink" href="#aiida.schedulers.Scheduler.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.schedulers.scheduler', '__doc__': '\n    Base class for all schedulers.\n    ', '_logger': &lt;Logger aiida.scheduler (REPORT)&gt;, '_features': {}, '_job_resource_class': None, '__init__': &lt;function Scheduler.__init__&gt;, 'set_transport': &lt;function Scheduler.set_transport&gt;, 'get_valid_schedulers': &lt;classmethod object&gt;, 'get_short_doc': &lt;classmethod object&gt;, 'get_feature': &lt;function Scheduler.get_feature&gt;, 'logger': &lt;property object&gt;, 'job_resource_class': &lt;aiida.common.lang.classproperty object&gt;, 'create_job_resource': &lt;classmethod object&gt;, 'get_submit_script': &lt;function Scheduler.get_submit_script&gt;, '_get_submit_script_header': &lt;function Scheduler._get_submit_script_header&gt;, '_get_submit_script_footer': &lt;function Scheduler._get_submit_script_footer&gt;, '_get_run_line': &lt;function Scheduler._get_run_line&gt;, '_get_joblist_command': &lt;function Scheduler._get_joblist_command&gt;, '_get_detailed_jobinfo_command': &lt;function Scheduler._get_detailed_jobinfo_command&gt;, 'get_detailed_jobinfo': &lt;function Scheduler.get_detailed_jobinfo&gt;, '_parse_joblist_output': &lt;function Scheduler._parse_joblist_output&gt;, 'get_jobs': &lt;function Scheduler.get_jobs&gt;, 'transport': &lt;property object&gt;, '_get_submit_command': &lt;function Scheduler._get_submit_command&gt;, '_parse_submit_output': &lt;function Scheduler._parse_submit_output&gt;, 'submit_from_script': &lt;function Scheduler.submit_from_script&gt;, 'kill': &lt;function Scheduler.kill&gt;, '_get_kill_command': &lt;function Scheduler._get_kill_command&gt;, '_parse_kill_output': &lt;function Scheduler._parse_kill_output&gt;, '__dict__': &lt;attribute '__dict__' of 'Scheduler' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Scheduler' objects&gt;, '__abstractmethods__': frozenset({'_get_submit_script_header', '_parse_joblist_output', '_parse_submit_output', '_get_joblist_command', '_get_submit_command'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#aiida.schedulers.Scheduler.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.Scheduler.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.schedulers.Scheduler.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler._abc_impl">
+<code class="descname">_abc_impl</code><em class="property"> = &lt;_abc_data object&gt;</em><a class="headerlink" href="#aiida.schedulers.Scheduler._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler._features">
+<code class="descname">_features</code><em class="property"> = {}</em><a class="headerlink" href="#aiida.schedulers.Scheduler._features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_detailed_jobinfo_command">
+<code class="descname">_get_detailed_jobinfo_command</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_detailed_jobinfo_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_detailed_jobinfo_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the command to run to get the detailed information on a job.
+This is typically called after the job has finished, to retrieve
+the most detailed information possible about the job. This is done
+because most schedulers just make finished jobs disappear from the
+‘qstat’ command, and instead sometimes it is useful to know some
+more detailed information about the job exit status, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="aiida.common.html#aiida.common.exceptions.FeatureNotAvailable" title="aiida.common.exceptions.FeatureNotAvailable"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.FeatureNotAvailable</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_joblist_command">
+<code class="descname">_get_joblist_command</code><span class="sig-paren">(</span><em>jobs=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_joblist_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_joblist_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the qstat (or equivalent) command to run with the required
+command-line parameters to get the most complete description possible;
+also specifies the output format of qsub to be the one to be used
+by the parse_queue_output method.</p>
+<p>Must be implemented in the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>jobs</strong> – either None to get a list of all jobs in the machine,
+or a list of jobs.</li>
+<li><strong>user</strong> – either None, or a string with the username (to show only
+jobs of the specific user).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Note: typically one can pass only either jobs or user, depending on the</dt>
+<dd>specific plugin. The choice can be done according to the value
+returned by self.get_feature(‘can_query_by_user’)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_kill_command">
+<code class="descname">_get_kill_command</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_kill_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_kill_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the command to kill the job with specified jobid.</p>
+<p>To be implemented by the plugin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_run_line">
+<code class="descname">_get_run_line</code><span class="sig-paren">(</span><em>codes_info</em>, <em>codes_run_mode</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_run_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_run_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string with the line to execute a specific code with
+specific arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>codes_info</strong> – a list of aiida.common.datastructures.CodeInfo
+objects. Each contains the information needed to run the code. I.e.
+cmdline_params, stdin_name, stdout_name, stderr_name, join_files.
+See the documentation of JobTemplate and CodeInfo</li>
+<li><strong>codes_run_mode</strong> – <p>contains the information on how to launch the
+multiple codes. As described in aiida.common.datastructures.CodeRunMode</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>argv: an array with the executable and the command line arguments.</dt>
+<dd>The first argument is the executable. This should contain
+everything, including the mpirun command etc.</dd>
+<dt>stdin_name: the filename to be used as stdin, relative to the</dt>
+<dd>working dir, or None if no stdin redirection is required.</dd>
+<dt>stdout_name: the filename to be used to store the standard output,</dt>
+<dd>relative to the working dir,
+or None if no stdout redirection is required.</dd>
+<dt>stderr_name: the filename to be used to store the standard error,</dt>
+<dd>relative to the working dir,
+or None if no stderr redirection is required.</dd>
+<dt>join_files: if True, stderr is redirected to stdout; the value of</dt>
+<dd>stderr_name is ignored.</dd>
+</dl>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Return a string with the following format:
+[executable] [args] {[ &lt; stdin ]} {[ &lt; stdout ]} {[2&gt;&amp;1 | 2&gt; stderr]}</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_submit_command">
+<code class="descname">_get_submit_command</code><span class="sig-paren">(</span><em>submit_script</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_submit_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string to execute to submit a given script.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_script</strong> (<em>str</em>) – the path of the submit script relative to the
+working directory.
+IMPORTANT: submit_script should be already escaped.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the string to execute to submit a given script.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_submit_script_footer">
+<code class="descname">_get_submit_script_footer</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_script_footer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_submit_script_footer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script final part, using the parameters from the
+job_tmpl.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>job_tmpl</strong> – a JobTemplate instance with relevant parameters set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._get_submit_script_header">
+<code class="descname">_get_submit_script_header</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_script_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._get_submit_script_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script header, using the parameters from the
+job_tmpl.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>job_tmpl</strong> – a JobTemplate instance with relevant parameters set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler._job_resource_class">
+<code class="descname">_job_resource_class</code><em class="property"> = None</em><a class="headerlink" href="#aiida.schedulers.Scheduler._job_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger aiida.scheduler (REPORT)&gt;</em><a class="headerlink" href="#aiida.schedulers.Scheduler._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._parse_joblist_output">
+<code class="descname">_parse_joblist_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_joblist_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._parse_joblist_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the joblist output (‘qstat’), as returned by executing the
+command returned by _get_joblist_command method.</p>
+<p>To be implemented by the plugin.</p>
+<p>Return a list of JobInfo objects, one of each job,
+each with at least its default params implemented.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._parse_kill_output">
+<code class="descname">_parse_kill_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_kill_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._parse_kill_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the output of the kill command.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if everything seems ok, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler._parse_submit_output">
+<code class="descname">_parse_submit_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_submit_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler._parse_submit_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the output of the submit command, as returned by executing the
+command returned by _get_submit_command command.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string with the JobID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.Scheduler.create_job_resource">
+<em class="property">classmethod </em><code class="descname">create_job_resource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.create_job_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.create_job_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a suitable job resource from the kwargs specified</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.get_detailed_jobinfo">
+<code class="descname">get_detailed_jobinfo</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_detailed_jobinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_detailed_jobinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string with the output of the detailed_jobinfo command.</p>
+<p>At the moment, the output text is just retrieved
+and stored for logging purposes, but no parsing is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="aiida.common.html#aiida.common.exceptions.FeatureNotAvailable" title="aiida.common.exceptions.FeatureNotAvailable"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.FeatureNotAvailable</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.get_feature">
+<code class="descname">get_feature</code><span class="sig-paren">(</span><em>feature_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.get_jobs">
+<code class="descname">get_jobs</code><span class="sig-paren">(</span><em>jobs=None</em>, <em>user=None</em>, <em>as_dict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_jobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_jobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of jobs and return it.</p>
+<p>Typically, this function does not need to be modified by the plugins.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>jobs</strong> (<em>list</em>) – a list of jobs to check; only these are checked</li>
+<li><strong>user</strong> (<em>str</em>) – a string with a user: only jobs of this user are checked</li>
+<li><strong>as_dict</strong> (<em>list</em>) – if False (default), a list of JobInfo objects is
+returned. If True, a dictionary is returned, having as key the
+job_id and as value the JobInfo object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note: typically, only either jobs or user can be specified. See also
+comments in _get_joblist_command.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.Scheduler.get_short_doc">
+<em class="property">classmethod </em><code class="descname">get_short_doc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_short_doc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_short_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first non-empty line of the class docstring, if available</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.get_submit_script">
+<code class="descname">get_submit_script</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_submit_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_submit_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script as a string.
+:parameter job_tmpl: a aiida.schedulers.datastrutures.JobTemplate object.</p>
+<p>The plugin returns something like</p>
+<p>#!/bin/bash &lt;- this shebang line is configurable to some extent
+scheduler_dependent stuff to choose numnodes, numcores, walltime, …
+prepend_computer [also from calcinfo, joined with the following?]
+prepend_code [from calcinfo]
+output of _get_script_main_content
+postpend_code
+postpend_computer</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.Scheduler.get_valid_schedulers">
+<em class="property">classmethod </em><code class="descname">get_valid_schedulers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_valid_schedulers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.get_valid_schedulers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.job_resource_class">
+<code class="descname">job_resource_class</code><em class="property"> = None</em><a class="headerlink" href="#aiida.schedulers.Scheduler.job_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.kill">
+<code class="descname">kill</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill a remote job, and try to parse the output message of the scheduler
+to check if the scheduler accepted the command.</p>
+<p>..note:: On some schedulers, even if the command is accepted, it may
+take some seconds for the job to actually disappear from the queue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>jobid</strong> (<em>str</em>) – the job id to be killed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if everything seems ok, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.logger">
+<code class="descname">logger</code><a class="headerlink" href="#aiida.schedulers.Scheduler.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the internal logger.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.set_transport">
+<code class="descname">set_transport</code><span class="sig-paren">(</span><em>transport</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.set_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.set_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the transport to be used to query the machine or to submit scripts.
+This class assumes that the transport is open and active.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.Scheduler.submit_from_script">
+<code class="descname">submit_from_script</code><span class="sig-paren">(</span><em>working_directory</em>, <em>submit_script</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.submit_from_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.Scheduler.submit_from_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes in the working directory and submits the submit_script.</p>
+<p>Return a string with the JobID in a valid format to be used for
+querying.</p>
+<p>Typically, this function does not need to be modified by the plugins.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.Scheduler.transport">
+<code class="descname">transport</code><a class="headerlink" href="#aiida.schedulers.Scheduler.transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the transport set for this scheduler.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="aiida.schedulers.SchedulerError">
+<em class="property">exception </em><code class="descclassname">aiida.schedulers.</code><code class="descname">SchedulerError</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#SchedulerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.SchedulerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.exceptions.AiidaException" title="aiida.common.exceptions.AiidaException"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.AiidaException</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.schedulers.SchedulerError.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.SchedulerError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="aiida.schedulers.SchedulerParsingError">
+<em class="property">exception </em><code class="descclassname">aiida.schedulers.</code><code class="descname">SchedulerParsingError</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#SchedulerParsingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.SchedulerParsingError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.scheduler.SchedulerError" title="aiida.schedulers.scheduler.SchedulerError"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.scheduler.SchedulerError</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.schedulers.SchedulerParsingError.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.SchedulerParsingError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aiida.schedulers.plugins.html">aiida.schedulers.plugins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aiida.schedulers.plugins.html#module-aiida.schedulers.plugins.direct">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-aiida.schedulers.datastructures">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-aiida.schedulers.datastructures" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the main data structures used by the Scheduler.</p>
+<p>In particular, there is the definition of possible job states (job_states),
+the data structure to be filled for job submission (JobTemplate), and
+the data structure that is returned when querying for jobs in the scheduler
+(JobInfo).</p>
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.JobState">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">JobState</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enumeration of possible scheduler states of a CalcJob.</p>
+<p>There is no FAILED state as every completed job is put in DONE, regardless of success.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.DONE">
+<code class="descname">DONE</code><em class="property"> = 'done'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.DONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.QUEUED">
+<code class="descname">QUEUED</code><em class="property"> = 'queued'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.QUEUED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.QUEUED_HELD">
+<code class="descname">QUEUED_HELD</code><em class="property"> = 'queued held'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.QUEUED_HELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.RUNNING">
+<code class="descname">RUNNING</code><em class="property"> = 'running'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.SUSPENDED">
+<code class="descname">SUSPENDED</code><em class="property"> = 'suspended'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.SUSPENDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.UNDETERMINED">
+<code class="descname">UNDETERMINED</code><em class="property"> = 'undetermined'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.UNDETERMINED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobState.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobState.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.JobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">JobResource</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>A class to store the job resources. It must be inherited and redefined by the specific
+plugin, that should contain a <code class="docutils literal notranslate"><span class="pre">_job_resource_class</span></code> attribute pointing to the correct
+JobResource subclass.</p>
+<p>It should at least define the get_tot_num_mpiprocs() method, plus an __init__ to accept
+its set of variables.</p>
+<p>Typical attributes are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">num_machines</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs_per_machine</span></code></li>
+</ul>
+<p>or (e.g. for SGE)</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tot_num_mpiprocs</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">parallel_env</span></code></li>
+</ul>
+<p>The __init__ should take care of checking the values.
+The init should raise only ValueError or TypeError on invalid parameters.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ()</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.datastructures.JobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+<p>Should be implemented in each subclass.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.JobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.datastructures.JobResource.get_valid_keys">
+<em class="property">classmethod </em><code class="descname">get_valid_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobResource.get_valid_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobResource.get_valid_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of valid keys to be passed to the __init__</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.JobTemplate">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">JobTemplate</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>A template for submitting jobs. This contains all required information
+to create the job header.</p>
+<dl class="docutils">
+<dt>The required fields are: working_directory, job_name, num_machines,</dt>
+<dd>num_mpiprocs_per_machine, argv.</dd>
+</dl>
+<p>Fields:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">shebang</span> <span class="pre">line</span></code>: The first line of the submission script</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">submit_as_hold</span></code>: if set, the job will be in a ‘hold’ status right
+after the submission</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">rerunnable</span></code>: if the job is rerunnable (boolean)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_environment</span></code>: a dictionary with environment variables to set
+before the execution of the code.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">working_directory</span></code>: the working directory for this job. During
+submission, the transport will first do a ‘chdir’ to this directory,
+and then possibly set a scheduler parameter, if this is supported
+by the scheduler.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email</span></code>: an email address for sending emails on job events.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email_on_started</span></code>: if True, ask the scheduler to send an email when the
+job starts.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">email_on_terminated</span></code>: if True, ask the scheduler to send an email when
+the job ends. This should also send emails on job failure, when
+possible.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_name</span></code>: the name of this job. The actual name of the job can be
+different from the one specified here, e.g. if there are unsupported
+characters, or the name is too long.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_output_path</span></code>: a (relative) file name for the stdout of this job</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_error_path</span></code>: a (relative) file name for the stdout of this job</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sched_join_files</span></code>: if True, write both stdout and stderr on the same
+file (the one specified for stdout)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">queue_name</span></code>: the name of the scheduler queue (sometimes also called
+partition), on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">account</span></code>: the name of the scheduler account (sometimes also called
+projectid), on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">qos</span></code>: the quality of service of the scheduler account,
+on which the job will be submitted.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">job_resource</span></code>: a suitable <a class="reference internal" href="#aiida.schedulers.datastructures.JobResource" title="aiida.schedulers.datastructures.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">JobResource</span></code></a>
+subclass with information on how many
+nodes and cpus it should use. It must be an instance of the
+<code class="docutils literal notranslate"><span class="pre">aiida.schedulers.Scheduler.job_resource_class</span></code> class.
+Use the Scheduler.create_job_resource method to create it.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">num_machines</span></code>: how many machines (or nodes) should be used</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">num_mpiprocs_per_machine</span></code>: how many MPI procs should be used on each
+machine (or node).</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">priority</span></code>: a priority for this job. Should be in the format accepted
+by the specific scheduler.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">max_memory_kb</span></code>: The maximum amount of memory the job is allowed
+to allocate ON EACH NODE, in kilobytes</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">max_wallclock_seconds</span></code>: The maximum wall clock time that all processes
+of a job are allowed to exist, in seconds</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">custom_scheduler_commands</span></code>: a string that will be inserted right
+after the last scheduler command, and before any other non-scheduler
+command; useful if some specific flag needs to be added and is not
+supported by the plugin</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">prepend_text</span></code>: a (possibly multi-line) string to be inserted
+in the scheduler script before the main execution line</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">append_text</span></code>: a (possibly multi-line) string to be inserted
+in the scheduler script after the main execution line</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">import_sys_environment</span></code>: import the system environment variables</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">codes_info</span></code>: a list of aiida.common.datastructures.CalcInfo objects.
+Each contains the information necessary to run a single code. At the
+moment, it can contain:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmdline_parameters</span></code>: a list of strings with the command line arguments
+of the program to run. This is the main program to be executed.
+NOTE: The first one is the executable name.
+For MPI runs, this will probably be “mpirun” or a similar program;
+this has to be chosen at a upper level.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stdin_name</span></code>: the (relative) file name to be used as stdin for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stdout_name</span></code>: the (relative) file name to be used as stdout for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stderr_name</span></code>: the (relative) file name to be used as stderr for the
+program specified with argv.</li>
+<li><code class="docutils literal notranslate"><span class="pre">join_files</span></code>: if True, stderr is redirected on the same file
+specified for stdout.</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">codes_run_mode</span></code>: sets the run_mode with which the (multiple) codes
+have to be executed. For example, parallel execution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">8</span> <span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;</span>
+<span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">8</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;</span>
+<span class="n">wait</span>
+</pre></div>
+</div>
+<p>The serial execution would be without the &amp;’s.
+Values are given by aiida.common.datastructures.CodeRunMode.</p>
+</li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobTemplate.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobTemplate.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobTemplate._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('shebang', 'submit_as_hold', 'rerunnable', 'job_environment', 'working_directory', 'email', 'email_on_started', 'email_on_terminated', 'job_name', 'sched_output_path', 'sched_error_path', 'sched_join_files', 'queue_name', 'account', 'qos', 'job_resource', 'priority', 'max_memory_kb', 'max_wallclock_seconds', 'custom_scheduler_commands', 'prepend_text', 'append_text', 'import_sys_environment', 'codes_run_mode', 'codes_info')</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobTemplate._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.JobInfo">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">JobInfo</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>Contains properties for a job in the queue.
+Most of the fields are taken from DRMAA v.2.</p>
+<p>Note that default fields may be undefined. This
+is an expected behavior and the application must cope with this
+case. An example for instance is the exit_status for jobs that have
+not finished yet; or features not supported by the given scheduler.</p>
+<p>Fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">job_id</span></code>: the job ID on the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">title</span></code>: the job title, as known by the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">exit_status</span></code>: the exit status of the job as reported by the operating
+system on the execution host</li>
+<li><code class="docutils literal notranslate"><span class="pre">terminating_signal</span></code>: the UNIX signal that was responsible for the end
+of the job.</li>
+<li><code class="docutils literal notranslate"><span class="pre">annotation</span></code>: human-readable description of the reason for the job
+being in the current state or substate.</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_state</span></code>: the job state (one of those defined in
+<code class="docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobState</span></code>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_substate</span></code>: a string with the implementation-specific sub-state</li>
+<li><code class="docutils literal notranslate"><span class="pre">allocated_machines</span></code>: a list of machines used for the current job.
+This is a list of <a class="reference internal" href="#aiida.schedulers.datastructures.MachineInfo" title="aiida.schedulers.datastructures.MachineInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.MachineInfo</span></code></a> objects.</li>
+<li><code class="docutils literal notranslate"><span class="pre">job_owner</span></code>: the job owner as reported by the scheduler</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs</span></code>: the <em>total</em> number of requested MPI procs</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_cpus</span></code>: the <em>total</em> number of requested CPUs (cores) [may be undefined]</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_machines</span></code>: the number of machines (i.e., nodes), required by the
+job. If <code class="docutils literal notranslate"><span class="pre">allocated_machines</span></code> is not None, this number must be equal to
+<code class="docutils literal notranslate"><span class="pre">len(allocated_machines)</span></code>. Otherwise, for schedulers not supporting
+the retrieval of the full list of allocated machines, this
+attribute can be used to know at least the number of machines.</li>
+<li><code class="docutils literal notranslate"><span class="pre">queue_name</span></code>: The name of the queue in which the job is queued or
+running.</li>
+<li><code class="docutils literal notranslate"><span class="pre">account</span></code>: The account/projectid in which the job is queued or
+running in.</li>
+<li><code class="docutils literal notranslate"><span class="pre">qos</span></code>: The quality of service in which the job is queued or
+running in.</li>
+<li><code class="docutils literal notranslate"><span class="pre">wallclock_time_seconds</span></code>: the accumulated wallclock time, in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">requested_wallclock_time_seconds</span></code>: the requested wallclock time,
+in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">cpu_time</span></code>: the accumulated cpu time, in seconds</li>
+<li><code class="docutils literal notranslate"><span class="pre">submission_time</span></code>: the absolute time at which the job was submitted,
+of type datetime.datetime</li>
+<li><code class="docutils literal notranslate"><span class="pre">dispatch_time</span></code>: the absolute time at which the job first entered the
+‘started’ state, of type datetime.datetime</li>
+<li><code class="docutils literal notranslate"><span class="pre">finish_time</span></code>: the absolute time at which the job first entered the
+‘finished’ state, of type datetime.datetime</li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobInfo.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobInfo._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('job_id', 'title', 'exit_status', 'terminating_signal', 'annotation', 'job_state', 'job_substate', 'allocated_machines', 'job_owner', 'num_mpiprocs', 'num_cpus', 'num_machines', 'queue_name', 'account', 'qos', 'wallclock_time_seconds', 'requested_wallclock_time_seconds', 'cpu_time', 'submission_time', 'dispatch_time', 'finish_time')</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.datastructures.JobInfo._deserialize_date">
+<em class="property">static </em><code class="descname">_deserialize_date</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._deserialize_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._deserialize_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialise a date
+:param value: The date vlue
+:return: The deserialised date</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.datastructures.JobInfo._deserialize_job_state">
+<em class="property">static </em><code class="descname">_deserialize_job_state</code><span class="sig-paren">(</span><em>job_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._deserialize_job_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._deserialize_job_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an instance of JobState from the job_state string.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.datastructures.JobInfo._serialize_date">
+<em class="property">static </em><code class="descname">_serialize_date</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._serialize_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._serialize_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise a data value
+:param value: The value to serialise
+:return: The serialised value</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="aiida.schedulers.datastructures.JobInfo._serialize_job_state">
+<em class="property">static </em><code class="descname">_serialize_job_state</code><span class="sig-paren">(</span><em>job_state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo._serialize_job_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._serialize_job_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the serialized value of the JobState instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.JobInfo._special_serializers">
+<code class="descname">_special_serializers</code><em class="property"> = {'dispatch_time': 'date', 'finish_time': 'date', 'job_state': 'job_state', 'submission_time': 'date'}</em><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo._special_serializers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.JobInfo.deserialize_field">
+<code class="descname">deserialize_field</code><span class="sig-paren">(</span><em>value</em>, <em>field_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.deserialize_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo.deserialize_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialise the value of a particular field with a type
+:param value: The value
+:param field_type: The field type
+:return: The deserialised value</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.JobInfo.load_from_serialized">
+<code class="descname">load_from_serialized</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.load_from_serialized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo.load_from_serialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load value from serialised data
+:param data: The data to load from
+:return: The value after loading</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.JobInfo.serialize">
+<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.serialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise the current data
+:return: A serialised representation of the current data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.JobInfo.serialize_field">
+<code class="descname">serialize_field</code><span class="sig-paren">(</span><em>value</em>, <em>field_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#JobInfo.serialize_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.JobInfo.serialize_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise a particular field value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> – The value to serialise</li>
+<li><strong>field_type</strong> – The field type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The serialised value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">NodeNumberJobResource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.datastructures.JobResource" title="aiida.schedulers.datastructures.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobResource</span></code></a></p>
+<p>An implementation of JobResource for schedulers that support
+the specification of a number of nodes and a number of cpus per node</p>
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the job resources from the passed arguments (the valid keys can be
+obtained with the function self.get_valid_keys()).</p>
+<p>Should raise only ValueError or TypeError on invalid parameters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('num_machines', 'num_mpiprocs_per_machine', 'num_cores_per_machine', 'num_cores_per_mpiproc')</em><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.datastructures.NodeNumberJobResource.get_valid_keys">
+<em class="property">classmethod </em><code class="descname">get_valid_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#NodeNumberJobResource.get_valid_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.NodeNumberJobResource.get_valid_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of valid keys to be passed to the __init__</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">ParEnvJobResource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.datastructures.JobResource" title="aiida.schedulers.datastructures.JobResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.datastructures.JobResource</span></code></a></p>
+<p>An implementation of JobResource for schedulers that support
+the specification of a parallel environment (a string) + the total number of nodes</p>
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the job resources from the passed arguments (the valid keys can be
+obtained with the function self.get_valid_keys()).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ValueError</strong> – on invalid parameters.</li>
+<li><strong>TypeError</strong> – on invalid parameters.</li>
+<li><a class="reference internal" href="aiida.common.html#aiida.common.ConfigurationError" title="aiida.common.ConfigurationError"><strong>aiida.common.ConfigurationError</strong></a> – if default_mpiprocs_per_machine was set for this
+computer, since ParEnvJobResource cannot accept this parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('parallel_env', 'tot_num_mpiprocs', 'default_mpiprocs_per_machine')</em><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource.accepts_default_mpiprocs_per_machine">
+<em class="property">classmethod </em><code class="descname">accepts_default_mpiprocs_per_machine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.accepts_default_mpiprocs_per_machine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource.accepts_default_mpiprocs_per_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this JobResource accepts a ‘default_mpiprocs_per_machine’
+key, False otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.datastructures.ParEnvJobResource.get_tot_num_mpiprocs">
+<code class="descname">get_tot_num_mpiprocs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#ParEnvJobResource.get_tot_num_mpiprocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.ParEnvJobResource.get_tot_num_mpiprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of cpus of this job resource.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.schedulers.datastructures.MachineInfo">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.datastructures.</code><code class="descname">MachineInfo</code><a class="reference internal" href="../_modules/aiida/schedulers/datastructures.html#MachineInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.datastructures.MachineInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.extendeddicts.DefaultFieldsAttributeDict" title="aiida.common.extendeddicts.DefaultFieldsAttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.extendeddicts.DefaultFieldsAttributeDict</span></code></a></p>
+<p>Similarly to what is defined in the DRMAA v.2 as SlotInfo; this identifies
+each machine (also called ‘node’ on some schedulers)
+on which a job is running, and how many CPUs are being used. (Some of them
+could be undefined)</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: name of the machine</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_cpus</span></code>: number of cores used by the job on this machine</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_mpiprocs</span></code>: number of MPI processes used by the job on this machine</li>
+</ul>
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.MachineInfo.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.datastructures'</em><a class="headerlink" href="#aiida.schedulers.datastructures.MachineInfo.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.datastructures.MachineInfo._default_fields">
+<code class="descname">_default_fields</code><em class="property"> = ('name', 'num_mpiprocs', 'num_cpus')</em><a class="headerlink" href="#aiida.schedulers.datastructures.MachineInfo._default_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.schedulers.scheduler"></span><p>Implementation of <cite>Scheduler</cite> base class.</p>
+<dl class="class">
+<dt id="aiida.schedulers.scheduler.Scheduler">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.scheduler.</code><code class="descname">Scheduler</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for all schedulers.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.__abstractmethods__">
+<code class="descname">__abstractmethods__</code><em class="property"> = frozenset({'_get_submit_script_header', '_parse_joblist_output', '_parse_submit_output', '_get_joblist_command', '_get_submit_command'})</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.schedulers.scheduler', '__doc__': '\n    Base class for all schedulers.\n    ', '_logger': &lt;Logger aiida.scheduler (REPORT)&gt;, '_features': {}, '_job_resource_class': None, '__init__': &lt;function Scheduler.__init__&gt;, 'set_transport': &lt;function Scheduler.set_transport&gt;, 'get_valid_schedulers': &lt;classmethod object&gt;, 'get_short_doc': &lt;classmethod object&gt;, 'get_feature': &lt;function Scheduler.get_feature&gt;, 'logger': &lt;property object&gt;, 'job_resource_class': &lt;aiida.common.lang.classproperty object&gt;, 'create_job_resource': &lt;classmethod object&gt;, 'get_submit_script': &lt;function Scheduler.get_submit_script&gt;, '_get_submit_script_header': &lt;function Scheduler._get_submit_script_header&gt;, '_get_submit_script_footer': &lt;function Scheduler._get_submit_script_footer&gt;, '_get_run_line': &lt;function Scheduler._get_run_line&gt;, '_get_joblist_command': &lt;function Scheduler._get_joblist_command&gt;, '_get_detailed_jobinfo_command': &lt;function Scheduler._get_detailed_jobinfo_command&gt;, 'get_detailed_jobinfo': &lt;function Scheduler.get_detailed_jobinfo&gt;, '_parse_joblist_output': &lt;function Scheduler._parse_joblist_output&gt;, 'get_jobs': &lt;function Scheduler.get_jobs&gt;, 'transport': &lt;property object&gt;, '_get_submit_command': &lt;function Scheduler._get_submit_command&gt;, '_parse_submit_output': &lt;function Scheduler._parse_submit_output&gt;, 'submit_from_script': &lt;function Scheduler.submit_from_script&gt;, 'kill': &lt;function Scheduler.kill&gt;, '_get_kill_command': &lt;function Scheduler._get_kill_command&gt;, '_parse_kill_output': &lt;function Scheduler._parse_kill_output&gt;, '__dict__': &lt;attribute '__dict__' of 'Scheduler' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Scheduler' objects&gt;, '__abstractmethods__': frozenset({'_get_submit_script_header', '_parse_joblist_output', '_parse_submit_output', '_get_joblist_command', '_get_submit_command'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler._abc_impl">
+<code class="descname">_abc_impl</code><em class="property"> = &lt;_abc_data object&gt;</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler._features">
+<code class="descname">_features</code><em class="property"> = {}</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_detailed_jobinfo_command">
+<code class="descname">_get_detailed_jobinfo_command</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_detailed_jobinfo_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_detailed_jobinfo_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the command to run to get the detailed information on a job.
+This is typically called after the job has finished, to retrieve
+the most detailed information possible about the job. This is done
+because most schedulers just make finished jobs disappear from the
+‘qstat’ command, and instead sometimes it is useful to know some
+more detailed information about the job exit status, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="aiida.common.html#aiida.common.exceptions.FeatureNotAvailable" title="aiida.common.exceptions.FeatureNotAvailable"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.FeatureNotAvailable</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_joblist_command">
+<code class="descname">_get_joblist_command</code><span class="sig-paren">(</span><em>jobs=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_joblist_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_joblist_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the qstat (or equivalent) command to run with the required
+command-line parameters to get the most complete description possible;
+also specifies the output format of qsub to be the one to be used
+by the parse_queue_output method.</p>
+<p>Must be implemented in the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>jobs</strong> – either None to get a list of all jobs in the machine,
+or a list of jobs.</li>
+<li><strong>user</strong> – either None, or a string with the username (to show only
+jobs of the specific user).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Note: typically one can pass only either jobs or user, depending on the</dt>
+<dd>specific plugin. The choice can be done according to the value
+returned by self.get_feature(‘can_query_by_user’)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_kill_command">
+<code class="descname">_get_kill_command</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_kill_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_kill_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the command to kill the job with specified jobid.</p>
+<p>To be implemented by the plugin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_run_line">
+<code class="descname">_get_run_line</code><span class="sig-paren">(</span><em>codes_info</em>, <em>codes_run_mode</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_run_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_run_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string with the line to execute a specific code with
+specific arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>codes_info</strong> – a list of aiida.common.datastructures.CodeInfo
+objects. Each contains the information needed to run the code. I.e.
+cmdline_params, stdin_name, stdout_name, stderr_name, join_files.
+See the documentation of JobTemplate and CodeInfo</li>
+<li><strong>codes_run_mode</strong> – <p>contains the information on how to launch the
+multiple codes. As described in aiida.common.datastructures.CodeRunMode</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>argv: an array with the executable and the command line arguments.</dt>
+<dd>The first argument is the executable. This should contain
+everything, including the mpirun command etc.</dd>
+<dt>stdin_name: the filename to be used as stdin, relative to the</dt>
+<dd>working dir, or None if no stdin redirection is required.</dd>
+<dt>stdout_name: the filename to be used to store the standard output,</dt>
+<dd>relative to the working dir,
+or None if no stdout redirection is required.</dd>
+<dt>stderr_name: the filename to be used to store the standard error,</dt>
+<dd>relative to the working dir,
+or None if no stderr redirection is required.</dd>
+<dt>join_files: if True, stderr is redirected to stdout; the value of</dt>
+<dd>stderr_name is ignored.</dd>
+</dl>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Return a string with the following format:
+[executable] [args] {[ &lt; stdin ]} {[ &lt; stdout ]} {[2&gt;&amp;1 | 2&gt; stderr]}</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_submit_command">
+<code class="descname">_get_submit_command</code><span class="sig-paren">(</span><em>submit_script</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_submit_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string to execute to submit a given script.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_script</strong> (<em>str</em>) – the path of the submit script relative to the
+working directory.
+IMPORTANT: submit_script should be already escaped.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the string to execute to submit a given script.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_submit_script_footer">
+<code class="descname">_get_submit_script_footer</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_script_footer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_submit_script_footer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script final part, using the parameters from the
+job_tmpl.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>job_tmpl</strong> – a JobTemplate instance with relevant parameters set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._get_submit_script_header">
+<code class="descname">_get_submit_script_header</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._get_submit_script_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._get_submit_script_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script header, using the parameters from the
+job_tmpl.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>job_tmpl</strong> – a JobTemplate instance with relevant parameters set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler._job_resource_class">
+<code class="descname">_job_resource_class</code><em class="property"> = None</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._job_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger aiida.scheduler (REPORT)&gt;</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._parse_joblist_output">
+<code class="descname">_parse_joblist_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_joblist_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._parse_joblist_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the joblist output (‘qstat’), as returned by executing the
+command returned by _get_joblist_command method.</p>
+<p>To be implemented by the plugin.</p>
+<p>Return a list of JobInfo objects, one of each job,
+each with at least its default params implemented.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._parse_kill_output">
+<code class="descname">_parse_kill_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_kill_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._parse_kill_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the output of the kill command.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if everything seems ok, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler._parse_submit_output">
+<code class="descname">_parse_submit_output</code><span class="sig-paren">(</span><em>retval</em>, <em>stdout</em>, <em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler._parse_submit_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler._parse_submit_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the output of the submit command, as returned by executing the
+command returned by _get_submit_command command.</p>
+<p>To be implemented by the plugin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string with the JobID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.scheduler.Scheduler.create_job_resource">
+<em class="property">classmethod </em><code class="descname">create_job_resource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.create_job_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.create_job_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a suitable job resource from the kwargs specified</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_detailed_jobinfo">
+<code class="descname">get_detailed_jobinfo</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_detailed_jobinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_detailed_jobinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string with the output of the detailed_jobinfo command.</p>
+<p>At the moment, the output text is just retrieved
+and stored for logging purposes, but no parsing is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="aiida.common.html#aiida.common.exceptions.FeatureNotAvailable" title="aiida.common.exceptions.FeatureNotAvailable"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.FeatureNotAvailable</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_feature">
+<code class="descname">get_feature</code><span class="sig-paren">(</span><em>feature_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_jobs">
+<code class="descname">get_jobs</code><span class="sig-paren">(</span><em>jobs=None</em>, <em>user=None</em>, <em>as_dict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_jobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_jobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of jobs and return it.</p>
+<p>Typically, this function does not need to be modified by the plugins.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>jobs</strong> (<em>list</em>) – a list of jobs to check; only these are checked</li>
+<li><strong>user</strong> (<em>str</em>) – a string with a user: only jobs of this user are checked</li>
+<li><strong>as_dict</strong> (<em>list</em>) – if False (default), a list of JobInfo objects is
+returned. If True, a dictionary is returned, having as key the
+job_id and as value the JobInfo object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note: typically, only either jobs or user can be specified. See also
+comments in _get_joblist_command.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_short_doc">
+<em class="property">classmethod </em><code class="descname">get_short_doc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_short_doc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_short_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first non-empty line of the class docstring, if available</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_submit_script">
+<code class="descname">get_submit_script</code><span class="sig-paren">(</span><em>job_tmpl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_submit_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_submit_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the submit script as a string.
+:parameter job_tmpl: a aiida.schedulers.datastrutures.JobTemplate object.</p>
+<p>The plugin returns something like</p>
+<p>#!/bin/bash &lt;- this shebang line is configurable to some extent
+scheduler_dependent stuff to choose numnodes, numcores, walltime, …
+prepend_computer [also from calcinfo, joined with the following?]
+prepend_code [from calcinfo]
+output of _get_script_main_content
+postpend_code
+postpend_computer</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.schedulers.scheduler.Scheduler.get_valid_schedulers">
+<em class="property">classmethod </em><code class="descname">get_valid_schedulers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.get_valid_schedulers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.get_valid_schedulers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.job_resource_class">
+<code class="descname">job_resource_class</code><em class="property"> = None</em><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.job_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.kill">
+<code class="descname">kill</code><span class="sig-paren">(</span><em>jobid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill a remote job, and try to parse the output message of the scheduler
+to check if the scheduler accepted the command.</p>
+<p>..note:: On some schedulers, even if the command is accepted, it may
+take some seconds for the job to actually disappear from the queue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>jobid</strong> (<em>str</em>) – the job id to be killed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if everything seems ok, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.logger">
+<code class="descname">logger</code><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the internal logger.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.set_transport">
+<code class="descname">set_transport</code><span class="sig-paren">(</span><em>transport</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.set_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.set_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the transport to be used to query the machine or to submit scripts.
+This class assumes that the transport is open and active.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.scheduler.Scheduler.submit_from_script">
+<code class="descname">submit_from_script</code><span class="sig-paren">(</span><em>working_directory</em>, <em>submit_script</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#Scheduler.submit_from_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.submit_from_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes in the working directory and submits the submit_script.</p>
+<p>Return a string with the JobID in a valid format to be used for
+querying.</p>
+<p>Typically, this function does not need to be modified by the plugins.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.Scheduler.transport">
+<code class="descname">transport</code><a class="headerlink" href="#aiida.schedulers.scheduler.Scheduler.transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the transport set for this scheduler.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="aiida.schedulers.scheduler.SchedulerError">
+<em class="property">exception </em><code class="descclassname">aiida.schedulers.scheduler.</code><code class="descname">SchedulerError</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#SchedulerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.SchedulerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.exceptions.AiidaException" title="aiida.common.exceptions.AiidaException"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.AiidaException</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.SchedulerError.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.scheduler.SchedulerError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="aiida.schedulers.scheduler.SchedulerParsingError">
+<em class="property">exception </em><code class="descclassname">aiida.schedulers.scheduler.</code><code class="descname">SchedulerParsingError</code><a class="reference internal" href="../_modules/aiida/schedulers/scheduler.html#SchedulerParsingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.scheduler.SchedulerParsingError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aiida.schedulers.scheduler.SchedulerError" title="aiida.schedulers.scheduler.SchedulerError"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.schedulers.scheduler.SchedulerError</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.schedulers.scheduler.SchedulerParsingError.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.scheduler'</em><a class="headerlink" href="#aiida.schedulers.scheduler.SchedulerParsingError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.schedulers.test_datastructures"></span><p>Datastructures test</p>
+<dl class="class">
+<dt id="aiida.schedulers.test_datastructures.TestNodeNumberJobResource">
+<em class="property">class </em><code class="descclassname">aiida.schedulers.test_datastructures.</code><code class="descname">TestNodeNumberJobResource</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/test_datastructures.html#TestNodeNumberJobResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.test_datastructures.TestNodeNumberJobResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Unit tests for the NodeNumberJobResource class.</p>
+<dl class="attribute">
+<dt id="aiida.schedulers.test_datastructures.TestNodeNumberJobResource.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.schedulers.test_datastructures'</em><a class="headerlink" href="#aiida.schedulers.test_datastructures.TestNodeNumberJobResource.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.schedulers.test_datastructures.TestNodeNumberJobResource.test_init">
+<code class="descname">test_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/schedulers/test_datastructures.html#TestNodeNumberJobResource.test_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.schedulers.test_datastructures.TestNodeNumberJobResource.test_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the __init__ of the NodeNumberJobResource class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

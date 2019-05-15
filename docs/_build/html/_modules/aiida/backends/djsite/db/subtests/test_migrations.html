@@ -1,0 +1,1050 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.djsite.db.subtests.test_migrations &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.backends.djsite.db.subtests.test_migrations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.djsite.db.subtests.test_migrations</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="k">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.db.migrations.executor</span> <span class="k">import</span> <span class="n">MigrationExecutor</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">connection</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.djsite.db.migrations</span> <span class="k">import</span> <span class="n">ModelModifierV0025</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.general.migrations</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">IntegrityError</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.database.integrity.duplicate_uuid</span> <span class="k">import</span> <span class="n">deduplicate_uuids</span><span class="p">,</span> <span class="n">verify_uuid_uniqueness</span>
+
+
+<div class="viewcode-block" id="TestMigrations"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations">[docs]</a><span class="k">class</span> <span class="nc">TestMigrations</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_containing_app_config</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TestMigrations.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Go to a specific schema version before running tests.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">autogroup</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_autogroup</span> <span class="o">=</span> <span class="n">autogroup</span><span class="o">.</span><span class="n">current_autogroup</span>
+        <span class="n">autogroup</span><span class="o">.</span><span class="n">current_autogroup</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrate_from</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span><span class="p">,</span> \
+            <span class="s2">&quot;TestCase &#39;</span><span class="si">{}</span><span class="s2">&#39; must define migrate_from and migrate_to properties&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">migrate_from</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrate_from</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span><span class="p">)]</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="n">MigrationExecutor</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">project_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">migrate_from</span><span class="p">)</span><span class="o">.</span><span class="n">apps</span>
+
+        <span class="c1"># Reverse to the original migration</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">migrate_from</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">@aiida.net&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">()))</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setUpBeforeMigration</span><span class="p">()</span>
+            <span class="c1"># Run the migration to test</span>
+            <span class="n">executor</span> <span class="o">=</span> <span class="n">MigrationExecutor</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+            <span class="n">executor</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">build_graph</span><span class="p">()</span>
+            <span class="n">executor</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">project_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span><span class="p">)</span><span class="o">.</span><span class="n">apps</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="c1"># Bring back the DB to the correct state if this setup part fails</span>
+            <span class="kn">import</span> <span class="nn">traceback</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_stack</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;EXCEPTION&#39;</span><span class="p">,</span> <span class="n">exception</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revert_database_schema</span><span class="p">()</span>
+            <span class="k">raise</span></div>
+
+<div class="viewcode-block" id="TestMigrations.tearDown"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;At the end make sure we go back to the latest schema version.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">autogroup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revert_database_schema</span><span class="p">()</span>
+        <span class="n">autogroup</span><span class="o">.</span><span class="n">current_autogroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_autogroup</span></div>
+
+<div class="viewcode-block" id="TestMigrations.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Anything to do before running the migrations, which should be implemented in test subclasses.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="TestMigrations._revert_database_schema"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations._revert_database_schema">[docs]</a>    <span class="k">def</span> <span class="nf">_revert_database_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Bring back the DB to the correct state.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">..migrations</span> <span class="k">import</span> <span class="n">LATEST_MIGRATION</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">LATEST_MIGRATION</span><span class="p">)]</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="n">MigrationExecutor</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">migrate_to</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestMigrations.load_node"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrations.load_node">[docs]</a>    <span class="k">def</span> <span class="nf">load_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestMigrationsModelModifierV0025"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrationsModelModifierV0025">[docs]</a><span class="k">class</span> <span class="nc">TestMigrationsModelModifierV0025</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sub class of `TestMigrations` that need to work on node attributes using the `ModelModifierV0025`.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestMigrationsModelModifierV0025.set_attribute"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrationsModelModifierV0025.set_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">DbAttribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbAttribute&#39;</span><span class="p">)</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">ModelModifierV0025</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="p">,</span> <span class="n">DbAttribute</span><span class="p">)</span>
+        <span class="n">modifier</span><span class="o">.</span><span class="n">set_value_for_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestMigrationsModelModifierV0025.get_attribute"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrationsModelModifierV0025.get_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">DbAttribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbAttribute&#39;</span><span class="p">)</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">ModelModifierV0025</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="p">,</span> <span class="n">DbAttribute</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">modifier</span><span class="o">.</span><span class="n">get_value_for_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span></div>
+
+<div class="viewcode-block" id="TestMigrationsModelModifierV0025.get_node_array"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrationsModelModifierV0025.get_node_array">[docs]</a>    <span class="k">def</span> <span class="nf">get_node_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_numpy_array_from_repository</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestMigrationsModelModifierV0025.set_node_array"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestMigrationsModelModifierV0025.set_node_array">[docs]</a>    <span class="k">def</span> <span class="nf">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store a new numpy array inside a node. Possibly overwrite the array if it already existed.</span>
+
+<span class="sd">        Internally, it stores a name.npy file in numpy format.</span>
+
+<span class="sd">        :param name: The name of the array.</span>
+<span class="sd">        :param array: The numpy array to store.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">store_numpy_array_in_repository</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;array|</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="TestNoMigrations"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestNoMigrations">[docs]</a><span class="k">class</span> <span class="nc">TestNoMigrations</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestNoMigrations.test_no_remaining_migrations"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestNoMigrations.test_no_remaining_migrations">[docs]</a>    <span class="k">def</span> <span class="nf">test_no_remaining_migrations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that no django migrations remain.</span>
+
+<span class="sd">        Equivalent to python manage.py makemigrations --check&quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">call_command</span>
+
+        <span class="c1"># Raises SystemExit, if migrations remain</span>
+        <span class="n">call_command</span><span class="p">(</span><span class="s1">&#39;makemigrations&#39;</span><span class="p">,</span> <span class="s1">&#39;--check&#39;</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestDuplicateNodeUuidMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDuplicateNodeUuidMigration">[docs]</a><span class="k">class</span> <span class="nc">TestDuplicateNodeUuidMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0013_django_1_8&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0014_add_node_uuid_unique_constraint&#39;</span>
+
+<div class="viewcode-block" id="TestDuplicateNodeUuidMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDuplicateNodeUuidMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">get_new_uuid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;test.temp&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_content</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;#!/bin/bash</span><span class="se">\n\n</span><span class="s1">echo test run</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_boolean</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_integer</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_bool_duplicates</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_int_duplicates</span> <span class="o">=</span> <span class="mi">4</span>
+
+        <span class="n">node_bool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.bool.Bool.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">get_new_uuid</span><span class="p">())</span>
+        <span class="n">node_bool</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">node_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.int.Int.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">get_new_uuid</span><span class="p">())</span>
+        <span class="n">node_int</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_boolean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_integer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_int</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_bool_duplicates</span><span class="p">):</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.bool.Bool.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_bool</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">put_object_from_string</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_content</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes_boolean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_int_duplicates</span><span class="p">):</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.int.Int.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">node_int</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">put_object_from_string</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_content</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes_integer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="c1"># Verify that there are duplicate UUIDs by checking that the following function raises</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">IntegrityError</span><span class="p">):</span>
+            <span class="n">verify_uuid_uniqueness</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s1">&#39;db_dbnode&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Now run the function responsible for solving duplicate UUIDs which would also be called by the user</span>
+        <span class="c1"># through the `verdi database integrity detect-duplicate-uuid` command</span>
+        <span class="n">deduplicate_uuids</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s1">&#39;db_dbnode&#39;</span><span class="p">,</span> <span class="n">dry_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDuplicateNodeUuidMigration.test_deduplicated_uuids"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDuplicateNodeUuidMigration.test_deduplicated_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">test_deduplicated_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that after the migration, all expected nodes are still there with unique UUIDs.&quot;&quot;&quot;</span>
+        <span class="c1"># If the duplicate UUIDs were successfully fixed, the following should not raise.</span>
+        <span class="n">verify_uuid_uniqueness</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s1">&#39;db_dbnode&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Reload the nodes by PK and check that all UUIDs are now unique</span>
+        <span class="n">nodes_boolean</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes_boolean</span><span class="p">]</span>
+        <span class="n">uuids_boolean</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes_boolean</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">uuids_boolean</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_boolean</span><span class="p">))</span>
+
+        <span class="n">nodes_integer</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes_integer</span><span class="p">]</span>
+        <span class="n">uuids_integer</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes_integer</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">uuids_integer</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_integer</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes_boolean</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">get_object_from_repository</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_content</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestUuidMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestUuidMigration">[docs]</a><span class="k">class</span> <span class="nc">TestUuidMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0017_drop_dbcalcstate&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0018_django_1_11&#39;</span>
+
+<div class="viewcode-block" id="TestUuidMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestUuidMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span></div>
+
+<div class="viewcode-block" id="TestUuidMigration.test_uuid_untouched"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestUuidMigration.test_uuid_untouched">[docs]</a>    <span class="k">def</span> <span class="nf">test_uuid_untouched</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that Node uuids remain unchanged.&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_uuid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="TestGroupRenamingMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestGroupRenamingMigration">[docs]</a><span class="k">class</span> <span class="nc">TestGroupRenamingMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0021_dbgroup_name_to_label_type_to_type_string&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0022_dbgroup_type_string_change_content&#39;</span>
+
+<div class="viewcode-block" id="TestGroupRenamingMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestGroupRenamingMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Create group</span>
+        <span class="n">DbGroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbGroup&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test user group type_string: &#39;&#39; -&gt; &#39;user&#39;</span>
+        <span class="n">group_user</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test_user_group&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">group_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_user_pk</span> <span class="o">=</span> <span class="n">group_user</span><span class="o">.</span><span class="n">pk</span>
+
+        <span class="c1"># test data.upf group type_string: &#39;data.upf.family&#39; -&gt; &#39;data.upf&#39;</span>
+        <span class="n">group_data_upf</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test_data_upf_group&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="s1">&#39;data.upf.family&#39;</span><span class="p">)</span>
+        <span class="n">group_data_upf</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_data_upf_pk</span> <span class="o">=</span> <span class="n">group_data_upf</span><span class="o">.</span><span class="n">pk</span>
+
+        <span class="c1"># test auto.import group type_string: &#39;aiida.import&#39; -&gt; &#39;auto.import&#39;</span>
+        <span class="n">group_autoimport</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test_import_group&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="s1">&#39;aiida.import&#39;</span><span class="p">)</span>
+        <span class="n">group_autoimport</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_autoimport_pk</span> <span class="o">=</span> <span class="n">group_autoimport</span><span class="o">.</span><span class="n">pk</span>
+
+        <span class="c1"># test auto.run group type_string: &#39;autogroup.run&#39; -&gt; &#39;auto.run&#39;</span>
+        <span class="n">group_autorun</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test_autorun_group&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="s1">&#39;autogroup.run&#39;</span><span class="p">)</span>
+        <span class="n">group_autorun</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_autorun_pk</span> <span class="o">=</span> <span class="n">group_autorun</span><span class="o">.</span><span class="n">pk</span></div>
+
+<div class="viewcode-block" id="TestGroupRenamingMigration.test_group_string_update"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestGroupRenamingMigration.test_group_string_update">[docs]</a>    <span class="k">def</span> <span class="nf">test_group_string_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">DbGroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbGroup&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test user group type_string: &#39;&#39; -&gt; &#39;user&#39;</span>
+        <span class="n">group_user</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group_user_pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">group_user</span><span class="o">.</span><span class="n">type_string</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test data.upf group type_string: &#39;data.upf.family&#39; -&gt; &#39;data.upf&#39;</span>
+        <span class="n">group_data_upf</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group_data_upf_pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">group_data_upf</span><span class="o">.</span><span class="n">type_string</span><span class="p">,</span> <span class="s1">&#39;data.upf&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test auto.import group type_string: &#39;aiida.import&#39; -&gt; &#39;auto.import&#39;</span>
+        <span class="n">group_autoimport</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group_autoimport_pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">group_autoimport</span><span class="o">.</span><span class="n">type_string</span><span class="p">,</span> <span class="s1">&#39;auto.import&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test auto.run group type_string: &#39;autogroup.run&#39; -&gt; &#39;auto.run&#39;</span>
+        <span class="n">group_autorun</span> <span class="o">=</span> <span class="n">DbGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group_autorun_pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">group_autorun</span><span class="o">.</span><span class="n">type_string</span><span class="p">,</span> <span class="s1">&#39;auto.run&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestCalcAttributeKeysMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestCalcAttributeKeysMigration">[docs]</a><span class="k">class</span> <span class="nc">TestCalcAttributeKeysMigration</span><span class="p">(</span><span class="n">TestMigrationsModelModifierV0025</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0022_dbgroup_type_string_change_content&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0023_calc_job_option_attribute_keys&#39;</span>
+
+    <span class="n">KEY_RESOURCES_OLD</span> <span class="o">=</span> <span class="s1">&#39;jobresource_params&#39;</span>
+    <span class="n">KEY_RESOURCES_NEW</span> <span class="o">=</span> <span class="s1">&#39;resources&#39;</span>
+    <span class="n">KEY_PARSER_NAME_OLD</span> <span class="o">=</span> <span class="s1">&#39;parser&#39;</span>
+    <span class="n">KEY_PARSER_NAME_NEW</span> <span class="o">=</span> <span class="s1">&#39;parser_name&#39;</span>
+    <span class="n">KEY_PROCESS_LABEL_OLD</span> <span class="o">=</span> <span class="s1">&#39;_process_label&#39;</span>
+    <span class="n">KEY_PROCESS_LABEL_NEW</span> <span class="o">=</span> <span class="s1">&#39;process_label&#39;</span>
+    <span class="n">KEY_ENVIRONMENT_VARIABLES_OLD</span> <span class="o">=</span> <span class="s1">&#39;custom_environment_variables&#39;</span>
+    <span class="n">KEY_ENVIRONMENT_VARIABLES_NEW</span> <span class="o">=</span> <span class="s1">&#39;environment_variables&#39;</span>
+
+<div class="viewcode-block" id="TestCalcAttributeKeysMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestCalcAttributeKeysMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span> <span class="o">=</span> <span class="s1">&#39;TestLabel&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;number_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment_variables</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser_name</span> <span class="o">=</span> <span class="s1">&#39;aiida.parsers:parser&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_work</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.process.workflow.WorkflowNode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_work</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_work</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_name</span><span class="p">)</span>
+
+        <span class="c1"># Create a node of a different type to ensure that its attributes are not updated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.othernode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_OLD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCalcAttributeKeysMigration.test_attribute_key_changes"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestCalcAttributeKeysMigration.test_attribute_key_changes">[docs]</a>    <span class="k">def</span> <span class="nf">test_attribute_key_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the keys are successfully changed of the affected attributes.&quot;&quot;&quot;</span>
+        <span class="n">NOT_FOUND</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_work</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_NEW</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_work</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_NEW</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_NEW</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_NEW</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_NEW</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_OLD</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_OLD</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_OLD</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+
+        <span class="c1"># The following node should not be migrated even if its attributes have the matching keys because</span>
+        <span class="c1"># the node is not a ProcessNode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_OLD</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_OLD</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_OLD</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_OLD</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PROCESS_LABEL_NEW</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_RESOURCES_NEW</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ENVIRONMENT_VARIABLES_NEW</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_PARSER_NAME_NEW</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NOT_FOUND</span><span class="p">),</span> <span class="n">NOT_FOUND</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning">[docs]</a><span class="k">class</span> <span class="nc">TestDbLogMigrationRecordCleaning</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0023_calc_job_option_attribute_keys&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0024_dblog_update&#39;</span>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">json</span>
+        <span class="kn">import</span> <span class="nn">importlib</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.sqlalchemy.utils</span> <span class="k">import</span> <span class="n">dumps_json</span>
+
+        <span class="n">update_024</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;aiida.backends.djsite.db.migrations.0024_dblog_update&#39;</span><span class="p">)</span>
+
+        <span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+        <span class="n">DbWorkflow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbWorkflow&#39;</span><span class="p">)</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Creating the needed nodes &amp; workflows</span>
+        <span class="n">calc_1</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;node.process.calculation.CalculationNode.&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;data.dict.Dict.&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">leg_workf</span> <span class="o">=</span> <span class="n">DbWorkflow</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Legacy WorkflowNode&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">calc_2</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;node.process.calculation.CalculationNode.&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="c1"># Storing them</span>
+        <span class="n">calc_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">leg_workf</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">calc_2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># Creating the corresponding log records and storing them</span>
+        <span class="n">log_1</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="n">calc_1</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;node.calculation.job.quantumespresso.pw.&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 1&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mf">719.0849781036377</span><span class="p">,</span>
+                <span class="s2">&quot;objpk&quot;</span><span class="p">:</span> <span class="n">calc_1</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+                <span class="s2">&quot;thread&quot;</span><span class="p">:</span> <span class="mi">140011612940032</span><span class="p">,</span>
+                <span class="s2">&quot;asctime&quot;</span><span class="p">:</span> <span class="s2">&quot;10/21/2018 12:39:51 PM&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="mf">1540118391.719085</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;objname&quot;</span><span class="p">:</span> <span class="s2">&quot;node.calculation.job.quantumespresso.pw.&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+        <span class="n">log_2</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;something.else logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;something.else.&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;parameter data with log message&#39;</span><span class="p">)</span>
+        <span class="n">log_3</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;TopologicalWorkflow logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="n">leg_workf</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;aiida.workflows.user.topologicalworkflows.topo.TopologicalWorkflow&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;parameter data with log message&#39;</span><span class="p">)</span>
+        <span class="n">log_4</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;node.calculation.job.quantumespresso.pw.&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 2&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mf">719.0849781036377</span><span class="p">,</span>
+                <span class="s2">&quot;objpk&quot;</span><span class="p">:</span> <span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">360</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;objname&quot;</span><span class="p">:</span> <span class="s2">&quot;node.calculation.job.quantumespresso.pw.&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+        <span class="c1"># Creating two more log records that don&#39;t correspond to a node</span>
+        <span class="n">log_5</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="p">(</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">),</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;node.calculation.job.quantumespresso.pw.&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 1000&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mi">718</span><span class="p">,</span>
+                <span class="s2">&quot;objpk&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">),</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">361</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1000&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;objname&quot;</span><span class="p">:</span> <span class="s2">&quot;node.calculation.job.quantumespresso.pw.&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+        <span class="n">log_6</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="p">(</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span> <span class="o">+</span> <span class="mi">1001</span><span class="p">),</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;node.calculation.job.quantumespresso.pw.&#39;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 10001&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mi">722</span><span class="p">,</span>
+                <span class="s2">&quot;objpk&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span> <span class="o">+</span> <span class="mi">1001</span><span class="p">),</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">362</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;objname&quot;</span><span class="p">:</span> <span class="s2">&quot;node.calculation.job.quantumespresso.pw.&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+
+        <span class="c1"># Storing the log records</span>
+        <span class="n">log_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_3</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_4</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_5</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_6</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># Storing temporarily information needed for the check at the test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># Keeping calculation &amp; calculation log ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;CalculationNode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">calc_1</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">log_1</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">log_4</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Getting the serialized Dict logs</span>
+        <span class="n">param_data</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">objpk</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">objname</span><span class="o">=</span><span class="s1">&#39;something.else.&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">update_024</span><span class="o">.</span><span class="n">values_to_export</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">serialized_param_data</span> <span class="o">=</span> <span class="n">dumps_json</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">param_data</span><span class="p">))</span>
+        <span class="c1"># Getting the serialized logs for the unknown entity logs (as the export migration fuction</span>
+        <span class="c1"># provides them) - this should coincide to the above</span>
+        <span class="n">serialized_unknown_exp_logs</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_serialized_unknown_entity_logs</span><span class="p">(</span><span class="n">DbLog</span><span class="p">)</span>
+        <span class="c1"># Getting their number</span>
+        <span class="n">unknown_exp_logs_number</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_unknown_entity_log_number</span><span class="p">(</span><span class="n">DbLog</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;Dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">serialized_param_data</span><span class="p">,</span> <span class="n">serialized_unknown_exp_logs</span><span class="p">,</span>
+                                          <span class="n">unknown_exp_logs_number</span><span class="p">)</span>
+
+        <span class="c1"># Getting the serialized legacy workflow logs</span>
+        <span class="n">leg_wf</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">objpk</span><span class="o">=</span><span class="n">leg_workf</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">objname</span><span class="o">=</span><span class="s1">&#39;aiida.workflows.user.topologicalworkflows.topo.TopologicalWorkflow&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">update_024</span><span class="o">.</span><span class="n">values_to_export</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">serialized_leg_wf_logs</span> <span class="o">=</span> <span class="n">dumps_json</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">leg_wf</span><span class="p">))</span>
+        <span class="c1"># Getting the serialized logs for the legacy workflow logs (as the export migration function</span>
+        <span class="c1"># provides them) - this should coincide to the above</span>
+        <span class="n">serialized_leg_wf_exp_logs</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_serialized_legacy_workflow_logs</span><span class="p">(</span><span class="n">DbLog</span><span class="p">)</span>
+        <span class="n">eg_wf_exp_logs_number</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_legacy_workflow_log_number</span><span class="p">(</span><span class="n">DbLog</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;WorkflowNode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">serialized_leg_wf_logs</span><span class="p">,</span> <span class="n">serialized_leg_wf_exp_logs</span><span class="p">,</span> <span class="n">eg_wf_exp_logs_number</span><span class="p">)</span>
+
+        <span class="c1"># Getting the serialized logs that don&#39;t correspond to a DbNode record</span>
+        <span class="n">logs_no_node</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">id__in</span><span class="o">=</span><span class="p">[</span><span class="n">log_5</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">log_6</span><span class="o">.</span><span class="n">id</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">update_024</span><span class="o">.</span><span class="n">values_to_export</span><span class="p">)</span>
+        <span class="n">serialized_logs_no_node</span> <span class="o">=</span> <span class="n">dumps_json</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">logs_no_node</span><span class="p">))</span>
+        <span class="c1"># Getting the serialized logs that don&#39;t correspond to a node (as the export migration function</span>
+        <span class="c1"># provides them) - this should coincide to the above</span>
+        <span class="n">serialized_logs_exp_no_node</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_serialized_logs_with_no_nodes</span><span class="p">(</span><span class="n">DbLog</span><span class="p">,</span> <span class="n">DbNode</span><span class="p">)</span>
+        <span class="n">logs_no_node_number</span> <span class="o">=</span> <span class="n">update_024</span><span class="o">.</span><span class="n">get_logs_with_no_nodes_number</span><span class="p">(</span><span class="n">DbLog</span><span class="p">,</span> <span class="n">DbNode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;NoNode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">serialized_logs_no_node</span><span class="p">,</span> <span class="n">serialized_logs_exp_no_node</span><span class="p">,</span> <span class="n">logs_no_node_number</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.tearDown"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cleaning the DbLog, DbUser, DbWorkflow and DbNode records&quot;&quot;&quot;</span>
+        <span class="n">DbUser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbUser&#39;</span><span class="p">)</span>
+        <span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+        <span class="n">DbWorkflow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbWorkflow&#39;</span><span class="p">)</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">DbWorkflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">DbUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestDbLogMigrationRecordCleaning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.test_dblog_calculation_node"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_calculation_node">[docs]</a>    <span class="k">def</span> <span class="nf">test_dblog_calculation_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify that after the migration there is only two log records left and verify that they corresponds to</span>
+<span class="sd">        the CalculationNodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check that only two log records exist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;There should be two log records left&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get the node id of the log record referencing the node and verify that it is the correct one</span>
+        <span class="n">dbnode_id_1</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;CalculationNode&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dbnode_id_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;CalculationNode&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;referenced node is not the expected one&#39;</span><span class="p">)</span>
+        <span class="n">dbnode_id_2</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;CalculationNode&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dbnode_id_2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;CalculationNode&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;referenced node is not the expected one&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.test_dblog_correct_export_of_logs"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_correct_export_of_logs">[docs]</a>    <span class="k">def</span> <span class="nf">test_dblog_correct_export_of_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify that export log methods for legacy workflows, unknown entities and log records that</span>
+<span class="sd">        don&#39;t correspond to nodes, work as expected</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">json</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;Dict&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;Dict&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;Dict&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;WorkflowNode&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;WorkflowNode&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;WorkflowNode&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;NoNode&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]),</span>
+                         <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;NoNode&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="s1">&#39;NoNode&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.test_dblog_unique_uuids"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.test_dblog_unique_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">test_dblog_unique_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify that the UUIDs of the log records are unique</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="n">l_uuids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">))</span>
+        <span class="n">s_uuids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">l_uuids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l_uuids</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_uuids</span><span class="p">),</span> <span class="s2">&quot;The UUIDs are not all unique.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationRecordCleaning.test_metadata_correctness"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationRecordCleaning.test_metadata_correctness">[docs]</a>    <span class="k">def</span> <span class="nf">test_metadata_correctness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify that the metadata of the remaining records don&#39;t have an objpk and objmetadata values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">json</span>
+
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="n">metadata</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;metadata&#39;</span><span class="p">))</span>
+        <span class="c1"># Verify that the objpk and objname are no longer part of the metadata</span>
+        <span class="k">for</span> <span class="n">m_res</span> <span class="ow">in</span> <span class="n">metadata</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;objpk&#39;</span><span class="p">,</span> <span class="n">m_res</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;objpk should not exist any more in metadata&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="s1">&#39;objname&#39;</span><span class="p">,</span> <span class="n">m_res</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;objname should not exist any more in metadata&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestDbLogMigrationBackward"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationBackward">[docs]</a><span class="k">class</span> <span class="nc">TestDbLogMigrationBackward</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check that backward migrations work also for the DbLog migration(s).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0024_dblog_update&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0023_calc_job_option_attribute_keys&#39;</span>
+
+<div class="viewcode-block" id="TestDbLogMigrationBackward.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationBackward.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">json</span>
+
+        <span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Creating the needed nodes &amp; workflows</span>
+        <span class="n">calc_1</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;node.process.calculation.CalculationNode.1&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">calc_2</span> <span class="o">=</span> <span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;node.process.calculation.CalculationNode.2&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="c1"># Storing them</span>
+        <span class="n">calc_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">calc_2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># Creating the corresponding log records and storing them</span>
+        <span class="n">log_1</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">dbnode_id</span><span class="o">=</span><span class="n">calc_1</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 1&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mf">719.0849781036377</span><span class="p">,</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+                <span class="s2">&quot;thread&quot;</span><span class="p">:</span> <span class="mi">140011612940032</span><span class="p">,</span>
+                <span class="s2">&quot;asctime&quot;</span><span class="p">:</span> <span class="s2">&quot;10/21/2018 12:39:51 PM&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="mf">1540118391.719085</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+        <span class="n">log_2</span> <span class="o">=</span> <span class="n">DbLog</span><span class="p">(</span>
+            <span class="n">loggername</span><span class="o">=</span><span class="s1">&#39;CalculationNode logger&#39;</span><span class="p">,</span>
+            <span class="n">dbnode_id</span><span class="o">=</span><span class="n">calc_2</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s1">&#39;calculation node 2&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;msecs&quot;</span><span class="p">:</span> <span class="mf">719.0849781036377</span><span class="p">,</span>
+                <span class="s2">&quot;lineno&quot;</span><span class="p">:</span> <span class="mi">360</span><span class="p">,</span>
+                <span class="s2">&quot;levelno&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;calculation node 1&quot;</span><span class="p">,</span>
+            <span class="p">}))</span>
+
+        <span class="c1"># Storing the log records</span>
+        <span class="n">log_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">log_2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># Keeping what is needed to be verified at the test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="n">log_1</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">log_1</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="n">calc_1</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="n">log_2</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">log_2</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="n">calc_2</span><span class="o">.</span><span class="n">type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDbLogMigrationBackward.test_objpk_objname"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDbLogMigrationBackward.test_objpk_objname">[docs]</a>    <span class="k">def</span> <span class="nf">test_objpk_objname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This test verifies that the objpk and objname have the right values</span>
+<span class="sd">        after a forward and a backward migration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">json</span>
+        <span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check that only two log records exist with the correct objpk objname</span>
+        <span class="k">for</span> <span class="n">log_pk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">log_entry</span> <span class="o">=</span> <span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">log_pk</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">log_dbnode_id</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_check</span><span class="p">[</span><span class="n">log_pk</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">log_dbnode_id</span><span class="p">,</span> <span class="n">log_entry</span><span class="o">.</span><span class="n">objpk</span><span class="p">,</span>
+                             <span class="s2">&quot;The dbnode_id (</span><span class="si">{}</span><span class="s2">) of the 0024 schema version should be identical to the objpk (</span><span class="si">{}</span><span class="s2">) of &quot;</span>
+                             <span class="s2">&quot;the 0023 schema version.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_dbnode_id</span><span class="p">,</span> <span class="n">log_entry</span><span class="o">.</span><span class="n">objpk</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">log_entry</span><span class="o">.</span><span class="n">objname</span><span class="p">,</span>
+                             <span class="s2">&quot;The type (</span><span class="si">{}</span><span class="s2">) of the linked node of the 0024 schema version should be identical to the &quot;</span>
+                             <span class="s2">&quot;objname (</span><span class="si">{}</span><span class="s2">) of the 0023 schema version.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">log_entry</span><span class="o">.</span><span class="n">objname</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">log_dbnode_id</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">log_entry</span><span class="o">.</span><span class="n">metadata</span><span class="p">)[</span><span class="s1">&#39;objpk&#39;</span><span class="p">],</span>
+                             <span class="s2">&quot;The dbnode_id (</span><span class="si">{}</span><span class="s2">) of the 0024 schema version should be identical to the objpk (</span><span class="si">{}</span><span class="s2">) of &quot;</span>
+                             <span class="s2">&quot;the 0023 schema version stored in the metadata.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                 <span class="n">log_dbnode_id</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">log_entry</span><span class="o">.</span><span class="n">metadata</span><span class="p">)[</span><span class="s1">&#39;objpk&#39;</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">log_entry</span><span class="o">.</span><span class="n">metadata</span><span class="p">)[</span><span class="s1">&#39;objname&#39;</span><span class="p">],</span>
+                             <span class="s2">&quot;The type (</span><span class="si">{}</span><span class="s2">) of the linked node of the 0024 schema version should be identical to the &quot;</span>
+                             <span class="s2">&quot;objname (</span><span class="si">{}</span><span class="s2">) of the 0023 schema version stored in the metadata.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                 <span class="nb">type</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">log_entry</span><span class="o">.</span><span class="n">metadata</span><span class="p">)[</span><span class="s1">&#39;objname&#39;</span><span class="p">]))</span></div></div>
+
+
+<div class="viewcode-block" id="TestDataMoveWithinNodeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDataMoveWithinNodeMigration">[docs]</a><span class="k">class</span> <span class="nc">TestDataMoveWithinNodeMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0024_dblog_update&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0025_move_data_within_node_module&#39;</span>
+
+<div class="viewcode-block" id="TestDataMoveWithinNodeMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDataMoveWithinNodeMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.int.Int.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestDataMoveWithinNodeMigration.test_data_type_string"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestDataMoveWithinNodeMigration.test_data_type_string">[docs]</a>    <span class="k">def</span> <span class="nf">test_data_type_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that type string of the Data node was successfully adapted.&quot;&quot;&quot;</span>
+        <span class="n">node_calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">node_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_data</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node_data</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s1">&#39;node.data.int.Int.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node_calc</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s1">&#39;node.process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestTrajectoryDataMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTrajectoryDataMigration">[docs]</a><span class="k">class</span> <span class="nc">TestTrajectoryDataMigration</span><span class="p">(</span><span class="n">TestMigrationsModelModifierV0025</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0025_move_data_within_node_module&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0027_delete_trajectory_symbols_array&#39;</span>
+
+    <span class="n">stepids</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">])</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">stepids</span> <span class="o">*</span> <span class="mf">0.01</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]]])</span>
+    <span class="n">velocities</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]]])</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]]])</span>
+
+<div class="viewcode-block" id="TestTrajectoryDataMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTrajectoryDataMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.data.array.trajectory.TrajectoryData.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;steps&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stepids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;symbols&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;positions&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_node_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;velocities&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocities</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestTrajectoryDataMigration.test_trajectory_symbols"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTrajectoryDataMigration.test_trajectory_symbols">[docs]</a>    <span class="k">def</span> <span class="nf">test_trajectory_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSequenceEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;symbols&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSequenceEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_node_array</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;velocities&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocities</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSequenceEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_node_array</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;positions&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">IOError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_node_array</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;symbols&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestNodePrefixRemovalMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestNodePrefixRemovalMigration">[docs]</a><span class="k">class</span> <span class="nc">TestNodePrefixRemovalMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0027_delete_trajectory_symbols_array&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0028_remove_node_prefix&#39;</span>
+
+<div class="viewcode-block" id="TestNodePrefixRemovalMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestNodePrefixRemovalMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;node.data.int.Int.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestNodePrefixRemovalMigration.test_data_node_type_string"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestNodePrefixRemovalMigration.test_data_node_type_string">[docs]</a>    <span class="k">def</span> <span class="nf">test_data_node_type_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that type string of the nodes was successfully adapted.&quot;&quot;&quot;</span>
+        <span class="n">node_calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_calc</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">node_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_data</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node_data</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s1">&#39;data.int.Int.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node_calc</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s1">&#39;process.calculation.calcjob.CalcJobNode.&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestParameterDataToDictMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestParameterDataToDictMigration">[docs]</a><span class="k">class</span> <span class="nc">TestParameterDataToDictMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0028_remove_node_prefix&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0029_rename_parameter_data_to_dict&#39;</span>
+
+<div class="viewcode-block" id="TestParameterDataToDictMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestParameterDataToDictMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data.parameter.ParameterData.&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestParameterDataToDictMigration.test_data_node_type_string"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestParameterDataToDictMigration.test_data_node_type_string">[docs]</a>    <span class="k">def</span> <span class="nf">test_data_node_type_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that type string of the nodes was successfully adapted.&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s1">&#39;data.dict.Dict.&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestTextFieldToJSONFieldMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTextFieldToJSONFieldMigration">[docs]</a><span class="k">class</span> <span class="nc">TestTextFieldToJSONFieldMigration</span><span class="p">(</span><span class="n">TestMigrations</span><span class="p">):</span>
+
+    <span class="n">migrate_from</span> <span class="o">=</span> <span class="s1">&#39;0032_remove_legacy_workflows&#39;</span>
+    <span class="n">migrate_to</span> <span class="o">=</span> <span class="s1">&#39;0033_replace_text_field_with_json_field&#39;</span>
+
+<div class="viewcode-block" id="TestTextFieldToJSONFieldMigration.setUpBeforeMigration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTextFieldToJSONFieldMigration.setUpBeforeMigration">[docs]</a>    <span class="k">def</span> <span class="nf">setUpBeforeMigration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbNode&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DbComputer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbComputer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DbAuthInfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbAuthInfo&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DbLog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;DbLog&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbNode</span><span class="p">(</span><span class="n">node_type</span><span class="o">=</span><span class="s2">&quot;node.process.calculation.CalculationNode.&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer_metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;shebang&#39;</span><span class="p">:</span> <span class="s1">&#39;#!/bin/bash&#39;</span><span class="p">,</span> <span class="s1">&#39;workdir&#39;</span><span class="p">:</span> <span class="s1">&#39;/scratch/&#39;</span><span class="p">,</span> <span class="s1">&#39;append_text&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;prepend_text&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;mpirun_command&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mpirun&#39;</span><span class="p">,</span> <span class="s1">&#39;-np&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{tot_num_mpiprocs}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="s1">&#39;default_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer_transport_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;append_text&#39;</span><span class="p">:</span> <span class="s1">&#39;sometext</span><span class="se">\n</span><span class="s1">test&#39;</span><span class="p">,</span> <span class="s1">&#39;max_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost_testing&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hostname&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;transport_type&#39;</span><span class="p">:</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;scheduler_type&#39;</span><span class="p">:</span> <span class="s1">&#39;direct&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;transport_params&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">computer_transport_params</span><span class="p">),</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">computer_metadata</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbComputer</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">computer_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_info_auth_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;safe_interval&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_info_metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;safe_interval&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_info_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;aiidauser_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_user</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+            <span class="s1">&#39;dbcomputer&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span>
+            <span class="s1">&#39;auth_params&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_info_auth_params</span><span class="p">),</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_info_metadata</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbAuthInfo</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_info_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_info</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_metadata</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;msecs&#39;</span><span class="p">:</span> <span class="mf">719.0849781036377</span><span class="p">,</span>
+            <span class="s1">&#39;lineno&#39;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+            <span class="s1">&#39;thread&#39;</span><span class="p">:</span> <span class="mi">140011612940032</span><span class="p">,</span>
+            <span class="s1">&#39;asctime&#39;</span><span class="p">:</span> <span class="s1">&#39;10/21/2018 12:39:51 PM&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;created&#39;</span><span class="p">:</span> <span class="mf">1540118391.719085</span><span class="p">,</span>
+            <span class="s1">&#39;levelno&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+            <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;calculation node 1&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;loggername&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;levelname&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;dbnode_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_metadata</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbLog</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">log_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestTextFieldToJSONFieldMigration.test_text_field_to_json_field_migration"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.djsite.db.subtests.html#aiida.backends.djsite.db.subtests.test_migrations.TestTextFieldToJSONFieldMigration.test_text_field_to_json_field_migration">[docs]</a>    <span class="k">def</span> <span class="nf">test_text_field_to_json_field_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the values in the text fields were maintained after migrating the field to JSONField.&quot;&quot;&quot;</span>
+        <span class="c1"># Reload the objects to make sure the new data is loaded</span>
+        <span class="n">computer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbComputer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">auth_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbAuthInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_info</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbLog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="c1"># Make sure that the migrated data matches the original</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">computer</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer_metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">computer</span><span class="o">.</span><span class="n">transport_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer_transport_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">auth_info</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_info_metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">auth_info</span><span class="o">.</span><span class="n">auth_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_info_auth_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_metadata</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

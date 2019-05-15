@@ -1,0 +1,1083 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The appender method &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The queryhelp" href="queryhelp.html" />
+    <link rel="prev" title="About the QueryBuilder" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../working_with_aiida/index.html#querying-data">Querying data</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">About the QueryBuilder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The appender method</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#selecting-entities">Selecting entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-results">Retrieving results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joining-entities">Joining entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-the-projections">Defining the projections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes-and-extras">Attributes and extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheats">Cheats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-usage">Advanced usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-edges">Working with edges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ordering-results">Ordering results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limiting-the-number-of-results">Limiting the number of results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="queryhelp.html">The queryhelp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backend.html">Directly querying in Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backend.html#directly-querying-in-sqlalchemy">Directly querying in SQLAlchemy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../working_with_aiida/index.html">Command line interface</a> &raquo;</li>
+        
+      <li>The appender method</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/querying/querybuilder/append.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-appender-method">
+<span id="querybuilderappend"></span><h1>The appender method<a class="headerlink" href="#the-appender-method" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="selecting-entities">
+<h2>Selecting entities<a class="headerlink" href="#selecting-entities" title="Permalink to this headline">¶</a></h2>
+<p>Let’s suppose you want to query for calculation nodes in your database:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>       <span class="c1"># Instantiating instance. One instance -&gt; one query</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalcJobNode</span><span class="p">)</span>    <span class="c1"># Setting first vertex of path</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Calculations are more tricky than Data, since they have both a run-time <code class="docutils literal notranslate"><span class="pre">Process</span></code> that steers them
+and a <code class="docutils literal notranslate"><span class="pre">Node</span></code> that stores their metadata in the database.
+The QueryBuilder allows you to pass either the <code class="docutils literal notranslate"><span class="pre">Node</span></code> class (e.g. <code class="docutils literal notranslate"><span class="pre">CalcJobNode</span></code>)
+or the <code class="docutils literal notranslate"><span class="pre">Process</span></code> class (e.g. <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code>, <code class="docutils literal notranslate"><span class="pre">PwCalculation</span></code>),
+which will automatically apply the correct filters for the type of calculation.</p>
+</div>
+<p>If you are interested in instances of different classes, you can also pass a tuple, list or set of classes.
+However, they have to be of the same ORM-type (e.g. all have to be subclasses of Node):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>       <span class="c1"># Instantiating instance. One instance -&gt; one query</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">WorkChainNode</span><span class="p">])</span> <span class="c1"># Setting first vertice of path, either WorkChainNode or Job.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-results">
+<h2>Retrieving results<a class="headerlink" href="#retrieving-results" title="Permalink to this headline">¶</a></h2>
+<p>Let’s suppose that’s what we want to query for (all job calculations in the
+database). The question is how to get the results from the query:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>                 <span class="c1"># Instantiating instance</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalcJobNode</span><span class="p">)</span>           <span class="c1"># Setting first vertice of path</span>
+
+<span class="n">first_row</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>              <span class="c1"># Returns a list (!)</span>
+                                    <span class="c1"># of the results of the first row</span>
+
+<span class="n">all_results_d</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>           <span class="c1"># Returns all results as</span>
+                                    <span class="c1"># a list of dictionaries</span>
+
+<span class="n">all_results_l</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>            <span class="c1"># Returns a list of lists</span>
+
+
+<span class="c1"># Also you can use generators:</span>
+<span class="n">all_res_d_gen</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterdict</span><span class="p">()</span>       <span class="c1"># Return a generator of dictionaries</span>
+                                    <span class="c1"># of all results</span>
+<span class="n">all_res_l_gen</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterall</span><span class="p">()</span>        <span class="c1"># Returns a generator of lists</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Generators are useful if you have to retrieve a very large (&gt;10000) number of results.
+This will retrieve the data in batches, and you can start working with the data before the
+query has completely finished.
+Be aware that if using generators, you should never commit (store) anything while
+iterating. The query is still going on, and might be compromised by new data in the database.</p>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>Since we now know how to set an entity, we can start to filter by properties of that entity.
+Suppose we do not want to all CalcJobNodes, but only the ones in state
+‘FINISHED’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>                 <span class="c1"># An empty QueryBuilder instances</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>                 <span class="c1"># I am appending a CalcJobNode</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span>                       <span class="c1"># Specifying the filters:</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">},</span>  <span class="c1"># the calculation has to have finished</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>How, can we have multiple filters?
+Suppose you are interested in all calculations in your database that are in
+state ‘FINISHED’ and were created in the last <em>n</em> days:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">time_n_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>                 <span class="c1"># An empty QueryBuilder instances</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>                 <span class="c1"># I am appending a CalcJobNode</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span>                       <span class="c1"># Specifying the filters:</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">},</span>  <span class="c1"># the calculation has to have finished AND</span>
+        <span class="s1">&#39;ctime&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="n">time_n_days_ago</span><span class="p">}</span>     <span class="c1"># created in the last n days</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>                  <span class="c1"># all results as a list of dictionaries</span>
+</pre></div>
+</div>
+<p>Let’s go through the above example.
+We have instantiated QueryBuilder instance.
+We appended to its path a CalcJobNode (a remote calculation),
+and specified that we are only interested in  calculations
+that have finished <strong>and</strong> that were created in the last <em>n</em> days.</p>
+<p>What if we want calculations that have finished <strong>or</strong> were created in the last
+<em>n</em> days:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;or&#39;</span><span class="p">:[</span>
+            <span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="n">now</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">n</span><span class="p">)}}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span><span class="n">vqb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If we had written <em>and</em> instead of <em>or</em>, we would have created the exact same
+query as in the first query, because <em>and</em> is the default behavior if
+you attach several filters.
+What if you want calculation in state ‘FINISHED’ or ‘RETRIEVING’?
+This will be the next example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:{</span><span class="s1">&#39;in&#39;</span><span class="p">:[</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">,</span> <span class="s1">&#39;RETRIEVING&#39;</span><span class="p">]}</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to negate a filter, that is to apply the not operator, precede the filter
+keyword with an exclamation mark.
+So, to ask for all calculations that are not in ‘FINISHED’ or ‘RETRIEVING’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:{</span><span class="s1">&#39;!in&#39;</span><span class="p">:[</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">,</span> <span class="s1">&#39;RETRIEVING&#39;</span><span class="p">]}</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above rule applies strictly! You check a non-equality with !==, since this is
+the equality operator (==) with a negation prepended.</p>
+</div>
+<p>This is a list of all implemented operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="39%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Operator</strong></th>
+<th class="head"><strong>Datatype</strong></th>
+<th class="head"><strong>Example</strong></th>
+<th class="head">Explanation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>==</td>
+<td>All</td>
+<td>‘id’:{‘==’:123}</td>
+<td>Checks equality</td>
+</tr>
+<tr class="row-odd"><td>in</td>
+<td>All</td>
+<td>‘name’:{‘in’:[‘foo’, ‘bar’]}</td>
+<td>equal to any element</td>
+</tr>
+<tr class="row-even"><td>&gt;,&lt;,&lt;=,&gt;=</td>
+<td>floats,
+integers,
+dates</td>
+<td>‘ctime’:{‘&lt;’:datetime(2016, 03, 03)}</td>
+<td>lower/greater (equal)</td>
+</tr>
+<tr class="row-odd"><td>like</td>
+<td>Strings</td>
+<td>‘name’:{‘like’:’lovely_calc%’}</td>
+<td>substring
+(% and _ are wildcards. To use %
+and _ as part of the string
+prepend it with \)</td>
+</tr>
+<tr class="row-even"><td>ilike</td>
+<td>Strings</td>
+<td>‘name’:{‘ilike’:’loVely_Calc%’}</td>
+<td>case insensitive ‘like’</td>
+</tr>
+<tr class="row-odd"><td>or</td>
+<td>list of
+expressions</td>
+<td>‘id’:{‘or’:[{‘&lt;’:12}, {‘==’:199}]}</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>and</td>
+<td>list of
+expressions</td>
+<td>‘id’:{‘and’:[{‘&lt;’:12}, {‘&gt;’:1 }]}</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>There are also some advanced operators:</p>
+<table border="1" class="colwidths-auto docutils">
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Operator</strong></th>
+<th class="head"><strong>Datatype</strong></th>
+<th class="head"><strong>Example</strong></th>
+<th class="head">Explanation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>has_key</td>
+<td>dicts</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mykey’:{‘has_key’: ‘foo’}</div>
+<div class="line">‘extras’:{‘has_key’: ‘my_extra’}</div>
+</div>
+</td>
+<td>Check that a dictionary
+(typically stored in the
+attributes or in the extras) has
+a given key. This can also be
+used to check if a given
+attribute or extra exists.</td>
+</tr>
+<tr class="row-odd"><td>of_type</td>
+<td>any</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mykey’:{‘of_type’: ‘bool’}</div>
+</div>
+</td>
+<td>Check that an attribute or an
+extra is of a given type. Valid
+types are: <code class="docutils literal notranslate"><span class="pre">object</span></code> (meaning a
+dictionary), <code class="docutils literal notranslate"><span class="pre">array</span></code> (meaning a
+list), <code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">number</span></code>
+(both for integers and floats),
+<code class="docutils literal notranslate"><span class="pre">boolean</span></code> or <code class="docutils literal notranslate"><span class="pre">null</span></code>)
+<strong>(currently implemented only
+in the SQLA backend)</strong></td>
+</tr>
+<tr class="row-even"><td>of_length</td>
+<td>lists</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mylist’: {‘of_length’: 4}</div>
+</div>
+</td>
+<td>Check that a list (typically
+stored in the attributes or in
+the extras) has a given length
+<strong>(currently implemented only
+in the SQLA backend)</strong></td>
+</tr>
+<tr class="row-odd"><td>shorter</td>
+<td>lists</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mylist’: {‘shorter’: 4}</div>
+</div>
+</td>
+<td>Check that a list (typically
+stored in the attributes or in
+the extras) has a length shorter
+than the specified value
+<strong>(currently implemented only
+in the SQLA backend)</strong></td>
+</tr>
+<tr class="row-even"><td>longer</td>
+<td>lists</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mylist’: {‘longer’: 4}</div>
+</div>
+</td>
+<td>Check that a list (typically
+stored in the attributes or in
+the extras) has a length longer
+than the specified value
+<strong>(currently implemented only
+in the SQLA backend)</strong></td>
+</tr>
+<tr class="row-odd"><td>contains</td>
+<td>lists</td>
+<td><div class="first last line-block">
+<div class="line">‘attributes.mykey’: {‘contains’:
+[‘a’,’b’]}</div>
+</div>
+</td>
+<td>Check that a list (typically
+stored in the attributes or in
+the extras) contains some
+specific elements or values
+<strong>(currently implemented only
+in the SQLA backend)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>This showed you how to ‘filter’ by properties of a node.
+So far we can do that for a single a single node in the database.</p>
+</div>
+<div class="section" id="joining-entities">
+<h2>Joining entities<a class="headerlink" href="#joining-entities" title="Permalink to this headline">¶</a></h2>
+<p>But we sometimes need to query relationships in graph-like database.
+Let’s join a node to its output, e.g. StructureData and CalcJobNode (as output):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StructureData</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">with_incoming</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In above example we are querying structures and calculations, with the predicate that the
+calculation is an output of the structure (the same as saying that the structure is an input to the calculation)
+In the above example, we have first appended StructureData to the path.
+So that we can refer to that vertice later, we <em>tag</em> it with a unique keyword
+of our choice, which can be used only once.
+When we append another vertice to the path, we specify the relationship
+to a previous entity by using one of the keywords in the above table
+and as a value the tag of the vertice that it has a relationship with.
+There are several relationships that entities in Aiida can have:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="11%" />
+<col width="15%" />
+<col width="22%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Entity from</strong></th>
+<th class="head"><strong>Entity to</strong></th>
+<th class="head"><strong>Relationship</strong></th>
+<th class="head"><strong>Deprecated Relationship</strong></th>
+<th class="head"><strong>Explanation</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Node</td>
+<td>Node</td>
+<td><em>with_outgoing</em></td>
+<td><em>input_of</em></td>
+<td>One node as input of another node</td>
+</tr>
+<tr class="row-odd"><td>Node</td>
+<td>Node</td>
+<td><em>with_incoming</em></td>
+<td><em>output_of</em></td>
+<td>One node as output of another node</td>
+</tr>
+<tr class="row-even"><td>Node</td>
+<td>Node</td>
+<td><em>with_descendants</em></td>
+<td><em>ancestor_of</em></td>
+<td>One node as the ancestor of another node (Path)</td>
+</tr>
+<tr class="row-odd"><td>Node</td>
+<td>Node</td>
+<td><em>with_ancestors</em></td>
+<td><em>descendant_of</em></td>
+<td>One node as descendant of another node (Path)</td>
+</tr>
+<tr class="row-even"><td>Node</td>
+<td>Group</td>
+<td><em>with_node</em></td>
+<td><em>group_of</em></td>
+<td>The group of a node</td>
+</tr>
+<tr class="row-odd"><td>Group</td>
+<td>Node</td>
+<td><em>with_group</em></td>
+<td><em>member_of</em></td>
+<td>The node is a member of a group</td>
+</tr>
+<tr class="row-even"><td>Node</td>
+<td>Computer</td>
+<td><em>with_node</em></td>
+<td><em>computer_of</em></td>
+<td>The computer of a node</td>
+</tr>
+<tr class="row-odd"><td>Computer</td>
+<td>Node</td>
+<td><em>with_computer</em></td>
+<td><em>has_computer</em></td>
+<td>The node of a computer</td>
+</tr>
+<tr class="row-even"><td>Node</td>
+<td>User</td>
+<td><em>with_node</em></td>
+<td><em>creator_of</em></td>
+<td>The creator of a node is a user</td>
+</tr>
+<tr class="row-odd"><td>User</td>
+<td>Node</td>
+<td><em>with_user</em></td>
+<td><em>created_by</em></td>
+<td>The node was created by a user</td>
+</tr>
+<tr class="row-even"><td>User</td>
+<td>Group</td>
+<td><em>with_user</em></td>
+<td><em>belongs_to</em></td>
+<td>The node was created by a user</td>
+</tr>
+<tr class="row-odd"><td>Group</td>
+<td>User</td>
+<td><em>with_group</em></td>
+<td><em>owner_of</em></td>
+<td>The node was created by a user</td>
+</tr>
+<tr class="row-even"><td>Node</td>
+<td>Log</td>
+<td><em>with_node</em></td>
+<td>&#160;</td>
+<td>The log of a node</td>
+</tr>
+<tr class="row-odd"><td>Log
+Node</td>
+<td>Node
+Comment</td>
+<td><em>with_log</em>
+<em>with_node</em></td>
+<td>&#160;</td>
+<td>The node has a log
+The comment of a node</td>
+</tr>
+<tr class="row-even"><td>Comment</td>
+<td>Node</td>
+<td><em>with_comment</em></td>
+<td>&#160;</td>
+<td>The node has a comment</td>
+</tr>
+<tr class="row-odd"><td>User</td>
+<td>Comment</td>
+<td><em>with_user</em></td>
+<td>&#160;</td>
+<td>The comment was created by a user</td>
+</tr>
+<tr class="row-even"><td>Comment</td>
+<td>User</td>
+<td><em>with_comment</em></td>
+<td>&#160;</td>
+<td>The creator of a comment is a user</td>
+</tr>
+</tbody>
+</table>
+<p>Some more examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># StructureData as an input of a job calculation</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StructureData</span><span class="p">,</span> <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+
+<span class="c1"># StructureData and Dict as inputs to a calculation</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StructureData</span><span class="p">,</span> <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DictData</span><span class="p">,</span> <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+
+<span class="c1"># Filtering the remote data instance by the computer it ran on (name)</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RemoteData</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;remote&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Computer</span><span class="p">,</span> <span class="n">with_node</span><span class="o">=</span><span class="s1">&#39;remote&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="s1">&#39;mycomputer&#39;</span><span class="p">}})</span>
+
+<span class="c1"># Find all descendants of a structure with a certain uuid</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StructureData</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">myuuid</span><span class="p">}})</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">descendant_of</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above QueryBuilder will join a structure to all its descendants via the
+transitive closure table.</p>
+</div>
+<div class="section" id="defining-the-projections">
+<h2>Defining the projections<a class="headerlink" href="#defining-the-projections" title="Permalink to this headline">¶</a></h2>
+<p>But what will the query return exactly?
+If you try any of the examples, you will find that the instances of the last appended
+vertice appear! That is the default behavior if nothing else was specified.
+We usually do not want everything returned because it might lead to a big overhead.
+You need to specify what you want to return using the keyword <em>project</em>.</p>
+<p>Let’s stick to the previous example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all descendants of a structure with a certain uuid</span>
+<span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">myuuid</span><span class="p">}},</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">descendant_of</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;uuid&#39;</span><span class="p">],</span>  <span class="c1"># returns type (string) and uuid (string)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above example, executing the query returns the type and the id of
+all Node that are descendants of the structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">myuuid</span><span class="p">}},</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">descendant_of</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">],</span>  <span class="c1"># returns type (string) and id (string)</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;descendant&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Return the dictionaries:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.iterdict()&quot;</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterdict</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">d</span>
+
+<span class="c1"># Return the lists:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.iterall()&quot;</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">l</span>
+
+<span class="c1"># Return the first result:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.first()&quot;</span>
+<span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>results in the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span><span class="o">.</span><span class="n">iterdict</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;calculation.job.quantumespresso.pw.PwCalculation.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7716</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.remote.RemoteData.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8510</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.folder.FolderData.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">9090</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.array.ArrayData.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">9091</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.array.trajectory.TrajectoryData.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">9092</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;descendant&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.dict.Dict.&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">9093</span><span class="p">}}</span>
+
+
+<span class="n">qb</span><span class="o">.</span><span class="n">iterall</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;calculation.job.quantumespresso.pw.PwCalculation.&#39;</span><span class="p">,</span> <span class="mi">7716</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;data.remote.RemoteData.&#39;</span><span class="p">,</span> <span class="mi">8510</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;data.folder.FolderData.&#39;</span><span class="p">,</span> <span class="mi">9090</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;data.array.ArrayData.&#39;</span><span class="p">,</span> <span class="mi">9091</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;data.array.trajectory.TrajectoryData.&#39;</span><span class="p">,</span> <span class="mi">9092</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;data.dict.Dict.&#39;</span><span class="p">,</span> <span class="mi">9093</span><span class="p">]</span>
+
+
+<span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;calculation.job.quantumespresso.pw.PwCalculation.&#39;</span><span class="p">,</span> <span class="mi">7716</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Asking only for the properties that you are interested in can result
+in much faster queries. If you want the Aiida-ORM instance, add ‘*’ to your list
+of projections:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">myuuid</span><span class="p">}},</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">descendant_of</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span>      <span class="c1"># returns the Aiida ORM instance</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;desc&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Return the dictionaries:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.iterdict()&quot;</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterdict</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">d</span>
+
+<span class="c1"># Return the lists:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.iterall()&quot;</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">l</span>
+
+<span class="c1"># Return the first result:</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">qb.first()&quot;</span>
+<span class="nb">print</span> <span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span><span class="o">.</span><span class="n">iterdict</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">PwCalculation</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">da720712</span><span class="o">-</span><span class="mi">3</span><span class="n">ca3</span><span class="o">-</span><span class="mi">490</span><span class="n">b</span><span class="o">-</span><span class="n">abf4</span><span class="o">-</span><span class="n">b0fb3174322e</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">7716</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">13</span><span class="n">a378f8</span><span class="o">-</span><span class="mi">91</span><span class="n">fa</span><span class="o">-</span><span class="mi">42</span><span class="n">c7</span><span class="o">-</span><span class="mi">8</span><span class="n">d7a</span><span class="o">-</span><span class="n">e469bbf02e2d</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">8510</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">FolderData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">91</span><span class="n">d5a5e8</span><span class="o">-</span><span class="mi">6</span><span class="n">b88</span><span class="o">-</span><span class="mf">4e43</span><span class="o">-</span><span class="mi">9652</span><span class="o">-</span><span class="mi">9</span><span class="n">efda4adb4ce</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9090</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ArrayData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">7</span><span class="n">c34c219</span><span class="o">-</span><span class="n">f400</span><span class="o">-</span><span class="mi">42</span><span class="n">aa</span><span class="o">-</span><span class="mi">8</span><span class="n">bf2</span><span class="o">-</span><span class="n">ee36c7c1dd40</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9091</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">TrajectoryData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">09288</span><span class="n">a5f</span><span class="o">-</span><span class="n">dba5</span><span class="o">-</span><span class="mi">4558</span><span class="o">-</span><span class="n">b115</span><span class="o">-</span><span class="mi">1209013</span><span class="n">b6b32</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9092</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mf">371677e1</span><span class="o">-</span><span class="n">d7d4</span><span class="o">-</span><span class="mi">4</span><span class="n">f2e</span><span class="o">-</span><span class="mi">8</span><span class="n">a41</span><span class="o">-</span><span class="mi">594</span><span class="n">aace02759</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9093</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}}</span>
+
+
+<span class="n">qb</span><span class="o">.</span><span class="n">iterall</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">PwCalculation</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">da720712</span><span class="o">-</span><span class="mi">3</span><span class="n">ca3</span><span class="o">-</span><span class="mi">490</span><span class="n">b</span><span class="o">-</span><span class="n">abf4</span><span class="o">-</span><span class="n">b0fb3174322e</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">7716</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">13</span><span class="n">a378f8</span><span class="o">-</span><span class="mi">91</span><span class="n">fa</span><span class="o">-</span><span class="mi">42</span><span class="n">c7</span><span class="o">-</span><span class="mi">8</span><span class="n">d7a</span><span class="o">-</span><span class="n">e469bbf02e2d</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">8510</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">FolderData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">91</span><span class="n">d5a5e8</span><span class="o">-</span><span class="mi">6</span><span class="n">b88</span><span class="o">-</span><span class="mf">4e43</span><span class="o">-</span><span class="mi">9652</span><span class="o">-</span><span class="mi">9</span><span class="n">efda4adb4ce</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9090</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">ArrayData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">7</span><span class="n">c34c219</span><span class="o">-</span><span class="n">f400</span><span class="o">-</span><span class="mi">42</span><span class="n">aa</span><span class="o">-</span><span class="mi">8</span><span class="n">bf2</span><span class="o">-</span><span class="n">ee36c7c1dd40</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9091</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">TrajectoryData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">09288</span><span class="n">a5f</span><span class="o">-</span><span class="n">dba5</span><span class="o">-</span><span class="mi">4558</span><span class="o">-</span><span class="n">b115</span><span class="o">-</span><span class="mi">1209013</span><span class="n">b6b32</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9092</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mf">371677e1</span><span class="o">-</span><span class="n">d7d4</span><span class="o">-</span><span class="mi">4</span><span class="n">f2e</span><span class="o">-</span><span class="mi">8</span><span class="n">a41</span><span class="o">-</span><span class="mi">594</span><span class="n">aace02759</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">9093</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+
+
+<span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">PwCalculation</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">da720712</span><span class="o">-</span><span class="mi">3</span><span class="n">ca3</span><span class="o">-</span><span class="mi">490</span><span class="n">b</span><span class="o">-</span><span class="n">abf4</span><span class="o">-</span><span class="n">b0fb3174322e</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">7716</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Be aware that, for consistency, QueryBuilder.all / iterall always
+returns a list of lists, and first always a list, even if you project
+on one entity!</p>
+</div>
+<p>If you are not sure which keys to ask for, you can project with ‘**’, and the QueryBuilder instance
+will return all column properties:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;**&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s1">&#39;StructureData&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sa">u</span><span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">88239</span><span class="p">),</span>
+        <span class="sa">u</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;mtime&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">116627</span><span class="p">),</span>
+        <span class="sa">u</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">3028</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;dbcomputer_id&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;nodeversion&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;data.structure.StructureData.&#39;</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;public&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="sa">u</span><span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;93c0db51-8a39-4a0d-b14d-5a50e40a2cc4&#39;</span>
+    <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="attributes-and-extras">
+<h2>Attributes and extras<a class="headerlink" href="#attributes-and-extras" title="Permalink to this headline">¶</a></h2>
+<p>You should know by now that you can define additional properties of nodes
+in the <em>attributes</em> and the <em>extras</em> of a node.
+There will be many cases where you will either want to filter or project on
+those entities. The following example gives us a PwCalculation where the cutoff
+for the wavefunctions has a value above 30.0 Ry:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PwCalculation</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.SYSTEM.ecutwfc&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="mf">30.0</span><span class="p">}},</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;attributes.SYSTEM.ecutwfc&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;attributes.SYSTEM.ecutrho&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The above examples filters by a certain attribute.
+Notice how you expand into the dictionary using the dot (.).
+That works the same for the extras.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Comparisons in the attributes (extras) are also implicitly done by type.</p>
+</div>
+<p>Filtering or projecting on lists works similar to dictionaries.
+You expand into the list using the dot (.) and afterwards adding the list-index.
+The example below filters KpointsData by the first index in the mesh of KpointsData=instance, and returns that same index in the list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">DataFactory</span><span class="p">(</span><span class="s1">&#39;array.kpoints&#39;</span><span class="p">),</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attributes.mesh.0&#39;</span><span class="p">],</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.mesh.0&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s do a last example. You are familiar with the Quantum Espresso PWscf tutorial?
+Great, because this will be our use case here. (If not, you can find it on the
+<a class="reference external" href="http://aiida-quantumespresso.readthedocs.io/en/latest/user_guide/get_started/examples/pw_tutorial.html">documentation of the aiida-quantumespresso package</a>.
+We will query for calculations that were done on a certain structure (<em>mystructure</em>),
+that fulfill certain requirements, such as a cutoff above 30.0.
+In our case, we have a structure (an instance of StructureData) and an instance
+of Dict that are both inputs to a PwCalculation.
+You need to tell the QueryBuilder that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">mystructure</span><span class="o">.</span><span class="n">uuid</span><span class="p">}},</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;strucure&#39;</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">PwCalculation</span><span class="p">,</span>
+    <span class="n">with_incoming</span><span class="o">=</span><span class="s1">&#39;strucure&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.SYSTEM.ecutwfc&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="mf">30.0</span><span class="p">}},</span>
+    <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;params&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cheats">
+<h2>Cheats<a class="headerlink" href="#cheats" title="Permalink to this headline">¶</a></h2>
+<p>A few cheats to save some typing:</p>
+<ul class="simple">
+<li>The default edge specification, if no keyword is provided, is always
+<em>with_incoming</em> the previous vertice.</li>
+<li>Equality filters (‘==’) can be shortened, as will be shown below.</li>
+<li>Tags are not necessary, you can simply use the class as a label.
+This works as long as the same Aiida-class is not used again</li>
+</ul>
+<p>A shorter version of the previous example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">StructureData</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:</span><span class="n">mystructure</span><span class="o">.</span><span class="n">uuid</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">PwCalculation</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.SYSTEM.ecutwfc&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="mf">30.0</span><span class="p">}},</span>
+    <span class="n">with_outgoing</span><span class="o">=</span><span class="n">PwCalculation</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
+<p>Let’s proceed to some more advanced stuff. If you’ve understood everything so far
+you’re in good shape to query the database, so you can skip the rest if you want.</p>
+</div>
+<div class="section" id="working-with-edges">
+<h2>Working with edges<a class="headerlink" href="#working-with-edges" title="Permalink to this headline">¶</a></h2>
+<p>Another feature that had to be added are projections, filters and labels on
+the edges of the graphs, that is to say links or paths between nodes.
+It works the same way, just that the keyword is preceeded by ‘<em>link</em>’.
+Let’s take the above example, but put a filter on the label of the link and project the link label:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">CalcJobNode</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="n">now</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">)}},</span>
+        <span class="n">project</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:{</span><span class="s1">&#39;func&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">}}</span>
+    <span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.energy&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">5.0</span><span class="p">}},</span>
+        <span class="n">edge_filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:{</span><span class="s1">&#39;like&#39;</span><span class="p">:</span><span class="s1">&#39;output_%&#39;</span><span class="p">}},</span>
+        <span class="n">edge_project</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
+     <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ordering-results">
+<h2>Ordering results<a class="headerlink" href="#ordering-results" title="Permalink to this headline">¶</a></h2>
+<p>You can also order by properties of the node, although ordering by attributes
+or extras is not implemented yet.
+Assuming you want to order the above example by the time of the calculations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">CalcJobNode</span><span class="p">,</span>
+        <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.energy&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">5.0</span><span class="p">}},</span>
+     <span class="p">)</span>
+
+<span class="n">qb</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="n">CalcJobNode</span><span class="p">:{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span><span class="s1">&#39;asc&#39;</span><span class="p">}})</span> <span class="c1"># &#39;asc&#39; or &#39;desc&#39; (ascending/descending)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="limiting-the-number-of-results">
+<h2>Limiting the number of results<a class="headerlink" href="#limiting-the-number-of-results" title="Permalink to this headline">¶</a></h2>
+<p>You can also limit the number of rows returned with the method <em>limit</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">CalcJobNode</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="n">now</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">)}},</span>
+    <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.energy&#39;</span><span class="p">:{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">5.0</span><span class="p">}},</span>
+ <span class="p">)</span>
+
+<span class="c1"># order by time descending</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="n">CalcJobNode</span><span class="p">:{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span><span class="s1">&#39;desc&#39;</span><span class="p">}})</span>
+
+<span class="c1"># Limit to results to the first 10 results:</span>
+<span class="n">qb</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above query returns the latest 10 calculation that produced
+a final energy above -5.0.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="queryhelp.html" class="btn btn-neutral float-right" title="The queryhelp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="About the QueryBuilder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

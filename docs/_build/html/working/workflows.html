@@ -1,0 +1,1012 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Workflows &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command line interface" href="../working_with_aiida/index.html" />
+    <link rel="prev" title="Calculations" href="calculations.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Calculations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#work-functions">Work functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#returning-data">Returning data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exit-codes">Exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#work-chains">Work chains</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#define">Define</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inputs-and-outputs">Inputs and outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outline">Outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-workchains-define-exit-codes">Exit codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launching-work-chains">Launching work chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#context">Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-sub-processes">Submitting sub processes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#to-context">To context</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#appending">Appending</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reporting">Reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aborting-and-exit-codes">Aborting and exit codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modular-workflow-design">Modular workflow design</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exposing-inputs-and-outputs">Exposing inputs and outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Workflows</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/working/workflows.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="workflows">
+<span id="working-workflows"></span><h1>Workflows<a class="headerlink" href="#workflows" title="Permalink to this headline">¶</a></h1>
+<p>A workflow in AiiDA is a process (see the <a class="reference internal" href="../concepts/processes.html#concepts-processes"><span class="std std-ref">process section</span></a> for details) that calls other workflows and calculations and optionally <em>returns</em> data and as such can encode the logic of a typical scientific workflow.
+Currently, there are two ways of implementing a workflow process:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#working-workfunctions"><span class="std std-ref">work function</span></a></li>
+<li><a class="reference internal" href="#working-workchains"><span class="std std-ref">work chain</span></a></li>
+</ul>
+</div></blockquote>
+<p>This section will provide detailed information and best practices on how to implement these two workflow types.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This chapter assumes that the basic concept and difference between work functions and work chains is known and when one should use on or the other.
+It is therefore crucial that, before you continue, you have read and understood the basic concept of <a class="reference internal" href="../concepts/workflows.html#concepts-workflows"><span class="std std-ref">workflow processes</span></a>.</p>
+</div>
+<div class="section" id="work-functions">
+<span id="working-workfunctions"></span><h2>Work functions<a class="headerlink" href="#work-functions" title="Permalink to this headline">¶</a></h2>
+<p>The concept of work functions and the basic rules of implementation are documented in detail elsewhere:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">concept of work functions</span></a></li>
+<li><a class="reference internal" href="functions.html#working-process-functions"><span class="std std-ref">implementation of process functions</span></a></li>
+</ul>
+</div></blockquote>
+<p>Since work functions are a sub type of process functions, just like calculation functions, their implementation rules are as good as identical.
+However, their intended aim and heuristics are very different.
+Where <a class="reference internal" href="calculations.html#working-calcfunctions"><span class="std std-ref">calculation functions</span></a> are ‘calculation’-like processes that <em>create</em> new data, work functions behave like ‘workflow’-like processes and can only <em>return</em> data.
+What this entails in terms of intended usage and limitations for work functions is the scope of this section.</p>
+<div class="section" id="returning-data">
+<span id="working-workfunctions-returning-data"></span><h3>Returning data<a class="headerlink" href="#returning-data" title="Permalink to this headline">¶</a></h3>
+<p>It has been said many times before: work functions, like all ‘workflow’-like processes, <cite>return</cite> data, but what does <cite>return</cite> mean exactly?
+In this context, the term ‘return’ is not intended to refer to a piece of python code returning a value.
+Instead it refers to a workflow process recording a data node as one of its outputs, that <em>it itself did not create</em>, but which rather was created by some other process, that was called by the workflow.
+The calculation process was responsable for <em>creating</em> the data node and the workflow is merely <em>returning</em> it as one of its outputs.</p>
+<p>This is then exactly what the workfunction function does.
+It takes one or more data nodes as inputs, calls other processes to which it passes those inputs and optionally returns some or all of the outputs created by the calculation processes it called.
+As explained in the <a class="reference internal" href="functions.html#working-process-functions"><span class="std std-ref">technical section</span></a>, outputs are recorded as ‘returned’ nodes simply by returning the nodes from the function.
+The engine will inspect the return value from the function and attach the output nodes to the node that represents the work function.
+To verify that the output nodes are in fact not ‘created’, the engine will check that the nodes are stored.
+Therefore, it is very important that you <strong>do not store the nodes you create yourself</strong>, or the engine will raise an exception, as shown in the following example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">workfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@workfunction</span>
+<span class="k">def</span> <span class="nf">illegal_workfunction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">illegal_workfunction</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Because the returned node is a newly created node and not stored, the engine will raise the following exception:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>ValueError: Workflow&lt;illegal_workfunction&gt; tried returning an unstored `Data` node.
+This likely means new `Data` is being created inside the workflow.
+In order to preserve data provenance, use a `calcfunction` to create this node and return its output from the workflow
+</pre></div>
+</div>
+<p>Note that you could of course circumvent this check by calling <code class="docutils literal notranslate"><span class="pre">store</span></code> yourself on the node, but that misses the point.
+The problem with using a <code class="docutils literal notranslate"><span class="pre">workfunction</span></code> to ‘create’ new data, is that the provenance is lost.
+To illustrate this problem, let’s go back to the simple problem of implementing a workflow to add two integer and multiply the result with a third.
+The <a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">correct implementation</span></a> has a resulting provenance graph that clearly captures the addition and the multiplication as separate calculation nodes, as shown in <a class="reference internal" href="../concepts/workflows.html#fig-work-functions-provenance-add-multiply-full"><span class="std std-numref">Fig. 9</span></a>.
+To illustrate what would happen if one does does not call calculation functions to perform the computations, but instead directly perform them in the work function itself and return the result, consider the following example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span><span class="p">,</span> <span class="n">workfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@workfunction</span>
+<span class="k">def</span> <span class="nf">add_and_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="nb">sum</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">product</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add_and_multiply</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For the documentation skimmers: this is an explicit example on <strong>how not to use</strong> work functions. The <a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">correct implementation</span></a> calls calculation functions to perform the computation</p>
+</div>
+<p>Note that in this example implementation we explicitly had to call <code class="docutils literal notranslate"><span class="pre">store</span></code> on the result before returning it to avoid the exception thrown by the engine.
+The resulting provenance would look like the following:</p>
+<div class="figure" id="id4">
+<span id="fig-work-functions-provenance-add-multiply-internal"></span><img alt="../_images/add_multiply_workfunction_internal.png" src="../_images/add_multiply_workfunction_internal.png" />
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">The provenance generated by the incorrect work function implementation. Note how the addition and multiplication are not explicitly represented, but are implicitly hidden inside the workflow node. Moreover, the result node does not have a ‘create’ link, because a work function cannot create new data.</span></p>
+</div>
+<p>However, looking at the generated provenance shows exactly why we shouldn’t.
+This faulty implementation loses provenance as it has no explicit representations of the addition and the multiplication and the <cite>result</cite> node does not have a <cite>create</cite> link, which means that if only the data provenance is followed, it is as if it appears out of thin air!
+Compare this to the provenance graph of <a class="reference internal" href="../concepts/workflows.html#fig-work-functions-provenance-add-multiply-full"><span class="std std-numref">Fig. 9</span></a>, which was generated by a solution that correctly uses calculation functions to perform the computations.
+In this trivial example, one may think that this loss of information is not so important, because it is implicitly captured by the workflow node.
+But a halfway solution may make the problem more apparent, as demonstrated by the following snippet where the addition is properly done by calling a calculation function, but the final product is still performed by the work function itself:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span><span class="p">,</span> <span class="n">workfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nd">@workfunction</span>
+<span class="k">def</span> <span class="nf">add_and_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="nb">sum</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">product</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add_and_multiply</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For the documentation skimmers: this is an explicit example on <strong>how not to use</strong> work functions. The <a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">correct implementation</span></a> calls calculation functions to perform the computation</p>
+</div>
+<p>This time around the addition is correctly performed by a calculation function as it should, however, its result is multiplied by the work function itself and returned.
+Note that once again <code class="docutils literal notranslate"><span class="pre">store</span></code> had to be called explicitly on <code class="docutils literal notranslate"><span class="pre">product</span></code> to avoid the engine throwing a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, which is only for the purpose of this example <strong>and should not be done in practice</strong>.
+The resulting provenance would look like the following:</p>
+<div class="figure" id="id5">
+<span id="fig-work-functions-provenance-add-multiply-halfway"></span><img alt="../_images/add_multiply_workfunction_halfway.png" src="../_images/add_multiply_workfunction_halfway.png" />
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">The provenance generated by the incorrect work function implementation that uses only a calculation function for the addition but performs the multiplication itself.
+The red cross is there to indicate that there is no actual connection between the intermediate sum <cite>D4</cite> and the final result <cite>D5</cite>, even though the latter in reality derives from the former.</span></p>
+</div>
+<p>The generated provenance shows, that although the addition is explicitly represented because the work function called the calculation function, there is no connection between the sum and the final result.
+That is to say, there is no direct link between the sum <cite>D4</cite> and the final result <cite>D5</cite>, as indicated by the red cross, even though we know that the final answer was based on the intermediate sum.
+This is a direct cause of the work function ‘creating’ new data and illustrates how, in doing so, the provenance of data creation is lost.</p>
+</div>
+<div class="section" id="exit-codes">
+<span id="working-workfunctions-exit-codes"></span><h3>Exit codes<a class="headerlink" href="#exit-codes" title="Permalink to this headline">¶</a></h3>
+<p>To terminate the execution of a work function and mark it as failed, one simply has to return an <a class="reference internal" href="processes.html#working-processes-exit-codes"><span class="std std-ref">exit code</span></a>.
+The <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.exit_code.ExitCode" title="aiida.engine.processes.exit_code.ExitCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExitCode</span></code></a> named tuple is constructed with an integer, to denote the desired exit status and an optional message
+When such as exit code is returned, the engine will mark the node of the work function as <code class="docutils literal notranslate"><span class="pre">Finished</span></code> and set the exit status and message to the value of the tuple.
+Consider the following example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@workfunction</span>
+<span class="k">def</span> <span class="nf">exiting_workfunction</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ExitCode</span>
+    <span class="k">return</span> <span class="n">ExitCode</span><span class="p">(</span><span class="mi">418</span><span class="p">,</span> <span class="s1">&#39;I am a teapot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The execution of the work function will be immediately terminated as soon as the tuple is returned, and the exit status and message will be set to <code class="docutils literal notranslate"><span class="pre">418</span></code> and <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">am</span> <span class="pre">a</span> <span class="pre">teapot</span></code>, respectively.
+Since no output nodes are returned, the <code class="docutils literal notranslate"><span class="pre">WorkFunctionNode</span></code> node will have no outputs and the value returned from the function call will be an empty dictionary.</p>
+</div>
+</div>
+<div class="section" id="work-chains">
+<span id="working-workchains"></span><h2>Work chains<a class="headerlink" href="#work-chains" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../concepts/workflows.html#concepts-workchains"><span class="std std-ref">basic concept of the work chain</span></a> has been explained elsewhere.
+This section will provide details on how a work chain can and should be implemented.
+A work chain is implemented by the <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a> class.
+Since it is a sub class of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process" title="aiida.engine.processes.process.Process"><code class="xref py py-class docutils literal notranslate"><span class="pre">Process</span></code></a> class, it shares all its properties.
+It will be very valuable to have read the section on working with <a class="reference internal" href="processes.html#working-processes"><span class="std std-ref">generic processes</span></a> before continuing, because all the concepts explained there will apply also to work chains.</p>
+<p>Let’s continue with the example presented in the section on the <a class="reference internal" href="../concepts/workflows.html#concepts-workchains"><span class="std std-ref">concept of workchains</span></a>, where we sum two integers and multiply the result with a third.
+We provided a very simple implementation in a code snippet, whose generated provenance graph, when executed, is shown in <a class="reference internal" href="../concepts/workflows.html#fig-work-chains-provenance-add-multiply-workchain-full"><span class="std std-numref">Fig. 13</span></a>.
+For convenience we copy the snippet here once more:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AddAndMultiplyWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AddAndMultiplyWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">add</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">multiply</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">results</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">sum</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">product</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">product</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will now got through the implementation step-by-step and go into more detail on the interface and best practices.</p>
+<div class="section" id="define">
+<span id="working-workchains-define"></span><h3>Define<a class="headerlink" href="#define" title="Permalink to this headline">¶</a></h3>
+<p>To implement a new work chain, simply create a new class that sub classes <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a>.
+You can give the new class any valid python class name, but the convention is to have it end in <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> so that it is always immediately clear what it references.
+After having created a new work chain class, the first and most important method to implement is the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.define" title="aiida.engine.processes.process.Process.define"><code class="xref py py-meth docutils literal notranslate"><span class="pre">define()</span></code></a> method.
+This is a class method that allows the developer to define the characteristics of the work chain, such as what inputs it takes, what outputs it can generate, what potential exit codes it can return and the logical outline through which it will accomplish all this.</p>
+<p>To implement the <code class="docutils literal notranslate"><span class="pre">define</span></code> method, you have to start with the following three lines:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">AddAndMultiplyWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where you replace <code class="docutils literal notranslate"><span class="pre">AddAndMultiplyWorkChain</span></code> with the actual name of your work chain.
+The <code class="docutils literal notranslate"><span class="pre">&#64;classmethod</span></code> decorator indicates that this method is a class method  <a class="footnote-reference" href="#f1" id="id1">[1]</a> and not an instance method.
+The second line is the method signature and specified that it will receive the class itself <code class="docutils literal notranslate"><span class="pre">cls</span></code> and <code class="docutils literal notranslate"><span class="pre">spec</span></code> which will be an instance of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process_spec.ProcessSpec" title="aiida.engine.processes.process_spec.ProcessSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessSpec</span></code></a>.
+This is the object that we will use to define our inputs, outputs and other relevant properties of the work chain.
+The third and final line is extremely important, as it will call the <code class="docutils literal notranslate"><span class="pre">define</span></code> method of the parent class, in this case the <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain" title="aiida.engine.processes.workchains.workchain.WorkChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkChain</span></code></a> class.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you forget to call <code class="docutils literal notranslate"><span class="pre">super</span></code> in the <code class="docutils literal notranslate"><span class="pre">define</span></code> method, your work chain will fail miserably!</p>
+</div>
+</div>
+<div class="section" id="inputs-and-outputs">
+<span id="working-workchains-define-inputs-outputs"></span><h3>Inputs and outputs<a class="headerlink" href="#inputs-and-outputs" title="Permalink to this headline">¶</a></h3>
+<p>With those formalities out of the way, you can start defining the interesting properties of the work chain through the <code class="docutils literal notranslate"><span class="pre">spec</span></code>.
+In the example you can see how the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">input()</span></code> is used to define multiple input ports, which document exactly which inputs the work chain expects.
+Similarly, <code class="xref py py-meth docutils literal notranslate"><span class="pre">output()</span></code> is called to instruct that the work chain will produce an output with the label <code class="docutils literal notranslate"><span class="pre">result</span></code>.
+These two port creation methods support a lot more functionality, such as adding help string, validation and more, all of which is documented in detail in the section on <a class="reference internal" href="processes.html#working-processes-ports-portnamespaces"><span class="std std-ref">ports and port namespace</span></a>.</p>
+</div>
+<div class="section" id="outline">
+<span id="working-workchains-define-outline"></span><h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
+<p>The outline is what sets the work chain apart from other processes.
+It is a way of defining the higher-level logic that encodes the workflow that the work chain takes.
+The outline is defined in the <code class="docutils literal notranslate"><span class="pre">define</span></code> method through the <code class="xref py py-meth docutils literal notranslate"><span class="pre">outline()</span></code>.
+It takes a sequence of instructions that the work chain will execute, each of which is implemented as a method of the work chain class.
+In the simple example above, the outline consists of three simple instructions: <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">multiply</span></code>, <code class="docutils literal notranslate"><span class="pre">results</span></code>.
+Since these are implemented as instance methods, they are prefixed with <code class="docutils literal notranslate"><span class="pre">cls.</span></code> to indicate that they are in fact methods of the work chain class.
+For that same reason, their implementation should take <code class="docutils literal notranslate"><span class="pre">self</span></code> as its one and only argument, as demonstrated in the example snippet.</p>
+<p>The outline in this simple example is not particular interesting as it consists of three simple instructions that will be executed sequentially.
+However, the outline also supports various logical constructs, such as while-loops, conditionals and return statements.
+As usual, the best way to illustrate these constructs is by example.
+The currently available logical constructs for the work chain outline are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, <code class="docutils literal notranslate"><span class="pre">else</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">while</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">return</span></code></li>
+</ul>
+</div></blockquote>
+<p>To distinguish these constructs from the python builtins, they are suffixed with an underscore, like so <code class="docutils literal notranslate"><span class="pre">while_</span></code>.
+To use these in your work chain design, you will have to import them:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">if_</span><span class="p">,</span> <span class="n">while_</span><span class="p">,</span> <span class="n">return_</span>
+</pre></div>
+</div>
+<p>The following example shows how to use these logical constructs to define the outline of a work chain:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">intialize_to_zero</span><span class="p">,</span>
+    <span class="n">while_</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">n_is_less_than_hundred</span><span class="p">)(</span>
+        <span class="n">if_</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">n_is_multitple_of_three</span><span class="p">)(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">report_fizz</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">elif_</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">n_is_multiple_of_five</span><span class="p">)(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">report_buzz</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">elif_</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">n_is_multiple_of_three_and_five</span><span class="p">)(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">report_fizz_buzz</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">else_</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">report_n</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">increment_n_by_one</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This is an implementation (and an extremely contrived one at that) of the well known FizzBuzz <a class="footnote-reference" href="#f2" id="id2">[2]</a> problem.
+The idea is that the program is supposed to print in sequence the numbers from zero to some limit, except when the number is a multiple of three <code class="docutils literal notranslate"><span class="pre">Fizz</span></code> is printed, for a multiple of five <code class="docutils literal notranslate"><span class="pre">Buzz</span></code> and when it is a multiple of both, the program should print <code class="docutils literal notranslate"><span class="pre">FizzBuzz</span></code>.
+Note how the syntax looks very much like that of normal python syntax.
+The methods that are used in the conditionals (between the parentheses of the <code class="docutils literal notranslate"><span class="pre">while_</span></code> and <code class="docutils literal notranslate"><span class="pre">if_</span></code> constructs) for example should return a boolean; <code class="docutils literal notranslate"><span class="pre">True</span></code> when the condition holds and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
+The actual implementation of the outline steps themselves is now trivial:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initialize_to_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">n_is_less_than_hundred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">100</span>
+
+<span class="k">def</span> <span class="nf">n_is_multiple_of_three</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">n_is_multiple_of_five</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">n_is_multiple_of_three_and_five</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">increment_n_by_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The intention of this example is to show that with a well designed outline, a user only has to look at the outline to have a good idea <em>what</em> the work chain does and <em>how</em> it does it.
+One should not have to look at the implementation of the outline steps as all the important information is captured by the outline itself.
+Since the goal of a work chain should be to execute a very well defined task, it is the goal of the outline to capture the required logic to achieve that goal, in a clear and short yet not overly succint manner.
+The outline supports various logical flow constructs, such as conditionals and while loops, so where possible this logic should be expressed in the outline and not in the body of the outline functions.
+However, one can also go overboard and put too finely grained logical blocks into the outline, causing it to become bulky and difficult to understand.</p>
+<p>A good rule of thumb in designing the outline is the following: before you start designing a work chain, define very clearly the task that it should carry out.
+Once the goal is clear, draw a schematic block diagram of the necessary steps and logical decisions that connect them, in order to accomplish that goal.
+Converting the resulting flow diagram in a one-to-one fashion into an outline, often results in very reasonable outline designs.</p>
+</div>
+<div class="section" id="working-workchains-define-exit-codes">
+<span id="id3"></span><h3>Exit codes<a class="headerlink" href="#working-workchains-define-exit-codes" title="Permalink to this headline">¶</a></h3>
+<p>There is one more property of a work chain that is specified through its process specification, in addition to its inputs, outputs and outline.
+Any work chain may have one to multiple failure modes, which are modeled by <a class="reference internal" href="processes.html#working-processes-exit-codes"><span class="std std-ref">exit codes</span></a>.
+A work chain can be stopped at any time, simply by returning an exit code from an outline method.
+To retrieve an exit code that is defined on the spec, one can use the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exit_codes" title="aiida.engine.processes.process.Process.exit_codes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exit_codes()</span></code></a> property.
+This returns an attribute dictionary where the exit code labels map to their corresponding exit code.
+For example, with the following process spec:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">ProcessSpec</span><span class="p">()</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">exit_code</span><span class="p">(</span><span class="mi">418</span><span class="p">,</span> <span class="s1">&#39;ERROR_I_AM_A_TEAPOT&#39;</span><span class="p">,</span> <span class="s1">&#39;the process had an identity crisis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To see how exit codes can be used to terminate the execution of work chains gracefully, refer to the section <a class="reference internal" href="#working-workchains-aborting-and-exit-codes"><span class="std std-ref">Aborting and exit codes</span></a>.</p>
+</div>
+<div class="section" id="launching-work-chains">
+<span id="working-workchains-launching-workchains"></span><h3>Launching work chains<a class="headerlink" href="#launching-work-chains" title="Permalink to this headline">¶</a></h3>
+<p>The rules for launching work chains are the same as those for any other process, which are detailed in <a class="reference internal" href="processes.html#working-processes-launching"><span class="std std-ref">this section</span></a>.
+On top of those basic rules, there is one peculiarity in the case of work chains when submitting to the daemon.
+When you submit a <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> over the daemon, or any other process for that matter, you need to make sure that the daemon can find the class when it needs to load it.
+Registering your class through the plugin system with a designated entry point is one way to make sure that the daemon will be able to find it.
+If, however, you simply have a test class and do not want to go through the effort of creating an entry point for it, you should make sure that the module where you define the class is in the python path.
+Additionally, make sure that the definition of the work chain <strong>is not in the same file from which you submit it</strong>, or the engine won’t be able to load it.</p>
+</div>
+<div class="section" id="context">
+<span id="working-workchains-context"></span><h3>Context<a class="headerlink" href="#context" title="Permalink to this headline">¶</a></h3>
+<p>In the simplest work chain example presented in the introductory section, we already saw how the context can be used to persist information during the execution of a work chain and pass it between outline steps.
+The context is essentially a data container, very similar to a dictionary that can hold all sorts of data.
+The engine will ensure that its contents are saved and persisted in between steps and when the daemon shuts down or restarts.
+A trivial example of this would be the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">step_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">some_variable</span> <span class="o">=</span> <span class="s1">&#39;store me in the context&#39;</span>
+
+<span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">some_variable</span> <span class="o">==</span> <span class="s1">&#39;store me in the context&#39;</span>
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">step_one</span></code> outline step we store the string <code class="docutils literal notranslate"><span class="pre">'store</span> <span class="pre">me</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">context'</span></code> in the context, which can be addressed as <code class="docutils literal notranslate"><span class="pre">self.ctx</span></code>, under the key <code class="docutils literal notranslate"><span class="pre">some_variable</span></code>.
+Note that for the key you can use anything that would be a valid key for a normal python dictionary.
+In the second outline step <code class="docutils literal notranslate"><span class="pre">step_two</span></code>, we can verify that the string was successfully persisted, by checking the value stored in the context <code class="docutils literal notranslate"><span class="pre">self.ctx.some_variable</span></code>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Any data that is stored in the context <strong>has</strong> to be serializable.</p>
+</div>
+<p>This was just a simple example to introduce the concept of the context, however, it really is one of the more important parts of the work chain.
+The context really becomes crucial when you want to submit a calculation or another work chain from within the work chain.
+How this is accomplished, we will show in the next section.</p>
+</div>
+<div class="section" id="submitting-sub-processes">
+<span id="working-workchains-submitting-sub-processes"></span><h3>Submitting sub processes<a class="headerlink" href="#submitting-sub-processes" title="Permalink to this headline">¶</a></h3>
+<p>One of the main tasks of a <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> will be to launch other processes, such as a <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> or another <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code>.
+How to submit processes was explained in <a class="reference internal" href="processes.html#working-processes-launch"><span class="std std-ref">another section</span></a> and is accomplished by using the <a class="reference internal" href="../apidoc/aiida.engine.html#aiida.engine.launch.submit" title="aiida.engine.launch.submit"><code class="xref py py-func docutils literal notranslate"><span class="pre">submit()</span></code></a> launch function.
+However, when submitting a sub process from within a work chain, <strong>this should not be used</strong>.
+Instead, the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process" title="aiida.engine.processes.process.Process"><code class="xref py py-class docutils literal notranslate"><span class="pre">Process</span></code></a> class provides its own <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.submit" title="aiida.engine.processes.process.Process.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> method.
+If you do, you will be greeted with the exception:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">InvalidOperation</span><span class="p">:</span> <span class="s1">&#39;Cannot use top-level `submit` from within another process, use `self.submit` instead&#39;</span>
+</pre></div>
+</div>
+<p>The only change you have to make is to replace the top-level <code class="docutils literal notranslate"><span class="pre">submit</span></code> method with the built-in method of the process class:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">submit_sub_process</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">SomeProcess</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># Here we use `self.submit` and not `submit` from `aiida.engine`</span>
+    <span class="k">return</span> <span class="n">ToContext</span><span class="p">(</span><span class="n">sub_process</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">self.submit</span></code> method has the exact same interface as the global <code class="docutils literal notranslate"><span class="pre">aiida.engine.launch.submit</span></code> launcher.
+When the <code class="docutils literal notranslate"><span class="pre">submit</span></code> method is called, the process is created and submitted to the daemon, but at that point it is not yet done.
+So the value that is returned by the <code class="docutils literal notranslate"><span class="pre">submit</span></code> call is not the result of the submitted process, but rather it is the process node that represents the execution of the process in the provenance graph and acts as a <em>future</em>.
+We somehow need to tell the work chain that it should wait for the sub process to be finished, and the future to resolve, before it continues.
+To do so, however, control has to be returned to the engine, which can then, when the process is completed, call the next step in the outline, where we can analyse the results.
+The snippet above already revealed that this is accomplished by returning an instance of the <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> class.</p>
+<div class="section" id="to-context">
+<h4>To context<a class="headerlink" href="#to-context" title="Permalink to this headline">¶</a></h4>
+<p>In order to store the future of the submitted process, we can store it in the context with a special construct that will tell the engine that it should wait for that process to finish before continuing the work chain.
+To illustrate how this works, consider the following minimal example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">ToContext</span>
+
+
+<span class="k">class</span> <span class="nc">SomeWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">submit_workchain</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">inspect_workchain</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">submit_workchain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ToContext</span><span class="p">(</span><span class="n">workchain</span><span class="o">=</span><span class="n">future</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inspect_workchain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">workchain</span><span class="o">.</span><span class="n">is_finished_ok</span>
+</pre></div>
+</div>
+<p>As explained in the previous section, calling <code class="docutils literal notranslate"><span class="pre">self.submit</span></code> for a given process that you want to submit, will return a future.
+To add this future to the context, we can not access the context directly as explained in the <a class="reference internal" href="#working-workchains-context"><span class="std std-ref">context section</span></a>, but rather we need to use the class <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.context.ToContext" title="aiida.engine.processes.workchains.context.ToContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ToContext</span></code></a>.
+This class has to be imported from the <code class="docutils literal notranslate"><span class="pre">aiida.engine</span></code> module.
+To add the future to the context, simply construct an instance of <code class="docutils literal notranslate"><span class="pre">ToContext</span></code>, passing the future as a keyword argument, and returning it from the outline step.
+The keyword used, <code class="docutils literal notranslate"><span class="pre">workchain</span></code> in this example, will be the key used under which to store the node in the context once its execution has terminated.
+Returning an instance of <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> signals to the engine that it has to wait for the futures contained within it to finish execution, store their nodes in the context under the specified keys and then continue to the next step in the outline.
+In this example, that is the <code class="docutils literal notranslate"><span class="pre">inspect_workchain</span></code> method.
+At this point we are sure that the process, a work chain in this case, has terminated its execution, although not necessarily successful, and we can continue the logic of the work chain.</p>
+<p>Sometimes one wants to launch not just one, but multiple processes at the same time that can run in parallel.
+With the mechanism described above, this will not be possible since after submitting a single process and returning the <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> instance, the work chain has to wait for the process to be finished before it can continue.
+To solve this problem, there is another way to add futures to the context:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span>
+
+
+<span class="k">class</span> <span class="nc">SomeWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">submit_workchains</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">inspect_workchains</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">submit_workchains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;workchain_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_context</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">future</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">inspect_workchains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;workchain_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">is_finished_ok</span>
+</pre></div>
+</div>
+<p>Here we submit three work chains in a for loop in a single outline step, but instead of returning an instance of <code class="docutils literal notranslate"><span class="pre">ToContext</span></code>, we call the <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.workchain.WorkChain.to_context" title="aiida.engine.processes.workchains.workchain.WorkChain.to_context"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_context()</span></code></a> method.
+This method has exactly the same syntax as the <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> class, except it is not necessary to return its value, so we can call it multiple times in one outline step.
+Under the hood the functionality is also the same as the <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> class.
+At the end of the <code class="docutils literal notranslate"><span class="pre">submit_workchains</span></code> outline step, the engine will find the futures that were added by calling <code class="docutils literal notranslate"><span class="pre">to_context</span></code> and will wait for all of them to be finished.
+The good thing here is that these three sub work chains can be run in parallel and once all of them are done, the parent work chain will go to the next step, which is <code class="docutils literal notranslate"><span class="pre">inspect_workchains</span></code>.
+There we can find the nodes of the work chains in the context under the key that was used as the keyword argument in the <code class="docutils literal notranslate"><span class="pre">to_context</span></code> call in the previous step.</p>
+<p>Since we do not want the subsequent calls of <code class="docutils literal notranslate"><span class="pre">to_context</span></code> to override the previous future, we had to create unique keys to store them under.
+In this example, we chose to use the index of the for-loop.
+The name carries no meaning and is just required to guarantee unique key names.
+This pattern will occur often where you will want to launch multiple work chains or calculations in parallel and will have to come up with unique names.
+In essence, however, you are really just creating a list and it would be better to be able to create a list in the context and simply append the future to that list as you submit them.
+How this can be achieved is explained in the next section.</p>
+</div>
+<div class="section" id="appending">
+<h4>Appending<a class="headerlink" href="#appending" title="Permalink to this headline">¶</a></h4>
+<p>When you want to add a future of a submitted sub process to the context, but append it to a list rather than assign it to a key, you can use the <a class="reference internal" href="../apidoc/aiida.engine.processes.workchains.html#aiida.engine.processes.workchains.context.append_" title="aiida.engine.processes.workchains.context.append_"><code class="xref py py-func docutils literal notranslate"><span class="pre">append_()</span></code></a> function.
+Consider the example from the previous section, but now we will use the <code class="docutils literal notranslate"><span class="pre">append_</span></code> function instead:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">append_</span>
+
+
+<span class="k">class</span> <span class="nc">SomeWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">submit_workchains</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">inspect_workchains</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">submit_workchains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">SomeWorkChain</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_context</span><span class="p">(</span><span class="n">workchains</span><span class="o">=</span><span class="n">append_</span><span class="p">(</span><span class="n">future</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">inspect_workchains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">workchain</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">workchains</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">workchain</span><span class="o">.</span><span class="n">is_finished_ok</span>
+</pre></div>
+</div>
+<p>Notice that in the <code class="docutils literal notranslate"><span class="pre">submit_workchains</span></code> step we no longer have to generate a unique key based on the index but we simply wrap the future in the <code class="docutils literal notranslate"><span class="pre">append_</span></code> function and assign it to the generic key <code class="docutils literal notranslate"><span class="pre">workchains</span></code>.
+The engine will see the <code class="docutils literal notranslate"><span class="pre">append_</span></code> function and instead of assigning the node corresponding to the future to the key <code class="docutils literal notranslate"><span class="pre">workchains</span></code>, it will append it to the list stored under that key.
+If the list did not yet exist, it will automatically be created.
+The <code class="docutils literal notranslate"><span class="pre">self.ctx.workchains</span></code> now contains a list with the nodes of the completed work chains and so in the <code class="docutils literal notranslate"><span class="pre">inspect_workchains</span></code> step we can simply iterate over it to access all of them.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The process nodes of the completed processes will <strong>not necessarily</strong> be added to the list in the context in the same order as the <code class="docutils literal notranslate"><span class="pre">to_context</span></code> calls.
+This is because the futures may not necessarily be resolved in the same order as they were submitted.
+Therefore it is dangerous to depend on the order when using the append method.</p>
+</div>
+<p>Note that the use of <code class="docutils literal notranslate"><span class="pre">append_</span></code> is not just limited to the <code class="docutils literal notranslate"><span class="pre">to_context</span></code> method.
+You can also use it in exactly the same way with <code class="docutils literal notranslate"><span class="pre">ToContext</span></code> to append a process to a list in the context in multiple outline steps.</p>
+</div>
+</div>
+<div class="section" id="reporting">
+<span id="working-workchains-reporting"></span><h3>Reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h3>
+<p>During the execution of a <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code>, we may want to keep the user abreast of its progress and what is happening.
+For this purpose, the <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> implements the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.report" title="aiida.engine.processes.process.Process.report"><code class="xref py py-meth docutils literal notranslate"><span class="pre">report()</span></code></a> method, which functions as a logger of sorts.
+It takes a single argument, a string, that is the message that needs to be reported:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">submit_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s1">&#39;here we will submit a calculation&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will send that message to the internal logger of python, which will cause it to be picked up by the default AiiDA logger, but it will also trigger the database log handler, which will store the message in the database and link it to the node of the work chain.
+This allows the <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">report</span></code> command to retrieve all those messages that were fired using the <code class="docutils literal notranslate"><span class="pre">report</span></code> method for a specific process.
+Note that the report method, in addition to the pk of the work chain, will also automatically record the name of the work chain and the name of the outline step in which the report message was fired.
+This information will show up in the output of <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">report</span></code>, so you never have to explicitly reference the work chain name, outline step name or date and time in the message itself.</p>
+<p>It is important to note that the report system is a form of logging and as such has been designed to be read by humans only.
+That is to say, the report system is not designed to pass information programmatically by parsing the log messages.</p>
+</div>
+<div class="section" id="aborting-and-exit-codes">
+<span id="working-workchains-aborting-and-exit-codes"></span><h3>Aborting and exit codes<a class="headerlink" href="#aborting-and-exit-codes" title="Permalink to this headline">¶</a></h3>
+<p>At the end of every outline step, the return value will be inspected by the engine.
+If a non-zero integer value is detected, the engine will interpret this as an exit code and will stop the execution of the work chain, while setting its process state to <code class="docutils literal notranslate"><span class="pre">Finished</span></code>.
+In addition, the integer return value will be set as the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code> of the work chain, which combined with the <code class="docutils literal notranslate"><span class="pre">Finished</span></code> process state will denote that the worchain is considered to be <code class="docutils literal notranslate"><span class="pre">Failed</span></code>, as explained in the section on the <a class="reference internal" href="../concepts/processes.html#concepts-process-state"><span class="std std-ref">process state</span></a>.
+This is useful because it allows a workflow designer to easily exit from a work chain and use the return value to communicate programmatically the reason for the work chain stopping.</p>
+<p>We assume that you have read the <a class="reference external" href="exit_codes">section on how to define exit code</a> through the process specification of the work chain.
+Consider the following example work chain that defines such an exit code:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span><span class="o">.</span><span class="n">exit_code</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;ERROR_CALCULATION_FAILED&#39;</span><span class="p">,</span> <span class="s1">&#39;the child calculation did not finish successfully&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now imagine that in the outline, we launch a calculation and in the next step check whether it finished successfully.
+In the event that the calculation did not finish successfully, the following snippet shows how you can retrieve the corresponding exit code and abort the <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> by returning it:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">submit_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">SomeCalcJob</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ToContext</span><span class="p">(</span><span class="n">calculation</span><span class="o">=</span><span class="n">future</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">inspect_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">calculation</span><span class="o">.</span><span class="n">is_finished_ok</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s1">&#39;the calculation did not finish successfully, there is nothing we can do&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_codes</span><span class="o">.</span><span class="n">ERROR_CALCULATION_FAILED</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s1">&#39;the calculation finished successfully&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">inspect_calculation</span></code> outline, we retrieve the calculation that was submitted and added to the context in the previous step and check if it finished successfully through the property <code class="docutils literal notranslate"><span class="pre">is_finished_ok</span></code>.
+If this returns <code class="docutils literal notranslate"><span class="pre">False</span></code>, in this example we simply fire a report message and return the exit code corresponding to the label <code class="docutils literal notranslate"><span class="pre">ERROR_CALCULATION_FAILED</span></code>.
+Note that the specific exit code can be retrieved through the <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> property <code class="docutils literal notranslate"><span class="pre">exit_codes</span></code>.
+This will return a collection of exit codes that have been defined for that <code class="docutils literal notranslate"><span class="pre">WorkChain</span></code> and any specific exit code can then be retrieved by accessing it as an attribute.
+Returning this exit code, which will be an instance of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.exit_code.ExitCode" title="aiida.engine.processes.exit_code.ExitCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExitCode</span></code></a> named tuple, will cause the work chain to be aborted and the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code> and <code class="docutils literal notranslate"><span class="pre">exit_message</span></code> to be set on the node, which were defined in the spec.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The notation <code class="docutils literal notranslate"><span class="pre">self.exit_codes.ERROR_CALCULATION_FAILED</span></code> is just syntactic sugar to retrieve the <code class="docutils literal notranslate"><span class="pre">ExitCode</span></code> tuple that was defined in the spec with that error label.
+Constructing your own <code class="docutils literal notranslate"><span class="pre">ExitCode</span></code> directly and returning that from the outline step will have exactly the same effect in terms of aborting the work chain execution and setting the exit status and message.
+However, it is strongly advised to define the exit code through the spec and retrieve it through the <code class="docutils literal notranslate"><span class="pre">self.exit_codes</span></code> collection, as that makes it easily retrievable through the spec by the caller of the work chain.</p>
+</div>
+<p>The best part about this method of aborting a work chains execution, is that the exit status can now be used programmatically, by for example a parent work chain.
+Imagine that a parent work chain submitted this work chain.
+After it has terminated its execution, the parent work chain will want to know what happened to the child work chain.
+As already noted in the <a class="reference internal" href="#working-workchains-reporting"><span class="std std-ref">report</span></a> section, the report messages of the work chain should not be used.
+The exit status, however, is a perfect way.
+The parent work chain can easily request the exit status of the child work chain through the <code class="docutils literal notranslate"><span class="pre">exit_status</span></code> property, and based on its value determine how to proceed.</p>
+</div>
+<div class="section" id="modular-workflow-design">
+<h3>Modular workflow design<a class="headerlink" href="#modular-workflow-design" title="Permalink to this headline">¶</a></h3>
+<p>When creating complex workflows, it is a good idea to split them up into smaller, modular parts.
+At the lowest level, each workflow should perform exactly one task.
+These workflows can then be wrapped together by a “parent” workflow to create a larger logical unit.</p>
+<p>In order to make this approach manageable, it needs to be as simple as possible to glue together multiple workflows in a larger parent workflow.
+One of the tools that AiiDA provides to simplify this is the ability to <em>expose</em> the ports of another work chain.</p>
+<div class="section" id="exposing-inputs-and-outputs">
+<span id="working-workchains-expose-inputs-outputs"></span><h4>Exposing inputs and outputs<a class="headerlink" href="#exposing-inputs-and-outputs" title="Permalink to this headline">¶</a></h4>
+<p>Consider the following example work chain, which simply takes a few inputs and returns them again as outputs:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span>
+
+
+<span class="k">class</span> <span class="nc">ChildWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Int</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Float</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Bool</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">do_run</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Int</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Float</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">Bool</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">do_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a first example, we will implement a thin wrapper workflow, which simply forwards its inputs to <code class="docutils literal notranslate"><span class="pre">ChildWorkChain</span></code>, and forwards the outputs of the child to its outputs:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ToContext</span><span class="p">,</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">child</span> <span class="k">import</span> <span class="n">ChildWorkChain</span>
+
+
+<span class="k">class</span> <span class="nc">SimpleParentWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimpleParentWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_outputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">run_child</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">finalize</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run_child</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">exposed_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ToContext</span><span class="p">(</span><span class="n">child</span><span class="o">=</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_many</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exposed_outputs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="n">ChildWorkChain</span><span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">define</span></code> method of this simple parent work chain, we use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">expose_inputs()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">expose_outputs()</span></code>.
+This creates the corresponding input and output ports in the parent work chain.
+Additionally, AiiDA remembers which inputs and outputs were exposed from that particular work chain class.
+This is used when calling the child in the <code class="docutils literal notranslate"><span class="pre">run_child</span></code> method.
+The <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_inputs" title="aiida.engine.processes.process.Process.exposed_inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_inputs()</span></code></a> method returns a dictionary of inputs that the parent received which were exposed from the child, and so it can be used to pass these on to the child.
+Finally, in the <code class="docutils literal notranslate"><span class="pre">finalize</span></code> method, we use <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_outputs" title="aiida.engine.processes.process.Process.exposed_outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_outputs()</span></code></a> to retrieve the outputs of the child which were exposed to the parent.
+Using <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.out_many" title="aiida.engine.processes.process.Process.out_many"><code class="xref py py-meth docutils literal notranslate"><span class="pre">out_many()</span></code></a>, these outputs are added to the outputs of the parent work chain.
+This work chain can now be run in exactly the same way as the child itself:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env runaiida</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">simple_parent</span> <span class="k">import</span> <span class="n">SimpleParentWorkChain</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">SimpleParentWorkChain</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="n">Float</span><span class="p">(</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="c1"># {u&#39;e&#39;: 1.2, u&#39;d&#39;: 1, u&#39;f&#39;: True}</span>
+</pre></div>
+</div>
+<p>Next, we will see how a more complex parent work chain can be created by using the additional features of the expose functionality.
+The following work chain launches two children.
+These children share the input <code class="docutils literal notranslate"><span class="pre">a</span></code>, but have different <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code>.
+The output <code class="docutils literal notranslate"><span class="pre">e</span></code> will be taken only from the first child, whereas <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">f</span></code> are taken from both children.
+In order to avoid name conflicts, we need to create a <em>namespace</em> for each of the two children, where the inputs and outputs which are not shared are stored.
+Our goal is that the workflow can be called as follows:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env runaiida</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">complex_parent</span> <span class="k">import</span> <span class="n">ComplexParentWorkChain</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span>
+        <span class="n">ComplexParentWorkChain</span><span class="p">,</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">child_1</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">Float</span><span class="p">(</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">)),</span>
+        <span class="n">child_2</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">Float</span><span class="p">(</span><span class="mf">2.3</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="c1"># {</span>
+    <span class="c1">#     u&#39;e&#39;: 1.2,</span>
+    <span class="c1">#     u&#39;child_1.d&#39;: 1, u&#39;child_1.f&#39;: True,</span>
+    <span class="c1">#     u&#39;child_2.d&#39;: 1, u&#39;child_2.f&#39;: False</span>
+    <span class="c1"># }</span>
+</pre></div>
+</div>
+<p>This is achieved by the following workflow.
+In the next section, we will explain each of the steps.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ToContext</span><span class="p">,</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">run</span>
+
+<span class="kn">from</span> <span class="nn">child</span> <span class="k">import</span> <span class="n">ChildWorkChain</span>
+
+<span class="k">class</span> <span class="nc">ComplexParentWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ComplexParentWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_1&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_2&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">run_children</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">finalize</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_outputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">])</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_outputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_1&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">])</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">expose_outputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_2&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">])</span>
+
+
+    <span class="k">def</span> <span class="nf">run_children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">child_1_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposed_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_1&#39;</span><span class="p">)</span>
+        <span class="n">child_2_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposed_inputs</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_2&#39;</span><span class="p">,</span> <span class="n">agglomerate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">child_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="o">**</span><span class="n">child_1_inputs</span><span class="p">)</span>
+        <span class="n">child_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">ChildWorkChain</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">child_2_inputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ToContext</span><span class="p">(</span><span class="n">child_1</span><span class="o">=</span><span class="n">child_1</span><span class="p">,</span> <span class="n">child_2</span><span class="o">=</span><span class="n">child_2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_many</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exposed_outputs</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">child_1</span><span class="p">,</span>
+                <span class="n">ChildWorkChain</span><span class="p">,</span>
+                <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_1&#39;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_many</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exposed_outputs</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">child_2</span><span class="p">,</span>
+                <span class="n">ChildWorkChain</span><span class="p">,</span>
+                <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;child_2&#39;</span><span class="p">,</span>
+                <span class="n">agglomerate</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>First of all, we want to expose the <code class="docutils literal notranslate"><span class="pre">a</span></code> input and the <code class="docutils literal notranslate"><span class="pre">e</span></code> output at the top-level.
+For this, we again use <code class="xref py py-meth docutils literal notranslate"><span class="pre">expose_inputs()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">expose_outputs()</span></code>, but with the optional keyword <code class="docutils literal notranslate"><span class="pre">include</span></code>.
+This specifies a list of keys, and only inputs or outputs which are in that list will be exposed.
+So by passing <code class="docutils literal notranslate"><span class="pre">include=['a']</span></code> to <code class="xref py py-meth docutils literal notranslate"><span class="pre">expose_inputs()</span></code>, only the input <code class="docutils literal notranslate"><span class="pre">a</span></code> is exposed.</p>
+<p>Additionally, we want to expose the inputs <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> (outputs <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">f</span></code>), but in a namespace specific for each of the two children.
+For this purpose, we pass the <code class="docutils literal notranslate"><span class="pre">namespace</span></code> parameter to the expose functions.
+However, since we now shouldn’t expose <code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">e</span></code>) again, we use the <code class="docutils literal notranslate"><span class="pre">exclude</span></code> keyword, which specifies a list of keys that will not be exposed.</p>
+<p>When calling the children, we again use the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_inputs" title="aiida.engine.processes.process.Process.exposed_inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_inputs()</span></code></a> method to forward the exposed inputs.
+Since the inputs <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> are now in a specific namespace, we need to pass this namespace as an additional parameter.
+By default, <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_inputs" title="aiida.engine.processes.process.Process.exposed_inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_inputs()</span></code></a> will search through all the parent namespaces of the given namespace to search for input, as shown in the call for <code class="docutils literal notranslate"><span class="pre">child_1</span></code>.
+If the same input key exists in multiple namespaces, the input in the lowest namespace takes precedence.
+It’s also possible to disable this behavior, and instead search only in the explicit namespace that was passed.
+This is done by setting <code class="docutils literal notranslate"><span class="pre">agglomerate=False</span></code>, as shown in the call to <code class="docutils literal notranslate"><span class="pre">child_2</span></code>.
+Of course, we then need to explicitly pass the input <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>Finally, we use <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_outputs" title="aiida.engine.processes.process.Process.exposed_outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_outputs()</span></code></a> and <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.out_many" title="aiida.engine.processes.process.Process.out_many"><code class="xref py py-meth docutils literal notranslate"><span class="pre">out_many()</span></code></a> to forward the outputs of the children to the outputs of the parent.
+Again, the <code class="docutils literal notranslate"><span class="pre">namespace</span></code> and <code class="docutils literal notranslate"><span class="pre">agglomerate</span></code> options can be used to select which outputs are returned by the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.process.Process.exposed_outputs" title="aiida.engine.processes.process.Process.exposed_outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exposed_outputs()</span></code></a> method.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#classmethod">https://docs.python.org/3.5/library/functions.html#classmethod</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://en.wikipedia.org/wiki/Fizz_buzz">https://en.wikipedia.org/wiki/Fizz_buzz</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../working_with_aiida/index.html" class="btn btn-neutral float-right" title="Command line interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="calculations.html" class="btn btn-neutral float-left" title="Calculations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to extend the AiiDA REST API &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Caching: implementation details" href="caching.html" />
+    <link rel="prev" title="Modifying the schema" href="modifying_the_schema.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">AiiDA design</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#aiida-core">AiiDA core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internals.html">AiiDA internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">Transport plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database_schema.html">Database schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modifying_the_schema.html">Modifying the schema</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to extend the AiiDA REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching: implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin_system.html">Developing The Plugin System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/sphinx_cheatsheet.html">Sphinx cheatsheet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">AiiDA design</a> &raquo;</li>
+        
+      <li>How to extend the AiiDA REST API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/developer_guide/core/extend_restapi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-extend-the-aiida-rest-api">
+<h1>How to extend the AiiDA REST API<a class="headerlink" href="#how-to-extend-the-aiida-rest-api" title="Permalink to this headline">¶</a></h1>
+<p>The AiIDA REST API is made of two main classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">App</span></code>, inheriting <code class="docutils literal notranslate"><span class="pre">flask.Flask</span></code>. The latter represents any Flask web app, including REST APIs.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Api</span></code>, inheriting <code class="docutils literal notranslate"><span class="pre">flask_restful.Api</span></code>. This represents the API itself.</li>
+</ul>
+</div></blockquote>
+<p>Once instanciated both <code class="docutils literal notranslate"><span class="pre">Api</span></code> and <code class="docutils literal notranslate"><span class="pre">App</span></code> classes into, say, <code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">api</span></code>, these two objects have to be coupled by adding <code class="docutils literal notranslate"><span class="pre">app</span></code> as one of the attributes of <code class="docutils literal notranslate"><span class="pre">api</span></code>. As we will see in a moment, we provide a function that, besides other things, does exactly this.</p>
+<p>In a Flask API the resources, e.g. <em>Nodes</em>, <em>Kpoints</em>, etc., are represented by <code class="docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code>-derived classes.</p>
+<p>If you need to include additional endpoints besides those built in the AiiDA REST API you should:</p>
+<blockquote>
+<div><ul class="simple">
+<li>create the resource classes that will be bound to the new endpoints;</li>
+<li>extend the class <code class="docutils literal notranslate"><span class="pre">Api</span></code> into a user-defined class to register the new endpoints.</li>
+<li>(Optional) Extend <code class="docutils literal notranslate"><span class="pre">App</span></code> into a user-defined class for finer customization.</li>
+</ul>
+</div></blockquote>
+<p>Let’s provide a minimal example through which we add the endpoint <code class="docutils literal notranslate"><span class="pre">/new-endpoint</span></code> supporting two HTTP methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><em>GET</em>: retrieves the latest created Dict object and returns its <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">ctime</span></code> in ISO 8601 format, and <code class="docutils literal notranslate"><span class="pre">attributes</span></code>.</li>
+<li><em>POST</em>: creates a Dict object with placeholder attributes, stores it, and returns its <code class="docutils literal notranslate"><span class="pre">id</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>Let’s assume you’ve put the code in the file <code class="docutils literal notranslate"><span class="pre">example.py</span></code>, reading:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">from</span> <span class="nn">aiida.restapi.api</span> <span class="kn">import</span> <span class="n">AiidaApi</span><span class="p">,</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">aiida.restapi.run_api</span> <span class="kn">import</span> <span class="n">run_api</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="kn">import</span> <span class="n">Resource</span>
+
+
+<span class="k">class</span> <span class="nc">NewResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    resource containing GET and POST methods. Description of each method</span>
+<span class="sd">    follows:</span>
+
+<span class="sd">    GET: returns id, ctime, and attributes of the latest created Dict.</span>
+
+<span class="sd">    POST: creates a Dict object, stores it in the database,</span>
+<span class="sd">    and returns its newly assigned id.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="kn">import</span> <span class="n">QueryBuilder</span><span class="p">,</span> <span class="n">Dict</span>
+
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Dict</span><span class="p">,</span>
+                  <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">],</span>
+                  <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;pdata&#39;</span><span class="p">)</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="s1">&#39;pdata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span> <span class="s2">&quot;desc&quot;</span><span class="p">}})</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+        <span class="c1"># Results are returned as a dictionary, datetime objects is</span>
+        <span class="c1"># serialized as ISO 8601</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">ctime</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+                    <span class="n">attributes</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">property1</span><span class="o">=</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="n">property2</span><span class="o">=</span><span class="s2">&quot;egg&quot;</span><span class="p">)</span>
+        <span class="n">paramsData</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">paramsData</span><span class="o">.</span><span class="n">pk</span><span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">NewApi</span><span class="p">(</span><span class="n">AiidaApi</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This init serves to add new endpoints to the basic AiiDA Api</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NewApi</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">NewResource</span><span class="p">,</span> <span class="s1">&#39;/new-endpoint/&#39;</span><span class="p">,</span> <span class="n">strict_slashes</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="c1"># Standard boilerplate to run the api</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">aiida.restapi.common</span> <span class="kn">as</span> <span class="nn">common</span>
+<span class="n">config_dir</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the app accepting arguments.</span>
+
+<span class="sd">    Ex:</span>
+<span class="sd">     python example.py --host=127.0.0.2 --port=6000 --config-dir</span>
+
+<span class="sd">    Defaults:</span>
+<span class="sd">     address: 127.0.01:5000,</span>
+<span class="sd">     config directory: &lt;aiida_path&gt;/aiida/restapi/common</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">run_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">hookup</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">default_config_dir</span><span class="o">=</span><span class="n">config_dir</span><span class="p">,</span>
+        <span class="n">default_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="n">default_port</span><span class="o">=</span><span class="s1">&#39;5000&#39;</span><span class="p">,</span>
+        <span class="n">parse_aiida_profile</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">run_api</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="n">NewApi</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="o">**</span><span class="n">run_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let us dissect the previous code explaining each part. First things first: the imports.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.restapi.api</span> <span class="kn">import</span> <span class="n">AiidaApi</span><span class="p">,</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">aiida.restapi.run_api</span> <span class="kn">import</span> <span class="n">run_api</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="kn">import</span> <span class="n">Resource</span>
+</pre></div>
+</div>
+<p>To start with, we import the base classes to be extended/employed: <code class="docutils literal notranslate"><span class="pre">AiidaApi</span></code> and <code class="docutils literal notranslate"><span class="pre">App</span></code>. For simplicity, it is advisable to import the method <code class="docutils literal notranslate"><span class="pre">run_api</span></code>, as it provides an interface to configure the Api, parse command-line arguments, and couple the two classes representing the Api and the App. However, you can refer to the documentation of <a class="reference external" href="https://flask-restful.readthedocs.io/">flask_restful</a> to configure and hook-up an Api through its built-in methods.</p>
+<p>Then we define a class representing the additional resource:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NewResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    resource containing GET and POST methods. Description of each method</span>
+<span class="sd">    follows:</span>
+
+<span class="sd">    GET: returns id, ctime, and attributes of the latest created Dict.</span>
+
+<span class="sd">    POST: creates a Dict object, stores it in the database,</span>
+<span class="sd">    and returns its newly assigned id.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="kn">import</span> <span class="n">QueryBuilder</span><span class="p">,</span> <span class="n">Dict</span>
+
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Dict</span><span class="p">,</span>
+                  <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">],</span>
+                  <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;pdata&#39;</span><span class="p">)</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="s1">&#39;pdata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span> <span class="s2">&quot;desc&quot;</span><span class="p">}})</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+        <span class="c1"># Results are returned as a dictionary, datetime objects is</span>
+        <span class="c1"># serialized as ISO 8601</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">ctime</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+                    <span class="n">attributes</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">property1</span><span class="o">=</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="n">property2</span><span class="o">=</span><span class="s2">&quot;egg&quot;</span><span class="p">)</span>
+        <span class="n">paramsData</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">paramsData</span><span class="o">.</span><span class="n">pk</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The class <code class="docutils literal notranslate"><span class="pre">NewResource</span></code> contains two methods: <code class="docutils literal notranslate"><span class="pre">get</span></code> and <code class="docutils literal notranslate"><span class="pre">post</span></code>. The names chosen for these functions are not arbitrary but fixed by <code class="docutils literal notranslate"><span class="pre">Flask</span></code> to individuate the functions that respond to HTTP request of type GET and POST, respectively. In other words, when the API receives a GET (POST) request to the URL <code class="docutils literal notranslate"><span class="pre">new-endpoint</span></code>, the function <code class="docutils literal notranslate"><span class="pre">NewResource.get()</span></code> (<code class="docutils literal notranslate"><span class="pre">NewResource.post()</span></code>) will be executed. The HTTP response is constructed around the data returned by these functions. The data, which are packed as dictionaries, are serialized by Flask as a JSON stream of data. All the Python built-in types can be serialized by Flask (e.g. <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, etc.), whereas for serialization of custom types we let you refer to the <a class="reference external" href="http://flask.pocoo.org/docs/">Flask documentation</a> . The documentation of Flask is the main source of information also for topics such as customization of HTTP responses, construction of custom URLs (e.g. accepting parameters), and more advanced serialization issues.</p>
+<p>Whenever you face the need to handle errors, consider to use the AiiDA REST API-specific exceptions already defined in <code class="docutils literal notranslate"><span class="pre">aiida.restapi.common.exceptions</span></code>. The reason will become clear slightly later in this section.</p>
+<p>Once the new resource is defined, we have to register it to the API by assigning it one (or more) endpoint(s). This is done in the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> of <code class="docutils literal notranslate"><span class="pre">NewApi</span></code> by means of the method <code class="docutils literal notranslate"><span class="pre">add_resource()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NewApi</span><span class="p">(</span><span class="n">AiidaApi</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This init serves to add new endpoints to the basic AiiDA Api</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NewApi</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">NewResource</span><span class="p">,</span> <span class="s1">&#39;/new-endpoint/&#39;</span><span class="p">,</span> <span class="n">strict_slashes</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In our original intentions, the main (if not the only) purpose of overriding the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method is to register new resources to the API. In fact, the general form of <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> is meant to be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NewApi</span><span class="p">(</span><span class="n">AiidaApi</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">NewApi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="o">*</span><span class="n">kwargs</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>
+
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>In the example, indeed, the only characteristic line is <code class="code python docutils literal notranslate"><span class="name builtin pseudo"><span class="pre">self</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">add_resource</span></span><span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">NewResource</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="literal string single"><span class="pre">‘/new-endpoint/’</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">strict_slashes</span></span><span class="operator"><span class="pre">=</span></span><span class="name builtin pseudo"><span class="pre">False</span></span><span class="punctuation"><span class="pre">)</span></span></code>. Anyway, the method <code class="docutils literal notranslate"><span class="pre">add_resource()</span></code> is defined and documented in <a class="reference external" href="http://flask.pocoo.org/docs/">Flask</a>.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">main</span></code> code configures and runs the API, thanks to the method <code class="docutils literal notranslate"><span class="pre">run_api()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard boilerplate to run the api</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">aiida.restapi.common</span> <span class="kn">as</span> <span class="nn">common</span>
+<span class="n">config_dir</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the app accepting arguments.</span>
+
+<span class="sd">    Ex:</span>
+<span class="sd">     python example.py --host=127.0.0.2 --port=6000 --config-dir &#39;&lt;path_to_config.py&gt;&#39;</span>
+
+<span class="sd">    Defaults:</span>
+<span class="sd">     address: 127.0.01:5000,</span>
+<span class="sd">     config directory: &lt;aiida_path&gt;/aiida/restapi/common</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">run_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">hookup</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">default_config_dir</span><span class="o">=</span><span class="n">config_dir</span><span class="p">,</span>
+        <span class="n">default_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="n">default_port</span><span class="o">=</span><span class="s1">&#39;5000&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">run_api</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="n">NewApi</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="o">**</span><span class="n">run_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The method <code class="docutils literal notranslate"><span class="pre">run_api()</span></code> accomplishes several functions: it couples the API to an instance of <code class="docutils literal notranslate"><span class="pre">flask.Flask</span></code>, namely, the Flask fundamental class representing a web app. Consequently, the app is configured and, if required, hooked up.
+The spirit of <code class="docutils literal notranslate"><span class="pre">run_api</span></code> is to take all the ingredients to setup an API and use them to build up a command-line utility that serves to hook it up.</p>
+<p>It requires as inputs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the classes representing the Api and the App. We strongly suggest to pass to <code class="docutils literal notranslate"><span class="pre">run_api()</span></code> the class <code class="docutils literal notranslate"><span class="pre">aiida.restapi.api.App</span></code>, inheriting from <code class="docutils literal notranslate"><span class="pre">flask.Flask</span></code>, as it handles correctly AiiDA RESTApi-specific exceptions.</li>
+<li>a tuple of positional arguments representing the command-line arguments/options (notice the use of <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>);</li>
+<li>a dictionary of key-value arguments to set the default values of the command line options, e.g. <code class="docutils literal notranslate"><span class="pre">--port</span></code>, <code class="docutils literal notranslate"><span class="pre">--host</span></code>,  <code class="docutils literal notranslate"><span class="pre">--config-dir</span></code> and <code class="docutils literal notranslate"><span class="pre">--aiida-profile</span></code>. If no default is set, the app will use <code class="docutils literal notranslate"><span class="pre">5000</span></code>, <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">aiida.restapi.common</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>, respectively.</li>
+</ul>
+</div></blockquote>
+<p>You should know few more things before using the script:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If you want to customize further the error handling, you can take inspiration by looking at the definition of <code class="docutils literal notranslate"><span class="pre">App</span></code> and create your derived class <code class="docutils literal notranslate"><span class="pre">NewApp(App)</span></code>.</li>
+<li>The option <code class="docutils literal notranslate"><span class="pre">hookup</span></code> of the configuration dictionary must be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to use the script to start the API from command line. Below, we will show when it is appropriate to set <code class="docutils literal notranslate"><span class="pre">hookup=False</span></code>.</li>
+<li>the supported command line options are identical to those of <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">restapi</span></code>. Use <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">restapi</span> <span class="pre">--help</span></code> for their full documentation. If you want to add more options or modify the existing ones, create you custom runner taking inspiration from <code class="docutils literal notranslate"><span class="pre">run_api</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>It is time to run <code class="docutils literal notranslate"><span class="pre">example.py</span></code>. Type in a terminal</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod +x example.py
+./example.py --host<span class="o">=</span><span class="m">127</span>.0.0.2 --port<span class="o">=</span><span class="m">6000</span>
+</pre></div>
+</div>
+<p>You should read the message</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>* Running on http://127.0.0.2:6000/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>
+</pre></div>
+</div>
+<p>To route a request to the API from a terminal you can employ <code class="docutils literal notranslate"><span class="pre">curl</span></code>. Alternatively, you can use any REST client providing a GUI. Let us first ask for the latest created node through the GET method:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://127.0.0.2:6000/api/v2/new-endpoint/ -X GET
+</pre></div>
+</div>
+<p>The form of the output (and only the form) should resemble</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;attributes&quot;</span>: <span class="o">{</span><span class="s2">&quot;binding_energy_per_substructure_per_unit_area_units&quot;</span>: <span class="s2">&quot;eV/ang^2&quot;</span>, <span class="s2">&quot;binding_energy_per_substructure_per_unit_area&quot;</span>: <span class="m">0</span>.0220032273047497<span class="o">}</span>, <span class="s2">&quot;ctime&quot;</span>: <span class="s2">&quot;2017-04-05T16:01:06.227942+00:00&quot;</span>, <span class="s2">&quot;id&quot;</span>: <span class="m">403504</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>, whereas the actual values of the response dictionary as well as the internal structure of the attributes field will be in general very different.</p>
+<p>Now, let us create a node through the POST method, and check it again through GET:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://127.0.0.2:6000/api/v2/new-endpoint/ -X POST
+<span class="o">{</span><span class="s2">&quot;id&quot;</span>: <span class="m">410618</span><span class="o">}</span>
+curl http://127.0.0.2:6000/api/v2/new-endpoint/ -X GET
+<span class="o">{</span><span class="s2">&quot;attributes&quot;</span>: <span class="o">{</span><span class="s2">&quot;property1&quot;</span>: <span class="s2">&quot;spam&quot;</span>, <span class="s2">&quot;property2&quot;</span>: <span class="s2">&quot;egg&quot;</span><span class="o">}</span>, <span class="s2">&quot;ctime&quot;</span>: <span class="s2">&quot;2017-06-20T15:36:56.320180+00:00&quot;</span>, <span class="s2">&quot;id&quot;</span>: <span class="m">410618</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>The POST request triggers the creation of a new Dict node, as confirmed by the response to the GET request.</p>
+<p>As a final remark, there might be circumstances in which you do not want to hook up the API from command line. For example, you might want to expose the API through Apache for production, rather than the built-in Flask server. In this case, you can invoke <code class="docutils literal notranslate"><span class="pre">run_api</span></code> to return two custom objects <code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">api</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">run_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">hookup</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">catch_internal_server</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">api</span><span class="p">)</span> <span class="o">=</span> <span class="n">run_api</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="n">McloudApi</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="o">**</span><span class="n">run_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This snippet of code becomes the fundamental block of a <em>wsgi</em> file used by Apache as documented in  <a class="reference internal" href="../../restapi/index.html#restapi-apache"><span class="std std-ref">How to run the REST API through Apache</span></a>. Moreover, we recommend to consult the documentation of <a class="reference external" href="https://modwsgi.readthedocs.io/mod_wsgi">mod_wsgi</a>.</p>
+<p>Notice that we have set <code class="docutils literal notranslate"><span class="pre">hookup=False</span></code> and <code class="docutils literal notranslate"><span class="pre">catch_internal_server=False</span></code>. It is clear why the app is no longer required to be hooked up, i.e. Apache will do the job for us. The second option, instead, is not mandatory but potentially useful. It lets the exceptions thrown during the execution of the apps propagate all the way through until they reach the logger of Apache. Especially when the app is not entirely stable yet, one would like to read the full python error traceback in the Apache error log.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="caching.html" class="btn btn-neutral float-right" title="Caching: implementation details" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modifying_the_schema.html" class="btn btn-neutral float-left" title="Modifying the schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

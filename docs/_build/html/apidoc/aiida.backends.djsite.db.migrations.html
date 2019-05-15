@@ -1,0 +1,1587 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.djsite.db.migrations package &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>aiida.backends.djsite.db.migrations package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apidoc/aiida.backends.djsite.db.migrations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aiida.backends.djsite.db.migrations">
+<span id="aiida-backends-djsite-db-migrations-package"></span><h1>aiida.backends.djsite.db.migrations package<a class="headerlink" href="#module-aiida.backends.djsite.db.migrations" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="aiida.backends.djsite.db.migrations.DeserializationException">
+<em class="property">exception </em><code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">DeserializationException</code><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#DeserializationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.DeserializationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aiida.common.html#aiida.common.exceptions.AiidaException" title="aiida.common.exceptions.AiidaException"><code class="xref py py-class docutils literal notranslate"><span class="pre">aiida.common.exceptions.AiidaException</span></code></a></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.DeserializationException.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.DeserializationException.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">ModelModifierV0025</code><span class="sig-paren">(</span><em>apps</em>, <em>model_class</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.AIIDA_ATTRIBUTE_SEP">
+<code class="descname">AIIDA_ATTRIBUTE_SEP</code><em class="property"> = '.'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.AIIDA_ATTRIBUTE_SEP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.backends.djsite.db.migrations', 'AIIDA_ATTRIBUTE_SEP': '.', '_subspecifier_field_name': 'dbnode', '_sep': '.', '__init__': &lt;function ModelModifierV0025.__init__&gt;, 'apps': &lt;property object&gt;, 'subspecifiers_dict': &lt;function ModelModifierV0025.subspecifiers_dict&gt;, 'subspecifier_pk': &lt;function ModelModifierV0025.subspecifier_pk&gt;, 'validate_key': &lt;function ModelModifierV0025.validate_key&gt;, 'get_value_for_node': &lt;function ModelModifierV0025.get_value_for_node&gt;, 'getvalue': &lt;function ModelModifierV0025.getvalue&gt;, 'set_value_for_node': &lt;function ModelModifierV0025.set_value_for_node&gt;, 'del_value_for_node': &lt;function ModelModifierV0025.del_value_for_node&gt;, 'del_value': &lt;function ModelModifierV0025.del_value&gt;, 'set_value': &lt;function ModelModifierV0025.set_value&gt;, 'create_value': &lt;function ModelModifierV0025.create_value&gt;, '__dict__': &lt;attribute '__dict__' of 'ModelModifierV0025' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'ModelModifierV0025' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>apps</em>, <em>model_class</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025._sep">
+<code class="descname">_sep</code><em class="property"> = '.'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025._sep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025._subspecifier_field_name">
+<code class="descname">_subspecifier_field_name</code><em class="property"> = 'dbnode'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025._subspecifier_field_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.apps">
+<code class="descname">apps</code><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.apps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.create_value">
+<code class="descname">create_value</code><span class="sig-paren">(</span><em>key</em>, <em>value</em>, <em>subspecifier_value=None</em>, <em>other_attribs={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.create_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.create_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new list of attributes, without storing them, associated
+with the current key/value pair (and to the given subspecifier,
+e.g. the DbNode for DbAttributes and DbExtras).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">No hits are done on the DB, in particular no check is done
+on the existence of the given nodes.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> – a string with the key to create (can contain the
+separator self._sep if this is a sub-attribute: indeed, this
+function calls itself recursively)</li>
+<li><strong>value</strong> – the value to store (a basic data type or a list or a dict)</li>
+<li><strong>subspecifier_value</strong> – must be None if this class has no
+subspecifier set (e.g., the DbSetting class).
+Must be the value of the subspecifier (e.g., the dbnode) for classes
+that define it (e.g. DbAttribute and DbExtra)</li>
+<li><strong>other_attribs</strong> – a dictionary of other parameters, to store
+only on the level-zero attribute (e.g. for description in DbSetting).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">always a list of class instances; it is the user
+responsibility to store such entries (typically with a Django
+bulk_create() call).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value">
+<code class="descname">del_value</code><span class="sig-paren">(</span><em>key</em>, <em>only_children=False</em>, <em>subspecifier_value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.del_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a value associated with the given key (if existing).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">No exceptions are raised if no entry is found.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> – the key to delete. Can contain the separator self._sep if
+you want to delete a subkey.</li>
+<li><strong>only_children</strong> – if True, delete only children and not the
+entry itself.</li>
+<li><strong>subspecifier_value</strong> – must be None if this class has no
+subspecifier set (e.g., the DbSetting class).
+Must be the value of the subspecifier (e.g., the dbnode) for classes
+that define it (e.g. DbAttribute and DbExtra)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value_for_node">
+<code class="descname">del_value_for_node</code><span class="sig-paren">(</span><em>dbnode</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.del_value_for_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.del_value_for_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an attribute from the database for the given dbnode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">no exception is raised if no attribute with the given key is
+found in the DB.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dbnode</strong> – the dbnode for which you want to delete the key.</li>
+<li><strong>key</strong> – the key to delete.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.get_value_for_node">
+<code class="descname">get_value_for_node</code><span class="sig-paren">(</span><em>dbnode</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.get_value_for_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.get_value_for_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an attribute from the database for the given dbnode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value stored in the Db table, correctly converted
+to the right type.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>AttributeError</strong> – if no key is found for the given dbnode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.getvalue">
+<code class="descname">getvalue</code><span class="sig-paren">(</span><em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.getvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.getvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>This can be called on a given row and will get the corresponding value, casting it correctly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>key</em>, <em>value</em>, <em>with_transaction=False</em>, <em>subspecifier_value=None</em>, <em>other_attribs={}</em>, <em>stop_if_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a new value in the DB, possibly associated to the given subspecifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">This method also stored directly in the DB.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> – a string with the key to create (must be a level-0
+attribute, that is it cannot contain the separator cls._sep).</li>
+<li><strong>value</strong> – the value to store (a basic data type or a list or a dict)</li>
+<li><strong>subspecifier_value</strong> – must be None if this class has no
+subspecifier set (e.g., the DbSetting class).
+Must be the value of the subspecifier (e.g., the dbnode) for classes
+that define it (e.g. DbAttribute and DbExtra)</li>
+<li><strong>with_transaction</strong> – True if you want this function to be managed
+with transactions. Set to False if you already have a manual
+management of transactions in the block where you are calling this
+function (useful for speed improvements to avoid recursive
+transactions)</li>
+<li><strong>other_attribs</strong> – a dictionary of other parameters, to store
+only on the level-zero attribute (e.g. for description in DbSetting).</li>
+<li><strong>stop_if_existing</strong> – if True, it will stop with an
+UniquenessError exception if the new entry would violate an
+uniqueness constraint in the DB (same key, or same key+node,
+depending on the specific subclass). Otherwise, it will
+first delete the old value, if existent. The use with True is
+useful if you want to use a given attribute as a “locking” value,
+e.g. to avoid to perform an action twice on the same node.
+Note that, if you are using transactions, you may get the error
+only when the transaction is committed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value_for_node">
+<code class="descname">set_value_for_node</code><span class="sig-paren">(</span><em>dbnode</em>, <em>key</em>, <em>value</em>, <em>with_transaction=False</em>, <em>stop_if_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.set_value_for_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.set_value_for_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the raw-level method that accesses the DB. No checks are done
+to prevent the user from (re)setting a valid key.
+To be used only internally.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body"><p class="first">there may be some error on concurrent write;
+not checked in this unlucky case!</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dbnode</strong> – the dbnode for which the attribute should be stored;
+in an integer is passed, this is used as the PK of the dbnode,
+without any further check (for speed reasons)</li>
+<li><strong>key</strong> – the key of the attribute to store; must be a level-zero
+attribute (i.e., no separators in the key)</li>
+<li><strong>value</strong> – the value of the attribute to store</li>
+<li><strong>with_transaction</strong> – if True (default), do this within a transaction,
+so that nothing gets stored if a subitem cannot be created.
+Otherwise, if this parameter is False, no transaction management
+is performed.</li>
+<li><strong>stop_if_existing</strong> – if True, it will stop with an
+UniquenessError exception if the key already exists
+for the given node. Otherwise, it will
+first delete the old value, if existent. The use with True is
+useful if you want to use a given attribute as a “locking” value,
+e.g. to avoid to perform an action twice on the same node.
+Note that, if you are using transactions, you may get the error
+only when the transaction is committed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – if the key contains the separator symbol used
+internally to unpack dictionaries and lists (defined in cls._sep).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifier_pk">
+<code class="descname">subspecifier_pk</code><span class="sig-paren">(</span><em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.subspecifier_pk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifier_pk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the subspecifier PK in the database (or None, if no
+subspecifier should be used)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifiers_dict">
+<code class="descname">subspecifiers_dict</code><span class="sig-paren">(</span><em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.subspecifiers_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.subspecifiers_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict to narrow down the query to only those matching also the
+subspecifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.backends.djsite.db.migrations.ModelModifierV0025.validate_key">
+<code class="descname">validate_key</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#ModelModifierV0025.validate_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.ModelModifierV0025.validate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the key string to check if it is valid (e.g., if it does not
+contain the separator symbol.).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None if the key is valid</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="aiida.common.html#aiida.common.ValidationError" title="aiida.common.ValidationError"><strong>aiida.common.ValidationError</strong></a> – if the key is not valid</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations._deserialize_attribute">
+<code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">_deserialize_attribute</code><span class="sig-paren">(</span><em>mainitem</em>, <em>subitems</em>, <em>sep</em>, <em>original_class=None</em>, <em>original_pk=None</em>, <em>lesserrors=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#_deserialize_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations._deserialize_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialize a single attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mainitem</strong> – the main item (either the attribute itself for base
+types (None, string, …) or the main item for lists and dicts.
+Must contain the ‘key’ key and also the following keys:
+datatype, tval, fval, ival, bval, dval.
+NOTE that a type check is not performed! tval is expected to be a string,
+dval a date, etc.</li>
+<li><strong>subitems</strong> – must be a dictionary of dictionaries. In the top-level dictionary,
+the key must be the key of the attribute, stripped of all prefixes
+(i.e., if the mainitem has key ‘a.b’ and we pass subitems
+‘a.b.0’, ‘a.b.1’, ‘a.b.1.c’, their keys must be ‘0’, ‘1’, ‘1.c’).
+It must be None if the value is not iterable (int, str,
+float, …).
+It is an empty dictionary if there are no subitems.</li>
+<li><strong>sep</strong> – a string, the separator between subfields (to separate the
+name of a dictionary from the keys it contains, for instance)</li>
+<li><strong>original_class</strong> – if these elements come from a specific subclass
+of DbMultipleValueAttributeBaseClass, pass here the class (note: the class,
+not the instance!). This is used only in case the wrong number of elements
+is found in the raw data, to print a more meaningful message (if the class
+has a dbnode associated to it)</li>
+<li><strong>original_pk</strong> – if the elements come from a specific subclass
+of DbMultipleValueAttributeBaseClass that has a dbnode associated to it,
+pass here the PK integer. This is used only in case the wrong number
+of elements is found in the raw data, to print a more meaningful message</li>
+<li><strong>lesserrors</strong> – If set to True, in some cases where the content of the
+DB is not consistent but data is still recoverable,
+it will just log the message rather than raising
+an exception (e.g. if the number of elements of a dictionary is different
+from the number declared in the ival field).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the deserialized value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DeserializationException" title="aiida.backends.djsite.db.models.DeserializationException"><strong>aiida.backends.djsite.db.models.DeserializationException</strong></a> – if an error occurs</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations._update_schema_version">
+<code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">_update_schema_version</code><span class="sig-paren">(</span><em>version</em>, <em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#_update_schema_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations._update_schema_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.current_schema_version">
+<code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">current_schema_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#current_schema_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.current_schema_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.deserialize_attributes">
+<code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">deserialize_attributes</code><span class="sig-paren">(</span><em>data</em>, <em>sep</em>, <em>original_class=None</em>, <em>original_pk=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#deserialize_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.deserialize_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialize the attributes from the format internally stored in the DB
+to the actual format (dictionaries, lists, integers, …</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> – must be a dictionary of dictionaries. In the top-level dictionary,
+the key must be the key of the attribute. The value must be a dictionary
+with the following keys: datatype, tval, fval, ival, bval, dval. Other
+keys are ignored.
+NOTE that a type check is not performed! tval is expected to be a string,
+dval a date, etc.</li>
+<li><strong>sep</strong> – a string, the separator between subfields (to separate the
+name of a dictionary from the keys it contains, for instance)</li>
+<li><strong>original_class</strong> – if these elements come from a specific subclass
+of DbMultipleValueAttributeBaseClass, pass here the class (note: the class,
+not the instance!). This is used only in case the wrong number of elements
+is found in the raw data, to print a more meaningful message (if the class
+has a dbnode associated to it)</li>
+<li><strong>original_pk</strong> – if the elements come from a specific subclass
+of DbMultipleValueAttributeBaseClass that has a dbnode associated to it,
+pass here the PK integer. This is used only in case the wrong number
+of elements is found in the raw data, to print a more meaningful message</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary, where for each entry the corresponding value is
+returned, deserialized back to lists, dictionaries, etc.
+Example: if <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">=</span> <span class="pre">{'a':</span> <span class="pre">{'datatype':</span> <span class="pre">&quot;list&quot;,</span> <span class="pre">&quot;ival&quot;:</span> <span class="pre">2,</span> <span class="pre">...},</span>
+<span class="pre">'a.0':</span> <span class="pre">{'datatype':</span> <span class="pre">&quot;int&quot;,</span> <span class="pre">&quot;ival&quot;:</span> <span class="pre">2,</span> <span class="pre">...},</span>
+<span class="pre">'a.1':</span> <span class="pre">{'datatype':</span> <span class="pre">&quot;txt&quot;,</span> <span class="pre">&quot;tval&quot;:</span>&#160; <span class="pre">&quot;yy&quot;}]</span></code>,
+it will return <code class="docutils literal notranslate"><span class="pre">{&quot;a&quot;:</span> <span class="pre">[2,</span> <span class="pre">&quot;yy&quot;]}</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.upgrade_schema_version">
+<code class="descclassname">aiida.backends.djsite.db.migrations.</code><code class="descname">upgrade_schema_version</code><span class="sig-paren">(</span><em>up_revision</em>, <em>down_revision</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations.html#upgrade_schema_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.upgrade_schema_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="module-aiida.backends.djsite.db.migrations.0001_initial">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-aiida.backends.djsite.db.migrations.0001_initial" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0001_initial.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0001_initial.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0001_initial.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0001_initial.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0001_initial.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0001_initial'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0001_initial.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0001_initial.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('auth', '0001_initial')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0001_initial.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0001_initial.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;CreateModel  name='DbUser', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('password', &lt;django.db.models.fields.CharField&gt;), ('last_login', &lt;django.db.models.fields.DateTimeField&gt;), ('is_superuser', &lt;django.db.models.fields.BooleanField&gt;), ('email', &lt;django.db.models.fields.EmailField&gt;), ('first_name', &lt;django.db.models.fields.CharField&gt;), ('last_name', &lt;django.db.models.fields.CharField&gt;), ('institution', &lt;django.db.models.fields.CharField&gt;), ('is_staff', &lt;django.db.models.fields.BooleanField&gt;), ('is_active', &lt;django.db.models.fields.BooleanField&gt;), ('date_joined', &lt;django.db.models.fields.DateTimeField&gt;), ('groups', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('user_permissions', &lt;django.db.models.fields.related.ManyToManyField&gt;)], options={'abstract': False}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbAttribute', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('key', &lt;django.db.models.fields.CharField&gt;), ('datatype', &lt;django.db.models.fields.CharField&gt;), ('tval', &lt;django.db.models.fields.TextField&gt;), ('fval', &lt;django.db.models.fields.FloatField&gt;), ('ival', &lt;django.db.models.fields.IntegerField&gt;), ('bval', &lt;django.db.models.fields.NullBooleanField&gt;), ('dval', &lt;django.db.models.fields.DateTimeField&gt;)], options={'abstract': False}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbAuthInfo', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('auth_params', &lt;django.db.models.fields.TextField&gt;), ('metadata', &lt;django.db.models.fields.TextField&gt;), ('enabled', &lt;django.db.models.fields.BooleanField&gt;), ('aiidauser', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbCalcState', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('state', &lt;django.db.models.fields.CharField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbComment', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('uuid', &lt;django.db.models.fields.CharField&gt;), ('ctime', &lt;django.db.models.fields.DateTimeField&gt;), ('mtime', &lt;django.db.models.fields.DateTimeField&gt;), ('content', &lt;django.db.models.fields.TextField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbComputer', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('uuid', &lt;django.db.models.fields.CharField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('hostname', &lt;django.db.models.fields.CharField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;), ('enabled', &lt;django.db.models.fields.BooleanField&gt;), ('transport_type', &lt;django.db.models.fields.CharField&gt;), ('scheduler_type', &lt;django.db.models.fields.CharField&gt;), ('transport_params', &lt;django.db.models.fields.TextField&gt;), ('metadata', &lt;django.db.models.fields.TextField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbExtra', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('key', &lt;django.db.models.fields.CharField&gt;), ('datatype', &lt;django.db.models.fields.CharField&gt;), ('tval', &lt;django.db.models.fields.TextField&gt;), ('fval', &lt;django.db.models.fields.FloatField&gt;), ('ival', &lt;django.db.models.fields.IntegerField&gt;), ('bval', &lt;django.db.models.fields.NullBooleanField&gt;), ('dval', &lt;django.db.models.fields.DateTimeField&gt;)], options={'abstract': False}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbGroup', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('uuid', &lt;django.db.models.fields.CharField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('type', &lt;django.db.models.fields.CharField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbLink', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('label', &lt;django.db.models.fields.CharField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbLock', fields=[('key', &lt;django.db.models.fields.CharField&gt;), ('creation', &lt;django.db.models.fields.DateTimeField&gt;), ('timeout', &lt;django.db.models.fields.IntegerField&gt;), ('owner', &lt;django.db.models.fields.CharField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbLog', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;), ('loggername', &lt;django.db.models.fields.CharField&gt;), ('levelname', &lt;django.db.models.fields.CharField&gt;), ('objname', &lt;django.db.models.fields.CharField&gt;), ('objpk', &lt;django.db.models.fields.IntegerField&gt;), ('message', &lt;django.db.models.fields.TextField&gt;), ('metadata', &lt;django.db.models.fields.TextField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbNode', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('uuid', &lt;django.db.models.fields.CharField&gt;), ('type', &lt;django.db.models.fields.CharField&gt;), ('label', &lt;django.db.models.fields.CharField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;), ('ctime', &lt;django.db.models.fields.DateTimeField&gt;), ('mtime', &lt;django.db.models.fields.DateTimeField&gt;), ('nodeversion', &lt;django.db.models.fields.IntegerField&gt;), ('public', &lt;django.db.models.fields.BooleanField&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbPath', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('depth', &lt;django.db.models.fields.IntegerField&gt;), ('entry_edge_id', &lt;django.db.models.fields.IntegerField&gt;), ('direct_edge_id', &lt;django.db.models.fields.IntegerField&gt;), ('exit_edge_id', &lt;django.db.models.fields.IntegerField&gt;), ('child', &lt;django.db.models.fields.related.ForeignKey&gt;), ('parent', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbSetting', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('key', &lt;django.db.models.fields.CharField&gt;), ('datatype', &lt;django.db.models.fields.CharField&gt;), ('tval', &lt;django.db.models.fields.TextField&gt;), ('fval', &lt;django.db.models.fields.FloatField&gt;), ('ival', &lt;django.db.models.fields.IntegerField&gt;), ('bval', &lt;django.db.models.fields.NullBooleanField&gt;), ('dval', &lt;django.db.models.fields.DateTimeField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;)], options={'abstract': False}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbWorkflow', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('uuid', &lt;django.db.models.fields.CharField&gt;), ('ctime', &lt;django.db.models.fields.DateTimeField&gt;), ('mtime', &lt;django.db.models.fields.DateTimeField&gt;), ('label', &lt;django.db.models.fields.CharField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;), ('nodeversion', &lt;django.db.models.fields.IntegerField&gt;), ('lastsyncedversion', &lt;django.db.models.fields.IntegerField&gt;), ('state', &lt;django.db.models.fields.CharField&gt;), ('report', &lt;django.db.models.fields.TextField&gt;), ('module', &lt;django.db.models.fields.TextField&gt;), ('module_class', &lt;django.db.models.fields.TextField&gt;), ('script_path', &lt;django.db.models.fields.TextField&gt;), ('script_md5', &lt;django.db.models.fields.CharField&gt;), ('user', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbWorkflowData', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;), ('data_type', &lt;django.db.models.fields.CharField&gt;), ('value_type', &lt;django.db.models.fields.CharField&gt;), ('json_value', &lt;django.db.models.fields.TextField&gt;), ('aiida_obj', &lt;django.db.models.fields.related.ForeignKey&gt;), ('parent', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;CreateModel  name='DbWorkflowStep', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;), ('nextcall', &lt;django.db.models.fields.CharField&gt;), ('state', &lt;django.db.models.fields.CharField&gt;), ('calculations', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('parent', &lt;django.db.models.fields.related.ForeignKey&gt;), ('sub_workflows', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('user', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={}, bases=(&lt;class 'django.db.models.base.Model'&gt;,)&gt;, &lt;AlterUniqueTogether  name='dbworkflowstep', unique_together={('parent', 'name')}&gt;, &lt;AlterUniqueTogether  name='dbworkflowdata', unique_together={('parent', 'name', 'data_type')}&gt;, &lt;AlterUniqueTogether  name='dbsetting', unique_together={('key',)}&gt;, &lt;AddField  model_name='dbnode', name='children', field=&lt;django.db.models.fields.related.ManyToManyField&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbnode', name='dbcomputer', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbnode', name='outputs', field=&lt;django.db.models.fields.related.ManyToManyField&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbnode', name='user', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dblink', name='input', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dblink', name='output', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dblink', unique_together={('output', 'label'), ('input', 'output')}&gt;, &lt;AddField  model_name='dbgroup', name='dbnodes', field=&lt;django.db.models.fields.related.ManyToManyField&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbgroup', name='user', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dbgroup', unique_together={('name', 'type')}&gt;, &lt;AddField  model_name='dbextra', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dbextra', unique_together={('dbnode', 'key')}&gt;, &lt;AddField  model_name='dbcomment', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbcomment', name='user', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AddField  model_name='dbcalcstate', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dbcalcstate', unique_together={('dbnode', 'state')}&gt;, &lt;AddField  model_name='dbauthinfo', name='dbcomputer', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dbauthinfo', unique_together={('aiidauser', 'dbcomputer')}&gt;, &lt;AddField  model_name='dbattribute', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dbattribute', unique_together={('dbnode', 'key')}&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.1') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.0')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0001_initial.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0002_db_state_change"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0002_db_state_change.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0002_db_state_change.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0002_db_state_change.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0002_db_state_change.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0002_db_state_change'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0001_initial')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AlterField  model_name='dbcalcstate', name='state', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=True&gt;, &lt;RunPython &lt;function fix_calc_states&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.2') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.1')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0002_db_state_change.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0002_db_state_change.fix_calc_states">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0002_db_state_change.</code><code class="descname">fix_calc_states</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0002_db_state_change.html#fix_calc_states"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0002_db_state_change.fix_calc_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0003_add_link_type"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0003_add_link_type.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0003_add_link_type.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0003_add_link_type.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0003_add_link_type.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0003_add_link_type'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0002_db_state_change')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AddField  model_name='dblink', name='type', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbcalcstate', name='time', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbcomment', name='ctime', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbgroup', name='time', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dblock', name='creation', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dblog', name='time', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbnode', name='ctime', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbuser', name='date_joined', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbworkflow', name='ctime', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbworkflowdata', name='time', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbworkflowstep', name='time', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterUniqueTogether  name='dblink', unique_together=set()&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.3') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.2')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0003_add_link_type.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0004_add_daemon_and_uuid_indices.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0003_add_link_type')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL '\n        CREATE INDEX tval_idx_for_daemon\n        ON db_dbattribute (tval)\n        WHERE (&quot;db_dbattribute&quot;.&quot;tval&quot;\n        IN (\'COMPUTED\', \'WITHSCHEDULER\', \'TOSUBMIT\'))'&gt;, &lt;AlterField  model_name='dbnode', name='uuid', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=True&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.4') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.3')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0004_add_daemon_and_uuid_indices.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0005_add_cmtime_indices"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0005_add_cmtime_indices.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0005_add_cmtime_indices'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0004_add_daemon_and_uuid_indices')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AlterField  model_name='dbnode', name='ctime', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;AlterField  model_name='dbnode', name='mtime', field=&lt;django.db.models.fields.DateTimeField&gt;, preserve_default=True&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.5') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.4')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0005_add_cmtime_indices.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0006_delete_dbpath"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0006_delete_dbpath.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0006_delete_dbpath.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0006_delete_dbpath'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0005_add_cmtime_indices')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RemoveField  model_name='dbpath', name='child'&gt;, &lt;RemoveField  model_name='dbpath', name='parent'&gt;, &lt;RemoveField  model_name='dbnode', name='children'&gt;, &lt;DeleteModel  name='DbPath'&gt;, &lt;RunSQL '\n            DROP TRIGGER IF EXISTS autoupdate_tc ON db_dblink;\n            DROP FUNCTION IF EXISTS update_tc();\n        '&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.6') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.5')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0006_delete_dbpath.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0007_update_linktypes"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0007_update_linktypes.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0007_update_linktypes.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0007_update_linktypes'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0006_delete_dbpath')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL &quot;\n            UPDATE db_dblink set type='createlink' WHERE db_dblink.id IN (\n                SELECT db_dblink_1.id \n                FROM db_dbnode AS db_dbnode_1\n                    JOIN db_dblink AS db_dblink_1 ON db_dblink_1.input_id = db_dbnode_1.id\n                    JOIN db_dbnode AS db_dbnode_2 ON db_dblink_1.output_id = db_dbnode_2.id\n                WHERE db_dbnode_1.type LIKE 'calculation.inline.%'\n                    AND db_dbnode_2.type LIKE 'data.%'\n                    AND db_dblink_1.type = 'returnlink'\n            );\n        &quot;&gt;, &lt;RunSQL &quot;\n             UPDATE db_dblink set type='inputlink' where id in (\n                SELECT db_dblink_1.id\n                FROM db_dbnode AS db_dbnode_1\n                    JOIN db_dblink AS db_dblink_1 ON db_dblink_1.input_id = db_dbnode_1.id\n                    JOIN db_dbnode AS db_dbnode_2 ON db_dblink_1.output_id = db_dbnode_2.id \n                WHERE ( db_dbnode_1.type LIKE 'data.%' or db_dbnode_1.type = 'code.Code.' )\n                    AND db_dbnode_2.type LIKE 'calculation.%'\n                    AND ( db_dblink_1.type = null OR db_dblink_1.type = '')\n            );\n        &quot;&gt;, &lt;RunSQL &quot;\n             UPDATE db_dblink set type='createlink' where id in (\n                SELECT db_dblink_1.id\n                FROM db_dbnode AS db_dbnode_1\n                    JOIN db_dblink AS db_dblink_1 ON db_dblink_1.input_id = db_dbnode_1.id\n                    JOIN db_dbnode AS db_dbnode_2 ON db_dblink_1.output_id = db_dbnode_2.id \n                WHERE db_dbnode_2.type LIKE 'data.%'\n                    AND (\n                        db_dbnode_1.type LIKE 'calculation.job.%'\n                        OR\n                        db_dbnode_1.type = 'calculation.inline.InlineCalculation.'\n                    )\n                    AND ( db_dblink_1.type = null OR db_dblink_1.type = '')\n            );\n        &quot;&gt;, &lt;RunSQL &quot;\n             UPDATE db_dblink set type='returnlink' where id in (\n                SELECT db_dblink_1.id\n                FROM db_dbnode AS db_dbnode_1\n                    JOIN db_dblink AS db_dblink_1 ON db_dblink_1.input_id = db_dbnode_1.id\n                    JOIN db_dbnode AS db_dbnode_2 ON db_dblink_1.output_id = db_dbnode_2.id \n                WHERE db_dbnode_2.type LIKE 'data.%'\n                    AND db_dbnode_1.type = 'calculation.work.WorkCalculation.'\n                    AND ( db_dblink_1.type = null OR db_dblink_1.type = '')\n            );\n        &quot;&gt;, &lt;RunSQL &quot;\n             UPDATE db_dblink set type='calllink' where id in (\n                SELECT db_dblink_1.id\n                FROM db_dbnode AS db_dbnode_1\n                    JOIN db_dblink AS db_dblink_1 ON db_dblink_1.input_id = db_dbnode_1.id\n                    JOIN db_dbnode AS db_dbnode_2 ON db_dblink_1.output_id = db_dbnode_2.id \n                WHERE db_dbnode_1.type = 'calculation.work.WorkCalculation.'\n                    AND db_dbnode_2.type LIKE 'calculation.%'\n                    AND ( db_dblink_1.type = null  OR db_dblink_1.type = '')\n            );\n        &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.8') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.7')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0007_update_linktypes.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0008_code_hidden_to_extra.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0007_update_linktypes')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL &quot;\n            INSERT INTO db_dbextra (key, datatype, tval, fval, ival, bval, dval, dbnode_id) (\n                SELECT db_dbattribute.key, db_dbattribute.datatype, db_dbattribute.tval, db_dbattribute.fval, db_dbattribute.ival, db_dbattribute.bval, db_dbattribute.dval, db_dbattribute.dbnode_id\n                FROM db_dbattribute JOIN db_dbnode ON db_dbnode.id = db_dbattribute.dbnode_id\n                WHERE db_dbattribute.key = 'hidden'\n                    AND db_dbnode.type = 'code.Code.'\n            );\n        &quot;&gt;, &lt;RunSQL &quot;\n            DELETE FROM db_dbattribute\n            WHERE id in (\n                SELECT db_dbattribute.id\n                FROM db_dbattribute \n                JOIN db_dbnode ON db_dbnode.id = db_dbattribute.dbnode_id\n                WHERE db_dbattribute.key = 'hidden' AND db_dbnode.type = 'code.Code.'\n            );\n        &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.8') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.7')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0008_code_hidden_to_extra.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0009_base_data_plugin_type_string.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0008_code_hidden_to_extra')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL &quot;\n            UPDATE db_dbnode SET type = 'data.bool.Bool.' WHERE type = 'data.base.Bool.';\n            UPDATE db_dbnode SET type = 'data.float.Float.' WHERE type = 'data.base.Float.';\n            UPDATE db_dbnode SET type = 'data.int.Int.' WHERE type = 'data.base.Int.';\n            UPDATE db_dbnode SET type = 'data.str.Str.' WHERE type = 'data.base.Str.';\n            UPDATE db_dbnode SET type = 'data.list.List.' WHERE type = 'data.base.List.';\n        &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.9') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.8')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0009_base_data_plugin_type_string.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0010_process_type"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0010_process_type.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0010_process_type.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0010_process_type.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0010_process_type.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0010_process_type.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0010_process_type'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0010_process_type.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0010_process_type.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0009_base_data_plugin_type_string')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0010_process_type.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0010_process_type.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AddField  model_name='dbnode', name='process_type', field=&lt;django.db.models.fields.CharField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.10') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.9')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0010_process_type.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0011_delete_kombu_tables"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0011_delete_kombu_tables.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0011_delete_kombu_tables'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0010_process_type')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL &quot;\n            DROP TABLE IF EXISTS kombu_message;\n            DROP TABLE IF EXISTS kombu_queue;\n            DELETE FROM db_dbsetting WHERE key = 'daemon|user';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_stop|retriever';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_start|retriever';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_stop|updater';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_start|updater';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_stop|submitter';\n            DELETE FROM db_dbsetting WHERE key = 'daemon|task_start|submitter';\n        &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.11') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.10')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0011_delete_kombu_tables.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0012_drop_dblock"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0012_drop_dblock.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0012_drop_dblock.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0012_drop_dblock'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0011_delete_kombu_tables')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;DeleteModel  name='DbLock'&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.12') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.11')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0012_drop_dblock.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0013_django_1_8"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0013_django_1_8.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0013_django_1_8.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0013_django_1_8.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0013_django_1_8.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0013_django_1_8'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0012_drop_dblock')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AlterField  model_name='dbuser', name='last_login', field=&lt;django.db.models.fields.DateTimeField&gt;&gt;, &lt;AlterField  model_name='dbuser', name='email', field=&lt;django.db.models.fields.EmailField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.13') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.12')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0013_django_1_8.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint"></span><p>Add a uniqueness constraint to the uuid column of DbNode table.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0014_add_node_uuid_unique_constraint.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Add a uniqueness constraint to the uuid column of DbNode table.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0013_django_1_8')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function verify_node_uuid_uniqueness&gt; reverse_code=&lt;function reverse_code&gt;&gt;, &lt;AlterField  model_name='dbnode', name='uuid', field=&lt;django.db.models.fields.CharField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.14') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.13')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.reverse_code">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.</code><code class="descname">reverse_code</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0014_add_node_uuid_unique_constraint.html#reverse_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.reverse_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.verify_node_uuid_uniqueness">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.</code><code class="descname">verify_node_uuid_uniqueness</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0014_add_node_uuid_unique_constraint.html#verify_node_uuid_uniqueness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0014_add_node_uuid_unique_constraint.verify_node_uuid_uniqueness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the database contains nodes with duplicate UUIDS.</p>
+<p>Note that we have to redefine this method from aiida.manage.database.integrity.verify_node_uuid_uniqueness
+because the migrations.RunPython command that will invoke this function, will pass two arguments and therefore
+this wrapper needs to have a different function signature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">IntegrityError if database contains nodes with duplicate UUIDS.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0015_invalidating_node_hash"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0015_invalidating_node_hash.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Invalidating node hash - User should rehash nodes for caching</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0015_invalidating_node_hash'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0014_add_node_uuid_unique_constraint')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function notify_user&gt; reverse_code=&lt;function notify_user&gt;&gt;, &lt;RunSQL &quot; DELETE FROM db_dbextra WHERE key='_aiida_hash';&quot; reverse_sql=&quot; DELETE FROM db_dbextra WHERE key='_aiida_hash';&quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.15') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.14')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.notify_user">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.</code><code class="descname">notify_user</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0015_invalidating_node_hash.html#notify_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0015_invalidating_node_hash.notify_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0016_code_sub_class_of_data.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0015_invalidating_node_hash')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;UPDATE db_dbnode SET type = 'data.code.Code.' WHERE type = 'code.Code.';&quot;, reverse_sql=&quot;UPDATE db_dbnode SET type = 'code.Code.' WHERE type = 'data.code.Code.';&quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.16') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.15')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0016_code_sub_class_of_data.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate"></span><dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0017_drop_dbcalcstate.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0016_code_sub_class_of_data')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;DeleteModel  name='DbCalcState'&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.17') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.16')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0017_drop_dbcalcstate.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0018_django_1_11"></span><p>Migration for upgrade to django 1.11</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0018_django_1_11.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0018_django_1_11.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration for upgrade to django 1.11</p>
+<p>This migration switches from the django_extensions UUID field to the
+native UUIDField of django 1.11</p>
+<p>It also introduces unique constraints on all uuid columns
+(previously existed only on dbnode).</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0018_django_1_11'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0017_drop_dbcalcstate')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function _verify_uuid_uniqueness&gt; reverse_code=&lt;function reverse_code&gt;&gt;, &lt;AlterField  model_name='dbcomment', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;AlterField  model_name='dbcomputer', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;AlterField  model_name='dbgroup', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;AlterField  model_name='dbnode', name='uuid', field=&lt;django.db.models.fields.CharField&gt;&gt;, &lt;AlterField  model_name='dbnode', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;AlterField  model_name='dbuser', name='email', field=&lt;django.db.models.fields.EmailField&gt;&gt;, &lt;AlterField  model_name='dbuser', name='groups', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='dbworkflow', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.18') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.17')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11._verify_uuid_uniqueness">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0018_django_1_11.</code><code class="descname">_verify_uuid_uniqueness</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0018_django_1_11.html#_verify_uuid_uniqueness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11._verify_uuid_uniqueness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the respective tables contain rows with duplicate UUIDS.</p>
+<p>Note that we have to redefine this method from aiida.manage.database.integrity
+because the migrations.RunPython command that will invoke this function, will pass two arguments and therefore
+this wrapper needs to have a different function signature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">IntegrityError if database contains rows with duplicate UUIDS.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0018_django_1_11.reverse_code">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0018_django_1_11.</code><code class="descname">reverse_code</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0018_django_1_11.html#reverse_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0018_django_1_11.reverse_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations"></span><p>Migration to reflect the name change of the built in calculation entry points in the database.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0019_migrate_builtin_calculations.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration to remove entry point groups from process type strings and prefix unknown types with a marker.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0018_django_1_11')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;\n            UPDATE db_dbnode SET type = 'calculation.job.arithmetic.add.ArithmeticAddCalculation.'\n            WHERE type = 'calculation.job.simpleplugins.arithmetic.add.ArithmeticAddCalculation.';\n\n            UPDATE db_dbnode SET type = 'calculation.job.templatereplacer.TemplatereplacerCalculation.'\n            WHERE type = 'calculation.job.simpleplugins.templatereplacer.TemplatereplacerCalculation.';\n\n            UPDATE db_dbnode SET process_type = 'aiida.calculations:arithmetic.add'\n            WHERE process_type = 'aiida.calculations:simpleplugins.arithmetic.add';\n\n            UPDATE db_dbnode SET process_type = 'aiida.calculations:templatereplacer'\n            WHERE process_type = 'aiida.calculations:simpleplugins.templatereplacer';\n\n            UPDATE db_dbattribute AS a SET tval = 'arithmetic.add'\n            FROM db_dbnode AS n WHERE a.dbnode_id = n.id\n                AND a.key = 'input_plugin'\n                AND a.tval = 'simpleplugins.arithmetic.add'\n                AND n.type = 'data.code.Code.';\n\n            UPDATE db_dbattribute AS a SET tval = 'templatereplacer'\n            FROM db_dbnode AS n WHERE a.dbnode_id = n.id\n                AND a.key = 'input_plugin'\n                AND a.tval = 'simpleplugins.templatereplacer'\n                AND n.type = 'data.code.Code.';\n            &quot;, reverse_sql=&quot;\n            UPDATE db_dbnode SET type = 'calculation.job.simpleplugins.arithmetic.add.ArithmeticAddCalculation.'\n            WHERE type = 'calculation.job.arithmetic.add.ArithmeticAddCalculation.';\n\n            UPDATE db_dbnode SET type = 'calculation.job.simpleplugins.templatereplacer.TemplatereplacerCalculation.'\n            WHERE type = 'calculation.job.templatereplacer.TemplatereplacerCalculation.';\n\n            UPDATE db_dbnode SET process_type = 'aiida.calculations:simpleplugins.arithmetic.add'\n            WHERE process_type = 'aiida.calculations:arithmetic.add';\n\n            UPDATE db_dbnode SET process_type = 'aiida.calculations:simpleplugins.templatereplacer'\n            WHERE process_type = 'aiida.calculations:templatereplacer';\n\n            UPDATE db_dbattribute AS a SET tval = 'simpleplugins.arithmetic.add'\n            FROM db_dbnode AS n WHERE a.dbnode_id = n.id\n                AND a.key = 'input_plugin'\n                AND a.tval = 'arithmetic.add'\n                AND n.type = 'data.code.Code.';\n\n            UPDATE db_dbattribute AS a SET tval = 'simpleplugins.templatereplacer'\n            FROM db_dbnode AS n WHERE a.dbnode_id = n.id\n                AND a.key = 'input_plugin'\n                AND a.tval = 'templatereplacer'\n                AND n.type = 'data.code.Code.';\n            &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.19') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.18')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0019_migrate_builtin_calculations.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0020_provenance_redesign"></span><p>Migration after the provenance redesign</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0020_provenance_redesign.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0020_provenance_redesign.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration to effectuate changes introduced by the provenance redesign</p>
+<p>This includes in order:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Rename the type column of process nodes</li>
+<li>Remove illegal links</li>
+<li>Rename link types</li>
+</ul>
+</div></blockquote>
+<p>The exact reverse operation is not possible because the renaming of the type string of <cite>JobCalculation</cite> nodes is
+done in a lossy way. Originally this type string contained the exact sub class of the <cite>JobCalculation</cite> but in the
+migration this is changed to always be <cite>node.process.calculation.calcjob.CalcJobNode.</cite>. In the reverse operation,
+this can then only be reset to <cite>calculation.job.JobCalculation.</cite> but the information on the exact sub class is lost.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0020_provenance_redesign'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0019_migrate_builtin_calculations')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function migrate_infer_calculation_entry_point&gt; reverse_code=&lt;function reverse_code&gt;, atomic=True&gt;, &lt;RunPython &lt;function detect_unexpected_links&gt; reverse_code=&lt;function reverse_code&gt;, atomic=True&gt;, &lt;RunSQL &quot;\n            DELETE FROM db_dblink WHERE db_dblink.id IN (\n                SELECT db_dblink.id FROM db_dblink\n                INNER JOIN db_dbnode ON db_dblink.input_id = db_dbnode.id\n                WHERE\n                    (db_dbnode.type LIKE 'calculation.job%' OR db_dbnode.type LIKE 'calculation.inline%')\n                    AND db_dblink.type = 'returnlink'\n            ); -- Delete all outgoing RETURN links from JobCalculation and InlineCalculation nodes\n\n            DELETE FROM db_dblink WHERE db_dblink.id IN (\n                SELECT db_dblink.id FROM db_dblink\n                INNER JOIN db_dbnode ON db_dblink.input_id = db_dbnode.id\n                WHERE\n                    (db_dbnode.type LIKE 'calculation.job%' OR db_dbnode.type LIKE 'calculation.inline%')\n                    AND db_dblink.type = 'calllink'\n            ); -- Delete all outgoing CALL links from JobCalculation and InlineCalculation nodes\n\n            DELETE FROM db_dblink WHERE db_dblink.id IN (\n                SELECT db_dblink.id FROM db_dblink\n                INNER JOIN db_dbnode ON db_dblink.input_id = db_dbnode.id\n                WHERE\n                    (db_dbnode.type LIKE 'calculation.function%' OR db_dbnode.type LIKE 'calculation.work%')\n                    AND db_dblink.type = 'createlink'\n            ); -- Delete all outgoing CREATE links from FunctionCalculation and WorkCalculation nodes\n\n            UPDATE db_dbnode SET type = 'calculation.work.WorkCalculation.'\n            WHERE type = 'calculation.process.ProcessCalculation.';\n             -- First migrate very old `ProcessCalculation` to `WorkCalculation`\n\n            UPDATE db_dbnode SET type = 'node.process.workflow.workfunction.WorkFunctionNode.' FROM db_dbattribute\n            WHERE db_dbattribute.dbnode_id = db_dbnode.id\n                AND type = 'calculation.work.WorkCalculation.'\n                AND db_dbattribute.key = 'function_name';\n             -- WorkCalculations that have a `function_name` attribute are FunctionCalculations\n\n            UPDATE db_dbnode SET type = 'node.process.workflow.workchain.WorkChainNode.'\n            WHERE type = 'calculation.work.WorkCalculation.';\n             -- Update type for `WorkCalculation` nodes - all what is left should be `WorkChainNodes`\n\n            UPDATE db_dbnode SET type = 'node.process.calculation.calcjob.CalcJobNode.'\n            WHERE type LIKE 'calculation.job.%'; -- Update type for JobCalculation nodes\n\n            UPDATE db_dbnode SET type = 'node.process.calculation.calcfunction.CalcFunctionNode.'\n            WHERE type = 'calculation.inline.InlineCalculation.'; -- Update type for InlineCalculation nodes\n\n            UPDATE db_dbnode SET type = 'node.process.workflow.workfunction.WorkFunctionNode.'\n            WHERE type = 'calculation.function.FunctionCalculation.'; -- Update type for FunctionCalculation nodes\n\n            UPDATE db_dblink SET type = 'create' WHERE type = 'createlink'; -- Rename `createlink` to `create`\n            UPDATE db_dblink SET type = 'return' WHERE type = 'returnlink'; -- Rename `returnlink` to `return`\n\n            UPDATE db_dblink SET type = 'input_calc' FROM db_dbnode\n            WHERE db_dblink.output_id = db_dbnode.id AND db_dbnode.type LIKE 'node.process.calculation%'\n            AND db_dblink.type = 'inputlink';\n             -- Rename `inputlink` to `input_calc` if the target node is a calculation type node\n\n            UPDATE db_dblink SET type = 'input_work' FROM db_dbnode\n            WHERE db_dblink.output_id = db_dbnode.id AND db_dbnode.type LIKE 'node.process.workflow%'\n            AND db_dblink.type = 'inputlink';\n             -- Rename `inputlink` to `input_work` if the target node is a workflow type node\n\n            UPDATE db_dblink SET type = 'call_calc' FROM db_dbnode\n            WHERE db_dblink.output_id = db_dbnode.id AND db_dbnode.type LIKE 'node.process.calculation%'\n            AND db_dblink.type = 'calllink';\n             -- Rename `calllink` to `call_calc` if the target node is a calculation type node\n\n            UPDATE db_dblink SET type = 'call_work' FROM db_dbnode\n            WHERE db_dblink.output_id = db_dbnode.id AND db_dbnode.type LIKE 'node.process.workflow%'\n            AND db_dblink.type = 'calllink';\n             -- Rename `calllink` to `call_work` if the target node is a workflow type node\n\n            &quot; reverse_sql=&quot;\n            UPDATE db_dbnode SET type = 'calculation.job.JobCalculation.'\n            WHERE type = 'node.process.calculation.calcjob.CalcJobNode.';\n\n            UPDATE db_dbnode SET type = 'calculatison.inline.InlineCalculation.'\n            WHERE type = 'node.process.calculation.calcfunction.CalcFunctionNode.';\n\n            UPDATE db_dbnode SET type = 'calculation.function.FunctionCalculation.'\n            WHERE type = 'node.process.workflow.workfunction.WorkFunctionNode.';\n\n            UPDATE db_dbnode SET type = 'calculation.work.WorkCalculation.'\n            WHERE type = 'node.process.workflow.workchain.WorkChainNode.';\n\n\n            UPDATE db_dblink SET type = 'inputlink'\n            WHERE type = 'input_call' OR type = 'input_work';\n\n            UPDATE db_dblink SET type = 'calllink'\n            WHERE type = 'call_call' OR type = 'call_work';\n\n            UPDATE db_dblink SET type = 'createlink'\n            WHERE type = 'create';\n\n            UPDATE db_dblink SET type = 'returnlink'\n            WHERE type = 'return';\n\n            &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.20') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.19')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.detect_unexpected_links">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0020_provenance_redesign.</code><code class="descname">detect_unexpected_links</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0020_provenance_redesign.html#detect_unexpected_links"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.detect_unexpected_links" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan the database for any links that are unexpected.</p>
+<p>The checks will verify that there are no outgoing <cite>call</cite> or <cite>return</cite> links from calculation nodes and that if a
+workflow node has a <cite>create</cite> link, it has at least an accompanying return link to the same data node, or it has a
+<cite>call</cite> link to a calculation node that takes the created data node as input.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.migrate_infer_calculation_entry_point">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0020_provenance_redesign.</code><code class="descname">migrate_infer_calculation_entry_point</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0020_provenance_redesign.html#migrate_infer_calculation_entry_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.migrate_infer_calculation_entry_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the process type for calculation nodes by inferring it from their type string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0020_provenance_redesign.reverse_code">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0020_provenance_redesign.</code><code class="descname">reverse_code</code><span class="sig-paren">(</span><em>apps</em>, <em>schema_editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0020_provenance_redesign.html#reverse_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0020_provenance_redesign.reverse_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reversing the inference of the process type is not possible and not necessary.</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string"></span><p>Migration that renames name and type columns to label and type_string</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0021_dbgroup_name_to_label_type_to_type_string.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration that renames name and type columns to label and type_string</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0020_provenance_redesign')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RenameField  model_name='dbgroup', old_name='name', new_name='label'&gt;, &lt;RenameField  model_name='dbgroup', old_name='type', new_name='type_string'&gt;, &lt;AlterUniqueTogether  name='dbgroup', unique_together={('label', 'type_string')}&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.21') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.20')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0021_dbgroup_name_to_label_type_to_type_string.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content"></span><p>Migration after the update of group_types</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0022_dbgroup_type_string_change_content.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration after the update of group_types</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0021_dbgroup_name_to_label_type_to_type_string')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;UPDATE db_dbgroup SET type_string = 'user' WHERE type_string = '';\nUPDATE db_dbgroup SET type_string = 'data.upf' WHERE type_string = 'data.upf.family';\nUPDATE db_dbgroup SET type_string = 'auto.import' WHERE type_string = 'aiida.import';\nUPDATE db_dbgroup SET type_string = 'auto.run' WHERE type_string = 'autogroup.run';&quot;, reverse_sql=&quot;UPDATE db_dbgroup SET type_string = '' WHERE type_string = 'user';\nUPDATE db_dbgroup SET type_string = 'data.upf.family' WHERE type_string = 'data.upf';\nUPDATE db_dbgroup SET type_string = 'aiida.import' WHERE type_string = 'auto.import';\nUPDATE db_dbgroup SET type_string = 'autogroup.run' WHERE type_string = 'auto.run';&quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.22') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.21')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0022_dbgroup_type_string_change_content.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys"></span><p>Migration of ProcessNode attributes for metadata options whose key changed.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0023_calc_job_option_attribute_keys.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Migration of ProcessNode attributes for metadata options whose key changed.</p>
+<p>Renamed attribute keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>custom_environment_variables</cite> -&gt; <cite>environment_variables</cite> (CalcJobNode)</li>
+<li><cite>jobresource_params</cite> -&gt; <cite>resources</cite> (CalcJobNode)</li>
+<li><cite>_process_label</cite> -&gt; <cite>process_label</cite> (ProcessNode)</li>
+<li><cite>parser</cite> -&gt; <cite>parser_name</cite> (CalcJobNode)</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Deleted attributes:</dt>
+<dd><ul class="first last simple">
+<li><cite>linkname_retrieved</cite> (We do not actually delete it just in case some relies on it)</li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0022_dbgroup_type_string_change_content')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^custom_environment_variables', 'environment_variables')\n            FROM db_dbnode AS node\n            WHERE\n                (\n                    attribute.key = 'custom_environment_variables' OR\n                    attribute.key LIKE 'custom\\_environment\\_variables.%'\n                ) AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- custom_environment_variables -&gt; environment_variables\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^jobresource_params', 'resources')\n            FROM db_dbnode AS node\n            WHERE\n                (\n                    attribute.key = 'jobresource_params' OR\n                    attribute.key LIKE 'jobresource\\_params.%'\n                ) AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- jobresource_params -&gt; resources\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^_process_label', 'process_label')\n            FROM db_dbnode AS node\n            WHERE\n                attribute.key = '_process_label' AND\n                node.type LIKE 'node.process.%' AND\n                node.id = attribute.dbnode_id;\n            -- _process_label -&gt; process_label\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^parser', 'parser_name')\n            FROM db_dbnode AS node\n            WHERE\n                attribute.key = 'parser' AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- parser -&gt; parser_name\n            &quot;, reverse_sql=&quot;\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^environment_variables', 'custom_environment_variables')\n            FROM db_dbnode AS node\n            WHERE\n                (\n                    attribute.key = 'environment_variables' OR\n                    attribute.key LIKE 'environment\\_variables.%'\n                ) AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- environment_variables -&gt; custom_environment_variables\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^resources', 'jobresource_params')\n            FROM db_dbnode AS node\n            WHERE\n                (\n                    attribute.key = 'resources' OR\n                    attribute.key LIKE 'resources.%'\n                ) AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- resources -&gt; jobresource_params\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^process_label', '_process_label')\n            FROM db_dbnode AS node\n            WHERE\n                attribute.key = 'process_label' AND\n                node.type LIKE 'node.process.%' AND\n                node.id = attribute.dbnode_id;\n            -- process_label -&gt; _process_label\n\n            UPDATE db_dbattribute AS attribute\n            SET key =  regexp_replace(attribute.key, '^parser_name', 'parser')\n            FROM db_dbnode AS node\n            WHERE\n                attribute.key = 'parser_name' AND\n                node.type = 'node.process.calculation.calcjob.CalcJobNode.' AND\n                node.id = attribute.dbnode_id;\n            -- parser_name -&gt; parser\n            &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.23') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.22')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0023_calc_job_option_attribute_keys.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0024_dblog_update"></span><p>Migration for the update of the DbLog table. Addition of uuids</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>This migration updates the DbLog schema and adds UUID for correct export of the DbLog entries.
+More specifically, it adds UUIDS, it exports to files the not needed log entries (that correspond
+to legacy workflows and unknown entities), it creates a foreign key to the dbnode table, it
+transfers there the objpk data to the new dbnode column (just altering the objpk column and making
+it a foreign key when containing data, raised problems) and in the end objpk and objname columns
+are removed.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0024_dblog_update'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0023_calc_job_option_attribute_keys')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function export_and_clean_workflow_logs&gt; reverse_code=&lt;function RunPython.noop&gt;&gt;, &lt;RunPython &lt;function clean_dblog_metadata&gt; reverse_code=&lt;function enrich_dblog_metadata&gt;&gt;, &lt;RunSQL '' reverse_sql='UPDATE db_dblog SET objname=db_dbnode.type FROM db_dbnode WHERE db_dbnode.id = db_dblog.objpk'&gt;, &lt;RemoveField  model_name='dblog', name='objname'&gt;, &lt;AddField  model_name='dblog', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;RunSQL 'UPDATE db_dblog SET dbnode_id=objpk' reverse_sql='UPDATE db_dblog SET objpk=dbnode_id'&gt;, &lt;AlterField  model_name='dblog', name='dbnode', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;RemoveField  model_name='dblog', name='objpk'&gt;, &lt;AddField  model_name='dblog', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;RunPython &lt;function set_new_uuid&gt; reverse_code=&lt;function RunPython.noop&gt;&gt;, &lt;AlterField  model_name='dblog', name='uuid', field=&lt;django.db.models.fields.UUIDField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.24') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.23')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.clean_dblog_metadata">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">clean_dblog_metadata</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#clean_dblog_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.clean_dblog_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove objpk and objname from the DbLog table metadata.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.enrich_dblog_metadata">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">enrich_dblog_metadata</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#enrich_dblog_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.enrich_dblog_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add objpk and objname to the DbLog table metadata.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.export_and_clean_workflow_logs">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">export_and_clean_workflow_logs</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#export_and_clean_workflow_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.export_and_clean_workflow_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export the logs records that correspond to legacy workflows and to unknown entities.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_legacy_workflow_log_number">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_legacy_workflow_log_number</code><span class="sig-paren">(</span><em>dblog_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_legacy_workflow_log_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_legacy_workflow_log_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of the log records that correspond to legacy workflows</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_logs_with_no_nodes_number">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_logs_with_no_nodes_number</code><span class="sig-paren">(</span><em>dblog_model</em>, <em>dbnode_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_logs_with_no_nodes_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_logs_with_no_nodes_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of the log records that don’t correspond to a node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_legacy_workflow_logs">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_serialized_legacy_workflow_logs</code><span class="sig-paren">(</span><em>dblog_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_serialized_legacy_workflow_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_legacy_workflow_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the serialized log records that correspond to legacy workflows</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_logs_with_no_nodes">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_serialized_logs_with_no_nodes</code><span class="sig-paren">(</span><em>dblog_model</em>, <em>dbnode_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_serialized_logs_with_no_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_logs_with_no_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the serialized log records that don’t correspond to a node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_unknown_entity_logs">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_serialized_unknown_entity_logs</code><span class="sig-paren">(</span><em>dblog_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_serialized_unknown_entity_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_serialized_unknown_entity_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the serialized log records that correspond to unknown entities</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.get_unknown_entity_log_number">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">get_unknown_entity_log_number</code><span class="sig-paren">(</span><em>dblog_model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#get_unknown_entity_log_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.get_unknown_entity_log_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of the log records that correspond to unknown entities</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0024_dblog_update.set_new_uuid">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0024_dblog_update.</code><code class="descname">set_new_uuid</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0024_dblog_update.html#set_new_uuid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0024_dblog_update.set_new_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set new UUIDs for all logs</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0025_move_data_within_node_module"></span><p>Data migration for <cite>Data</cite> nodes after it was moved in the <cite>aiida.orm.node</cite> module changing the type string.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0025_move_data_within_node_module.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Data migration for <cite>Data</cite> nodes after it was moved in the <cite>aiida.orm.node</cite> module changing the type string.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0025_move_data_within_node_module'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0024_dblog_update')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^data.', 'node.data.')\n                WHERE type LIKE 'data.%'\n                &quot;, reverse_sql=&quot;\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^node.data.', 'data.')\n                WHERE type LIKE 'node.data.%'\n                &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.25') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.24')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0025_move_data_within_node_module.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute"></span><p>Data migration for <cite>TrajectoryData</cite> nodes where symbol lists are moved from repository array to attribute.</p>
+<p>This process has to be done in two separate consecutive migrations to prevent data loss in between.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0026_trajectory_symbols_to_attribute.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Storing symbols in TrajectoryData nodes as attributes, while keeping numpy arrays.
+TrajectoryData symbols arrays are deleted in the next migration.
+We split the migration into two because every migration is wrapped in an atomic transaction and we want to avoid
+to delete the data while it is written in the database</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0025_move_data_within_node_module')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function create_trajectory_symbols_attribute&gt; reverse_code=&lt;function delete_trajectory_symbols_attribute&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.26') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.25')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.create_trajectory_symbols_attribute">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.</code><code class="descname">create_trajectory_symbols_attribute</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0026_trajectory_symbols_to_attribute.html#create_trajectory_symbols_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.create_trajectory_symbols_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the symbols attribute from the repository array for all <cite>TrajectoryData</cite> nodes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.delete_trajectory_symbols_attribute">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.</code><code class="descname">delete_trajectory_symbols_attribute</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0026_trajectory_symbols_to_attribute.html#delete_trajectory_symbols_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0026_trajectory_symbols_to_attribute.delete_trajectory_symbols_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the symbols attribute for all <cite>TrajectoryData</cite> nodes.</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array"></span><p>Data migration for <cite>TrajectoryData</cite> nodes where symbol lists are moved from repository array to attribute.</p>
+<p>This process has to be done in two separate consecutive migrations to prevent data loss in between.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0027_delete_trajectory_symbols_array.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Deleting duplicated information stored in TrajectoryData symbols numpy arrays</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0026_trajectory_symbols_to_attribute')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function delete_trajectory_symbols_array&gt; reverse_code=&lt;function create_trajectory_symbols_array&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.27') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.26')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.create_trajectory_symbols_array">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.</code><code class="descname">create_trajectory_symbols_array</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0027_delete_trajectory_symbols_array.html#create_trajectory_symbols_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.create_trajectory_symbols_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the symbols array for all <cite>TrajectoryData</cite> nodes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.delete_trajectory_symbols_array">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.</code><code class="descname">delete_trajectory_symbols_array</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0027_delete_trajectory_symbols_array.html#delete_trajectory_symbols_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0027_delete_trajectory_symbols_array.delete_trajectory_symbols_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the symbols array from all <cite>TrajectoryData</cite> nodes.</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0028_remove_node_prefix"></span><p>Final data migration for <cite>Nodes</cite> after <cite>aiida.orm.nodes</cite> reorganization was finalized to remove the <cite>node.</cite> prefix</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0028_remove_node_prefix.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0028_remove_node_prefix.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Now all node sub classes live in <cite>aiida.orm.nodes</cite> so now the <cite>node.</cite> prefix can be removed.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0028_remove_node_prefix'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0027_delete_trajectory_symbols_array')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^node.data.', 'data.')\n                WHERE type LIKE 'node.data.%';\n\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^node.process.', 'process.')\n                WHERE type LIKE 'node.process.%';\n                &quot;, reverse_sql=&quot;\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^data.', 'node.data.')\n                WHERE type LIKE 'data.%';\n\n                UPDATE db_dbnode\n                SET type = regexp_replace(type, '^process.', 'node.process.')\n                WHERE type LIKE 'process.%';\n                &quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.28') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.27')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0028_remove_node_prefix.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict"></span><p>Data migration for after <cite>ParameterData</cite> was renamed to <cite>Dict</cite>.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0029_rename_parameter_data_to_dict.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Data migration for after <cite>ParameterData</cite> was renamed to <cite>Dict</cite>.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0028_remove_node_prefix')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunSQL  sql=&quot;UPDATE db_dbnode SET type = 'data.dict.Dict.' WHERE type = 'data.parameter.ParameterData.';&quot;, reverse_sql=&quot;UPDATE db_dbnode SET type = 'data.parameter.ParameterData.' WHERE type = 'data.dict.Dict.';&quot;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.29') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.28')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0029_rename_parameter_data_to_dict.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type"></span><p>Renaming <cite>DbNode.type</cite> to <cite>DbNode.node_type</cite></p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0030_dbnode_type_to_dbnode_node_type.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Renaming <cite>DbNode.type</cite> to <cite>DbNode.node_type</cite></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0029_rename_parameter_data_to_dict')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RenameField  model_name='dbnode', old_name='type', new_name='node_type'&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.30') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.29')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0030_dbnode_type_to_dbnode_node_type.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled"></span><p>Remove <cite>DbComputer.enabled</cite></p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0031_remove_dbcomputer_enabled.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Remove <cite>DbComputer.enabled</cite></p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0030_dbnode_type_to_dbnode_node_type')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RemoveField  model_name='dbcomputer', name='enabled'&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.31') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.30')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0031_remove_dbcomputer_enabled.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows"></span><p>Remove legacy workflow.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0032_remove_legacy_workflows.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Remove legacy workflow.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0031_remove_dbcomputer_enabled')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RunPython &lt;function export_workflow_data&gt; reverse_code=&lt;function RunPython.noop&gt;&gt;, &lt;RemoveField  model_name='dbworkflow', name='user'&gt;, &lt;AlterUniqueTogether  name='dbworkflowdata', unique_together=set()&gt;, &lt;RemoveField  model_name='dbworkflowdata', name='aiida_obj'&gt;, &lt;RemoveField  model_name='dbworkflowdata', name='parent'&gt;, &lt;AlterUniqueTogether  name='dbworkflowstep', unique_together=set()&gt;, &lt;RemoveField  model_name='dbworkflowstep', name='calculations'&gt;, &lt;RemoveField  model_name='dbworkflowstep', name='parent'&gt;, &lt;RemoveField  model_name='dbworkflowstep', name='sub_workflows'&gt;, &lt;RemoveField  model_name='dbworkflowstep', name='user'&gt;, &lt;DeleteModel  name='DbWorkflow'&gt;, &lt;DeleteModel  name='DbWorkflowData'&gt;, &lt;DeleteModel  name='DbWorkflowStep'&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.32') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.31')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.export_workflow_data">
+<code class="descclassname">aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.</code><code class="descname">export_workflow_data</code><span class="sig-paren">(</span><em>apps</em>, <em>_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0032_remove_legacy_workflows.html#export_workflow_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0032_remove_legacy_workflows.export_workflow_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export existing legacy workflow data to a JSON file.</p>
+</dd></dl>
+
+<span class="target" id="module-aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field"></span><p>Replace use of text fields to store JSON data with builtin JSONField.</p>
+<dl class="class">
+<dt id="aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration">
+<em class="property">class </em><code class="descclassname">aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/backends/djsite/db/migrations/0033_replace_text_field_with_json_field.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<p>Replace use of text fields to store JSON data with builtin JSONField.</p>
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field'</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('db', '0032_remove_legacy_workflows')]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AlterField  model_name='dbauthinfo', name='auth_params', field=&lt;django.contrib.postgres.fields.jsonb.JSONField&gt;&gt;, &lt;AlterField  model_name='dbauthinfo', name='metadata', field=&lt;django.contrib.postgres.fields.jsonb.JSONField&gt;&gt;, &lt;AlterField  model_name='dbcomputer', name='metadata', field=&lt;django.contrib.postgres.fields.jsonb.JSONField&gt;&gt;, &lt;AlterField  model_name='dbcomputer', name='transport_params', field=&lt;django.contrib.postgres.fields.jsonb.JSONField&gt;&gt;, &lt;AlterField  model_name='dblog', name='metadata', field=&lt;django.contrib.postgres.fields.jsonb.JSONField&gt;&gt;, &lt;RunPython functools.partial(&lt;function _update_schema_version&gt;, '1.0.33') reverse_code=functools.partial(&lt;function _update_schema_version&gt;, '1.0.32')&gt;]</em><a class="headerlink" href="#aiida.backends.djsite.db.migrations.0033_replace_text_field_with_json_field.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

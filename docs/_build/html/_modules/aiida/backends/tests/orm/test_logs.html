@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.orm.test_logs &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.orm.test_logs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.orm.test_logs</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;ORM Log tests&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">aiida.common.log</span> <span class="k">import</span> <span class="n">LOG_LEVEL_REPORT</span>
+<span class="kn">from</span> <span class="nn">aiida.common.timezone</span> <span class="k">import</span> <span class="n">now</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Data</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Log</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">CalculationNode</span>
+
+
+<div class="viewcode-block" id="TestBackendLog"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog">[docs]</a><span class="k">class</span> <span class="nc">TestBackendLog</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test the Log entity&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestBackendLog.setUp"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestBackendLog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">now</span><span class="p">(),</span>
+            <span class="s1">&#39;loggername&#39;</span><span class="p">:</span> <span class="s1">&#39;loggername&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;levelname&#39;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span>
+            <span class="s1">&#39;dbnode_id&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;This is a template record message&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span>
+            <span class="p">},</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.tearDown"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete all the created log entries</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestBackendLog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+        <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">delete_many</span><span class="p">({})</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.create_log"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.create_log">[docs]</a>    <span class="k">def</span> <span class="nf">create_log</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span>
+        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">Log</span><span class="p">(</span><span class="o">**</span><span class="n">record</span><span class="p">),</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_create_log_message"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_create_log_message">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_log_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the manual creation of a log entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">entry</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">loggername</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;loggername&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">levelname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;levelname&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_create_log_unserializable_metadata"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_create_log_unserializable_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_log_unserializable_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that unserializable data will be removed before reaching the database causing an error.&quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">functools</span>
+
+        <span class="k">def</span> <span class="nf">unbound_method</span><span class="p">(</span><span class="n">argument</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">argument</span>
+
+        <span class="n">partial</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">unbound_method</span><span class="p">,</span> <span class="s1">&#39;argument&#39;</span><span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># An unbound method in the `args` of the metadata</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;problem occurred in method </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">unbound_method</span><span class="p">)</span>
+
+        <span class="c1"># A partial in the `args` of the metadata</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;problem occurred in partial </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">partial</span><span class="p">)</span>
+
+        <span class="c1"># An exception which will include an `exc_info` object</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;caught an exception&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">3</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_log_delete_single"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_log_delete_single">[docs]</a>    <span class="k">def</span> <span class="nf">test_log_delete_single</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that a single log entry can be deleted through the collection.&quot;&quot;&quot;</span>
+        <span class="n">entry</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+        <span class="n">log_id</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Deleting the entry</span>
+        <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">log_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Deleting a non-existing entry should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">log_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_delete_many"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_delete_many">[docs]</a>    <span class="k">def</span> <span class="nf">test_delete_many</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test deleting all log entries</span>
+<span class="sd">        Bit superfluous, given that other tests most likely would fail</span>
+<span class="sd">        anyway if this method does not work properly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">delete_many</span><span class="p">({})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_objects_find"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_objects_find">[docs]</a>    <span class="k">def</span> <span class="nf">test_objects_find</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put logs in and find them&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span>
+            <span class="n">record</span><span class="p">[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">Log</span><span class="p">(</span><span class="o">**</span><span class="n">record</span><span class="p">)</span>
+
+        <span class="n">entries</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Log</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_find_orderby"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_find_orderby">[docs]</a>    <span class="k">def</span> <span class="nf">test_find_orderby</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the order_by option of log.find</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.logs</span> <span class="k">import</span> <span class="n">OrderSpecifier</span><span class="p">,</span> <span class="n">ASCENDING</span><span class="p">,</span> <span class="n">DESCENDING</span>
+
+        <span class="n">node_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+            <span class="n">node_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">node_ids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="n">order_by</span> <span class="o">=</span> <span class="p">[</span><span class="n">OrderSpecifier</span><span class="p">(</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">,</span> <span class="n">ASCENDING</span><span class="p">)]</span>
+        <span class="n">res_entries</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">res_entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="n">node_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">order_by</span> <span class="o">=</span> <span class="p">[</span><span class="n">OrderSpecifier</span><span class="p">(</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">,</span> <span class="n">DESCENDING</span><span class="p">)]</span>
+        <span class="n">res_entries</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">res_entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="n">node_ids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_find_limit"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_find_limit">[docs]</a>    <span class="k">def</span> <span class="nf">test_find_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the limit option of log.find</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">limit</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">[</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">Log</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">log_record</span><span class="p">)</span>
+        <span class="n">entries</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="n">limit</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_find_filter"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_find_filter">[docs]</a>    <span class="k">def</span> <span class="nf">test_find_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the filter option of log.find</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
+
+        <span class="n">node_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+            <span class="n">node_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="n">node_id_of_choice</span> <span class="o">=</span> <span class="n">node_ids</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+        <span class="n">entries</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;dbnode_id&#39;</span><span class="p">:</span> <span class="n">node_id_of_choice</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dbnode_id</span><span class="p">,</span> <span class="n">node_id_of_choice</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_db_log_handler"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_db_log_handler">[docs]</a>    <span class="k">def</span> <span class="nf">test_db_log_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify that the db log handler is attached correctly</span>
+<span class="sd">        by firing a log message through the regular logging module</span>
+<span class="sd">        attached to a calculation node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.logs</span> <span class="k">import</span> <span class="n">OrderSpecifier</span><span class="p">,</span> <span class="n">ASCENDING</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Testing logging of critical failure&#39;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="c1"># Firing a log for an unstored should not end up in the database</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="n">logs</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># After storing the node, logs above log level should be stored</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">logs</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+        <span class="c1"># Launching a second log message ensuring that both messages are correctly stored</span>
+        <span class="n">message2</span> <span class="o">=</span> <span class="n">message</span> <span class="o">+</span> <span class="s2">&quot; - Second message&quot;</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">message2</span><span class="p">)</span>
+
+        <span class="n">order_by</span> <span class="o">=</span> <span class="p">[</span><span class="n">OrderSpecifier</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ASCENDING</span><span class="p">)]</span>
+        <span class="n">logs</span> <span class="o">=</span> <span class="n">Log</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">message2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_log_querybuilder"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_log_querybuilder">[docs]</a>    <span class="k">def</span> <span class="nf">test_log_querybuilder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Test querying for logs by joining on nodes in the QueryBuilder &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+
+        <span class="c1"># Setup nodes</span>
+        <span class="n">log_1</span><span class="p">,</span> <span class="n">calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_log</span><span class="p">()</span>
+        <span class="n">log_2</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="n">now</span><span class="p">(),</span> <span class="s1">&#39;loggername&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span> <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s1">&#39;log message #2&#39;</span><span class="p">)</span>
+        <span class="n">log_3</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="n">now</span><span class="p">(),</span> <span class="s1">&#39;loggername&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span> <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s1">&#39;log message #3&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Retrieve a node by joining on a specific log (&#39;log_1&#39;)</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Log</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">log_2</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalculationNode</span><span class="p">,</span> <span class="n">with_log</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">[</span><span class="n">calc</span><span class="o">.</span><span class="n">uuid</span><span class="p">])</span>
+
+        <span class="c1"># Retrieve all logs for a specific node by joining on a said node</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CalculationNode</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Log</span><span class="p">,</span> <span class="n">with_node</span><span class="o">=</span><span class="s1">&#39;calc&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">])</span>
+        <span class="n">logs</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">log</span> <span class="ow">in</span> <span class="n">logs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">log</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">log_1</span><span class="o">.</span><span class="n">uuid</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">log_2</span><span class="o">.</span><span class="n">uuid</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">log_3</span><span class="o">.</span><span class="n">uuid</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="TestBackendLog.test_raise_wrong_metadata_type_error"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.orm.html#aiida.backends.tests.orm.test_logs.TestBackendLog.test_raise_wrong_metadata_type_error">[docs]</a>    <span class="k">def</span> <span class="nf">test_raise_wrong_metadata_type_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test a TypeError exception is thrown with string metadata.</span>
+<span class="sd">        Also test that metadata is correctly created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+
+        <span class="c1"># Create CalculationNode</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># dict metadata</span>
+        <span class="n">correct_metadata_format</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;msg&#39;</span><span class="p">:</span> <span class="s1">&#39;Life is like riding a bicycle.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="s1">&#39;()&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;aiida.orm.node.process.calculation.CalculationNode&#39;</span>
+        <span class="p">}</span>
+
+        <span class="c1"># str of dict metadata</span>
+        <span class="n">wrong_metadata_format</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">correct_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># JSON-serialized-deserialized dict metadata</span>
+        <span class="n">json_metadata_format</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">correct_metadata_format</span><span class="p">))</span>
+
+        <span class="c1"># Check an error is raised when creating a Log with wrong metadata</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">Log</span><span class="p">(</span><span class="n">now</span><span class="p">(),</span>
+                <span class="s1">&#39;loggername&#39;</span><span class="p">,</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span>
+                <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s1">&#39;To keep your balance, you must keep moving&#39;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="n">wrong_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># Check no error is raised when creating a Log with dict metadata</span>
+        <span class="n">correct_metadata_log</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span>
+            <span class="n">now</span><span class="p">(),</span>
+            <span class="s1">&#39;loggername&#39;</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;To keep your balance, you must keep moving&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">correct_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># Check metadata is correctly created</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">correct_metadata_log</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="n">correct_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># Create Log with json metadata, making sure TypeError is NOT raised</span>
+        <span class="n">json_metadata_log</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span>
+            <span class="n">now</span><span class="p">(),</span>
+            <span class="s1">&#39;loggername&#39;</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;To keep your balance, you must keep moving&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">json_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># Check metadata is correctly created</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">json_metadata_log</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="n">json_metadata_format</span><span class="p">)</span>
+
+        <span class="c1"># Check no error is raised if no metadata is given</span>
+        <span class="n">no_metadata_log</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span>
+            <span class="n">now</span><span class="p">(),</span>
+            <span class="s1">&#39;loggername&#39;</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">),</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;To keep your balance, you must keep moving&#39;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Check metadata is an empty dict for no_metadata_log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">no_metadata_log</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="p">{})</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

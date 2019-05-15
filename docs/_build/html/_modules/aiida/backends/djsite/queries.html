@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.djsite.queries &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.backends.djsite.queries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.djsite.queries</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="k">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">zip</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.general.abstractqueries</span> <span class="k">import</span> <span class="n">AbstractQueryManager</span>
+
+
+<div class="viewcode-block" id="DjangoQueryManager"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager">[docs]</a><span class="k">class</span> <span class="nc">DjangoQueryManager</span><span class="p">(</span><span class="n">AbstractQueryManager</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DjangoQueryManager.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DjangoQueryManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DjangoQueryManager.get_creation_statistics"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager.get_creation_statistics">[docs]</a>    <span class="k">def</span> <span class="nf">get_creation_statistics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">user_pk</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a dictionary with the statistics of node creation, summarized by day,</span>
+<span class="sd">        optimized for the Django backend.</span>
+
+<span class="sd">        :note: Days when no nodes were created are not present in the returned `ctime_by_day` dictionary.</span>
+
+<span class="sd">        :param user_pk: If None (default), return statistics for all users.</span>
+<span class="sd">            If user pk is specified, return only the statistics for the given user.</span>
+
+<span class="sd">        :return: a dictionary as</span>
+<span class="sd">            follows::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                   &quot;total&quot;: TOTAL_NUM_OF_NODES,</span>
+<span class="sd">                   &quot;types&quot;: {TYPESTRING1: count, TYPESTRING2: count, ...},</span>
+<span class="sd">                   &quot;ctime_by_day&quot;: {&#39;YYYY-MMM-DD&#39;: count, ...}</span>
+
+<span class="sd">            where in `ctime_by_day` the key is a string in the format &#39;YYYY-MM-DD&#39; and the value is</span>
+<span class="sd">            an integer with the number of nodes created that day.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.implementation.django</span> <span class="k">import</span> <span class="n">dummy_model</span>
+
+        <span class="c1"># Get the session (uses internally aldjemy - so, sqlalchemy) also for the Djsite backend</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">dummy_model</span><span class="o">.</span><span class="n">get_aldjemy_session</span><span class="p">()</span>
+
+        <span class="n">retdict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">total_query</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="p">)</span>
+        <span class="n">types_query</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">node_type</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;typestring&#39;</span><span class="p">),</span>
+                              <span class="n">sa</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="n">stat_query</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">date_trunc</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">ctime</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;cday&#39;</span><span class="p">),</span>
+                             <span class="n">sa</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">user_pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">total_query</span> <span class="o">=</span> <span class="n">total_query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">user_pk</span><span class="p">)</span>
+            <span class="n">types_query</span> <span class="o">=</span> <span class="n">types_query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">user_pk</span><span class="p">)</span>
+            <span class="n">stat_query</span> <span class="o">=</span> <span class="n">stat_query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">dummy_model</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">user_pk</span><span class="p">)</span>
+
+        <span class="c1"># Total number of nodes</span>
+        <span class="n">retdict</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_query</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+        <span class="c1"># Nodes per type</span>
+        <span class="n">retdict</span><span class="p">[</span><span class="s2">&quot;types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">types_query</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;typestring&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+        <span class="c1"># Nodes created per day</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">stat_query</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;cday&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;cday&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="n">ctime_by_day</span> <span class="o">=</span> <span class="p">{</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">):</span> <span class="n">_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">stat</span><span class="p">}</span>
+        <span class="n">retdict</span><span class="p">[</span><span class="s2">&quot;ctime_by_day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctime_by_day</span>
+
+        <span class="k">return</span> <span class="n">retdict</span></div>
+        <span class="c1"># Still not containing all dates</span>
+        <span class="c1"># temporary fix only for DJANGO backend</span>
+        <span class="c1"># Will be useless when the _join_ancestors method of the QueryBuilder</span>
+        <span class="c1"># will be re-implemented without using the DbPath</span>
+
+<div class="viewcode-block" id="DjangoQueryManager.query_past_days"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager.query_past_days">[docs]</a>    <span class="k">def</span> <span class="nf">query_past_days</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_object</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subselect to filter data nodes by their age.</span>
+
+<span class="sd">        :param q_object: a query object</span>
+<span class="sd">        :param args: a namespace with parsed command line parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+        <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">past_days</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">n_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">past_days</span><span class="p">)</span>
+            <span class="n">q_object</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">ctime__gte</span><span class="o">=</span><span class="n">n_days_ago</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">AND</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DjangoQueryManager.query_group"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager.query_group">[docs]</a>    <span class="k">def</span> <span class="nf">query_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_object</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subselect to filter data nodes by their group.</span>
+
+<span class="sd">        :param q_object: a query object</span>
+<span class="sd">        :param args: a namespace with parsed command line parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">q_object</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">dbgroups__name__in</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">group_name</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">AND</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">group_pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">q_object</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">dbgroups__pk__in</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">group_pk</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">AND</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DjangoQueryManager.get_bands_and_parents_structure"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.DjangoQueryManager.get_bands_and_parents_structure">[docs]</a>    <span class="k">def</span> <span class="nf">get_bands_and_parents_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns bands and closest parent structure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+        <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+        <span class="kn">from</span> <span class="nn">aiida.backends.djsite.db</span> <span class="k">import</span> <span class="n">models</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">grouper</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.structure</span> <span class="k">import</span> <span class="p">(</span><span class="n">get_formula</span><span class="p">,</span> <span class="n">get_symbols_string</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">BandsData</span>
+        <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+
+        <span class="n">query_group_size</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">q_object</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">all_users</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">q_object</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="n">user__id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q_object</span> <span class="o">=</span> <span class="n">Q</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_past_days</span><span class="p">(</span><span class="n">q_object</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_group</span><span class="p">(</span><span class="n">q_object</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+        <span class="n">bands_list</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">node_type__startswith</span><span class="o">=</span><span class="n">BandsData</span><span class="o">.</span><span class="n">class_node_type</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">q_object</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;ctime&#39;</span><span class="p">)</span>
+        <span class="n">bands_list_data</span> <span class="o">=</span> <span class="n">bands_list</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">)</span>
+
+        <span class="c1"># split data in chunks</span>
+        <span class="n">grouped_bands_list_data</span> <span class="o">=</span> <span class="n">grouper</span><span class="p">(</span>
+            <span class="n">query_group_size</span><span class="p">,</span>
+            <span class="p">[(</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">bands_list_data</span><span class="p">])</span>
+
+        <span class="n">entry_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">this_chunk</span> <span class="ow">in</span> <span class="n">grouped_bands_list_data</span><span class="p">:</span>
+            <span class="c1"># gather all banddata pks</span>
+            <span class="n">pks</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">this_chunk</span><span class="p">]</span>
+
+            <span class="c1"># get the closest structures (WITHOUT DbPath)</span>
+            <span class="n">q_object</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="n">node_type</span><span class="o">=</span><span class="s1">&#39;data.structure.StructureData.&#39;</span><span class="p">)</span>
+            <span class="n">structure_dict</span> <span class="o">=</span> <span class="n">get_closest_parents</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">q_object</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">struc_pks</span> <span class="o">=</span> <span class="p">[</span><span class="n">structure_dict</span><span class="p">[</span><span class="n">pk</span><span class="p">]</span> <span class="k">for</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">pks</span><span class="p">]</span>
+
+            <span class="c1"># query for the attributes needed for the structure formula</span>
+            <span class="n">attr_query</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="n">key__startswith</span><span class="o">=</span><span class="s1">&#39;kinds&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">key__startswith</span><span class="o">=</span><span class="s1">&#39;sites&#39;</span><span class="p">)</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbAttribute</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">attr_query</span><span class="p">,</span>
+                                                      <span class="n">dbnode__in</span><span class="o">=</span><span class="n">struc_pks</span><span class="p">)</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span>
+                <span class="s1">&#39;dbnode__pk&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;datatype&#39;</span><span class="p">,</span> <span class="s1">&#39;tval&#39;</span><span class="p">,</span> <span class="s1">&#39;fval&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ival&#39;</span><span class="p">,</span> <span class="s1">&#39;bval&#39;</span><span class="p">,</span> <span class="s1">&#39;dval&#39;</span><span class="p">)</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;datatype&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                                             <span class="s2">&quot;tval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                                             <span class="s2">&quot;fval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                                             <span class="s2">&quot;ival&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                                             <span class="s2">&quot;bval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                                             <span class="s2">&quot;dval&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="p">[</span><span class="mi">7</span><span class="p">]}</span>
+            <span class="c1"># organize all of it in a dictionary</span>
+            <span class="n">deser_data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="n">deser_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">deserialize_attributes</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                                                              <span class="n">sep</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">DbAttribute</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+
+            <span class="c1"># prepare the printout</span>
+            <span class="k">for</span> <span class="p">((</span><span class="n">bid</span><span class="p">,</span> <span class="n">blabel</span><span class="p">,</span> <span class="n">bdate</span><span class="p">),</span> <span class="n">struc_pk</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">this_chunk</span><span class="p">,</span> <span class="n">struc_pks</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">struc_pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># Exclude structures by the elements</span>
+                    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">all_kinds</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">deser_data</span><span class="p">[</span><span class="n">struc_pk</span><span class="p">][</span><span class="s1">&#39;kinds&#39;</span><span class="p">]]</span>
+                        <span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">all_kinds</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">s</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">element</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">all_symbols</span><span class="p">]):</span>
+                            <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">element_only</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">all_kinds</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">deser_data</span><span class="p">[</span><span class="n">struc_pk</span><span class="p">][</span><span class="s1">&#39;kinds&#39;</span><span class="p">]]</span>
+                        <span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">all_kinds</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">s</span> <span class="ow">in</span> <span class="n">all_symbols</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">element_only</span><span class="p">]):</span>
+                            <span class="k">continue</span>
+
+                    <span class="c1"># build the formula</span>
+                    <span class="n">symbol_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span> <span class="n">get_symbols_string</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">],</span>
+                                                                 <span class="n">k</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">])</span>
+                                   <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">deser_data</span><span class="p">[</span><span class="n">struc_pk</span><span class="p">][</span><span class="s1">&#39;kinds&#39;</span><span class="p">]}</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">symbol_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">symbol_dict</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;kind_name&#39;</span><span class="p">]]</span>
+                                       <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">deser_data</span><span class="p">[</span><span class="n">struc_pk</span><span class="p">][</span><span class="s1">&#39;sites&#39;</span><span class="p">]]</span>
+                        <span class="n">formula</span> <span class="o">=</span> <span class="n">get_formula</span><span class="p">(</span><span class="n">symbol_list</span><span class="p">,</span>
+                                              <span class="n">mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">formulamode</span><span class="p">)</span>
+                    <span class="c1"># If for some reason there is no kind with the name</span>
+                    <span class="c1"># referenced by the site</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;&lt;&lt;UNKNOWN&gt;&gt;&quot;</span>
+                        <span class="c1"># cycle if we imposed the filter on elements</span>
+                        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">element_only</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;&lt;&lt;UNKNOWN&gt;&gt;&quot;</span>
+                <span class="n">entry_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">bid</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="p">),</span>
+                                   <span class="n">bdate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> %b %Y&#39;</span><span class="p">),</span> <span class="n">blabel</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">entry_list</span></div></div>
+
+
+<div class="viewcode-block" id="get_closest_parents"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.djsite.html#aiida.backends.djsite.queries.get_closest_parents">[docs]</a><span class="k">def</span> <span class="nf">get_closest_parents</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the closest parents dbnodes of a set of nodes.</span>
+
+<span class="sd">    :param pks: one pk or an iterable of pks of nodes</span>
+<span class="sd">    :param chunk_size: we chunk the pks into groups of this size,</span>
+<span class="sd">        to optimize the speed (default=50)</span>
+<span class="sd">    :param print_progress: print the the progression if True (default=False).</span>
+<span class="sd">    :param args: additional query parameters</span>
+<span class="sd">    :param kwargs: additional query parameters</span>
+<span class="sd">    :returns: a dictionary of the form</span>
+<span class="sd">        pk1: pk of closest parent of node with pk1,</span>
+<span class="sd">        pk2: pk of closest parent of node with pk2</span>
+
+<span class="sd">    .. note:: It works also if pks is a list of nodes rather than their pks</span>
+
+<span class="sd">    .. todo:: find a way to always get a parent (when there is one) from each pk.</span>
+<span class="sd">        Now, when the same parent has several children in pks, only</span>
+<span class="sd">        one of them is kept. This is a BUG, related to the use of a dictionary</span>
+<span class="sd">        (children_dict, see below...).</span>
+<span class="sd">        For now a work around is to use chunk_size=1.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+    <span class="kn">from</span> <span class="nn">aiida.backends.djsite.db</span> <span class="k">import</span> <span class="n">models</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">grouper</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">the_pks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pks</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">the_pks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">pks</span><span class="p">]))</span>
+
+    <span class="n">chunk_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunk_size&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">print_progress</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;print_progress&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">all_chunk_pks</span> <span class="o">=</span> <span class="n">grouper</span><span class="p">(</span><span class="n">chunk_size</span><span class="p">,</span> <span class="n">the_pks</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">print_progress</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chunk size:&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chunk_pks</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_chunk_pks</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">print_progress</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dealing with chunk #&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">result_chunk_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">q_pks</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">chunk_pks</span><span class="p">)</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Now I am looking for parents (depth=0) of the nodes in the chunk:</span>
+
+        <span class="n">q_inputs</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">outputs__pk__in</span><span class="o">=</span><span class="n">q_pks</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># to be consistent with the DbPath depth (=0 for direct inputs)</span>
+        <span class="n">children_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">q_inputs</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;outputs__pk&#39;</span><span class="p">)</span>
+                              <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">q_pks</span><span class="p">])</span>
+        <span class="c1"># While I haven&#39;t found a closest ancestor for every member of chunk_pks:</span>
+        <span class="k">while</span> <span class="n">q_inputs</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">result_chunk_dict</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk_pks</span><span class="p">):</span>
+            <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">q_inputs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">result_chunk_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">children_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
+                                               <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">q</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                               <span class="k">if</span> <span class="n">children_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result_chunk_dict</span><span class="p">]))</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">q_inputs</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">q_inputs</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DbNode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">outputs__pk__in</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+            <span class="n">q_inputs_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">children_dict</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+                                  <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">q_inputs</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;outputs__pk&#39;</span><span class="p">)</span>
+                                  <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">])</span>
+            <span class="n">children_dict</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">q_inputs_dict</span><span class="p">)</span>
+
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result_chunk_dict</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result_dict</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

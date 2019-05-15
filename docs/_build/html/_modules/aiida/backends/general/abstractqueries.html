@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.general.abstractqueries &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.backends.general.abstractqueries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.general.abstractqueries</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+
+<div class="viewcode-block" id="AbstractQueryManager"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">AbstractQueryManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AbstractQueryManager.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param backend: The AiiDA backend</span>
+<span class="sd">        :type backend: :class:`aiida.orm.implementation.sql.SqlBackend`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="n">backend</span></div>
+
+<div class="viewcode-block" id="AbstractQueryManager.get_duplicate_uuids"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.get_duplicate_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">get_duplicate_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of rows with identical UUID</span>
+
+<span class="sd">        :param table: Database table with uuid column, e.g. &#39;db_dbnode&#39;</span>
+<span class="sd">        :type str:</span>
+
+<span class="sd">        :return: list of tuples of (id, uuid) of rows with duplicate UUIDs</span>
+<span class="sd">        :rtype list:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            SELECT s.id, s.uuid FROM (SELECT *, COUNT(*) OVER(PARTITION BY uuid) AS c FROM </span><span class="si">{}</span><span class="s2">)</span>
+<span class="s2">            AS s WHERE c &gt; 1</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">execute_raw</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractQueryManager.apply_new_uuid_mapping"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.apply_new_uuid_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">apply_new_uuid_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">mapping</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pk</span><span class="p">,</span> <span class="n">uuid</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE </span><span class="si">{table:}</span><span class="s2"> SET uuid = &#39;</span><span class="si">{uuid:}</span><span class="s2">&#39; WHERE id = </span><span class="si">{pk:}</span><span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractQueryManager.get_creation_statistics"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.get_creation_statistics">[docs]</a>    <span class="k">def</span> <span class="nf">get_creation_statistics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">user_pk</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a dictionary with the statistics of node creation, summarized by day.</span>
+
+<span class="sd">        :note: Days when no nodes were created are not present in the returned `ctime_by_day` dictionary.</span>
+
+<span class="sd">        :param user_pk: If None (default), return statistics for all users.</span>
+<span class="sd">            If user pk is specified, return only the statistics for the given user.</span>
+
+<span class="sd">        :return: a dictionary as</span>
+<span class="sd">            follows::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                   &quot;total&quot;: TOTAL_NUM_OF_NODES,</span>
+<span class="sd">                   &quot;types&quot;: {TYPESTRING1: count, TYPESTRING2: count, ...},</span>
+<span class="sd">                   &quot;ctime_by_day&quot;: {&#39;YYYY-MMM-DD&#39;: count, ...}</span>
+
+<span class="sd">            where in `ctime_by_day` the key is a string in the format &#39;YYYY-MM-DD&#39; and the value is</span>
+<span class="sd">            an integer with the number of nodes created that day.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+        <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">QueryBuilder</span>
+
+        <span class="k">def</span> <span class="nf">count_statistics</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+
+            <span class="k">def</span> <span class="nf">get_statistics_dict</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">typestring</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">items</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+                <span class="k">return</span> <span class="n">results</span>
+
+            <span class="n">count_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">types</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">])</span>
+            <span class="n">count_dict</span><span class="p">[</span><span class="s2">&quot;types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_statistics_dict</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+
+            <span class="n">ctimelist</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">]</span>
+            <span class="n">ctime</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">ctimelist</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ctimelist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="c1"># For the way the string is formatted, we can just sort it alphabetically</span>
+                <span class="n">firstdate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ctimelist</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">lastdate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ctimelist</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="n">curdate</span> <span class="o">=</span> <span class="n">firstdate</span>
+                <span class="n">outdata</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">while</span> <span class="n">curdate</span> <span class="o">&lt;=</span> <span class="n">lastdate</span><span class="p">:</span>
+                    <span class="n">curdatestring</span> <span class="o">=</span> <span class="n">curdate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">outdata</span><span class="p">[</span><span class="n">curdatestring</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctime</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">curdatestring</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">curdate</span> <span class="o">+=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">count_dict</span><span class="p">[</span><span class="s2">&quot;ctime_by_day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outdata</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">count_dict</span><span class="p">[</span><span class="s2">&quot;ctime_by_day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">return</span> <span class="n">count_dict</span>
+
+        <span class="n">statistics</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">q</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">],</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;node&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user_pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">with_node</span><span class="o">=</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="n">user_pk</span><span class="p">})</span>
+        <span class="n">qb_res</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="c1"># total count</span>
+        <span class="n">statistics</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qb_res</span><span class="p">)</span>
+        <span class="n">statistics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">count_statistics</span><span class="p">(</span><span class="n">qb_res</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">statistics</span></div>
+
+<div class="viewcode-block" id="AbstractQueryManager.get_bands_and_parents_structure"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.get_bands_and_parents_structure">[docs]</a>    <span class="k">def</span> <span class="nf">get_bands_and_parents_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search for bands and return bands and the closest structure that is a parent of the instance.</span>
+<span class="sd">        This is the backend independent way, can be overriden for performance reason</span>
+
+<span class="sd">        :returns:</span>
+<span class="sd">            A list of sublists, each latter containing (in order):</span>
+<span class="sd">                pk as string, formula as string, creation date, bandsdata-label</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">import</span> <span class="nn">datetime</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.structure</span> <span class="k">import</span> <span class="p">(</span><span class="n">get_formula</span><span class="p">,</span> <span class="n">get_symbols_string</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">all_users</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+            <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;creator&quot;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;creator&quot;</span><span class="p">)</span>
+
+        <span class="n">bdata_filters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">past_days</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">n_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">past_days</span><span class="p">)</span>
+            <span class="n">bdata_filters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;ctime&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">:</span> <span class="n">n_days_ago</span><span class="p">}})</span>
+
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">BandsData</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;bdata&quot;</span><span class="p">,</span> <span class="n">with_user</span><span class="o">=</span><span class="s2">&quot;creator&quot;</span><span class="p">,</span>
+                  <span class="n">filters</span><span class="o">=</span><span class="n">bdata_filters</span><span class="p">,</span>
+                  <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;ctime&quot;</span><span class="p">]</span>
+                  <span class="p">)</span>
+
+        <span class="n">group_filters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">group_filters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">group_name</span><span class="p">}})</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">group_pk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">group_filters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">group_pk</span><span class="p">}})</span>
+        <span class="k">if</span> <span class="n">group_filters</span><span class="p">:</span>
+            <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Group</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">group_filters</span><span class="p">,</span>
+                      <span class="n">group_of</span><span class="o">=</span><span class="s2">&quot;bdata&quot;</span><span class="p">)</span>
+
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">StructureData</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;sdata&quot;</span><span class="p">,</span> <span class="n">with_descendants</span><span class="o">=</span><span class="s2">&quot;bdata&quot;</span><span class="p">,</span>
+                  <span class="c1"># We don&#39;t care about the creator of StructureData</span>
+                  <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;attributes.kinds&quot;</span><span class="p">,</span> <span class="s2">&quot;attributes.sites&quot;</span><span class="p">])</span>
+
+        <span class="n">qb</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="n">orm</span><span class="o">.</span><span class="n">StructureData</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span><span class="p">}})</span>
+
+        <span class="n">list_data</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+
+        <span class="n">entry_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">already_visited_bdata</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="p">[</span><span class="n">bid</span><span class="p">,</span> <span class="n">blabel</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">sid</span><span class="p">,</span> <span class="n">akinds</span><span class="p">,</span> <span class="n">asites</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list_data</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+
+            <span class="c1"># We process only one StructureData per BandsData.</span>
+            <span class="c1"># We want to process the closest StructureData to</span>
+            <span class="c1"># every BandsData.</span>
+            <span class="c1"># We hope that the StructureData with the latest</span>
+            <span class="c1"># creation time is the closest one.</span>
+            <span class="c1"># This will be updated when the QueryBuilder supports</span>
+            <span class="c1"># order_by by the distance of two nodes.</span>
+            <span class="k">if</span> <span class="n">already_visited_bdata</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">bid</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">already_visited_bdata</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s2">&quot;symbols&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">akinds</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">s</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">element</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">all_symbols</span><span class="p">]</span>
+                           <span class="p">):</span>
+                    <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">element_only</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s2">&quot;symbols&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">akinds</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">s</span> <span class="ow">in</span> <span class="n">all_symbols</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">element_only</span><span class="p">]</span>
+                <span class="p">):</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># We want only the StructureData that have attributes</span>
+            <span class="k">if</span> <span class="n">akinds</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">asites</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">symbol_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">akinds</span><span class="p">:</span>
+                <span class="n">symbols</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]</span>
+                <span class="n">weights</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">]</span>
+                <span class="n">symbol_dict</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">get_symbols_string</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span>
+                                                            <span class="n">weights</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">symbol_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">asites</span><span class="p">:</span>
+                    <span class="n">symbol_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol_dict</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;kind_name&#39;</span><span class="p">]])</span>
+                <span class="n">formula</span> <span class="o">=</span> <span class="n">get_formula</span><span class="p">(</span><span class="n">symbol_list</span><span class="p">,</span>
+                                      <span class="n">mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">formulamode</span><span class="p">)</span>
+            <span class="c1"># If for some reason there is no kind with the name</span>
+            <span class="c1"># referenced by the site</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;&lt;&lt;UNKNOWN&gt;&gt;&quot;</span>
+            <span class="n">entry_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">bid</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="p">),</span>
+                               <span class="n">bdate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> %b %Y&#39;</span><span class="p">),</span> <span class="n">blabel</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">entry_list</span></div>
+
+<div class="viewcode-block" id="AbstractQueryManager.get_all_parents"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.general.html#aiida.backends.general.abstractqueries.AbstractQueryManager.get_all_parents">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_pks</span><span class="p">,</span> <span class="n">return_values</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all the parents of given nodes</span>
+<span class="sd">        :param node_pks: one node pk or an iterable of node pks</span>
+<span class="sd">        :return: a list of aiida objects with all the parents of the nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">QueryBuilder</span>
+
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;low_node&#39;</span><span class="p">,</span>
+                  <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="n">node_pks</span><span class="p">}})</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">with_descendants</span><span class="o">=</span><span class="s1">&#39;low_node&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">return_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

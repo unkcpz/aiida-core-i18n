@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AiiDA internals &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ORM documentation: generic aiida.orm" href="orm_overview.html" />
+    <link rel="prev" title="Design change justifications" href="../design/changes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">AiiDA design</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#aiida-core">AiiDA core</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AiiDA internals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node">Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#immutability-concept">Immutability concept</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#node-methods">Node methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#node-methods-properties">Node methods &amp; properties</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dbnode">DbNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#folders">Folders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#folder"><code class="docutils literal notranslate"><span class="pre">Folder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#repositoryfolder"><code class="docutils literal notranslate"><span class="pre">RepositoryFolder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sandboxfolder"><code class="docutils literal notranslate"><span class="pre">SandboxFolder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#navigating-inputs-and-outputs">Navigating inputs and outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#processnode">ProcessNode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Navigating inputs and outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculationnode">CalculationNode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Navigating inputs and outputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#updatable-attributes">Updatable attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#workflownode">WorkflowNode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Navigating inputs and outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#orm-overview">ORM overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="orm_overview.html">ORM documentation: generic aiida.orm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="orm_overview.html#orm-documentation-data">ORM documentation: Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="orm_overview.html#orm-documentation-calculations">ORM documentation: Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecated-features-renaming-and-adding-new-methods">Deprecated features, renaming, and adding new methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-config-json-structure">Changing the config.json structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#daemon-and-signal-handling">Daemon and signal handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">Transport plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database_schema.html">Database schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modifying_the_schema.html">Modifying the schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extend_restapi.html">How to extend the AiiDA REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching: implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin_system.html">Developing The Plugin System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/sphinx_cheatsheet.html">Sphinx cheatsheet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">AiiDA design</a> &raquo;</li>
+        
+      <li>AiiDA internals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/developer_guide/core/internals.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="aiida-internals">
+<h1>AiiDA internals<a class="headerlink" href="#aiida-internals" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="node">
+<h2>Node<a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class is the basic class that represents all the possible objects at the AiiDA world. More precisely it is inherited by many classes including (among others) the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.html#aiida.orm.nodes.process.ProcessNode" title="aiida.orm.nodes.process.ProcessNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessNode</span></code></a> class, representing computations that convert data into a different form, the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.code.Code" title="aiida.orm.nodes.data.code.Code"><code class="xref py py-class docutils literal notranslate"><span class="pre">Code</span></code></a> class representing executables and file collections that are used by calculations and the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data" title="aiida.orm.nodes.data.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a> class which represents data that can be input or output of calculations.</p>
+<div class="section" id="immutability-concept">
+<h3>Immutability concept<a class="headerlink" href="#immutability-concept" title="Permalink to this headline">¶</a></h3>
+<p>A node can store information through attributes. Since AiiDA guarantees a certain level of provenance, these attributes become immutable as soon as the node is stored.
+This means that as soon as a node is stored any attempt to alter its attributes, changing its value or deleting it altogether, shall be met with a raised exception.
+Certain subclasses of nodes need to adapt this behavior however, as for example in the case of the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.html#aiida.orm.nodes.process.ProcessNode" title="aiida.orm.nodes.process.ProcessNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessNode</span></code></a> class (see <a class="reference internal" href="#calculation-updatable-attributes">calculation updatable attributes</a>), but since the immutability
+of stored nodes is a core concept of AiiDA, this behavior is nonetheless enforced on the node level. This guarantees that any subclasses of the Node class will respect this behavior unless it is explicitly overriden.</p>
+</div>
+<div class="section" id="node-methods">
+<h3>Node methods<a class="headerlink" href="#node-methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.clean_value" title="aiida.orm.utils.node.clean_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clean_value()</span></code></a> takes a value and returns an object which can be serialized for storage in the database. Such an object must be able to be subsequently deserialized without changing value. If a simple datatype is passed (integer, float, etc.), a check is performed to see if it has a value of <code class="docutils literal notranslate"><span class="pre">nan</span></code> or <code class="docutils literal notranslate"><span class="pre">inf</span></code>, as these cannot be stored. Otherwise, if a list, tuple, dictionary, etc., is  passed, this check is performed for each value it contains. This is done recursively, automatically handling the case of nested objects. It is important to note that iterable type objects are converted to lists during this process, and mappings, such as dictionaries, are converted to normal dictionaries. This cleaning process is used by default when setting node attributes via <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.set_attribute" title="aiida.orm.nodes.Node.set_attribute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_attribute()</span></code></a> and <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.append_to_attr" title="aiida.orm.nodes.Node.append_to_attr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_to_attr()</span></code></a>, although it can be disabled by setting <code class="docutils literal notranslate"><span class="pre">clean=False</span></code>. Values are also cleaned when setting extras on a stored node using <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.set_extras" title="aiida.orm.nodes.Node.set_extras"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_extras()</span></code></a> or <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.reset_extras" title="aiida.orm.nodes.Node.reset_extras"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset_extras()</span></code></a>, but this cannot be disabled.</li>
+</ul>
+</div>
+<div class="section" id="node-methods-properties">
+<h3>Node methods &amp; properties<a class="headerlink" href="#node-methods-properties" title="Permalink to this headline">¶</a></h3>
+<p>In the following sections, the most important methods and properties of the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class will be described.</p>
+<div class="section" id="node-subclasses-organization">
+<h4>Node subclasses organization<a class="headerlink" href="#node-subclasses-organization" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class has two important variables:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">~aiida.orm.nodes.Node._plugin_type_string</span></code> characterizes the class of the object.</li>
+<li><code class="docutils literal notranslate"><span class="pre">~aiida.orm.nodes.Node._query_type_string</span></code> characterizes the class and all its subclasses (by pointing to the package or Python file that contain the class).</li>
+</ul>
+<p>The convention for all the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> subclasses is that if a <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">B</span></code> is inherited by a <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">A</span></code> then there should be a package <code class="docutils literal notranslate"><span class="pre">A</span></code> under <code class="docutils literal notranslate"><span class="pre">aiida/orm</span></code> that has a file <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and a <code class="docutils literal notranslate"><span class="pre">B.py</span></code> in that directory (or a <code class="docutils literal notranslate"><span class="pre">B</span></code> package with the corresponding <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>)</p>
+<p>An example of this is the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.ArrayData" title="aiida.orm.nodes.data.array.ArrayData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayData</span></code></a> and the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.kpoints.KpointsData" title="aiida.orm.nodes.data.array.kpoints.KpointsData"><code class="xref py py-class docutils literal notranslate"><span class="pre">KpointsData</span></code></a>. <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.ArrayData" title="aiida.orm.nodes.data.array.ArrayData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayData</span></code></a> is placed in <code class="docutils literal notranslate"><span class="pre">aiida/orm/data/array/__init__.py</span></code> and <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.kpoints.KpointsData" title="aiida.orm.nodes.data.array.kpoints.KpointsData"><code class="xref py py-class docutils literal notranslate"><span class="pre">KpointsData</span></code></a> which inherits from <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.ArrayData" title="aiida.orm.nodes.data.array.ArrayData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayData</span></code></a> is placed in <code class="docutils literal notranslate"><span class="pre">aiida/orm/data/array/kpoints.py</span></code></p>
+<p>This is an implicit &amp; quick way to check the inheritance of the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> subclasses.</p>
+</div>
+<div class="section" id="general-purpose-methods">
+<h4>General purpose methods<a class="headerlink" href="#general-purpose-methods" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.__init__" title="aiida.orm.nodes.Node.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a>: The initialization of the Node class can be done by not providing any attributes or by providing a DbNode as initialization. E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dbn</span> <span class="o">=</span> <span class="n">a_dbnode_object</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">dbnode</span><span class="o">=</span><span class="n">dbn</span><span class="o">.</span><span class="n">dbnode</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.ctime" title="aiida.orm.nodes.Node.ctime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ctime()</span></code></a> and <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.mtime" title="aiida.orm.nodes.Node.mtime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mtime()</span></code></a> provide the creation and the modification time of the node.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.computer" title="aiida.orm.nodes.Node.computer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">computer()</span></code></a> returns the computer associated to this node.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node._validate" title="aiida.orm.nodes.Node._validate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_validate()</span></code></a> does a validation check for the node. This is important for <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> subclasses where various attributes should be checked for consistency before storing.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.user" title="aiida.orm.nodes.Node.user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">user()</span></code></a> returns the user that created the node.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.uuid" title="aiida.orm.nodes.Node.uuid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uuid()</span></code></a> returns the universally unique identifier (UUID) of the node.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="annotation-methods">
+<h4>Annotation methods<a class="headerlink" href="#annotation-methods" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> can be annotated with labels, description and comments. The following methods can be used for the management of these properties.</p>
+<p><em>Label management:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.label" title="aiida.orm.nodes.Node.label"><code class="xref py py-meth docutils literal notranslate"><span class="pre">label()</span></code></a> returns the label of the node and can be used as a setter property.</li>
+</ul>
+<p><em>Description management:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.description" title="aiida.orm.nodes.Node.description"><code class="xref py py-meth docutils literal notranslate"><span class="pre">description()</span></code></a>: the description of the node (more detailed than the label) and can be used as a setter property.</li>
+</ul>
+<p><em>Comment management:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.add_comment" title="aiida.orm.nodes.Node.add_comment"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_comment()</span></code></a> adds a comment.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_comments" title="aiida.orm.nodes.Node.get_comments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_comments()</span></code></a> returns a sorted list of the comments.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.update_comment" title="aiida.orm.nodes.Node.update_comment"><code class="xref py py-meth docutils literal notranslate"><span class="pre">update_comment()</span></code></a> updates the node comment. It can be done by <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">comment</span> <span class="pre">update</span></code>.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.remove_comment" title="aiida.orm.nodes.Node.remove_comment"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_comment()</span></code></a> removes the node comment. It can be done by <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">comment</span> <span class="pre">remove</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="link-management-methods">
+<h4>Link management methods<a class="headerlink" href="#link-management-methods" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> objects and objects of its subclasses can have ancestors and descendants. These are connected with links. The following methods exist for the processing &amp; management of these links.</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.has_cached_links" title="aiida.orm.nodes.Node.has_cached_links"><code class="xref py py-meth docutils literal notranslate"><span class="pre">has_cached_links()</span></code></a> shows if there are cached links to other nodes.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.add_incoming" title="aiida.orm.nodes.Node.add_incoming"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_incoming()</span></code></a> adds a link to the current node from the ‘src’ node with the given label. Depending on whether the nodes are stored or node, the linked are written to the database or to the cache.</li>
+</ul>
+<p><em>Listing links example</em></p>
+<p>Assume that the user wants to see the available links of a node in order to understand the structure of the graph and maybe traverse it. In the following example, we load a specific node and we list its input and output links. The returned dictionaries have as keys the link name and as value the linked <code class="docutils literal notranslate"><span class="pre">node</span></code>. Here is the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># Let&#39;s load a node with a specific pk</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="mi">139168</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">c</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="p">[</span><span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">Code</span><span class="p">:</span> <span class="n">Remote</span> <span class="n">code</span> <span class="s1">&#39;cp-5.1&#39;</span> <span class="n">on</span> <span class="n">daint</span><span class="p">,</span> <span class="n">pk</span><span class="p">:</span> <span class="mi">75709</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">3</span><span class="n">c9cdb7f</span><span class="o">-</span><span class="mi">0</span><span class="n">cda</span><span class="o">-</span><span class="mi">402</span><span class="n">e</span><span class="o">-</span><span class="n">b898</span><span class="o">-</span><span class="mi">4</span><span class="n">dd0d06aa5a4</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;parameters&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">94</span><span class="n">efe64f</span><span class="o">-</span><span class="mi">7</span><span class="n">f7e</span><span class="o">-</span><span class="mi">46</span><span class="n">ea</span><span class="o">-</span><span class="mi">922</span><span class="n">a</span><span class="o">-</span><span class="n">fe64a7fba8a5</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139166</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;parent_calc_folder&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">becb4894</span><span class="o">-</span><span class="n">c50c</span><span class="o">-</span><span class="mi">4779</span><span class="o">-</span><span class="n">b84f</span><span class="o">-</span><span class="mi">713772</span><span class="n">eaceff</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139118</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;pseudo_Ba&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">UpfData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mf">5e53</span><span class="n">b22d</span><span class="o">-</span><span class="mi">5757</span><span class="o">-</span><span class="mi">4</span><span class="n">d50</span><span class="o">-</span><span class="n">bbe0</span><span class="o">-</span><span class="mi">51</span><span class="n">f3b9ac8b7c</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">1905</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;pseudo_O&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">UpfData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">5</span><span class="n">cccd0d9</span><span class="o">-</span><span class="mi">7944</span><span class="o">-</span><span class="mi">4</span><span class="n">c67</span><span class="o">-</span><span class="n">b3c7</span><span class="o">-</span><span class="n">a39a1f467906</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">1658</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;pseudo_Ti&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">UpfData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">e5744077</span><span class="o">-</span><span class="mi">8615</span><span class="o">-</span><span class="mi">4927</span><span class="o">-</span><span class="mi">9</span><span class="n">f97</span><span class="o">-</span><span class="n">c5f7b36ba421</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">1660</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;settings&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">a5a828b8</span><span class="o">-</span><span class="n">fdd8</span><span class="o">-</span><span class="mi">4</span><span class="n">d75</span><span class="o">-</span><span class="n">b674</span><span class="o">-</span><span class="mf">2e2</span><span class="n">d62792de0</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139167</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;inputlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;structure&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">StructureData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">3096</span><span class="n">f83c</span><span class="o">-</span><span class="mi">6385</span><span class="o">-</span><span class="mi">48</span><span class="n">c4</span><span class="o">-</span><span class="mi">8</span><span class="n">cb2</span><span class="o">-</span><span class="mi">24</span><span class="n">a427ce11b1</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139001</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">c</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+<span class="p">[</span><span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;output_parameters&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">f7a3ca96</span><span class="o">-</span><span class="mi">4594</span><span class="o">-</span><span class="mi">497</span><span class="n">f</span><span class="o">-</span><span class="n">a128</span><span class="o">-</span><span class="mi">9843</span><span class="n">a1f12f7f</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139257</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;output_parameters_139257&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">Dict</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">f7a3ca96</span><span class="o">-</span><span class="mi">4594</span><span class="o">-</span><span class="mi">497</span><span class="n">f</span><span class="o">-</span><span class="n">a128</span><span class="o">-</span><span class="mi">9843</span><span class="n">a1f12f7f</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139257</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;output_trajectory&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">TrajectoryData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">7</span><span class="n">c5b65bc</span><span class="o">-</span><span class="mi">22</span><span class="n">bb</span><span class="o">-</span><span class="mi">4</span><span class="n">b87</span><span class="o">-</span><span class="n">ac92</span><span class="o">-</span><span class="n">e8a78cf145c3</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139256</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;output_trajectory_139256&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">TrajectoryData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">7</span><span class="n">c5b65bc</span><span class="o">-</span><span class="mi">22</span><span class="n">bb</span><span class="o">-</span><span class="mi">4</span><span class="n">b87</span><span class="o">-</span><span class="n">ac92</span><span class="o">-</span><span class="n">e8a78cf145c3</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139256</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;remote_folder&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">17642</span><span class="n">a1c</span><span class="o">-</span><span class="mi">8</span><span class="n">cac</span><span class="o">-</span><span class="mf">4e7</span><span class="n">f</span><span class="o">-</span><span class="mi">8</span><span class="n">bd0</span><span class="o">-</span><span class="mi">1</span><span class="n">dcebe974aa4</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139169</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;remote_folder_139169&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">17642</span><span class="n">a1c</span><span class="o">-</span><span class="mi">8</span><span class="n">cac</span><span class="o">-</span><span class="mf">4e7</span><span class="n">f</span><span class="o">-</span><span class="mi">8</span><span class="n">bd0</span><span class="o">-</span><span class="mi">1</span><span class="n">dcebe974aa4</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139169</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;retrieved&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">FolderData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">a9037dc0</span><span class="o">-</span><span class="mi">3</span><span class="n">d84</span><span class="o">-</span><span class="mi">494</span><span class="n">d</span><span class="o">-</span><span class="mi">9616</span><span class="o">-</span><span class="mi">42</span><span class="n">b8df77083f</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139255</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="n">Neighbor</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="s1">&#39;createlink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;retrieved_139255&#39;</span><span class="p">,</span>
+<span class="n">node</span><span class="o">=&lt;</span><span class="n">FolderData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">a9037dc0</span><span class="o">-</span><span class="mi">3</span><span class="n">d84</span><span class="o">-</span><span class="mi">494</span><span class="n">d</span><span class="o">-</span><span class="mi">9616</span><span class="o">-</span><span class="mi">42</span><span class="n">b8df77083f</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139255</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p><em>Understanding link names</em></p>
+<p>The nodes may have input and output links. Every input link of a <code class="docutils literal notranslate"><span class="pre">node</span></code> should have a unique name and this unique name is mapped to a specific <code class="docutils literal notranslate"><span class="pre">node</span></code>. On the other hand, given a <code class="docutils literal notranslate"><span class="pre">node</span></code> <code class="docutils literal notranslate"><span class="pre">c</span></code>, many output <code class="docutils literal notranslate"><span class="pre">nodes</span></code> may share the same output link name. To differentiate between the output nodes of <code class="docutils literal notranslate"><span class="pre">c</span></code> that have the same link name, the <code class="docutils literal notranslate"><span class="pre">pk</span></code> of the output node is added next to the link name (please see the input &amp; output nodes in the above example).</p>
+</div>
+<div class="section" id="input-output-related-methods">
+<h4>Input/output related methods<a class="headerlink" href="#input-output-related-methods" title="Permalink to this headline">¶</a></h4>
+<p>The input/output links of the node can be accessed by the following methods.</p>
+<p><em>Methods to get the input data</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_incoming" title="aiida.orm.nodes.Node.get_incoming"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_incoming()</span></code></a> returns the iterator of input nodes</li>
+</ul>
+<p><em>Methods to get the output data</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_outgoing" title="aiida.orm.nodes.Node.get_outgoing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_outgoing()</span></code></a> returns the iterator of output nodes.</li>
+</ul>
+</div>
+<div class="section" id="attributes-related-methods">
+<h4>Attributes related methods<a class="headerlink" href="#attributes-related-methods" title="Permalink to this headline">¶</a></h4>
+<p>Each <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Node()</span></code></a> object can have attributes which are properties that characterize the node. Such properties can be the energy, the atom symbols or the lattice vectors. The following methods can be used for the management of the attributes.</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.set_attribute" title="aiida.orm.nodes.Node.set_attribute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_attribute()</span></code></a> adds a new attribute to the node. The key of the attribute is the property name (e.g. <code class="docutils literal notranslate"><span class="pre">energy</span></code>, <code class="docutils literal notranslate"><span class="pre">lattice_vectors</span></code> etc) and the value of the attribute is the value of that property.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.delete_attribute" title="aiida.orm.nodes.Node.delete_attribute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_attribute()</span></code></a> &amp; <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.delete_attributes" title="aiida.orm.nodes.Node.delete_attributes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_attributes()</span></code></a> delete a specific or all attributes.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_attribute" title="aiida.orm.nodes.Node.get_attribute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_attribute()</span></code></a> returns a specific attribute.</li>
+</ul>
+</div>
+<div class="section" id="extras-related-methods">
+<h4>Extras related methods<a class="headerlink" href="#extras-related-methods" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Extras</span></code> are additional information that are added to the calculations. In contrast to <code class="docutils literal notranslate"><span class="pre">files</span></code> and <code class="docutils literal notranslate"><span class="pre">attributes</span></code>, <code class="docutils literal notranslate"><span class="pre">extras</span></code> are information added by the user (user specific).</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.set_extra" title="aiida.orm.nodes.Node.set_extra"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_extra()</span></code></a> adds an <code class="docutils literal notranslate"><span class="pre">extra</span></code> to the database. To add a more <code class="docutils literal notranslate"><span class="pre">extras</span></code> at once, <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.set_extras" title="aiida.orm.nodes.Node.set_extras"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_extras()</span></code></a> can be used.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_extra" title="aiida.orm.nodes.Node.get_extra"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_extra()</span></code></a> and <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.get_extras" title="aiida.orm.nodes.Node.get_extras"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_extras()</span></code></a> return a specific <code class="docutils literal notranslate"><span class="pre">extra</span></code> or all the available <code class="docutils literal notranslate"><span class="pre">extras</span></code> respectively.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.delete_extra" title="aiida.orm.nodes.Node.delete_extra"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_extra()</span></code></a> deletes an <code class="docutils literal notranslate"><span class="pre">extra</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="folder-management">
+<h4>Folder management<a class="headerlink" href="#folder-management" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Folder</span></code> objects represent directories on the disk (virtual or not) where extra information for the node are stored. These folders can be temporary or permanent.</p>
+</div>
+<div class="section" id="store-deletion">
+<h4>Store &amp; deletion<a class="headerlink" href="#store-deletion" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.store_all" title="aiida.orm.nodes.Node.store_all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">store_all()</span></code></a> stores all the input <code class="docutils literal notranslate"><span class="pre">nodes</span></code>, then it stores the current <code class="docutils literal notranslate"><span class="pre">node</span></code> and in the end, it stores the cached input links.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.verify_are_parents_stored" title="aiida.orm.nodes.Node.verify_are_parents_stored"><code class="xref py py-meth docutils literal notranslate"><span class="pre">verify_are_parents_stored()</span></code></a> checks that the parents are stored.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node.store" title="aiida.orm.nodes.Node.store"><code class="xref py py-meth docutils literal notranslate"><span class="pre">store()</span></code></a> method checks that the <code class="docutils literal notranslate"><span class="pre">node</span></code> data is valid, then check if <code class="docutils literal notranslate"><span class="pre">node</span></code>’s parents are stored, then moves the contents of the temporary folder to the repository folder and in the end, it stores in the database the information that are in the cache. The latter happens with a database transaction. In case this transaction fails, then the data transfered to the repository folder are moved back to the temporary folder.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="dbnode">
+<h2>DbNode<a class="headerlink" href="#dbnode" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../../apidoc/aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DbNode" title="aiida.backends.djsite.db.models.DbNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">DbNode</span></code></a> is the Django class that corresponds to the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class allowing to store and retrieve the needed information from and to the database. Other classes extending the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class, like <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data" title="aiida.orm.nodes.data.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a>, <a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.html#aiida.orm.nodes.process.ProcessNode" title="aiida.orm.nodes.process.ProcessNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessNode</span></code></a> and <a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.code.Code" title="aiida.orm.nodes.data.code.Code"><code class="xref py py-class docutils literal notranslate"><span class="pre">Code</span></code></a> use the <a class="reference internal" href="../../apidoc/aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DbNode" title="aiida.backends.djsite.db.models.DbNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">DbNode</span></code></a> code too to interact with the database.  The main methods are:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DbNode.get_simple_name" title="aiida.backends.djsite.db.models.DbNode.get_simple_name"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_simple_name()</span></code></a> which returns a string with the type of the class (by stripping the path before the class name).</li>
+<li><a class="reference internal" href="../../apidoc/aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DbNode.attributes" title="aiida.backends.djsite.db.models.DbNode.attributes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attributes()</span></code></a> which returns the all the attributes of the specific node as a dictionary.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.backends.djsite.db.html#aiida.backends.djsite.db.models.DbNode.extras" title="aiida.backends.djsite.db.models.DbNode.extras"><code class="xref py py-meth docutils literal notranslate"><span class="pre">extras()</span></code></a> which returns all the extras of the specific node as a dictionary.</li>
+</ul>
+</div>
+<div class="section" id="folders">
+<h2>Folders<a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h2>
+<p>AiiDA uses <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder" title="aiida.common.folders.Folder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Folder</span></code></a> and its subclasses to add an abstraction layer between the functions and methods working directly on the file-system and AiiDA. This is particularly useful when we want to easily change between different folder options (temporary, permanent etc) and storage options (plain local directories, compressed files, remote files &amp; directories etc).</p>
+<div class="section" id="folder">
+<h3><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder" title="aiida.common.folders.Folder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Folder</span></code></a><a class="headerlink" href="#folder" title="Permalink to this headline">¶</a></h3>
+<p>This is the main class of the available <code class="docutils literal notranslate"><span class="pre">Folder</span></code> classes. Apart from the abstraction provided to the OS operations needed by AiiDA, one of its main features is that it can restrict all the available operations within a given folder limit. The available methods are:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.mode_dir" title="aiida.common.folders.Folder.mode_dir"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mode_dir()</span></code></a> and <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.mode_file" title="aiida.common.folders.Folder.mode_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mode_file()</span></code></a> return the mode with which folders and files should be writable.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.get_subfolder" title="aiida.common.folders.Folder.get_subfolder"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_subfolder()</span></code></a> returns the subfolder matching the given name</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.get_content_list" title="aiida.common.folders.Folder.get_content_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_content_list()</span></code></a> returns the contents matching a pattern.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.insert_path" title="aiida.common.folders.Folder.insert_path"><code class="xref py py-meth docutils literal notranslate"><span class="pre">insert_path()</span></code></a> adds a file/folder to a specific location and <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.remove_path" title="aiida.common.folders.Folder.remove_path"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_path()</span></code></a> removes a file/folder</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.get_abs_path" title="aiida.common.folders.Folder.get_abs_path"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_abs_path()</span></code></a> returns the absolute path of a file/folder under a given folder and <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.abspath" title="aiida.common.folders.Folder.abspath"><code class="xref py py-meth docutils literal notranslate"><span class="pre">abspath()</span></code></a> returns the absolute path of the folder.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.create_symlink" title="aiida.common.folders.Folder.create_symlink"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_symlink()</span></code></a> creates a symlink pointing the given location inside the <code class="docutils literal notranslate"><span class="pre">folder</span></code>.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.create_file_from_filelike" title="aiida.common.folders.Folder.create_file_from_filelike"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_file_from_filelike()</span></code></a> creates a file from the given contents.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.open" title="aiida.common.folders.Folder.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> opens a file in the <code class="docutils literal notranslate"><span class="pre">folder</span></code>.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.folder_limit" title="aiida.common.folders.Folder.folder_limit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">folder_limit()</span></code></a> returns the limit under which the creation of files/folders is restrained.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.exists" title="aiida.common.folders.Folder.exists"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exists()</span></code></a> returns true or false depending whether a folder exists or not.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.isfile" title="aiida.common.folders.Folder.isfile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isfile()</span></code></a> and py:meth:<cite>~aiida.common.folders.Folder.isdir</cite> return true or false depending on the existence of the given file/folder.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.create" title="aiida.common.folders.Folder.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a> creates the <code class="docutils literal notranslate"><span class="pre">folder</span></code>, <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.erase" title="aiida.common.folders.Folder.erase"><code class="xref py py-meth docutils literal notranslate"><span class="pre">erase()</span></code></a> deletes the <code class="docutils literal notranslate"><span class="pre">folder</span></code> and <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.Folder.replace_with_folder" title="aiida.common.folders.Folder.replace_with_folder"><code class="xref py py-meth docutils literal notranslate"><span class="pre">replace_with_folder()</span></code></a> copies/moves a given folder.</li>
+</ul>
+</div>
+<div class="section" id="repositoryfolder">
+<h3><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder" title="aiida.common.folders.RepositoryFolder"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepositoryFolder</span></code></a><a class="headerlink" href="#repositoryfolder" title="Permalink to this headline">¶</a></h3>
+<p>Objects of this class correspond to the repository folders. The <a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder" title="aiida.common.folders.RepositoryFolder"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepositoryFolder</span></code></a> specific methods are:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder.__init__" title="aiida.common.folders.RepositoryFolder.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a> initializes the object with the necessary folder names and limits.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder.get_topdir" title="aiida.common.folders.RepositoryFolder.get_topdir"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_topdir()</span></code></a> returns the top directory.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder.section" title="aiida.common.folders.RepositoryFolder.section"><code class="xref py py-meth docutils literal notranslate"><span class="pre">section()</span></code></a> returns the section to which the <code class="docutils literal notranslate"><span class="pre">folder</span></code> belongs. This can be for the moment only  <code class="docutils literal notranslate"><span class="pre">node</span></code>.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder.subfolder" title="aiida.common.folders.RepositoryFolder.subfolder"><code class="xref py py-meth docutils literal notranslate"><span class="pre">subfolder()</span></code></a> returns the subfolder within the section/uuid folder.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.RepositoryFolder.uuid" title="aiida.common.folders.RepositoryFolder.uuid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uuid()</span></code></a> the UUID of the corresponding <code class="docutils literal notranslate"><span class="pre">node</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="sandboxfolder">
+<h3><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.SandboxFolder" title="aiida.common.folders.SandboxFolder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SandboxFolder</span></code></a><a class="headerlink" href="#sandboxfolder" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.SandboxFolder" title="aiida.common.folders.SandboxFolder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SandboxFolder</span></code></a> objects correspond to temporary (“sandbox”) folders. The main methods are:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.SandboxFolder.__init__" title="aiida.common.folders.SandboxFolder.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a> creates a new temporary folder</li>
+<li><a class="reference internal" href="../../apidoc/aiida.common.html#aiida.common.folders.SandboxFolder.__exit__" title="aiida.common.folders.SandboxFolder.__exit__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__exit__()</span></code></a> destroys the folder on exit.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="navigating-inputs-and-outputs">
+<h3>Navigating inputs and outputs<a class="headerlink" href="#navigating-inputs-and-outputs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.Data.creator" title="aiida.orm.nodes.data.Data.creator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">creator()</span></code></a> returns
+either the CalculationNode that created it or <code class="docutils literal notranslate"><span class="pre">None</span></code> if this Data node
+created by a calculation.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="processnode">
+<h2>ProcessNode<a class="headerlink" href="#processnode" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Navigating inputs and outputs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.html#aiida.orm.nodes.process.ProcessNode.caller" title="aiida.orm.nodes.process.ProcessNode.caller"><code class="xref py py-meth docutils literal notranslate"><span class="pre">caller()</span></code></a> returns
+either the caller WorkflowNode or <code class="docutils literal notranslate"><span class="pre">None</span></code> if this ProcessNode was not called
+by a process</li>
+</ul>
+</div>
+</div>
+<div class="section" id="calculationnode">
+<h2>CalculationNode<a class="headerlink" href="#calculationnode" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Navigating inputs and outputs<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.calculation.html#aiida.orm.nodes.process.calculation.CalculationNode.inputs" title="aiida.orm.nodes.process.calculation.CalculationNode.inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">inputs()</span></code></a> returns
+a <a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.managers.NodeLinksManager" title="aiida.orm.utils.managers.NodeLinksManager"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeLinksManager()</span></code></a> object that can be used
+to access the node’s incoming INPUT_CALC links.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">NodeLinksManager</span></code> can be used to quickly go from a node to a neighboring node.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># Let&#39;s load a node with a specific pk</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="mi">139168</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">c</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">CpCalculation</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="mi">49084</span><span class="n">dcf</span><span class="o">-</span><span class="n">c708</span><span class="o">-</span><span class="mi">4422</span><span class="o">-</span><span class="mi">8</span><span class="n">bcf</span><span class="o">-</span><span class="mf">808e4</span><span class="n">c3382c2</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139168</span><span class="p">)</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="c1"># Let&#39;s traverse the inputs of this node.</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="c1"># By typing c.inputs.&lt;TAB&gt; we get all the input links</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span>
+<span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">code</span>                <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">parent_calc_folder</span>  <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pseudo_O</span>            <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">settings</span>
+<span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">parameters</span>          <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pseudo_Ba</span>           <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pseudo_Ti</span>           <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">structure</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="c1"># We may follow any of these links to access other nodes. For example, let&#39;s follow the parent_calc_folder</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">parent_calc_folder</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">RemoteData</span><span class="p">:</span> <span class="n">uuid</span><span class="p">:</span> <span class="n">becb4894</span><span class="o">-</span><span class="n">c50c</span><span class="o">-</span><span class="mi">4779</span><span class="o">-</span><span class="n">b84f</span><span class="o">-</span><span class="mi">713772</span><span class="n">eaceff</span> <span class="p">(</span><span class="n">pk</span><span class="p">:</span> <span class="mi">139118</span><span class="p">)</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="c1"># Let&#39;s assign to r the node reached by the parent_calc_folder link</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">parent_calc_folder</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">r</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="fm">__dir__</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+<span class="p">[</span><span class="s1">&#39;__class__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__dict__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__dir__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__format__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__getattr__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__getitem__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__hash__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__init__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__iter__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__module__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__new__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__repr__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__str__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span>
+<span class="s1">&#39;__weakref__&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;remote_folder&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.inputs</span></code> manager for <code class="docutils literal notranslate"><span class="pre">WorkflowNode</span></code> and the <code class="docutils literal notranslate"><span class="pre">.outputs</span></code> manager
+both for <code class="docutils literal notranslate"><span class="pre">CalculationNode</span></code> and <code class="docutils literal notranslate"><span class="pre">WorkflowNode</span></code> work in the same way
+(see below).</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.calculation.html#aiida.orm.nodes.process.calculation.CalculationNode.outputs" title="aiida.orm.nodes.process.calculation.CalculationNode.outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">outputs()</span></code></a>
+returns a <a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.managers.NodeLinksManager" title="aiida.orm.utils.managers.NodeLinksManager"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeLinksManager()</span></code></a> object
+that can be used to access the node’s outgoing CREATE links.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="updatable-attributes">
+<span id="calculation-updatable-attributes"></span><h3>Updatable attributes<a class="headerlink" href="#updatable-attributes" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.html#aiida.orm.nodes.process.ProcessNode" title="aiida.orm.nodes.process.ProcessNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessNode</span></code></a> class is a subclass of the <a class="reference internal" href="../../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.Node" title="aiida.orm.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class, which means that its attributes become immutable once stored.
+However, for a <code class="docutils literal notranslate"><span class="pre">Calculation</span></code> to be runnable it needs to be stored, but that would mean that its state, which is stored in an attribute can no longer be updated.
+To solve this issue the <a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.mixins.Sealable" title="aiida.orm.utils.mixins.Sealable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sealable</span></code></a> mixin is introduced. This mixin can be used for subclasses of <code class="docutils literal notranslate"><span class="pre">Node</span></code> that need to have updatable attributes even after the node has been stored in the database.
+The mixin defines the <code class="docutils literal notranslate"><span class="pre">_updatable_attributes</span></code> tuple, which defines the attributes that are considered to be mutable even when the node is stored.
+It also allows the node to be <em>sealed</em>, after which even the updatable attributes become immutable.</p>
+</div>
+</div>
+<div class="section" id="workflownode">
+<h2>WorkflowNode<a class="headerlink" href="#workflownode" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Navigating inputs and outputs<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.workflow.html#aiida.orm.nodes.process.workflow.WorkflowNode.inputs" title="aiida.orm.nodes.process.workflow.WorkflowNode.inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">inputs()</span></code></a> returns a
+<a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.managers.NodeLinksManager" title="aiida.orm.utils.managers.NodeLinksManager"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeLinksManager()</span></code></a> object that can be used to
+access the node’s incoming INPUT_WORK links.</li>
+<li><a class="reference internal" href="../../apidoc/aiida.orm.nodes.process.workflow.html#aiida.orm.nodes.process.workflow.WorkflowNode.outputs" title="aiida.orm.nodes.process.workflow.WorkflowNode.outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">outputs()</span></code></a> returns a
+<a class="reference internal" href="../../apidoc/aiida.orm.utils.html#aiida.orm.utils.managers.NodeLinksManager" title="aiida.orm.utils.managers.NodeLinksManager"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeLinksManager()</span></code></a> object that can be used
+to access the node’s outgoing RETURN links.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="orm-overview">
+<h2>ORM overview<a class="headerlink" href="#orm-overview" title="Permalink to this headline">¶</a></h2>
+<p>Below you find an overview of the main classes in the AiiDA object-relational mapping.
+For the <strong>complete</strong> API documentation see <a class="reference internal" href="../../apidoc/aiida.orm.html#module-aiida.orm" title="aiida.orm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiida.orm</span></code></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="orm_overview.html">ORM documentation: generic aiida.orm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#computer">Computer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#user">User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#node">Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#code">Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#mixins">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="orm_overview.html#orm-documentation-data">ORM documentation: Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#folder">Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#singlefile">Singlefile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#upf">Upf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#cif">Cif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#parameter">Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#remote">Remote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#orbitaldata">OrbitalData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#arraydata">ArrayData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#base-data-types">Base data types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="orm_overview.html#orm-documentation-calculations">ORM documentation: Calculations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="orm_overview.html#templatereplacer">TemplateReplacer</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="deprecated-features-renaming-and-adding-new-methods">
+<h2>Deprecated features, renaming, and adding new methods<a class="headerlink" href="#deprecated-features-renaming-and-adding-new-methods" title="Permalink to this headline">¶</a></h2>
+<p>In case a method is renamed or removed, this is the procedure to follow:</p>
+<ol class="arabic">
+<li><p class="first">(If you want to rename) move the code to the new function name.
+Then, in the docstring, add something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">versionadded</span><span class="p">::</span> <span class="mf">0.7</span>
+   <span class="n">Renamed</span> <span class="kn">from</span> <span class="nn">OLDMETHODNAME</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Don’t remove directly the old function, but just change the code to use
+the new function, and add in the docstring:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.. deprecated:: 0.7
+   Use :meth:`NEWMETHODNAME` instead.
+</pre></div>
+</div>
+<p>Moreover, at the beginning of the function, add something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># If we call this DeprecationWarning, pycharm will properly strike out the function</span>
+<span class="kn">from</span> <span class="nn">aiida.common.warnings</span> <span class="k">import</span> <span class="n">AiidaDeprecationWarning</span> <span class="k">as</span> <span class="ne">DeprecationWarning</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&lt;Deprecation warning here - MAKE IT SPECIFIC TO THIS DEPRECATION, as it will be shown only once per different message&gt;&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="c1"># &lt;REST OF THE FUNCTION HERE&gt;</span>
+</pre></div>
+</div>
+<p>(of course replace the parts between <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">&gt;</span></code> symbols with the
+correct strings).</p>
+<p>The advantage of the method above is:</p>
+<ul>
+<li><p class="first">pycharm will still show the method crossed out</p>
+</li>
+<li><p class="first">Our <code class="docutils literal notranslate"><span class="pre">AiidaDeprecationWarning</span></code> does not inherit from <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>, so it will not be “hidden” by python</p>
+</li>
+<li><p class="first">User can disable our warnings (and only those) by using AiiDA
+properties with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">verdi</span> <span class="n">config</span> <span class="n">warnings</span><span class="o">.</span><span class="n">showdeprecations</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="changing-the-config-json-structure">
+<h2>Changing the config.json structure<a class="headerlink" href="#changing-the-config-json-structure" title="Permalink to this headline">¶</a></h2>
+<p>In general, changes to <code class="docutils literal notranslate"><span class="pre">config.json</span></code> should be avoided if possible. However, if there is a need to modify it, the following procedure should be used to create a migration:</p>
+<ol class="arabic">
+<li><p class="first">Determine whether the change will be backwards-compatible. This means that an older version of AiiDA will still be able to run with the new <code class="docutils literal notranslate"><span class="pre">config.json</span></code> structure. It goes without saying that it’s preferable to change <code class="docutils literal notranslate"><span class="pre">config.json</span></code> in a backwards-compatible way.</p>
+</li>
+<li><p class="first">In <code class="docutils literal notranslate"><span class="pre">aiida/manage/configuration/migrations/migrations.py</span></code>, increase the <code class="docutils literal notranslate"><span class="pre">CURRENT_CONFIG_VERSION</span></code> by one. If the change is <strong>not</strong> backwards-compatible, set <code class="docutils literal notranslate"><span class="pre">OLDEST_COMPATIBLE_CONFIG_VERSION</span></code> to the same value.</p>
+</li>
+<li><p class="first">Write a function which transforms the old config dict into the new version. It is possible that you need user input for the migration, in which case this should also be handled in that function.</p>
+</li>
+<li><p class="first">Add an entry in <code class="docutils literal notranslate"><span class="pre">_MIGRATION_LOOKUP</span></code> where the key is the version <strong>before</strong> the migration, and the value is a <code class="docutils literal notranslate"><span class="pre">ConfigMigration</span></code> object. The <code class="docutils literal notranslate"><span class="pre">ConfigMigration</span></code> is constructed from your migration function, and the <strong>hard-coded</strong> values of <code class="docutils literal notranslate"><span class="pre">CURRENT_CONFIG_VERSION</span></code> and <code class="docutils literal notranslate"><span class="pre">OLDEST_COMPATIBLE_CONFIG_VERSION</span></code>. If these values are not hard-coded, the migration will break as soon as the values are changed again.</p>
+</li>
+<li><p class="first">Add tests for the migration, in <code class="docutils literal notranslate"><span class="pre">aiida/backends/tests/manage/configuration/migrations/test_migrations.py</span></code>. You can add two types of tests:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Tests that run the entire migration, using the <code class="docutils literal notranslate"><span class="pre">check_and_migrate_config</span></code> function. Make sure to run it with <code class="docutils literal notranslate"><span class="pre">store=False</span></code>, otherwise it will overwrite your <code class="docutils literal notranslate"><span class="pre">config.json</span></code> file. For these tests, you will have to update the reference files.</li>
+<li>Tests that run a single step in the migration, using the <code class="docutils literal notranslate"><span class="pre">ConfigMigration.apply</span></code> method. This can be used if you need to test different edge cases of the migration.</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<blockquote>
+<div>There are examples for both types of tests.</div></blockquote>
+</div>
+<div class="section" id="daemon-and-signal-handling">
+<h2>Daemon and signal handling<a class="headerlink" href="#daemon-and-signal-handling" title="Permalink to this headline">¶</a></h2>
+<p>While the AiiDA daemon is running, interrupt signals (<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code>) are captured so that the daemon can shut down gracefully. This is implemented using Python’s <code class="docutils literal notranslate"><span class="pre">signal</span></code> module, as shown in the following dummy example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">signal</span>
+
+<span class="k">def</span> <span class="nf">print_foo</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">print_foo</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should be aware of this while developing code which runs in the daemon. In particular, it’s important when creating subprocesses. When a signal is sent, the whole process group receives that signal. As a result, the subprocess can be killed even though the Python main process captures the signal. This can be avoided by creating a new process group for the subprocess, meaning that it will not receive the signal. To do this, you need to pass <code class="docutils literal notranslate"><span class="pre">preexec_fn=os.setsid</span></code> to the <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> function:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s1">&#39;sleep 3; echo bar&#39;</span><span class="p">,</span> <span class="n">preexec_fn</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">setsid</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When dropping python 2.7 support, <code class="docutils literal notranslate"><span class="pre">preexec_fn=os.setsid</span></code> should be replaced
+by the thread safe <code class="docutils literal notranslate"><span class="pre">start_new_session=True</span></code> introduced in python 3.2.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="orm_overview.html" class="btn btn-neutral float-right" title="ORM documentation: generic aiida.orm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../design/changes.html" class="btn btn-neutral float-left" title="Design change justifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

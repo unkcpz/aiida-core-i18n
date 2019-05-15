@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.manage.configuration.test_config &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.manage.configuration.test_config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.manage.configuration.test_config</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Tests for the Config class.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.tests.utils.configuration</span> <span class="k">import</span> <span class="n">create_mock_profile</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span><span class="p">,</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.configuration</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Profile</span><span class="p">,</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.configuration.migrations</span> <span class="k">import</span> <span class="n">CURRENT_CONFIG_VERSION</span><span class="p">,</span> <span class="n">OLDEST_COMPATIBLE_CONFIG_VERSION</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.configuration.options</span> <span class="k">import</span> <span class="n">get_option</span>
+
+
+<div class="viewcode-block" id="TestConfigDirectory"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory">[docs]</a><span class="k">class</span> <span class="nc">TestConfigDirectory</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests to make sure that the detection and creation of configuration folder is done correctly.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestConfigDirectory.setUpClass"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current environment variable settings.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestConfigDirectory</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">aiida_path_original</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.tearDownClass"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.tearDownClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Restore the original environment variable settings.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestConfigDirectory</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">tearDownClass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">aiida_path_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">aiida_path_original</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.test_environment_variable_not_set"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.test_environment_variable_not_set">[docs]</a>    <span class="k">def</span> <span class="nf">test_environment_variable_not_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check that if the environment variable is not set, config folder will be created in `DEFAULT_AIIDA_PATH`.</span>
+
+<span class="sd">        To make sure we do not mess with the actual default `.aiida` folder, which often lives in the home folder</span>
+<span class="sd">        we create a temporary directory and set the `DEFAULT_AIIDA_PATH` to it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+            <span class="c1"># Change the default configuration folder path to temp folder instead of probably `~`.</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH</span> <span class="o">=</span> <span class="n">directory</span>
+
+            <span class="c1"># Make sure that the environment variable is not set</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">set_configuration_directory</span><span class="p">()</span>
+
+            <span class="n">config_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_folder</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AIIDA_CONFIG_FOLDER</span><span class="p">,</span> <span class="n">config_folder</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.test_environment_variable_set_single_path_without_config_folder"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.test_environment_variable_set_single_path_without_config_folder">[docs]</a>    <span class="k">def</span> <span class="nf">test_environment_variable_set_single_path_without_config_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;If `AIIDA_PATH` is set but does not contain a configuration folder, it should be created.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+            <span class="c1"># Set the environment variable and call configuration initialization</span>
+            <span class="n">env_variable</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">env_variable</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">set_configuration_directory</span><span class="p">()</span>
+
+            <span class="c1"># This should have created the configuration directory in the path</span>
+            <span class="n">config_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_folder</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AIIDA_CONFIG_FOLDER</span><span class="p">,</span> <span class="n">config_folder</span><span class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.test_environment_variable_set_single_path_with_config_folder"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.test_environment_variable_set_single_path_with_config_folder">[docs]</a>    <span class="k">def</span> <span class="nf">test_environment_variable_set_single_path_with_config_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;If `AIIDA_PATH` is set and already contains a configuration folder it should simply be used.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">))</span>
+
+            <span class="c1"># Set the environment variable and call configuration initialization</span>
+            <span class="n">env_variable</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">env_variable</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">set_configuration_directory</span><span class="p">()</span>
+
+            <span class="c1"># This should have created the configuration directory in the pathpath</span>
+            <span class="n">config_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_folder</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AIIDA_CONFIG_FOLDER</span><span class="p">,</span> <span class="n">config_folder</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.test_environment_variable_path_including_config_folder"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.test_environment_variable_path_including_config_folder">[docs]</a>    <span class="k">def</span> <span class="nf">test_environment_variable_path_including_config_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;If `AIIDA_PATH` is set and the path contains the base name of the config folder, it should work, i.e:</span>
+
+<span class="sd">            `/home/user/.virtualenvs/dev/`</span>
+<span class="sd">            `/home/user/.virtualenvs/dev/.aiida`</span>
+
+<span class="sd">        Are both legal and will both result in the same configuration folder path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+            <span class="c1"># Set the environment variable with a path that include base folder name and call config initialization</span>
+            <span class="n">env_variable</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">env_variable</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">set_configuration_directory</span><span class="p">()</span>
+
+            <span class="c1"># This should have created the configuration directory in the pathpath</span>
+            <span class="n">config_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_folder</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AIIDA_CONFIG_FOLDER</span><span class="p">,</span> <span class="n">config_folder</span><span class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfigDirectory.test_environment_variable_set_multiple_path"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfigDirectory.test_environment_variable_set_multiple_path">[docs]</a>    <span class="k">def</span> <span class="nf">test_environment_variable_set_multiple_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;If `AIIDA_PATH` is set with multiple paths without actual config folder, one is created in the last.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">directory_a</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="n">directory_b</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="n">directory_c</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+            <span class="c1"># Set the environment variable to contain three paths and call configuration initialization</span>
+            <span class="n">env_variable</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory_a</span><span class="p">,</span> <span class="n">directory_b</span><span class="p">,</span> <span class="n">directory_c</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_AIIDA_PATH_VARIABLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">env_variable</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">set_configuration_directory</span><span class="p">()</span>
+
+            <span class="c1"># This should have created the configuration directory in the last path</span>
+            <span class="n">config_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_c</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CONFIG_DIR_NAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_folder</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AIIDA_CONFIG_FOLDER</span><span class="p">,</span> <span class="n">config_folder</span><span class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory_a</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory_b</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory_c</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestConfig"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig">[docs]</a><span class="k">class</span> <span class="nc">TestConfig</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests for the Config class.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestConfig.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setup a mock config.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span> <span class="o">=</span> <span class="s1">&#39;test_profile&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">create_mock_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span> <span class="o">=</span> <span class="s1">&#39;config.json&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION_CURRENT</span><span class="p">:</span> <span class="n">CURRENT_CONFIG_VERSION</span><span class="p">,</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION_OLDEST_COMPATIBLE</span><span class="p">:</span> <span class="n">OLDEST_COMPATIBLE_CONFIG_VERSION</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">KEY_PROFILES</span><span class="p">:</span> <span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">dictionary</span>
+            <span class="p">},</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="TestConfig.tearDown"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean the temporary folder.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_basic_properties"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_basic_properties">[docs]</a>    <span class="k">def</span> <span class="nf">test_basic_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the basic properties of the Config class.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_filebase</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">CURRENT_CONFIG_VERSION</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version_oldest_compatible</span><span class="p">,</span> <span class="n">OLDEST_COMPATIBLE_CONFIG_VERSION</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_setting_versions"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_setting_versions">[docs]</a>    <span class="k">def</span> <span class="nf">test_setting_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the version setters.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">CURRENT_CONFIG_VERSION</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version_oldest_compatible</span><span class="p">,</span> <span class="n">OLDEST_COMPATIBLE_CONFIG_VERSION</span><span class="p">)</span>
+
+        <span class="n">new_config_version</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">new_compatible_version</span> <span class="o">=</span> <span class="mi">999</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">new_config_version</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">version_oldest_compatible</span> <span class="o">=</span> <span class="n">new_compatible_version</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">new_config_version</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">version_oldest_compatible</span><span class="p">,</span> <span class="n">new_compatible_version</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_construct_empty_dictionary"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_construct_empty_dictionary">[docs]</a>    <span class="k">def</span> <span class="nf">test_construct_empty_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructing with empty dictionary should create basic skeleton.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_PROFILES</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION_CURRENT</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">[</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION_OLDEST_COMPATIBLE</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">[</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_VERSION</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_default_profile"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_default_profile">[docs]</a>    <span class="k">def</span> <span class="nf">test_default_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test setting and getting default profile.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="c1"># If not set should return None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">default_profile_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Setting it to a profile that does not exist should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProfileConfigurationError</span><span class="p">):</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">set_default_profile</span><span class="p">(</span><span class="s1">&#39;non_existing_profile&#39;</span><span class="p">)</span>
+
+        <span class="c1"># After setting a default profile, it should return the right name</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add_profile</span><span class="p">(</span><span class="n">create_mock_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">))</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_default_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">default_profile_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+
+        <span class="c1"># Setting it when a default is already set, should not overwrite by default</span>
+        <span class="n">alternative_profile_name</span> <span class="o">=</span> <span class="s1">&#39;alternative_profile_name&#39;</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add_profile</span><span class="p">(</span><span class="n">create_mock_profile</span><span class="p">(</span><span class="n">alternative_profile_name</span><span class="p">))</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_default_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">default_profile_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+
+        <span class="c1"># But with overwrite=True it should</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_default_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">default_profile_name</span><span class="p">,</span> <span class="n">alternative_profile_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_profiles"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_profiles">[docs]</a>    <span class="k">def</span> <span class="nf">test_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the properties related to retrieving, creating, updating and removing profiles.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Each item returned by config.profiles should be a Profile instance</span>
+        <span class="k">for</span> <span class="n">profile</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">profiles</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">Profile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">profile</span><span class="o">.</span><span class="n">dictionary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">[</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_PROFILES</span><span class="p">][</span><span class="n">profile</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+
+        <span class="c1"># The profile_names property should return the keys of the profiles dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">profile_names</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">[</span><span class="n">Config</span><span class="o">.</span><span class="n">KEY_PROFILES</span><span class="p">]))</span>
+
+        <span class="c1"># Test get_profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span><span class="o">.</span><span class="n">dictionary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Update a profile</span>
+        <span class="n">updated_profile</span> <span class="o">=</span> <span class="n">create_mock_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update_profile</span><span class="p">(</span><span class="n">updated_profile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span><span class="o">.</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">updated_profile</span><span class="o">.</span><span class="n">dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Removing an unexisting profile should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProfileConfigurationError</span><span class="p">):</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">remove_profile</span><span class="p">(</span><span class="s1">&#39;non_existing_profile&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Removing an existing should work and in this test case none should remain</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">remove_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">profiles</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">profile_names</span><span class="p">,</span> <span class="p">[])</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_option"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_option">[docs]</a>    <span class="k">def</span> <span class="nf">test_option</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the setter, unsetter and getter of configuration options.&quot;&quot;&quot;</span>
+        <span class="n">option_value</span> <span class="o">=</span> <span class="mi">131</span>
+        <span class="n">option_name</span> <span class="o">=</span> <span class="s1">&#39;daemon.timeout&#39;</span>
+        <span class="n">option</span> <span class="o">=</span> <span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Getting option that does not exist, should simply return the option default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">),</span> <span class="n">option</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">option</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+
+        <span class="c1"># Unless we set default=False, in which case it should return None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Setting an option profile configuration wide</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value</span><span class="p">)</span>
+
+        <span class="c1"># Getting configuration wide should get new value but None for profile specific</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Setting an option profile specific</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">),</span> <span class="n">option_value</span><span class="p">)</span>
+
+        <span class="c1"># Unsetting profile specific</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">unset_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Unsetting configuration wide</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">unset_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">option</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+
+        <span class="c1"># Setting a `None` like option</span>
+        <span class="n">option_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_option_global_only"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_option_global_only">[docs]</a>    <span class="k">def</span> <span class="nf">test_option_global_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that `global_only` options are only set globally even if a profile specific scope is set.&quot;&quot;&quot;</span>
+        <span class="n">option_name</span> <span class="o">=</span> <span class="s1">&#39;user.email&#39;</span>
+        <span class="n">option_value</span> <span class="o">=</span> <span class="s1">&#39;some@email.com&#39;</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Setting an option globally should be fine</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value</span><span class="p">)</span>
+
+        <span class="c1"># Setting an option profile specific should actually not set it on the profile since it is `global_only`</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_set_option_override"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_set_option_override">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_option_override</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that `global_only` options are only set globally even if a profile specific scope is set.&quot;&quot;&quot;</span>
+        <span class="n">option_name</span> <span class="o">=</span> <span class="s1">&#39;user.email&#39;</span>
+        <span class="n">option_value_one</span> <span class="o">=</span> <span class="s1">&#39;first@email.com&#39;</span>
+        <span class="n">option_value_two</span> <span class="o">=</span> <span class="s1">&#39;second@email.com&#39;</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+
+        <span class="c1"># Setting an option if it does not exist should work</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value_one</span><span class="p">)</span>
+
+        <span class="c1"># Setting it again will override it by default</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value_two</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value_two</span><span class="p">)</span>
+
+        <span class="c1"># If we set override to False, it should not override, big surprise</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">option_value_one</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="n">option_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">option_value_two</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestConfig.test_store"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.manage.configuration.html#aiida.backends.tests.manage.configuration.test_config.TestConfig.test_store">[docs]</a>    <span class="k">def</span> <span class="nf">test_store</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the store method writes the configuration properly to disk.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dictionary</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">config_recreated</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">config_recreated</span><span class="o">.</span><span class="n">dictionary</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

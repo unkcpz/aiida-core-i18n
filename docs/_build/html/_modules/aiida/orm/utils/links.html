@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.utils.links &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../utils.html">aiida.orm.utils</a> &raquo;</li>
+        
+      <li>aiida.orm.utils.links</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.utils.links</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Utilities for dealing with links between nodes.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">type_check</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;LinkPair&#39;</span><span class="p">,</span> <span class="s1">&#39;LinkTriple&#39;</span><span class="p">,</span> <span class="s1">&#39;LinkManager&#39;</span><span class="p">,</span> <span class="s1">&#39;validate_link&#39;</span><span class="p">)</span>
+
+<span class="n">LinkPair</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;LinkPair&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;link_type&#39;</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">])</span>
+<span class="n">LinkTriple</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;LinkTriple&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;link_type&#39;</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="validate_link"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.validate_link">[docs]</a><span class="k">def</span> <span class="nf">validate_link</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate adding a link of the given type and label from a given node to ourself.</span>
+
+<span class="sd">    This function will first validate the class types of the inputs and will subsequently validate whether a link of</span>
+<span class="sd">    the specified type is allowed at all between the nodes types of the source and target.</span>
+
+<span class="sd">    Subsequently, the validity of the &quot;indegree&quot; and &quot;outdegree&quot; of the proposed link is validated, which means</span>
+<span class="sd">    validating that the uniqueness constraints of the incoming links into the target node and the outgoing links from</span>
+<span class="sd">    the source node are not violated. In AiiDA&#39;s provenance graph each link type has one of the following three types</span>
+<span class="sd">    of &quot;degree&quot; character::</span>
+
+<span class="sd">        * unique</span>
+<span class="sd">        * unique pair</span>
+<span class="sd">        * unique triple</span>
+
+<span class="sd">    Each degree character has a different unique constraint on its links, here defined for the indegree::</span>
+
+<span class="sd">        * unique: any target node, it can only have a single incoming link of this type, regardless of the link label.</span>
+<span class="sd">        * unique pair: a node can have an infinite amount of incoming links of this type, as long as the labels within</span>
+<span class="sd">            that sub set, are unique. In short, it is the link pair, i.e. the tuple of the link type and label, that has</span>
+<span class="sd">            a uniquess constraint for the incoming links to a given node.</span>
+<span class="sd">        * unique triple: a node can have an infinite amount of incoming links of this type, as long as the triple tuple</span>
+<span class="sd">            of source node, link type and link label is unique. In other words, it is the link triple that has a</span>
+<span class="sd">            uniqueness constraint for the incoming links.</span>
+
+<span class="sd">    The same holds for outdegree, but then it concerns outgoing links from the source node to the target node.</span>
+
+<span class="sd">    For illustration purposes, consider the following example provenance graphs that are considered legal, where</span>
+<span class="sd">    `WN`, `DN` and `CN` represent a `WorkflowNode`, a `DataNode` and a `CalculationNode`, respectively::</span>
+
+<span class="sd">                    1                    2                    3</span>
+<span class="sd">            ______     ______          ______          ______     ______</span>
+<span class="sd">           |      |   |      |        |      |        |      |   |      |</span>
+<span class="sd">           |  WN  |   |  DN  |        |  DN  |        |  WN  |   |  WN  |</span>
+<span class="sd">           |______|   |______|        |______|        |______|   |______|</span>
+<span class="sd">                |     /                |   |               |     /</span>
+<span class="sd">              a |    / a             a |   | b           a |    / a</span>
+<span class="sd">               _|___/                  |___|_             _|___/</span>
+<span class="sd">              |      |                |      |           |      |</span>
+<span class="sd">              |  CN  |                |  CN  |           |  DN  |</span>
+<span class="sd">              |______|                |______|           |______|</span>
+
+<span class="sd">    In example 1, the link uniqueness constraint is not violated because despite the labels having the same label `a`,</span>
+<span class="sd">    their link types, `CALL_CALC` and `INPUT_CALC`, respectively, are different and their `unique_pair` indegree is</span>
+<span class="sd">    not violated.</span>
+
+<span class="sd">    Similarly, in the second example, the constraint is not violated, because despite both links having the same link</span>
+<span class="sd">    type `INPUT_CALC`, the have different labels, so the `unique_pair` indegree of the `INPUT_CALC` is not violated.</span>
+
+<span class="sd">    Finally, in the third example, we see two `WorkflowNodes` both returning the same `DataNode` and with the same</span>
+<span class="sd">    label. Despite the two incoming links here having both the same type as well as the same label, the uniqueness</span>
+<span class="sd">    constraint is not violated, because the indegree for `RETURN` links is `unique_triple` which means that the triple</span>
+<span class="sd">    of source node and link type and label should be unique.</span>
+
+<span class="sd">    :param source: the node from which the link is coming</span>
+<span class="sd">    :param target: the node to which the link is going</span>
+<span class="sd">    :param link_type: the type of link</span>
+<span class="sd">    :param link_label: link label</span>
+<span class="sd">    :raise TypeError: if `source` or `target` is not a Node instance, or `link_type` is not a `LinkType` enum</span>
+<span class="sd">    :raise ValueError: if the proposed link is invalid</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span><span class="p">,</span> <span class="n">validate_link_label</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">,</span> <span class="n">WorkflowNode</span>
+
+    <span class="n">type_check</span><span class="p">(</span><span class="n">link_type</span><span class="p">,</span> <span class="n">LinkType</span><span class="p">,</span> <span class="s1">&#39;link_type should be a LinkType enum but got: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">link_type</span><span class="p">)))</span>
+    <span class="n">type_check</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="s1">&#39;source should be a `Node` but got: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">source</span><span class="p">)))</span>
+    <span class="n">type_check</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="s1">&#39;target should be a `Node` but got: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">target</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;source or target node does not have a UUID&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot add a link to oneself&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">validate_link_label</span><span class="p">(</span><span class="n">link_label</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid link label `</span><span class="si">{}</span><span class="s1">`: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">link_label</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+
+    <span class="c1"># For each link type, define a tuple that defines the valid types for the source and target node, as well as</span>
+    <span class="c1"># the outdegree and indegree character. If the degree is `unique` that means that there can only be a single</span>
+    <span class="c1"># link of this type regardless of the label. If instead it is `unique_label`, an infinite amount of links of that</span>
+    <span class="c1"># type can be defined, as long as the link label is unique for the sub set of links of that type. Finally, for</span>
+    <span class="c1"># `unique_triple` the triple of node, link type and link label has to be unique.</span>
+    <span class="n">link_mapping</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">:</span> <span class="p">(</span><span class="n">WorkflowNode</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">,</span> <span class="s1">&#39;unique_triple&#39;</span><span class="p">,</span> <span class="s1">&#39;unique&#39;</span><span class="p">),</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">:</span> <span class="p">(</span><span class="n">WorkflowNode</span><span class="p">,</span> <span class="n">WorkflowNode</span><span class="p">,</span> <span class="s1">&#39;unique_triple&#39;</span><span class="p">,</span> <span class="s1">&#39;unique&#39;</span><span class="p">),</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">:</span> <span class="p">(</span><span class="n">CalculationNode</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="s1">&#39;unique_pair&#39;</span><span class="p">,</span> <span class="s1">&#39;unique&#39;</span><span class="p">),</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">:</span> <span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">,</span> <span class="s1">&#39;unique_triple&#39;</span><span class="p">,</span> <span class="s1">&#39;unique_pair&#39;</span><span class="p">),</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">:</span> <span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">WorkflowNode</span><span class="p">,</span> <span class="s1">&#39;unique_triple&#39;</span><span class="p">,</span> <span class="s1">&#39;unique_pair&#39;</span><span class="p">),</span>
+        <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">:</span> <span class="p">(</span><span class="n">WorkflowNode</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="s1">&#39;unique_pair&#39;</span><span class="p">,</span> <span class="s1">&#39;unique_triple&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">type_source</span><span class="p">,</span> <span class="n">type_target</span><span class="p">,</span> <span class="n">outdegree</span><span class="p">,</span> <span class="n">indegree</span> <span class="o">=</span> <span class="n">link_mapping</span><span class="p">[</span><span class="n">link_type</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">type_source</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">type_target</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot add a </span><span class="si">{}</span><span class="s1"> link from </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">link_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)))</span>
+
+    <span class="c1"># Validate the outdegree of the source node</span>
+    <span class="n">outgoing</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">link_type</span><span class="p">)</span>
+
+    <span class="c1"># If the outdegree is `unique` there cannot already be any other incoming links of that type</span>
+    <span class="k">if</span> <span class="n">outdegree</span> <span class="o">==</span> <span class="s1">&#39;unique&#39;</span> <span class="ow">and</span> <span class="n">outgoing</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an outgoing </span><span class="si">{}</span><span class="s1"> link&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">))</span>
+
+    <span class="c1"># If the outdegree is `unique_pair` than the link labels for outgoing links of this type should be unique</span>
+    <span class="k">elif</span> <span class="n">outdegree</span> <span class="o">==</span> <span class="s1">&#39;unique_pair&#39;</span> <span class="ow">and</span> <span class="n">LinkPair</span><span class="p">(</span><span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">)</span> <span class="ow">in</span> <span class="n">outgoing</span><span class="o">.</span><span class="n">all_link_pairs</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an outgoing </span><span class="si">{}</span><span class="s1"> link with label &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">))</span>
+
+    <span class="c1"># If the outdegree is `unique_triple` than the link triples of link type, link label and target should be unique</span>
+    <span class="k">elif</span> <span class="n">outdegree</span> <span class="o">==</span> <span class="s1">&#39;unique_triple&#39;</span> <span class="ow">and</span> <span class="n">LinkTriple</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">)</span> <span class="ow">in</span> <span class="n">outgoing</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an outgoing </span><span class="si">{}</span><span class="s1"> link with label &quot;</span><span class="si">{}</span><span class="s1">&quot; from node&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">))</span>
+
+    <span class="c1"># Validate the indegree of the target node</span>
+    <span class="n">incoming</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">link_type</span><span class="p">)</span>
+
+    <span class="c1"># If the indegree is `unique` there cannot already be any other incoming links of that type</span>
+    <span class="k">if</span> <span class="n">indegree</span> <span class="o">==</span> <span class="s1">&#39;unique&#39;</span> <span class="ow">and</span> <span class="n">incoming</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an incoming </span><span class="si">{}</span><span class="s1"> link&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">))</span>
+
+    <span class="c1"># If the indegree is `unique_pair` than the link labels for incoming links of this type should be unique</span>
+    <span class="k">elif</span> <span class="n">indegree</span> <span class="o">==</span> <span class="s1">&#39;unique_pair&#39;</span> <span class="ow">and</span> <span class="n">LinkPair</span><span class="p">(</span><span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">)</span> <span class="ow">in</span> <span class="n">incoming</span><span class="o">.</span><span class="n">all_link_pairs</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an incoming </span><span class="si">{}</span><span class="s1"> link with label &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">))</span>
+
+    <span class="c1"># If the indegree is `unique_triple` than the link triples of link type, link label and source should be unique</span>
+    <span class="k">elif</span> <span class="n">indegree</span> <span class="o">==</span> <span class="s1">&#39;unique_triple&#39;</span> <span class="ow">and</span> <span class="n">LinkTriple</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">)</span> <span class="ow">in</span> <span class="n">incoming</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;node&lt;</span><span class="si">{}</span><span class="s1">&gt; already has an incoming </span><span class="si">{}</span><span class="s1"> link with label &quot;</span><span class="si">{}</span><span class="s1">&quot; from node&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">uuid</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="LinkManager"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager">[docs]</a><span class="k">class</span> <span class="nc">LinkManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to convert a list of LinkTriple tuples into an iterator.</span>
+
+<span class="sd">    It defines convenience methods to retrieve certain subsets of LinkTriple while checking for consistency.</span>
+<span class="sd">    For example::</span>
+
+<span class="sd">        LinkManager.one(): returns the only entry in the list or it raises an exception</span>
+<span class="sd">        LinkManager.first(): returns the first entry from the list</span>
+<span class="sd">        LinkManager.all(): returns all entries from list</span>
+
+<span class="sd">    The methods `all_nodes` and `all_link_labels` are syntactic sugar wrappers around `all` to get a list of only the</span>
+<span class="sd">    incoming nodes or link labels, respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LinkManager.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_triples</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise the collection.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span> <span class="o">=</span> <span class="n">link_triples</span></div>
+
+<div class="viewcode-block" id="LinkManager.__iter__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator of LinkTriple instances.</span>
+
+<span class="sd">        :return: iterator of LinkTriple instances</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinkManager.__next__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.__next__">[docs]</a>    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the next element in the iterator.</span>
+
+<span class="sd">        :return: LinkTriple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">link_triple</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">link_triple</span></div>
+
+    <span class="c1"># Python 2 specific, python 3 uses `__bool__`</span>
+<div class="viewcode-block" id="LinkManager.__nonzero__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.__nonzero__">[docs]</a>    <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinkManager.__bool__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.__bool__">[docs]</a>    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LinkManager.next"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the next element in the iterator.</span>
+
+<span class="sd">        :return: LinkTriple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__next__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LinkManager.one"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.one">[docs]</a>    <span class="k">def</span> <span class="nf">one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a single entry from the iterator.</span>
+
+<span class="sd">        If the iterator contains no or more than one entry, an exception will be raised</span>
+<span class="sd">        :return: LinkTriple instance</span>
+<span class="sd">        :raises ValueError: if the iterator contains anything but one entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;more than one entry found&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no entries found&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinkManager.first"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.first">[docs]</a>    <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the first entry from the iterator.</span>
+
+<span class="sd">        :return: LinkTriple instance</span>
+<span class="sd">        :raises ValueError: if the iterator contains anything but one entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no entries found&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinkManager.all"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all entries from the list.</span>
+
+<span class="sd">        :return: list of LinkTriple instances</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span></div>
+
+<div class="viewcode-block" id="LinkManager.all_nodes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.all_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">all_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of all nodes.</span>
+
+<span class="sd">        :return: list of nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">node</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="LinkManager.all_link_pairs"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.all_link_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">all_link_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of all link pairs.</span>
+
+<span class="sd">        :return: list of LinkPair instances</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">LinkPair</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">link_type</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">link_label</span><span class="p">)</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="LinkManager.all_link_labels"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.all_link_labels">[docs]</a>    <span class="k">def</span> <span class="nf">all_link_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of all link labels.</span>
+
+<span class="sd">        :return: list of link labels</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">link_label</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="LinkManager.get_node_by_label"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.get_node_by_label">[docs]</a>    <span class="k">def</span> <span class="nf">get_node_by_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node from list for given label.</span>
+
+<span class="sd">        :return: node that corresponds to the given label</span>
+<span class="sd">        :raises aiida.common.NotExistent: if the label is not present among the link_triples</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">matching_entry</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">link_label</span> <span class="o">==</span> <span class="n">label</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">matching_entry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">matching_entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">node</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MultipleObjectsError</span><span class="p">(</span>
+                        <span class="s1">&#39;more than one neighbor with the label </span><span class="si">{}</span><span class="s1"> found&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">matching_entry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">(</span><span class="s1">&#39;no neighbor with the label </span><span class="si">{}</span><span class="s1"> found&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">matching_entry</span></div>
+
+<div class="viewcode-block" id="LinkManager.nested"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.links.LinkManager.nested">[docs]</a>    <span class="k">def</span> <span class="nf">nested</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the matched nodes in the original nested form by expanding the collapsed link labels.</span>
+
+<span class="sd">        :return: dictionary of nested namespaces</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine.processes.ports</span> <span class="k">import</span> <span class="n">PORT_NAMESPACE_SEPARATOR</span>
+
+        <span class="n">nested</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_triples</span><span class="p">:</span>
+
+            <span class="n">current_namespace</span> <span class="o">=</span> <span class="n">nested</span>
+            <span class="n">breadcrumbs</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">link_label</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">PORT_NAMESPACE_SEPARATOR</span><span class="p">)</span>
+
+            <span class="c1"># The last element is the &quot;leaf&quot; port name the preceding elements are nested port namespaces</span>
+            <span class="n">port_name</span> <span class="o">=</span> <span class="n">breadcrumbs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">port_namespaces</span> <span class="o">=</span> <span class="n">breadcrumbs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># Get the nested namespace</span>
+            <span class="k">for</span> <span class="n">subspace</span> <span class="ow">in</span> <span class="n">port_namespaces</span><span class="p">:</span>
+                <span class="n">current_namespace</span> <span class="o">=</span> <span class="n">current_namespace</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="c1"># Insert the node at the given port name</span>
+            <span class="n">current_namespace</span><span class="p">[</span><span class="n">port_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">node</span>
+
+        <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">nested</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Mapping</span><span class="p">),</span> <span class="n">x</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">nested</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

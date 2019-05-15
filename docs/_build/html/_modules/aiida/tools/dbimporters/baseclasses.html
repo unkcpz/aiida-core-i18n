@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.tools.dbimporters.baseclasses &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.tools.dbimporters.baseclasses</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.tools.dbimporters.baseclasses</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+
+<div class="viewcode-block" id="DbImporter"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbImporter">[docs]</a><span class="k">class</span> <span class="nc">DbImporter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for database importers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DbImporter.query"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbImporter.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to query the database.</span>
+
+<span class="sd">        :param id: database-specific entry identificator</span>
+<span class="sd">        :param element: element name from periodic table of elements</span>
+<span class="sd">        :param number_of_elements: number of different elements</span>
+<span class="sd">        :param mineral_name: name of mineral</span>
+<span class="sd">        :param chemical_name: chemical name of substance</span>
+<span class="sd">        :param formula: chemical formula</span>
+<span class="sd">        :param volume: volume of the unit cell in cubic angstroms</span>
+<span class="sd">        :param spacegroup: symmetry space group symbol in Hermann-Mauguin</span>
+<span class="sd">            notation</span>
+<span class="sd">        :param spacegroup_hall: symmetry space group symbol in Hall</span>
+<span class="sd">            notation</span>
+<span class="sd">        :param a: length of lattice vector in angstroms</span>
+<span class="sd">        :param b: length of lattice vector in angstroms</span>
+<span class="sd">        :param c: length of lattice vector in angstroms</span>
+<span class="sd">        :param alpha: angles between lattice vectors in degrees</span>
+<span class="sd">        :param beta: angles between lattice vectors in degrees</span>
+<span class="sd">        :param gamma: angles between lattice vectors in degrees</span>
+<span class="sd">        :param z: number of the formula units in the unit cell</span>
+<span class="sd">        :param measurement_temp: temperature in kelvins at which the</span>
+<span class="sd">            unit-cell parameters were measured</span>
+<span class="sd">        :param measurement_pressure: pressure in kPa at which the</span>
+<span class="sd">            unit-cell parameters were measured</span>
+<span class="sd">        :param diffraction_temp: mean temperature in kelvins at which</span>
+<span class="sd">            the intensities were measured</span>
+<span class="sd">        :param diffraction_pressure: mean pressure in kPa at which the</span>
+<span class="sd">            intensities were measured</span>
+<span class="sd">        :param authors: authors of the publication</span>
+<span class="sd">        :param journal: name of the journal</span>
+<span class="sd">        :param title: title of the publication</span>
+<span class="sd">        :param year: year of the publication</span>
+<span class="sd">        :param journal_volume: journal volume of the publication</span>
+<span class="sd">        :param journal_issue: journal issue of the publication</span>
+<span class="sd">        :param first_page: first page of the publication</span>
+<span class="sd">        :param last_page: last page of the publication</span>
+<span class="sd">        :param doi: digital object identifyer (DOI), refering to the</span>
+<span class="sd">            publication</span>
+
+<span class="sd">        :raises NotImplementedError: if search using given keyword is not</span>
+<span class="sd">            implemented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbImporter.setup_db"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbImporter.setup_db">[docs]</a>    <span class="k">def</span> <span class="nf">setup_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the database parameters. The method should reconnect to the</span>
+<span class="sd">        database using updated parameters, if already connected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbImporter.get_supported_keywords"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbImporter.get_supported_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">get_supported_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of all supported query keywords.</span>
+
+<span class="sd">        :return: list of strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DbSearchResults"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults">[docs]</a><span class="k">class</span> <span class="nc">DbSearchResults</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for database results.</span>
+
+<span class="sd">    All classes, inheriting this one and overriding ``at()``, are able to</span>
+<span class="sd">    benefit from having functions ``__iter__``, ``__len__`` and</span>
+<span class="sd">    ``__getitem__``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DbSearchResults.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.DbSearchResultsIterator"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.DbSearchResultsIterator">[docs]</a>    <span class="k">class</span> <span class="nc">DbSearchResultsIterator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterator for search results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DbSearchResults.DbSearchResultsIterator.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.DbSearchResultsIterator.__init__">[docs]</a>        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="n">results</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_increment</span> <span class="o">=</span> <span class="n">increment</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.DbSearchResultsIterator.__next__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.DbSearchResultsIterator.__next__">[docs]</a>        <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_position</span>
+            <span class="k">if</span> <span class="n">pos</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_increment</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.DbSearchResultsIterator.next"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.DbSearchResultsIterator.next">[docs]</a>        <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            The iterator method expected by python 2.x,</span>
+<span class="sd">            implemented as python 3.x style method.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__next__</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="DbSearchResults.__iter__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instances of</span>
+<span class="sd">        :py:class:`aiida.tools.dbimporters.baseclasses.DbSearchResults` can</span>
+<span class="sd">        be used as iterators.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DbSearchResultsIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.__len__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.__getitem__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.fetch_all"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.fetch_all">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all query results as an array of</span>
+<span class="sd">        :py:class:`aiida.tools.dbimporters.baseclasses.DbEntry`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.next"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the next result of the query (instance of</span>
+<span class="sd">        :py:class:`aiida.tools.dbimporters.baseclasses.DbEntry`).</span>
+
+<span class="sd">        :raise StopIteration: when the end of result array is reached.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbSearchResults.at"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults.at">[docs]</a>    <span class="k">def</span> <span class="nf">at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``position``-th result as</span>
+<span class="sd">        :py:class:`aiida.tools.dbimporters.baseclasses.DbEntry`.</span>
+
+<span class="sd">        :param position: zero-based index of a result.</span>
+
+<span class="sd">        :raise IndexError: if ``position`` is out of bounds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">|</span> <span class="n">position</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;index out of bounds&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span><span class="p">:</span>
+            <span class="n">source_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="n">position</span><span class="p">])</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="n">position</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_class</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">source_dict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span><span class="p">[</span><span class="n">position</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="DbSearchResults._get_source_dict"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults._get_source_dict">[docs]</a>    <span class="k">def</span> <span class="nf">_get_source_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary, which is passed as kwargs to the created</span>
+<span class="sd">        DbEntry instance, describing the source of the entry.</span>
+
+<span class="sd">        :param result_dict: dictionary, describing an entry in the results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DbSearchResults._get_url"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbSearchResults._get_url">[docs]</a>    <span class="k">def</span> <span class="nf">_get_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an URL of an entry CIF file.</span>
+
+<span class="sd">        :param result_dict: dictionary, describing an entry in the results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DbEntry"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbEntry">[docs]</a><span class="k">class</span> <span class="nc">DbEntry</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an entry from external database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_license</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="DbEntry.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbEntry.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">db_uri</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extras</span><span class="o">=</span><span class="p">{},</span> <span class="n">uri</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the basic parameters for the database entry:</span>
+
+<span class="sd">        :param db_name: name of the source database</span>
+<span class="sd">        :param db_uri: URI of the source database</span>
+<span class="sd">        :param id: structure identifyer in the database</span>
+<span class="sd">        :param version: version of the database</span>
+<span class="sd">        :param extras: a dictionary with some extra parameters</span>
+<span class="sd">            (e.g. database ID number)</span>
+<span class="sd">        :param uri: URI of the structure (should be permanent)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;db_name&#39;</span><span class="p">:</span> <span class="n">db_name</span><span class="p">,</span>
+            <span class="s1">&#39;db_uri&#39;</span><span class="p">:</span> <span class="n">db_uri</span><span class="p">,</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">,</span>
+            <span class="s1">&#39;extras&#39;</span><span class="p">:</span> <span class="n">extras</span><span class="p">,</span>
+            <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="n">uri</span><span class="p">,</span>
+            <span class="s1">&#39;source_md5&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_license</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="DbEntry.__repr__"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.DbEntry.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                               <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                               <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span>
+                               <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                                         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">keys</span><span class="p">())]))</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns raw contents of a file as string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">urllib</span>
+            <span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">md5</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;source_md5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span>
+
+    <span class="nd">@contents</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets raw contents of a file as string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">md5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="n">contents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;source_md5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CifEntry"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry">[docs]</a><span class="k">class</span> <span class="nc">CifEntry</span><span class="p">(</span><span class="n">DbEntry</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an entry from the structure database (COD, ICSD, ...).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns raw contents of a CIF file as string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
+
+    <span class="nd">@cif</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">cif</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cif</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets raw contents of a CIF file as string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">cif</span>
+
+<div class="viewcode-block" id="CifEntry.get_raw_cif"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry.get_raw_cif">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_cif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns raw contents of a CIF file as string.</span>
+
+<span class="sd">        :return: contents of a file as string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cif</span></div>
+
+<div class="viewcode-block" id="CifEntry.get_ase_structure"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry.get_ase_structure">[docs]</a>    <span class="k">def</span> <span class="nf">get_ase_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ASE representation of the CIF.</span>
+
+<span class="sd">        .. note:: To be removed, as it is duplicated in</span>
+<span class="sd">            :py:class:`aiida.orm.nodes.data.cif.CifData`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">cStringIO</span> <span class="k">as</span> <span class="n">StringIO</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">CifData</span>
+        <span class="k">return</span> <span class="n">CifData</span><span class="o">.</span><span class="n">read_cif</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cif</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="CifEntry.get_cif_node"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry.get_cif_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_cif_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parse_policy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Creates a CIF node, that can be used in AiiDA workflow.</span>
+
+<span class="sd">        :return: :py:class:`aiida.orm.nodes.data.cif.CifData` object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.cif</span> <span class="k">import</span> <span class="n">CifData</span>
+        <span class="kn">import</span> <span class="nn">tempfile</span>
+
+        <span class="n">cifnode</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cif</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">cifnode</span> <span class="o">=</span> <span class="n">CifData</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">parse_policy</span><span class="o">=</span><span class="n">parse_policy</span><span class="p">)</span>
+
+        <span class="c1"># Maintaining backwards-compatibility. Parameter &#39;store&#39; should</span>
+        <span class="c1"># be removed in the future, as the new node can be stored later.</span>
+        <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+            <span class="n">cifnode</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">cifnode</span></div>
+
+<div class="viewcode-block" id="CifEntry.get_aiida_structure"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry.get_aiida_structure">[docs]</a>    <span class="k">def</span> <span class="nf">get_aiida_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="s2">&quot;pymatgen&quot;</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: AiiDA structure corresponding to the CIF file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cif</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cif_node</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">parse_policy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cif</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="n">converter</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CifEntry.get_parsed_cif"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.CifEntry.get_parsed_cif">[docs]</a>    <span class="k">def</span> <span class="nf">get_parsed_cif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns data structure, representing the CIF file. Can be created</span>
+<span class="sd">        using PyCIFRW or any other open-source parser.</span>
+
+<span class="sd">        :return: list of lists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented in base class&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="UpfEntry"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.UpfEntry">[docs]</a><span class="k">class</span> <span class="nc">UpfEntry</span><span class="p">(</span><span class="n">DbEntry</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an entry from the pseudopotential database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="UpfEntry.get_upf_node"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.dbimporters.html#aiida.tools.UpfEntry.get_upf_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_upf_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an UPF node, that can be used in AiiDA workflow.</span>
+
+<span class="sd">        :return: :py:class:`aiida.orm.nodes.data.upf.UpfData` object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">UpfData</span>
+        <span class="kn">import</span> <span class="nn">tempfile</span>
+
+        <span class="n">upfnode</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Prefixing with an ID in order to start file name with the name</span>
+        <span class="c1"># of the described element.</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">upfnode</span> <span class="o">=</span> <span class="n">UpfData</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="c1"># Maintaining backwards-compatibility. Parameter &#39;store&#39; should</span>
+        <span class="c1"># be removed in the future, as the new node can be stored later.</span>
+        <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+            <span class="n">upfnode</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">upfnode</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

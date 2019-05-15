@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.tools.dbimporters.plugins.cod &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.tools.dbimporters.plugins.cod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.tools.dbimporters.plugins.cod</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">aiida.tools.dbimporters.baseclasses</span> <span class="k">import</span> <span class="p">(</span><span class="n">DbImporter</span><span class="p">,</span> <span class="n">DbSearchResults</span><span class="p">,</span>
+                                                 <span class="n">CifEntry</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="CodDbImporter"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter">[docs]</a><span class="k">class</span> <span class="nc">CodDbImporter</span><span class="p">(</span><span class="n">DbImporter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Database importer for Crystallography Open Database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CodDbImporter._int_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._int_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_int_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying integer fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only integers and strings are accepted&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; IN (&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._str_exact_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._str_exact_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_str_exact_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying string fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clause_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only integers and strings are accepted&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">clause_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">e</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; IN (&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clause_parts</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._str_exact_or_none_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._str_exact_or_none_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_str_exact_or_none_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying string fields, allowing</span>
+<span class="sd">        to use Python&#39;s &quot;None&quot; in addition.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">values_now</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">values_now</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_now</span><span class="p">):</span>
+                <span class="n">clause</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str_exact_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values_now</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> OR </span><span class="si">{}</span><span class="s2"> IS NULL&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> IS NULL&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str_exact_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._formula_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._formula_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_formula_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying formula fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only strings are accepted&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str_exact_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> \
+                                      <span class="n">alias</span><span class="p">,</span> \
+                                      <span class="p">[</span><span class="s2">&quot;- </span><span class="si">{}</span><span class="s2"> -&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._str_fuzzy_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._str_fuzzy_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_str_fuzzy_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for fuzzy querying of string fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clause_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only integers and strings are accepted&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">clause_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; LIKE &#39;%&quot;</span> <span class="o">+</span> <span class="n">e</span> <span class="o">+</span> <span class="s2">&quot;%&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; OR &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clause_parts</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._composition_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._composition_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_composition_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying elements in formula fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clause_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only strings are accepted&quot;</span><span class="p">)</span>
+            <span class="n">clause_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;formula REGEXP &#39; &quot;</span> <span class="o">+</span> <span class="n">e</span> <span class="o">+</span> <span class="s2">&quot;[0-9 ]&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; AND &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clause_parts</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._double_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._double_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_double_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying double-valued fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;incorrect value for keyword &#39;&quot;</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> \
+                                 <span class="s2">&quot;&#39; -- only integers and floats are accepted&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; OR &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> BETWEEN </span><span class="si">{}</span><span class="s2"> AND </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">precision</span><span class="p">,</span> <span class="n">d</span><span class="o">+</span><span class="n">precision</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span></div>
+
+    <span class="n">length_precision</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">angle_precision</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">volume_precision</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">temperature_precision</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">pressure_precision</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="CodDbImporter._length_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._length_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_length_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying lattice vector lengths.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_double_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_precision</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._angle_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._angle_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_angle_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying lattice angles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_double_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_precision</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._volume_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._volume_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_volume_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying unit cell volume.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_double_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_precision</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._temperature_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._temperature_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_temperature_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying temperature.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_double_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_precision</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._pressure_clause"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._pressure_clause">[docs]</a>    <span class="k">def</span> <span class="nf">_pressure_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns SQL query predicate for querying pressure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_double_clause</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressure_precision</span><span class="p">)</span></div>
+
+    <span class="n">_keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">_int_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="n">_composition_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;number_of_elements&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;nel&#39;</span><span class="p">,</span> <span class="n">_int_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;mineral_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mineral&#39;</span><span class="p">,</span> <span class="n">_str_fuzzy_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;chemical_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;chemname&#39;</span><span class="p">,</span> <span class="n">_str_fuzzy_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;formula&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;formula&#39;</span><span class="p">,</span> <span class="n">_formula_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;volume&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;vol&#39;</span><span class="p">,</span> <span class="n">_volume_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;spacegroup&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sg&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;spacegroup_hall&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sgHall&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">_length_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">_length_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">_length_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">_angle_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">_angle_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="n">_angle_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">_int_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;measurement_temp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;celltemp&#39;</span><span class="p">,</span> <span class="n">_temperature_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;diffraction_temp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;diffrtemp&#39;</span><span class="p">,</span> <span class="n">_temperature_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;measurement_pressure&#39;</span><span class="p">:</span>
+                     <span class="p">[</span><span class="s1">&#39;cellpressure&#39;</span><span class="p">,</span> <span class="n">_pressure_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;diffraction_pressure&#39;</span><span class="p">:</span>
+                     <span class="p">[</span><span class="s1">&#39;diffrpressure&#39;</span><span class="p">,</span> <span class="n">_pressure_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;authors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;authors&#39;</span><span class="p">,</span> <span class="n">_str_fuzzy_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;journal&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;journal&#39;</span><span class="p">,</span> <span class="n">_str_fuzzy_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="n">_str_fuzzy_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">_int_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;journal_volume&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span> <span class="n">_int_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;journal_issue&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;issue&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;first_page&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;firstpage&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;last_page&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;lastpage&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;doi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;doi&#39;</span><span class="p">,</span> <span class="n">_str_exact_clause</span><span class="p">],</span>
+                 <span class="s1">&#39;determination_method&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="n">_str_exact_or_none_clause</span><span class="p">]}</span>
+
+<div class="viewcode-block" id="CodDbImporter.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;www.crystallography.net&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="s1">&#39;cod_reader&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;passwd&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;db&#39;</span><span class="p">:</span> <span class="s1">&#39;cod&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_db</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter.query_sql"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter.query_sql">[docs]</a>    <span class="k">def</span> <span class="nf">query_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forms a SQL query for querying the COD database using</span>
+<span class="sd">        ``keyword = value`` pairs, specified in ``kwargs``.</span>
+
+<span class="sd">        :return: string containing a SQL statement.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sql_parts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;(status IS NULL OR status != &#39;retracted&#39;)&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="p">]</span>
+                <span class="n">sql_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> \
+                    <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> \
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> \
+                                                 <span class="n">key</span><span class="p">,</span> \
+                                                 <span class="n">values</span><span class="p">)</span> <span class="o">+</span> \
+                    <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span> \
+                <span class="s2">&quot;search keyword(s) &#39;&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;&#39; &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;is(are) not implemented for COD&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;SELECT file, svnrevision FROM data WHERE &quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot; AND &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sql_parts</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter.query"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a query on the COD database using ``keyword = value`` pairs,</span>
+<span class="sd">        specified in ``kwargs``.</span>
+
+<span class="sd">        :return: an instance of</span>
+<span class="sd">            :py:class:`aiida.tools.dbimporters.plugins.cod.CodSearchResults`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query_statement</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_sql</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_db</span><span class="p">()</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_statement</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                <span class="s1">&#39;svnrevision&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])})</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_db</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">CodSearchResults</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter.setup_db"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter.setup_db">[docs]</a>    <span class="k">def</span> <span class="nf">setup_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes the database connection details.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span> \
+                <span class="s2">&quot;unknown database connection parameter(s): &#39;&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> \
+                <span class="s2">&quot;&#39;, available parameters: &#39;&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodDbImporter.get_supported_keywords"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter.get_supported_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">get_supported_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of all supported query keywords.</span>
+
+<span class="sd">        :return: list of strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._connect_db"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._connect_db">[docs]</a>    <span class="k">def</span> <span class="nf">_connect_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects to the MySQL database for performing searches.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">MySQLdb</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pymysql</span> <span class="k">as</span> <span class="nn">MySQLdb</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">],</span>
+                                   <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
+                                   <span class="n">passwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="p">[</span><span class="s1">&#39;passwd&#39;</span><span class="p">],</span>
+                                   <span class="n">db</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_db_parameters</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CodDbImporter._disconnect_db"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodDbImporter._disconnect_db">[docs]</a>    <span class="k">def</span> <span class="nf">_disconnect_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes connection to the MySQL database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CodSearchResults"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodSearchResults">[docs]</a><span class="k">class</span> <span class="nc">CodSearchResults</span><span class="p">(</span><span class="n">DbSearchResults</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Results of the search, performed on COD.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_base_url</span> <span class="o">=</span> <span class="s2">&quot;http://www.crystallography.net/cod/&quot;</span>
+
+<div class="viewcode-block" id="CodSearchResults.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodSearchResults.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CodSearchResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_return_class</span> <span class="o">=</span> <span class="n">CodEntry</span></div>
+
+<div class="viewcode-block" id="CodSearchResults.__len__"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodSearchResults.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodSearchResults._get_source_dict"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodSearchResults._get_source_dict">[docs]</a>    <span class="k">def</span> <span class="nf">_get_source_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary, which is passed as kwargs to the created</span>
+<span class="sd">        DbEntry instance, describing the source of the entry.</span>
+
+<span class="sd">        :param result_dict: dictionary, describing an entry in the results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">source_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]}</span>
+        <span class="k">if</span> <span class="s1">&#39;svnrevision&#39;</span> <span class="ow">in</span> <span class="n">result_dict</span> <span class="ow">and</span> \
+                        <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;svnrevision&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">source_dict</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;svnrevision&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">source_dict</span></div>
+
+<div class="viewcode-block" id="CodSearchResults._get_url"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodSearchResults._get_url">[docs]</a>    <span class="k">def</span> <span class="nf">_get_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an URL of an entry CIF file.</span>
+
+<span class="sd">        :param result_dict: dictionary, describing an entry in the results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">+</span> <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.cif&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;svnrevision&#39;</span> <span class="ow">in</span> <span class="n">result_dict</span> <span class="ow">and</span> \
+                        <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;svnrevision&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">@</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">[</span><span class="s1">&#39;svnrevision&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">url</span></div></div>
+
+
+<div class="viewcode-block" id="CodEntry"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodEntry">[docs]</a><span class="k">class</span> <span class="nc">CodEntry</span><span class="p">(</span><span class="n">CifEntry</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an entry from COD.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_license</span> <span class="o">=</span> <span class="s1">&#39;CC0&#39;</span>
+
+<div class="viewcode-block" id="CodEntry.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.tools.dbimporters.plugins.html#aiida.tools.dbimporters.plugins.cod.CodEntry.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;Crystallography Open Database&#39;</span><span class="p">,</span>
+                 <span class="n">db_uri</span><span class="o">=</span><span class="s1">&#39;http://www.crystallography.net/cod&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an instance of</span>
+<span class="sd">        :py:class:`aiida.tools.dbimporters.plugins.cod.CodEntry`, related</span>
+<span class="sd">        to the supplied URI.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CodEntry</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="n">db_name</span><span class="p">,</span> <span class="n">db_uri</span><span class="o">=</span><span class="n">db_uri</span><span class="p">,</span>
+                                       <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

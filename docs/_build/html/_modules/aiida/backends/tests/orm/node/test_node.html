@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.orm.node.test_node &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.orm.node.test_node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.orm.node.test_node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Tests for the Node ORM class.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span><span class="p">,</span> <span class="n">LinkType</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">,</span> <span class="n">WorkflowNode</span>
+<span class="kn">from</span> <span class="nn">aiida.orm.utils.links</span> <span class="k">import</span> <span class="n">LinkTriple</span>
+
+
+<div class="viewcode-block" id="TestNodeLinks"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks">[docs]</a><span class="k">class</span> <span class="nc">TestNodeLinks</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test for linking from and to Node.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestNodeLinks.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestNodeLinks</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_source</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_target</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_repository_garbage_collection"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_repository_garbage_collection">[docs]</a>    <span class="k">def</span> <span class="nf">test_repository_garbage_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the repository sandbox folder is cleaned after the node instance is garbage collected.&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">_get_temp_folder</span><span class="p">()</span><span class="o">.</span><span class="n">abspath</span>  <span class="c1"># pylint: disable=protected-access</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">))</span>
+        <span class="k">del</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_computer_user_immutability"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_computer_user_immutability">[docs]</a>    <span class="k">def</span> <span class="nf">test_computer_user_immutability</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that computer and user of a node are immutable after storing.&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ModificationNotAllowed</span><span class="p">):</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">computer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ModificationNotAllowed</span><span class="p">):</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_get_stored_link_triples"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_get_stored_link_triples">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_stored_link_triples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate the `get_stored_link_triples` method.&quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">calculation</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="n">calculation</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;input&#39;</span><span class="p">)</span>
+        <span class="n">calculation</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">stored_triples</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_stored_link_triples</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stored_triples</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">link_triple</span> <span class="o">=</span> <span class="n">stored_triples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Verify the type and value of the tuple elements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">link_triple</span><span class="p">,</span> <span class="n">LinkTriple</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">link_triple</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">Node</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">link_triple</span><span class="o">.</span><span class="n">link_type</span><span class="p">,</span> <span class="n">LinkType</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">link_triple</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">link_triple</span><span class="o">.</span><span class="n">link_type</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">link_triple</span><span class="o">.</span><span class="n">link_label</span><span class="p">,</span> <span class="s1">&#39;input&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_validate_incoming_ipsum"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_validate_incoming_ipsum">[docs]</a>    <span class="k">def</span> <span class="nf">test_validate_incoming_ipsum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the `validate_incoming` method with respect to linking ourselves.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_target</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_validate_incoming"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_validate_incoming">[docs]</a>    <span class="k">def</span> <span class="nf">test_validate_incoming</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the `validate_incoming` method</span>
+
+<span class="sd">        For a generic Node all incoming link types are valid as long as the source is also of type Node and the link</span>
+<span class="sd">        type is a valid LinkType enum value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_source</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_source</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_create"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_create">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can only have a single incoming CREATE link, independent of the source node.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming CREATE link</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Even when the source node is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Or when the link label is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_call_calc"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_call_calc">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_call_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can only have a single incoming CALL_CALC link, independent of the source node.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming CALL_CALC link</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Even when the source node is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Or when the link label is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_call_work"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_call_work">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_call_work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can only have a single incoming CALL_WORK link, independent of the source node.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming CALL_WORK link</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Even when the source node is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Or when the link label is different</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_input_calc"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_input_calc">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_input_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can have an infinite amount of incoming INPUT_CALC links, as long as the link pair is unique.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming INPUT_CALC link from each source node if the label is not unique</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Using another link label is fine</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># However, using the same link, even from another node is illegal</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_input_work"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_input_work">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_input_work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can have an infinite amount of incoming INPUT_WORK links, as long as the link pair is unique.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming INPUT_WORK link from each source node if the label is not unique</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Using another link label is fine</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># However, using the same link, even from another node is illegal</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_add_incoming_return"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_add_incoming_return">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_incoming_return</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nodes can have an infinite amount of incoming RETURN links, as long as the link triple is unique.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>  <span class="c1"># Needs to be stored: see `test_validate_outgoing_workflow`</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Can only have a single incoming RETURN link from each source node if the label is not unique</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span>
+
+        <span class="c1"># From another source node or using another label is fine</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="s1">&#39;other_label&#39;</span><span class="p">)</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">validate_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_validate_outgoing_workflow"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_validate_outgoing_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">test_validate_outgoing_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that attaching an unstored `Data` node with `RETURN` link from a `WorkflowNode` raises.</span>
+
+<span class="sd">        This would for example be the case if a user inside a workfunction or work chain creates a new node based on its</span>
+<span class="sd">        inputs or the outputs returned by another process and tries to attach it as an output. This would the provenance</span>
+<span class="sd">        of that data node to be lost and should be explicitly forbidden by raising.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="s1">&#39;link_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_get_incoming"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_get_incoming">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_incoming</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that `Node.get_incoming` will return stored and cached input links.&quot;&quot;&quot;</span>
+        <span class="n">source_one</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">source_two</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_one</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;link_one&#39;</span><span class="p">)</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">source_two</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="s1">&#39;link_two&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Without link type</span>
+        <span class="n">incoming_nodes</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">incoming_uuids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">neighbor</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">incoming_nodes</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">incoming_uuids</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">source_one</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">source_two</span><span class="o">.</span><span class="n">uuid</span><span class="p">]))</span>
+
+        <span class="c1"># Using a single link type</span>
+        <span class="n">incoming_nodes</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">incoming_uuids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">neighbor</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">incoming_nodes</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">incoming_uuids</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">source_one</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">source_two</span><span class="o">.</span><span class="n">uuid</span><span class="p">]))</span>
+
+        <span class="c1"># Using a link type tuple</span>
+        <span class="n">incoming_nodes</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="p">(</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">incoming_uuids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">neighbor</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">incoming_nodes</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">incoming_uuids</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">source_one</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">source_two</span><span class="o">.</span><span class="n">uuid</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_node_indegree_unique_pair"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_node_indegree_unique_pair">[docs]</a>    <span class="k">def</span> <span class="nf">test_node_indegree_unique_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the validation of links with indegree `unique_pair` works correctly</span>
+
+<span class="sd">        The example here is a `DataNode` that has two incoming links with the same label, but with different types.</span>
+<span class="sd">        This is legal and should pass validation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">caller</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">called</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="c1"># Verify that adding two incoming links with the same link label but different type is allowed</span>
+        <span class="n">called</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;call&#39;</span><span class="p">)</span>
+        <span class="n">called</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;call&#39;</span><span class="p">)</span>
+        <span class="n">called</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">uuids_incoming</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">called</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span><span class="o">.</span><span class="n">all_nodes</span><span class="p">())</span>
+        <span class="n">uuids_expected</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">caller</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">uuid</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uuids_incoming</span><span class="p">,</span> <span class="n">uuids_expected</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_node_indegree_unique_triple"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_node_indegree_unique_triple">[docs]</a>    <span class="k">def</span> <span class="nf">test_node_indegree_unique_triple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the validation of links with indegree `unique_triple` works correctly</span>
+
+<span class="sd">        The example here is a `DataNode` that has two incoming RETURN links with the same label, but from different</span>
+<span class="sd">        source nodes. This is legal and should pass validation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">return_one</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">return_two</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>  <span class="c1"># Needs to be stored: see `test_validate_outgoing_workflow`</span>
+
+        <span class="c1"># Verify that adding two return links with the same link label but from different source is allowed</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">return_one</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;returned&#39;</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">return_two</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;returned&#39;</span><span class="p">)</span>
+
+        <span class="n">uuids_incoming</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span><span class="o">.</span><span class="n">all_nodes</span><span class="p">())</span>
+        <span class="n">uuids_expected</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">return_one</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">return_two</span><span class="o">.</span><span class="n">uuid</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uuids_incoming</span><span class="p">,</span> <span class="n">uuids_expected</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_node_outdegree_unique_triple"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_node_outdegree_unique_triple">[docs]</a>    <span class="k">def</span> <span class="nf">test_node_outdegree_unique_triple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the validation of links with outdegree `unique_triple` works correctly</span>
+
+<span class="sd">        The example here is a `CalculationNode` that has two outgoing CREATE links with the same label, but to different</span>
+<span class="sd">        target nodes. This is legal and should pass validation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">creator</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">data_one</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">data_two</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+
+        <span class="c1"># Verify that adding two create links with the same link label but to different target is allowed from the</span>
+        <span class="c1"># perspective of the source node (the CalculationNode in this case)</span>
+        <span class="n">data_one</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;create&#39;</span><span class="p">)</span>
+        <span class="n">data_two</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;create&#39;</span><span class="p">)</span>
+        <span class="n">data_one</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">data_two</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">uuids_outgoing</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">creator</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">()</span><span class="o">.</span><span class="n">all_nodes</span><span class="p">())</span>
+        <span class="n">uuids_expected</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">data_one</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">data_two</span><span class="o">.</span><span class="n">uuid</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uuids_outgoing</span><span class="p">,</span> <span class="n">uuids_expected</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_get_node_by_label"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_get_node_by_label">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_node_by_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the get_node_by_label() method of the `LinkManager`</span>
+
+<span class="sd">        In particular, check both the it returns the correct values, but also that it raises the expected</span>
+<span class="sd">        exceptions where appropriate (missing link with a given label, or more than one link)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">calc_one_a</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="n">calc_one_b</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="n">calc_two</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="c1"># Two calcs using the data with the same label</span>
+        <span class="n">calc_one_a</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+        <span class="n">calc_one_b</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+        <span class="c1"># A different label</span>
+        <span class="n">calc_two</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;the_input&#39;</span><span class="p">)</span>
+
+        <span class="n">calc_one_a</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">calc_one_b</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">calc_two</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Retrieve a link when the label is unique</span>
+        <span class="n">output_the_input</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">)</span><span class="o">.</span><span class="n">get_node_by_label</span><span class="p">(</span><span class="s1">&#39;the_input&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">output_the_input</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">calc_two</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">MultipleObjectsError</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">)</span><span class="o">.</span><span class="n">get_node_by_label</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">(</span><span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">)</span><span class="o">.</span><span class="n">get_node_by_label</span><span class="p">(</span><span class="s1">&#39;some_weird_label&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestNodeLinks.test_tab_completable_properties"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.orm.node.html#aiida.backends.tests.orm.node.test_node.TestNodeLinks.test_tab_completable_properties">[docs]</a>    <span class="k">def</span> <span class="nf">test_tab_completable_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test properties to go from one node to a neighboring one&quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-statements</span>
+        <span class="n">input1</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">input2</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">top_workflow</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">workflow</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span>
+        <span class="n">calc1</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+        <span class="n">calc2</span> <span class="o">=</span> <span class="n">CalculationNode</span><span class="p">()</span>
+
+        <span class="n">output1</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">output2</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># The `top_workflow` has two inputs, proxies them to `workflow`, that in turn calls two calculations, passing</span>
+        <span class="c1"># one data node to each as input, and return the two data nodes returned one by each called calculation</span>
+        <span class="n">top_workflow</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">top_workflow</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input2</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="n">top_workflow</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">workflow</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">workflow</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input2</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="n">workflow</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">top_workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;CALL&#39;</span><span class="p">)</span>
+        <span class="n">workflow</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">calc1</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;input_value&#39;</span><span class="p">)</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;CALL&#39;</span><span class="p">)</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">output1</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calc1</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
+
+        <span class="n">calc2</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">input2</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;input_value&#39;</span><span class="p">)</span>
+        <span class="n">calc2</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;CALL&#39;</span><span class="p">)</span>
+        <span class="n">calc2</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">output2</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
+
+        <span class="n">output1</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result_a&#39;</span><span class="p">)</span>
+        <span class="n">output2</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result_b&#39;</span><span class="p">)</span>
+        <span class="n">output1</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">top_workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result_a&#39;</span><span class="p">)</span>
+        <span class="n">output2</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">top_workflow</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;result_b&#39;</span><span class="p">)</span>
+
+        <span class="c1"># creator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">output1</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">calc1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">output2</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">calc2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="c1"># caller (for calculations)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">caller</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">workflow</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc2</span><span class="o">.</span><span class="n">caller</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">workflow</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="c1"># caller (for workflows)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">caller</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">top_workflow</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="c1"># .inputs for calculations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_value</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc2</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_value</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">some_label</span>
+
+        <span class="c1"># .inputs for workflows</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">top_workflow</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">top_workflow</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">input2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">some_label</span>
+
+        <span class="c1"># .outputs for calculations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">calc2</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">some_label</span>
+
+        <span class="c1"># .outputs for workflows</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">top_workflow</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result_a</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">top_workflow</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result_b</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result_a</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output1</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result_b</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">output2</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">some_label</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

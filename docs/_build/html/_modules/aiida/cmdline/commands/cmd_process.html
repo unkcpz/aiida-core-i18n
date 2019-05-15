@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.cmdline.commands.cmd_process &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.cmdline.commands.cmd_process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.cmdline.commands.cmd_process</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># pylint: disable=too-many-arguments</span>
+<span class="sd">&quot;&quot;&quot;`verdi process` command.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+
+<span class="kn">from</span> <span class="nn">kiwipy</span> <span class="k">import</span> <span class="n">communications</span>
+
+<span class="kn">from</span> <span class="nn">aiida.cmdline.commands.cmd_verdi</span> <span class="k">import</span> <span class="n">verdi</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.params</span> <span class="k">import</span> <span class="n">arguments</span><span class="p">,</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.utils</span> <span class="k">import</span> <span class="n">decorators</span><span class="p">,</span> <span class="n">echo</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.utils.query.calculation</span> <span class="k">import</span> <span class="n">CalculationQueryBuilder</span>
+<span class="kn">from</span> <span class="nn">aiida.common.log</span> <span class="k">import</span> <span class="n">LOG_LEVELS</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.manager</span> <span class="k">import</span> <span class="n">get_manager</span>
+
+
+<span class="nd">@verdi</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;process&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">verdi_process</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Inspect and manage processes.&quot;&quot;&quot;</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">PROJECT</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">CalculationQueryBuilder</span><span class="o">.</span><span class="n">valid_projections</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">CalculationQueryBuilder</span><span class="o">.</span><span class="n">default_projections</span><span class="p">)</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">GROUP</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;Only include entries that are a member of this group.&#39;</span><span class="p">)</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">ALL</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;Show all entries, regardless of their process state.&#39;</span><span class="p">)</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">PROCESS_STATE</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">EXIT_STATUS</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">FAILED</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">PAST_DAYS</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">RAW</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">process_list</span><span class="p">(</span><span class="n">all_entries</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">process_state</span><span class="p">,</span> <span class="n">exit_status</span><span class="p">,</span> <span class="n">failed</span><span class="p">,</span> <span class="n">past_days</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show a list of processes that are still running.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">tabulate</span> <span class="k">import</span> <span class="n">tabulate</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.utils.common</span> <span class="k">import</span> <span class="n">print_last_process_state_change</span><span class="p">,</span> <span class="n">check_worker_load</span>
+
+    <span class="n">relationships</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
+        <span class="n">relationships</span><span class="p">[</span><span class="s1">&#39;with_node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span>
+
+    <span class="n">builder</span> <span class="o">=</span> <span class="n">CalculationQueryBuilder</span><span class="p">()</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_filters</span><span class="p">(</span><span class="n">all_entries</span><span class="p">,</span> <span class="n">process_state</span><span class="p">,</span> <span class="n">exit_status</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
+    <span class="n">query_set</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_query_set</span><span class="p">(</span><span class="n">relationships</span><span class="o">=</span><span class="n">relationships</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">past_days</span><span class="o">=</span><span class="n">past_days</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+    <span class="n">projected</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_projected</span><span class="p">(</span><span class="n">query_set</span><span class="p">,</span> <span class="n">projections</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="n">projected</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">raw</span><span class="p">:</span>
+        <span class="n">tabulated</span> <span class="o">=</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">projected</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">)</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">tabulated</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tabulated</span> <span class="o">=</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">projected</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">tabulated</span><span class="p">)</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Total results: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">projected</span><span class="p">)))</span>
+        <span class="n">print_last_process_state_change</span><span class="p">()</span>
+        <span class="c1"># Second query to get active process count</span>
+        <span class="c1"># Currently this is slow but will be fixed wiith issue #2770</span>
+        <span class="c1"># We place it at the end so that the user can Ctrl+C after getting the process table.</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">CalculationQueryBuilder</span><span class="p">()</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_filters</span><span class="p">(</span><span class="n">process_state</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,</span> <span class="s1">&#39;waiting&#39;</span><span class="p">,</span> <span class="s1">&#39;running&#39;</span><span class="p">))</span>
+        <span class="n">query_set</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_query_set</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
+        <span class="n">projected</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">get_projected</span><span class="p">(</span><span class="n">query_set</span><span class="p">,</span> <span class="n">projections</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">])</span>
+        <span class="n">worker_slot_use</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">check_worker_load</span><span class="p">(</span><span class="n">worker_slot_use</span><span class="p">)</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;show&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">process_show</span><span class="p">(</span><span class="n">processes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show a summary for one or multiple processes.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.utils.common</span> <span class="k">import</span> <span class="n">get_node_info</span>
+
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">get_node_info</span><span class="p">(</span><span class="n">process</span><span class="p">))</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;report&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--indent-size&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Set the number of spaces to indent each level by.&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-l&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--levelname&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">LOG_LEVELS</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;REPORT&#39;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Filter the results by name of the log level.&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-depth&#39;</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Limit the number of levels to be printed.&#39;</span><span class="p">)</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">process_report</span><span class="p">(</span><span class="n">processes</span><span class="p">,</span> <span class="n">levelname</span><span class="p">,</span> <span class="n">indent_size</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show the log report for one or multiple processes.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.utils.common</span> <span class="k">import</span> <span class="n">get_calcjob_report</span><span class="p">,</span> <span class="n">get_workchain_report</span><span class="p">,</span> <span class="n">get_process_function_report</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">WorkChainNode</span><span class="p">,</span> <span class="n">CalcFunctionNode</span><span class="p">,</span> <span class="n">WorkFunctionNode</span>
+
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">CalcJobNode</span><span class="p">):</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">get_calcjob_report</span><span class="p">(</span><span class="n">process</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">WorkChainNode</span><span class="p">):</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">get_workchain_report</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">levelname</span><span class="p">,</span> <span class="n">indent_size</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="p">(</span><span class="n">CalcFunctionNode</span><span class="p">,</span> <span class="n">WorkFunctionNode</span><span class="p">)):</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">get_process_function_report</span><span class="p">(</span><span class="n">process</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Nothing to show for node type </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">process_status</span><span class="p">(</span><span class="n">processes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Print the status of the process.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.utils.ascii_vis</span> <span class="k">import</span> <span class="n">format_call_graph</span>
+
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">format_call_graph</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;kill&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;--wait/--no-wait&#39;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Wait for the action to be completed otherwise return as soon as it&#39;s scheduled.&quot;</span><span class="p">)</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">only_if_daemon_running</span><span class="p">(</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">,</span> <span class="s1">&#39;daemon is not running, so process may not be reachable&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">process_kill</span><span class="p">(</span><span class="n">processes</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Kill running processes.&quot;&quot;&quot;</span>
+
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span><span class="o">.</span><span class="n">get_process_controller</span><span class="p">()</span>
+
+    <span class="n">futures</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is already terminated&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">continue</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">kill_process</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Killed through `verdi process kill`&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">communications</span><span class="o">.</span><span class="n">UnroutableError</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is unreachable&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">futures</span><span class="p">[</span><span class="n">future</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span>
+
+    <span class="n">process_actions</span><span class="p">(</span><span class="n">futures</span><span class="p">,</span> <span class="s1">&#39;kill&#39;</span><span class="p">,</span> <span class="s1">&#39;killing&#39;</span><span class="p">,</span> <span class="s1">&#39;killed&#39;</span><span class="p">,</span> <span class="n">wait</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;pause&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;--wait/--no-wait&#39;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Wait for the action to be completed otherwise return as soon as it&#39;s scheduled.&quot;</span><span class="p">)</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">only_if_daemon_running</span><span class="p">(</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">,</span> <span class="s1">&#39;daemon is not running, so process may not be reachable&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">process_pause</span><span class="p">(</span><span class="n">processes</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pause running processes.&quot;&quot;&quot;</span>
+
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span><span class="o">.</span><span class="n">get_process_controller</span><span class="p">()</span>
+
+    <span class="n">futures</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is already terminated&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">continue</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">pause_process</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Paused through `verdi process pause`&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">communications</span><span class="o">.</span><span class="n">UnroutableError</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is unreachable&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">futures</span><span class="p">[</span><span class="n">future</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span>
+
+    <span class="n">process_actions</span><span class="p">(</span><span class="n">futures</span><span class="p">,</span> <span class="s1">&#39;pause&#39;</span><span class="p">,</span> <span class="s1">&#39;pausing&#39;</span><span class="p">,</span> <span class="s1">&#39;paused&#39;</span><span class="p">,</span> <span class="n">wait</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;play&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;--wait/--no-wait&#39;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Wait for the action to be completed otherwise return as soon as it&#39;s scheduled.&quot;</span><span class="p">)</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">only_if_daemon_running</span><span class="p">(</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">,</span> <span class="s1">&#39;daemon is not running, so process may not be reachable&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">process_play</span><span class="p">(</span><span class="n">processes</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Play paused processes.&quot;&quot;&quot;</span>
+
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span><span class="o">.</span><span class="n">get_process_controller</span><span class="p">()</span>
+
+    <span class="n">futures</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is already terminated&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">continue</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">play_process</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">communications</span><span class="o">.</span><span class="n">UnroutableError</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is unreachable&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">futures</span><span class="p">[</span><span class="n">future</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span>
+
+    <span class="n">process_actions</span><span class="p">(</span><span class="n">futures</span><span class="p">,</span> <span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="s1">&#39;playing&#39;</span><span class="p">,</span> <span class="s1">&#39;played&#39;</span><span class="p">,</span> <span class="n">wait</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+
+<span class="nd">@verdi_process</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;watch&#39;</span><span class="p">)</span>
+<span class="nd">@arguments</span><span class="o">.</span><span class="n">PROCESSES</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">only_if_daemon_running</span><span class="p">(</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">,</span> <span class="s1">&#39;daemon is not running, so process may not be reachable&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">process_watch</span><span class="p">(</span><span class="n">processes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Watch the state transitions for a process.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">kiwipy</span> <span class="k">import</span> <span class="n">BroadcastFilter</span>
+    <span class="kn">import</span> <span class="nn">concurrent.futures</span>
+
+    <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">correlation_id</span><span class="p">):</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;pk=</span><span class="si">{}</span><span class="s1">, subject=</span><span class="si">{}</span><span class="s1">, body=</span><span class="si">{}</span><span class="s1">, correlation_id=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">correlation_id</span><span class="p">))</span>
+
+    <span class="n">communicator</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span><span class="o">.</span><span class="n">get_communicator</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;Process&lt;</span><span class="si">{}</span><span class="s1">&gt; is already terminated&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">continue</span>
+
+        <span class="n">communicator</span><span class="o">.</span><span class="n">add_broadcast_subscriber</span><span class="p">(</span><span class="n">BroadcastFilter</span><span class="p">(</span><span class="n">_print</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Block this thread indefinitely</span>
+        <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">SystemExit</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">communicator</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Reraise to trigger clicks builtin abort sequence</span>
+        <span class="k">raise</span>
+
+
+<div class="viewcode-block" id="process_actions"><a class="viewcode-back" href="../../../../apidoc/aiida.cmdline.commands.html#aiida.cmdline.commands.cmd_process.process_actions">[docs]</a><span class="k">def</span> <span class="nf">process_actions</span><span class="p">(</span><span class="n">futures_map</span><span class="p">,</span> <span class="n">infinitive</span><span class="p">,</span> <span class="n">present</span><span class="p">,</span> <span class="n">past</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Process the requested actions sent to a set of Processes given a map of the futures and the</span>
+<span class="sd">    corresponding processes.  This function will echo the correct information strings based on</span>
+<span class="sd">    the outcomes of the futures and the given verb conjugations.  You can optionally wait for</span>
+<span class="sd">    any pending actions to be completed before the functions returns and use a timeout to put</span>
+<span class="sd">    a maximum wait time on the actions.</span>
+
+<span class="sd">    :param futures_map: the map of action futures and the corresponding processes</span>
+<span class="sd">    :type futures_map: dict</span>
+<span class="sd">    :param infinitive: the infinitive form of the action verb</span>
+<span class="sd">    :type infinitive: str</span>
+<span class="sd">    :param present: the present tense form</span>
+<span class="sd">    :type present: str</span>
+<span class="sd">    :param past: the past tense form</span>
+<span class="sd">    :type past: str</span>
+<span class="sd">    :param wait: if True, waits for pending actions to be competed, otherwise just returns</span>
+<span class="sd">    :type wait: bool</span>
+<span class="sd">    :param timeout: the timeout (in seconds) to wait for actions to be completed</span>
+<span class="sd">    :type timeout: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># pylint: disable=too-many-branches</span>
+    <span class="kn">import</span> <span class="nn">kiwipy</span>
+    <span class="kn">from</span> <span class="nn">concurrent</span> <span class="k">import</span> <span class="n">futures</span>
+
+    <span class="kn">from</span> <span class="nn">aiida.manage.external.rmq</span> <span class="k">import</span> <span class="n">CommunicationTimeout</span>
+
+    <span class="n">scheduled</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">futures_map</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">):</span>
+            <span class="c1"># Get the corresponding process</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">futures_map</span><span class="p">[</span><span class="n">future</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">CommunicationTimeout</span><span class="p">:</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;call to </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt; timed out&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infinitive</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;failed to </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infinitive</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">past</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;problem </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">present</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">kiwipy</span><span class="o">.</span><span class="n">Future</span><span class="p">):</span>
+                    <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;scheduled </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infinitive</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+                    <span class="n">scheduled</span><span class="p">[</span><span class="n">result</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;got unexpected response when </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">present</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">wait</span> <span class="ow">and</span> <span class="n">scheduled</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_info</span><span class="p">(</span><span class="s1">&#39;waiting for process(es) </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">scheduled</span><span class="o">.</span><span class="n">values</span><span class="p">()])))</span>
+
+            <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">scheduled</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">):</span>
+                <span class="n">process</span> <span class="o">=</span> <span class="n">scheduled</span><span class="p">[</span><span class="n">future</span><span class="p">]</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+                    <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;failed to </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infinitive</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">past</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+                    <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                        <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;problem </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">present</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;got unexpected response when </span><span class="si">{}</span><span class="s1"> Process&lt;</span><span class="si">{}</span><span class="s1">&gt;: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">present</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+
+    <span class="k">except</span> <span class="n">futures</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;timed out trying to </span><span class="si">{}</span><span class="s1"> processes </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infinitive</span><span class="p">,</span> <span class="n">futures_map</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

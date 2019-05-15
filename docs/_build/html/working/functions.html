@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Calculation and work functions &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculations" href="calculations.html" />
+    <link rel="prev" title="Processes" href="processes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Processes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculation and work functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#function-signatures">Function signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-arguments">Default arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variable-and-keyword-arguments">Variable and keyword arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#return-values">Return values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exit-codes">Exit codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provenance">Provenance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reproducibility-guidelines">Reproducibility guidelines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Calculation and work functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/working/functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="calculation-and-work-functions">
+<span id="working-process-functions"></span><h1>Calculation and work functions<a class="headerlink" href="#calculation-and-work-functions" title="Permalink to this headline">¶</a></h1>
+<p>A process function is a process (see the <a class="reference internal" href="../concepts/processes.html#concepts-processes"><span class="std std-ref">process section</span></a> for details) that is implemented as a decorated python function.
+Currently, there are two types of process functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../concepts/calculations.html#concepts-calcfunctions"><span class="std std-ref">calculation function</span></a></li>
+<li><a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">work function</span></a></li>
+</ul>
+</div></blockquote>
+<p>The former can <em>create</em> new data, whereas the latter can orchestrate other processes and <em>return</em> their results.
+This section will provide detailed information and best practices on how to implement these two process types.
+Since the calculation function and work function are both process functions and have the same implementation, all the rules explained below apply to both process types.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This chapter assumes that the basic concept and difference between calculation functions and work functions is known and when one should use on or the other.
+It is therefore crucial that, before you continue, you have read and understood the basic concept of <a class="reference internal" href="../concepts/calculations.html#concepts-calcfunctions"><span class="std std-ref">calculation functions</span></a> and <a class="reference internal" href="../concepts/workflows.html#concepts-workfunctions"><span class="std std-ref">work functions</span></a>.</p>
+</div>
+<p>The simple example in the <a class="reference internal" href="../concepts/calculations.html#concepts-calcfunctions"><span class="std std-ref">introductory section on calculation functions</span></a> showed how a simple python function can be turned into a calculation function simply by adorning it with the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.functions.calcfunction" title="aiida.engine.processes.functions.calcfunction"><code class="xref py py-func docutils literal notranslate"><span class="pre">calcfunction()</span></code></a> decorator.
+When the function is run, AiiDA will dynamically generate a <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.functions.FunctionProcess" title="aiida.engine.processes.functions.FunctionProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionProcess</span></code></a> and build its <a class="reference internal" href="processes.html#working-processes-spec"><span class="std std-ref">process specification</span></a> based on the function signature.
+Here we will explain how this is accomplished and what features of the python function signature standard are supported.</p>
+<div class="section" id="function-signatures">
+<h2>Function signatures<a class="headerlink" href="#function-signatures" title="Permalink to this headline">¶</a></h2>
+<p>To explain what features of python function definitions and calls are supported we first need to be clear about some terminology.
+When dealing with functions, there are two distinct parts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://docs.python.org/3/reference/compound_stmts.html#function-definitions">function definitions</a></li>
+<li><a class="reference external" href="https://docs.python.org/3/reference/expressions.html#calls">function calls</a></li>
+</ul>
+</div></blockquote>
+<p>Consider the following code snippet that defines a simple python function:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+</pre></div>
+</div>
+<p>The function takes three ‘parameters’, named <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code>.
+In addition, the function <code class="docutils literal notranslate"><span class="pre">plain_function</span></code> is said to have default values, because one or more parameters (<code class="docutils literal notranslate"><span class="pre">z</span></code> in this case) have the form <cite>parameter = expression</cite>.
+When <em>calling</em> a function, the terminology changes slightly and values for parameters can be passed as either ‘positional’ or ‘keyword’.
+In the example below, the function is called with ‘positional’ arguments:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+
+<span class="n">add_multiply</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># x=1, y=2, z=3</span>
+</pre></div>
+</div>
+<p>They are called positional, because the arguments are not explicitly named and so will be matched to the corresponding parameter solely based on their position in the function call.
+In this example, <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> will have the values <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">3</span></code>, respectively.
+Since we specified three values, the default for the third parameter <code class="docutils literal notranslate"><span class="pre">z</span></code> was not actually used.
+However, we are allowed to only specify two arguments, in which case the default <em>will</em> be used as can be seen below:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+
+<span class="n">add_multiply</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># x=1, y=2, z=1</span>
+</pre></div>
+</div>
+<p>By not specifying the third argument, the default will be used, so in this case <code class="docutils literal notranslate"><span class="pre">z</span></code> will equal <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+Additionally, one can employ ‘named’ arguments to specifically target a parameter based on its name, instead of having to rely on its position:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+
+<span class="n">add_multiply</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># x=1, y=2, z=1</span>
+</pre></div>
+</div>
+<p>Notice how the order in which we pass the arguments is irrelevant because we specify the name of each argument explicitly when assigning the value.
+Now that we know the difference between positional and named arguments, it is important to realize a python requirement that <strong>positional arguments have to come before named arguments</strong>.
+What this means is that <em>both</em> the function definition and function call below are illegal, because there are named arguments before positional ones:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+
+<span class="n">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Raises `SyntaxError` in definition and call</span>
+</pre></div>
+</div>
+<p>Finally, python knows the concept of <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>, also referred to as variable arguments and keyword arguments, which allow one to define a function which accepts an undetermined number of positional and keyword arguments.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">add</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># Returns 15</span>
+</pre></div>
+</div>
+<p>The variable arguments <code class="docutils literal notranslate"><span class="pre">*args</span></code> will receive the positionally passed arguments as a tuple and the keyword arguments <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> will receive the named arguments as a dictionary.
+With the formal definitions out of the way, let’s now see which of these concepts are supported by process functions.</p>
+</div>
+<div class="section" id="default-arguments">
+<h2>Default arguments<a class="headerlink" href="#default-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Default arguments are supported by calculation functions just as normal python functions as long as it is a <a class="reference internal" href="../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.node.Node" title="aiida.orm.nodes.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> instance, just like the inputs or <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+However, just as with python functions, one should only use immutable objects as function defaults because mutable objects can give unexpected results as they will be kept between function calls.
+Therefore, in order to use a default value for process functions, simply use <code class="docutils literal notranslate"><span class="pre">None</span></code> as the default value and check for its presence in the function body settings the default value if it is <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+This pattern looks like the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add_multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add_multiply</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">add_multiply</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Both function calls in the example above will have the exact same result.</p>
+</div>
+<div class="section" id="variable-and-keyword-arguments">
+<h2>Variable and keyword arguments<a class="headerlink" href="#variable-and-keyword-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Variable arguments are <em>not</em> supported by process functions.
+The reasoning behind this is that the process specification for the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.functions.FunctionProcess" title="aiida.engine.processes.functions.FunctionProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionProcess</span></code></a> is built dynamically based on the function signature and so the names of the inputs are based on the parameter name from the function definition, or the named argument when the function is called.
+Since for variable arguments, neither at function definition nor at function call, explicit parameter names are used, the engine can impossibly determine what names, and by extensions link label, to use for the inputs.</p>
+<p>In contrast, keyword arguments for that reason <em>are</em> supported and it is the keyword used when the function is called that determines the names of the parameters and the labels of the input links.
+The following snippet is therefore perfectly legal and will return the sum of all the nodes that are passed:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">beta</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The provenance generated by this example looks like the following:</p>
+<div class="figure" id="id1">
+<span id="fig-calculation-functions-kwargs"></span><img alt="../_images/add_calcfunction_kwargs.png" src="../_images/add_calcfunction_kwargs.png" />
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">The link labels of the inputs are determined based on the naming of the parameters when the function is called.</span></p>
+</div>
+<p>Note that the inputs <strong>have to be passed as keyword arguments</strong> because they are used for the link labels.
+If the inputs would simply have been passed as positional arguments, the engine could have impossibly determined what label to use for the links that connect the input nodes with the calculation function node.
+For this reason, invoking a ‘dynamic’ function, i.e. one that supports <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> in its signature, with more positional arguments that explicitly named in the signature, will raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+</div>
+<div class="section" id="return-values">
+<h2>Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="#fig-calculation-functions-kwargs"><span class="std std-numref">Fig. 15</span></a> you can see that the engine used the label <code class="docutils literal notranslate"><span class="pre">result</span></code> for the link connecting the calculation function node with its output node.
+This is the default link label if only a single result is returned from the calculation function.
+If you want to specify a label yourself, you can return the result in the form of a dictionary, where the key will be used as the link label.
+By using a dictionary you can also record multiple nodes as output.
+Consider the following snippet:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">sum_and_difference</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;sum&#39;</span><span class="p">:</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="p">,</span> <span class="s1">&#39;difference&#39;</span><span class="p">:</span> <span class="n">alpha</span> <span class="o">-</span> <span class="n">beta</span><span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">sum_and_difference</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The provenance generated by running this calculation function will look like:</p>
+<div class="figure" id="id2">
+<span id="fig-calculation-functions-multiple-outputs"></span><img alt="../_images/add_calcfunction_multiple_outputs.png" src="../_images/add_calcfunction_multiple_outputs.png" />
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">If a dictionary is returned, the keys will be used as the labels for the links that connect the output nodes with the calculation node.</span></p>
+</div>
+<p>As always, all the values returned by a calculation function have to be storable, which means they have to be instances of the <a class="reference internal" href="../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.node.Node" title="aiida.orm.nodes.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> class.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It is very important that you <strong>do not call</strong> <a class="reference internal" href="../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.node.Node.store" title="aiida.orm.nodes.node.Node.store"><code class="xref py py-meth docutils literal notranslate"><span class="pre">store()</span></code></a> <strong>yourself</strong> on the nodes before returning them from a <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code>.
+Because of the calculation/workflow duality in AiiDA, a <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code>, which is a calculation-like process, can only <em>create</em> and not <em>return</em> data nodes.
+This means that if a node is returned from a <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code> that <em>is already stored</em>, the engine will throw an exception.</p>
+</div>
+</div>
+<div class="section" id="exit-codes">
+<h2>Exit codes<a class="headerlink" href="#exit-codes" title="Permalink to this headline">¶</a></h2>
+<p>So far we have only seen examples of calculation functions where everything works out just fine.
+However, the real world is different, and often we will encounter situations where problems arise.
+A calculation function may receive incorrect or incoherent inputs, or the code it executes may throw an exception.
+Of course we could throw an input validation exception or not even catch the exceptions that the code we call throws, but that will lead the function process to be put in the <code class="docutils literal notranslate"><span class="pre">Excepted</span></code> terminal state.
+As explained in the <a class="reference internal" href="../concepts/processes.html#concepts-process-state"><span class="std std-ref">process state</span></a> section, this state is indeed reserved for processes that incurred an exception during execution.
+Consider the following calculation function definition and call:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">divide</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Because the value for <code class="docutils literal notranslate"><span class="pre">y</span></code> that is being passed is zero, the engine will encounter a <code class="docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code> exception when the calculation function is run.
+The output of <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span></code> will confirm that the process has excepted:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created    State             Process label    Process status
+----  ---------  ----------------  ---------------  ----------------
+  <span class="m">10</span>  2m ago     ⨯ Excepted        divide
+
+Total results: <span class="m">1</span>
+</pre></div>
+</div>
+<p>Exceptions that occur during the execution of a process are recorded as a log message on the corresponding process node.
+To show these log messages, one can use <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">report</span></code>.
+In the case of the example above, it would look something like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2019</span>-03-21 <span class="m">15</span>:12:25 <span class="o">[</span><span class="m">19</span><span class="o">]</span>: <span class="o">[</span><span class="m">10</span><span class="p">|</span>divide<span class="p">|</span>on_except<span class="o">]</span>: Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;/home/sphuber/code/aiida/env/dev/plumpy/plumpy/process_states.py&quot;</span>, line <span class="m">220</span>, in execute
+    <span class="nv">result</span> <span class="o">=</span> self.run_fn<span class="o">(</span>*self.args, **self.kwargs<span class="o">)</span>
+  File <span class="s2">&quot;/home/sphuber/code/aiida/env/dev/aiida-core/aiida/engine/processes/functions.py&quot;</span>, line <span class="m">319</span>, in run
+    <span class="nv">result</span> <span class="o">=</span> self._func<span class="o">(</span>*args, **kwargs<span class="o">)</span>
+  File <span class="s2">&quot;docs/source/working/include/snippets/processes/functions/calcfunction_exception.py&quot;</span>, line <span class="m">6</span>, in divide
+    <span class="k">return</span> x / y
+  File <span class="s2">&quot;/home/sphuber/code/aiida/env/dev/aiida-core/aiida/orm/nodes/data/numeric.py&quot;</span>, line <span class="m">30</span>, in inner
+    <span class="k">return</span> to_aiida_type<span class="o">(</span>func<span class="o">(</span>left, right<span class="o">))</span>
+  File <span class="s2">&quot;/home/sphuber/code/aiida/env/dev/aiida-core/aiida/orm/nodes/data/numeric.py&quot;</span>, line <span class="m">75</span>, in __div__
+    <span class="k">return</span> self / other
+ZeroDivisionError: division by zero
+</pre></div>
+</div>
+<p>However, in this particular example the exception is not so much an unexpected error, but one we could have considered and have seen coming, so it might be more applicable to simply mark the process as failed.
+To accomplish this, there is the concept of an <a class="reference internal" href="../concepts/processes.html#concepts-process-exit-codes"><span class="std std-ref">exit status</span></a> that can be set on the process, which is an integer that, when non-zero, marks a process in the <code class="docutils literal notranslate"><span class="pre">Finished</span></code> state as ‘failed’.
+Since the exit status is set as an attribute on the process node, it also makes it very easy to query for failed processes.
+To set a non-zero exit status on a calculation function to indicate it as failed, simply return an instance of the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.exit_code.ExitCode" title="aiida.engine.processes.exit_code.ExitCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExitCode</span></code></a> named tuple.
+Time for a demonstration:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span><span class="p">,</span> <span class="n">ExitCode</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ExitCode</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;cannot divide by 0&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">divide</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>When we run the calculation function now, with the same inputs, instead of excepting, the process will successfully terminate and its exit status will be set to the value stored in the <code class="docutils literal notranslate"><span class="pre">ExitCode</span></code>.
+The exit status is also displayed by <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created    State             Process label    Process status
+----  ---------  ----------------  ---------------  ----------------
+  <span class="m">10</span>  2m ago     ⨯ Excepted        divide
+ <span class="m">773</span>  21s ago    ⏹ Finished <span class="o">[</span><span class="m">100</span><span class="o">]</span>  divide
+
+Total results: <span class="m">2</span>
+</pre></div>
+</div>
+<p>Both approaches are valid and which one to use depends on your use case.
+The question you should ask yourself is whether a potential problem merits throwing the process on the pile of ‘excepted’ processes.
+Or maybe, as in the example above, the problem is easily foreseeable and classifiable with a well defined exit status, in which case it might make more sense to return the exit code.
+At the end one should think which solution makes it easier for a workflow calling the function to respond based on the result and what makes it easier to query for these specific failure modes.</p>
+</div>
+<div class="section" id="provenance">
+<h2>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the basic attributes that are stored for all processes such as the process state and label, the process functions automatically store additional information that relates to the source code of the function they represent:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Function name</li>
+<li>Function namespace</li>
+<li>Function starting line number</li>
+<li>Function source file</li>
+</ul>
+</div></blockquote>
+<p>The first three are retrieved by inspecting the python source code as soon as the process function is executed and are stored as attributes on the process node.
+They can be accessed through the corresponding properties on the process node as follows:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span>  <span class="c1"># add</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_namespace</span><span class="p">)</span>  <span class="c1"># __main__</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_starting_line_number</span><span class="p">)</span>  <span class="c1"># 4</span>
+</pre></div>
+</div>
+<p>The source code of the file in which the function is defined is also stored, but since it can be quite big, it is stored as a raw file in the repository of the process node.
+It can be retrieved through the <a class="reference internal" href="../apidoc/aiida.orm.utils.html#aiida.orm.utils.mixins.FunctionCalculationMixin.get_function_source_code" title="aiida.orm.utils.mixins.FunctionCalculationMixin.get_function_source_code"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_function_source_code()</span></code></a> method.</p>
+<p>The attributes give some querability to the process functions stored in the provenance graph and by storing the source code of the function that was executed, there will be some reference in the future to track how the function created its output nodes.
+Note, however, that just storing the source file of the function does not guarantee that one can reproduce the exact result.
+For example, one can ‘leak’ data into the function by reading a file or loading an existing node from the database that was not explicitly passed as an input.
+Alternatively, external code can be imported and called, the source code of which will not be recorded.</p>
+<div class="section" id="reproducibility-guidelines">
+<h3>Reproducibility guidelines<a class="headerlink" href="#reproducibility-guidelines" title="Permalink to this headline">¶</a></h3>
+<p>Due to the nature of the way process functions are implemented, it is impossible to guarantee 100% reproducibility, but by following the following guidelines, one can come as close as possible.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Do not leak data into functions</li>
+<li>Limit importing of external code</li>
+<li>Keep functions self-consistent and in separate files</li>
+</ul>
+</div></blockquote>
+<p>Leaking data into functions is accomplished for example by reading a file on the local file system in the function body and using its contents for the creation of the outputs.
+Even if you store the source code, if you don’t possess the file that was read, it is impossible to reproduce the results.
+Likewise, you should not load any existing data from the database through the API, but rather they should be direct inputs of the process function.</p>
+<p>A similar problem occurs when importing other python code.
+Practically, it is almost impossible to never import code into process functions, as this would force massive code duplication.
+However, there is still a difference between importing code from the <code class="docutils literal notranslate"><span class="pre">aiida-core</span></code> library or the repository in which the process function is hosted, and the importing of a local python file.
+Even though for both cases there can no be guarantee of reproducibility, the former stands a better chance by far, as the version number of the plugin should be recorded.
+The rule of thumb then is to keep the importing of code to a minimum, but if you have to, make sure to make it part of a plugin package with a well-defined version number.</p>
+<p>Finally, as mentioned in the introduction, the source file of a process function is stored as a file in the repository for <em>each execution</em>.
+Currently there is no automatic deduplication for identical files by the engine, so these files may occupy quite a bit of space.
+For this reason it is advisable to keep each process function in its own separate file.
+This not only improves readability, but it also minimizes the impact on the size of the file repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="calculations.html" class="btn btn-neutral float-right" title="Calculations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="processes.html" class="btn btn-neutral float-left" title="Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

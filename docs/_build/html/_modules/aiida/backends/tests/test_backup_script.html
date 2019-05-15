@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.test_backup_script &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.test_backup_script</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.test_backup_script</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="k">import</span> <span class="n">parse</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.utils</span> <span class="k">import</span> <span class="n">BACKEND_SQLA</span><span class="p">,</span> <span class="n">BACKEND_DJANGO</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">utils</span><span class="p">,</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">aiida.manage</span> <span class="k">import</span> <span class="n">configuration</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.backup</span> <span class="k">import</span> <span class="n">backup_setup</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.backup</span> <span class="k">import</span> <span class="n">backup_utils</span>
+
+
+<div class="viewcode-block" id="TestBackupScriptUnit"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit">[docs]</a><span class="k">class</span> <span class="nc">TestBackupScriptUnit</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+
+    <span class="n">_json_test_input_1</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2,&#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39; &quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: null, &quot;days_to_backup&quot;: null, &quot;backup_dir&quot;: &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;/scratch/aiida_user/backupScriptDest&quot;}&#39;</span>
+
+    <span class="n">_json_test_input_2</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2, &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: null, &quot;days_to_backup&quot;: null, &quot;backup_dir&quot;: &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;/scratch/aiida_user/backupScriptDest&quot;}&#39;</span>
+
+    <span class="n">_json_test_input_3</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2, &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: null, &quot;days_to_backup&quot;: 2, &quot;backup_dir&quot;: &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;/scratch/aiida_user/backupScriptDest&quot;}&#39;</span>
+
+    <span class="n">_json_test_input_4</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2, &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: &quot;2014-07-22 14:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;days_to_backup&quot;: null, &quot;backup_dir&quot;: &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;/scratch/aiida_user/backupScriptDest&quot;}&#39;</span>
+
+    <span class="n">_json_test_input_5</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2, &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: &quot;2014-07-22 14:54:53.688484+00:00&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;days_to_backup&quot;: 2, &quot;backup_dir&quot;: &quot;/scratch/aiida_user/backup&quot;}&#39;</span>
+
+    <span class="n">_json_test_input_6</span> <span class="o">=</span> <span class="s1">&#39;{&quot;backup_length_threshold&quot;: 2, &quot;periodicity&quot;: 2, &#39;</span> <span class="o">+</span>\
+        <span class="s1">&#39;&quot;oldest_object_backedup&quot;: &quot;2014-07-18 13:54:53.688484&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;end_date_of_backup&quot;: &quot;2014-07-22 14:54:53.688484&quot;, &#39;</span> <span class="o">+</span> \
+        <span class="s1">&#39;&quot;days_to_backup&quot;: null, &#39;</span> \
+        <span class="s1">&#39;&quot;backup_dir&quot;: &quot;/scratch/./aiida_user////backup//&quot;}&#39;</span>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.setUp"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestBackupScriptUnit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="n">configuration</span><span class="o">.</span><span class="n">load_profile</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">configuration</span><span class="o">.</span><span class="n">PROFILE</span><span class="o">.</span><span class="n">database_backend</span> <span class="o">==</span> <span class="n">BACKEND_SQLA</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">aiida.manage.backup.backup_sqlalchemy</span> <span class="k">import</span> <span class="n">Backup</span>
+        <span class="k">elif</span> <span class="n">configuration</span><span class="o">.</span><span class="n">PROFILE</span><span class="o">.</span><span class="n">database_backend</span> <span class="o">==</span> <span class="n">BACKEND_DJANGO</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">aiida.manage.backup.backup_django</span> <span class="k">import</span> <span class="n">Backup</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">skipTest</span><span class="p">(</span><span class="s2">&quot;Unknown backend&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span> <span class="o">=</span> <span class="n">Backup</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.tearDown"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestBackupScriptUnit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_loading_basic_params_from_file"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_loading_basic_params_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">test_loading_basic_params_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests the correct loading of the basic _backup_setup_inst</span>
+<span class="sd">        parameters from a JSON string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_oldest_object_bk</span><span class="p">,</span>
+            <span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2014-07-18 13:54:53.688484+00:00&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;Last _backup_setup_inst start date is not parsed correctly&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The destination directory of the _backup_setup_inst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_backup_dir</span><span class="p">,</span>
+            <span class="s2">&quot;/scratch/aiida_user/backupScriptDest&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_backup_setup_inst destination directory not parsed correctly&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_backup_length_threshold</span><span class="p">,</span>
+            <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="s2">&quot;_backup_length_threshold not parsed correctly&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_periodicity</span><span class="p">,</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;_periodicity not parsed correctly&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_loading_backup_time_params_from_file_1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_loading_backup_time_params_from_file_1">[docs]</a>    <span class="k">def</span> <span class="nf">test_loading_backup_time_params_from_file_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests that the _backup_setup_inst limits are correctly</span>
+<span class="sd">        loaded from the JSON string and are correctly set.</span>
+
+<span class="sd">        In the parsed JSON string, no _backup_setup_inst end limits are set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_days_to_backup</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;_days_to_backup should be None/null but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_end_date_of_backup</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;_end_date_of_backup should be None/null but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_internal_end_date_of_backup</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;_internal_end_date_of_backup should be None/null but it is not&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_loading_backup_time_params_from_file_2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_loading_backup_time_params_from_file_2">[docs]</a>    <span class="k">def</span> <span class="nf">test_loading_backup_time_params_from_file_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests that the _backup_setup_inst limits are correctly</span>
+<span class="sd">        loaded from the JSON string and are correctly set.</span>
+
+<span class="sd">        In the parsed JSON string, only the daysToBackup limit is set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_days_to_backup</span><span class="p">,</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;_days_to_backup should be 2 but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_end_date_of_backup</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;_end_date_of_backup should be None/null but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_internal_end_date_of_backup</span><span class="p">,</span>
+            <span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2014-07-20 13:54:53.688484+00:00&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;_internal_end_date_of_backup is not the expected one&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_loading_backup_time_params_from_file_3"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_loading_backup_time_params_from_file_3">[docs]</a>    <span class="k">def</span> <span class="nf">test_loading_backup_time_params_from_file_3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests that the _backup_setup_inst limits are correctly</span>
+<span class="sd">        loaded from the JSON string and are correctly set.</span>
+
+<span class="sd">        In the parsed JSON string, only the endDateOfBackup limit is set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_days_to_backup</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;_days_to_backup should be None/null but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_end_date_of_backup</span><span class="p">,</span>
+            <span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2014-07-22 14:54:53.688484+00:00&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;_end_date_of_backup should be None/null but it is not&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_internal_end_date_of_backup</span><span class="p">,</span>
+            <span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2014-07-22 14:54:53.688484+00:00&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;_internal_end_date_of_backup is not the expected one&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_loading_backup_time_params_from_file_4"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_loading_backup_time_params_from_file_4">[docs]</a>    <span class="k">def</span> <span class="nf">test_loading_backup_time_params_from_file_4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests that the _backup_setup_inst limits are correctly</span>
+<span class="sd">        loaded from the JSON string and are correctly set.</span>
+
+<span class="sd">        In the parsed JSON string, the endDateOfBackup &amp; daysToBackuplimit</span>
+<span class="sd">        are set which should lead to an exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.manage.backup.backup_base</span> <span class="k">import</span> <span class="n">BackupError</span>
+
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># An exception should be raised because endDateOfBackup</span>
+        <span class="c1"># &amp; daysToBackuplimit have been defined in the same time.</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">BackupError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.check_full_deserialization_serialization"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.check_full_deserialization_serialization">[docs]</a>    <span class="k">def</span> <span class="nf">check_full_deserialization_serialization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_string</span><span class="p">,</span> <span class="n">backup_inst</span><span class="p">):</span>
+        <span class="n">input_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
+        <span class="n">backup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">backup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">input_variables</span><span class="p">)</span>
+        <span class="n">target_variables</span> <span class="o">=</span> <span class="n">backup_inst</span><span class="o">.</span><span class="n">_dictionarize_backup_info</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">input_variables</span><span class="p">,</span> <span class="n">target_variables</span><span class="p">,</span>
+                      <span class="s2">&quot;The test string </span><span class="si">{}</span><span class="s2"> did not succeed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                          <span class="n">input_string</span><span class="p">)</span> <span class="o">+</span>
+                      <span class="s2">&quot; the serialization deserialization test.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                      <span class="s2">&quot;Input variables: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">input_variables</span><span class="p">)</span> <span class="o">+</span>
+                      <span class="s2">&quot;Output variables: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_variables</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_full_deserialization_serialization_1"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_full_deserialization_serialization_1">[docs]</a>    <span class="k">def</span> <span class="nf">test_full_deserialization_serialization_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests the correct deserialization / serialization of the</span>
+<span class="sd">        variables that should be stored in a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_1</span>
+        <span class="n">backup_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_full_deserialization_serialization</span><span class="p">(</span><span class="n">input_string</span><span class="p">,</span> <span class="n">backup_inst</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_full_deserialization_serialization_2"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_full_deserialization_serialization_2">[docs]</a>    <span class="k">def</span> <span class="nf">test_full_deserialization_serialization_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests the correct deserialization / serialization of the</span>
+<span class="sd">        variables that should be stored in a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_2</span>
+        <span class="n">backup_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_full_deserialization_serialization</span><span class="p">(</span><span class="n">input_string</span><span class="p">,</span> <span class="n">backup_inst</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_full_deserialization_serialization_3"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_full_deserialization_serialization_3">[docs]</a>    <span class="k">def</span> <span class="nf">test_full_deserialization_serialization_3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests the correct deserialization / serialization of the</span>
+<span class="sd">        variables that should be stored in a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_3</span>
+        <span class="n">backup_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_full_deserialization_serialization</span><span class="p">(</span><span class="n">input_string</span><span class="p">,</span> <span class="n">backup_inst</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_full_deserialization_serialization_4"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_full_deserialization_serialization_4">[docs]</a>    <span class="k">def</span> <span class="nf">test_full_deserialization_serialization_4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests the correct deserialization / serialization of the</span>
+<span class="sd">        variables that should be stored in a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_4</span>
+        <span class="n">backup_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_full_deserialization_serialization</span><span class="p">(</span><span class="n">input_string</span><span class="p">,</span> <span class="n">backup_inst</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptUnit.test_timezone_addition_and_dir_correction"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptUnit.test_timezone_addition_and_dir_correction">[docs]</a>    <span class="k">def</span> <span class="nf">test_timezone_addition_and_dir_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method tests if the timezone is added correctly to timestamps</span>
+<span class="sd">        that don&#39;t have a timezone. Moreover, it checks if the given directory</span>
+<span class="sd">        paths are normalized as expected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">backup_variables</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_test_input_6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_ignore_backup_dir_existence_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_read_backup_info_from_dict</span><span class="p">(</span><span class="n">backup_variables</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_oldest_object_bk</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">,</span>
+            <span class="s2">&quot;Timezone info should not be none (timestamp: </span><span class="si">{}</span><span class="s2">).&quot;</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_oldest_object_bk</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_end_date_of_backup</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">,</span>
+            <span class="s2">&quot;Timezone info should not be none (timestamp: </span><span class="si">{}</span><span class="s2">).&quot;</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_end_date_of_backup</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_internal_end_date_of_backup</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">,</span>
+            <span class="s2">&quot;Timezone info should not be none (timestamp: </span><span class="si">{}</span><span class="s2">).&quot;</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_internal_end_date_of_backup</span><span class="p">))</span>
+
+        <span class="c1"># The destination directory of the _backup_setup_inst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backup_setup_inst</span><span class="o">.</span><span class="n">_backup_dir</span><span class="p">,</span>
+            <span class="s2">&quot;/scratch/aiida_user/backup&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_backup_setup_inst destination directory is &quot;</span>
+            <span class="s2">&quot;not normalized as expected.&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestBackupScriptIntegration"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptIntegration">[docs]</a><span class="k">class</span> <span class="nc">TestBackupScriptIntegration</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+
+    <span class="n">_aiida_rel_path</span> <span class="o">=</span> <span class="s2">&quot;.aiida&quot;</span>
+    <span class="n">_backup_rel_path</span> <span class="o">=</span> <span class="s2">&quot;backup&quot;</span>
+    <span class="n">_repo_rel_path</span> <span class="o">=</span> <span class="s2">&quot;repository&quot;</span>
+
+    <span class="n">_bs_instance</span> <span class="o">=</span> <span class="n">backup_setup</span><span class="o">.</span><span class="n">BackupSetup</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TestBackupScriptIntegration.test_integration"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptIntegration.test_integration">[docs]</a>    <span class="k">def</span> <span class="nf">test_integration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">Capturing</span>
+
+        <span class="c1"># Fill in the repository with data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill_repo</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Create a temp folder where the backup files will be placed</span>
+            <span class="c1"># and the backup will be stored</span>
+            <span class="n">temp_folder</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+            <span class="c1"># Capture the sysout of the following command</span>
+            <span class="k">with</span> <span class="n">Capturing</span><span class="p">():</span>
+                <span class="c1"># Create the backup scripts</span>
+                <span class="n">backup_full_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_backup_scripts</span><span class="p">(</span><span class="n">temp_folder</span><span class="p">)</span>
+
+            <span class="c1"># Put the backup folder in the path</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">backup_full_path</span><span class="p">)</span>
+
+            <span class="c1"># Import the backup script - this action will also run it</span>
+            <span class="c1"># It is assumed that the backup script ends with .py</span>
+            <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bs_instance</span><span class="o">.</span><span class="n">_script_filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+
+            <span class="c1"># Check the backup</span>
+            <span class="kn">import</span> <span class="nn">os</span>
+            <span class="kn">from</span> <span class="nn">aiida.manage.configuration</span> <span class="k">import</span> <span class="n">get_profile</span>
+            <span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">are_dir_trees_equal</span>
+
+            <span class="n">dirpath_repository</span> <span class="o">=</span> <span class="n">get_profile</span><span class="p">()</span><span class="o">.</span><span class="n">repository_path</span>
+            <span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_repository</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repo_rel_path</span><span class="p">)</span>
+            <span class="n">dest_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">backup_full_path</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">_bs_instance</span><span class="o">.</span><span class="n">_file_backup_folder_rel</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">_repo_rel_path</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">are_dir_trees_equal</span><span class="p">(</span><span class="n">source_dir</span><span class="p">,</span> <span class="n">dest_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;The backed-up repository has differences to the original one. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                             <span class="o">+</span> <span class="s2">&quot;. If the test fails, report it in issue #2134.&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">temp_folder</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptIntegration.fill_repo"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptIntegration.fill_repo">[docs]</a>    <span class="k">def</span> <span class="nf">fill_repo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">CalcJobNode</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Dict</span>
+
+        <span class="n">extra_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;/test_with_subclasses&quot;</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+
+        <span class="n">a1</span> <span class="o">=</span> <span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">a1</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="n">a1</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="c1"># To query only these nodes later</span>
+        <span class="n">a1</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="n">extra_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">a3</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">a3</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="n">extra_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">a4</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">a4</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="n">extra_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">a5</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">a5</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="n">extra_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># I don&#39;t set the extras, just to be sure that the filtering works</span>
+        <span class="c1"># The filtering is needed because other tests will put stuff int he DB</span>
+        <span class="n">a6</span> <span class="o">=</span> <span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">a6</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="n">a6</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">a7</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+        <span class="n">a7</span><span class="o">.</span><span class="n">store</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestBackupScriptIntegration.create_backup_scripts"><a class="viewcode-back" href="../../../../apidoc/aiida.backends.tests.html#aiida.backends.tests.test_backup_script.TestBackupScriptIntegration.create_backup_scripts">[docs]</a>    <span class="k">def</span> <span class="nf">create_backup_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmp_folder</span><span class="p">):</span>
+        <span class="n">backup_full_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmp_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aiida_rel_path</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">_backup_rel_path</span><span class="p">)</span>
+        <span class="c1"># The predefined answers for the setup script</span>
+        <span class="n">ac</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ArrayCounter</span><span class="p">()</span>
+        <span class="n">answers</span> <span class="o">=</span> <span class="p">[</span><span class="n">backup_full_path</span><span class="p">,</span>   <span class="c1"># the backup folder path</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># should the folder be created?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># destination folder of the backup</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># should the folder be created?</span>
+                   <span class="s2">&quot;n&quot;</span><span class="p">,</span>                 <span class="c1"># print config explanation?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># configure the backup conf file now?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1"># start date of backup?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># is it correct?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># days to backup?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># is it correct?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1"># end date of backup</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># is it correct?</span>
+                   <span class="s2">&quot;1&quot;</span><span class="p">,</span>                 <span class="c1"># periodicity</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1"># is it correct?</span>
+                   <span class="s2">&quot;0&quot;</span><span class="p">,</span>                 <span class="c1"># threshold?</span>
+                   <span class="s2">&quot;&quot;</span><span class="p">]</span>                  <span class="c1"># is it correct?</span>
+        <span class="n">backup_utils</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">answers</span><span class="p">[</span><span class="n">ac</span><span class="o">.</span><span class="n">array_counter</span><span class="p">()]</span>
+
+        <span class="c1"># Run the setup script</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bs_instance</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">backup_full_path</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

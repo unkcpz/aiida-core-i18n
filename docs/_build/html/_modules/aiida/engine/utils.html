@@ -1,0 +1,633 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.engine.utils &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.engine.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.engine.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># pylint: disable=invalid-name</span>
+<span class="sd">&quot;&quot;&quot;Utilities for the workflow engine.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+<span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="k">import</span> <span class="n">concurrent</span><span class="p">,</span> <span class="n">gen</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;RefObjectStore&#39;</span><span class="p">,</span> <span class="s1">&#39;interruptable_task&#39;</span><span class="p">,</span> <span class="s1">&#39;InterruptableFuture&#39;</span><span class="p">)</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">PROCESS_STATE_CHANGE_KEY</span> <span class="o">=</span> <span class="s1">&#39;process|state_change|</span><span class="si">{}</span><span class="s1">&#39;</span>
+<span class="n">PROCESS_STATE_CHANGE_DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;The last time a process of type </span><span class="si">{}</span><span class="s1">, changed state&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">instantiate_process</span><span class="p">(</span><span class="n">runner</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return an instance of the process with the given inputs. The function can deal with various types</span>
+<span class="sd">    of the `process`:</span>
+
+<span class="sd">        * Process instance: will simply return the instance</span>
+<span class="sd">        * ProcessBuilder instance: will instantiate the Process from the class and inputs defined within it</span>
+<span class="sd">        * Process class: will instantiate with the specified inputs</span>
+
+<span class="sd">    If anything else is passed, a ValueError will be raised</span>
+
+<span class="sd">    :param process: Process instance or class, CalcJobNode class or ProcessBuilder instance</span>
+<span class="sd">    :param inputs: the inputs for the process to be instantiated with</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">.processes</span> <span class="k">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">ProcessBuilder</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">Process</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">args</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">inputs</span>
+        <span class="k">assert</span> <span class="n">runner</span> <span class="ow">is</span> <span class="n">process</span><span class="o">.</span><span class="n">runner</span>
+        <span class="k">return</span> <span class="n">process</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">ProcessBuilder</span><span class="p">):</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">process</span>
+        <span class="n">process_class</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">process_class</span>
+        <span class="n">inputs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">builder</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">Process</span><span class="p">):</span>
+        <span class="n">process_class</span> <span class="o">=</span> <span class="n">process</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid process </span><span class="si">{}</span><span class="s1">, needs to be Process or ProcessBuilder&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">process</span><span class="p">)))</span>
+
+    <span class="n">process</span> <span class="o">=</span> <span class="n">process_class</span><span class="p">(</span><span class="n">runner</span><span class="o">=</span><span class="n">runner</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">process</span>
+
+
+<div class="viewcode-block" id="InterruptableFuture"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.InterruptableFuture">[docs]</a><span class="k">class</span> <span class="nc">InterruptableFuture</span><span class="p">(</span><span class="n">concurrent</span><span class="o">.</span><span class="n">Future</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A future that can be interrupted by calling `interrupt`.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="InterruptableFuture.interrupt"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.InterruptableFuture.interrupt">[docs]</a>    <span class="k">def</span> <span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method should be called to interrupt the coroutine represented by this InterruptableFuture.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="InterruptableFuture.with_interrupt"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.InterruptableFuture.with_interrupt">[docs]</a>    <span class="nd">@gen</span><span class="o">.</span><span class="n">coroutine</span>
+    <span class="k">def</span> <span class="nf">with_interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yieldable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yield a yieldable which will be interrupted if this future is interrupted ::</span>
+
+<span class="sd">            from tornado import ioloop, gen</span>
+<span class="sd">            loop = ioloop.IOLoop.current()</span>
+
+<span class="sd">            interruptable = InterutableFuture()</span>
+<span class="sd">            loop.add_callback(interruptable.interrupt, RuntimeError(&quot;STOP&quot;))</span>
+<span class="sd">            loop.run_sync(lambda: interruptable.with_interrupt(gen.sleep(2)))</span>
+<span class="sd">            &gt;&gt;&gt; RuntimeError: STOP</span>
+
+
+<span class="sd">        :param yieldable: The yieldable</span>
+<span class="sd">        :return: The result of the yieldable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Wait for one of the two to finish, if it&#39;s us that finishes we expect that it was</span>
+        <span class="c1"># because of an exception that will have been raised automatically</span>
+        <span class="n">wait_iterator</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">WaitIterator</span><span class="p">(</span><span class="n">yieldable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">wait_iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>  <span class="c1"># pylint: disable=stop-iteration-return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wait_iterator</span><span class="o">.</span><span class="n">current_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;This interruptible future had it&#39;s result set unexpectedly to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="p">[</span><span class="n">yieldable</span><span class="p">,</span> <span class="bp">self</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">raise</span> <span class="n">gen</span><span class="o">.</span><span class="n">Return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="interruptable_task"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.interruptable_task">[docs]</a><span class="k">def</span> <span class="nf">interruptable_task</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Turn the given coroutine into an interruptable task by turning it into an InterruptableFuture and returning it.</span>
+
+<span class="sd">    :param coro: the coroutine that should be made interruptable</span>
+<span class="sd">    :param loop: the event loop in which to run the coroutine, by default uses tornado.ioloop.IOLoop.current()</span>
+<span class="sd">    :return: an InterruptableFuture</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">loop</span> <span class="ow">or</span> <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="n">InterruptableFuture</span><span class="p">()</span>
+
+    <span class="nd">@gen</span><span class="o">.</span><span class="n">coroutine</span>
+    <span class="k">def</span> <span class="nf">execute_coroutine</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;Coroutine that wraps the original coroutine and sets it result on the future only if not already set.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">coro</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+                <span class="n">future</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the future has not been set elsewhere, i.e. by the interrupt call, by the time that the coroutine</span>
+            <span class="c1"># is executed, set the future&#39;s result to the result of the coroutine</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+                <span class="n">future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="n">loop</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="n">execute_coroutine</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">future</span></div>
+
+
+<span class="k">def</span> <span class="nf">ensure_coroutine</span><span class="p">(</span><span class="n">fct</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure that the given function ``fct`` is a coroutine</span>
+
+<span class="sd">    If the passed function is not already a coroutine, it will be made to be a coroutine</span>
+
+<span class="sd">    :param fct: the function</span>
+<span class="sd">    :returns: the coroutine</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tornado</span><span class="o">.</span><span class="n">gen</span><span class="o">.</span><span class="n">is_coroutine_function</span><span class="p">(</span><span class="n">fct</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">fct</span>
+
+    <span class="nd">@tornado</span><span class="o">.</span><span class="n">gen</span><span class="o">.</span><span class="n">coroutine</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">tornado</span><span class="o">.</span><span class="n">gen</span><span class="o">.</span><span class="n">Return</span><span class="p">(</span><span class="n">fct</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+<span class="nd">@gen</span><span class="o">.</span><span class="n">coroutine</span>
+<span class="k">def</span> <span class="nf">exponential_backoff_retry</span><span class="p">(</span><span class="n">fct</span><span class="p">,</span> <span class="n">initial_interval</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">max_attempts</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore_exceptions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Coroutine to call a function, recalling it with an exponential backoff in the case of an exception</span>
+
+<span class="sd">    This coroutine will loop ``max_attempts`` times, calling the ``fct`` function, breaking immediately when the call</span>
+<span class="sd">    finished without raising an exception, at which point the returned result will be raised, wrapped in a</span>
+<span class="sd">    ``tornado.gen.Result`` instance. If an exception is caught, the function will yield a ``tornado.gen.sleep`` with a</span>
+<span class="sd">    time interval equal to the ``initial_interval`` multiplied by ``2*N`` where ``N`` is the number of excepted calls.</span>
+
+<span class="sd">    :param fct: the function to call, which will be turned into a coroutine first if it is not already</span>
+<span class="sd">    :param initial_interval: the time to wait after the first caught exception before calling the coroutine again</span>
+<span class="sd">    :param max_attempts: the maximum number of times to call the coroutine before re-raising the exception</span>
+<span class="sd">    :raises: ``tornado.gen.Result`` if the ``coro`` call completes within ``max_attempts`` retries without raising</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">LOGGER</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">coro</span> <span class="o">=</span> <span class="n">ensure_coroutine</span><span class="p">(</span><span class="n">fct</span><span class="p">)</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">initial_interval</span>
+
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_attempts</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">coro</span><span class="p">()</span>
+            <span class="k">break</span>  <span class="c1"># Finished successfully</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+
+            <span class="c1"># Re-raise exceptions that should be ignored</span>
+            <span class="k">if</span> <span class="n">ignore_exceptions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="n">ignore_exceptions</span><span class="p">):</span>
+                <span class="k">raise</span>
+
+            <span class="k">if</span> <span class="n">iteration</span> <span class="o">==</span> <span class="n">max_attempts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;maximum attempts </span><span class="si">%d</span><span class="s1"> of calling </span><span class="si">%s</span><span class="s1">, exceeded&#39;</span><span class="p">,</span> <span class="n">max_attempts</span><span class="p">,</span> <span class="n">coro</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="k">raise</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;iteration </span><span class="si">%d</span><span class="s1"> of </span><span class="si">%s</span><span class="s1"> excepted, retrying after </span><span class="si">%d</span><span class="s1"> seconds&#39;</span><span class="p">,</span> <span class="n">iteration</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">coro</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                 <span class="n">interval</span><span class="p">)</span>
+
+                <span class="k">yield</span> <span class="n">gen</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+                <span class="n">interval</span> <span class="o">*=</span> <span class="mi">2</span>
+
+    <span class="k">raise</span> <span class="n">gen</span><span class="o">.</span><span class="n">Return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">is_process_function</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return whether the given function is a process function</span>
+
+<span class="sd">    :param function: a function</span>
+<span class="sd">    :returns: True if the function is a wrapped process function, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="n">is_process_function</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">is_process_scoped</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Return whether the current scope is within a process.</span>
+
+<span class="sd">    :returns: True if the current scope is within a nested process, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">.processes.process</span> <span class="k">import</span> <span class="n">Process</span>
+    <span class="k">return</span> <span class="n">Process</span><span class="o">.</span><span class="n">current</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">loop_scope</span><span class="p">(</span><span class="n">loop</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make an event loop current for the scope of the context</span>
+
+<span class="sd">    :param loop: The event loop to make current for the duration of the scope</span>
+<span class="sd">    :type loop: :class:`tornado.ioloop.IOLoop`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">make_current</span><span class="p">()</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">make_current</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">set_process_state_change_timestamp</span><span class="p">(</span><span class="n">process</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the global setting that reflects the last time a process changed state, for the process type</span>
+<span class="sd">    of the given process, to the current timestamp. The process type will be determined based on</span>
+<span class="sd">    the class of the calculation node it has as its database container.</span>
+
+<span class="sd">    :param process: the Process instance that changed its state</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.backends.utils</span> <span class="k">import</span> <span class="n">set_global_setting</span>
+    <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">UniquenessError</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">ProcessNode</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">,</span> <span class="n">WorkflowNode</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">CalculationNode</span><span class="p">):</span>
+        <span class="n">process_type</span> <span class="o">=</span> <span class="s1">&#39;calculation&#39;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">WorkflowNode</span><span class="p">):</span>
+        <span class="n">process_type</span> <span class="o">=</span> <span class="s1">&#39;work&#39;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">ProcessNode</span><span class="p">):</span>
+        <span class="c1"># This will only occur for testing, as in general users cannot launch plain Process classes</span>
+        <span class="k">return</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;unsupported calculation node type </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">)))</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">PROCESS_STATE_CHANGE_KEY</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process_type</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">PROCESS_STATE_CHANGE_DESCRIPTION</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process_type</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">set_global_setting</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">UniquenessError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;could not update the </span><span class="si">{}</span><span class="s1"> setting because of a UniquenessError: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">get_process_state_change_timestamp</span><span class="p">(</span><span class="n">process_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the global setting that reflects the last time a process of the given process type changed its state.</span>
+<span class="sd">    The returned value will be the corresponding timestamp or None if the setting does not exist.</span>
+
+<span class="sd">    :param process_type: optional process type for which to get the latest state change timestamp.</span>
+<span class="sd">        Valid process types are either &#39;calculation&#39; or &#39;work&#39;. If not specified, last timestamp for all</span>
+<span class="sd">        known process types will be returned.</span>
+<span class="sd">    :return: a timestamp or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.backends.utils</span> <span class="k">import</span> <span class="n">get_global_setting</span>
+
+    <span class="n">valid_process_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;calculation&#39;</span><span class="p">,</span> <span class="s1">&#39;work&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">process_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">process_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_process_types</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid value for process_type, valid values are </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valid_process_types</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">process_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">process_types</span> <span class="o">=</span> <span class="n">valid_process_types</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">process_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">process_type</span><span class="p">]</span>
+
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">process_type_key</span> <span class="ow">in</span> <span class="n">process_types</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">PROCESS_STATE_CHANGE_KEY</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process_type_key</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">timestamps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_global_setting</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">timestamps</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RefObjectStore"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore">[docs]</a><span class="k">class</span> <span class="nc">RefObjectStore</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object store that has a reference count based on a context manager.</span>
+<span class="sd">    Basic usage::</span>
+
+<span class="sd">        store = RefObjectStore()</span>
+<span class="sd">        with store.get(&#39;Martin&#39;, lambda: &#39;martin.uhrin@epfl.ch&#39;) as email:</span>
+<span class="sd">            with store.get(&#39;Martin&#39;) as email2:</span>
+<span class="sd">                email is email2  # True</span>
+
+<span class="sd">    The use case for this store is when you have an object can be used by</span>
+<span class="sd">    multiple parts of the code simultaneously (nested or async code) and</span>
+<span class="sd">    where there should be one instance that exists for the lifetime of these</span>
+<span class="sd">    contexts.  Once noone is using the object, it should be removed from the</span>
+<span class="sd">    store (and therefore eventually garbage collected).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RefObjectStore.Reference"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore.Reference">[docs]</a>    <span class="k">class</span> <span class="nc">Reference</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+        <span class="sd">&quot;&quot;&quot;A reference to store the context reference count and the object itself.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RefObjectStore.Reference.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore.Reference.__init__">[docs]</a>        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">obj</span></div>
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the reference count for the object</span>
+
+<span class="sd">            :return: The reference count</span>
+<span class="sd">            :rtype: int</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span>
+
+<div class="viewcode-block" id="RefObjectStore.Reference.get"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore.Reference.get">[docs]</a>        <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the object itself, which will up the reference count for the duration of the context.</span>
+
+<span class="sd">            :return: The object</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">-=</span> <span class="mi">1</span></div></div>
+
+<div class="viewcode-block" id="RefObjectStore.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="RefObjectStore.get"><a class="viewcode-back" href="../../../apidoc/aiida.engine.html#aiida.engine.utils.RefObjectStore.get">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or create an object.  The internal reference count will be upped for</span>
+<span class="sd">        the duration of the context.  If the reference count drops to 0 the object</span>
+<span class="sd">        will be automatically removed from the list.</span>
+
+<span class="sd">        :param identifier: The key identifying the object</span>
+<span class="sd">        :param constructor: An optional constructor that is called with no arguments</span>
+<span class="sd">            if the object doesn&#39;t already exist in the store</span>
+<span class="sd">        :return: The object corresponding to the identifier</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">constructor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Object not found and no constructor given&quot;</span><span class="p">)</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">constructor</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">ref</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">as</span> <span class="n">obj</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">obj</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ref</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_objects</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

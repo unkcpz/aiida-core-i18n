@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AiiDA data types &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Automatic computation of k-point paths" href="kpoints.html" />
+    <link rel="prev" title="Verdi shell" href="../working_with_aiida/scripting.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AiiDA data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#most-common-datatypes">Most common datatypes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#base-types">Base types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dict">Dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structuredata">StructureData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#upfdata">UpfData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arraydata">ArrayData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trajectorydata">TrajectoryData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kpointsdata">KpointsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bandsdata">BandsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xydata">XyData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#folderdata">FolderData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#singlefiledata">SinglefileData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remotedata">RemoteData</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kpoints.html">Automatic computation of k-point paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bands.html">BandsData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functionality.html">Export data nodes to various formats</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../working_with_aiida/index.html">Command line interface</a> &raquo;</li>
+        
+      <li>AiiDA data types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/datatypes/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="aiida-data-types">
+<span id="datatypes"></span><h1>AiiDA data types<a class="headerlink" href="#aiida-data-types" title="Permalink to this headline">¶</a></h1>
+<p>There are a number of data types distributed with AiiDA.</p>
+<p>We summarize here the most common, and some useful features/functionalities to work with them.</p>
+<div class="section" id="most-common-datatypes">
+<h2>Most common datatypes<a class="headerlink" href="#most-common-datatypes" title="Permalink to this headline">¶</a></h2>
+<p>Here follows a short summary of common datatypes already provided with AiiDA. This list is not
+complete, see also inside <cite>aiida.orm.nodes.data</cite> for the list of all available plugins.</p>
+<p>We also mention, when relevant, what is stored in the database (as attributes, so that
+it can be easily queried e.g. with the <a class="reference internal" href="../querying/querybuilder/intro.html#usingquerybuilder"><span class="std std-ref">QueryBuilder</span></a>) and what is
+stored in the file repository (providing access to the file contents, but not efficiently
+querable: this is useful for e.g. big data files that don’t need to be queried for).</p>
+<p>For all data types, you can follow the link to the data class to read more about
+the methods provided, how to access them …</p>
+<p>If you need to work with some specific type of data, first check the list of data types/plugins
+below, and if you don’t find what you need, give a look to
+<a class="reference internal" href="../developer_guide/devel_tutorial/code_plugin_float_sum.html#developdataplugintutorialfloat"><span class="std std-ref">how to write a new data plugin</span></a>.</p>
+<div class="section" id="base-types">
+<h3>Base types<a class="headerlink" href="#base-types" title="Permalink to this headline">¶</a></h3>
+<p>In the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#module-aiida.orm.nodes.data.base" title="aiida.orm.nodes.data.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiida.orm.nodes.data.base</span></code></a> module you find a number of useful classes
+that wrap base python datatypes (like <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a>,
+<a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.float.Float" title="aiida.orm.nodes.data.float.Float"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float</span></code></a>, <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.str.Str" title="aiida.orm.nodes.data.str.Str"><code class="xref py py-class docutils literal notranslate"><span class="pre">Str</span></code></a>, …).
+These are particularly useful when you need to provide a single parameter to e.g. a
+<a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.functions.workfunction" title="aiida.engine.processes.functions.workfunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">workfunction</span></code></a>.</p>
+<p>Each of these classes can most often be used transparently (e.g. you can sum two
+<a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> objects, etc.). If you need to access the bare
+value and not the whole AiiDA class, use the <cite>.value</cite> property.</p>
+<p>In the same module, there is also a <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.list.List" title="aiida.orm.nodes.data.list.List"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a> class to
+store a list of base data types.</p>
+</div>
+<div class="section" id="dict">
+<h3>Dict<a class="headerlink" href="#dict" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.dict.Dict" title="aiida.orm.nodes.data.dict.Dict"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">parameter</span></code></li>
+<li><strong>Aim</strong>: store a dictionary of python base types in the database.
+It can store any dictionary where elements can be a base python type (strings, floats,
+integers, booleans, None type, datetime objects) and lists or dictionaries of them, at
+any depth level (e.g. a dictionary where a value is a list of dictionaries of
+strings and floats).</li>
+<li><strong>What is stored in the database</strong>: all key/values pairs as attributes</li>
+<li><strong>What is stored in the file repository</strong>: —</li>
+</ul>
+</div>
+<div class="section" id="structuredata">
+<h3>StructureData<a class="headerlink" href="#structuredata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.structure.StructureData" title="aiida.orm.nodes.data.structure.StructureData"><code class="xref py py-class docutils literal notranslate"><span class="pre">StructureData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">structure</span></code></li>
+<li><strong>Aim</strong>: store a crystal structure to be used by atomistic codes</li>
+<li><strong>What is stored in the database</strong>: all atomic positions, species, kinds,</li>
+<li><strong>What is stored in the file repository</strong>: —</li>
+<li><strong>Additional functionality</strong>:<ul>
+<li><a class="reference internal" href="functionality.html#exportdatanodes"><span class="std std-ref">Export to a number of formats (xsf, cif, …)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="upfdata">
+<h3>UpfData<a class="headerlink" href="#upfdata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.upf.UpfData" title="aiida.orm.nodes.data.upf.UpfData"><code class="xref py py-class docutils literal notranslate"><span class="pre">UpfData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">upf</span></code></li>
+<li><strong>Aim</strong>: store a pseudopotential in the .UPF format (e.g. used by <a class="reference external" href="http://www.quantum-espresso.org">Quantum ESPRESSO</a> - see also the <a class="reference external" href="http://aiida-quantumespresso.readthedocs.io/en/latest/">AiiDA Quantum ESPRESSO plugin</a>)</li>
+<li><strong>What is stored in the database</strong>: the MD5 of the UPF; the element the pseudopotential
+is associated to</li>
+<li><strong>What is stored in the file repository</strong>: the pseudopotential file</li>
+</ul>
+</div>
+<div class="section" id="arraydata">
+<h3>ArrayData<a class="headerlink" href="#arraydata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.ArrayData" title="aiida.orm.nodes.data.array.ArrayData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">array</span></code></li>
+<li><strong>Aim</strong>: store generic numeric arrays</li>
+<li><strong>What is stored in the database</strong>: the shape of the arrays and the name of the arrays</li>
+<li><strong>What is stored in the file repository</strong>: the array data in numpy format</li>
+</ul>
+</div>
+<div class="section" id="trajectorydata">
+<h3>TrajectoryData<a class="headerlink" href="#trajectorydata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.trajectory.TrajectoryData" title="aiida.orm.nodes.data.array.trajectory.TrajectoryData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrajectoryData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">array.trajectory</span></code></li>
+<li><strong>Aim</strong>: store molecular trajectories (i.e. sequences of StructureData objects, where
+then number of atomic kinds and sites does not change over time).
+beside the coordinates, it can also optionally store velocities.</li>
+<li><strong>What is stored in the database</strong>: like <code class="docutils literal notranslate"><span class="pre">ArrayData</span></code></li>
+<li><strong>What is stored in the file repository</strong>: the array data in numpy format: cells over
+time, integer indices over time, atomic positions over time, the list of kinds, …</li>
+<li><strong>Additional functionality</strong>:<ul>
+<li><a class="reference internal" href="functionality.html#exportdatanodes"><span class="std std-ref">Export to a number of formats (xsf, cif, …)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="kpointsdata">
+<h3>KpointsData<a class="headerlink" href="#kpointsdata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.kpoints.KpointsData" title="aiida.orm.nodes.data.array.kpoints.KpointsData"><code class="xref py py-class docutils literal notranslate"><span class="pre">KpointsData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">array.kpoints</span></code></li>
+<li><strong>Aim</strong>: store grids of k-points (in reciprocal space, for crystal structures), or
+explicit list of k-points (optionally with a weight associated to each one). Can also
+associate labels to (some of the) points, which is very useful for later plottings
+band structures (and store them in <code class="docutils literal notranslate"><span class="pre">BandsData</span></code> objects).</li>
+<li><strong>What is stored in the database</strong>: like <code class="docutils literal notranslate"><span class="pre">ArrayData</span></code></li>
+<li><strong>What is stored in the file repository</strong>: the array data in numpy format</li>
+<li><strong>Additional functionality</strong>:<ul>
+<li><a class="reference internal" href="kpoints.html#automatickpoints"><span class="std std-ref">Automatically compute k-points path given a crystal structure</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="bandsdata">
+<h3>BandsData<a class="headerlink" href="#bandsdata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.bands.BandsData" title="aiida.orm.nodes.data.array.bands.BandsData"><code class="xref py py-class docutils literal notranslate"><span class="pre">BandsData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">array.bands</span></code></li>
+<li><strong>Aim</strong>: store electronic structure bands (of phonon bands)</li>
+<li><strong>What is stored in the database</strong>: like <code class="docutils literal notranslate"><span class="pre">ArrayData</span></code></li>
+<li><strong>What is stored in the file repository</strong>: the array data in numpy format</li>
+<li><strong>Additional functionality</strong>:<ul>
+<li><a class="reference internal" href="functionality.html#exportdatanodes"><span class="std std-ref">Export to a number of formats (xmgrace, gnuplot, png, pdf, …)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="xydata">
+<h3>XyData<a class="headerlink" href="#xydata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.array.html#aiida.orm.nodes.data.array.xy.XyData" title="aiida.orm.nodes.data.array.xy.XyData"><code class="xref py py-class docutils literal notranslate"><span class="pre">XyData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">array.xy</span></code></li>
+<li><strong>Aim</strong>: store data for a 2D (xy) plot</li>
+<li><strong>What is stored in the database</strong>: like <code class="docutils literal notranslate"><span class="pre">ArrayData</span></code></li>
+<li><strong>What is stored in the file repository</strong>: the array data in numpy format</li>
+</ul>
+</div>
+<div class="section" id="folderdata">
+<h3>FolderData<a class="headerlink" href="#folderdata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.folder.FolderData" title="aiida.orm.nodes.data.folder.FolderData"><code class="xref py py-class docutils literal notranslate"><span class="pre">FolderData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">folder</span></code></li>
+<li><strong>Aim</strong>: store a set of files/folders (with possibly a folder/subfolder structure)</li>
+<li><strong>What is stored in the database</strong>: —</li>
+<li><strong>What is stored in the file repository</strong>: all files and folders</li>
+</ul>
+</div>
+<div class="section" id="singlefiledata">
+<h3>SinglefileData<a class="headerlink" href="#singlefiledata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.singlefile.SinglefileData" title="aiida.orm.nodes.data.singlefile.SinglefileData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SinglefileData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">singlefile</span></code></li>
+<li><strong>Aim</strong>: the same as <code class="docutils literal notranslate"><span class="pre">FolderData</span></code>, but allows to store only one single file.</li>
+<li><strong>What is stored in the database</strong>: the filename</li>
+<li><strong>What is stored in the file repository</strong>: the file</li>
+</ul>
+</div>
+<div class="section" id="remotedata">
+<h3>RemoteData<a class="headerlink" href="#remotedata" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Class</strong>: <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.remote.RemoteData" title="aiida.orm.nodes.data.remote.RemoteData"><code class="xref py py-class docutils literal notranslate"><span class="pre">RemoteData</span></code></a></li>
+<li><strong>String to pass to the</strong> <a class="reference internal" href="../apidoc/aiida.plugins.html#aiida.plugins.factories.DataFactory" title="aiida.plugins.factories.DataFactory"><code class="xref py py-func docutils literal notranslate"><span class="pre">DataFactory()</span></code></a>: <code class="docutils literal notranslate"><span class="pre">remote</span></code></li>
+<li><strong>Aim</strong>: this basically represents a “symbolic link” to a specific folder on
+a remote computer.
+Its main use is to allow users to persist the provenance when e.g. a calculation
+produces data in a raw/scratch folder, and the whole folder needs to be provided
+to restart/continue.</li>
+<li><strong>What is stored in the database</strong>: the path of the folder (and the remote computer
+as a <cite>.computer</cite> property, not as an attribute)</li>
+<li><strong>What is stored in the file repository</strong>: —</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kpoints.html" class="btn btn-neutral float-right" title="Automatic computation of k-point paths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../working_with_aiida/scripting.html" class="btn btn-neutral float-left" title="Verdi shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

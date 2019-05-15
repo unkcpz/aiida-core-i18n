@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Calculations &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Workflows" href="workflows.html" />
+    <link rel="prev" title="Processes" href="processes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Processes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calculation-functions">Calculation functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calculation-jobs">Calculation jobs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#transport-tasks">Transport tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exponential-backoff-mechanism">Exponential backoff mechanism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parsers">Parsers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Calculations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/concepts/calculations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="calculations">
+<span id="concepts-calculations"></span><h1>Calculations<a class="headerlink" href="#calculations" title="Permalink to this headline">¶</a></h1>
+<p>A calculation is a process (see the <a class="reference internal" href="processes.html#concepts-processes"><span class="std std-ref">process section</span></a> for details) that <em>creates</em> new data.
+Currently, there are two ways of implementing a calculation process:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#concepts-calcfunctions"><span class="std std-ref">calculation function</span></a></li>
+<li><a class="reference internal" href="#concepts-calcjobs"><span class="std std-ref">calculation job</span></a></li>
+</ul>
+</div></blockquote>
+<p>The first one is the simplest of the two and is basically a python function that is magically transformed into a process.
+This is ideal for calculations that are not very computationally intensive and can be easily implemented in a python function.
+For more taxing calculations, typically performed by external codes that are optionally run on remote computing clusters, the calculation job is the better alternative.</p>
+<p>In the following sections, both concepts will be explained but without going too much into detail on how to implement or run them.
+For a more detailed exposé, please refer to the respective advanced sections on <a class="reference internal" href="../working/calculations.html#working-calcfunctions"><span class="std std-ref">calculation functions</span></a> and <a class="reference internal" href="../working/calculations.html#working-calcjobs"><span class="std std-ref">calculation jobs</span></a>.</p>
+<div class="section" id="calculation-functions">
+<span id="concepts-calcfunctions"></span><h2>Calculation functions<a class="headerlink" href="#calculation-functions" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following computational task at hand:</p>
+<blockquote class="highlights">
+<div>Given three integers, add the first two and then multiply the sum by the third.</div></blockquote>
+<p>In plain python code, the solution would look something like the following:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This simple code snippet will achieve the goal of getting the desired result, however, the provenance is lost.
+There is no connection between the output of the functions and their inputs.
+The remedy to this problem is the <a class="reference internal" href="../apidoc/aiida.engine.processes.html#aiida.engine.processes.functions.calcfunction" title="aiida.engine.processes.functions.calcfunction"><code class="xref py py-meth docutils literal notranslate"><span class="pre">calcfunction()</span></code></a>.
+The <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code> in AiiDA is a <a class="reference external" href="https://docs.python.org/3/glossary.html#term-decorator">function decorator</a> that transforms a regular python function in a calculation process, which automatically stores the provenance of its output in the <a class="reference internal" href="provenance.html#concepts-provenance"><span class="std std-ref">provenance graph</span></a> when executed.
+Updating the previous snippet with <code class="docutils literal notranslate"><span class="pre">calcfunction</span></code> decorators yields:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The only thing we had to do to decorate the two functions was to add the line <code class="docutils literal notranslate"><span class="pre">&#64;calcfunction</span></code> just before the function definition.
+Adding the decorator tells AiiDA that the provenance for this function should be stored in the provenance graph when it is executed.
+This means linking up the inputs and the outputs for a calculation node, which represents the function that was executed.
+The final change that has to be performed to make this possible, is to make the inputs and the outputs storable.
+In the previous snippet, the inputs are plain python integer types, which cannot be automatically stored in the provenance graph as nodes.
+To solve this, one only has to wrap them in the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> node sub class, which makes them storable in the database:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The only difference with the previous snippet is that all inputs have been wrapped in the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> class.
+The result that is returned by the function, likewise, is a <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> node that contains the result of the computation.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> inside the function are already <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.int.Int" title="aiida.orm.nodes.data.int.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a> instances the sum will also be one, since all arithmetic operators are overloaded.
+It is important to realize though that only <a class="reference internal" href="../apidoc/aiida.orm.nodes.html#aiida.orm.nodes.node.Node" title="aiida.orm.nodes.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> instances, or sub classes thereof can be stored.
+For more information on how to return results from process function, refer to the <a class="reference internal" href="../working/calculations.html#working-calcfunctions"><span class="std std-ref">advanced section</span></a></p>
+</div>
+<p>With these trivial changes, the full provenance of result produced by running the function is maintained and looks like the following:</p>
+<div class="figure" id="id1">
+<span id="fig-calculation-functions-provenance-add-multiply"></span><img alt="../_images/add_multiply_calcfunction_data.png" src="../_images/add_multiply_calcfunction_data.png" />
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">The provenance generated by the calcfunction example</span></p>
+</div>
+<p>The examples above already showed how a calcfunction can be run: simply by calling it.
+The value that is returned is the result returned by the definition of the function.
+However, sometimes one would also like to have a reference to the calculation node that represents the execution of the function in the provenance graph.
+The following snippet shows two additional launch functions that will return a tuple, that in addition to the results, also return the <code class="docutils literal notranslate"><span class="pre">pk</span></code> or the node associated with the process</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">calcfunction</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">run_get_node</span><span class="p">,</span> <span class="n">run_get_pk</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Int</span>
+
+<span class="nd">@calcfunction</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">run_get_node</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">run_get_pk</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This was a very short and limited description of calculation functions.
+For a more detailed description of launching them, please refer to the section on <a class="reference internal" href="../working/processes.html#working-processes-launching"><span class="std std-ref">launching processes</span></a>.
+If you want more details on implementing calculation functions and best practices, refer to the section on <a class="reference internal" href="../working/calculations.html#working-calcfunctions"><span class="std std-ref">calculation function development</span></a>.</p>
+</div>
+<div class="section" id="calculation-jobs">
+<span id="concepts-calcjobs"></span><h2>Calculation jobs<a class="headerlink" href="#calculation-jobs" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section on <a class="reference internal" href="#concepts-calcfunctions"><span class="std std-ref">calculation functions</span></a>, we showed how a simple python function can be transformed into a process, such that when it is launched, its execution is recorded automatically in the provenance graph.
+However, not all computations are well suited to be implemented as a python function, but rather are implemented as a separate code, external to AiiDA.
+To interface an external code with the engine of AiiDA, the <a class="reference internal" href="../apidoc/aiida.engine.processes.calcjobs.html#aiida.engine.processes.calcjobs.calcjob.CalcJob" title="aiida.engine.processes.calcjobs.calcjob.CalcJob"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalcJob</span></code></a> process class was introduced.
+A detailed explanation of how to implement it, the interface and best practices, can be found in a <a class="reference internal" href="../working/calculations.html#working-calcjobs"><span class="std std-ref">later section</span></a>.
+Here, instead, we will focus on the big picture and explain in broad lines how a calculation job models the execution of an external code and what tasks it performs when launched.</p>
+<p>To illustrate how a calculation job operates, we need an example external code.
+Let’s imagine an external code that consists of a bash script that reads an input file containing two integers, sums them and echoes the result, for example:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
+# Read two integers from file &#39;aiida.in` and echo their sum
+
+set -e
+
+x=$(cat aiida.in | awk &#39;{print $1}&#39;)
+y=$(cat aiida.in | awk &#39;{print $2}&#39;)
+echo $(( $x + $y ))
+</pre></div>
+</div>
+<p>When run, this script reads the content of a file called <code class="docutils literal notranslate"><span class="pre">aiida.in</span></code> and expects that it contains two integers, that it will parse into the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, whose sum it will echo.
+When you want to run this ‘code’ through AiiDA, you need to tell <em>how</em> AiiDA should run it.
+The <a class="reference internal" href="../apidoc/aiida.calculations.plugins.arithmetic.html#aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation" title="aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticAddCalculation</span></code></a> is a calculation job implementation that forms an interface to accomplish exactly that for the example bash script.
+A <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> implementation for a specific code, often referred to as a calculation plugin, essentially instructs the engine how it should be run.
+This includes how the necessary input files should be created based on the inputs that it receives, how the code executable should be called and what files should be retrieved when the calculation is complete.
+Note the files should be ‘retrieved’ because calculation jobs can be run not just on the localhost, but on any <a class="reference internal" href="../get_started/computers.html#setup-computer"><span class="std std-ref">computer that is configured in AiiDA</span></a>, including remote machines accessible over for example SSH.</p>
+<p>Since a <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> is a process just like the <a class="reference internal" href="#concepts-calcfunctions"><span class="std std-ref">calculation functions</span></a> described before, they can be run in an identical way.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">load_code</span><span class="p">,</span> <span class="n">Int</span>
+<span class="kn">from</span> <span class="nn">aiida.plugins</span> <span class="k">import</span> <span class="n">CalculationFactory</span>
+
+<span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">load_code</span><span class="p">(</span><span class="s1">&#39;add@localhost&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">run</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the provenance generated by running the calculation job will look something like this:</p>
+<div class="figure" id="id2">
+<span id="fig-calculation-jobs-provenance-arithmetic-add"></span><img alt="../_images/arithmetic_add.png" src="../_images/arithmetic_add.png" />
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">The provenance generated by the calculation job example</span></p>
+</div>
+<p>The execution of the calculation job is represented in the provenance graph by a process node, i.e. the pink square labeled <cite>C1</cite> in <a class="reference internal" href="#fig-calculation-jobs-provenance-arithmetic-add"><span class="std std-numref">Fig. 8</span></a>.
+The integer data nodes <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> that were passed as inputs are linked to the calculation job as such, as well as the third input <code class="docutils literal notranslate"><span class="pre">code</span></code>.
+This input is required for <em>all</em> calculation jobs as it represents the external code that is actually executed.
+These code nodes are instances of <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.code.Code" title="aiida.orm.nodes.data.code.Code"><code class="xref py py-class docutils literal notranslate"><span class="pre">Code</span></code></a> class, which is a sub class of <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data" title="aiida.orm.nodes.data.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a>, which means that code instances are a sort of data node.
+Its function is to record the path to the executable and some other code related attributes defined during the <a class="reference internal" href="../get_started/codes.html#setup-code"><span class="std std-ref">code setup</span></a>.</p>
+<p>The calculation job produced two outputs, an integer node, containing the sum of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> and a <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.folder.FolderData" title="aiida.orm.nodes.data.folder.FolderData"><code class="xref py py-class docutils literal notranslate"><span class="pre">FolderData</span></code></a> node, containing the output files that were retrieved.
+Note that all outputs of calculation jobs (except for the <code class="docutils literal notranslate"><span class="pre">retrieved</span></code> node) are technically not created by the calculation job itself, but rather by an implementation of the <a class="reference internal" href="../apidoc/aiida.parsers.html#aiida.parsers.parser.Parser" title="aiida.parsers.parser.Parser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parser</span></code></a> class.
+In principle, this step is optional, and so a calculation job is therefore not required to produce any outputs, except for the <code class="docutils literal notranslate"><span class="pre">retrieved</span></code> folder data node, which will always be there.
+How the parser fits into the concept of calculation jobs will be addressed in <a class="reference internal" href="#concepts-calcjobs-parsers"><span class="std std-ref">this section</span></a>.</p>
+<div class="section" id="transport-tasks">
+<span id="concepts-calcjobs-transport-tasks"></span><h3>Transport tasks<a class="headerlink" href="#transport-tasks" title="Permalink to this headline">¶</a></h3>
+<p>To arrive at the provenance graph shown above in <a class="reference internal" href="#fig-calculation-jobs-provenance-arithmetic-add"><span class="std std-numref">Fig. 8</span></a>, the engine performed quite some tasks.
+When a calculation job is launched, the engine will take it roughly through the following steps:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Upload: the calculation job implementation is used to transform the input nodes into the required input files, which are uploaded to a ‘working’ directory on the target machine</li>
+<li>Submit: a job to execute the calculation is submitted to the scheduler of the computer on which the input <cite>code</cite> is configured.</li>
+<li>Update: the engine will query the scheduler to check for the status of the calculation job</li>
+<li>Retrieve: once the job has finished, the engine will retrieve the output files, specified by the plugin and store them in a node attached as ouput node to the calculation</li>
+</ul>
+</div></blockquote>
+<p>All of these tasks require the engine to interact with the computer, or machine, that will actually run the external code.
+Since the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.code.Code" title="aiida.orm.nodes.data.code.Code"><code class="xref py py-class docutils literal notranslate"><span class="pre">Code</span></code></a> that is used as an input for the calculation job, which is configured for a specific <a class="reference internal" href="../apidoc/aiida.orm.html#aiida.orm.computers.Computer" title="aiida.orm.computers.Computer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Computer</span></code></a>, the engine knows exactly how to execute all these tasks.
+The <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> implementation itself then is completely independent of the machine that the code will be run on.
+To run the calculation job on a different machine, all you have to do is change the <code class="docutils literal notranslate"><span class="pre">code</span></code> input to one that is configured for that machine.</p>
+<p>As mentioned before, calculation jobs can be run both on the same computer as where the engine is running, but they can also be run on remote machines.
+Which machine will be used, is determined by the ‘code’ that is used as an input, which in turn will have been configured for a specific machine.
+If the machine is <em>not</em> the localhost, the engine will need a way to connect to the remote machine in order to perform each of the four tasks listed above.
+The mechanism that allows the engine to connect to the remote machine is called a ‘transport’ and therefore the tasks it performs using this transport are called ‘transport tasks’</p>
+</div>
+<div class="section" id="exponential-backoff-mechanism">
+<span id="concepts-calcjobs-exponential-backoff"></span><h3>Exponential backoff mechanism<a class="headerlink" href="#exponential-backoff-mechanism" title="Permalink to this headline">¶</a></h3>
+<p>In the case of calculation jobs being executed on a remote machine, the engine will have to connect to the machine for each of the transport tasks.
+In connecting to the remote, a whole host of potential problems may occur, that would cause the calculation job to fail.
+For example, the remote machine may be down and as a result unreachable, or the engine itself may lose its internet connection.
+However, these problems are often temporary.
+To prevent the calculation job from excepting and it being lost forever, an ‘exponential backoff mechanism’ has been implemented.
+Whenever the engine performs a transport task but encounters an exception, instead of letting the calculation job fail, it will reschedule the same task to be executed again at a later time.
+The task will be automatically rescheduled until it finishes successfully, where the interval between tries increases exponentially.
+If after 5 consecutive tries, the task still fails, instead of rescheduling it, the engine will simply pause the calculation job.
+The output of <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">list</span></code> will give more information on why the task failed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  PK  Created     State           Process label                 Process status
+----  ----------  ------------    --------------------------    ---------------------------------------------------------------------------------------
+ <span class="m">151</span>  1h ago      ⏸ Waiting       ArithmeticAddCalculation      Pausing after failed transport task: retrieve_calculation failed <span class="m">5</span> <span class="nb">times</span> consecutively
+
+
+Total results: <span class="m">1</span>
+</pre></div>
+</div>
+<p>When there are calculation jobs that have been paused because the transport tasks have failed multiple times, the user has the time to investigate the problem.
+If the problem is determined to be temporary and it has been resolved, one can use <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span> <span class="pre">play</span></code> to resume the paused processes.
+The engine will then automatically reschedule the task that failed last and the calculation job will continue where it left off.</p>
+<p>This exponential backoff mechanism makes the engine very robust with respect to calculation jobs, reducing the loss of computational resources due to temporary problems to an absolute minimum.
+The parameters, such as the delays between retries and the maximum number of retries are currently not configurable, but they might be in the future.</p>
+</div>
+<div class="section" id="parsers">
+<span id="concepts-calcjobs-parsers"></span><h3>Parsers<a class="headerlink" href="#parsers" title="Permalink to this headline">¶</a></h3>
+<p>The previous section explained how the <code class="docutils literal notranslate"><span class="pre">CalcJob</span></code> class functions as an interface between AiiDA’s engine and an external piece of code.
+The calculation job plugin will instruct the engine how the <a class="reference internal" href="#concepts-calcjobs-transport-tasks"><span class="std std-ref">transport tasks</span></a> should be accomplished.
+However, as mentioned before, those tasks stop after the output files have been retrieved, which the engine will attach as an <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.folder.FolderData" title="aiida.orm.nodes.data.folder.FolderData"><code class="xref py py-class docutils literal notranslate"><span class="pre">FolderData</span></code></a> node with the label <code class="docutils literal notranslate"><span class="pre">retrieved</span></code> to the calculation job node.
+As far as the calculation job goes, that is all that is absolutely required.
+However, often one wants to parse those output files into some specific outputs that should be represented as individual outputs nodes in the provenance graph.
+This can be accomplished by implementing the <a class="reference internal" href="../apidoc/aiida.parsers.html#aiida.parsers.parser.Parser" title="aiida.parsers.parser.Parser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parser</span></code></a> class and specifying it in the inputs of the calculation job.
+In that case, the engine will call the parser after the output files created by the job have been successfully retrieved.
+In the parser implementation, the retrieved files can then be parsed and converted into output nodes.
+For technical details on how to implement a parser for a calculation job and how to specify it in the inputs, please refer to the <a class="reference internal" href="../working/calculations.html#working-calcjobs-parsers"><span class="std std-ref">detailed parser section</span></a>,</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="workflows.html" class="btn btn-neutral float-right" title="Workflows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="processes.html" class="btn btn-neutral float-left" title="Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

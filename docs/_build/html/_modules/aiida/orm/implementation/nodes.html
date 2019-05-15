@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.implementation.nodes &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.orm.implementation.nodes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.implementation.nodes</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Abstract BackendNode and BackendNodeCollection implementation.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">backends</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;BackendNode&#39;</span><span class="p">,</span> <span class="s1">&#39;BackendNodeCollection&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BackendNode"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BackendNode</span><span class="p">(</span><span class="n">backends</span><span class="o">.</span><span class="n">BackendEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper around a `DbNode` instance to set and retrieve data independent of the database implementation.&quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=too-many-public-methods</span>
+
+<div class="viewcode-block" id="BackendNode.clone"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.clone">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an unstored clone of ourselves.</span>
+
+<span class="sd">        :return: an unstored `BackendNode` with the exact same attributes and extras as self</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node UUID.</span>
+
+<span class="sd">        :return: the string representation of the UUID</span>
+<span class="sd">        :rtype: str or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node type.</span>
+
+<span class="sd">        :return: the node type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">node_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node process type.</span>
+
+<span class="sd">        :return: the process type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">process_type</span>
+
+    <span class="nd">@process_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">process_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the process type.</span>
+
+<span class="sd">        :param value: the new value to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">process_type</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_increment_version_number</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node label.</span>
+
+<span class="sd">        :return: the label</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">label</span>
+
+    <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the label.</span>
+
+<span class="sd">        :param value: the new value to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_increment_version_number</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node description.</span>
+
+<span class="sd">        :return: the description</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">description</span>
+
+    <span class="nd">@description</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the description.</span>
+
+<span class="sd">        :param value: the new value to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_increment_version_number</span><span class="p">()</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+    <span class="k">def</span> <span class="nf">computer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the computer of this node.</span>
+
+<span class="sd">        :return: the computer or None</span>
+<span class="sd">        :rtype: `BackendComputer` or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@computer</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">computer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">computer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the computer of this node.</span>
+
+<span class="sd">        :param computer: a `BackendComputer`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+    <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the user of this node.</span>
+
+<span class="sd">        :return: the user</span>
+<span class="sd">        :rtype: `BackendUser`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@user</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the user of this node.</span>
+
+<span class="sd">        :param user: a `BackendUser`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ctime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node ctime.</span>
+
+<span class="sd">        :return: the ctime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">ctime</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mtime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node mtime.</span>
+
+<span class="sd">        :return: the mtime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">mtime</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node version.</span>
+
+<span class="sd">        :return: the version</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">nodeversion</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">public</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the node public attribute.</span>
+
+<span class="sd">        :return: the public attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dbmodel</span><span class="o">.</span><span class="n">public</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the attributes dictionary.</span>
+
+<span class="sd">        .. note:: This will fetch all the attributes from the database which can be a heavy operation. If you only need</span>
+<span class="sd">            the keys or some values, use the iterators `attributes_keys` and `attributes_items`, or the getters</span>
+<span class="sd">            `get_attribute` and `get_attributes` instead.</span>
+
+<span class="sd">        :return: the attributes as a dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes_items</span><span class="p">())</span>
+
+<div class="viewcode-block" id="BackendNode.get_attribute"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.get_attribute">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an attribute.</span>
+
+<span class="sd">        :param key: name of the attribute</span>
+<span class="sd">        :return: the value of the attribute</span>
+<span class="sd">        :raises AttributeError: if the attribute does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.get_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.get_attributes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a set of attributes.</span>
+
+<span class="sd">        :param keys: names of the attributes</span>
+<span class="sd">        :return: the values of the attributes</span>
+<span class="sd">        :raises AttributeError: if at least one attribute does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.set_attribute"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.set_attribute">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set an attribute to the given value.</span>
+
+<span class="sd">        :param key: name of the attribute</span>
+<span class="sd">        :param value: value of the attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.set_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.set_attributes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set attributes.</span>
+
+<span class="sd">        .. note:: This will override any existing attributes that are present in the new dictionary.</span>
+
+<span class="sd">        :param attributes: the new attributes to set</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.reset_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.reset_attributes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">reset_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the attributes.</span>
+
+<span class="sd">        .. note:: This will completely reset any existing attributes and replace them with the new dictionary.</span>
+
+<span class="sd">        :param attributes: the new attributes to set</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.delete_attribute"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.delete_attribute">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete an attribute.</span>
+
+<span class="sd">        :param key: name of the attribute</span>
+<span class="sd">        :raises AttributeError: if the attribute does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.delete_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.delete_attributes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete multiple attributes.</span>
+
+<span class="sd">        .. note:: The implementation should guarantee that all the keys that are to be deleted actually exist or the</span>
+<span class="sd">            entire operation should be canceled without any change and an ``AttributeError`` should be raised.</span>
+
+<span class="sd">        :param keys: names of the attributes to delete</span>
+<span class="sd">        :raises AttributeError: if at least on of the attribute does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.clear_attributes"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.clear_attributes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">clear_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete all attributes.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.attributes_items"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.attributes_items">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">attributes_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the attribute items.</span>
+
+<span class="sd">        :return: an iterator with attribute key value pairs</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.attributes_keys"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.attributes_keys">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">attributes_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the attribute keys.</span>
+
+<span class="sd">        :return: an iterator with attribute keys</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extras</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the extras dictionary.</span>
+
+<span class="sd">        .. note:: This will fetch all the extras from the database which can be a heavy operation. If you only need</span>
+<span class="sd">            the keys or some values, use the iterators `extras_keys` and `extras_items`, or the getters `get_extra`</span>
+<span class="sd">            and `get_extras` instead.</span>
+
+<span class="sd">        :return: the extras as a dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extras_items</span><span class="p">())</span>
+
+<div class="viewcode-block" id="BackendNode.get_extra"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.get_extra">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an extra.</span>
+
+<span class="sd">        :param key: name of the extra</span>
+<span class="sd">        :return: the value of the extra</span>
+<span class="sd">        :raises AttributeError: if the extra does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.get_extras"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.get_extras">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a set of extras.</span>
+
+<span class="sd">        :param keys: names of the extras</span>
+<span class="sd">        :return: the values of the extras</span>
+<span class="sd">        :raises AttributeError: if at least one extra does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.set_extra"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.set_extra">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">increase_version</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set an extra to the given value.</span>
+
+<span class="sd">        :param key: name of the extra</span>
+<span class="sd">        :param value: value of the extra</span>
+<span class="sd">        :param increase_version: boolean, if True will increase the node version upon successfully setting the extra</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.set_extras"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.set_extras">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extras</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set extras.</span>
+
+<span class="sd">        .. note:: This will override any existing extras that are present in the new dictionary.</span>
+
+<span class="sd">        :param extras: the new extras to set</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.reset_extras"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.reset_extras">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">reset_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extras</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the extras.</span>
+
+<span class="sd">        .. note:: This will completely reset any existing extras and replace them with the new dictionary.</span>
+
+<span class="sd">        :param extras: the new extras to set</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.delete_extra"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.delete_extra">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_extra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete an extra.</span>
+
+<span class="sd">        :param key: name of the extra</span>
+<span class="sd">        :raises AttributeError: if the extra does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.delete_extras"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.delete_extras">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete multiple extras.</span>
+
+<span class="sd">        .. note:: The implementation should guarantee that all the keys that are to be deleted actually exist or the</span>
+<span class="sd">            entire operation should be canceled without any change and an ``AttributeError`` should be raised.</span>
+
+<span class="sd">        :param keys: names of the extras to delete</span>
+<span class="sd">        :raises AttributeError: if at least on of the extra does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.clear_extras"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.clear_extras">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">clear_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete all extras.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.extras_items"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.extras_items">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">extras_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the extra items.</span>
+
+<span class="sd">        :return: an iterator with extra key value pairs</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.extras_keys"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.extras_keys">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">extras_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the attribute keys.</span>
+
+<span class="sd">        :return: an iterator with attribute keys</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.add_incoming"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.add_incoming">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_incoming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">link_type</span><span class="p">,</span> <span class="n">link_label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a link of the given type from a given node to ourself.</span>
+
+<span class="sd">        :param source: the node from which the link is coming</span>
+<span class="sd">        :param link_type: the link type</span>
+<span class="sd">        :param link_label: the link label</span>
+<span class="sd">        :return: True if the proposed link is allowed, False otherwise</span>
+<span class="sd">        :raise TypeError: if `source` is not a Node instance or `link_type` is not a `LinkType` enum</span>
+<span class="sd">        :raise ValueError: if the proposed link is invalid</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode.store"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode.store">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_transaction</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store the node in the database.</span>
+
+<span class="sd">        :param attributes: optional attributes to set before storing, will override any existing attributes</span>
+<span class="sd">        :param links: optional links to add before storing</span>
+<span class="sd">        :parameter with_transaction: if False, do not use a transaction because the caller will already have opened one.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BackendNode._increment_version_number"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNode._increment_version_number">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_increment_version_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Increment the node version number of this node by one directly in the database.&quot;&quot;&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="BackendNodeCollection"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNodeCollection">[docs]</a><span class="nd">@six</span><span class="o">.</span><span class="n">add_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BackendNodeCollection</span><span class="p">(</span><span class="n">backends</span><span class="o">.</span><span class="n">BackendCollection</span><span class="p">[</span><span class="n">BackendNode</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;The collection of `BackendNode` entries.&quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=too-few-public-methods</span>
+
+    <span class="n">ENTITY_CLASS</span> <span class="o">=</span> <span class="n">BackendNode</span>
+
+<div class="viewcode-block" id="BackendNodeCollection.delete"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.implementation.html#aiida.orm.implementation.BackendNodeCollection.delete">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove a Node entry from the collection with the given id</span>
+
+<span class="sd">        :param pk: id of the node to delete</span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

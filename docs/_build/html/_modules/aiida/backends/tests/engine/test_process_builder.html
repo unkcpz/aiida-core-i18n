@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.engine.test_process_builder &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.engine.test_process_builder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.engine.test_process_builder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">MutableMapping</span>
+
+<span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">LinkType</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">WorkChain</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span> <span class="nn">aiida.plugins</span> <span class="k">import</span> <span class="n">CalculationFactory</span>
+
+<span class="n">DEFAULT_INT</span> <span class="o">=</span> <span class="mi">256</span>
+
+
+<div class="viewcode-block" id="TestWorkChain"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestWorkChain">[docs]</a><span class="k">class</span> <span class="nc">TestWorkChain</span><span class="p">(</span><span class="n">WorkChain</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestWorkChain.define"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestWorkChain.define">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestWorkChain</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input_namespace</span><span class="p">(</span><span class="s1">&#39;dynamic.namespace&#39;</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Port name that overlaps with method of mutable mapping&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;name.spaced&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Namespaced port&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Not actually a namespaced port&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;boolean&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Bool</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;A pointless boolean&#39;</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">valid_type</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="TestProcessBuilder"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder">[docs]</a><span class="k">class</span> <span class="nc">TestProcessBuilder</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestProcessBuilder.setUp"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestProcessBuilder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">Process</span><span class="o">.</span><span class="n">current</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_class</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;templatereplacer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_class</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span> <span class="o">=</span> <span class="n">TestWorkChain</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;dynamic&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;namespace&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;alp&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;spaced&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;name_spaced&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="s1">&#39;underscored&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span>
+            <span class="s1">&#39;boolean&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="p">{}}</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.tearDown"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestProcessBuilder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">Process</span><span class="o">.</span><span class="n">current</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_process_builder_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_process_builder_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_builder_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check that the builder has all the input ports of the process class as attributes.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_class</span><span class="o">.</span><span class="n">spec</span><span class="p">()</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_process_builder_set_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_process_builder_set_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_builder_set_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that setting attributes in builder works.&quot;&quot;&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Test label&#39;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Test description&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_dynamic_setters"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_dynamic_setters">[docs]</a>    <span class="k">def</span> <span class="nf">test_dynamic_setters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the attributes of the TestWorkChain can be set but defaults are not there.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;dynamic&#39;</span><span class="p">][</span><span class="s1">&#39;namespace&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">spaced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="s1">&#39;spaced&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name_spaced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">boolean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_dynamic_getters_value"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_dynamic_getters_value">[docs]</a>    <span class="k">def</span> <span class="nf">test_dynamic_getters_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that getters will return the actual value.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;dynamic&#39;</span><span class="p">][</span><span class="s1">&#39;namespace&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">spaced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="s1">&#39;spaced&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name_spaced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">boolean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Verify that the correct type is returned by the getter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">spaced</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name_spaced</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Str</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">boolean</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Bool</span><span class="p">))</span>
+
+        <span class="c1"># Verify that the correct value is returned by the getter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;dynamic&#39;</span><span class="p">][</span><span class="s1">&#39;namespace&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">spaced</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="s1">&#39;spaced&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">name_spaced</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builder_workchain</span><span class="o">.</span><span class="n">boolean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_dynamic_getters_doc_string"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_dynamic_getters_doc_string">[docs]</a>    <span class="k">def</span> <span class="nf">test_dynamic_getters_doc_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that getters have the correct docstring.&quot;&quot;&quot;</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">TestWorkChain</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">name_spaced</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">TestWorkChain</span><span class="o">.</span><span class="n">spec</span><span class="p">()</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">boolean</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">TestWorkChain</span><span class="o">.</span><span class="n">spec</span><span class="p">()</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_builder_restart_work_chain"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_builder_restart_work_chain">[docs]</a>    <span class="k">def</span> <span class="nf">test_builder_restart_work_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that nested namespaces imploded into flat link labels can be reconstructed into nested namespaces.&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">WorkChainNode</span><span class="p">(</span><span class="n">process_type</span><span class="o">=</span><span class="n">TestWorkChain</span><span class="o">.</span><span class="n">build_process_type</span><span class="p">())</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;dynamic&#39;</span><span class="p">][</span><span class="s1">&#39;namespace&#39;</span><span class="p">][</span><span class="s1">&#39;alp&#39;</span><span class="p">],</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;dynamic__namespace__alp&#39;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="s1">&#39;spaced&#39;</span><span class="p">],</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;name__spaced&#39;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">],</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;name_spaced&#39;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">],</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_builder_restart</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;dynamic&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;namespace&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">dynamic</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;alp&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;spaced&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;boolean&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">dynamic</span><span class="o">.</span><span class="n">namespace</span><span class="p">[</span><span class="s1">&#39;alp&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;dynamic&#39;</span><span class="p">][</span><span class="s1">&#39;namespace&#39;</span><span class="p">][</span><span class="s1">&#39;alp&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">spaced</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="s1">&#39;spaced&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">name_spaced</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;name_spaced&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">boolean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_port_names_overlapping_mutable_mapping_methods"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_port_names_overlapping_mutable_mapping_methods">[docs]</a>    <span class="k">def</span> <span class="nf">test_port_names_overlapping_mutable_mapping_methods</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check that port names take precedence over `collections.MutableMapping` methods.</span>
+
+<span class="sd">        The `ProcessBuilderNamespace` is a `collections.MutableMapping` but since the port names are made accessible</span>
+<span class="sd">        as attributes, they can overlap with some of the mappings builtin methods, e.g. `values()`, `items()` etc.</span>
+<span class="sd">        The port names should take precendence in this case and if one wants to access the mapping methods one needs to</span>
+<span class="sd">        cast the builder to a dictionary first.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">TestWorkChain</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+
+        <span class="c1"># The `values` method is obscured by a port that also happens to be called `values`, so calling it should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+        <span class="c1"># However, we can assign a node to it</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Calling the attribute `values` will then actually try to call the node, which should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+        <span class="c1"># Casting the builder to a dict, *should* then make `values` callable again</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">builder</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># The mapping methods should not be auto-completed, i.e. not in the values returned by calling `dir`</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="n">method</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">MutableMapping</span><span class="p">)</span> <span class="k">if</span> <span class="n">method</span> <span class="o">!=</span> <span class="s1">&#39;values&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="nb">dir</span><span class="p">(</span><span class="n">builder</span><span class="p">))</span>
+
+        <span class="c1"># On the other hand, all the port names *should* be present</span>
+        <span class="k">for</span> <span class="n">port_name</span> <span class="ow">in</span> <span class="n">TestWorkChain</span><span class="o">.</span><span class="n">spec</span><span class="p">()</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="nb">dir</span><span class="p">(</span><span class="n">builder</span><span class="p">))</span>
+
+        <span class="c1"># The `update` method is implemented, but prefixed with an underscore to not block the name for a port</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;boolean&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">boolean</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_calc_job_node_get_builder_restart"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_calc_job_node_get_builder_restart">[docs]</a>    <span class="k">def</span> <span class="nf">test_calc_job_node_get_builder_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the `CalcJobNode.get_builder_restart` method.&quot;&quot;&quot;</span>
+        <span class="n">original</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">&#39;aiida.calculations:arithmetic.add&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;original&#39;</span><span class="p">)</span>
+        <span class="n">original</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">original</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;max_wallclock_seconds&#39;</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+
+        <span class="n">original</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="n">original</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(),</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="n">original</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="n">get_builder_restart</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;metadata&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="n">original</span><span class="o">.</span><span class="n">get_options</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="TestProcessBuilder.test_code_get_builder"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_builder.TestProcessBuilder.test_code_get_builder">[docs]</a>    <span class="k">def</span> <span class="nf">test_code_get_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the `Code.get_builder` method returns a builder where the code is already set.&quot;&quot;&quot;</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Code</span><span class="p">()</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">set_remote_computer_exec</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span> <span class="s1">&#39;/bin/true&#39;</span><span class="p">))</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;test_code&#39;</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">set_input_plugin_name</span><span class="p">(</span><span class="s1">&#39;templatereplacer&#39;</span><span class="p">)</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Check that I can get a builder</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        <span class="c1"># Check that I can set the parameters</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="p">{})</span>
+
+        <span class="c1"># Check that it complains for an unknown input</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">unknown_parameter</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="c1"># Check that it complains if the type is not the correct one (for the templatereplacer, it should be a Dict)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

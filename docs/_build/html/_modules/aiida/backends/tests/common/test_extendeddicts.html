@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.common.test_extendeddicts &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.common.test_extendeddicts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.common.test_extendeddicts</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Tests for the extended dictionary classes.&quot;&quot;&quot;</span>
+<span class="c1"># pylint: disable=pointless-statement,attribute-defined-outside-init</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">integer_types</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">extendeddicts</span>
+
+
+<div class="viewcode-block" id="TestFFADExample"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFADExample">[docs]</a><span class="k">class</span> <span class="nc">TestFFADExample</span><span class="p">(</span><span class="n">extendeddicts</span><span class="o">.</span><span class="n">FixedFieldsAttributeDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An example class that accepts only the &#39;alpha&#39;, &#39;beta&#39; and &#39;gamma&#39; keys/attributes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_valid_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestDFADExample"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFADExample">[docs]</a><span class="k">class</span> <span class="nc">TestDFADExample</span><span class="p">(</span><span class="n">extendeddicts</span><span class="o">.</span><span class="n">DefaultFieldsAttributeDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An example class that has &#39;alpha&#39;, &#39;beta&#39; and &#39;gamma&#39; as default keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_default_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TestDFADExample.validate_alpha"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFADExample.validate_alpha">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">validate_alpha</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate a value.&quot;&quot;&quot;</span>
+        <span class="c1"># Ok if unset</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;expecting integer&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;expecting a positive or zero value&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestAttributeDictAccess"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess">[docs]</a><span class="k">class</span> <span class="nc">TestAttributeDictAccess</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Try to access the dictionary elements in various ways, copying (shallow and</span>
+<span class="sd">    deep), check raised exceptions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_access_dict_to_attr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_access_dict_to_attr">[docs]</a>    <span class="k">def</span> <span class="nf">test_access_dict_to_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test dictionary to attribute.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;abc&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_access_attr_to_dict"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_access_attr_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">test_access_attr_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test attribute to dictionary.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="s1">&#39;def&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="s1">&#39;def&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_access_nonexisting_asattr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_access_nonexisting_asattr">[docs]</a>    <span class="k">def</span> <span class="nf">test_access_nonexisting_asattr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test non-existing attribute.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="o">.</span><span class="n">test</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_access_nonexisting_askey"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_access_nonexisting_askey">[docs]</a>    <span class="k">def</span> <span class="nf">test_access_nonexisting_askey</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test non-existing attribute as key.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_del_nonexisting_askey"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_del_nonexisting_askey">[docs]</a>    <span class="k">def</span> <span class="nf">test_del_nonexisting_askey</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test deleting non-existing attribute as key.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="k">del</span> <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_del_nonexisting_asattr"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_del_nonexisting_asattr">[docs]</a>    <span class="k">def</span> <span class="nf">test_del_nonexisting_asattr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test deleting non-existing attribute.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="k">del</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">test</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_copy"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_copy">[docs]</a>    <span class="k">def</span> <span class="nf">test_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_delete_after_copy"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_delete_after_copy">[docs]</a>    <span class="k">def</span> <span class="nf">test_delete_after_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test deleting after copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span>
+        <span class="k">del</span> <span class="n">dictionary_01</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">set</span><span class="p">({}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">set</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">}))</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_shallowcopy1"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_shallowcopy1">[docs]</a>    <span class="k">def</span> <span class="nf">test_shallowcopy1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test shallow copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># copy does a shallow copy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_shallowcopy2"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_shallowcopy2">[docs]</a>    <span class="k">def</span> <span class="nf">test_shallowcopy2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test shallow copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">}</span>
+        <span class="c1"># dictionary_02 = copy.deepcopy(dictionary_01)</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">dictionary_01</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># doesn&#39;t work like this, would work as dictionary_02[&#39;x&#39;][&#39;a&#39;]</span>
+        <span class="c1"># i think that it is because deepcopy on dict actually creates a</span>
+        <span class="c1"># copy only if the data is changed; but for a nested dict,</span>
+        <span class="c1"># dictionary_02.alpha returns a dict wrapped in our class and this looses all the</span>
+        <span class="c1"># information on what should be updated when changed.</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ggg&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="s1">&#39;ggg&#39;</span><span class="p">)</span>  <span class="c1"># copy does a shallow copy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="s1">&#39;ggg&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_deepcopy1"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_deepcopy1">[docs]</a>    <span class="k">def</span> <span class="nf">test_deepcopy1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test deep copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">)</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictAccess.test_shallowcopy3"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictAccess.test_shallowcopy3">[docs]</a>    <span class="k">def</span> <span class="nf">test_shallowcopy3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test shallow copying.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">()</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">}</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">)</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ggg&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># copy does a shallow copy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="s1">&#39;ggg&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestAttributeDictNested"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictNested">[docs]</a><span class="k">class</span> <span class="nc">TestAttributeDictNested</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the functionality of nested AttributeDict classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestAttributeDictNested.test_nested"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictNested.test_nested">[docs]</a>    <span class="k">def</span> <span class="nf">test_nested</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test nested dictionary.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span> <span class="o">=</span> <span class="n">dictionary_02</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">[</span><span class="s1">&#39;nested&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">dictionary_02</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">[</span><span class="s1">&#39;nested&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictNested.test_comparison"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictNested.test_comparison">[docs]</a>    <span class="k">def</span> <span class="nf">test_comparison</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test dictionary comparison.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})})</span>
+
+        <span class="c1"># They compare to the same value but they are different objects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">dictionary_01</span> <span class="ow">is</span> <span class="n">dictionary_02</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span>
+
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictNested.test_nested_deepcopy"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictNested.test_nested_deepcopy">[docs]</a>    <span class="k">def</span> <span class="nf">test_nested_deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test nested deepcopy.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+        <span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span> <span class="o">=</span> <span class="n">dictionary_02</span>
+        <span class="n">dictionary_01copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="p">[</span><span class="s1">&#39;nested&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">dictionary_02</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="p">[</span><span class="s1">&#39;nested&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Nothing has changed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Nothing has changed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Nothing has changed</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">[</span><span class="s1">&#39;nested&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># The old one is updated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># The old one is updated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># The old one is updated</span>
+
+        <span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01copy</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_02</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestAttributeDictSerialize"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictSerialize">[docs]</a><span class="k">class</span> <span class="nc">TestAttributeDictSerialize</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test serialization/deserialization (with json, pickle, ...)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestAttributeDictSerialize.test_json"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictSerialize.test_json">[docs]</a>    <span class="k">def</span> <span class="nf">test_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test loading and dumping from json.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">))</span>
+        <span class="c1"># Note that here I am comparing a dictionary (dictionary_02) with a</span>
+        <span class="c1"># extendeddicts.AttributeDict (dictionary_02) and they still compare to equal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictSerialize.test_json_recursive"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictSerialize.test_json_recursive">[docs]</a>    <span class="k">def</span> <span class="nf">test_json_recursive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test loading and dumping from json recursively.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">))</span>
+        <span class="c1"># Note that here I am comparing a dictionary (dictionary_02) with a (recursive)</span>
+        <span class="c1"># extendeddicts.AttributeDict (dictionary_02) and they still compare to equal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictSerialize.test_pickle"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictSerialize.test_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">test_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test pickling.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestAttributeDictSerialize.test_pickle_recursive"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestAttributeDictSerialize.test_pickle_recursive">[docs]</a>    <span class="k">def</span> <span class="nf">test_pickle_recursive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test pickling recursively.&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">extendeddicts</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">({</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">,</span> <span class="n">dictionary_02</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestFFAD"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFAD">[docs]</a><span class="k">class</span> <span class="nc">TestFFAD</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test for the fixed fields attribute dictionary.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestFFAD.test_insertion"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFAD.test_insertion">[docs]</a>    <span class="k">def</span> <span class="nf">test_insertion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test insertion.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">TestFFADExample</span><span class="p">()</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="c1"># Not a valid key.</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mi">5</span></div>
+
+<div class="viewcode-block" id="TestFFAD.test_insertion_on_init"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFAD.test_insertion_on_init">[docs]</a>    <span class="k">def</span> <span class="nf">test_insertion_on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test insertion in constructor.&quot;&quot;&quot;</span>
+        <span class="n">TestFFADExample</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="c1"># &#39;delta&#39; is not a valid key</span>
+            <span class="n">TestFFADExample</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="TestFFAD.test_pickle"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFAD.test_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">test_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Note: pickle works here because self._valid_fields is defined at the class level!&quot;&quot;&quot;</span>
+        <span class="n">dictionary_01</span> <span class="o">=</span> <span class="n">TestFFADExample</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">dictionary_02</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dictionary_01</span><span class="p">))</span>
+        <span class="n">dictionary_02</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">dictionary_02</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="TestFFAD.test_class_attribute"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestFFAD.test_class_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">test_class_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        I test that the get_valid_fields() is working as a class method,</span>
+<span class="sd">        so I don&#39;t need to instantiate the class to get the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">TestFFADExample</span><span class="o">.</span><span class="n">get_valid_fields</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">]))</span></div></div>
+
+
+<div class="viewcode-block" id="TestDFAD"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFAD">[docs]</a><span class="k">class</span> <span class="nc">TestDFAD</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test for the default fields attribute dictionary.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestDFAD.test_insertion_and_retrieval"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFAD.test_insertion_and_retrieval">[docs]</a>    <span class="k">def</span> <span class="nf">test_insertion_and_retrieval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test insertion and retrieval.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">TestDFADExample</span><span class="p">()</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;epsilon&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDFAD.test_keylist_method"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFAD.test_keylist_method">[docs]</a>    <span class="k">def</span> <span class="nf">test_keylist_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test keylist retrieval.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">TestDFADExample</span><span class="p">()</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mi">4</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">get_default_fields</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="s1">&#39;epsilon&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">defaultkeys</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">extrakeys</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="s1">&#39;epsilon&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDFAD.test_class_attribute"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFAD.test_class_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">test_class_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        I test that the get_default_fields() is working as a class method,</span>
+<span class="sd">        so I don&#39;t need to instantiate the class to get the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">TestDFADExample</span><span class="o">.</span><span class="n">get_default_fields</span><span class="p">()),</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="TestDFAD.test_validation"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.common.html#aiida.backends.tests.common.test_extendeddicts.TestDFAD.test_validation">[docs]</a>    <span class="k">def</span> <span class="nf">test_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test validation.&quot;&quot;&quot;</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">TestDFADExample</span><span class="p">()</span>
+
+        <span class="c1"># Should be ok to have an empty &#39;alpha&#39; attribute</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="s1">&#39;text&#39;</span>
+
+        <span class="c1"># This should be fine</span>
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
+        <span class="c1"># dictionary.alpha must be a positive integer</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+        <span class="n">dictionary</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+        <span class="c1"># alpha must be a positive integer</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">):</span>
+            <span class="n">dictionary</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

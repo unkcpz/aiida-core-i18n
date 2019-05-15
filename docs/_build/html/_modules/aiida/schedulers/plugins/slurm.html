@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.schedulers.plugins.slurm &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.schedulers.plugins.slurm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.schedulers.plugins.slurm</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plugin for SLURM.</span>
+<span class="sd">This has been tested on SLURM 14.03.7 on the CSCS.ch machines.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">zip</span>
+
+<span class="kn">import</span> <span class="nn">aiida.schedulers</span>
+<span class="kn">from</span> <span class="nn">aiida.common.escaping</span> <span class="k">import</span> <span class="n">escape_for_bash</span>
+<span class="kn">from</span> <span class="nn">aiida.schedulers</span> <span class="k">import</span> <span class="n">SchedulerError</span>
+<span class="kn">from</span> <span class="nn">aiida.schedulers.datastructures</span> <span class="k">import</span> <span class="p">(</span><span class="n">JobInfo</span><span class="p">,</span> <span class="n">JobState</span><span class="p">,</span> <span class="n">NodeNumberJobResource</span><span class="p">)</span>
+
+<span class="c1"># This maps SLURM state codes to our own status list</span>
+
+<span class="c1">## List of states from the man page of squeue</span>
+<span class="c1">## CA  CANCELLED       Job  was explicitly cancelled by the user or system</span>
+<span class="c1">##                     administrator.  The job may or may  not  have  been</span>
+<span class="c1">##                     initiated.</span>
+<span class="c1">## CD  COMPLETED       Job has terminated all processes on all nodes.</span>
+<span class="c1">## CF  CONFIGURING     Job  has  been allocated resources, but are waiting</span>
+<span class="c1">##                     for them to become ready for use (e.g. booting).</span>
+<span class="c1">## CG  COMPLETING      Job is in the process of completing. Some processes</span>
+<span class="c1">##                     on some nodes may still be active.</span>
+<span class="c1">## F   FAILED          Job  terminated  with  non-zero  exit code or other</span>
+<span class="c1">##                     failure condition.</span>
+<span class="c1">## NF  NODE_FAIL       Job terminated due to failure of one or more  allo-</span>
+<span class="c1">##                     cated nodes.</span>
+<span class="c1">## PD  PENDING         Job is awaiting resource allocation.</span>
+<span class="c1">## PR  PREEMPTED       Job terminated due to preemption.</span>
+<span class="c1">## R   RUNNING         Job currently has an allocation.</span>
+<span class="c1">## S   SUSPENDED       Job  has an allocation, but execution has been sus-</span>
+<span class="c1">##                     pended.</span>
+<span class="c1">## TO  TIMEOUT         Job terminated upon reaching its time limit.</span>
+
+<span class="n">_MAP_STATUS_SLURM</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;CA&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+    <span class="s1">&#39;CD&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+    <span class="s1">&#39;CF&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED</span><span class="p">,</span>
+    <span class="s1">&#39;CG&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span>
+    <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+    <span class="s1">&#39;NF&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+    <span class="s1">&#39;PD&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED</span><span class="p">,</span>
+    <span class="s1">&#39;PR&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+    <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span>
+    <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">SUSPENDED</span><span class="p">,</span>
+    <span class="s1">&#39;TO&#39;</span><span class="p">:</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># From the manual,</span>
+<span class="c1"># possible lines are:</span>
+<span class="c1"># salloc: Granted job allocation 65537</span>
+<span class="c1"># sbatch: Submitted batch job 65541</span>
+<span class="c1"># and in practice, often the part before the colon can be absent.</span>
+<span class="n">_SLURM_SUBMITTED_REGEXP</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*:\s*)?([Gg]ranted job allocation|[Ss]ubmitted batch job)\s+(?P&lt;jobid&gt;\d+)&#39;</span><span class="p">)</span>
+
+<span class="c1"># From docs,</span>
+<span class="c1"># acceptable  time  formats include</span>
+<span class="c1"># &quot;minutes&quot;,  &quot;minutes:seconds&quot;,  &quot;hours:minutes:seconds&quot;,</span>
+<span class="c1"># &quot;days-hours&quot;,  &quot;days-hours:minutes&quot; and &quot;days-hours:minutes:seconds&quot;.</span>
+<span class="n">_TIME_REGEXP</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    ^                            # beginning of string</span>
+<span class="s2">    \s*                          # any number of white spaces</span>
+<span class="s2">    (?=\d)                       # I check that there is at least a digit</span>
+<span class="s2">                                 # in the string, without consuming it</span>
+<span class="s2">    ((?P&lt;days&gt;\d+)(?P&lt;dash&gt;-)    # the number of days, if a dash is present,</span>
+<span class="s2">                                 # composed by any number of digits;</span>
+<span class="s2">                                 # may be absent</span>
+<span class="s2">     (?=\d))?                    # in any case, I check that there is at least</span>
+<span class="s2">                                 # a digit afterwards, without consuming it</span>
+<span class="s2">    ((?P&lt;hours&gt;\d{1,2})          # match an hour (one or two digits)</span>
+<span class="s2">     (?(dash)                    # check if the dash was found</span>
+<span class="s2">       |                         # match nothing if the dash was found:</span>
+<span class="s2">                                 # if the dash was found, we are sure that</span>
+<span class="s2">                                 # the first number is a hour</span>
+<span class="s2">       (?=:\d{1,2}:\d{1,2})))?   # if no dash was found, the first</span>
+<span class="s2">                                 # element found is an hour only if</span>
+<span class="s2">                                 # it is followed by two more fields (mm:ss)</span>
+<span class="s2">       (?P&lt;firstcolon&gt;:)?        # there (can) possibly be a further colon,</span>
+<span class="s2">                                 # consume it</span>
+<span class="s2">    ((?&lt;!-)(?P&lt;minutes&gt;\d{1,2})</span>
+<span class="s2">     (:(?P&lt;seconds&gt;\d{1,2}))?)?  # number of minutes (one or two digits)</span>
+<span class="s2">                                 # and seconds. A number only means minutes.</span>
+<span class="s2">                                 # (?&lt;!-) means that the location BEFORE</span>
+<span class="s2">                                 # the current position does NOT</span>
+<span class="s2">                                 # match a dash, because the string 1-2</span>
+<span class="s2">                                 # means 1 day and 2 hours, NOT one day and</span>
+<span class="s2">                                 # 2 minutes</span>
+<span class="s2">    \s*                          # any number of whitespaces</span>
+<span class="s2">    $                            # end of line</span>
+<span class="s2">   &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+
+<span class="c1"># Separator between fields in the output of squeue</span>
+<span class="n">_FIELD_SEPARATOR</span> <span class="o">=</span> <span class="s2">&quot;^^^&quot;</span>
+
+
+<div class="viewcode-block" id="SlurmJobResource"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmJobResource">[docs]</a><span class="k">class</span> <span class="nc">SlurmJobResource</span><span class="p">(</span><span class="n">NodeNumberJobResource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Slurm job resources object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SlurmJobResource.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmJobResource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It extends the base class init method and calculates the</span>
+<span class="sd">        num_cores_per_mpiproc fields to pass to Slurm schedulers.</span>
+
+<span class="sd">        Checks that num_cores_per_machine should be a multiple of</span>
+<span class="sd">        num_cores_per_mpiproc and/or num_mpiprocs_per_machine</span>
+
+<span class="sd">        Check sequence</span>
+
+<span class="sd">        1. If num_cores_per_mpiproc and num_cores_per_machine both are</span>
+<span class="sd">           specified check whether it satisfies the check</span>
+<span class="sd">        2. If only num_cores_per_machine is passed, calculate</span>
+<span class="sd">           num_cores_per_mpiproc which should always be an integer value</span>
+<span class="sd">        3. If only num_cores_per_mpiproc is passed, use it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SlurmJobResource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">value_error</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;num_cores_per_machine must be equal to &quot;</span>
+                       <span class="s2">&quot;num_cores_per_mpiproc * num_mpiprocs_per_machine, &quot;</span>
+                       <span class="s2">&quot;and in perticular it should be a multiple of &quot;</span>
+                       <span class="s2">&quot;num_cores_per_mpiproc and/or num_mpiprocs_per_machine&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_machine</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_machine</span> <span class="o">!=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_mpiprocs_per_machine</span><span class="p">):</span>
+                <span class="c1"># If user specify both values, check if specified</span>
+                <span class="c1"># values are correct</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">value_error</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_machine</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_machine</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_cores_per_machine must be &gt;=1&quot;</span><span class="p">)</span>
+            <span class="c1"># calculate num_cores_per_mpiproc</span>
+            <span class="c1"># In this plugin we never used num_cores_per_machine so if it</span>
+            <span class="c1"># is not defined it is OK.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_machine</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_mpiprocs_per_machine</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">value_error</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SlurmScheduler"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler">[docs]</a><span class="k">class</span> <span class="nc">SlurmScheduler</span><span class="p">(</span><span class="n">aiida</span><span class="o">.</span><span class="n">schedulers</span><span class="o">.</span><span class="n">Scheduler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Support for the SLURM scheduler (http://slurm.schedmd.com/).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">aiida</span><span class="o">.</span><span class="n">schedulers</span><span class="o">.</span><span class="n">Scheduler</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;slurm&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Query only by list of jobs and not by user</span>
+    <span class="n">_features</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;can_query_by_user&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># The class to be used for the job resource.</span>
+    <span class="n">_job_resource_class</span> <span class="o">=</span> <span class="n">SlurmJobResource</span>
+
+    <span class="c1"># Fields to query or to parse</span>
+    <span class="c1"># Unavailable fields: substate, cputime</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;</span><span class="si">%i</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;job_id&#39;</span><span class="p">),</span>  <span class="c1"># job or job step id</span>
+        <span class="p">(</span><span class="s2">&quot;%t&quot;</span><span class="p">,</span> <span class="s1">&#39;state_raw&#39;</span><span class="p">),</span>  <span class="c1"># job state in compact form</span>
+        <span class="p">(</span><span class="s2">&quot;</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;annotation&#39;</span><span class="p">),</span>  <span class="c1"># reason for the job being in its current state</span>
+        <span class="p">(</span><span class="s2">&quot;%B&quot;</span><span class="p">,</span> <span class="s1">&#39;executing_host&#39;</span><span class="p">),</span>  <span class="c1"># Executing (batch) host</span>
+        <span class="p">(</span><span class="s2">&quot;</span><span class="si">%u</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">),</span>  <span class="c1"># username</span>
+        <span class="p">(</span><span class="s2">&quot;%D&quot;</span><span class="p">,</span> <span class="s1">&#39;number_nodes&#39;</span><span class="p">),</span>  <span class="c1"># number of nodes allocated</span>
+        <span class="p">(</span><span class="s2">&quot;%C&quot;</span><span class="p">,</span> <span class="s1">&#39;number_cpus&#39;</span><span class="p">),</span>  <span class="c1"># number of allocated cores (if already running)</span>
+        <span class="p">(</span><span class="s2">&quot;%R&quot;</span><span class="p">,</span> <span class="s1">&#39;allocated_machines&#39;</span><span class="p">),</span>  <span class="c1"># list of allocated nodes when running, otherwise</span>
+        <span class="c1"># reason within parenthesis</span>
+        <span class="p">(</span><span class="s2">&quot;%P&quot;</span><span class="p">,</span> <span class="s1">&#39;partition&#39;</span><span class="p">),</span>  <span class="c1"># partition (queue) of the job</span>
+        <span class="p">(</span><span class="s2">&quot;%l&quot;</span><span class="p">,</span> <span class="s1">&#39;time_limit&#39;</span><span class="p">),</span>  <span class="c1"># time limit in days-hours:minutes:seconds</span>
+        <span class="p">(</span><span class="s2">&quot;%M&quot;</span><span class="p">,</span> <span class="s1">&#39;time_used&#39;</span><span class="p">),</span>  <span class="c1"># Time used by the job in days-hours:minutes:seconds</span>
+        <span class="p">(</span><span class="s2">&quot;%S&quot;</span><span class="p">,</span> <span class="s1">&#39;dispatch_time&#39;</span><span class="p">),</span>  <span class="c1"># actual or expected dispatch time (start time)</span>
+        <span class="p">(</span><span class="s2">&quot;%j&quot;</span><span class="p">,</span> <span class="s1">&#39;job_name&#39;</span><span class="p">),</span>  <span class="c1"># job name (title)</span>
+        <span class="p">(</span><span class="s2">&quot;%V&quot;</span><span class="p">,</span> <span class="s1">&#39;submission_time&#39;</span><span class="p">)</span>  <span class="c1"># This is probably new, it exists in version</span>
+        <span class="c1"># 14.03.7 and later</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="SlurmScheduler._get_joblist_command"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._get_joblist_command">[docs]</a>    <span class="k">def</span> <span class="nf">_get_joblist_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The command to report full information on existing jobs.</span>
+
+<span class="sd">        Separate the fields with the _field_separator string order:</span>
+<span class="sd">        jobnum, state, walltime, queue[=partition], user, numnodes, numcores, title</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">FeatureNotAvailable</span>
+
+        <span class="c1"># I add the environment variable SLURM_TIME_FORMAT in front to be</span>
+        <span class="c1"># sure to get the times in &#39;standard&#39; format</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;SLURM_TIME_FORMAT=&#39;standard&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;squeue&quot;</span><span class="p">,</span> <span class="s2">&quot;--noheader&quot;</span><span class="p">,</span> <span class="s2">&quot;-o &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">_FIELD_SEPARATOR</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">))</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">and</span> <span class="n">jobs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">FeatureNotAvailable</span><span class="p">(</span><span class="s2">&quot;Cannot query by user and job(s) in SLURM&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+            <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-u</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">jobs</span><span class="p">:</span>
+            <span class="n">joblist</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">jobs</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="n">joblist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">jobs</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;If provided, the &#39;jobs&#39; variable must be a string or a list of strings&quot;</span><span class="p">)</span>
+                <span class="n">joblist</span> <span class="o">=</span> <span class="n">jobs</span>
+            <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--jobs=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">joblist</span><span class="p">)))</span>
+
+        <span class="n">comm</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;squeue command: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comm</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">comm</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._get_detailed_jobinfo_command"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._get_detailed_jobinfo_command">[docs]</a>    <span class="k">def</span> <span class="nf">_get_detailed_jobinfo_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jobid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the command to run to get the detailed information on a job,</span>
+<span class="sd">        even after the job has finished.</span>
+
+<span class="sd">        The output text is just retrieved, and returned for logging purposes.</span>
+<span class="sd">        --parsable split the fields with a pipe (|), adding a pipe also at</span>
+<span class="sd">        the end.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;sacct --format=AllocCPUS,Account,AssocID,AveCPU,AvePages,&quot;</span> \
+               <span class="s2">&quot;AveRSS,AveVMSize,Cluster,Comment,CPUTime,CPUTimeRAW,DerivedExitCode,&quot;</span> \
+               <span class="s2">&quot;Elapsed,Eligible,End,ExitCode,GID,Group,JobID,JobName,MaxRSS,MaxRSSNode,&quot;</span> \
+               <span class="s2">&quot;MaxRSSTask,MaxVMSize,MaxVMSizeNode,MaxVMSizeTask,MinCPU,MinCPUNode,&quot;</span> \
+               <span class="s2">&quot;MinCPUTask,NCPUS,NNodes,NodeList,NTasks,Priority,Partition,QOSRAW,ReqCPUS,&quot;</span> \
+               <span class="s2">&quot;Reserved,ResvCPU,ResvCPURAW,Start,State,Submit,Suspended,SystemCPU,Timelimit,&quot;</span> \
+               <span class="s2">&quot;TotalCPU,UID,User,UserCPU --parsable --jobs=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jobid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._get_submit_script_header"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._get_submit_script_header">[docs]</a>    <span class="k">def</span> <span class="nf">_get_submit_script_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_tmpl</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the submit script header, using the parameters from the</span>
+<span class="sd">        job_tmpl.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           job_tmpl: an JobTemplate instance with relevant parameters set.</span>
+
+<span class="sd">        TODO: truncate the title if too long</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">string</span>
+
+        <span class="n">empty_line</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">submit_as_hold</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH -H&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">rerunnable</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --requeue&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --no-requeue&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">email</span><span class="p">:</span>
+            <span class="c1"># If not specified, but email events are set, SLURM</span>
+            <span class="c1"># sends the mail to the job owner by default</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;#SBATCH --mail-user=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">email_on_started</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --mail-type=BEGIN&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">email_on_terminated</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --mail-type=FAIL&quot;</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --mail-type=END&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_name</span><span class="p">:</span>
+            <span class="c1"># The man page does not specify any specific limitation</span>
+            <span class="c1"># on the job name.</span>
+            <span class="c1"># Just to be sure, I remove unwanted characters, and I</span>
+            <span class="c1"># trim it to length 128</span>
+
+            <span class="c1"># I leave only letters, numbers, dots, dashes and underscores</span>
+            <span class="c1"># Note: I don&#39;t compile the regexp, I am going to use it only once</span>
+            <span class="n">job_title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^a-zA-Z0-9_.-]+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_name</span><span class="p">)</span>
+
+            <span class="c1"># prepend a &#39;j&#39; (for &#39;job&#39;) before the string if the string</span>
+            <span class="c1"># is now empty or does not start with a valid charachter</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">job_title</span> <span class="ow">or</span> <span class="p">(</span><span class="n">job_title</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">):</span>
+                <span class="n">job_title</span> <span class="o">=</span> <span class="s1">&#39;j&#39;</span> <span class="o">+</span> <span class="n">job_title</span>
+
+            <span class="c1"># Truncate to the first 128 characters</span>
+            <span class="c1"># Nothing is done if the string is shorter.</span>
+            <span class="n">job_title</span> <span class="o">=</span> <span class="n">job_title</span><span class="p">[:</span><span class="mi">128</span><span class="p">]</span>
+
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;#SBATCH --job-name=&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_title</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">import_sys_environment</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --get-user-env&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_output_path</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --output=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_output_path</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_join_files</span><span class="p">:</span>
+            <span class="c1"># TODO: manual says:</span>
+            <span class="c1"># By  default both standard output and standard error are directed</span>
+            <span class="c1"># to a file of the name &quot;slurm-%j.out&quot;, where the &quot;%j&quot; is replaced</span>
+            <span class="c1"># with  the  job  allocation  number.</span>
+            <span class="c1"># See that this automatic redirection works also if</span>
+            <span class="c1"># I specify a different --output file</span>
+            <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_error_path</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sched_join_files is True, but sched_error_path is set in &quot;</span>
+                                 <span class="s2">&quot;SLURM script; ignoring sched_error_path&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_error_path</span><span class="p">:</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --error=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">sched_error_path</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># To avoid automatic join of files</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --error=slurm-%j.err&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">queue_name</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --partition=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">queue_name</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">account</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --account=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">account</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">qos</span><span class="p">:</span>        
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --qos=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">qos</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">priority</span><span class="p">:</span>
+            <span class="c1">#  Run the job with an adjusted scheduling priority  within  SLURM.</span>
+            <span class="c1">#  With no adjustment value the scheduling priority is decreased by</span>
+            <span class="c1">#  100. The adjustment range is from -10000 (highest  priority)  to</span>
+            <span class="c1">#  10000  (lowest  priority).</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --nice=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">priority</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Job resources (as the num_machines) are required for the SLURM scheduler plugin&quot;</span><span class="p">)</span>
+
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --nodes=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="o">.</span><span class="n">num_machines</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="o">.</span><span class="n">num_mpiprocs_per_machine</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --ntasks-per-node=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="o">.</span><span class="n">num_mpiprocs_per_machine</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --cpus-per-task=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span><span class="o">.</span><span class="n">num_cores_per_mpiproc</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_wallclock_seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tot_secs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_wallclock_seconds</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tot_secs</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_wallclock_seconds must be &quot;</span>
+                                 <span class="s2">&quot;a positive integer (in seconds)! It is instead &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                                 <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_wallclock_seconds</span><span class="p">)))</span>
+            <span class="n">days</span> <span class="o">=</span> <span class="n">tot_secs</span> <span class="o">//</span> <span class="mi">86400</span>
+            <span class="n">tot_hours</span> <span class="o">=</span> <span class="n">tot_secs</span> <span class="o">%</span> <span class="mi">86400</span>
+            <span class="n">hours</span> <span class="o">=</span> <span class="n">tot_hours</span> <span class="o">//</span> <span class="mi">3600</span>
+            <span class="n">tot_minutes</span> <span class="o">=</span> <span class="n">tot_hours</span> <span class="o">%</span> <span class="mi">3600</span>
+            <span class="n">minutes</span> <span class="o">=</span> <span class="n">tot_minutes</span> <span class="o">//</span> <span class="mi">60</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="n">tot_minutes</span> <span class="o">%</span> <span class="mi">60</span>
+            <span class="k">if</span> <span class="n">days</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --time=</span><span class="si">{:02d}</span><span class="s2">:</span><span class="si">{:02d}</span><span class="s2">:</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --time=</span><span class="si">{:d}</span><span class="s2">-</span><span class="si">{:02d}</span><span class="s2">:</span><span class="si">{:02d}</span><span class="s2">:</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span><span class="p">))</span>
+
+        <span class="c1"># It is the memory per node, not per cpu!</span>
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_memory_kb</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">virtual_memory_kb</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_memory_kb</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">virtual_memory_kb</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_memory_kb must be &quot;</span>
+                                 <span class="s2">&quot;a positive integer (in kB)! It is instead &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                                 <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">MaxMemoryKb</span><span class="p">)))</span>
+            <span class="c1"># --mem: Specify the real memory required per node in MegaBytes.</span>
+            <span class="c1"># --mem and  --mem-per-cpu  are  mutually exclusive.</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#SBATCH --mem=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">virtual_memory_kb</span> <span class="o">//</span> <span class="mi">1024</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">custom_scheduler_commands</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">custom_scheduler_commands</span><span class="p">)</span>
+
+        <span class="c1"># Job environment variables are to be set on one single line.</span>
+        <span class="c1"># This is a tough job due to the escaping of commas, etc.</span>
+        <span class="c1"># moreover, I am having issues making it work.</span>
+        <span class="c1"># Therefore, I assume that this is bash and export variables by</span>
+        <span class="c1"># and.</span>
+
+        <span class="k">if</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_environment</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">empty_line</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;# ENVIRONMENT VARIABLES BEGIN ###&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_environment</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If you provide job_environment, it must be a dictionary&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_environment</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;export </span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">escape_for_bash</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;# ENVIRONMENT VARIABLES  END  ###&quot;</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">empty_line</span><span class="p">)</span>
+
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">empty_line</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._get_submit_command"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._get_submit_command">[docs]</a>    <span class="k">def</span> <span class="nf">_get_submit_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submit_script</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the string to execute to submit a given script.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            submit_script: the path of the submit script relative to the working</span>
+<span class="sd">                directory.</span>
+<span class="sd">                IMPORTANT: submit_script should be already escaped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">submit_command</span> <span class="o">=</span> <span class="s1">&#39;sbatch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">submit_script</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;submitting with: &quot;</span> <span class="o">+</span> <span class="n">submit_command</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">submit_command</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._parse_submit_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._parse_submit_output">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_submit_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the output of the submit command, as returned by executing the</span>
+<span class="sd">        command returned by _get_submit_command command.</span>
+
+<span class="sd">        To be implemented by the plugin.</span>
+
+<span class="sd">        Return a string with the JobID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">retval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error in _parse_submit_output: retval=</span><span class="si">{}</span><span class="s2">; &quot;</span>
+                              <span class="s2">&quot;stdout=</span><span class="si">{}</span><span class="s2">; stderr=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">SchedulerError</span><span class="p">(</span><span class="s2">&quot;Error during submission, retval=</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;stdout=</span><span class="si">{}</span><span class="se">\n</span><span class="s2">stderr=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">transport_string</span> <span class="o">=</span> <span class="s2">&quot; for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SchedulerError</span><span class="p">:</span>
+            <span class="n">transport_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;in _parse_submit_output</span><span class="si">{}</span><span class="s2">: &quot;</span>
+                                <span class="s2">&quot;there was some text in stderr: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transport_string</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+
+        <span class="c1"># I check for a valid string in the output.</span>
+        <span class="c1"># See comments near the regexp above.</span>
+        <span class="c1"># I check for the first line that matches.</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">_SLURM_SUBMITTED_REGEXP</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;jobid&#39;</span><span class="p">)</span>
+        <span class="c1"># If I am here, no valid line could be found.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;in _parse_submit_output</span><span class="si">{}</span><span class="s2">: &quot;</span>
+                          <span class="s2">&quot;unable to find the job id: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transport_string</span><span class="p">,</span> <span class="n">stdout</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">SchedulerError</span><span class="p">(</span><span class="s2">&quot;Error during submission, could not retrieve the jobID from &quot;</span>
+                             <span class="s2">&quot;sbatch output; see log for more info.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._parse_joblist_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._parse_joblist_output">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_joblist_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the queue output string, as returned by executing the</span>
+<span class="sd">        command returned by _get_joblist_command command,</span>
+<span class="sd">        that is here implemented as a list of lines, one for each</span>
+<span class="sd">        job, with _field_separator as separator. The order is described</span>
+<span class="sd">        in the _get_joblist_command function.</span>
+
+<span class="sd">        Return a list of JobInfo objects, one of each job,</span>
+<span class="sd">        each relevant parameters implemented.</span>
+
+<span class="sd">        Note: depending on the scheduler configuration, finished jobs may</span>
+<span class="sd">            either appear here, or not.</span>
+<span class="sd">            This function will only return one element for each job find</span>
+<span class="sd">            in the qstat output; missing jobs (for whatever reason) simply</span>
+<span class="sd">            will not appear here.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_fields</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+
+        <span class="c1"># I don&#39;t raise because if I pass a list of jobs,</span>
+        <span class="c1"># I get a non-zero status</span>
+        <span class="c1"># if one of the job is not in the list anymore</span>
+        <span class="c1"># retval should be zero</span>
+        <span class="c1"># if retval != 0:</span>
+        <span class="c1"># self.logger.warning(&quot;Error in _parse_joblist_output: retval={}; &quot;</span>
+        <span class="c1">#    &quot;stdout={}; stderr={}&quot;.format(retval, stdout, stderr))</span>
+
+        <span class="c1"># issue a warning if there is any stderr output and</span>
+        <span class="c1"># there is no line containing &quot;Invalid job id specified&quot;, that happens</span>
+        <span class="c1"># when I ask for specific calculations, and they are all finished</span>
+        <span class="k">if</span> <span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;Invalid job id specified&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stderr</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning in _parse_joblist_output, non-empty stderr=&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">retval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SchedulerError</span><span class="p">(</span><span class="s2">&quot;Error during squeue parsing (_parse_joblist_output function)&quot;</span><span class="p">)</span>
+
+        <span class="c1"># will contain raw data parsed from output: only lines with the</span>
+        <span class="c1"># separator, and already split in fields</span>
+        <span class="c1"># I put num_fields, because in this way</span>
+        <span class="c1"># if the symbol _field_separator appears in the title (that is</span>
+        <span class="c1"># the last field), I don&#39;t split the title.</span>
+        <span class="c1"># This assumes that _field_separator never</span>
+        <span class="c1"># appears in any previous field.</span>
+        <span class="n">jobdata_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">_FIELD_SEPARATOR</span><span class="p">,</span> <span class="n">num_fields</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">stdout</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">_FIELD_SEPARATOR</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+
+        <span class="c1"># Create dictionary and parse specific fields</span>
+        <span class="n">job_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobdata_raw</span><span class="p">:</span>
+
+            <span class="n">thisjob_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">job</span><span class="p">)}</span>
+
+            <span class="n">this_job</span> <span class="o">=</span> <span class="n">JobInfo</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;job_id&#39;</span><span class="p">]</span>
+
+                <span class="n">this_job</span><span class="o">.</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">]</span>
+                <span class="n">job_state_raw</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;state_raw&#39;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="c1"># I skip this calculation if I couldn&#39;t find this basic info</span>
+                <span class="c1"># (I don&#39;t append anything to job_list before continuing)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Wrong line length in squeue output! &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">job_state_string</span> <span class="o">=</span> <span class="n">_MAP_STATUS_SLURM</span><span class="p">[</span><span class="n">job_state_raw</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unrecognized job_state &#39;</span><span class="si">{}</span><span class="s2">&#39; for job &quot;</span>
+                                    <span class="s2">&quot;id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_state_raw</span><span class="p">,</span> <span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+                <span class="n">job_state_string</span> <span class="o">=</span> <span class="n">JobState</span><span class="o">.</span><span class="n">UNDETERMINED</span>
+            <span class="c1"># QUEUED_HELD states are not specific states in SLURM;</span>
+            <span class="c1"># they are instead set with state QUEUED, and then the</span>
+            <span class="c1"># annotation tells if the job is held.</span>
+            <span class="c1"># I check for &#39;Dependency&#39;, &#39;JobHeldUser&#39;,</span>
+            <span class="c1"># &#39;JobHeldAdmin&#39;, &#39;BeginTime&#39;.</span>
+            <span class="c1"># Other states should not bring the job in QUEUED_HELD, I believe</span>
+            <span class="c1"># (the man page of slurm seems to be incomplete, for instance</span>
+            <span class="c1"># JobHeld* are not reported there; I also checked at the source code</span>
+            <span class="c1"># of slurm 2.6 on github (https://github.com/SchedMD/slurm),</span>
+            <span class="c1"># file slurm/src/common/slurm_protocol_defs.c,</span>
+            <span class="c1"># and these seem all the states to be taken into account for the</span>
+            <span class="c1"># QUEUED_HELD status).</span>
+            <span class="c1"># There are actually a few others, like possible</span>
+            <span class="c1"># failures, or partition-related reasons, but for the moment I</span>
+            <span class="c1"># leave them in the QUEUED state.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">job_state_string</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED</span> <span class="ow">and</span>
+                    <span class="n">this_job</span><span class="o">.</span><span class="n">annotation</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Dependency&#39;</span><span class="p">,</span> <span class="s1">&#39;JobHeldUser&#39;</span><span class="p">,</span> <span class="s1">&#39;JobHeldAdmin&#39;</span><span class="p">,</span> <span class="s1">&#39;BeginTime&#39;</span><span class="p">]):</span>
+                <span class="n">job_state_string</span> <span class="o">=</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED_HELD</span>
+
+            <span class="n">this_job</span><span class="o">.</span><span class="n">job_state</span> <span class="o">=</span> <span class="n">job_state_string</span>
+
+            <span class="c1">####</span>
+            <span class="c1"># Up to here, I just made sure that there were at least three</span>
+            <span class="c1"># fields, to set the most important fields for a job.</span>
+            <span class="c1"># I now check if the length is equal to the number of fields</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">job</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_fields</span><span class="p">:</span>
+                <span class="c1"># I store this job only with the information</span>
+                <span class="c1"># gathered up to now, and continue to the next job</span>
+                <span class="c1"># Also print a warning</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Wrong line length in squeue output!&quot;</span>
+                                    <span class="s2">&quot;Skipping optional fields. Line: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                                    <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jobdata_raw</span><span class="p">))</span>
+                <span class="c1"># I append this job before continuing</span>
+                <span class="n">job_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_job</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># TODO: store executing_host?</span>
+
+            <span class="n">this_job</span><span class="o">.</span><span class="n">job_owner</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">num_machines</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;number_nodes&#39;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The number of allocated nodes is not &quot;</span>
+                                    <span class="s2">&quot;an integer (</span><span class="si">{}</span><span class="s2">) for job id </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;number_nodes&#39;</span><span class="p">],</span>
+                                                                            <span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">num_mpiprocs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;number_cpus&#39;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The number of allocated cores is not &quot;</span>
+                                    <span class="s2">&quot;an integer (</span><span class="si">{}</span><span class="s2">) for job id </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;number_cpus&#39;</span><span class="p">],</span>
+                                                                            <span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+            <span class="c1"># ALLOCATED NODES HERE</span>
+            <span class="c1"># string may be in the format</span>
+            <span class="c1"># nid00[684-685,722-723,748-749,958-959]</span>
+            <span class="c1"># therefore it requires some parsing, that is unnecessary now.</span>
+            <span class="c1"># I just store is as a raw string for the moment, and I leave</span>
+            <span class="c1"># this_job.allocated_machines undefined</span>
+            <span class="k">if</span> <span class="n">this_job</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">allocated_machines_raw</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;allocated_machines&#39;</span><span class="p">]</span>
+
+            <span class="n">this_job</span><span class="o">.</span><span class="n">queue_name</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;partition&#39;</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">requested_wallclock_time_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_time</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;time_limit&#39;</span><span class="p">]))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error parsing the time limit for job id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+            <span class="c1"># Only if it is RUNNING; otherwise it is not meaningful,</span>
+            <span class="c1"># and may be not set (in my test, it is set to zero)</span>
+            <span class="k">if</span> <span class="n">this_job</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">this_job</span><span class="o">.</span><span class="n">wallclock_time_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_time</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;time_used&#39;</span><span class="p">]))</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error parsing time_used for job id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">this_job</span><span class="o">.</span><span class="n">dispatch_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_time_string</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;dispatch_time&#39;</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error parsing dispatch_time for job id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">this_job</span><span class="o">.</span><span class="n">submission_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_time_string</span><span class="p">(</span><span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;submission_time&#39;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error parsing submission_time for job id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">job_id</span><span class="p">))</span>
+
+            <span class="n">this_job</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">thisjob_dict</span><span class="p">[</span><span class="s1">&#39;job_name&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Everything goes here anyway for debugging purposes</span>
+            <span class="n">this_job</span><span class="o">.</span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">job</span>
+
+            <span class="c1"># Double check of redundant info</span>
+            <span class="c1"># Not really useful now, allocated_machines in this</span>
+            <span class="c1"># version of the plugin is never set</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">allocated_machines</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">this_job</span><span class="o">.</span><span class="n">num_machines</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">allocated_machines</span><span class="p">)</span> <span class="o">!=</span> <span class="n">this_job</span><span class="o">.</span><span class="n">num_machines</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The length of the list of allocated &quot;</span>
+                                      <span class="s2">&quot;nodes (</span><span class="si">{}</span><span class="s2">) is different from the &quot;</span>
+                                      <span class="s2">&quot;expected number of nodes (</span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">this_job</span><span class="o">.</span><span class="n">allocated_machines</span><span class="p">),</span> <span class="n">this_job</span><span class="o">.</span><span class="n">num_machines</span><span class="p">))</span>
+
+            <span class="c1"># I append to the list of jobs to return</span>
+            <span class="n">job_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_job</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">job_list</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._convert_time"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._convert_time">[docs]</a>    <span class="k">def</span> <span class="nf">_convert_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a string in the format DD-HH:MM:SS to a number of seconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">_TIME_REGEXP</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unrecognized format for time string &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unrecognized format for time string.&quot;</span><span class="p">)</span>
+
+        <span class="n">groupdict</span> <span class="o">=</span> <span class="n">groups</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+        <span class="c1"># should not raise a ValueError, they all match digits only</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">mins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;minutes&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;minutes&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">secs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;seconds&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">groupdict</span><span class="p">[</span><span class="s1">&#39;seconds&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">days</span> <span class="o">*</span> <span class="mi">86400</span> <span class="o">+</span> <span class="n">hours</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">mins</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">secs</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._parse_time_string"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._parse_time_string">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_time_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse a time string in the format returned from qstat -f and</span>
+<span class="sd">        returns a datetime object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">time</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">time_struct</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Unable to parse time string </span><span class="si">{}</span><span class="s2">, the message was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">exc</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Problem parsing the time string.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># I convert from a time_struct to a datetime object going through</span>
+        <span class="c1"># the seconds since epoch, as suggested on stackoverflow:</span>
+        <span class="c1"># http://stackoverflow.com/questions/1697815</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">time_struct</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._get_kill_command"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._get_kill_command">[docs]</a>    <span class="k">def</span> <span class="nf">_get_kill_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jobid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the command to kill the job with specified jobid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">submit_command</span> <span class="o">=</span> <span class="s1">&#39;scancel </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jobid</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;killing job </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jobid</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">submit_command</span></div>
+
+<div class="viewcode-block" id="SlurmScheduler._parse_kill_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.slurm.SlurmScheduler._parse_kill_output">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_kill_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the output of the kill command.</span>
+
+<span class="sd">        To be implemented by the plugin.</span>
+
+<span class="sd">        :return: True if everything seems ok, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">retval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error in _parse_kill_output: retval=</span><span class="si">{}</span><span class="s2">; &quot;</span>
+                              <span class="s2">&quot;stdout=</span><span class="si">{}</span><span class="s2">; stderr=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">transport_string</span> <span class="o">=</span> <span class="s2">&quot; for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SchedulerError</span><span class="p">:</span>
+            <span class="n">transport_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;in _parse_kill_output</span><span class="si">{}</span><span class="s2">: &quot;</span>
+                                <span class="s2">&quot;there was some text in stderr: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transport_string</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;in _parse_kill_output</span><span class="si">{}</span><span class="s2">: &quot;</span>
+                                <span class="s2">&quot;there was some text in stdout: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transport_string</span><span class="p">,</span> <span class="n">stdout</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

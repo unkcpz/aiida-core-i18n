@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.engine.daemon.client &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.engine.daemon.client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.engine.daemon.client</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Controls the daemon</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">enum</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">which</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.configuration</span> <span class="k">import</span> <span class="n">get_config</span>
+
+<span class="n">VERDI_BIN</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s1">&#39;verdi&#39;</span><span class="p">)</span>
+<span class="c1"># Recent versions of virtualenv create the environment variable VIRTUAL_ENV</span>
+<span class="n">VIRTUALENV</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VIRTUAL_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ControllerProtocol"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.ControllerProtocol">[docs]</a><span class="k">class</span> <span class="nc">ControllerProtocol</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The protocol to use to for the controller of the Circus daemon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">IPC</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">TCP</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="get_daemon_client"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.get_daemon_client">[docs]</a><span class="k">def</span> <span class="nf">get_daemon_client</span><span class="p">(</span><span class="n">profile_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the daemon client for the given profile or the current profile if not specified.</span>
+
+<span class="sd">    :param profile_name: the profile name, will use the current profile if None</span>
+<span class="sd">    :return: the daemon client</span>
+<span class="sd">    :rtype: :class:`aiida.engine.daemon.client.DaemonClient`</span>
+<span class="sd">    :raises aiida.common.MissingConfigurationError: if the configuration file cannot be found</span>
+<span class="sd">    :raises aiida.common.ProfileConfigurationError: if the given profile does not exist</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">profile_name</span><span class="p">:</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_profile</span><span class="p">(</span><span class="n">profile_name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">current_profile</span>
+
+    <span class="k">return</span> <span class="n">DaemonClient</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DaemonClient"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient">[docs]</a><span class="k">class</span> <span class="nc">DaemonClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-many-public-methods,useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extension of the Profile which also provides handles to retrieve profile specific</span>
+<span class="sd">    properties related to the daemon client</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">DAEMON_ERROR_NOT_RUNNING</span> <span class="o">=</span> <span class="s1">&#39;daemon-error-not-running&#39;</span>
+    <span class="n">DAEMON_ERROR_TIMEOUT</span> <span class="o">=</span> <span class="s1">&#39;daemon-error-timeout&#39;</span>
+
+    <span class="n">_DAEMON_NAME</span> <span class="o">=</span> <span class="s1">&#39;aiida-</span><span class="si">{name}</span><span class="s1">&#39;</span>
+    <span class="n">_DEFAULT_LOGLEVEL</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+    <span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">=</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">IPC</span>
+
+<div class="viewcode-block" id="DaemonClient.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a DaemonClient instance for a given profile</span>
+
+<span class="sd">        :param profile: the profile instance :class:`aiida.manage.configuration.profile.Profile`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_profile</span> <span class="o">=</span> <span class="n">profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SOCKET_DIRECTORY</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_DAEMON_TIMEOUT</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s1">&#39;daemon.timeout&#39;</span><span class="p">)</span>  <span class="c1"># pylint: disable=invalid-name</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_profile</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">daemon_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the daemon name which is tied to the profile name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DAEMON_NAME</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cmd_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the command string to start the AiiDA daemon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
+        <span class="k">if</span> <span class="n">VERDI_BIN</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s2">&quot;Unable to find &#39;verdi&#39; in the path. Make sure that you are working &quot;</span>
+                                     <span class="s2">&quot;in a virtual environment, or that at least the &#39;verdi&#39; executable is on the PATH&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> -p </span><span class="si">{}</span><span class="s1"> devel run_daemon&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">VERDI_BIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">loglevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_LOGLEVEL</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">virtualenv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">VIRTUALENV</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circus_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;circus&#39;</span><span class="p">][</span><span class="s1">&#39;log&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circus_pid_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;circus&#39;</span><span class="p">][</span><span class="s1">&#39;pid&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circus_port_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;circus&#39;</span><span class="p">][</span><span class="s1">&#39;port&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circus_socket_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;circus&#39;</span><span class="p">][</span><span class="s1">&#39;socket&#39;</span><span class="p">][</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circus_socket_endpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;circus&#39;</span><span class="p">][</span><span class="s1">&#39;socket&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">daemon_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;daemon&#39;</span><span class="p">][</span><span class="s1">&#39;log&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">daemon_pid_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">filepaths</span><span class="p">[</span><span class="s1">&#39;daemon&#39;</span><span class="p">][</span><span class="s1">&#39;pid&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DaemonClient.get_circus_port"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_circus_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_circus_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the port for the circus controller, which should be written to the circus port file. If the</span>
+<span class="sd">        daemon is running, the port file should exist and contain the port to which the controller is connected.</span>
+<span class="sd">        If it cannot be read, a RuntimeError will be thrown. If the daemon is not running, an available port</span>
+<span class="sd">        will be requested from the operating system, written to the port file and returned</span>
+
+<span class="sd">        :return: the port for the circus controller</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_daemon_running</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_port_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fhandle</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">fhandle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;daemon is running so port file should have been there but could not read it&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_available_port</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_port_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fhandle</span><span class="p">:</span>
+                <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">port</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_circus_socket_directory"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_circus_socket_directory">[docs]</a>    <span class="k">def</span> <span class="nf">get_circus_socket_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the absolute path of the directory where the circus sockets are stored if the IPC protocol is</span>
+<span class="sd">        used and the daemon is running. If the daemon is running, the sockets file should exist and contain the</span>
+<span class="sd">        absolute path of the directory that contains the sockets of the circus endpoints. If it cannot be read,</span>
+<span class="sd">        a RuntimeError will be thrown. If the daemon is not running, a temporary directory will be created and</span>
+<span class="sd">        its path will be written to the sockets file and returned.</span>
+
+<span class="sd">        .. note:: A temporary folder needs to be used for the sockets because UNIX limits the filepath length to</span>
+<span class="sd">            107 bytes. Placing the socket files in the AiiDA config folder might seem like the more logical choice</span>
+<span class="sd">            but that folder can be placed in an arbitrarily nested directory, the socket filename will exceed the</span>
+<span class="sd">            limit. The solution is therefore to always store them in the temporary directory of the operation system</span>
+<span class="sd">            whose base path is typically short enough as to not exceed the limit</span>
+
+<span class="sd">        :return: the absolute path of directory to write the sockets to</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_daemon_running</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_socket_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;daemon is running so sockets file should have been there but could not read it&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1"># The SOCKET_DIRECTORY is already set, a temporary directory was already created and the same should be used</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SOCKET_DIRECTORY</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SOCKET_DIRECTORY</span>
+
+            <span class="n">socket_dir_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_socket_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fhandle</span><span class="p">:</span>
+                <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">socket_dir_path</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_SOCKET_DIRECTORY</span> <span class="o">=</span> <span class="n">socket_dir_path</span>
+            <span class="k">return</span> <span class="n">socket_dir_path</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_daemon_pid"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_daemon_pid">[docs]</a>    <span class="k">def</span> <span class="nf">get_daemon_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the daemon pid which should be written in the daemon pid file specific to the profile</span>
+
+<span class="sd">        :return: the pid of the circus daemon process or None if not found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_pid_file</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circus_pid_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_daemon_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return whether the daemon is running, which is determined by seeing if the daemon pid file is present</span>
+
+<span class="sd">        :return: True if daemon is running, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_daemon_pid</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="DaemonClient.delete_circus_socket_directory"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.delete_circus_socket_directory">[docs]</a>    <span class="k">def</span> <span class="nf">delete_circus_socket_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to delete the directory used to store the circus endpoint sockets. Will not raise if the</span>
+<span class="sd">        directory does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_circus_socket_directory</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">exception</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_available_port"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_available_port">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_available_port</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an available port from the operating system</span>
+
+<span class="sd">        :return: a currently available port</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">open_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+        <span class="n">open_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">open_socket</span><span class="o">.</span><span class="n">getsockname</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_controller_endpoint"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_controller_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_controller_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the endpoint string for the circus controller. For the IPC protocol a profile specific</span>
+<span class="sd">        socket will be used, whereas for the TCP protocol an available port will be found and</span>
+<span class="sd">        saved in the profile specific port file</span>
+
+<span class="sd">        :return: the endpoint string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">IPC</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ipc_endpoint</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">TCP</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tcp_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_circus_port</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid controller protocol </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_pubsub_endpoint"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_pubsub_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_pubsub_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the endpoint string for the circus pubsub endpoint. For the IPC protocol a profile specific</span>
+<span class="sd">        socket will be used, whereas for the TCP protocol any available port will be used</span>
+
+<span class="sd">        :return: the endpoint string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">IPC</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ipc_endpoint</span><span class="p">(</span><span class="s1">&#39;pubsub&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">TCP</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tcp_endpoint</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid controller protocol </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_stats_endpoint"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_stats_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the endpoint string for the circus stats endpoint. For the IPC protocol a profile specific</span>
+<span class="sd">        socket will be used, whereas for the TCP protocol any available port will be used</span>
+
+<span class="sd">        :return: the endpoint string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">IPC</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ipc_endpoint</span><span class="p">(</span><span class="s1">&#39;stats&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">TCP</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tcp_endpoint</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid controller protocol </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_ipc_endpoint"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_ipc_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_ipc_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the ipc endpoint string for a circus daemon endpoint for a given socket</span>
+
+<span class="sd">        :param endpoint: the circus endpoint for which to return a socket</span>
+<span class="sd">        :return: the ipc endpoint string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_circus_socket_directory</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">circus_socket_endpoints</span><span class="p">[</span><span class="n">endpoint</span><span class="p">]</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;ipc://</span><span class="si">{filepath}</span><span class="s1">/</span><span class="si">{filename}</span><span class="s1">&#39;</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_tcp_endpoint"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_tcp_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_tcp_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the tcp endpoint string for a circus daemon endpoint. If the port is unspecified,</span>
+<span class="sd">        the operating system will be asked for a currently available port.</span>
+
+<span class="sd">        :param port: a port to use for the endpoint</span>
+<span class="sd">        :return: the tcp endpoint string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_available_port</span><span class="p">()</span>
+
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;tcp://127.0.0.1:</span><span class="si">{port}</span><span class="s1">&#39;</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an instance of the CircusClient with the endpoint defined by the controller endpoint, which</span>
+<span class="sd">        used the port that was written to the port file upon starting of the daemon</span>
+
+<span class="sd">        N.B. This is quite slow the first time it is run due to the import of zmq.ssh</span>
+<span class="sd">        in circus/utils.py in circus 0.15.0, which ultimately follows the import of CircusClient.</span>
+
+<span class="sd">        :return: CircusClient instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">circus.client</span> <span class="k">import</span> <span class="n">CircusClient</span>
+        <span class="k">return</span> <span class="n">CircusClient</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_controller_endpoint</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_DAEMON_TIMEOUT</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DaemonClient.call_client"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.call_client">[docs]</a>    <span class="k">def</span> <span class="nf">call_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call the client with a specific command. Will check whether the daemon is running first</span>
+<span class="sd">        by checking for the pid file. When the pid is found yet the call still fails with a</span>
+<span class="sd">        timeout, this means the daemon was actually not running and it was terminated unexpectedly</span>
+<span class="sd">        causing the pid file to not be cleaned up properly</span>
+
+<span class="sd">        :param command: command to call the circus client with</span>
+<span class="sd">        :return: the result of the circus client call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">circus.exc</span> <span class="k">import</span> <span class="n">CallError</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_daemon_pid</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">DAEMON_ERROR_NOT_RUNNING</span><span class="p">}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CallError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Timed out.&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">DAEMON_ERROR_TIMEOUT</span><span class="p">}</span>
+            <span class="k">raise</span> <span class="n">exception</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_status"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the daemon running status</span>
+
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_numprocesses"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_numprocesses">[docs]</a>    <span class="k">def</span> <span class="nf">get_numprocesses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the number of running daemon processes</span>
+
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;numprocesses&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_worker_info"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_worker_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_worker_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get workers statistics for this daemon</span>
+
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;stats&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.get_daemon_info"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.get_daemon_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_daemon_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get statistics about this daemon itself</span>
+
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;dstats&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.increase_workers"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.increase_workers">[docs]</a>    <span class="k">def</span> <span class="nf">increase_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Increase the number of workers</span>
+
+<span class="sd">        :param number: the number of workers to add</span>
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;incr&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">,</span> <span class="s1">&#39;nb&#39;</span><span class="p">:</span> <span class="n">number</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.decrease_workers"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.decrease_workers">[docs]</a>    <span class="k">def</span> <span class="nf">decrease_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Decrease the number of workers</span>
+
+<span class="sd">        :param number: the number of workers to remove</span>
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;decr&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">,</span> <span class="s1">&#39;nb&#39;</span><span class="p">:</span> <span class="n">number</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DaemonClient.stop_daemon"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.stop_daemon">[docs]</a>    <span class="k">def</span> <span class="nf">stop_daemon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop the daemon</span>
+
+<span class="sd">        :param wait: boolean to indicate whether to wait for the result of the command</span>
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;quit&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;waiting&#39;</span><span class="p">:</span> <span class="n">wait</span><span class="p">}}</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ENDPOINT_PROTOCOL</span> <span class="o">==</span> <span class="n">ControllerProtocol</span><span class="o">.</span><span class="n">IPC</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_circus_socket_directory</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="DaemonClient.restart_daemon"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.client.DaemonClient.restart_daemon">[docs]</a>    <span class="k">def</span> <span class="nf">restart_daemon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Restart the daemon</span>
+
+<span class="sd">        :param wait: boolean to indicate whether to wait for the result of the command</span>
+<span class="sd">        :return: the client call response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="s1">&#39;restart&#39;</span><span class="p">,</span> <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">daemon_name</span><span class="p">,</span> <span class="s1">&#39;waiting&#39;</span><span class="p">:</span> <span class="n">wait</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_client</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

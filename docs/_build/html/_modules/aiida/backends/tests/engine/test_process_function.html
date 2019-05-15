@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.engine.test_process_function &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.engine.test_process_function</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.engine.test_process_function</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Tests for the process_function decorator.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">run_get_node</span><span class="p">,</span> <span class="n">submit</span><span class="p">,</span> <span class="n">calcfunction</span><span class="p">,</span> <span class="n">workfunction</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">ExitCode</span>
+<span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.bool</span> <span class="k">import</span> <span class="n">get_true_node</span>
+
+<span class="n">DEFAULT_INT</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">DEFAULT_LABEL</span> <span class="o">=</span> <span class="s1">&#39;Default label&#39;</span>
+<span class="n">DEFAULT_DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;Default description&#39;</span>
+<span class="n">CUSTOM_LABEL</span> <span class="o">=</span> <span class="s1">&#39;Custom label&#39;</span>
+<span class="n">CUSTOM_DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;Custom description&#39;</span>
+
+
+<div class="viewcode-block" id="TestProcessFunction"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction">[docs]</a><span class="k">class</span> <span class="nc">TestProcessFunction</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Note that here we use `@workfunctions` and `@calculations`, the concrete versions of the</span>
+<span class="sd">    `@process_function` decorator, even though we are testing only the shared functionality</span>
+<span class="sd">    that is captured in the `@process_function` decorator, relating to the transformation</span>
+<span class="sd">    of the wrapped function into a `FunctionProcess`.</span>
+<span class="sd">    The reason we do not use the `@process_function` decorator itself, is because it</span>
+<span class="sd">    does not have a node class by default. We could create one on the fly, but then</span>
+<span class="sd">    anytime inputs or outputs would be attached to it in the tests, the `validate_link`</span>
+<span class="sd">    function would complain as the dummy node class is not recognized as a valid process node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=too-many-public-methods,too-many-instance-attributes</span>
+
+<div class="viewcode-block" id="TestProcessFunction.setUp"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestProcessFunction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">Process</span><span class="o">.</span><span class="n">current</span><span class="p">())</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_return_input</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">function_return_true</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">get_true_node</span><span class="p">()</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_args</span><span class="p">(</span><span class="n">data_a</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data_a</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_args_with_default</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">data_a</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">function_with_none_default</span><span class="p">(</span><span class="n">int_a</span><span class="p">,</span> <span class="n">int_b</span><span class="p">,</span> <span class="n">int_c</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">int_c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">int_a</span> <span class="o">+</span> <span class="n">int_b</span> <span class="o">+</span> <span class="n">int_c</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">int_a</span> <span class="o">+</span> <span class="n">int_b</span><span class="p">)</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_kwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">kwargs</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_args_and_kwargs</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">data_a</span><span class="p">}</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_args_and_default</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="n">data_b</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">data_a</span><span class="p">,</span> <span class="s1">&#39;data_b&#39;</span><span class="p">:</span> <span class="n">data_b</span><span class="p">}</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_defaults</span><span class="p">(</span>
+                <span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">DEFAULT_LABEL</span><span class="p">,</span>
+                    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">DEFAULT_DESCRIPTION</span>
+                <span class="p">}):</span>  <span class="c1"># pylint: disable=unused-argument,dangerous-default-value,missing-docstring</span>
+            <span class="k">return</span> <span class="n">data_a</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_default_from_docs</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;Description taken from the docs.&quot;&quot;&quot;</span>
+            <span class="k">return</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_exit_code</span><span class="p">(</span><span class="n">exit_status</span><span class="p">,</span> <span class="n">exit_message</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ExitCode</span><span class="p">(</span><span class="n">exit_status</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">exit_message</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_excepts</span><span class="p">(</span><span class="n">exception</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">exception</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">function_out_unstored</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_return_input</span> <span class="o">=</span> <span class="n">function_return_input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_return_true</span> <span class="o">=</span> <span class="n">function_return_true</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span> <span class="o">=</span> <span class="n">function_args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span> <span class="o">=</span> <span class="n">function_args_with_default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_with_none_default</span> <span class="o">=</span> <span class="n">function_with_none_default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span> <span class="o">=</span> <span class="n">function_kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_kwargs</span> <span class="o">=</span> <span class="n">function_args_and_kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_default</span> <span class="o">=</span> <span class="n">function_args_and_default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_defaults</span> <span class="o">=</span> <span class="n">function_defaults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_default_from_docs</span> <span class="o">=</span> <span class="n">function_default_from_docs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_exit_code</span> <span class="o">=</span> <span class="n">function_exit_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_excepts</span> <span class="o">=</span> <span class="n">function_excepts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function_out_unstored</span> <span class="o">=</span> <span class="n">function_out_unstored</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.tearDown"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestProcessFunction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">Process</span><span class="o">.</span><span class="n">current</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_process_state"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_process_state">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the process state for a process function.&quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_excepted</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_killed</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_finished</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_finished_ok</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_failed</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_exit_status"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_exit_status">[docs]</a>    <span class="k">def</span> <span class="nf">test_exit_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A FINISHED process function has to have an exit status of 0&quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">exit_status</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_finished_ok</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_failed</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_source_code_attributes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_source_code_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">test_source_code_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify function properties are properly introspected and stored in the nodes attributes and repository.&quot;&quot;&quot;</span>
+        <span class="n">function_name</span> <span class="o">=</span> <span class="s1">&#39;test_process_function&#39;</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">test_process_function</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">test_process_function</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+        <span class="c1"># Read the source file of the calculation function that should be stored in the repository</span>
+        <span class="n">function_source_code</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_function_source_code</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Verify that the function name is correct and the first source code linenumber is stored</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_starting_line_number</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Check that first line number is correct. Note that the first line should correspond</span>
+        <span class="c1"># to the `@workfunction` directive, but since the list is zero-indexed we actually get the</span>
+        <span class="c1"># following line, which should correspond to the function name i.e. `def test_process_function(data)`</span>
+        <span class="n">function_name_from_source</span> <span class="o">=</span> <span class="n">function_source_code</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">function_starting_line_number</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">function_name</span> <span class="ow">in</span> <span class="n">function_name_from_source</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_varargs"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_varargs">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_varargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Variadic arguments are not supported and should raise.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+
+            <span class="nd">@workfunction</span>
+            <span class="k">def</span> <span class="nf">function_varargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-variable</span>
+                <span class="k">return</span> <span class="n">args</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_args"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_args">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_args</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines a single positional argument.&quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-value-for-parameter</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_args_with_default"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_args_with_default">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_args_with_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines a single argument with a default.&quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">))</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_with_none_default"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_with_none_default">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_with_none_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines a keyword with `None` as default value.&quot;&quot;&quot;</span>
+        <span class="n">int_a</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">int_b</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">int_c</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_with_none_default</span><span class="p">(</span><span class="n">int_a</span><span class="p">,</span> <span class="n">int_b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_with_none_default</span><span class="p">(</span><span class="n">int_a</span><span class="p">,</span> <span class="n">int_b</span><span class="p">,</span> <span class="n">int_c</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_kwargs"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines keyword arguments.&quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)}</span>
+
+        <span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_incoming</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Calling with any number of positional arguments should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_args_and_kwargs"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_args_and_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_args_and_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines a positional argument and keyword arguments.&quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_b&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">)}</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_kwargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_kwargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;data_b&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;data_b&#39;</span><span class="p">]})</span>
+
+        <span class="c1"># Calling with more positional arguments than defined in the signature should raise</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_args_and_kwargs_default"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_args_and_kwargs_default">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_args_and_kwargs_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple process function that defines a positional argument and an argument with a default.&quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">args_input_default</span> <span class="o">=</span> <span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),)</span>
+        <span class="n">args_input_explicit</span> <span class="o">=</span> <span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_default</span><span class="p">(</span><span class="o">*</span><span class="n">args_input_default</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">args_input_default</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;data_b&#39;</span><span class="p">:</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">)})</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_default</span><span class="p">(</span><span class="o">*</span><span class="n">args_input_explicit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;data_a&#39;</span><span class="p">:</span> <span class="n">args_input_explicit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;data_b&#39;</span><span class="p">:</span> <span class="n">args_input_explicit</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_args_passing_kwargs"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_args_passing_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_args_passing_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cannot pass kwargs if the function does not explicitly define it accepts kwargs.&quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">),</span> <span class="n">data_b</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>  <span class="c1"># pylint: disable=unexpected-keyword-arg</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_set_label_description"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_set_label_description">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_set_label_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the label and description can be set for all process function variants.&quot;&quot;&quot;</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">CUSTOM_LABEL</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">}</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_with_default</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_kwargs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args_and_default</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">),</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_defaults"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that a process function can define a default label and description but can be overriden.&quot;&quot;&quot;</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">CUSTOM_LABEL</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">}</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_defaults</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data_a</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">DEFAULT_INT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">DEFAULT_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">DEFAULT_DESCRIPTION</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_defaults</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_default_label_description"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_default_label_description">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_default_label_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify unless specified label and description are taken from function name and docstring respectively.&quot;&quot;&quot;</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">CUSTOM_LABEL</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">}</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_default_from_docs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;function_default_from_docs&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="s1">&#39;Description taken from the docs.&#39;</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_default_from_docs</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">CUSTOM_LABEL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">CUSTOM_DESCRIPTION</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_launchers"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_launchers">[docs]</a>    <span class="k">def</span> <span class="nf">test_launchers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the various launchers are working.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_return_true</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">run_get_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_return_true</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">get_true_node</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcFunctionNode</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">):</span>
+            <span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_return_true</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_return_exit_code"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_return_exit_code">[docs]</a>    <span class="k">def</span> <span class="nf">test_return_exit_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A process function that returns an ExitCode namedtuple should have its exit status and message set FINISHED</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">exit_status</span> <span class="o">=</span> <span class="mi">418</span>
+        <span class="n">exit_message</span> <span class="o">=</span> <span class="s1">&#39;I am a teapot&#39;</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">exit_message</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_exit_code</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">exit_status</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">exit_status</span><span class="p">),</span> <span class="n">exit_message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_finished</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_finished_ok</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">exit_status</span><span class="p">,</span> <span class="n">exit_status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">exit_message</span><span class="p">,</span> <span class="n">exit_message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_normal_exception"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_normal_exception">[docs]</a>    <span class="k">def</span> <span class="nf">test_normal_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If a process, for example a FunctionProcess, excepts, the exception should be stored in the node.&quot;&quot;&quot;</span>
+        <span class="n">exception</span> <span class="o">=</span> <span class="s1">&#39;This process function excepted&#39;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_excepts</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">is_excepted</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">exception</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_function_out_unstored"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_function_out_unstored">[docs]</a>    <span class="k">def</span> <span class="nf">test_function_out_unstored</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A workfunction that returns an unstored node should raise as it indicates users tried to create data.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_out_unstored</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_simple_workflow"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_simple_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">test_simple_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test construction of simple workflow by chaining process functions.&quot;&quot;&quot;</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="n">data_b</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data_a</span> <span class="o">+</span> <span class="n">data_b</span>
+
+        <span class="nd">@calcfunction</span>
+        <span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="n">data_b</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data_a</span> <span class="o">*</span> <span class="n">data_b</span>
+
+        <span class="nd">@workfunction</span>
+        <span class="k">def</span> <span class="nf">add_mul_wf</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="n">data_b</span><span class="p">,</span> <span class="n">data_c</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">mul</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">data_a</span><span class="p">,</span> <span class="n">data_b</span><span class="p">),</span> <span class="n">data_c</span><span class="p">)</span>
+
+        <span class="n">result</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">add_mul_wf</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">WorkFunctionNode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_hashes"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_hashes">[docs]</a>    <span class="k">def</span> <span class="nf">test_hashes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the hashes generated for identical process functions with identical inputs are the same.&quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_return_input</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_return_input</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node1</span><span class="o">.</span><span class="n">get_extra</span><span class="p">(</span><span class="s1">&#39;_aiida_hash&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node2</span><span class="o">.</span><span class="n">get_extra</span><span class="p">(</span><span class="s1">&#39;_aiida_hash&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node2</span><span class="o">.</span><span class="n">get_hash</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="TestProcessFunction.test_hashes_different"><a class="viewcode-back" href="../../../../../apidoc/aiida.backends.tests.engine.html#aiida.backends.tests.engine.test_process_function.TestProcessFunction.test_hashes_different">[docs]</a>    <span class="k">def</span> <span class="nf">test_hashes_different</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test that the hashes generated for identical process functions with different inputs are the different.&quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_return_input</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_return_input</span><span class="o">.</span><span class="n">run_get_node</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node1</span><span class="o">.</span><span class="n">get_extra</span><span class="p">(</span><span class="s1">&#39;_aiida_hash&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node2</span><span class="o">.</span><span class="n">get_extra</span><span class="p">(</span><span class="s1">&#39;_aiida_hash&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_hash</span><span class="p">(),</span> <span class="n">node2</span><span class="o">.</span><span class="n">get_hash</span><span class="p">())</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,1139 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.transports.plugins.local &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.transports.plugins.local</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.transports.plugins.local</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Local transport</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">###</span>
+<span class="c1">### GP: a note on the local transport:</span>
+<span class="c1">### I believe that we must not use os.chdir to keep track of the folder</span>
+<span class="c1">### in which we are, since this may have very nasty side effects in other</span>
+<span class="c1">### parts of code, and make things not thread-safe.</span>
+<span class="c1">### we should instead keep track internally of the &#39;current working directory&#39;</span>
+<span class="c1">### in the exact same way as paramiko does already.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">errno</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">cStringIO</span> <span class="k">as</span> <span class="n">StringIO</span>
+
+<span class="kn">from</span> <span class="nn">aiida.transports</span> <span class="k">import</span> <span class="n">cli</span> <span class="k">as</span> <span class="n">transport_cli</span>
+<span class="kn">from</span> <span class="nn">aiida.transports.transport</span> <span class="k">import</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">TransportInternalError</span>
+
+
+<span class="c1"># refactor or raise the limit: issue #1784</span>
+<span class="c1"># pylint: disable=too-many-public-methods</span>
+<div class="viewcode-block" id="LocalTransport"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport">[docs]</a><span class="k">class</span> <span class="nc">LocalTransport</span><span class="p">(</span><span class="n">Transport</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Support copy and command execution on the same host on which AiiDA is running via direct file copy and</span>
+<span class="sd">    execution commands.</span>
+
+<span class="sd">    Note that the environment variables are copied from the submitting process, so you might need to clean it</span>
+<span class="sd">    with a ``prepend_text``. For example, the AiiDA daemon sets a ``PYTHONPATH``, so you might want to add</span>
+<span class="sd">    ``unset PYTHONPATH`` if you plan on running calculations that use Python.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># There are no valid parameters for the local transport</span>
+    <span class="n">_valid_auth_options</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># There is no real limit on how fast you can connect to localhost</span>
+    <span class="c1"># you should not be banned (as instead it is the case in SSH).</span>
+    <span class="c1"># So I set the (default) limit to zero.</span>
+    <span class="n">_DEFAULT_SAFE_OPEN_INTERVAL</span> <span class="o">=</span> <span class="mf">2.</span>
+
+<div class="viewcode-block" id="LocalTransport.__init__"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocalTransport</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># _internal_dir will emulate the concept of working directory</span>
+        <span class="c1"># The real current working directory is not to be changed</span>
+        <span class="c1"># self._internal_dir = None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_dir</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Just to avoid errors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_machine</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;machine&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_machine</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_machine</span> <span class="o">!=</span> <span class="s1">&#39;localhost&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;machine was passed, but it is not localhost&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_safe_open_interval</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;safe_interval&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_SAFE_OPEN_INTERVAL</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;the following keywords are not recognized: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.open"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens a local transport channel</span>
+
+<span class="sd">        :raise aiida.common.InvalidOperation: if the channel is already open</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">InvalidOperation</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidOperation</span><span class="p">(</span><span class="s2">&quot;Cannot open the transport twice&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="LocalTransport.close"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes the local transport channel</span>
+
+<span class="sd">        :raise aiida.common.InvalidOperation: if the channel is already open</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">InvalidOperation</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidOperation</span><span class="p">(</span><span class="s2">&quot;Cannot close the transport: it is already closed&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="LocalTransport.__str__"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a description as a string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s2">&quot;local [</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;OPEN&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="k">else</span> <span class="s2">&quot;CLOSED&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">curdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the _internal_dir, if the channel is open.</span>
+<span class="sd">        If possible, use getcwd() instead!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_dir</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">TransportInternalError</span><span class="p">(</span><span class="s2">&quot;Error, local method called for LocalTransport without opening the channel first&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LocalTransport.chdir"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.chdir">[docs]</a>    <span class="k">def</span> <span class="nf">chdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes directory to path, emulated internally.</span>
+<span class="sd">        :param path: path to cd into</span>
+<span class="sd">        :raise OSError: if the directory does not have read attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">new_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not a valid directory&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_path</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">new_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">R_OK</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Do not have read permission to &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_path</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.chown"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.chown">[docs]</a>    <span class="k">def</span> <span class="nf">chown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chown</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.normalize"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalizes path, eliminating double slashes, etc..</span>
+<span class="sd">        :param path: path to normalize</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.getcwd"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.getcwd">[docs]</a>    <span class="k">def</span> <span class="nf">getcwd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the current working directory, emulated by the transport</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">curdir</span></div>
+
+<div class="viewcode-block" id="LocalTransport._os_path_split_asunder"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport._os_path_split_asunder">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_os_path_split_asunder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Used by makedirs, Takes path (a str) and returns a list deconcatenating the path.&quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">newpath</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">newpath</span> <span class="o">==</span> <span class="n">path</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="n">tail</span>
+                <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+                    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">newpath</span>
+        <span class="n">parts</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">parts</span></div>
+
+<div class="viewcode-block" id="LocalTransport.makedirs"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.makedirs">[docs]</a>    <span class="k">def</span> <span class="nf">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Super-mkdir; create a leaf directory and all intermediate ones.</span>
+<span class="sd">        Works like mkdir, except that any intermediate path segment (not</span>
+<span class="sd">        just the rightmost) will be created if it does not exist.</span>
+
+<span class="sd">        :param path: directory to create</span>
+<span class="sd">        :param ignore_existing: if set to true, it doesn&#39;t give any error</span>
+<span class="sd">                     if the leaf directory does already exist</span>
+
+<span class="sd">        :raise OSError: If the directory already exists and is not ignore_existing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check to avoid creation of empty dirs</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">the_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">to_create</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_os_path_split_asunder</span><span class="p">(</span><span class="n">the_path</span><span class="p">)</span>
+        <span class="n">this_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_create</span><span class="p">):</span>
+            <span class="n">this_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_create</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ignore_existing</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_create</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ignore_existing</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">this_dir</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.mkdir"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.mkdir">[docs]</a>    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a folder (directory) named path.</span>
+
+<span class="sd">        :param path: name of the folder to create</span>
+<span class="sd">        :param ignore_existing: if True, does not give any error if the</span>
+<span class="sd">                directory already exists</span>
+
+<span class="sd">        :raise OSError: If the directory already exists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">ignore_existing</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.rmdir"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.rmdir">[docs]</a>    <span class="k">def</span> <span class="nf">rmdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes a folder at location path.</span>
+<span class="sd">        :param path: path to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.isdir"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.isdir">[docs]</a>    <span class="k">def</span> <span class="nf">isdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if &#39;path&#39; is a directory.</span>
+<span class="sd">        :return: a boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.chmod"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.chmod">[docs]</a>    <span class="k">def</span> <span class="nf">chmod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes permission bits of object at path</span>
+<span class="sd">        :param path: path to modify</span>
+<span class="sd">        :param mode: permission bits</span>
+
+<span class="sd">        :raise IOError: if path does not exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Directory not given in input&quot;</span><span class="p">)</span>
+        <span class="n">real_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">real_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Directory not given in input&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">real_path</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+
+    <span class="c1"># please refactor: issue #1782</span>
+    <span class="c1"># pylint: disable=too-many-branches</span>
+<div class="viewcode-block" id="LocalTransport.put"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a file or a folder from localpath to remotepath.</span>
+<span class="sd">        Automatically redirects to putfile or puttree.</span>
+
+<span class="sd">        :param localpath: absolute path to local file</span>
+<span class="sd">        :param remotepath: path to remote file</span>
+<span class="sd">        :param dereference: if True follows symbolic links.</span>
+<span class="sd">                                 Default = True</span>
+<span class="sd">        :param overwrite: if True overwrites remotepath.</span>
+<span class="sd">                                 Default = False</span>
+
+<span class="sd">        :raise IOError: if remotepath is not valid</span>
+<span class="sd">        :raise ValueError: if localpath is not valid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dereference</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dereference&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">ignore_nonexisting</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ignore_noexisting&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath to put function must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input localpath to put function must be a non empty string&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Source must be an absolute path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pathname patterns are not allowed in the remotepath&quot;</span><span class="p">)</span>
+
+            <span class="n">to_copy_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">localpath</span><span class="p">)</span>  <span class="c1"># using local glob here</span>
+
+            <span class="n">rename_remote</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_copy_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># I can&#39;t scp more than one file on a single file</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Remote remotepath is not a directory&quot;</span><span class="p">)</span>
+                <span class="c1"># I can&#39;t scp more than one file in a non existing directory</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_exists</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>  <span class="c1"># questo dovrebbe valere solo per file</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Remote directory does not exist&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># the remote path is a directory</span>
+                    <span class="n">rename_remote</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">for</span> <span class="n">source_path</span> <span class="ow">in</span> <span class="n">to_copy_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_path</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">rename_remote</span><span class="p">:</span>  <span class="c1"># copying more than one file in one directory</span>
+                        <span class="c1"># here is the case isfile and more than one file</span>
+                        <span class="n">subpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">source_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">putfile</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>  <span class="c1"># one file to copy in &#39;.&#39;</span>
+                        <span class="n">subpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">source_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">putfile</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>  <span class="c1"># one file to copy on one file</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">putfile</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">puttree</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">dereference</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">puttree</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">dereference</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+                    <span class="n">full_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">localpath</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">full_destination</span> <span class="o">=</span> <span class="n">remotepath</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">putfile</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">full_destination</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ignore_nonexisting</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;The local path </span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">localpath</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.putfile"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.putfile">[docs]</a>    <span class="k">def</span> <span class="nf">putfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a file from localpath to remotepath.</span>
+<span class="sd">        Automatically redirects to putfile or puttree.</span>
+
+<span class="sd">        :param localpath: absolute path to local file</span>
+<span class="sd">        :param remotepath: path to remote file</span>
+<span class="sd">        :param overwrite: if True overwrites remotepath</span>
+<span class="sd">                                 Default = False</span>
+
+<span class="sd">        :raise IOError: if remotepath is not valid</span>
+<span class="sd">        :raise ValueError: if localpath is not valid</span>
+<span class="sd">        :raise OSError: if localpath does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath to putfile must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input localpath to putfile must be a non empty string&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Source must be an absolute path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Source does not exists&quot;</span><span class="p">)</span>
+
+        <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">the_destination</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Destination already exists: not overwriting it&#39;</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.puttree"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.puttree">[docs]</a>    <span class="k">def</span> <span class="nf">puttree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a folder recursively from localpath to remotepath.</span>
+<span class="sd">        Automatically redirects to putfile or puttree.</span>
+
+<span class="sd">        :param localpath: absolute path to local file</span>
+<span class="sd">        :param remotepath: path to remote file</span>
+<span class="sd">        :param dereference: follow symbolic links.</span>
+<span class="sd">                                 Default = True</span>
+<span class="sd">        :param overwrite: if True overwrites remotepath.</span>
+<span class="sd">                               Default = False</span>
+
+<span class="sd">        :raise IOError: if remotepath is not valid</span>
+<span class="sd">        :raise ValueError: if localpath is not valid</span>
+<span class="sd">        :raise OSError: if localpath does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dereference</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dereference&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath to putfile must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input localpath to putfile must be a non empty string&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Source must be an absolute path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Source does not exists&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_exists</span><span class="p">(</span><span class="n">remotepath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t overwrite existing files&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Cannot copy a directory into a file&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+            <span class="n">remotepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">localpath</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">,</span> <span class="n">symlinks</span><span class="o">=</span><span class="ow">not</span> <span class="n">dereference</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.rmtree"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.rmtree">[docs]</a>    <span class="k">def</span> <span class="nf">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove tree as rm -r would do</span>
+
+<span class="sd">        :param path: a string to path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">the_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">the_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">exception</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">exception</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOTDIR</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">the_path</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span></div>
+
+    <span class="c1"># please refactor: issue #1781</span>
+    <span class="c1"># pylint: disable=too-many-branches</span>
+<div class="viewcode-block" id="LocalTransport.get"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a folder or a file recursively from &#39;remote&#39; remotepath to</span>
+<span class="sd">        &#39;local&#39; localpath.</span>
+<span class="sd">        Automatically redirects to getfile or gettree.</span>
+
+<span class="sd">        :param remotepath: path to local file</span>
+<span class="sd">        :param localpath: absolute path to remote file</span>
+<span class="sd">        :param dereference: follow symbolic links</span>
+<span class="sd">                                 default = True</span>
+<span class="sd">        :param overwrite: if True overwrites localpath</span>
+<span class="sd">                               default = False</span>
+
+<span class="sd">        :raise IOError: if &#39;remote&#39; remotepath is not valid</span>
+<span class="sd">        :raise ValueError: if &#39;local&#39; localpath is not valid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dereference</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dereference&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">ignore_nonexisting</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ignore_nonexisting&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input localpath to get function must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath to get function must be a non empty string&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Destination must be an absolute path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pathname patterns are not allowed in the localpath&quot;</span><span class="p">)</span>
+            <span class="n">to_copy_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">remotepath</span><span class="p">)</span>
+
+            <span class="n">rename_local</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_copy_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># I can&#39;t scp more than one file on a single file</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Remote localpath is not a directory&quot;</span><span class="p">)</span>
+                <span class="c1"># I can&#39;t scp more than one file in a non existing directory</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>  <span class="c1"># this should hold only for files</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Remote directory does not exist&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># the remote path is a directory</span>
+                    <span class="n">rename_local</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">to_copy_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">rename_local</span><span class="p">:</span>  <span class="c1"># copying more than one file in one directory</span>
+                        <span class="c1"># here is the case isfile and more than one file</span>
+                        <span class="n">subpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">source</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">subpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>  <span class="c1"># one file to copy on one file</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gettree</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">dereference</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gettree</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">dereference</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+                    <span class="n">subpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">remotepath</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">subpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ignore_nonexisting</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;The remote path </span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remotepath</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.getfile"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.getfile">[docs]</a>    <span class="k">def</span> <span class="nf">getfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a file recursively from &#39;remote&#39; remotepath to</span>
+<span class="sd">        &#39;local&#39; localpath.</span>
+
+<span class="sd">        :param remotepath: path to local file</span>
+<span class="sd">        :param localpath: absolute path to remote file</span>
+<span class="sd">        :param overwrite: if True overwrites localpath.</span>
+<span class="sd">                               Default = False</span>
+
+<span class="sd">        :raise IOError if &#39;remote&#39; remotepath is not valid or not found</span>
+<span class="sd">        :raise ValueError: if &#39;local&#39; localpath is not valid</span>
+<span class="sd">        :raise OSError: if unintentionally overwriting</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input localpath to get function must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath to get function must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="n">the_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">the_source</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Source not found&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Destination must be an absolute path&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localpath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Destination already exists: not overwriting it&#39;</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">the_source</span><span class="p">,</span> <span class="n">localpath</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.gettree"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.gettree">[docs]</a>    <span class="k">def</span> <span class="nf">gettree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a folder recursively from &#39;remote&#39; remotepath to</span>
+<span class="sd">        &#39;local&#39; localpath.</span>
+
+<span class="sd">        :param remotepath: path to local file</span>
+<span class="sd">        :param localpath: absolute path to remote file</span>
+<span class="sd">        :param dereference: follow symbolic links. Default = True</span>
+<span class="sd">        :param overwrite: if True overwrites localpath. Default = False</span>
+
+<span class="sd">        :raise IOError: if &#39;remote&#39; remotepath is not valid</span>
+<span class="sd">        :raise ValueError: if &#39;local&#39; localpath is not valid</span>
+<span class="sd">        :raise OSError: if unintentionally overwriting</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dereference</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dereference&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotepath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Remotepath must be a non empty string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">localpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Localpaths must be a non empty string&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Localpaths must be an absolute path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Input remotepath is not a folder: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remotepath</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localpath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t overwrite existing files&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Cannot copy a directory into a file&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">localpath</span><span class="p">):</span>
+            <span class="n">localpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">localpath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">remotepath</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">the_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotepath</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">the_source</span><span class="p">,</span> <span class="n">localpath</span><span class="p">,</span> <span class="n">symlinks</span><span class="o">=</span><span class="ow">not</span> <span class="n">dereference</span><span class="p">)</span></div>
+
+    <span class="c1"># please refactor: issue #1780 on github</span>
+    <span class="c1"># pylint: disable=too-many-branches</span>
+<div class="viewcode-block" id="LocalTransport.copy"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a file or a folder from &#39;remote&#39; remotesource to &#39;remote&#39; remotedestination.</span>
+<span class="sd">        Automatically redirects to copyfile or copytree.</span>
+
+<span class="sd">        :param remotesource: path to local file</span>
+<span class="sd">        :param remotedestination: path to remote file</span>
+<span class="sd">        :param dereference: follow symbolic links. Default = False</span>
+<span class="sd">        :param recursive: if True copy directories recursively, otherwise only copy the specified file(s)</span>
+<span class="sd">        :type recursive: bool</span>
+
+<span class="sd">        :raise ValueError: if &#39;remote&#39; remotesource or remotedestinationis not valid</span>
+<span class="sd">        :raise OSError: if remotesource does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotesource</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotesource to copy must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotedestination</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotedestination to copy must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Source not found&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">remotesource</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot copy from itself to itself&quot;</span><span class="p">)</span>
+
+            <span class="c1"># # by default, overwrite old files</span>
+        <span class="c1">#        if not remotedestination .startswith(&#39;.&#39;):</span>
+        <span class="c1">#            if self.isfile(remotedestination) or self.isdir(remotedestination):</span>
+        <span class="c1">#                self.rmtree(remotedestination)</span>
+
+        <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pathname patterns are not allowed in the remotedestination&quot;</span><span class="p">)</span>
+
+            <span class="n">to_copy_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">remotesource</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_copy_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_exists</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t copy more than one file in the same remotedestination file&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">to_copy_list</span><span class="p">:</span>
+                <span class="c1"># If s is an absolute path, then the_s = s</span>
+                <span class="n">the_s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+                    <span class="c1"># With shutil, use the full path (the_s)</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">the_s</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># With self.copytree, the (possible) relative path is OK</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If s is an absolute path, then the_source = remotesource</span>
+            <span class="n">the_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+                <span class="c1"># With shutil, use the full path (the_source)</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">the_source</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># With self.copytree, the (possible) relative path is OK</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.copyfile"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.copyfile">[docs]</a>    <span class="k">def</span> <span class="nf">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a file from &#39;remote&#39; remotesource to</span>
+<span class="sd">        &#39;remote&#39; remotedestination.</span>
+
+<span class="sd">        :param remotesource: path to local file</span>
+<span class="sd">        :param remotedestination: path to remote file</span>
+<span class="sd">        :param dereference: if True copy the contents of any symlinks found, otherwise copy the symlinks themselves</span>
+<span class="sd">        :type dereference: bool</span>
+<span class="sd">        :raise ValueError: if &#39;remote&#39; remotesource or remotedestination is not valid</span>
+<span class="sd">        :raise OSError: if remotesource does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotesource</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotesource to copyfile must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotedestination</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotedestination to copyfile must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="n">the_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">)</span>
+        <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">the_source</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Source not found&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dereference</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+            <span class="n">linkto</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">readlink</span><span class="p">(</span><span class="n">the_source</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">linkto</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">the_source</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.copytree"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.copytree">[docs]</a>    <span class="k">def</span> <span class="nf">copytree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">dereference</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies a folder from &#39;remote&#39; remotesource to</span>
+<span class="sd">        &#39;remote&#39; remotedestination.</span>
+
+<span class="sd">        :param remotesource: path to local file</span>
+<span class="sd">        :param remotedestination: path to remote file</span>
+<span class="sd">        :param dereference: follow symbolic links. Default = False</span>
+
+<span class="sd">        :raise ValueError: if &#39;remote&#39; remotesource or remotedestination is not valid</span>
+<span class="sd">        :raise OSError: if remotesource does not exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotesource</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotesource to copytree must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remotedestination</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input remotedestination to copytree must be a non empty object&quot;</span><span class="p">)</span>
+        <span class="n">the_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">)</span>
+        <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">the_source</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Source not found&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Using the Ubuntu default behavior (different from Mac)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">):</span>
+            <span class="n">the_destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">the_destination</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">remotesource</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">the_source</span><span class="p">,</span> <span class="n">the_destination</span><span class="p">,</span> <span class="n">symlinks</span><span class="o">=</span><span class="ow">not</span> <span class="n">dereference</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.get_attribute"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.get_attribute">[docs]</a>    <span class="k">def</span> <span class="nf">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an object FileAttribute,</span>
+<span class="sd">        as specified in aiida.transports.</span>
+<span class="sd">        :param path: the path of the given file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.transports.util</span> <span class="k">import</span> <span class="n">FileAttribute</span>
+
+        <span class="n">os_attr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">lstat</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+        <span class="n">aiida_attr</span> <span class="o">=</span> <span class="n">FileAttribute</span><span class="p">()</span>
+        <span class="c1"># map the paramiko class into the aiida one</span>
+        <span class="c1"># note that paramiko object contains more informations than the aiida</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">aiida_attr</span><span class="o">.</span><span class="n">_valid_fields</span><span class="p">:</span>  <span class="c1"># pylint: disable=protected-access</span>
+            <span class="n">aiida_attr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">os_attr</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">aiida_attr</span></div>
+
+<div class="viewcode-block" id="LocalTransport._local_listdir"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport._local_listdir">[docs]</a>    <span class="k">def</span> <span class="nf">_local_listdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pylint: disable=no-self-use</span>
+        <span class="sd">&quot;&quot;&quot;Act on the local folder, for the rest, same as listdir.&quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">re</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>  <span class="c1"># always this is the case in the local plugin</span>
+            <span class="n">base_dir</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="n">filtered_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">pattern</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">base_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">):</span>
+            <span class="n">base_dir</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">filtered_list</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="LocalTransport.listdir"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.listdir">[docs]</a>    <span class="k">def</span> <span class="nf">listdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a list containing the names of the entries in the directory.</span>
+<span class="sd">        :param path: default =&#39;.&#39;</span>
+<span class="sd">        :param pattern: if set, returns the list of files matching pattern.</span>
+<span class="sd">                     Unix only. (Use to emulate ls * for example)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">the_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">the_path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="n">exc</span> <span class="o">=</span> <span class="ne">IOError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+                <span class="n">exc</span><span class="o">.</span><span class="n">errno</span> <span class="o">=</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span>
+                <span class="k">raise</span> <span class="n">exc</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">re</span>
+
+            <span class="n">filtered_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">the_path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">the_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+                <span class="n">the_path</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">the_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">filtered_list</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="LocalTransport.remove"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes a file at position path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.isfile"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.isfile">[docs]</a>    <span class="k">def</span> <span class="nf">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if object at path is a file.</span>
+<span class="sd">        Returns a boolean.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport._exec_command_internal"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport._exec_command_internal">[docs]</a>    <span class="k">def</span> <span class="nf">_exec_command_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the specified command in bash login shell.</span>
+
+<span class="sd">        Before the command is executed, changes directory to the current</span>
+<span class="sd">        working directory as returned by self.getcwd().</span>
+
+<span class="sd">        For executing commands and waiting for them to finish, use</span>
+<span class="sd">        exec_command_wait.</span>
+<span class="sd">        Otherwise, to end the process, use the proc.wait() method.</span>
+
+<span class="sd">        The subprocess is set to have a different process group than the</span>
+<span class="sd">        main process, so that it is shielded from signals sent to the parent.</span>
+
+<span class="sd">        :param  command: the command to execute. The command is assumed to be</span>
+<span class="sd">            already escaped using :py:func:`aiida.common.escaping.escape_for_bash`.</span>
+
+<span class="sd">        :return: a tuple with (stdin, stdout, stderr, proc),</span>
+<span class="sd">            where stdin, stdout and stderr behave as file-like objects,</span>
+<span class="sd">            proc is the process object as returned by the</span>
+<span class="sd">            subprocess.Popen() class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=subprocess-popen-preexec-fn</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.escaping</span> <span class="k">import</span> <span class="n">escape_for_bash</span>
+
+        <span class="c1"># Note: The outer shell will eat one level of escaping, while</span>
+        <span class="c1"># &#39;bash -l -c ...&#39; will eat another. Thus, we need to escape again.</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;bash -l -c &#39;</span> <span class="o">+</span> <span class="n">escape_for_bash</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+            <span class="n">command</span><span class="p">,</span>
+            <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+            <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+            <span class="n">preexec_fn</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">setsid</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">proc</span></div>
+
+<div class="viewcode-block" id="LocalTransport.exec_command_wait"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.exec_command_wait">[docs]</a>    <span class="k">def</span> <span class="nf">exec_command_wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the specified command and waits for it to finish.</span>
+
+<span class="sd">        :param command: the command to execute</span>
+
+<span class="sd">        :return: a tuple with (return_value, stdout, stderr) where stdout and</span>
+<span class="sd">                 stderr are strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stdin</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stdin&#39;</span><span class="p">)</span>
+        <span class="n">local_stdin</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">local_proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exec_command_internal</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stdin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="n">filelike_stdin</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">stdin</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">filelike_stdin</span> <span class="o">=</span> <span class="n">stdin</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">filelike_stdin</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+                    <span class="n">local_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>  <span class="c1"># the Popen.stdin/out/err are byte streams</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;stdin can only be either a string or a file-like object!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filelike_stdin</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">local_stdin</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">output_text</span><span class="p">,</span> <span class="n">stderr_text</span> <span class="o">=</span> <span class="n">local_proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">local_proc</span><span class="o">.</span><span class="n">returncode</span>
+
+        <span class="k">return</span> <span class="n">retval</span><span class="p">,</span> <span class="n">output_text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">stderr_text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.gotocomputer_command"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.gotocomputer_command">[docs]</a>    <span class="k">def</span> <span class="nf">gotocomputer_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotedir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string to be run using os.system in order to connect</span>
+<span class="sd">        via the transport to the remote directory.</span>
+
+<span class="sd">        Expected behaviors:</span>
+
+<span class="sd">        * A new bash session is opened</span>
+<span class="sd">        * A reasonable error message is produced if the folder does not exist</span>
+
+<span class="sd">        :param str remotedir: the full path of the remote directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="s1">&#39; ; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+            <span class="s1">&#39;if [ -d </span><span class="si">{escaped_remotedir}</span><span class="s1"> ]&#39;</span><span class="p">,</span> <span class="s1">&#39;then cd </span><span class="si">{escaped_remotedir}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;bash&#39;</span><span class="p">,</span> <span class="s2">&quot;else echo &#39; ** The directory&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;echo &#39; ** </span><span class="si">{remotedir}</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;echo &#39; ** seems to have been deleted, I logout...&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;fi&#39;</span>
+        <span class="p">])</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">escaped_remotedir</span><span class="o">=</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remotedir</span><span class="p">),</span> <span class="n">remotedir</span><span class="o">=</span><span class="n">remotedir</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;bash -c &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cmd</span></div>
+
+<div class="viewcode-block" id="LocalTransport.rename"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldpath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rename a file or folder from oldpath to newpath.</span>
+
+<span class="sd">        :param str oldpath: existing name of the file or folder</span>
+<span class="sd">        :param str newpath: new name for the file or folder</span>
+
+<span class="sd">        :raises IOError: if src/dst is not found</span>
+<span class="sd">        :raises ValueError: if src/dst is not a valid string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">oldpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Source </span><span class="si">{}</span><span class="s2"> is not a valid string&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldpath</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">newpath</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Destination </span><span class="si">{}</span><span class="s2"> is not a valid string&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newpath</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">oldpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Source </span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldpath</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">newpath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Destination </span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newpath</span><span class="p">))</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">oldpath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LocalTransport.symlink"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.symlink">[docs]</a>    <span class="k">def</span> <span class="nf">symlink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remotesource</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a symbolic link between the remote source and the remote</span>
+<span class="sd">        remotedestination</span>
+
+<span class="sd">        :param remotesource: remote source. Can contain a pattern.</span>
+<span class="sd">        :param remotedestination: remote destination</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">remotesource</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">remotesource</span><span class="p">)</span>
+        <span class="n">remotedestination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">remotedestination</span><span class="p">):</span>
+                <span class="c1"># if there are patterns in dest, I don&#39;t know which name to assign</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Remotedestination cannot have patterns&quot;</span><span class="p">)</span>
+
+            <span class="c1"># find all files matching pattern</span>
+            <span class="k">for</span> <span class="n">this_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">remotesource</span><span class="p">):</span>
+                <span class="c1"># create the name of the link: take the last part of the path</span>
+                <span class="n">this_remote_dest</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_file</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">,</span> <span class="n">this_remote_dest</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">remotesource</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;!!: </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remotesource</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">remotedestination</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport.path_exists"><a class="viewcode-back" href="../../../../developer_guide/core/transport.html#aiida.transports.plugins.local.LocalTransport.path_exists">[docs]</a>    <span class="k">def</span> <span class="nf">path_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if path exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LocalTransport._get_safe_interval_suggestion_string"><a class="viewcode-back" href="../../../../apidoc/aiida.transports.plugins.html#aiida.transports.plugins.local.LocalTransport._get_safe_interval_suggestion_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_get_safe_interval_suggestion_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">computer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_DEFAULT_SAFE_OPEN_INTERVAL</span></div></div>
+
+
+<span class="n">CONFIGURE_LOCAL_CMD</span> <span class="o">=</span> <span class="n">transport_cli</span><span class="o">.</span><span class="n">create_configure_cmd</span><span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

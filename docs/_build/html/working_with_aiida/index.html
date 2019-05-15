@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command line interface &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Concepts" href="../verdi/verdi_user_guide.html" />
+    <link rel="prev" title="Workflows" href="../working/workflows.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command line interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#scripting">Scripting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripting.html">Verdi shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripting.html#python-scripts">Python scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripting.html#daemon-as-system-service">Daemon as system service</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#data-types">Data types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/index.html">AiiDA data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/kpoints.html">Automatic computation of k-point paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/bands.html">BandsData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/functionality.html">Export data nodes to various formats</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#groups">Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="groups.html">Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#schedulers">Schedulers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html">Supported schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#job-resources">Job resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#querying-data">Querying data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/intro.html">About the QueryBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html">The appender method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/queryhelp.html">The queryhelp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/backend.html">Directly querying in Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/backend.html#directly-querying-in-sqlalchemy">Directly querying in SQLAlchemy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#caching">Caching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#result-manager">Result manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resultmanager.html">Retrieving results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#backups">Backups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../backup/index.html">Create database backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backup/index.html#restore-database-backup">Restore database backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backup/index.html#move-database">Move database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backup/index.html#setup-repository-backup">Setup repository backup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Some tricks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#increasing-the-debug-level">Increasing the debug level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#tips-to-ease-the-life-of-the-hard-drive-for-large-databases">Tips to ease the life of the hard drive (for large databases)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#rest-api">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html">REST API for AiiDA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#cookbook">Cookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook.html">AiiDA cookbook (useful code snippets)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Command line interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/working_with_aiida/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="command-line-interface">
+<h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<p>The main way of interacting with AiiDA is through a command line interface tool called <code class="docutils literal notranslate"><span class="pre">verdi</span></code>.
+Below you will find an overview of all the commands that are available with a link to a more detailed explanation of their usage and available parameters.
+But before you dive in, take a few minutes to read the <a class="reference internal" href="../verdi/verdi_user_guide.html#cli-concepts"><span class="std std-ref">general concepts</span></a> that apply to the entire interface of <code class="docutils literal notranslate"><span class="pre">verdi</span></code>.
+This will make understanding and using <code class="docutils literal notranslate"><span class="pre">verdi</span></code> a lot easier!</p>
+<ul class="simple" id="verdi-overview">
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-calcjob"><span class="std std-ref">calcjob</span></a>:  Inspect and manage calcjobs.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-code"><span class="std std-ref">code</span></a>:  Setup and manage codes.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-comment"><span class="std std-ref">comment</span></a>:  Inspect, create and manage node comments.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-completioncommand"><span class="std std-ref">completioncommand</span></a>:  Return the bash code to activate completion.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-computer"><span class="std std-ref">computer</span></a>:  Setup and manage computers.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-config"><span class="std std-ref">config</span></a>:  Set, unset and get profile specific or global configuration options.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-daemon"><span class="std std-ref">daemon</span></a>:  Inspect and manage the daemon.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-data"><span class="std std-ref">data</span></a>:  Inspect, create and manage data nodes.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-database"><span class="std std-ref">database</span></a>:  Inspect and manage the database.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-devel"><span class="std std-ref">devel</span></a>:  Commands for developers.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-export"><span class="std std-ref">export</span></a>:  Create and manage export archives.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-graph"><span class="std std-ref">graph</span></a>:  Create visual representations of part of the provenance graph.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-group"><span class="std std-ref">group</span></a>:  Create, inspect and manage groups.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-import"><span class="std std-ref">import</span></a>:  Import one or multiple exported AiiDA archives</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-node"><span class="std std-ref">node</span></a>:  Inspect, create and manage nodes.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-plugin"><span class="std std-ref">plugin</span></a>:  Inspect installed plugins for various entry point categories.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-process"><span class="std std-ref">process</span></a>:  Inspect and manage processes.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-profile"><span class="std std-ref">profile</span></a>:  Inspect and manage the configured profiles.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-quicksetup"><span class="std std-ref">quicksetup</span></a>:  Setup a new profile where the database is automatically created and configured.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-rehash"><span class="std std-ref">rehash</span></a>:  Recompute the hash for nodes in the database</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-restapi"><span class="std std-ref">restapi</span></a>:  Run the AiiDA REST API server</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-run"><span class="std std-ref">run</span></a>:  Execute an AiiDA script.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-setup"><span class="std std-ref">setup</span></a>:  Setup a new profile.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-shell"><span class="std std-ref">shell</span></a>:  Start a python shell with preloaded AiiDA environment.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-status"><span class="std std-ref">status</span></a>:  Print status of AiiDA services.</li>
+<li><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-user"><span class="std std-ref">user</span></a>:  Inspect and manage users.</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../verdi/verdi_user_guide.html">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#help-strings">Help strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#profile">Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#cli-identifiers">Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#multi-value-options">Multi value options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../verdi/verdi_user_guide.html#commands">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-calcjob"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">calcjob</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-code"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">code</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-comment"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">comment</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-completioncommand"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">completioncommand</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-computer"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">computer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-config"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-daemon"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">daemon</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-data"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">data</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-database"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">database</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-devel"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">devel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-export"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">export</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-graph"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">graph</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-group"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-import"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">import</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-node"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">node</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-plugin"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">plugin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-process"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">process</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-profile"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">profile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-quicksetup"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">quicksetup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-rehash"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">rehash</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-restapi"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">restapi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-run"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">run</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-setup"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">setup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-shell"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">shell</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-status"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../verdi/verdi_user_guide.html#verdi-user"><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">user</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="scripting">
+<h1>Scripting<a class="headerlink" href="#scripting" title="Permalink to this headline">¶</a></h1>
+<p>While many common functionalities are provided by either command-line tools
+(via <code class="docutils literal notranslate"><span class="pre">verdi</span></code>) or the web interface, for fine tuning (or automatization)
+it is useful to directly access the python objects and call their methods.</p>
+<p>This is possible in two ways, either via an interactive shell, or writing and
+running a script. Both methods are described below.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Verdi shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html#python-scripts">Python scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripting.html#the-verdi-run-command-and-the-runaiida-executable">The <code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">run</span></code> command and the <code class="docutils literal notranslate"><span class="pre">runaiida</span></code> executable</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html#daemon-as-system-service">Daemon as system service</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="data-types">
+<h1>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/index.html">AiiDA data types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/index.html#most-common-datatypes">Most common datatypes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#base-types">Base types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#dict">Dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#structuredata">StructureData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#upfdata">UpfData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#arraydata">ArrayData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#trajectorydata">TrajectoryData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#kpointsdata">KpointsData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#bandsdata">BandsData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#xydata">XyData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#folderdata">FolderData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#singlefiledata">SinglefileData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/index.html#remotedata">RemoteData</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/kpoints.html">Automatic computation of k-point paths</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/kpoints.html#seekpath-implementation">Seekpath implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/kpoints.html#legacy-implementation">Legacy implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/kpoints.html#deprecated-methods">Deprecated methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/bands.html">BandsData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/bands.html#plotting-the-band-structure">Plotting the band structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/bands.html#dealing-with-spins">Dealing with spins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/functionality.html">Export data nodes to various formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/functionality.html#exporting-from-the-command-line">Exporting from the command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datatypes/functionality.html#export-formats-for-specific-data-types">Export formats for specific Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/functionality.html#structuredata">StructureData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/functionality.html#trajectorydata">TrajectoryData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datatypes/functionality.html#bandsdata">BandsData</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../datatypes/functionality.html#label-prettifiers">Label prettifiers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="groups">
+<h1>Groups<a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="groups.html">Groups</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="schedulers">
+<h1>Schedulers<a class="headerlink" href="#schedulers" title="Permalink to this headline">¶</a></h1>
+<p>As described in the section about calculations, <code class="docutils literal notranslate"><span class="pre">CalcJobNode</span></code> instances are submitted by the daemon to an external scheduler.
+For this functionality to work, AiiDA needs to be able to interact with these schedulers.
+Interfaces have been written for some of the most used schedulers.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scheduler/index.html">Supported schedulers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#pbspro">PBSPro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#slurm">SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#torque">Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#direct-execution-bypassing-schedulers">Direct execution (bypassing schedulers)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scheduler/index.html#job-resources">Job resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#nodenumberjobresource-pbs-like">NodeNumberJobResource (PBS-like)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler/index.html#parenvjobresource-sge-like">ParEnvJobResource (SGE-like)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="querying-data">
+<h1>Querying data<a class="headerlink" href="#querying-data" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../querying/querybuilder/intro.html">About the QueryBuilder</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/querybuilder/append.html">The appender method</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#selecting-entities">Selecting entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#retrieving-results">Retrieving results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#joining-entities">Joining entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#defining-the-projections">Defining the projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#attributes-and-extras">Attributes and extras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#cheats">Cheats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#advanced-usage">Advanced usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#working-with-edges">Working with edges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#ordering-results">Ordering results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querying/querybuilder/append.html#limiting-the-number-of-results">Limiting the number of results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/querybuilder/queryhelp.html">The queryhelp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/backend.html">Directly querying in Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/backend.html#directly-querying-in-sqlalchemy">Directly querying in SQLAlchemy</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="caching">
+<h1>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">Caching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html#how-are-cached-nodes-matched">How are cached nodes matched?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html#what-to-do-when-caching-is-used-when-it-shouldn-t">What to do when caching is used when it shouldn’t</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html#caching-and-the-provenance-graph">Caching and the Provenance Graph</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="result-manager">
+<h1>Result manager<a class="headerlink" href="#result-manager" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resultmanager.html">Retrieving results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resultmanager.html#the-calcjobresultmanager">The CalcJobResultManager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resultmanager.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resultmanager.html#using-the-calcjobresultmanager-instance">Using the CalcJobResultManager instance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resultmanager.html#calculations-and-workflows-inputs-and-outputs">Calculations and workflows inputs and outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="backups">
+<h1>Backups<a class="headerlink" href="#backups" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../backup/index.html">Create database backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backup/index.html#restore-database-backup">Restore database backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backup/index.html#move-database">Move database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backup/index.html#setup-repository-backup">Setup repository backup</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Some tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../setup/ssh_proxycommand.html">Using the proxy_command option with ssh</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup/ssh_proxycommand.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup/ssh_proxycommand.html#ssh-config">ssh/config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup/ssh_proxycommand.html#warning">WARNING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup/ssh_proxycommand.html#aiida-config">AiiDA config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/ssh_proxycommand.html#some-notes-on-the-proxy-command-option">Some notes on the <code class="docutils literal notranslate"><span class="pre">proxy_command</span></code> option</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html#increasing-the-debug-level">Increasing the debug level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html#tips-to-ease-the-life-of-the-hard-drive-for-large-databases">Tips to ease the life of the hard drive (for large databases)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#repository-backup">Repository backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#mlocate-cron-job">mlocate cron job</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="rest-api">
+<h1>REST API<a class="headerlink" href="#rest-api" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../restapi/index.html">REST API for AiiDA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html#running-the-rest-api">Running the REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html#general-form-of-the-urls">General form of the urls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#how-to-set-the-number-of-results">How to set the number of results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../restapi/index.html#pagination">Pagination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../restapi/index.html#setting-limit-and-offset">Setting <em>limit</em> and <em>offset</em></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#how-to-build-the-path">How to build the path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#how-to-build-the-query-string">How to build the query string</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../restapi/index.html#special-keys">Special keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../restapi/index.html#filters">Filters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html#the-http-response">The HTTP response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html#how-to-run-the-rest-api-through-apache">How to run the REST API through Apache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../restapi/index.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#computers">Computers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#users">Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../restapi/index.html#groups">Groups</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="cookbook">
+<h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">AiiDA cookbook (useful code snippets)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook.html#checking-the-queued-jobs-on-a-scheduler">Checking the queued jobs on a scheduler</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../verdi/verdi_user_guide.html" class="btn btn-neutral float-right" title="Concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../working/workflows.html" class="btn btn-neutral float-left" title="Workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

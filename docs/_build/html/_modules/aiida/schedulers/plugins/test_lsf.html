@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.schedulers.plugins.test_lsf &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.schedulers.plugins.test_lsf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.schedulers.plugins.test_lsf</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">aiida.schedulers.plugins.lsf</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">BJOBS_STDOUT_TO_TEST</span> <span class="o">=</span> <span class="s2">&quot;764213236|EXIT|TERM_RUNLIMIT: job killed after reaching LSF run time limit&quot;</span> \
+                       <span class="s2">&quot;|b681e480bd|inewton|1|-|b681e480bd|test|Feb  2 00:46|Feb  2 00:45|-|Feb  2 00:44|aiida-1033269</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764220165|PEND|-|-|inewton|-|-|-|8nm|-|-|-|Feb  2 01:46|aiida-1033444</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764220167|PEND|-|-|fchopin|-|-|-|test|-|-|-|Feb  2 01:53 L|aiida-1033449</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764254593|RUN|-|lxbsu2710|inewton|1|-|lxbsu2710|test|Feb  2 07:40|Feb  2 07:39|-|Feb  2 07:39|test</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764255172|RUN|-|b68ac74822|inewton|1|-|b68ac74822|test|Feb  2 07:48 L|Feb  2 07:47|15.00% L|Feb  2 07:47|test</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764245175|RUN|-|b68ac74822|dbowie|1|-|b68ac74822|test|Jan  1 05:07|Dec  31 23:48 L|25.00%|Dec  31 23:40|test</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                       <span class="s2">&quot;764399747|DONE|-|p05496706j68144|inewton|1|-|p05496706j68144|test|Feb  2 14:56 L|Feb  2 14:54|38.33% L|Feb  2 14:54|test&quot;</span>
+<span class="n">BJOBS_STDERR_TO_TEST</span> <span class="o">=</span> <span class="s2">&quot;Job &lt;864220165&gt; is not found&quot;</span>
+
+<span class="n">SUBMIT_STDOUT_TO_TEST</span> <span class="o">=</span> <span class="s2">&quot;Job &lt;764254593&gt; is submitted to queue &lt;test&gt;.&quot;</span>
+<span class="n">BKILL_STDOUT_TO_TEST</span> <span class="o">=</span> <span class="s2">&quot;Job &lt;764254593&gt; is being terminated&quot;</span>
+
+
+<div class="viewcode-block" id="TestParserBjobs"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserBjobs">[docs]</a><span class="k">class</span> <span class="nc">TestParserBjobs</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tests to verify if the function _parse_joblist_output behave correctly</span>
+<span class="sd">    The tests is done parsing a string defined above, to be used offline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestParserBjobs.test_parse_common_joblist_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserBjobs.test_parse_common_joblist_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_common_joblist_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test whether _parse_joblist can parse the bjobs output</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">LsfScheduler</span><span class="p">()</span>
+
+        <span class="c1"># Disable logging to avoid excessive output during test</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+        <span class="n">retval</span> <span class="o">=</span> <span class="mi">255</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">BJOBS_STDOUT_TO_TEST</span>
+        <span class="n">stderr</span> <span class="o">=</span> <span class="n">BJOBS_STDERR_TO_TEST</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">SchedulerError</span><span class="p">):</span>
+            <span class="n">job_list</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">_parse_joblist_output</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span>
+
+        <span class="n">retval</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">BJOBS_STDOUT_TO_TEST</span>
+        <span class="n">stderr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">job_list</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">_parse_joblist_output</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span>
+
+        <span class="c1"># The parameters are hard coded in the text to parse</span>
+        <span class="n">job_on_cluster</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="n">job_parsed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">job_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_parsed</span><span class="p">,</span> <span class="n">job_on_cluster</span><span class="p">)</span>
+
+        <span class="n">job_queued</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">job_queue_name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;8nm&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="n">job_queued_parsed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED</span><span class="p">])</span>
+        <span class="n">job_queue_name_parsed</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">queue_name</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">QUEUED</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_queued</span><span class="p">,</span> <span class="n">job_queued_parsed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_queue_name</span><span class="p">,</span> <span class="n">job_queue_name_parsed</span><span class="p">)</span>
+
+        <span class="n">job_done</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">job_done_title</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aiida-1033269&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="n">job_done_annotation</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TERM_RUNLIMIT: job killed after reaching LSF run time limit&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">]</span>
+        <span class="n">job_done_parsed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">])</span>
+        <span class="n">job_done_title_parsed</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">title</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">]</span>
+        <span class="n">job_done_annotation_parsed</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">annotation</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_done</span><span class="p">,</span> <span class="n">job_done_parsed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_done_title</span><span class="p">,</span> <span class="n">job_done_title_parsed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_done_annotation</span><span class="p">,</span> <span class="n">job_done_annotation_parsed</span><span class="p">)</span>
+
+        <span class="n">job_running</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">job_running_parsed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> \
+                                  <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">job_running</span><span class="p">,</span> <span class="n">job_running_parsed</span><span class="p">)</span>
+
+        <span class="n">running_users</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inewton&#39;</span><span class="p">,</span> <span class="s1">&#39;inewton&#39;</span><span class="p">,</span> <span class="s1">&#39;dbowie&#39;</span><span class="p">]</span>
+        <span class="n">parsed_running_users</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">job_owner</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">running_users</span><span class="p">,</span> <span class="n">parsed_running_users</span><span class="p">)</span>
+
+        <span class="n">running_jobs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;764254593&#39;</span><span class="p">,</span> <span class="s1">&#39;764255172&#39;</span><span class="p">,</span> <span class="s1">&#39;764245175&#39;</span><span class="p">]</span>
+        <span class="n">num_machines</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">allocated_machines</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lxbsu2710&#39;</span><span class="p">,</span> <span class="s1">&#39;b68ac74822&#39;</span><span class="p">,</span> <span class="s1">&#39;b68ac74822&#39;</span><span class="p">]</span>
+        <span class="n">parsed_running_jobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">job_id</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">]</span>
+        <span class="n">parsed_num_machines</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">num_machines</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">]</span>
+        <span class="n">parsed_allocated_machines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">j</span><span class="o">.</span><span class="n">allocated_machines_raw</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="ow">and</span> <span class="n">j</span><span class="o">.</span><span class="n">job_state</span> <span class="o">==</span> <span class="n">JobState</span><span class="o">.</span><span class="n">RUNNING</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">running_jobs</span><span class="p">,</span> <span class="n">parsed_running_jobs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">num_machines</span><span class="p">,</span> <span class="n">parsed_num_machines</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">allocated_machines</span><span class="p">,</span> <span class="n">parsed_allocated_machines</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">j</span><span class="o">.</span><span class="n">requested_wallclock_time_seconds</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_id</span> <span class="o">==</span> <span class="s1">&#39;764254593&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">j</span><span class="o">.</span><span class="n">wallclock_time_seconds</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_id</span> <span class="o">==</span> <span class="s1">&#39;764255172&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">j</span><span class="o">.</span><span class="n">wallclock_time_seconds</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_id</span> <span class="o">==</span> <span class="s1">&#39;764245175&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4785</span><span class="p">)</span>
+        <span class="n">current_year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">([</span><span class="n">j</span><span class="o">.</span><span class="n">submission_time</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">job_list</span> <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">job_id</span> <span class="o">==</span> <span class="s1">&#39;764245175&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                          <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">current_year</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+
+        <span class="c1"># Important to enable again logs!</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestSubmitScript"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestSubmitScript">[docs]</a><span class="k">class</span> <span class="nc">TestSubmitScript</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestSubmitScript.test_submit_script"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestSubmitScript.test_submit_script">[docs]</a>    <span class="k">def</span> <span class="nf">test_submit_script</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the creation of a simple submission script.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.schedulers.datastructures</span> <span class="k">import</span> <span class="n">JobTemplate</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.datastructures</span> <span class="k">import</span> <span class="n">CodeInfo</span><span class="p">,</span> <span class="n">CodeRunMode</span>
+
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">LsfScheduler</span><span class="p">()</span>
+
+        <span class="n">job_tmpl</span> <span class="o">=</span> <span class="n">JobTemplate</span><span class="p">()</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">shebang</span> <span class="o">=</span> <span class="s1">&#39;#!/bin/bash&#39;</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">create_job_resource</span><span class="p">(</span><span class="n">tot_num_mpiprocs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parallel_env</span><span class="o">=</span><span class="s1">&#39;b681e480bd.cern.ch&#39;</span><span class="p">)</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">max_wallclock_seconds</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span>
+        <span class="n">code_info</span> <span class="o">=</span> <span class="n">CodeInfo</span><span class="p">()</span>
+        <span class="n">code_info</span><span class="o">.</span><span class="n">cmdline_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mpirun&quot;</span><span class="p">,</span> <span class="s2">&quot;-np&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;pw.x&quot;</span><span class="p">,</span> <span class="s2">&quot;-npool&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">]</span>
+        <span class="n">code_info</span><span class="o">.</span><span class="n">stdin_name</span> <span class="o">=</span> <span class="s1">&#39;aiida.in&#39;</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">codes_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">code_info</span><span class="p">]</span>
+        <span class="n">job_tmpl</span><span class="o">.</span><span class="n">codes_run_mode</span> <span class="o">=</span> <span class="n">CodeRunMode</span><span class="o">.</span><span class="n">SERIAL</span>
+
+        <span class="n">submit_script_text</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">get_submit_script</span><span class="p">(</span><span class="n">job_tmpl</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">submit_script_text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#!/bin/bash&#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;#BSUB -rn&#39;</span> <span class="ow">in</span> <span class="n">submit_script_text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;#BSUB -W 24:00&#39;</span> <span class="ow">in</span> <span class="n">submit_script_text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;#BSUB -n 2&#39;</span> <span class="ow">in</span> <span class="n">submit_script_text</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s2">&quot;&#39;mpirun&#39; &#39;-np&#39; &#39;2&#39; &#39;pw.x&#39; &#39;-npool&#39; &#39;1&#39;&quot;</span> <span class="o">+</span> \
+                        <span class="s2">&quot; &lt; &#39;aiida.in&#39;&quot;</span> <span class="ow">in</span> <span class="n">submit_script_text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestSubmitScript.test_submit_script_with_num_machines"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestSubmitScript.test_submit_script_with_num_machines">[docs]</a>    <span class="k">def</span> <span class="nf">test_submit_script_with_num_machines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test to verify that script fails if we specify only</span>
+<span class="sd">        num_machines.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.schedulers.datastructures</span> <span class="k">import</span> <span class="n">JobTemplate</span>
+
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">LsfScheduler</span><span class="p">()</span>
+        <span class="n">job_tmpl</span> <span class="o">=</span> <span class="n">JobTemplate</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">job_tmpl</span><span class="o">.</span><span class="n">job_resource</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">create_job_resource</span><span class="p">(</span>
+                <span class="n">num_machines</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">num_mpiprocs_per_machine</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestParserSubmit"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserSubmit">[docs]</a><span class="k">class</span> <span class="nc">TestParserSubmit</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestParserSubmit.test_submit_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserSubmit.test_submit_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_submit_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the parsing of the output of the submission command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">LsfScheduler</span><span class="p">()</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">SUBMIT_STDOUT_TO_TEST</span>
+        <span class="n">stderr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">scheduler</span><span class="o">.</span><span class="n">_parse_submit_output</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">),</span> <span class="s1">&#39;764254593&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestParserBkill"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserBkill">[docs]</a><span class="k">class</span> <span class="nc">TestParserBkill</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestParserBkill.test_kill_output"><a class="viewcode-back" href="../../../../apidoc/aiida.schedulers.plugins.html#aiida.schedulers.plugins.test_lsf.TestParserBkill.test_kill_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_kill_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the parsing of the output of the submission command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">LsfScheduler</span><span class="p">()</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">BKILL_STDOUT_TO_TEST</span>
+        <span class="n">stderr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">scheduler</span><span class="o">.</span><span class="n">_parse_kill_output</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">))</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

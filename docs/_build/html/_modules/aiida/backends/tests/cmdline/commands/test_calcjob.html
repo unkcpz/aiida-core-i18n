@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.cmdline.commands.test_calcjob &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.cmdline.commands.test_calcjob</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.cmdline.commands.test_calcjob</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># pylint: disable=protected-access,too-many-locals,invalid-name,too-many-public-methods</span>
+<span class="sd">&quot;&quot;&quot;Tests for `verdi calcjob`.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">click.testing</span> <span class="k">import</span> <span class="n">CliRunner</span>
+
+<span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.tests.utils.fixtures</span> <span class="k">import</span> <span class="n">import_archive_fixture</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.commands</span> <span class="k">import</span> <span class="n">cmd_calcjob</span> <span class="k">as</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">aiida.common.datastructures</span> <span class="k">import</span> <span class="n">CalcJobState</span>
+<span class="kn">from</span> <span class="nn">aiida.plugins</span> <span class="k">import</span> <span class="n">CalculationFactory</span>
+<span class="kn">from</span> <span class="nn">aiida.plugins.entry_point</span> <span class="k">import</span> <span class="n">get_entry_point_string_from_class</span>
+
+
+<div class="viewcode-block" id="get_result_lines"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.get_result_lines">[docs]</a><span class="k">def</span> <span class="nf">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="TestVerdiCalculation"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation">[docs]</a><span class="k">class</span> <span class="nc">TestVerdiCalculation</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests for `verdi calcjob`.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Note remove this when reenabling the tests after solving issue #2426</span>
+    <span class="c1"># pylint: disable=no-member</span>
+
+<div class="viewcode-block" id="TestVerdiCalculation.setUpClass"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiCalculation</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ProcessState</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">computer</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Computer</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;comp&#39;</span><span class="p">,</span> <span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">transport_type</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">scheduler_type</span><span class="o">=</span><span class="s1">&#39;direct&#39;</span><span class="p">,</span>
+            <span class="n">workdir</span><span class="o">=</span><span class="s1">&#39;/tmp/aiida&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Code</span><span class="p">(</span><span class="n">remote_computer_exec</span><span class="o">=</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span> <span class="s1">&#39;/bin/true&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test_group&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Data</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="n">authinfo</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">AuthInfo</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">authinfo</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">process_class</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;templatereplacer&#39;</span><span class="p">)</span>
+        <span class="n">process_type</span> <span class="o">=</span> <span class="n">get_entry_point_string_from_class</span><span class="p">(</span><span class="n">process_class</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">process_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="c1"># Create 5 CalcJobNodes (one for each CalculationState)</span>
+        <span class="k">for</span> <span class="n">calculation_state</span> <span class="ow">in</span> <span class="n">CalcJobState</span><span class="p">:</span>
+
+            <span class="n">calc</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="n">process_type</span><span class="p">)</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">calculation_state</span> <span class="o">==</span> <span class="n">CalcJobState</span><span class="o">.</span><span class="n">PARSING</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">KEY_ONE</span> <span class="o">=</span> <span class="s1">&#39;key_one&#39;</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">KEY_TWO</span> <span class="o">=</span> <span class="s1">&#39;key_two&#39;</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">VAL_ONE</span> <span class="o">=</span> <span class="s1">&#39;val_one&#39;</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">VAL_TWO</span> <span class="o">=</span> <span class="s1">&#39;val_two&#39;</span>
+
+                <span class="n">output_parameters</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="nb">dict</span><span class="o">=</span><span class="p">{</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">KEY_ONE</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">VAL_ONE</span><span class="p">,</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">KEY_TWO</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">VAL_TWO</span><span class="p">,</span>
+                <span class="p">})</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+                <span class="n">output_parameters</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calc</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="s1">&#39;output_parameters&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Create shortcut for easy dereferencing</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">result_job</span> <span class="o">=</span> <span class="n">calc</span>
+
+                <span class="c1"># Add a single calc to a group</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">add_nodes</span><span class="p">([</span><span class="n">calc</span><span class="p">])</span>
+
+        <span class="c1"># Create a single failed CalcJobNode</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">EXIT_STATUS</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">CalcJobNode</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">computer</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;num_machines&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;num_mpiprocs_per_machine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_exit_status</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">EXIT_STATUS</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc</span><span class="p">)</span></div>
+
+        <span class="c1"># Uncomment when issue 2426 is addressed</span>
+        <span class="c1"># # Load the fixture containing a single ArithmeticAddCalculation node</span>
+        <span class="c1"># import_archive_fixture(&#39;calcjob/arithmetic.add.aiida&#39;)</span>
+
+        <span class="c1"># # Get the imported ArithmeticAddCalculation node</span>
+        <span class="c1"># ArithmeticAddCalculation = CalculationFactory(&#39;arithmetic.add&#39;)</span>
+        <span class="c1"># calculations = orm.QueryBuilder().append(ArithmeticAddCalculation).all()[0]</span>
+        <span class="c1"># cls.arithmetic_job = calculations[0]</span>
+
+<div class="viewcode-block" id="TestVerdiCalculation.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_res"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_res">[docs]</a>    <span class="k">def</span> <span class="nf">test_calcjob_res</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob res&quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_res</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KEY_ONE</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VAL_ONE</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KEY_TWO</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VAL_TWO</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="s1">&#39;--keys&#39;</span><span class="p">]:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEY_ONE</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_res</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KEY_ONE</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VAL_ONE</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KEY_TWO</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VAL_TWO</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_inputls"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_inputls">[docs]</a>    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;Reenable when issue #2426 has been solved (migrate exported files from 0.3 to 0.4)&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_calcjob_inputls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob inputls&quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;.aiida&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;aiida.in&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;_aiidasubmit.sh&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="s1">&#39;.aiida&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;calcinfo.json&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;job_tmpl.json&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_outputls"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_outputls">[docs]</a>    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;Reenable when issue #2426 has been solved (migrate exported files from 0.3 to 0.4)&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_calcjob_outputls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob outputls&quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;_scheduler-stderr.txt&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;_scheduler-stdout.txt&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;aiida.out&#39;</span><span class="p">,</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_inputcat"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_inputcat">[docs]</a>    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;Reenable when issue #2426 has been solved (migrate exported files from 0.3 to 0.4)&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_calcjob_inputcat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob inputcat&quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;2 3&#39;</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="s1">&#39;aiida.in&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;2 3&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_outputcat"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_outputcat">[docs]</a>    <span class="nd">@unittest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;Reenable when issue #2426 has been solved (migrate exported files from 0.3 to 0.4)&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_calcjob_outputcat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob outputcat&quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arithmetic_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="s1">&#39;aiida.out&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_cleanworkdir"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_cleanworkdir">[docs]</a>    <span class="k">def</span> <span class="nf">test_calcjob_cleanworkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi calcjob cleanworkdir&quot;&quot;&quot;</span>
+
+        <span class="c1"># Specifying no filtering options and no explicit calcjobs should exit with non-zero status</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_cleanworkdir</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="c1"># Cannot specify both -p and -o options</span>
+        <span class="k">for</span> <span class="n">flag_p</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--past-days&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">flag_o</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--older-than&#39;</span><span class="p">]:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag_p</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="n">flag_o</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_cleanworkdir</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="c1"># Without the force flag it should fail</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_cleanworkdir</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="c1"># With force flag we should find one calcjob</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_cleanworkdir</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiCalculation.test_calcjob_inoutputcat_old"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_calcjob.TestVerdiCalculation.test_calcjob_inoutputcat_old">[docs]</a>    <span class="k">def</span> <span class="nf">test_calcjob_inoutputcat_old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test most recent process class / plug-in can be successfully used to find filenames&quot;&quot;&quot;</span>
+
+        <span class="c1"># Import old archive of ArithmeticAddCalculation</span>
+        <span class="n">import_archive_fixture</span><span class="p">(</span><span class="s1">&#39;calcjob/arithmetic.add_old.aiida&#39;</span><span class="p">)</span>
+        <span class="n">ArithmeticAddCalculation</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="s1">&#39;arithmetic.add&#39;</span><span class="p">)</span>
+        <span class="n">calculations</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ArithmeticAddCalculation</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="c1"># Uncomment when issue 2426 is addressed</span>
+        <span class="c1"># for job in calculations:</span>
+        <span class="c1">#     if job[0].uuid == self.arithmetic_job.uuid:</span>
+        <span class="c1">#         continue</span>
+        <span class="c1">#     else:</span>
+        <span class="c1">#         add_job = job[0]</span>
+        <span class="c1">#         return</span>
+
+        <span class="c1"># Remove when issue 2426 is addressed</span>
+        <span class="n">add_job</span> <span class="o">=</span> <span class="n">calculations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Make sure add_job does not specify options &#39;input_filename&#39; and &#39;output_filename&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span>
+            <span class="n">add_job</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s1">&#39;input_filename&#39;</span><span class="p">),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;&#39;input_filename&#39; should not be an option for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">add_job</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span>
+            <span class="n">add_job</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s1">&#39;output_filename&#39;</span><span class="p">),</span>
+            <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;&#39;output_filename&#39; should not be an option for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">add_job</span><span class="p">))</span>
+
+        <span class="c1"># Run `verdi calcjob inputcat add_job`</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">add_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_inputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;2 3&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Run `verdi calcjob outputcat add_job`</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">add_job</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">calcjob_outputcat</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

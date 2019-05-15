@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.engine.daemon.execmanager &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.engine.daemon.execmanager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.engine.daemon.execmanager</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the main routines to submit, check and retrieve calculation</span>
+<span class="sd">results. These are general and contain only the main logic; where appropriate,</span>
+<span class="sd">the routines make reference to the suitable plugins for all</span>
+<span class="sd">plugin-specific operations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">zip</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span><span class="p">,</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">aiida.common.datastructures</span> <span class="k">import</span> <span class="n">CalcJobState</span>
+<span class="kn">from</span> <span class="nn">aiida.common.folders</span> <span class="k">import</span> <span class="n">SandboxFolder</span>
+<span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">FolderData</span>
+<span class="kn">from</span> <span class="nn">aiida.orm.utils.log</span> <span class="k">import</span> <span class="n">get_dblogger_extra</span>
+<span class="kn">from</span> <span class="nn">aiida.plugins</span> <span class="k">import</span> <span class="n">DataFactory</span>
+<span class="kn">from</span> <span class="nn">aiida.schedulers.datastructures</span> <span class="k">import</span> <span class="n">JobState</span>
+
+<span class="n">REMOTE_WORK_DIRECTORY_LOST_FOUND</span> <span class="o">=</span> <span class="s1">&#39;lost+found&#39;</span>
+
+<span class="n">execlogger</span> <span class="o">=</span> <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;execmanager&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="upload_calculation"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.upload_calculation">[docs]</a><span class="k">def</span> <span class="nf">upload_calculation</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">calc_info</span><span class="p">,</span> <span class="n">script_filename</span><span class="p">,</span> <span class="n">dry_run</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Upload a `CalcJob` instance</span>
+
+<span class="sd">    :param node: the `CalcJobNode`.</span>
+<span class="sd">    :param transport: an already opened transport to use to submit the calculation.</span>
+<span class="sd">    :param calc_info: the calculation info datastructure returned by `CalcJobNode.presubmit`</span>
+<span class="sd">    :param script_filename: the job launch script returned by `CalcJobNode.presubmit`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">LoggerAdapter</span>
+    <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">load_node</span><span class="p">,</span> <span class="n">Code</span><span class="p">,</span> <span class="n">RemoteData</span>
+
+    <span class="n">computer</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">computer</span>
+
+    <span class="n">codes_info</span> <span class="o">=</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">codes_info</span>
+    <span class="n">input_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">load_node</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">code_uuid</span><span class="p">,</span> <span class="n">sub_classes</span><span class="o">=</span><span class="p">(</span><span class="n">Code</span><span class="p">,))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">codes_info</span><span class="p">]</span>
+
+    <span class="n">logger_extra</span> <span class="o">=</span> <span class="n">get_dblogger_extra</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">transport</span><span class="o">.</span><span class="n">set_logger_extra</span><span class="p">(</span><span class="n">logger_extra</span><span class="p">)</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">execlogger</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">has_cached_links</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot submit calculation </span><span class="si">{}</span><span class="s1"> because it has cached input links! If you just want to test the &#39;</span>
+                         <span class="s1">&#39;submission, set `metadata.dry_run` to True in the inputs.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_raw_input_folder</span>
+
+    <span class="c1"># If we are performing a dry-run, the working directory should actually be a local folder that should already exist</span>
+    <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">workdir</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">remote_user</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">whoami</span><span class="p">()</span>
+        <span class="c1"># TODO Doc: {username} field</span>
+        <span class="c1"># TODO: if something is changed here, fix also &#39;verdi computer test&#39;</span>
+        <span class="n">remote_working_directory</span> <span class="o">=</span> <span class="n">computer</span><span class="o">.</span><span class="n">get_workdir</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">remote_user</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_working_directory</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">(</span>
+                <span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] No remote_working_directory configured for computer &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="c1"># If it already exists, no exception is raised</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">remote_working_directory</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] Unable to chdir in </span><span class="si">{}</span><span class="s2">, trying to create it&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">remote_working_directory</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">transport</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">remote_working_directory</span><span class="p">)</span>
+                <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">remote_working_directory</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">EnvironmentError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">(</span>
+                    <span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] &quot;</span>
+                    <span class="s2">&quot;Unable to create the remote directory </span><span class="si">{}</span><span class="s2"> on &quot;</span>
+                    <span class="s2">&quot;computer &#39;</span><span class="si">{}</span><span class="s2">&#39;: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">remote_working_directory</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">exc</span><span class="p">))</span>
+        <span class="c1"># Store remotely with sharding (here is where we choose</span>
+        <span class="c1"># the folder structure of remote jobs; then I store this</span>
+        <span class="c1"># in the calculation properties using _set_remote_dir</span>
+        <span class="c1"># and I do not have to know the logic, but I just need to</span>
+        <span class="c1"># read the absolute path from the calculation properties.</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># The final directory may already exist, most likely because this function was already executed once, but</span>
+            <span class="c1"># failed and as a result was rescheduled by the eninge. In this case it would be fine to delete the folder</span>
+            <span class="c1"># and create it from scratch, except that we cannot be sure that this the actual case. Therefore, to err on</span>
+            <span class="c1"># the safe side, we move the folder to the lost+found directory before recreating the folder from scratch</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="c1"># Move the existing directory to lost+found, log a warning and create a clean directory anyway</span>
+            <span class="n">path_existing</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">transport</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+            <span class="n">path_lost_found</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remote_working_directory</span><span class="p">,</span> <span class="n">REMOTE_WORK_DIRECTORY_LOST_FOUND</span><span class="p">)</span>
+            <span class="n">path_target</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_lost_found</span><span class="p">,</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;tried to create path </span><span class="si">{}</span><span class="s1"> but it already exists, moving the entire folder to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">path_existing</span><span class="p">,</span> <span class="n">path_target</span><span class="p">))</span>
+
+            <span class="c1"># Make sure the lost+found directory exists, then copy the existing folder there and delete the original</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path_lost_found</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">path_existing</span><span class="p">,</span> <span class="n">path_target</span><span class="p">)</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path_existing</span><span class="p">)</span>
+
+            <span class="c1"># Now we can create a clean folder for this calculation</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">calc_info</span><span class="o">.</span><span class="n">uuid</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+
+        <span class="c1"># I store the workdir of the calculation for later file retrieval</span>
+        <span class="n">workdir</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">set_remote_workdir</span><span class="p">(</span><span class="n">workdir</span><span class="p">)</span>
+
+    <span class="c1"># I first create the code files, so that the code can put</span>
+    <span class="c1"># default files to be overwritten by the plugin itself.</span>
+    <span class="c1"># Still, beware! The code file itself could be overwritten...</span>
+    <span class="c1"># But I checked for this earlier.</span>
+    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">input_codes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">code</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="c1"># Note: this will possibly overwrite files</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">get_folder_list</span><span class="p">():</span>
+                <span class="n">transport</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">code</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">code</span><span class="o">.</span><span class="n">get_local_executable</span><span class="p">(),</span> <span class="mo">0o755</span><span class="p">)</span>  <span class="c1"># rwxr-xr-x</span>
+
+    <span class="c1"># In a dry_run, the working directory is the raw input folder, which will already contain these resources</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">get_content_list</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] copying file/folder </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># local_copy_list is a list of tuples, each with (uuid, dest_rel_path)</span>
+    <span class="c1"># NOTE: validation of these lists are done inside calculation.presubmit()</span>
+    <span class="n">local_copy_list</span> <span class="o">=</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">local_copy_list</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="n">remote_copy_list</span> <span class="o">=</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">remote_copy_list</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="n">remote_symlink_list</span> <span class="o">=</span> <span class="n">calc_info</span><span class="o">.</span><span class="n">remote_symlink_list</span> <span class="ow">or</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">local_copy_list</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] copying local file/folder to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data_node</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotExistent</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;failed to load Node&lt;</span><span class="si">{}</span><span class="s1">&gt; specified in the `local_copy_list`&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uuid</span><span class="p">))</span>
+
+        <span class="c1"># Note, once #2579 is implemented, use the `node.open` method instead of the named temporary file in</span>
+        <span class="c1"># combination with the new `Transport.put_object_from_filelike`</span>
+        <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_node</span><span class="o">.</span><span class="n">get_object_content</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">remote_copy_list</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="s1">&#39;_aiida_remote_copy_list.txt&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">remote_computer_uuid</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span> <span class="ow">in</span> <span class="n">remote_copy_list</span><span class="p">:</span>
+                    <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;would have copied </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> in working directory on remote </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">remote_symlink_list</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="s1">&#39;_aiida_remote_symlink_list.txt&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">remote_computer_uuid</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span> <span class="ow">in</span> <span class="n">remote_symlink_list</span><span class="p">:</span>
+                    <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;would have created symlinks from </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> in working directory on remote </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">remote_computer_uuid</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">)</span> <span class="ow">in</span> <span class="n">remote_copy_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">remote_computer_uuid</span> <span class="o">==</span> <span class="n">computer</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] copying </span><span class="si">{}</span><span class="s2"> remotely, directly on the machine </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">transport</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">)</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] Unable to copy remote resource from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">! &quot;</span>
+                                   <span class="s2">&quot;Stopping.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">))</span>
+                    <span class="k">raise</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                    <span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] Remote copy between two different machines is &quot;</span>
+                    <span class="s2">&quot;not implemented yet&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">remote_computer_uuid</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">)</span> <span class="ow">in</span> <span class="n">remote_symlink_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">remote_computer_uuid</span> <span class="o">==</span> <span class="n">computer</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] copying </span><span class="si">{}</span><span class="s2"> remotely, directly on the machine </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">,</span> <span class="n">computer</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">transport</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">)</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;[submission of calculation </span><span class="si">{}</span><span class="s2">] Unable to create remote symlink from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">! &quot;</span>
+                                   <span class="s2">&quot;Stopping.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">remote_abs_path</span><span class="p">,</span> <span class="n">dest_rel_path</span><span class="p">))</span>
+                    <span class="k">raise</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;It is not possible to create a symlink between two different machines for &quot;</span>
+                              <span class="s2">&quot;calculation </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">remotedata</span> <span class="o">=</span> <span class="n">RemoteData</span><span class="p">(</span><span class="n">computer</span><span class="o">=</span><span class="n">computer</span><span class="p">,</span> <span class="n">remote_path</span><span class="o">=</span><span class="n">workdir</span><span class="p">)</span>
+        <span class="n">remotedata</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;remote_folder&#39;</span><span class="p">)</span>
+        <span class="n">remotedata</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">calc_info</span><span class="p">,</span> <span class="n">script_filename</span></div>
+
+
+<div class="viewcode-block" id="submit_calculation"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.submit_calculation">[docs]</a><span class="k">def</span> <span class="nf">submit_calculation</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">calc_info</span><span class="p">,</span> <span class="n">script_filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Submit a calculation</span>
+
+<span class="sd">    :param calculation: the instance of CalcJobNode to submit.</span>
+<span class="sd">    :param transport: an already opened transport to use to submit the calculation.</span>
+<span class="sd">    :param calc_info: the calculation info datastructure returned by `CalcJobNode._presubmit`</span>
+<span class="sd">    :param script_filename: the job launch script returned by `CalcJobNode._presubmit`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">computer</span><span class="o">.</span><span class="n">get_scheduler</span><span class="p">()</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">set_transport</span><span class="p">(</span><span class="n">transport</span><span class="p">)</span>
+
+    <span class="n">workdir</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_remote_workdir</span><span class="p">()</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">submit_from_script</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">script_filename</span><span class="p">)</span>
+    <span class="n">calculation</span><span class="o">.</span><span class="n">set_job_id</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="retrieve_calculation"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.retrieve_calculation">[docs]</a><span class="k">def</span> <span class="nf">retrieve_calculation</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">retrieved_temporary_folder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve all the files of a completed job calculation using the given transport.</span>
+
+<span class="sd">    If the job defined anything in the `retrieve_temporary_list`, those entries will be stored in the</span>
+<span class="sd">    `retrieved_temporary_folder`. The caller is responsible for creating and destroying this folder.</span>
+
+<span class="sd">    :param calculation: the instance of CalcJobNode to update.</span>
+<span class="sd">    :param transport: an already opened transport to use for the retrieval.</span>
+<span class="sd">    :param retrieved_temporary_folder: the absolute path to a directory in which to store the files</span>
+<span class="sd">        listed, if any, in the `retrieved_temporary_folder` of the jobs CalcInfo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger_extra</span> <span class="o">=</span> <span class="n">get_dblogger_extra</span><span class="p">(</span><span class="n">calculation</span><span class="p">)</span>
+
+    <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving calc </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">calculation</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+    <span class="n">workdir</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_remote_workdir</span><span class="p">()</span>
+
+    <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] chdir </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">calculation</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">workdir</span><span class="p">),</span>
+        <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+
+    <span class="c1"># Create the FolderData node to attach everything to</span>
+    <span class="n">retrieved_files</span> <span class="o">=</span> <span class="n">FolderData</span><span class="p">()</span>
+    <span class="n">retrieved_files</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="n">calculation</span><span class="o">.</span><span class="n">link_label_retrieved</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">transport</span><span class="p">:</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">workdir</span><span class="p">)</span>
+
+        <span class="c1"># First, retrieve the files of folderdata</span>
+        <span class="n">retrieve_list</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_retrieve_list</span><span class="p">()</span>
+        <span class="n">retrieve_temporary_list</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_retrieve_temporary_list</span><span class="p">()</span>
+        <span class="n">retrieve_singlefile_list</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_retrieve_singlefile_list</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">SandboxFolder</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="n">retrieve_files_from_list</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">folder</span><span class="o">.</span><span class="n">abspath</span><span class="p">,</span> <span class="n">retrieve_list</span><span class="p">)</span>
+            <span class="c1"># Here I retrieved everything; now I store them inside the calculation</span>
+            <span class="n">retrieved_files</span><span class="o">.</span><span class="n">put_object_from_tree</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">abspath</span><span class="p">)</span>
+
+        <span class="c1"># Second, retrieve the singlefiles</span>
+        <span class="k">with</span> <span class="n">SandboxFolder</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="n">_retrieve_singlefiles</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">retrieve_singlefile_list</span><span class="p">,</span> <span class="n">logger_extra</span><span class="p">)</span>
+
+        <span class="c1"># Retrieve the temporary files in the retrieved_temporary_folder if any files were</span>
+        <span class="c1"># specified in the &#39;retrieve_temporary_list&#39; key</span>
+        <span class="k">if</span> <span class="n">retrieve_temporary_list</span><span class="p">:</span>
+            <span class="n">retrieve_files_from_list</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">retrieved_temporary_folder</span><span class="p">,</span> <span class="n">retrieve_temporary_list</span><span class="p">)</span>
+
+            <span class="c1"># Log the files that were retrieved in the temporary folder</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">retrieved_temporary_folder</span><span class="p">):</span>
+                <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] Retrieved temporary file or folder &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">calculation</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+
+        <span class="c1"># Store everything</span>
+        <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] &quot;</span>
+            <span class="s2">&quot;Storing retrieved_files=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">calculation</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">retrieved_files</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span>
+            <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+        <span class="n">retrieved_files</span><span class="o">.</span><span class="n">store</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="kill_calculation"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.kill_calculation">[docs]</a><span class="k">def</span> <span class="nf">kill_calculation</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Kill the calculation through the scheduler</span>
+
+<span class="sd">    :param calculation: the instance of CalcJobNode to kill.</span>
+<span class="sd">    :param transport: an already opened transport to use to address the scheduler</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">()</span>
+
+    <span class="c1"># Get the scheduler plugin class and initialize it with the correct transport</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">calculation</span><span class="o">.</span><span class="n">computer</span><span class="o">.</span><span class="n">get_scheduler</span><span class="p">()</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">set_transport</span><span class="p">(</span><span class="n">transport</span><span class="p">)</span>
+
+    <span class="c1"># Call the proper kill method for the job ID of this calculation</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+
+        <span class="c1"># Failed to kill because the job might have already been completed</span>
+        <span class="n">running_jobs</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">get_jobs</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">job_id</span><span class="p">],</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">job</span> <span class="o">=</span> <span class="n">running_jobs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># If the job is returned it is still running and the kill really failed, so we raise</span>
+        <span class="k">if</span> <span class="n">job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">job</span><span class="o">.</span><span class="n">job_state</span> <span class="o">!=</span> <span class="n">JobState</span><span class="o">.</span><span class="n">DONE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">RemoteOperationError</span><span class="p">(</span><span class="s1">&#39;scheduler.kill(</span><span class="si">{}</span><span class="s1">) was unsuccessful&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_id</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">execlogger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;scheduler.kill() failed but job&lt;{</span><span class="si">%s</span><span class="s1">}&gt; no longer seems to be running regardless&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="parse_results"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.parse_results">[docs]</a><span class="k">def</span> <span class="nf">parse_results</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">retrieved_temporary_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the results for a given CalcJobNode (job)</span>
+
+<span class="sd">    :returns: integer exit code, where 0 indicates success and non-zero failure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ExitCode</span>
+
+    <span class="k">assert</span> <span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span> <span class="o">==</span> <span class="n">CalcJobState</span><span class="o">.</span><span class="n">PARSING</span><span class="p">,</span> \
+        <span class="s1">&#39;job should be in the PARSING state when calling this function yet it is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_state</span><span class="p">())</span>
+
+    <span class="n">parser_class</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_parser_class</span><span class="p">()</span>
+    <span class="n">exit_code</span> <span class="o">=</span> <span class="n">ExitCode</span><span class="p">()</span>
+    <span class="n">logger_extra</span> <span class="o">=</span> <span class="n">get_dblogger_extra</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">retrieved_temporary_folder</span><span class="p">:</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">directories</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">retrieved_temporary_folder</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;- [D] </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">directory</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;- [F] </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">filename</span><span class="p">)))</span>
+
+        <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[parsing of calc </span><span class="si">{}</span><span class="s2">] &quot;</span>
+                         <span class="s2">&quot;Content of the retrieved_temporary_folder: </span><span class="se">\n</span><span class="s2">&quot;</span>
+                         <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="p">)),</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[parsing of calc </span><span class="si">{}</span><span class="s2">] &quot;</span>
+                         <span class="s2">&quot;No retrieved_temporary_folder.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">parser_class</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parser_class</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">parse_kwargs</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_outputs_for_parsing</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">retrieved_temporary_folder</span><span class="p">:</span>
+            <span class="n">parse_kwargs</span><span class="p">[</span><span class="s1">&#39;retrieved_temporary_folder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">retrieved_temporary_folder</span>
+
+        <span class="n">exit_code</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="o">**</span><span class="n">parse_kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">exit_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exit_code</span> <span class="o">=</span> <span class="n">ExitCode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exit_code</span><span class="p">,</span> <span class="n">ExitCode</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parse should return an `ExitCode` or None, and not </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">exit_code</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">exit_code</span><span class="o">.</span><span class="n">status</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;parser returned exit code&lt;</span><span class="si">{}</span><span class="s1">&gt;: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exit_code</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">exit_code</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">link_label</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+                <span class="n">parser</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;invalid value </span><span class="si">{}</span><span class="s1"> specified with label </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+                <span class="n">exit_code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">exit_codes</span><span class="o">.</span><span class="n">ERROR_INVALID_OUTPUT</span>
+                <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">exit_code</span></div>
+
+
+<div class="viewcode-block" id="_retrieve_singlefiles"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager._retrieve_singlefiles">[docs]</a><span class="k">def</span> <span class="nf">_retrieve_singlefiles</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">retrieve_file_list</span><span class="p">,</span> <span class="n">logger_extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">singlefile_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">linkname</span><span class="p">,</span> <span class="n">subclassname</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="ow">in</span> <span class="n">retrieve_file_list</span><span class="p">:</span>
+        <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] Trying &quot;</span>
+                         <span class="s2">&quot;to retrieve remote singlefile &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+        <span class="n">localfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">abspath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">transport</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">localfilename</span><span class="p">,</span> <span class="n">ignore_nonexisting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">singlefile_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">linkname</span><span class="p">,</span> <span class="n">subclassname</span><span class="p">,</span> <span class="n">localfilename</span><span class="p">))</span>
+
+    <span class="c1"># ignore files that have not been retrieved</span>
+    <span class="n">singlefile_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">singlefile_list</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+
+    <span class="c1"># after retrieving from the cluster, I create the objects</span>
+    <span class="n">singlefiles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">linkname</span><span class="p">,</span> <span class="n">subclassname</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="ow">in</span> <span class="n">singlefile_list</span><span class="p">:</span>
+        <span class="n">SinglefileSubclass</span> <span class="o">=</span> <span class="n">DataFactory</span><span class="p">(</span><span class="n">subclassname</span><span class="p">)</span>
+        <span class="n">singlefile</span> <span class="o">=</span> <span class="n">SinglefileSubclass</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">singlefile</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="n">linkname</span><span class="p">)</span>
+        <span class="n">singlefiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">singlefile</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">fil</span> <span class="ow">in</span> <span class="n">singlefiles</span><span class="p">:</span>
+        <span class="n">execlogger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] &quot;</span>
+            <span class="s2">&quot;Storing retrieved_singlefile=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">fil</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span>
+            <span class="n">extra</span><span class="o">=</span><span class="n">logger_extra</span><span class="p">)</span>
+        <span class="n">fil</span><span class="o">.</span><span class="n">store</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="retrieve_files_from_list"><a class="viewcode-back" href="../../../../apidoc/aiida.engine.daemon.html#aiida.engine.daemon.execmanager.retrieve_files_from_list">[docs]</a><span class="k">def</span> <span class="nf">retrieve_files_from_list</span><span class="p">(</span><span class="n">calculation</span><span class="p">,</span> <span class="n">transport</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">retrieve_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve all the files in the retrieve_list from the remote into the</span>
+<span class="sd">    local folder instance through the transport. The entries in the retrieve_list</span>
+<span class="sd">    can be of two types:</span>
+
+<span class="sd">        * a string</span>
+<span class="sd">        * a list</span>
+
+<span class="sd">    If it is a string, it represents the remote absolute filepath of the file.</span>
+<span class="sd">    If the item is a list, the elements will correspond to the following:</span>
+
+<span class="sd">        * remotepath</span>
+<span class="sd">        * localpath</span>
+<span class="sd">        * depth</span>
+
+<span class="sd">    If the remotepath contains file patterns with wildcards, the localpath will be</span>
+<span class="sd">    treated as the work directory of the folder and the depth integer determines</span>
+<span class="sd">    upto what level of the original remotepath nesting the files will be copied.</span>
+
+<span class="sd">    :param transport: the Transport instance</span>
+<span class="sd">    :param folder: an absolute path to a folder to copy files in</span>
+<span class="sd">    :param retrieve_list: the list of files to retrieve</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">retrieve_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">tmp_rname</span><span class="p">,</span> <span class="n">tmp_lname</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="c1"># if there are more than one file I do something differently</span>
+            <span class="k">if</span> <span class="n">transport</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">tmp_rname</span><span class="p">):</span>
+                <span class="n">remote_names</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">tmp_rname</span><span class="p">)</span>
+                <span class="n">local_names</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">rem</span> <span class="ow">in</span> <span class="n">remote_names</span><span class="p">:</span>
+                    <span class="n">to_append</span> <span class="o">=</span> <span class="n">rem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="n">depth</span><span class="p">:]</span> <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[]</span>
+                    <span class="n">local_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">tmp_lname</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_append</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">remote_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmp_rname</span><span class="p">]</span>
+                <span class="n">to_append</span> <span class="o">=</span> <span class="n">remote_names</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="n">depth</span><span class="p">:]</span> <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[]</span>
+                <span class="n">local_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">tmp_lname</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_append</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># create directories in the folder, if needed</span>
+                <span class="k">for</span> <span class="n">this_local_file</span> <span class="ow">in</span> <span class="n">local_names</span><span class="p">:</span>
+                    <span class="n">new_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="n">folder</span><span class="p">,</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_local_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">new_folder</span><span class="p">):</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">new_folder</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># it is a string</span>
+            <span class="k">if</span> <span class="n">transport</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                <span class="n">remote_names</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">local_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rem</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">rem</span> <span class="ow">in</span> <span class="n">remote_names</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">remote_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                <span class="n">local_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">item</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">rem</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">remote_names</span><span class="p">,</span> <span class="n">local_names</span><span class="p">):</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;[retrieval of calc </span><span class="si">{}</span><span class="s2">] Trying to retrieve remote item &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">calculation</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">rem</span><span class="p">))</span>
+            <span class="n">transport</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">loc</span><span class="p">),</span> <span class="n">ignore_nonexisting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

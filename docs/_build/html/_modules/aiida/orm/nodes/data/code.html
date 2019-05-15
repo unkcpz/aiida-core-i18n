@@ -1,0 +1,799 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.nodes.data.code &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.orm.nodes.data.code</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.nodes.data.code</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ValidationError</span><span class="p">,</span> <span class="n">EntryPointError</span><span class="p">,</span> <span class="n">InputValidationError</span>
+
+<span class="kn">from</span> <span class="nn">.data</span> <span class="k">import</span> <span class="n">Data</span>
+
+<span class="n">DEPRECATION_DOCS_URL</span> <span class="o">=</span> <span class="s1">&#39;http://aiida-core.readthedocs.io/en/latest/concepts/processes.html#the-process-builder&#39;</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Code&#39;</span><span class="p">,)</span>
+
+
+<div class="viewcode-block" id="Code"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code">[docs]</a><span class="k">class</span> <span class="nc">Code</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A code entity.</span>
+<span class="sd">    It can either be &#39;local&#39;, or &#39;remote&#39;.</span>
+
+<span class="sd">    * Local code: it is a collection of files/dirs (added using the add_path() method), where one \</span>
+<span class="sd">    file is flagged as executable (using the set_local_executable() method).</span>
+
+<span class="sd">    * Remote code: it is a pair (remotecomputer, remotepath_of_executable) set using the \</span>
+<span class="sd">    set_remote_computer_exec() method.</span>
+
+<span class="sd">    For both codes, one can set some code to be executed right before or right after</span>
+<span class="sd">    the execution of the code, using the set_preexec_code() and set_postexec_code()</span>
+<span class="sd">    methods (e.g., the set_preexec_code() can be used to load specific modules required</span>
+<span class="sd">    for the code to be run).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Code.__init__"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remote_computer_exec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">local_executable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_plugin_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Code</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">remote_computer_exec</span> <span class="ow">and</span> <span class="n">local_executable</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot set `remote_computer_exec` and `local_executable` at the same time&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">remote_computer_exec</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_remote_computer_exec</span><span class="p">(</span><span class="n">remote_computer_exec</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">local_executable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_local_executable</span><span class="p">(</span><span class="n">local_executable</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">input_plugin_name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_input_plugin_name</span><span class="p">(</span><span class="n">input_plugin_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_files</span><span class="p">(</span><span class="n">files</span><span class="p">)</span></div>
+
+    <span class="n">HIDDEN_KEY</span> <span class="o">=</span> <span class="s1">&#39;hidden&#39;</span>
+
+<div class="viewcode-block" id="Code.hide"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.hide">[docs]</a>    <span class="k">def</span> <span class="nf">hide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hide the code (prevents from showing it in the verdi code list)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HIDDEN_KEY</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.reveal"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.reveal">[docs]</a>    <span class="k">def</span> <span class="nf">reveal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reveal the code (allows to show it in the verdi code list)</span>
+<span class="sd">        By default, it is revealed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_extra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HIDDEN_KEY</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hidden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines whether the Code is hidden or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HIDDEN_KEY</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Code.set_files"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_files">[docs]</a>    <span class="k">def</span> <span class="nf">set_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a list of filenames (or a single filename string),</span>
+<span class="sd">        add it to the path (all at level zero, i.e. without folders).</span>
+<span class="sd">        Therefore, be careful for files with the same name!</span>
+
+<span class="sd">        :todo: decide whether to check if the Code must be a local executable</span>
+<span class="sd">             to be able to call this function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">files</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_object_from_filelike</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;wb&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.__str__"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.Code.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">local_str</span> <span class="o">=</span> <span class="s2">&quot;Local&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;Remote&quot;</span>
+        <span class="n">computer_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_computer_name</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> code &#39;</span><span class="si">{}</span><span class="s2">&#39; on </span><span class="si">{}</span><span class="s2">, pk: </span><span class="si">{}</span><span class="s2">, uuid: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">computer_str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_computer_name"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_computer_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_computer_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get name of this code&#39;s computer.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="n">computer_str</span> <span class="o">=</span> <span class="s2">&quot;repository&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">computer_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">computer_str</span> <span class="o">=</span> <span class="s2">&quot;[unknown]&quot;</span>
+
+        <span class="k">return</span> <span class="n">computer_str</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get full label of this code.</span>
+
+<span class="sd">        Returns label of the form &lt;code-label&gt;@&lt;computer-name&gt;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">@</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_computer_name</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Code.relabel"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.relabel">[docs]</a>    <span class="k">def</span> <span class="nf">relabel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Relabel this code.</span>
+
+<span class="sd">        :param new_label: new code label</span>
+<span class="sd">        :param raise_error: Set to False in order to return a list of errors</span>
+<span class="sd">            instead of raising them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;@</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_computer_name</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">new_label</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">suffix</span><span class="p">):</span>
+            <span class="n">new_label</span> <span class="o">=</span> <span class="n">new_label</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">suffix</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="s1">&#39;@&#39;</span> <span class="ow">in</span> <span class="n">new_label</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Code labels must not contain the &#39;@&#39; symbol&quot;</span>
+            <span class="k">if</span> <span class="n">raise_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">InputValidationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">InputValidationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">new_label</span></div>
+
+<div class="viewcode-block" id="Code.get_description"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a string description of this Code instance.</span>
+
+<span class="sd">        :return: string description of this Code instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_code_helper"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_code_helper">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_code_helper</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">machinename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param label: the code label identifying the code to load</span>
+<span class="sd">        :param machinename: the machine name where code is setup</span>
+
+<span class="sd">        :raise aiida.common.NotExistent: if no code identified by the given string is found</span>
+<span class="sd">        :raise aiida.common.MultipleObjectsError: if the string cannot identify uniquely</span>
+<span class="sd">            a code</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="p">(</span><span class="n">NotExistent</span><span class="p">,</span> <span class="n">MultipleObjectsError</span><span class="p">,</span> <span class="n">InputValidationError</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.computers</span> <span class="k">import</span> <span class="n">Computer</span>
+
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">label</span><span class="p">}},</span> <span class="n">project</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">machinename</span><span class="p">:</span>
+            <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Computer</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">machinename</span><span class="p">}},</span> <span class="n">with_node</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">qb</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotExistent</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not a valid code name.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">qb</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span> <span class="k">for</span> <span class="p">[</span><span class="n">_</span><span class="p">]</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
+            <span class="n">retstr</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There are multiple codes with label &#39;</span><span class="si">{}</span><span class="s2">&#39;, having IDs: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+            <span class="n">retstr</span> <span class="o">+=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">retstr</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;Relabel them (using their ID), or refer to them with their ID.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">MultipleObjectsError</span><span class="p">(</span><span class="n">retstr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Code.get"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">machinename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a Computer object with given identifier string, that can either be</span>
+<span class="sd">        the numeric ID (pk), or the label (and computername) (if unique).</span>
+
+<span class="sd">        :param pk: the numeric ID (pk) for code</span>
+<span class="sd">        :param label: the code label identifying the code to load</span>
+<span class="sd">        :param machinename: the machine name where code is setup</span>
+
+<span class="sd">        :raise aiida.common.NotExistent: if no code identified by the given string is found</span>
+<span class="sd">        :raise aiida.common.MultipleObjectsError: if the string cannot identify uniquely</span>
+<span class="sd">            a code</span>
+<span class="sd">        :raise aiida.common.InputValidationError: if neither a pk nor a label was passed in</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="p">(</span><span class="n">NotExistent</span><span class="p">,</span> <span class="n">MultipleObjectsError</span><span class="p">,</span> <span class="n">InputValidationError</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.utils</span> <span class="k">import</span> <span class="n">load_code</span>
+
+        <span class="c1"># first check if code pk is provided</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pk</span><span class="p">):</span>
+            <span class="n">code_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">load_code</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">code_int</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">NotExistent</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not valid code pk&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pk</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">MultipleObjectsError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MultipleObjectsError</span><span class="p">(</span><span class="s2">&quot;More than one code in the DB with pk=&#39;</span><span class="si">{}</span><span class="s2">&#39;!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pk</span><span class="p">))</span>
+
+        <span class="c1"># check if label (and machinename) is provided</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">label</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_code_helper</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">machinename</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InputValidationError</span><span class="p">(</span><span class="s2">&quot;Pass either pk or code label (and machinename)&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_from_string"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code_string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a Computer object with given identifier string in the format</span>
+<span class="sd">        label@machinename. See the note below for details on the string</span>
+<span class="sd">        detection algorithm.</span>
+
+<span class="sd">        .. note:: the (leftmost) &#39;@&#39; symbol is always used to split code</span>
+<span class="sd">            and computername. Therefore do not use</span>
+<span class="sd">            &#39;@&#39; in the code name if you want to use this function</span>
+<span class="sd">            (&#39;@&#39; in the computer name are instead valid).</span>
+
+<span class="sd">        :param code_string: the code string identifying the code to load</span>
+
+<span class="sd">        :raise aiida.common.NotExistent: if no code identified by the given string is found</span>
+<span class="sd">        :raise aiida.common.MultipleObjectsError: if the string cannot identify uniquely</span>
+<span class="sd">            a code</span>
+<span class="sd">        :raise aiida.common.InputValidationError: if code_string is not of string type</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">NotExistent</span><span class="p">,</span> <span class="n">MultipleObjectsError</span><span class="p">,</span> <span class="n">InputValidationError</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">label</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">machinename</span> <span class="o">=</span> <span class="n">code_string</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InputValidationError</span><span class="p">(</span><span class="s2">&quot;the provided code_string is not of valid string type&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_code_helper</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">machinename</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NotExistent</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotExistent</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> could not be resolved to a valid code label&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code_string</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">MultipleObjectsError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MultipleObjectsError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> could not be uniquely resolved&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code_string</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Code.list_for_plugin"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.list_for_plugin">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list_for_plugin</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">plugin</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of valid code strings for a given plugin.</span>
+
+<span class="sd">        :param plugin: The string of the plugin.</span>
+<span class="sd">        :param labels: if True, return a list of code names, otherwise</span>
+<span class="sd">          return the code PKs (integers).</span>
+<span class="sd">        :return: a list of string, with the code names if labels is True,</span>
+<span class="sd">          otherwise a list of integers with the code PKs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.input_plugin&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">plugin</span><span class="p">}})</span>
+        <span class="n">valid_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span> <span class="k">for</span> <span class="p">[</span><span class="n">_</span><span class="p">]</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">label</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">valid_codes</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">valid_codes</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Code._validate"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code._validate">[docs]</a>    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Code</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_validate</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;You did not set whether the code is local or remote&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_executable</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;You have to set which file is the local executable &quot;</span>
+                                      <span class="s2">&quot;using the set_exec_filename() method&quot;</span><span class="p">)</span>
+                <span class="c1"># c[1] is True if the element is a file</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_executable</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_object_names</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;The local executable &#39;</span><span class="si">{}</span><span class="s2">&#39; is not in the list of &quot;</span>
+                                      <span class="s2">&quot;files of this code&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_local_executable</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_object_names</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;The code is remote but it has files inside&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_computer</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;You did not specify a remote computer&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_exec_path</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;You did not specify a remote executable&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.set_prepend_text"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_prepend_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_prepend_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass a string of code that will be put in the scheduler script before the</span>
+<span class="sd">        execution of the code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;prepend_text&#39;</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">code</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Code.get_prepend_text"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_prepend_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_prepend_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the code that will be put in the scheduler script before the</span>
+<span class="sd">        execution, or an empty string if no pre-exec code was defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;prepend_text&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.set_input_plugin_name"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_input_plugin_name">[docs]</a>    <span class="k">def</span> <span class="nf">set_input_plugin_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_plugin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the name of the default input plugin, to be used for the automatic</span>
+<span class="sd">        generation of a new calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">input_plugin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;input_plugin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;input_plugin&#39;</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">input_plugin</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Code.get_input_plugin_name"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_input_plugin_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_plugin_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the name of the default input plugin (or None if no input plugin</span>
+<span class="sd">        was set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;input_plugin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.set_append_text"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_append_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_append_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass a string of code that will be put in the scheduler script after the</span>
+<span class="sd">        execution of the code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;append_text&#39;</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">code</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Code.get_append_text"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_append_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_append_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the postexec_code, or an empty string if no post-exec code was defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;append_text&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.set_local_executable"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_local_executable">[docs]</a>    <span class="k">def</span> <span class="nf">set_local_executable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the filename of the local executable.</span>
+<span class="sd">        Implicitly set the code as local.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_local</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;local_executable&#39;</span><span class="p">,</span> <span class="n">exec_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_local_executable"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.Code.get_local_executable">[docs]</a>    <span class="k">def</span> <span class="nf">get_local_executable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;local_executable&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.set_remote_computer_exec"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.set_remote_computer_exec">[docs]</a>    <span class="k">def</span> <span class="nf">set_remote_computer_exec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remote_computer_exec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the code as remote, and pass the computer on which it resides</span>
+<span class="sd">        and the absolute path on that computer.</span>
+
+<span class="sd">        :param remote_computer_exec: a tuple (computer, remote_exec_path), where computer is a aiida.orm.Computer and</span>
+<span class="sd">            remote_exec_path is the absolute path of the main executable on remote computer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">type_check</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">remote_computer_exec</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">remote_computer_exec</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;remote_computer_exec must be a list or tuple &quot;</span>
+                             <span class="s2">&quot;of length 2, with machine and executable &quot;</span>
+                             <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+
+        <span class="n">computer</span><span class="p">,</span> <span class="n">remote_exec_path</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">remote_computer_exec</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">remote_exec_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;exec_path must be an absolute path (on the remote machine)&quot;</span><span class="p">)</span>
+
+        <span class="n">type_check</span><span class="p">(</span><span class="n">computer</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Computer</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_remote</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer</span> <span class="o">=</span> <span class="n">computer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;remote_exec_path&#39;</span><span class="p">,</span> <span class="n">remote_exec_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_remote_exec_path"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.Code.get_remote_exec_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_remote_exec_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The code is local&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;remote_exec_path&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_remote_computer"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.Code.get_remote_computer">[docs]</a>    <span class="k">def</span> <span class="nf">get_remote_computer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The code is local&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer</span></div>
+
+<div class="viewcode-block" id="Code._set_local"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code._set_local">[docs]</a>    <span class="k">def</span> <span class="nf">_set_local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the code as a &#39;local&#39; code, meaning that all the files belonging to the code</span>
+<span class="sd">        will be copied to the cluster, and the file set with set_exec_filename will be</span>
+<span class="sd">        run.</span>
+
+<span class="sd">        It also deletes the flags related to the local case (if any)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;is_local&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_attribute</span><span class="p">(</span><span class="s1">&#39;remote_exec_path&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Code._set_remote"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code._set_remote">[docs]</a>    <span class="k">def</span> <span class="nf">_set_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the code as a &#39;remote&#39; code, meaning that the code itself has no files attached,</span>
+<span class="sd">        but only a location on a remote computer (with an absolute path of the executable on</span>
+<span class="sd">        the remote computer).</span>
+
+<span class="sd">        It also deletes the flags related to the local case (if any)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;is_local&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_attribute</span><span class="p">(</span><span class="s1">&#39;local_executable&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Code.is_local"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.is_local">[docs]</a>    <span class="k">def</span> <span class="nf">is_local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return True if the code is &#39;local&#39;, False if it is &#39;remote&#39; (see also documentation</span>
+<span class="sd">        of the set_local and set_remote functions).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;is_local&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.can_run_on"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.can_run_on">[docs]</a>    <span class="k">def</span> <span class="nf">can_run_on</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">computer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return True if this code can run on the given computer, False otherwise.</span>
+
+<span class="sd">        Local codes can run on any machine; remote codes can run only on the machine</span>
+<span class="sd">        on which they reside.</span>
+
+<span class="sd">        TODO: add filters to mask the remote machines on which a local code can run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">type_check</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">type_check</span><span class="p">(</span><span class="n">computer</span><span class="p">,</span> <span class="n">orm</span><span class="o">.</span><span class="n">Computer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">computer</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_computer</span><span class="p">()</span><span class="o">.</span><span class="n">id</span></div>
+
+<div class="viewcode-block" id="Code.get_execname"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_execname">[docs]</a>    <span class="k">def</span> <span class="nf">get_execname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the executable string to be put in the script.</span>
+<span class="sd">        For local codes, it is ./LOCAL_EXECUTABLE_NAME</span>
+<span class="sd">        For remote codes, it is the absolute path to the executable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;./</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_local_executable</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_exec_path</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Code.get_builder"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_builder">[docs]</a>    <span class="k">def</span> <span class="nf">get_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create and return a new ProcessBuilder for the default Calculation</span>
+<span class="sd">        plugin, as obtained by the self.get_input_plugin_name() method.</span>
+
+<span class="sd">        :note: it also sets the ``builder.code`` value.</span>
+
+<span class="sd">        :raise aiida.common.EntryPointError: if the specified plugin does not exist.</span>
+<span class="sd">        :raise ValueError: if no default plugin was specified.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.plugins</span> <span class="k">import</span> <span class="n">CalculationFactory</span>
+        <span class="n">plugin_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input_plugin_name</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You did not specify a default input plugin for this code&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">CalculationFactory</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EntryPointError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">EntryPointError</span><span class="p">(</span><span class="s1">&#39;the calculation entry point `</span><span class="si">{}</span><span class="s1">` could not be loaded&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">))</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">get_builder</span><span class="p">()</span>
+        <span class="c1"># Setup the code already</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="k">return</span> <span class="n">builder</span></div>
+
+<div class="viewcode-block" id="Code.full_text_info"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.full_text_info">[docs]</a>    <span class="k">def</span> <span class="nf">full_text_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a (multiline) string with a human-readable detailed information on this computer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.warnings</span> <span class="k">import</span> <span class="n">AiidaDeprecationWarning</span> <span class="k">as</span> <span class="ne">DeprecationWarning</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;This method has been deprecated and will be renamed to get_full_text_info() in AiiDA v1.0&#39;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_text_info</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Code.get_full_text_info"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.Code.get_full_text_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_text_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a (multiline) string with a human-readable detailed information on this computer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;PK&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">])</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;UUID&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">])</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">])</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Description&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">])</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Default plugin&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input_plugin_name</span><span class="p">()])</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Calculations&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_outgoing</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">())])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">():</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Exec name&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_execname</span><span class="p">()])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;List of files/folders:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_object_names</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">_get_folder_pathsubfolder</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;directory&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Remote machine&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_computer</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Remote absolute path&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_exec_path</span><span class="p">()])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_prepend_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Prepend text&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_prepend_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Prepend text&#39;</span><span class="p">,</span> <span class="s1">&#39;No prepend text&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_append_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Append text&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_append_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;Append text&#39;</span><span class="p">,</span> <span class="s1">&#39;No append text&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Code.setup"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.Code.setup">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># raise NotImplementedError</span>
+        <span class="kn">from</span> <span class="nn">aiida.cmdline.commands.code</span> <span class="k">import</span> <span class="n">CodeInputValidationClass</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">CodeInputValidationClass</span><span class="p">()</span><span class="o">.</span><span class="n">set_and_validate_from_code</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;Unable to store the computer: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">code</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

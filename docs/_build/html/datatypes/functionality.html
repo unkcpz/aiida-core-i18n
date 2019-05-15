@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Export data nodes to various formats &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Groups" href="../working_with_aiida/groups.html" />
+    <link rel="prev" title="BandsData" href="bands.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html">AiiDA data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kpoints.html">Automatic computation of k-point paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bands.html">BandsData</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Export data nodes to various formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-from-the-command-line">Exporting from the command line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#export-formats-for-specific-data-types">Export formats for specific Data types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structuredata">StructureData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trajectorydata">TrajectoryData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bandsdata">BandsData</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../working_with_aiida/index.html">Command line interface</a> &raquo;</li>
+        
+      <li>Export data nodes to various formats</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/datatypes/functionality.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="export-data-nodes-to-various-formats">
+<span id="exportdatanodes"></span><h1>Export data nodes to various formats<a class="headerlink" href="#export-data-nodes-to-various-formats" title="Permalink to this headline">¶</a></h1>
+<p>Each data node has a <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data.export" title="aiida.orm.nodes.data.data.Data.export"><code class="xref py py-meth docutils literal notranslate"><span class="pre">export()</span></code></a> method
+that allows to export the given data node to file in a variety of available formats,
+e.g. to pass it to a visualization software.</p>
+<p>The <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data.export" title="aiida.orm.nodes.data.data.Data.export"><code class="xref py py-meth docutils literal notranslate"><span class="pre">export()</span></code></a> method asks for a filename, and it will
+write to file the result. It is possible that more than one file is written (example:
+if you produce a gnuplot script, the data will typically be in a different .dat file).
+The return value of the function is a list of files that have been created.</p>
+<p>The list of export formats depends on the specific Data plugin. The export format is
+typically inferred from the file extension, but if this is not possible (or you
+want to specify a given format), you can pass an additional <code class="docutils literal notranslate"><span class="pre">fileformat</span></code> parameter
+to <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data.export" title="aiida.orm.nodes.data.data.Data.export"><code class="xref py py-meth docutils literal notranslate"><span class="pre">export()</span></code></a>.
+The list of all valid export formats can be obtained calling
+<code class="docutils literal notranslate"><span class="pre">Data.get_export_formats()</span></code> method, that returns a list of strings with all valid
+formats.</p>
+<p>If you don’t want to export directly to a file, but want to get simply the content
+of the file as a string, then you can call the <a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data._exportcontent" title="aiida.orm.nodes.data.data.Data._exportcontent"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_exportcontent()</span></code></a>
+method, passing also a <code class="docutils literal notranslate"><span class="pre">fileformat</span></code> parameter.
+The return value is a tuple of length 2: the first element is a string
+with the content of the “main” file, while the second is a dictionary (possibly empty)
+with a list of additional files that should be created/needed: the keys are filenames,
+and the values are the files content.</p>
+<div class="section" id="exporting-from-the-command-line">
+<h2>Exporting from the command line<a class="headerlink" href="#exporting-from-the-command-line" title="Permalink to this headline">¶</a></h2>
+<p>Most data types expose the export functionality on the command line.</p>
+<p>For instance, if you want to export a StructureData object with given <code class="docutils literal notranslate"><span class="pre">PK</span></code>, you can
+run on the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">verdi</span> <span class="n">data</span> <span class="n">structure</span> <span class="n">export</span> <span class="n">PK</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT_NAME</span>
+</pre></div>
+</div>
+<p>that will export the node with PK=``PK`` in the format <code class="docutils literal notranslate"><span class="pre">FORMAT_NAME</span></code>.
+This will print on screen the file content; a few command line options allow to change this
+behaviour:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">FILENAME</span></code> asks to write directly on a file named <code class="docutils literal notranslate"><span class="pre">FILENAME</span></code>. This is
+compulsory in some cases, e.g. if more than one file needs to be created.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-y</span></code> asks to overwrite the file(s), if present. If not specified, the call will fail
+if any of the files to create are present.</li>
+</ul>
+<p>Additional options (often format-specific) exist, and can be discovered passing the <code class="docutils literal notranslate"><span class="pre">-h</span></code>
+option to the command line. For instance:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">data</span> <span class="pre">structure</span> <span class="pre">export</span></code> accepts a number of formats including <code class="docutils literal notranslate"><span class="pre">xsf</span></code>, <code class="docutils literal notranslate"><span class="pre">cif</span></code>, <code class="docutils literal notranslate"><span class="pre">xyz</span></code>
+and <code class="docutils literal notranslate"><span class="pre">tcod</span></code>, and additional parameters like <code class="docutils literal notranslate"><span class="pre">--no-reduce-symmetry</span></code> (to be used in combination
+with the <code class="docutils literal notranslate"><span class="pre">tcod</span></code> format to tell AiiDA not to try to reduce simmetry in the output CIF file, etc.</li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">data</span> <span class="pre">trajectory</span> <span class="pre">export</span></code> accepts a number of formats including <code class="docutils literal notranslate"><span class="pre">xsf</span></code>, <code class="docutils literal notranslate"><span class="pre">cif</span></code>
+and <code class="docutils literal notranslate"><span class="pre">tcod</span></code>, and additional parameters like <code class="docutils literal notranslate"><span class="pre">--step</span> <span class="pre">NUM</span></code> (to choose to export only a
+given trajectory step).</li>
+<li><code class="docutils literal notranslate"><span class="pre">verdi</span> <span class="pre">data</span> <span class="pre">bands</span> <span class="pre">export</span></code> accepts a number of formats including
+(see also below) and additional parameters like <code class="docutils literal notranslate"><span class="pre">--prettify-format</span> <span class="pre">FORMATNAME</span></code>,
+see valid formats below, or <code class="docutils literal notranslate"><span class="pre">--y-min-lim</span></code>, <code class="docutils literal notranslate"><span class="pre">--y-max-lim</span></code> to specify the <code class="docutils literal notranslate"><span class="pre">y</span></code>-axis
+limits.</li>
+</ul>
+</div>
+<div class="section" id="export-formats-for-specific-data-types">
+<h2>Export formats for specific Data types<a class="headerlink" href="#export-formats-for-specific-data-types" title="Permalink to this headline">¶</a></h2>
+<p>As the formats are specific to the data types, here is a list of some of the
+export formats available for some of the AiiDA data classes.</p>
+<div class="section" id="structuredata">
+<h3>StructureData<a class="headerlink" href="#structuredata" title="Permalink to this headline">¶</a></h3>
+<p>The following export formats are available:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">xsf</span></code> (format supported by e.g. XCrySDen and other visualization software;
+supports periodic cells)</li>
+<li><code class="docutils literal notranslate"><span class="pre">xyz</span></code> (classical xyz format, does not typically support periodic cells (even if
+the cell is indicated in the comment line)</li>
+<li><code class="docutils literal notranslate"><span class="pre">cif</span></code> (export to CIF format, without symmetry reduction, i.e. always storing the
+structure as P1 symmetry)</li>
+<li><code class="docutils literal notranslate"><span class="pre">tcod</span></code> (extension to the CIF format, supports symmetry reduction, and typically adds
+in the CIF file a number of additional information, including the full provenance of
+the crystal structure node)</li>
+</ul>
+</div>
+<div class="section" id="trajectorydata">
+<h3>TrajectoryData<a class="headerlink" href="#trajectorydata" title="Permalink to this headline">¶</a></h3>
+<p>The following export formats are available:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">xsf</span></code> (format supported by e.g. XCrySDen and other visualization software;
+supports periodic cells)</li>
+<li><code class="docutils literal notranslate"><span class="pre">cif</span></code> (export to CIF format, without symmetry reduction, i.e. always storing the
+structures as P1 symmetry)</li>
+<li><code class="docutils literal notranslate"><span class="pre">tcod</span></code> (extension to the CIF format, supports symmetry reduction, and typically adds
+in the CIF file a number of additional information, including the full provenance of
+the crystal trajecotry node)</li>
+</ul>
+</div>
+<div class="section" id="bandsdata">
+<h3>BandsData<a class="headerlink" href="#bandsdata" title="Permalink to this headline">¶</a></h3>
+<p>The following export formats are available:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">agr</span></code>: export a Xmgrace .agr file with the band plot</li>
+<li><code class="docutils literal notranslate"><span class="pre">agr_batch</span></code>: export a Xmgrace batch file together with an independent .dat file</li>
+<li><code class="docutils literal notranslate"><span class="pre">dat_blocks</span></code>: export a .dat file, where each line has a data point (xy) and
+bands are separated in blocks with empty lines</li>
+<li><code class="docutils literal notranslate"><span class="pre">dat_multicolumn</span></code>: export a .dat file, where each line has all the values for
+a given x coordinate: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">y1</span> <span class="pre">y2</span> <span class="pre">y3</span> <span class="pre">y4</span> <span class="pre">...</span></code> (<code class="docutils literal notranslate"><span class="pre">x</span></code> being a linear coordinate along
+the band path and <code class="docutils literal notranslate"><span class="pre">yN</span></code> being the band energies)</li>
+<li><code class="docutils literal notranslate"><span class="pre">gnuplot</span></code>: export a gnuplot file, together with a .dat file</li>
+<li><code class="docutils literal notranslate"><span class="pre">json</span></code>: export a json file with the bands divided into segments</li>
+<li><code class="docutils literal notranslate"><span class="pre">mpl_singlefile</span></code>: export a python file that when executed shows a plot using the
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> module. All data is included in the same python file as a multiline string
+containing the data in json format.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mpl_withjson</span></code>: As above, but the json data is stored separately in a different file</li>
+<li><code class="docutils literal notranslate"><span class="pre">mpl_pdf</span></code>: As above, but after creating the .py file it runs it to export the
+band structure in a PDF file (vectorial). <strong>NOTE</strong>: it requires that you have the python
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> module installed. If <code class="docutils literal notranslate"><span class="pre">use_latex</span></code> is true, it requires that you have
+LaTeX installed on your system to typeset the labels, as well as the <code class="docutils literal notranslate"><span class="pre">dvipng</span></code> binary.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mpl_png</span></code>: As above, but after creating the .py file it runs it to export the
+band structure in a PDF file (vectorial). <strong>NOTE</strong>: this format has the same dependencies as
+the <code class="docutils literal notranslate"><span class="pre">mpl_pdf</span></code> format above.</li>
+</ul>
+<div class="section" id="label-prettifiers">
+<h4>Label prettifiers<a class="headerlink" href="#label-prettifiers" title="Permalink to this headline">¶</a></h4>
+<p>AiiDA provides a number of functions to “prettify” the labels of band structures
+(if labels are present in the data node), i.e., replace <code class="docutils literal notranslate"><span class="pre">GAMMA</span></code> with
+<span class="math">\Gamma</span> or <code class="docutils literal notranslate"><span class="pre">K_1</span></code> with <span class="math">K_{1}</span> for instance.
+This makes sense for some output formats (e.g. Xmgrace, Gnuplot,
+matplotlib).</p>
+<p>The prettifier functions are defined as methods of the
+<a class="reference internal" href="../apidoc/aiida.common.html#aiida.common.utils.Prettifier" title="aiida.common.utils.Prettifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Prettifier</span></code></a> class.
+and can be obtained calling
+<a class="reference internal" href="../apidoc/aiida.common.html#aiida.common.utils.Prettifier.get_prettifiers" title="aiida.common.utils.Prettifier.get_prettifiers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Prettifier.get_prettifiers()</span></code></a>.</p>
+<p>The prettifiers should be chosen depending on two aspects:</p>
+<ol class="arabic simple">
+<li>how the raw labels are stored in the database. Two types exist currently:
+<code class="docutils literal notranslate"><span class="pre">seekpath</span></code>, as used in the <code class="docutils literal notranslate"><span class="pre">seekpath</span></code> module, where Greek letters are
+written explicitly (e.g. <code class="docutils literal notranslate"><span class="pre">GAMMA</span></code>) and underscores are used to indicate a
+subscript (<code class="docutils literal notranslate"><span class="pre">K_1</span></code>); and the “old” <code class="docutils literal notranslate"><span class="pre">simple</span></code> format, where
+<span class="math">\Gamma</span> is indicated with <code class="docutils literal notranslate"><span class="pre">G</span></code> and there is no underscore symbol).</li>
+<li>depending on the output format: xmgrace has a specific syntax for Greek letters
+and subscripts, matplotlib uses LaTeX syntax, etc.</li>
+</ol>
+<p>Most export formats already decide which prettifier is best to use, but if you need
+to change it, you can do it passing the <code class="docutils literal notranslate"><span class="pre">prettify_format</span></code> parameter to the
+<a class="reference internal" href="../apidoc/aiida.orm.nodes.data.html#aiida.orm.nodes.data.data.Data.export" title="aiida.orm.nodes.data.data.Data.export"><code class="xref py py-meth docutils literal notranslate"><span class="pre">export()</span></code></a> method. Valid prettifiers include:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">'agr_seekpath</span></code>: format for Xmgrace, using <code class="docutils literal notranslate"><span class="pre">seekpath</span></code> raw label syntax</li>
+<li><code class="docutils literal notranslate"><span class="pre">agr_simple</span></code>: format for Xmgrace, using <code class="docutils literal notranslate"><span class="pre">simple</span></code> raw label syntax</li>
+<li><code class="docutils literal notranslate"><span class="pre">latex_simple</span></code>: format for LaTeX (including dollar signs), using <code class="docutils literal notranslate"><span class="pre">seekpath</span></code> raw label syntax</li>
+<li><code class="docutils literal notranslate"><span class="pre">latex_seekpath</span></code>: format for LaTeX (including dollar signs), using <code class="docutils literal notranslate"><span class="pre">simple</span></code> raw label syntax</li>
+<li><code class="docutils literal notranslate"><span class="pre">gnuplot_simple</span></code>: format for GNUPlot (Unicode for Greek letters, LaTeX syntax <cite>without</cite> dollar signs for underscores), using <code class="docutils literal notranslate"><span class="pre">seekpath</span></code> raw label syntax</li>
+<li>gnuplot_seekpath``: format for GNUPlot (Unicode for Greek letters, LaTeX syntax <cite>without</cite> dollar signs for underscores), using <code class="docutils literal notranslate"><span class="pre">simple</span></code> raw label syntax</li>
+<li><code class="docutils literal notranslate"><span class="pre">pass</span></code>: no-op prettifier: leaves all strings unchanged to their raw value</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../working_with_aiida/groups.html" class="btn btn-neutral float-right" title="Groups" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bands.html" class="btn btn-neutral float-left" title="BandsData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

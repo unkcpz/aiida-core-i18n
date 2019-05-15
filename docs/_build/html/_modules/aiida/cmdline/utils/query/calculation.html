@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.cmdline.utils.query.calculation &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.cmdline.utils.query.calculation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.cmdline.utils.query.calculation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;A utility module with a factory of standard QueryBuilder instances for Calculation nodes.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">classproperty</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.utils.query.mapping</span> <span class="k">import</span> <span class="n">CalculationProjectionMapper</span>
+
+
+<div class="viewcode-block" id="CalculationQueryBuilder"><a class="viewcode-back" href="../../../../../apidoc/aiida.cmdline.utils.query.html#aiida.cmdline.utils.query.calculation.CalculationQueryBuilder">[docs]</a><span class="k">class</span> <span class="nc">CalculationQueryBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;Utility class to construct a QueryBuilder instance for Calculation nodes and project the query set.&quot;&quot;&quot;</span>
+
+    <span class="c1"># This tuple serves to mark compound projections that cannot explicitly be projected in the QueryBuilder, but will</span>
+    <span class="c1"># have to be manually projected from composing its individual projection constituents</span>
+    <span class="n">_compound_projections</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,)</span>
+    <span class="n">_default_projections</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">,</span> <span class="s1">&#39;process_label&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;process_status&#39;</span><span class="p">)</span>
+    <span class="n">_valid_projections</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;uuid&#39;</span><span class="p">,</span> <span class="s1">&#39;ctime&#39;</span><span class="p">,</span> <span class="s1">&#39;mtime&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;process_state&#39;</span><span class="p">,</span> <span class="s1">&#39;process_status&#39;</span><span class="p">,</span> <span class="s1">&#39;exit_status&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;sealed&#39;</span><span class="p">,</span> <span class="s1">&#39;process_label&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;node_type&#39;</span><span class="p">,</span> <span class="s1">&#39;paused&#39;</span><span class="p">,</span> <span class="s1">&#39;process_type&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;job_state&#39;</span><span class="p">,</span> <span class="s1">&#39;scheduler_state&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CalculationQueryBuilder.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.cmdline.utils.query.html#aiida.cmdline.utils.query.calculation.CalculationQueryBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mapper</span> <span class="o">=</span> <span class="n">CalculationProjectionMapper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_valid_projections</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mapper</span> <span class="o">=</span> <span class="n">mapper</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mapper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapper</span>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">default_projections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_projections</span>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">valid_projections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_projections</span>
+
+<div class="viewcode-block" id="CalculationQueryBuilder.get_filters"><a class="viewcode-back" href="../../../../../apidoc/aiida.cmdline.utils.query.html#aiida.cmdline.utils.query.calculation.CalculationQueryBuilder.get_filters">[docs]</a>    <span class="k">def</span> <span class="nf">get_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">all_entries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">process_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exit_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">failed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">node_types</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a set of QueryBuilder filters based on typical command line options.</span>
+
+<span class="sd">        :param node_types: a tuple of node classes to filter for (must be sub classes of Calculation)</span>
+<span class="sd">        :param all_entries: boolean to negate filtering for process state</span>
+<span class="sd">        :param process_state: filter for this process state</span>
+<span class="sd">        :param exit_status: filter for this exit status</span>
+<span class="sd">        :param failed: boolean to filter only failed processes</span>
+<span class="sd">        :return: dictionary of filters suitable for a QueryBuilder.append() call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ProcessState</span>
+
+        <span class="n">exit_status_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;exit_status&#39;</span><span class="p">)</span>
+        <span class="n">process_state_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;process_state&#39;</span><span class="p">)</span>
+
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">node_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;or&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">node_class</span> <span class="ow">in</span> <span class="n">node_types</span><span class="p">:</span>
+                <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;or&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">node_class</span><span class="o">.</span><span class="n">class_node_type</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">process_state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">all_entries</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">process_state_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="n">process_state</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">failed</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">process_state_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="o">.</span><span class="n">value</span><span class="p">}</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">exit_status_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">exit_status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">process_state_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="o">.</span><span class="n">value</span><span class="p">}</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">exit_status_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">exit_status</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">filters</span></div>
+
+<div class="viewcode-block" id="CalculationQueryBuilder.get_query_set"><a class="viewcode-back" href="../../../../../apidoc/aiida.cmdline.utils.query.html#aiida.cmdline.utils.query.calculation.CalculationQueryBuilder.get_query_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_query_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relationships</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">past_days</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the query set of calculations for the given filters and query parameters</span>
+
+<span class="sd">        :param relationships: a mapping of relationships to join on, e.g. {&#39;with_node&#39;: Group} to join on a Group. The</span>
+<span class="sd">            keys in this dictionary should be the keyword used in the `append` method of the `QueryBuilder` to join the</span>
+<span class="sd">            entity on that is defined as the value.</span>
+<span class="sd">        :param filters: rules to filter query results with</span>
+<span class="sd">        :param order_by: order the query set by this criterion</span>
+<span class="sd">        :param past_days: only include entries from the last past days</span>
+<span class="sd">        :param limit: limit the query set to this number of entries</span>
+<span class="sd">        :return: the query set, a list of dictionaries</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+
+        <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+        <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+
+        <span class="c1"># Define the list of projections for the QueryBuilder, which are all valid minus the compound projections</span>
+        <span class="n">projected_attributes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="n">projection</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">projection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_projections</span>
+            <span class="k">if</span> <span class="n">projection</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compound_projections</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">filters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">past_days</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;ctime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">past_days</span><span class="p">)}</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">orm</span><span class="o">.</span><span class="n">ProcessNode</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">projected_attributes</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;process&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">relationships</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">relationships</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">builder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="p">),</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">entity</span><span class="o">.</span><span class="n">id</span><span class="p">},</span> <span class="o">**</span><span class="p">{</span><span class="n">tag</span><span class="p">:</span> <span class="s1">&#39;process&#39;</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="s1">&#39;process&#39;</span><span class="p">:</span> <span class="n">order_by</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="s1">&#39;process&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;ctime&#39;</span><span class="p">:</span> <span class="s1">&#39;asc&#39;</span><span class="p">}})</span>
+
+        <span class="k">if</span> <span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">iterdict</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CalculationQueryBuilder.get_projected"><a class="viewcode-back" href="../../../../../apidoc/aiida.cmdline.utils.query.html#aiida.cmdline.utils.query.calculation.CalculationQueryBuilder.get_projected">[docs]</a>    <span class="k">def</span> <span class="nf">get_projected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_set</span><span class="p">,</span> <span class="n">projections</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Project the query set for the given set of projections</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">projection</span><span class="p">)</span> <span class="k">for</span> <span class="n">projection</span> <span class="ow">in</span> <span class="n">projections</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">query_result</span> <span class="ow">in</span> <span class="n">query_set</span><span class="p">:</span>
+            <span class="n">result_row</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">projection</span><span class="p">,</span> <span class="n">query_result</span><span class="p">[</span><span class="s1">&#39;process&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">projection</span> <span class="ow">in</span> <span class="n">projections</span><span class="p">]</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_row</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

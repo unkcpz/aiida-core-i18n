@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.tools.visualization.graphviz &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.tools.visualization.graphviz</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.tools.visualization.graphviz</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Draw the provenance graphs</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+
+<div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../../apidoc/aiida.tools.visualization.html#aiida.tools.visualization.graphviz.draw_graph">[docs]</a><span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">origin_node</span><span class="p">,</span>
+               <span class="n">ancestor_depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">descendant_depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">,</span>
+               <span class="n">include_calculation_inputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="n">include_calculation_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The algorithm starts from the original node and goes both input-ward and output-ward via a breadth-first algorithm.</span>
+
+<span class="sd">    :param origin_node: An Aiida node, the starting point for drawing the graph</span>
+<span class="sd">    :param int ancestor_depth: The maximum depth of the ancestors drawn. If left to None, we recurse until the graph is</span>
+<span class="sd">        fully explored</span>
+<span class="sd">    :param int descendant_depth: The maximum depth of the descendants drawn. If left to None, we recurse until the graph</span>
+<span class="sd">        is fully explored</span>
+<span class="sd">    :param str image_format: The output plot format, by default dot</span>
+
+<span class="sd">    :returns: The exit_code of the subprocess.call() method that produced the valid file</span>
+<span class="sd">    :returns: The file name of the final output</span>
+
+<span class="sd">    ..note::</span>
+<span class="sd">        If an invalid format is provided graphviz prints a helpful message, so this doesn&#39;t need to be implemented here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># pylint: disable=too-many-locals,too-many-statements,too-many-branches</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">ProcessNode</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Code</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Node</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+
+    <span class="k">def</span> <span class="nf">draw_node_settings</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string with all infos needed in a .dot file  to define a node of a graph.</span>
+<span class="sd">        :param node:</span>
+<span class="sd">        :param kwargs: Additional key-value pairs to be added to the returned string</span>
+<span class="sd">        :return: a string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ProcessNode</span><span class="p">):</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;shape=polygon,sides=4&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">Code</span><span class="p">):</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;shape=diamond&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="s2">&quot;shape=ellipse&quot;</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">additional_params</span> <span class="o">=</span> <span class="s2">&quot;,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">additional_params</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">:</span>
+            <span class="n">label_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="n">additional_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">additional_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_description</span><span class="p">())</span>
+            <span class="n">label_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">labelstring</span> <span class="o">=</span> <span class="s1">&#39;label=&quot;</span><span class="si">{}</span><span class="s1"> (</span><span class="si">{}</span><span class="s1">)</span><span class="si">{}{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">label_string</span><span class="p">,</span> <span class="n">additional_string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;N</span><span class="si">{}</span><span class="s2"> [</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}{}</span><span class="s2">];&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">labelstring</span><span class="p">,</span> <span class="n">additional_params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">draw_link_settings</span><span class="p">(</span><span class="n">inp_id</span><span class="p">,</span> <span class="n">out_id</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a string with label information.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">link_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CREATE</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_CALC</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">INPUT_WORK</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;solid&#39;</span>  <span class="c1"># Solid lines and black colors</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;0.0 0.0 0.0&quot;</span>  <span class="c1"># for CREATE and INPUT (The provenance graph)</span>
+        <span class="k">elif</span> <span class="n">link_type</span> <span class="o">==</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">RETURN</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;dotted&#39;</span>  <span class="c1"># Dotted  lines of</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;0.0 0.0 0.0&quot;</span>  <span class="c1"># black color for Returns</span>
+        <span class="k">elif</span> <span class="n">link_type</span> <span class="o">==</span> <span class="p">(</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_CALC</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span>  <span class="c1"># Bold lines and</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;0.0 1.0 1.0&quot;</span>  <span class="c1"># Bright red for calls</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;solid&#39;</span>  <span class="c1"># Solid and</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;0.0 0.0 0.5&quot;</span>  <span class="c1">#grey lines for unspecified links!</span>
+        <span class="k">return</span> <span class="s1">&#39;    </span><span class="si">{}</span><span class="s1"> -&gt; </span><span class="si">{}</span><span class="s1"> [label=&quot;</span><span class="si">{}</span><span class="s1">&quot;, color=&quot;</span><span class="si">{}</span><span class="s1">&quot;, style=&quot;</span><span class="si">{}</span><span class="s1">&quot;];&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;N</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inp_id</span><span class="p">),</span> <span class="s2">&quot;N</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_id</span><span class="p">),</span>
+                                                                           <span class="n">link_label</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="p">)</span>
+
+    <span class="c1"># Breadth-first search of all ancestors and descendant nodes of a given node</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Accumulate links here</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">origin_node</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span> <span class="n">draw_node_settings</span><span class="p">(</span><span class="n">origin_node</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;filled&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+    <span class="p">}</span>  <span class="c1">#Accumulate nodes specs here</span>
+    <span class="c1"># Additional nodes (the ones added with either one of  include_calculation_inputs or include_calculation_outputs</span>
+    <span class="c1"># is set to true. I have to put them in a different dictionary because nodes is the one used for the recursion,</span>
+    <span class="c1"># whereas these should not be used for the recursion:</span>
+    <span class="n">additional_nodes</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">last_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">origin_node</span><span class="p">]</span>  <span class="c1"># Put the nodes whose links have not been scanned yet</span>
+
+    <span class="c1"># Go through the graph on-ward (i.e. look at inputs)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">last_nodes</span><span class="p">:</span>
+        <span class="c1"># I augment depth every time I get through a new iteration</span>
+        <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># I check whether I should stop here:</span>
+        <span class="k">if</span> <span class="n">ancestor_depth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="n">ancestor_depth</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="c1"># I continue by adding new nodes here!</span>
+        <span class="n">new_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">last_nodes</span><span class="p">:</span>
+            <span class="c1"># This query gives me all the inputs of this node, and link labels and types!</span>
+            <span class="n">input_query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+            <span class="n">input_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">},</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+            <span class="n">input_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">edge_project</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">),</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;inp&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">link_id</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span> <span class="ow">in</span> <span class="n">input_query</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+                <span class="c1"># I removed this check, to me there is no way that this link was already referred to!</span>
+                <span class="c1"># if link_id not in links:</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">link_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_link_settings</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span><span class="p">)</span>
+                <span class="c1"># For the nodes I need to check, maybe this same node is referred to multiple times.</span>
+                <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                    <span class="n">nodes</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_node_settings</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+                    <span class="n">new_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+
+            <span class="c1"># Checking whether I also should include all the outputs of a calculation into the drawing:</span>
+            <span class="k">if</span> <span class="n">include_calculation_outputs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ProcessNode</span><span class="p">):</span>
+                <span class="c1"># Query for the outputs, giving me also link labels and types:</span>
+                <span class="n">output_query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+                <span class="n">output_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">},</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+                <span class="n">output_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">Node</span><span class="p">,</span> <span class="n">with_incoming</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">edge_project</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">),</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+                <span class="c1"># Iterate through results</span>
+                <span class="k">for</span> <span class="n">out</span><span class="p">,</span> <span class="n">link_id</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span> <span class="ow">in</span> <span class="n">output_query</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+                    <span class="c1"># This link might have been drawn already, because the output is maybe</span>
+                    <span class="c1"># already drawn.</span>
+                    <span class="c1"># To check: Maybe it&#39;s more efficient not to check this, since</span>
+                    <span class="c1"># the dictionaries are large and contain many keys...</span>
+                    <span class="c1"># I.e. just always draw, also when overwriting an existing (identical) entry.</span>
+                    <span class="k">if</span> <span class="n">link_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+                        <span class="n">links</span><span class="p">[</span><span class="n">link_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_link_settings</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">additional_nodes</span><span class="p">:</span>
+                        <span class="n">additional_nodes</span><span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_node_settings</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+        <span class="n">last_nodes</span> <span class="o">=</span> <span class="n">new_nodes</span>
+
+    <span class="c1"># Go through the graph down-ward (i.e. look at outputs)</span>
+    <span class="n">last_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">origin_node</span><span class="p">]</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">last_nodes</span><span class="p">:</span>
+        <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Also here, checking of maximum descendant depth is set and applies.</span>
+        <span class="k">if</span> <span class="n">descendant_depth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="n">descendant_depth</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">new_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">last_nodes</span><span class="p">:</span>
+            <span class="c1"># Query for the outputs:</span>
+            <span class="n">output_query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+            <span class="n">output_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">},</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+            <span class="n">output_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">with_incoming</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">edge_project</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">),</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">out</span><span class="p">,</span> <span class="n">link_id</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span> <span class="ow">in</span> <span class="n">output_query</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+                <span class="c1"># Draw the link</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">link_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_link_settings</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                    <span class="n">nodes</span><span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_node_settings</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+                    <span class="n">new_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">include_calculation_inputs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ProcessNode</span><span class="p">):</span>
+                <span class="n">input_query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+                <span class="n">input_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">},</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+                <span class="n">input_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">Node</span><span class="p">,</span> <span class="n">with_outgoing</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">edge_project</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">),</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;inp&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">link_id</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span> <span class="ow">in</span> <span class="n">input_query</span><span class="o">.</span><span class="n">iterall</span><span class="p">():</span>
+                    <span class="c1"># Also here, maybe it&#39;s just better not to check?</span>
+                    <span class="k">if</span> <span class="n">link_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+                        <span class="n">links</span><span class="p">[</span><span class="n">link_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_link_settings</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">link_label</span><span class="p">,</span> <span class="n">link_type</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="n">inp</span><span class="o">.</span><span class="n">pk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">additional_nodes</span><span class="p">:</span>
+                        <span class="n">additional_nodes</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">draw_node_settings</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+        <span class="n">last_nodes</span> <span class="o">=</span> <span class="n">new_nodes</span>
+
+    <span class="c1"># Writing the graph to a temporary file</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">fname</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.dot&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fhandle</span><span class="p">:</span>
+        <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;digraph G {</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">l_values</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;    </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l_values</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">n_values</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;    </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_values</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">n_values</span> <span class="ow">in</span> <span class="n">additional_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;    </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_values</span><span class="p">))</span>
+        <span class="n">fhandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Now I am producing the output file</span>
+    <span class="n">output_file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">.</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">origin_node</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">image_format</span><span class="p">)</span>
+    <span class="c1"># Try and convert the .dot file using the `dot` utility from graphviz</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">exit_code</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;dot&#39;</span><span class="p">,</span> <span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="n">image_format</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">output_file_name</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;call to `dot` failed: perhaps graphviz is not installed?&#39;</span><span class="p">)</span>
+
+    <span class="c1"># cleaning up by removing the temporary file</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">exit_code</span><span class="p">,</span> <span class="n">output_file_name</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

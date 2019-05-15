@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.backends.tests.cmdline.commands.test_process &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../../../tests.html">aiida.backends.tests</a> &raquo;</li>
+        
+      <li>aiida.backends.tests.cmdline.commands.test_process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.backends.tests.cmdline.commands.test_process</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Tests for `verdi process`.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="k">import</span> <span class="n">Future</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">from</span> <span class="nn">click.testing</span> <span class="k">import</span> <span class="n">CliRunner</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="k">import</span> <span class="n">gen</span>
+<span class="kn">import</span> <span class="nn">kiwipy</span>
+<span class="kn">import</span> <span class="nn">plumpy</span>
+
+<span class="kn">from</span> <span class="nn">aiida.backends.testbase</span> <span class="k">import</span> <span class="n">AiidaTestCase</span>
+<span class="kn">from</span> <span class="nn">aiida.backends.tests.utils</span> <span class="k">import</span> <span class="n">processes</span> <span class="k">as</span> <span class="n">test_processes</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.commands</span> <span class="k">import</span> <span class="n">cmd_process</span>
+<span class="kn">from</span> <span class="nn">aiida.common.links</span> <span class="k">import</span> <span class="n">LinkType</span>
+<span class="kn">from</span> <span class="nn">aiida.common.log</span> <span class="k">import</span> <span class="n">LOG_LEVEL_REPORT</span>
+<span class="kn">from</span> <span class="nn">aiida.manage.manager</span> <span class="k">import</span> <span class="n">get_manager</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">WorkflowNode</span><span class="p">,</span> <span class="n">WorkFunctionNode</span><span class="p">,</span> <span class="n">WorkChainNode</span>
+
+
+<div class="viewcode-block" id="get_result_lines"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.get_result_lines">[docs]</a><span class="k">def</span> <span class="nf">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="TestVerdiProcessDaemon"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessDaemon">[docs]</a><span class="k">class</span> <span class="nc">TestVerdiProcessDaemon</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests for `verdi process` that require a running daemon.&quot;&quot;&quot;</span>
+
+    <span class="n">TEST_TIMEOUT</span> <span class="o">=</span> <span class="mf">5.</span>
+
+<div class="viewcode-block" id="TestVerdiProcessDaemon.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessDaemon.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcessDaemon</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="kn">from</span> <span class="nn">aiida.manage.configuration</span> <span class="k">import</span> <span class="n">get_config</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine.daemon.client</span> <span class="k">import</span> <span class="n">DaemonClient</span>
+
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span><span class="o">.</span><span class="n">current_profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">daemon_client</span> <span class="o">=</span> <span class="n">DaemonClient</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">daemon_pid</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">daemon_client</span><span class="o">.</span><span class="n">cmd_string</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">stderr</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span><span class="o">.</span><span class="n">pid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runner</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span><span class="o">.</span><span class="n">create_runner</span><span class="p">(</span><span class="n">rmq_submit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcessDaemon.tearDown"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessDaemon.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="kn">import</span> <span class="nn">signal</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">daemon_pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcessDaemon</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcessDaemon.test_pause_play_kill"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessDaemon.test_pause_play_kill">[docs]</a>    <span class="k">def</span> <span class="nf">test_pause_play_kill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test the pause/play/kill commands</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=no-member</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">load_node</span>
+
+        <span class="n">calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test_processes</span><span class="o">.</span><span class="n">WaitProcess</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">calc</span><span class="o">.</span><span class="n">process_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">plumpy</span><span class="o">.</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEST_TIMEOUT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;Timed out waiting for process to enter waiting state&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Make sure that calling any command on a non-existing process id will not except but print an error</span>
+        <span class="c1"># To simulate a process without a corresponding task, we simply create a node and store it. This node will not</span>
+        <span class="c1"># have an associated task at RabbitMQ, but it will be a valid `ProcessNode` so it will pass the initial</span>
+        <span class="c1"># filtering of the `verdi process` commands</span>
+        <span class="n">orphaned_node</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">non_existing_process_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">orphaned_node</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_pause</span><span class="p">,</span> <span class="n">cmd_process</span><span class="o">.</span><span class="n">process_play</span><span class="p">,</span> <span class="n">cmd_process</span><span class="o">.</span><span class="n">process_kill</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="p">[</span><span class="n">non_existing_process_id</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertClickResultNoException</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">paused</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_pause</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="c1"># We need to make sure that the process is picked up by the daemon and put in the Waiting state before we start</span>
+        <span class="c1"># running the CLI commands, so we add a broadcast subscriber for the state change, which when hit will set the</span>
+        <span class="c1"># future to True. This will be our signal that we can start testing</span>
+        <span class="n">waiting_future</span> <span class="o">=</span> <span class="n">Future</span><span class="p">()</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="n">kiwipy</span><span class="o">.</span><span class="n">BroadcastFilter</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">waiting_future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">sender</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;state_changed.*.waiting&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">communicator</span><span class="o">.</span><span class="n">add_broadcast_subscriber</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+
+        <span class="c1"># The process may already have been picked up by the daemon and put in the waiting state, before the subscriber</span>
+        <span class="c1"># got the chance to attach itself, making it have missed the broadcast. That&#39;s why check if the state is already</span>
+        <span class="c1"># waiting, and if not, we run the loop of the runner to start waiting for the broadcast message. To make sure</span>
+        <span class="c1"># that we have the latest state of the node as it is in the database, we force refresh it by reloading it.</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">load_node</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">process_state</span> <span class="o">!=</span> <span class="n">plumpy</span><span class="o">.</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">run_sync</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">with_timeout</span><span class="p">(</span><span class="n">waiting_future</span><span class="p">))</span>
+
+        <span class="c1"># Here we now that the process is with the daemon runner and in the waiting state so we can starting running</span>
+        <span class="c1"># the `verdi process` commands that we want to test</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_pause</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;--wait&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">paused</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_play</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;--wait&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">paused</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_kill</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;--wait&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">is_terminated</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">is_killed</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestVerdiProcess"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess">[docs]</a><span class="k">class</span> <span class="nc">TestVerdiProcess</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests for `verdi process`.&quot;&quot;&quot;</span>
+
+    <span class="n">TEST_TIMEOUT</span> <span class="o">=</span> <span class="mf">5.</span>
+
+<div class="viewcode-block" id="TestVerdiProcess.setUpClass"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcess</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ProcessState</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.groups</span> <span class="k">import</span> <span class="n">Group</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Create 6 WorkFunctionNodes and WorkChainNodes (one for each ProcessState)</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">ProcessState</span><span class="p">:</span>
+
+            <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+            <span class="c1"># Set the WorkFunctionNode as successful</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">:</span>
+                <span class="n">calc</span><span class="o">.</span><span class="n">set_exit_status</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc</span><span class="p">)</span>
+
+            <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+            <span class="c1"># Set the WorkChainNode as failed</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">:</span>
+                <span class="n">calc</span><span class="o">.</span><span class="n">set_exit_status</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc</span><span class="p">)</span>
+
+        <span class="bp">cls</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span><span class="s1">&#39;some_group&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">add_nodes</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">calcs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_list"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_list">[docs]</a>    <span class="k">def</span> <span class="nf">test_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the list command.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Default behavior should yield all active states (CREATED, RUNNING and WAITING) so six in total</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">6</span><span class="p">)</span>
+
+        <span class="c1"># Adding the all option should return all entries regardless of process state</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="s1">&#39;--all&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">12</span><span class="p">)</span>
+
+        <span class="c1"># Passing the limit option should limit the results</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--limit&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">6</span><span class="p">)</span>
+
+        <span class="c1"># Filtering for a specific process state</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-S&#39;</span><span class="p">,</span> <span class="s1">&#39;--process-state&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">flag_value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;created&#39;</span><span class="p">,</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span> <span class="s1">&#39;waiting&#39;</span><span class="p">,</span> <span class="s1">&#39;killed&#39;</span><span class="p">,</span> <span class="s1">&#39;excepted&#39;</span><span class="p">,</span> <span class="s1">&#39;finished&#39;</span><span class="p">]:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">flag_value</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Filtering for exit status should only get us one</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-E&#39;</span><span class="p">,</span> <span class="s1">&#39;--exit-status&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">exit_status</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">exit_status</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Passing the failed flag as a shortcut for FINISHED + non-zero exit status</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-X&#39;</span><span class="p">,</span> <span class="s1">&#39;--failed&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Projecting on pk should allow us to verify all the pks</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="s1">&#39;--project&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="s1">&#39;pk&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">6</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">calc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">calcs</span><span class="p">])</span>
+
+        <span class="c1"># The group option should limit the query set to nodes in the group</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-G&#39;</span><span class="p">,</span> <span class="s1">&#39;--group&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertClickResultNoException</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calcs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pk</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_list_worker_slot_warning"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_list_worker_slot_warning">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_worker_slot_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that the if the number of used worker process slots exceeds a threshold,</span>
+<span class="sd">        that the warning message is displayed to the user when running `verdi process list`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ProcessState</span>
+
+        <span class="c1"># Get the number of allowed processes per worker:</span>
+        <span class="kn">from</span> <span class="nn">aiida.manage.external.rmq</span> <span class="k">import</span> <span class="n">_RMQ_TASK_PREFETCH_COUNT</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_RMQ_TASK_PREFETCH_COUNT</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span>
+
+        <span class="c1"># Create additional active nodes such that we have 90% of the active slot limit</span>
+        <span class="c1"># (including the 6 active nodes created in the class setup fixture)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">moves</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">limit</span> <span class="o">-</span> <span class="mi">6</span><span class="p">):</span>
+            <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Override the call to the circus client to retrieve the number of workers</span>
+        <span class="c1"># As we don&#39;t have a running circus client, this will normally fail, so here we simulate the</span>
+        <span class="c1"># response by redefining the function to get the final value we want.</span>
+        <span class="kn">import</span> <span class="nn">aiida.cmdline.utils.common</span>
+        <span class="n">real_get_num_workers</span> <span class="o">=</span> <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span>
+        <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">1</span>
+
+        <span class="c1"># Default cmd should not throw the warning as we are below the limit</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">warning_phrase</span> <span class="o">=</span> <span class="s2">&quot;of the available daemon worker slots have been used!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="n">warning_phrase</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)]))</span>
+
+        <span class="c1"># Add one more running node to put us over the limit</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Now the warning should fire</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">warning_phrase</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the available daemon worker slots have been used!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">any</span><span class="p">([</span><span class="n">warning_phrase</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)]))</span>
+
+        <span class="c1"># Reset the redifined function</span>
+        <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span> <span class="o">=</span> <span class="n">real_get_num_workers</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_process_show"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_process_show">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi process show&quot;&quot;&quot;</span>
+        <span class="c1"># We must choose a Node we can store</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Running without identifiers should not except and not print anything</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving a single identifier should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertClickResultNoException</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving multiple identifiers should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">calc</span> <span class="ow">in</span> <span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_process_report"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_process_report">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi process report&quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">WorkflowNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Running without identifiers should not except and not print anything</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving a single identifier should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">pk</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving multiple identifiers should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">calc</span> <span class="ow">in</span> <span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_report"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_report">[docs]</a>    <span class="k">def</span> <span class="nf">test_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the report command.&quot;&quot;&quot;</span>
+        <span class="n">grandparent</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span>
+
+        <span class="n">parent</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">grandparent</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;link&#39;</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">add_incoming</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">link_type</span><span class="o">=</span><span class="n">LinkType</span><span class="o">.</span><span class="n">CALL_WORK</span><span class="p">,</span> <span class="n">link_label</span><span class="o">=</span><span class="s1">&#39;link&#39;</span><span class="p">)</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="n">grandparent</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">,</span> <span class="s1">&#39;grandparent_message&#39;</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">,</span> <span class="s1">&#39;parent_message&#39;</span><span class="p">)</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">LOG_LEVEL_REPORT</span><span class="p">,</span> <span class="s1">&#39;child_message&#39;</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">grandparent</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertClickResultNoException</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Max depth should limit nesting level</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-depth&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">flag_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span>
+                                                <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">grandparent</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span> <span class="n">flag</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">flag_value</span><span class="p">)])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="n">flag_value</span><span class="p">)</span>
+
+        <span class="c1"># Filtering for other level name such as WARNING should not have any hits and only print the no log message</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--levelname&#39;</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_report</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">grandparent</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span> <span class="n">flag</span><span class="p">,</span> <span class="s1">&#39;WARNING&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;No log messages recorded for this entry&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcess.test_work_show"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcess.test_work_show">[docs]</a>    <span class="k">def</span> <span class="nf">test_work_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test verdi process show&quot;&quot;&quot;</span>
+        <span class="n">workchain_one</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">workchain_two</span> <span class="o">=</span> <span class="n">WorkChainNode</span><span class="p">()</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+        <span class="n">workchains</span> <span class="o">=</span> <span class="p">[</span><span class="n">workchain_one</span><span class="p">,</span> <span class="n">workchain_two</span><span class="p">]</span>
+
+        <span class="c1"># Running without identifiers should not except and not print anything</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving a single identifier should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">workchain_one</span><span class="o">.</span><span class="n">pk</span><span class="p">)]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertClickResultNoException</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Giving multiple identifiers should print a non empty string message</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">workchain</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">workchain</span> <span class="ow">in</span> <span class="n">workchains</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_show</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TestVerdiProcessListWarning"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessListWarning">[docs]</a><span class="k">class</span> <span class="nc">TestVerdiProcessListWarning</span><span class="p">(</span><span class="n">AiidaTestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tests for the `verdi process list` active slots warning.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestVerdiProcessListWarning.setUp"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessListWarning.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcessListWarning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span>
+        <span class="c1"># Override the call to the circus client to retrieve the number of workers</span>
+        <span class="c1"># As we don&#39;t have a running circus client, this will normally fail, so here we simulate the</span>
+        <span class="c1"># response by redefining the function to get the final value we want.</span>
+        <span class="kn">import</span> <span class="nn">aiida.cmdline.utils.common</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_get_num_workers</span> <span class="o">=</span> <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span>
+        <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcessListWarning.tearDown"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessListWarning.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Reset the redifined function</span>
+        <span class="kn">import</span> <span class="nn">aiida.cmdline.utils.common</span>
+        <span class="n">aiida</span><span class="o">.</span><span class="n">cmdline</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">get_num_workers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">real_get_num_workers</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TestVerdiProcessListWarning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestVerdiProcessListWarning.test_list_worker_slot_warning"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.TestVerdiProcessListWarning.test_list_worker_slot_warning">[docs]</a>    <span class="k">def</span> <span class="nf">test_list_worker_slot_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that the if the number of used worker process slots exceeds a threshold,</span>
+<span class="sd">        that the warning message is displayed to the user when running `verdi process list`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.engine</span> <span class="k">import</span> <span class="n">ProcessState</span>
+
+        <span class="c1"># Get the number of allowed processes per worker:</span>
+        <span class="kn">from</span> <span class="nn">aiida.manage.external.rmq</span> <span class="k">import</span> <span class="n">_RMQ_TASK_PREFETCH_COUNT</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_RMQ_TASK_PREFETCH_COUNT</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span>
+
+        <span class="c1"># Create additional active nodes such that we have 90% of the active slot limit</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">moves</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
+            <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+            <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Default cmd should not throw the warning as we are below the limit</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">warning_phrase</span> <span class="o">=</span> <span class="s2">&quot;of the available daemon worker slots have been used!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="n">warning_phrase</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)]))</span>
+
+        <span class="c1"># Add one more running node to put us over the limit</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">WorkFunctionNode</span><span class="p">()</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set_process_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+        <span class="c1"># Now the warning should fire</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cmd_process</span><span class="o">.</span><span class="n">process_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">warning_phrase</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the available daemon worker slots have been used!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">any</span><span class="p">([</span><span class="n">warning_phrase</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_result_lines</span><span class="p">(</span><span class="n">result</span><span class="p">)]))</span></div></div>
+
+
+<div class="viewcode-block" id="with_timeout"><a class="viewcode-back" href="../../../../../../apidoc/aiida.backends.tests.cmdline.commands.html#aiida.backends.tests.cmdline.commands.test_process.with_timeout">[docs]</a><span class="nd">@gen</span><span class="o">.</span><span class="n">coroutine</span>
+<span class="k">def</span> <span class="nf">with_timeout</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">gen</span><span class="o">.</span><span class="n">Return</span><span class="p">((</span><span class="k">yield</span> <span class="n">gen</span><span class="o">.</span><span class="n">with_timeout</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span> <span class="n">what</span><span class="p">)))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.common.utils &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.common.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.common.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Miscellaneous generic utility functions and classes.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">filecmp</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">range</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">cStringIO</span> <span class="k">as</span> <span class="n">StringIO</span>
+
+<span class="kn">from</span> <span class="nn">.lang</span> <span class="k">import</span> <span class="n">classproperty</span>
+
+
+<div class="viewcode-block" id="get_new_uuid"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.get_new_uuid">[docs]</a><span class="k">def</span> <span class="nf">get_new_uuid</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a new UUID (typically to be used for new nodes).</span>
+<span class="sd">    It uses the UUID version specified in</span>
+<span class="sd">    aiida.backends.settings.AIIDANODES_UUID_VERSION</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">uuid</span>
+    <span class="k">return</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span></div>
+
+
+<span class="c1"># To speed up the process (os.path.abspath calls are slow)</span>
+<span class="n">_repository_folder_cache</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># pylint: disable=invalid-name</span>
+
+
+<div class="viewcode-block" id="get_repository_folder"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.get_repository_folder">[docs]</a><span class="k">def</span> <span class="nf">get_repository_folder</span><span class="p">(</span><span class="n">subfolder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the top folder of the local repository.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_repository_folder_cache</span><span class="p">[</span><span class="n">subfolder</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">aiida.manage.configuration</span> <span class="k">import</span> <span class="n">get_profile</span>
+        <span class="n">repository_path</span> <span class="o">=</span> <span class="n">get_profile</span><span class="p">()</span><span class="o">.</span><span class="n">repository_path</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">repository_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span>
+        <span class="k">if</span> <span class="n">subfolder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">repository_path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">subfolder</span> <span class="o">==</span> <span class="s2">&quot;sandbox&quot;</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_path</span><span class="p">,</span> <span class="s1">&#39;sandbox&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">subfolder</span> <span class="o">==</span> <span class="s2">&quot;repository&quot;</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repository_path</span><span class="p">,</span> <span class="s1">&#39;repository&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;subfolder&#39; passed to get_repository_folder: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subfolder</span><span class="p">))</span>
+        <span class="n">_repository_folder_cache</span><span class="p">[</span><span class="n">subfolder</span><span class="p">]</span> <span class="o">=</span> <span class="n">retval</span>
+        <span class="k">return</span> <span class="n">retval</span></div>
+
+
+<div class="viewcode-block" id="validate_list_of_string_tuples"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.validate_list_of_string_tuples">[docs]</a><span class="k">def</span> <span class="nf">validate_list_of_string_tuples</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">tuple_length</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check that:</span>
+
+<span class="sd">    1. ``val`` is a list or tuple</span>
+<span class="sd">    2. each element of the list:</span>
+
+<span class="sd">      a. is a list or tuple</span>
+<span class="sd">      b. is of length equal to the parameter tuple_length</span>
+<span class="sd">      c. each of the two elements is a string</span>
+
+<span class="sd">    Return if valid, raise ValidationError if invalid</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ValidationError</span>
+
+    <span class="n">err_msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;the value must be a list (or tuple) &quot;</span>
+               <span class="s2">&quot;of length-N list (or tuples), whose elements are strings; &quot;</span>
+               <span class="s2">&quot;N=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tuple_length</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tuple_length</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">element</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="get_unique_filename"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.get_unique_filename">[docs]</a><span class="k">def</span> <span class="nf">get_unique_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">list_of_filenames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a unique filename that can be added to the list_of_filenames.</span>
+
+<span class="sd">    If filename is not in list_of_filenames, it simply returns the filename</span>
+<span class="sd">    string itself. Otherwise, it appends a integer number to the filename</span>
+<span class="sd">    (before the extension) until it finds a unique filename.</span>
+
+<span class="sd">    :param filename: the filename to add</span>
+<span class="sd">    :param list_of_filenames: the list of filenames to which filename</span>
+<span class="sd">        should be added, without name duplicates</span>
+
+<span class="sd">    :returns: Either filename or its modification, with a number appended</span>
+<span class="sd">        between the name and the extension.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">list_of_filenames</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">filename</span>
+
+    <span class="n">basename</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># Not optimized, but for the moment this should be fast enough</span>
+    <span class="n">append_int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">new_filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">-</span><span class="si">{:d}{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="n">append_int</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">list_of_filenames</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">append_int</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">new_filename</span></div>
+
+
+<div class="viewcode-block" id="str_timedelta"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.str_timedelta">[docs]</a><span class="k">def</span> <span class="nf">str_timedelta</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">max_num_fields</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">negative_to_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a dt in seconds, return it in a HH:MM:SS format.</span>
+
+<span class="sd">    :param dt: a TimeDelta object</span>
+<span class="sd">    :param max_num_fields: maximum number of non-zero fields to show</span>
+<span class="sd">        (for instance if the number of days is non-zero, shows only</span>
+<span class="sd">        days, hours and minutes, but not seconds)</span>
+<span class="sd">    :param short: if False, print always ``max_num_fields`` fields, even</span>
+<span class="sd">        if they are zero. If True, do not print the first fields, if they</span>
+<span class="sd">        are zero.</span>
+<span class="sd">    :param negative_to_zero: if True, set dt = 0 if dt &lt; 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">max_num_fields</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_num_fields must be &gt; 0&quot;</span><span class="p">)</span>
+
+    <span class="n">s_tot</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>  <span class="c1"># Important to get more than 1 day, and for</span>
+    <span class="c1"># negative values. dt.seconds would give</span>
+    <span class="c1"># wrong results in these cases, see</span>
+    <span class="c1"># http://docs.python.org/2/library/datetime.html</span>
+    <span class="n">s_tot</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s_tot</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">negative_to_zero</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s_tot</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s_tot</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">negative</span> <span class="o">=</span> <span class="p">(</span><span class="n">s_tot</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">s_tot</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_tot</span><span class="p">)</span>
+
+    <span class="n">negative_string</span> <span class="o">=</span> <span class="s2">&quot; in the future&quot;</span> <span class="k">if</span> <span class="n">negative</span> <span class="k">else</span> <span class="s2">&quot; ago&quot;</span>
+
+    <span class="c1"># For the moment stay away from months and years, difficult to get</span>
+    <span class="n">days</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">s_tot</span><span class="p">,</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">)</span>
+    <span class="n">hours</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="mi">3600</span><span class="p">)</span>
+    <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+
+    <span class="n">all_fields</span> <span class="o">=</span> <span class="p">[(</span><span class="n">days</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">seconds</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)]</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_insert</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_fields</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">start_insert</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_fields</span><span class="p">)</span> <span class="o">-</span> <span class="n">idx</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">max_num_fields</span><span class="p">:</span>
+            <span class="n">start_insert</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">start_insert</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;=</span> <span class="n">max_num_fields</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">short</span><span class="p">:</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># at least one element has to remain</span>
+            <span class="k">if</span> <span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># remove first element</span>
+
+    <span class="c1"># Join the fields</span>
+    <span class="n">raw_string</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:02d}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">raw_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">):</span>
+        <span class="n">raw_string</span> <span class="o">=</span> <span class="n">raw_string</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># Return the resulting string, appending a suitable string if the time</span>
+    <span class="c1"># is negative</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_string</span><span class="p">,</span> <span class="n">negative_string</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_class_string"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.get_class_string">[docs]</a><span class="k">def</span> <span class="nf">get_class_string</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the string identifying the class of the object (module + object name,</span>
+<span class="sd">    joined by dots).</span>
+
+<span class="sd">    It works both for classes and for class instances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_object_from_string"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.get_object_from_string">[docs]</a><span class="k">def</span> <span class="nf">get_object_from_string</span><span class="p">(</span><span class="n">class_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a string identifying an object (as returned by the get_class_string</span>
+<span class="sd">    method) load and return the actual object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">importlib</span>
+
+    <span class="n">the_module</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">the_name</span> <span class="o">=</span> <span class="n">class_string</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">the_module</span><span class="p">),</span> <span class="n">the_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="export_shard_uuid"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.export_shard_uuid">[docs]</a><span class="k">def</span> <span class="nf">export_shard_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sharding of the UUID for the import/export</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uuid</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">uuid</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">uuid</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span></div>
+
+
+<div class="viewcode-block" id="grouper"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.grouper">[docs]</a><span class="k">def</span> <span class="nf">grouper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given an iterable, returns an iterable that returns tuples of groups of</span>
+<span class="sd">    elements from iterable of length n, except the last one that has the</span>
+<span class="sd">    required length to exaust iterable (i.e., there is no filling applied).</span>
+
+<span class="sd">    :param n: length of each tuple (except the last one,that will have length</span>
+<span class="sd">       &lt;= n</span>
+<span class="sd">    :param iterable: the iterable to divide in groups</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">itertools</span>
+
+    <span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">chunk</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">yield</span> <span class="n">chunk</span></div>
+
+
+<div class="viewcode-block" id="ArrayCounter"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ArrayCounter">[docs]</a><span class="k">class</span> <span class="nc">ArrayCounter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A counter &amp; a method that increments it and returns its value.</span>
+<span class="sd">    It is used in various tests.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ArrayCounter.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ArrayCounter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="ArrayCounter.array_counter"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ArrayCounter.array_counter">[docs]</a>    <span class="k">def</span> <span class="nf">array_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq</span></div></div>
+
+
+<div class="viewcode-block" id="are_dir_trees_equal"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.are_dir_trees_equal">[docs]</a><span class="k">def</span> <span class="nf">are_dir_trees_equal</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare two directories recursively. Files in each directory are</span>
+<span class="sd">    assumed to be equal if their names and contents are equal.</span>
+
+<span class="sd">    @param dir1: First directory path</span>
+<span class="sd">    @param dir2: Second directory path</span>
+
+<span class="sd">    @return: True if the directory trees are the same and</span>
+<span class="sd">        there were no errors while accessing the directories or files,</span>
+<span class="sd">        False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Directory comparison</span>
+    <span class="n">dirs_cmp</span> <span class="o">=</span> <span class="n">filecmp</span><span class="o">.</span><span class="n">dircmp</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">left_only</span> <span class="ow">or</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">right_only</span> <span class="ow">or</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">funny_files</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Left directory: </span><span class="si">{}</span><span class="s2">, right directory: </span><span class="si">{}</span><span class="s2">, files only &quot;</span>
+                <span class="s2">&quot;in left directory: </span><span class="si">{}</span><span class="s2">, files only in right directory: &quot;</span>
+                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, not comparable files: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">left_only</span><span class="p">,</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">right_only</span><span class="p">,</span>
+                                                      <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">funny_files</span><span class="p">))</span>
+
+    <span class="c1"># If the directories contain the same files, compare the common files</span>
+    <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">mismatch</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span> <span class="o">=</span> <span class="n">filecmp</span><span class="o">.</span><span class="n">cmpfiles</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">common_files</span><span class="p">,</span> <span class="n">shallow</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mismatch</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;The following files in the directories </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot;don&#39;t match: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">mismatch</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;The following files in the directories </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot;aren&#39;t regular: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">errors</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">common_dir</span> <span class="ow">in</span> <span class="n">dirs_cmp</span><span class="o">.</span><span class="n">common_dirs</span><span class="p">:</span>
+        <span class="n">new_dir1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">common_dir</span><span class="p">)</span>
+        <span class="n">new_dir2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir2</span><span class="p">,</span> <span class="n">common_dir</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">are_dir_trees_equal</span><span class="p">(</span><span class="n">new_dir1</span><span class="p">,</span> <span class="n">new_dir2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">msg</span>
+
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;The given directories (</span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">) are equal&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Prettifier"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier">[docs]</a><span class="k">class</span> <span class="nc">Prettifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to manage prettifiers (typically for labels of kpoints</span>
+<span class="sd">    in band plots)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_pass"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_pass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_pass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        No-op prettifier, simply returns  the same label</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_agr"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_agr">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_agr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for XMGrace</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">label</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;GAMMA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\xG\f</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;DELTA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\xD\f</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;LAMBDA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\xL\f</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;SIGMA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\xS\f</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="p">)</span>  <span class="c1"># yapf:disable</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;_(.?)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">s\1</span><span class="se">\\</span><span class="s1">N&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_agr_simple"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_agr_simple">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_agr_simple</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for XMGrace (for old label names)</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\xG&#39;</span>
+
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">s\1</span><span class="se">\\</span><span class="s1">N&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_gnuplot"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_gnuplot">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_gnuplot</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for Gnuplot</span>
+
+<span class="sd">        :note: uses unicode, returns unicode strings (potentially, if needed)</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">label</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;GAMMA&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Γ&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;DELTA&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Δ&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;LAMBDA&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Λ&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;SIGMA&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Σ&#39;</span><span class="p">)</span>
+        <span class="p">)</span>  <span class="c1"># yapf:disable</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;_(.?)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;_{\1}&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_gnuplot_simple"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_gnuplot_simple">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_gnuplot_simple</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for Gnuplot (for old label names)</span>
+
+<span class="sd">        :note: uses unicode, returns unicode strings (potentially, if needed)</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39;Γ&#39;</span>
+
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;_{\1}&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_latex"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_latex">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_latex</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for matplotlib, using LaTeX syntax</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">label</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;GAMMA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Gamma$&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;DELTA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Delta$&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;LAMBDA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Lambda$&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;SIGMA&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Sigma$&#39;</span><span class="p">)</span>
+        <span class="p">)</span>  <span class="c1"># yapf:disable</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;_(.?)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$_{\1}$&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="c1"># label += r&quot;$_{\vphantom{0}}$&quot;</span>
+
+        <span class="k">return</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="Prettifier._prettify_label_latex_simple"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier._prettify_label_latex_simple">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prettify_label_latex_simple</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettifier for matplotlib, using LaTeX syntax (for old label names)</span>
+
+<span class="sd">        :param label: a string to prettify</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;$\Gamma$&#39;</span>
+
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$_{\1}$&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">prettifiers</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>  <span class="c1"># pylint: disable=no-self-argument</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property that returns a dictionary that for each string associates</span>
+<span class="sd">        the function to prettify a label</span>
+
+<span class="sd">        :return: a dictionary where keys are strings and values are functions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;agr_seekpath&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_agr</span><span class="p">,</span>
+            <span class="s1">&#39;agr_simple&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_agr_simple</span><span class="p">,</span>
+            <span class="s1">&#39;latex_simple&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_latex_simple</span><span class="p">,</span>
+            <span class="s1">&#39;latex_seekpath&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_latex</span><span class="p">,</span>
+            <span class="s1">&#39;gnuplot_simple&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_gnuplot_simple</span><span class="p">,</span>
+            <span class="s1">&#39;gnuplot_seekpath&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_gnuplot</span><span class="p">,</span>
+            <span class="s1">&#39;pass&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_prettify_label_pass</span><span class="p">,</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="Prettifier.get_prettifiers"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier.get_prettifiers">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_prettifiers</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of valid prettifier strings</span>
+
+<span class="sd">        :return: a list of strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">prettifiers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># pylint: disable=no-member</span></div>
+
+<div class="viewcode-block" id="Prettifier.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a class to pretttify strings of a given format</span>
+
+<span class="sd">        :param format: a string with the format to use to prettify.</span>
+<span class="sd">           Valid formats are obtained from self.prettifiers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;pass&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prettifier_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prettifiers</span><span class="p">[</span><span class="nb">format</span><span class="p">]</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown prettifier format </span><span class="si">{}</span><span class="s2">; valid formats: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">format</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_prettifiers</span><span class="p">())))</span></div>
+
+<div class="viewcode-block" id="Prettifier.prettify"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Prettifier.prettify">[docs]</a>    <span class="k">def</span> <span class="nf">prettify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prettify a label using the format passed in the initializer</span>
+
+<span class="sd">        :param label: the string to prettify</span>
+<span class="sd">        :return: a prettified string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prettifier_f</span><span class="p">(</span><span class="n">label</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="prettify_labels"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.prettify_labels">[docs]</a><span class="k">def</span> <span class="nf">prettify_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prettify label for typesetting in various formats</span>
+
+<span class="sd">    :param labels: a list of length-2 tuples, in the format(position, label)</span>
+<span class="sd">    :param format: a string with the format for the prettifier (e.g. &#39;agr&#39;,</span>
+<span class="sd">         &#39;matplotlib&#39;, ...)</span>
+<span class="sd">    :return: the same list as labels, but with the second value possibly replaced</span>
+<span class="sd">         with a prettified version that typesets nicely in the selected format</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prettifier</span> <span class="o">=</span> <span class="n">Prettifier</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[(</span><span class="n">pos</span><span class="p">,</span> <span class="n">prettifier</span><span class="o">.</span><span class="n">prettify</span><span class="p">(</span><span class="n">label</span><span class="p">))</span> <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="join_labels"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.join_labels">[docs]</a><span class="k">def</span> <span class="nf">join_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">join_symbol</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Join labels with a joining symbol when they are very close</span>
+
+<span class="sd">    :param labels: a list of length-2 tuples, in the format(position, label)</span>
+<span class="sd">    :param join_symbol: the string to use to join different paths. By default, a pipe</span>
+<span class="sd">    :param threshold: the threshold to decide if two float values are the same and should</span>
+<span class="sd">         be joined</span>
+<span class="sd">    :return: the same list as labels, but with the second value possibly replaced</span>
+<span class="sd">         with strings joined when close enough</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="c1"># modify labels when in overlapping position</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
+                <span class="n">new_labels</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">join_symbol</span> <span class="o">+</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">return</span> <span class="n">new_labels</span></div>
+
+
+<div class="viewcode-block" id="strip_prefix"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.strip_prefix">[docs]</a><span class="k">def</span> <span class="nf">strip_prefix</span><span class="p">(</span><span class="n">full_string</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Strip the prefix from the given string and return it. If the prefix is not present</span>
+<span class="sd">    the original string will be returned unaltered</span>
+
+<span class="sd">    :param full_string: the string from which to remove the prefix</span>
+<span class="sd">    :param prefix: the prefix to remove</span>
+<span class="sd">    :return: the string with prefix removed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">full_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">full_string</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">prefix</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">full_string</span></div>
+
+
+<div class="viewcode-block" id="Capturing"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing">[docs]</a><span class="k">class</span> <span class="nc">Capturing</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class captures stdout and returns it</span>
+<span class="sd">    (as a list, split by lines).</span>
+
+<span class="sd">    Note: if you raise a SystemExit, you have to catch it outside.</span>
+<span class="sd">    E.g., in our tests, this works::</span>
+
+<span class="sd">        import sys</span>
+<span class="sd">        with self.assertRaises(SystemExit):</span>
+<span class="sd">            with Capturing() as output:</span>
+<span class="sd">                sys.exit()</span>
+
+<span class="sd">    But out of the testing environment, the code instead just exits.</span>
+
+<span class="sd">    To use it, access the obj.stdout_lines, or just iterate over the object</span>
+
+<span class="sd">    :param capture_stderr: if True, also captures sys.stderr. To access the</span>
+<span class="sd">        lines, use obj.stderr_lines. If False, obj.stderr_lines is None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=attribute-defined-outside-init</span>
+
+<div class="viewcode-block" id="Capturing.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture_stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Capturing</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capture_stderr</span> <span class="o">=</span> <span class="n">capture_stderr</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_stderr</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stderr_lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stderr_lines</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Capturing.__enter__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Enter the context where all output is captured.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stringioout</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stringioout</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_stderr</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stderr</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stringioerr</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stringioerr</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Capturing.__exit__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Exit the context where all output is captured.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_lines</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stringioout</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdout</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stringioout</span>  <span class="c1"># free up some memory</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_stderr</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stderr_lines</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stringioerr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stderr</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stringioerr</span>  <span class="c1"># free up some memory</span></div>
+
+<div class="viewcode-block" id="Capturing.__str__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_lines</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Capturing.__iter__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.Capturing.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_lines</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ErrorAccumulator"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator">[docs]</a><span class="k">class</span> <span class="nc">ErrorAccumulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=useless-object-inheritance</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Allows to run a number of functions and collect all the errors they raise</span>
+
+<span class="sd">    This allows to validate multiple things and tell the user about all the</span>
+<span class="sd">    errors encountered at once. Works best if the individual functions do not depend on each other.</span>
+
+<span class="sd">    Does not allow to trace the stack of each error, therefore do not use for debugging, but for</span>
+<span class="sd">    semantical checking with user friendly error messages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ErrorAccumulator.__init__"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">error_cls</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_cls</span> <span class="o">=</span> <span class="n">error_cls</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_cls</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ErrorAccumulator.run"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_cls</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="n">err</span><span class="o">.</span><span class="vm">__class__</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ErrorAccumulator.success"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator.success">[docs]</a>    <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span></div>
+
+<div class="viewcode-block" id="ErrorAccumulator.result"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator.result">[docs]</a>    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="ne">Exception</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">raise_error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raise_errors</span><span class="p">(</span><span class="n">raise_error</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">success</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span></div>
+
+<div class="viewcode-block" id="ErrorAccumulator.raise_errors"><a class="viewcode-back" href="../../../apidoc/aiida.common.html#aiida.common.utils.ErrorAccumulator.raise_errors">[docs]</a>    <span class="k">def</span> <span class="nf">raise_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raise_cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">success</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">raise_cls</span><span class="p">(</span><span class="s1">&#39;The following errors were encountered: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>plumpy.process_states &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>plumpy.process_states</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for plumpy.process_states</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">plumpy.lang</span> <span class="k">import</span> <span class="n">NULL</span>
+<span class="kn">from</span> <span class="nn">tornado.gen</span> <span class="k">import</span> <span class="n">coroutine</span><span class="p">,</span> <span class="n">Return</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">tblib</span>
+
+    <span class="n">_HAS_TBLIB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">_HAS_TBLIB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">futures</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">state_machine</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">persistence</span>
+<span class="kn">from</span> <span class="nn">.persistence</span> <span class="k">import</span> <span class="n">auto_persist</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">exceptions</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;ProcessState&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Created&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Running&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Waiting&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Finished&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Excepted&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Killed&#39;</span><span class="p">,</span>
+    <span class="c1"># Commands</span>
+    <span class="s1">&#39;Kill&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Stop&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Wait&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Continue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Interruption&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;KillInterruption&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PauseInterruption&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Interruption</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">KillInterruption</span><span class="p">(</span><span class="n">Interruption</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">PauseInterruption</span><span class="p">(</span><span class="n">Interruption</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># region Commands</span>
+
+
+<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">persistence</span><span class="o">.</span><span class="n">Savable</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Kill</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span>
+
+
+<span class="k">class</span> <span class="nc">Pause</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Wait</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">continue_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">continue_fn</span> <span class="o">=</span> <span class="n">continue_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Stop</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">successful</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">successful</span> <span class="o">=</span> <span class="n">successful</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Continue</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">CONTINUE_FN</span> <span class="o">=</span> <span class="s1">&#39;continue_fn&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">continue_fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">continue_fn</span> <span class="o">=</span> <span class="n">continue_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="nf">save_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Continue</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save_instance_state</span><span class="p">(</span><span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">)</span>
+        <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">CONTINUE_FN</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continue_fn</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Continue</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">continue_fn</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_function</span><span class="p">(</span><span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">CONTINUE_FN</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">load_context</span><span class="o">.</span><span class="n">process</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">continue_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">CONTINUE_FN</span><span class="p">])</span>
+
+
+<span class="c1"># endregion</span>
+
+<span class="c1"># region States</span>
+
+
+<div class="viewcode-block" id="ProcessState"><a class="viewcode-back" href="../../apidoc/aiida.engine.processes.html#aiida.engine.ProcessState">[docs]</a><span class="k">class</span> <span class="nc">ProcessState</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The possible states that a :class:`Process` can be in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CREATED</span> <span class="o">=</span> <span class="s1">&#39;created&#39;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s1">&#39;running&#39;</span>
+    <span class="n">WAITING</span> <span class="o">=</span> <span class="s1">&#39;waiting&#39;</span>
+    <span class="n">FINISHED</span> <span class="o">=</span> <span class="s1">&#39;finished&#39;</span>
+    <span class="n">EXCEPTED</span> <span class="o">=</span> <span class="s1">&#39;excepted&#39;</span>
+    <span class="n">KILLED</span> <span class="o">=</span> <span class="s1">&#39;killed&#39;</span></div>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;in_state&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">State</span><span class="p">(</span><span class="n">state_machine</span><span class="o">.</span><span class="n">State</span><span class="p">,</span> <span class="n">persistence</span><span class="o">.</span><span class="n">Savable</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: The process</span>
+<span class="sd">        :rtype: :class:`ProcessStateMachine`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_machine</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">State</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_machine</span> <span class="o">=</span> <span class="n">load_context</span><span class="o">.</span><span class="n">process</span>
+
+    <span class="k">def</span> <span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Created</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">CREATED</span>
+    <span class="n">ALLOWED</span> <span class="o">=</span> <span class="p">{</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">KILLED</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">EXCEPTED</span><span class="p">}</span>
+
+    <span class="n">RUN_FN</span> <span class="o">=</span> <span class="s1">&#39;run_fn&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">run_fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Created</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">run_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span> <span class="o">=</span> <span class="n">run_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="nf">save_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Created</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save_instance_state</span><span class="p">(</span><span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">)</span>
+        <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">RUN_FN</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Created</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">RUN_FN</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Running</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span>
+    <span class="n">ALLOWED</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">KILLED</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">EXCEPTED</span>
+    <span class="p">}</span>
+
+    <span class="n">RUN_FN</span> <span class="o">=</span> <span class="s1">&#39;run_fn&#39;</span>  <span class="c1"># The key used to store the function to run</span>
+    <span class="n">COMMAND</span> <span class="o">=</span> <span class="s1">&#39;command&#39;</span>  <span class="c1"># The key used to store an upcoming command</span>
+
+    <span class="c1"># Class level defaults</span>
+    <span class="n">_command</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_run_handle</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">run_fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Running</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">run_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span> <span class="o">=</span> <span class="n">run_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_handle</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">save_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Running</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save_instance_state</span><span class="p">(</span><span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">)</span>
+        <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">RUN_FN</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">COMMAND</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Running</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">RUN_FN</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">COMMAND</span> <span class="ow">in</span> <span class="n">saved_state</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="n">persistence</span><span class="o">.</span><span class="n">Savable</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">COMMAND</span><span class="p">],</span> <span class="n">load_context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@coroutine</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_fn</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="n">Interruption</span><span class="p">:</span>
+                <span class="c1"># Let this bubble up to the caller</span>
+                <span class="k">raise</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">excepted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">EXCEPTED</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">raise</span> <span class="n">Return</span><span class="p">(</span><span class="n">excepted</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Command</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">UnsuccessfulResult</span><span class="p">):</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">Stop</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Got passed a basic return type</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">Stop</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">command</span> <span class="o">=</span> <span class="n">result</span>
+
+        <span class="n">next_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">Return</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">Kill</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">successful</span><span class="p">)</span>
+        <span class="c1"># elif isinstance(command, Pause):</span>
+        <span class="c1">#     self.pause()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">Stop</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">successful</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">Wait</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">continue_fn</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">Continue</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="n">command</span><span class="o">.</span><span class="n">continue_fn</span><span class="p">,</span> <span class="o">*</span><span class="n">command</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unrecognised command&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Waiting</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span>
+    <span class="n">ALLOWED</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">KILLED</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">EXCEPTED</span><span class="p">,</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span>
+    <span class="p">}</span>
+
+    <span class="n">DONE_CALLBACK</span> <span class="o">=</span> <span class="s1">&#39;DONE_CALLBACK&#39;</span>
+
+    <span class="n">_interruption</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">state_info</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Waiting</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">state_info</span> <span class="o">+=</span> <span class="s2">&quot; (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">state_info</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">done_callback</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Waiting</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span> <span class="o">=</span> <span class="n">done_callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span> <span class="o">=</span> <span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">save_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Waiting</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save_instance_state</span><span class="p">(</span><span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">DONE_CALLBACK</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Waiting</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="n">callback_name</span> <span class="o">=</span> <span class="n">saved_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DONE_CALLBACK</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="n">callback_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span> <span class="o">=</span> <span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="c1"># This will cause the future in execute() to raise the exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="nd">@coroutine</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span>
+        <span class="k">except</span> <span class="n">Interruption</span><span class="p">:</span>
+            <span class="c1"># Deal with the interruption (by raising) but make sure our internal</span>
+            <span class="c1"># state is back to how it was before the interruption so that we can be</span>
+            <span class="c1"># re-executed</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span> <span class="o">=</span> <span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">()</span>
+            <span class="k">raise</span>
+
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">NULL</span><span class="p">:</span>
+            <span class="n">next_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">next_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_state</span><span class="p">(</span><span class="n">ProcessState</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">done_callback</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">Return</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">NULL</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Not yet waiting&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_waiting_future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Excepted</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">EXCEPTED</span>
+
+    <span class="n">EXC_VALUE</span> <span class="o">=</span> <span class="s1">&#39;ex_value&#39;</span>
+    <span class="n">TRACEBACK</span> <span class="o">=</span> <span class="s1">&#39;traceback&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">trace_back</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param process: The associated process</span>
+<span class="sd">        :param exception: The exception instance</span>
+<span class="sd">        :param trace_back: An optional exception traceback</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Excepted</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span> <span class="o">=</span> <span class="n">trace_back</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Excepted</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(),</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">format_exception_only</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">save_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Excepted</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save_instance_state</span><span class="p">(</span><span class="n">out_state</span><span class="p">,</span> <span class="n">save_context</span><span class="p">)</span>
+        <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">EXC_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TRACEBACK</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_tb</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traceback</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">load_instance_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Excepted</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_instance_state</span><span class="p">(</span><span class="n">saved_state</span><span class="p">,</span> <span class="n">load_context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">EXC_VALUE</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">_HAS_TBLIB</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span> <span class="o">=</span> \
+                    <span class="n">tblib</span><span class="o">.</span><span class="n">Traceback</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">saved_state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TRACEBACK</span><span class="p">],</span>
+                                                <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">get_exc_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recreate the exc_info tuple and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">traceback</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="s1">&#39;successful&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Finished</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">FINISHED</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">successful</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Finished</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">successful</span> <span class="o">=</span> <span class="n">successful</span>
+
+
+<span class="nd">@auto_persist</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Killed</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">KILLED</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param process: The associated process</span>
+<span class="sd">        :param msg: Optional kill message</span>
+<span class="sd">        :type msg: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Killed</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span>
+
+
+<span class="c1"># endregion</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

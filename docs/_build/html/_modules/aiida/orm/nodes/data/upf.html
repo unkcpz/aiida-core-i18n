@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.nodes.data.upf &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.orm.nodes.data.upf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.nodes.data.upf</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module manages the UPF pseudopotentials in the local repository.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">import</span> <span class="nn">aiida.orm.users</span>
+<span class="kn">from</span> <span class="nn">aiida.common.lang</span> <span class="k">import</span> <span class="n">classproperty</span>
+<span class="kn">from</span> <span class="nn">.singlefile</span> <span class="k">import</span> <span class="n">SinglefileData</span>
+<span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">GroupTypeString</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;UpfData&#39;</span><span class="p">,)</span>
+
+
+<span class="n">UPFGROUP_TYPE</span> <span class="o">=</span> <span class="n">GroupTypeString</span><span class="o">.</span><span class="n">UPFGROUP_TYPE</span><span class="o">.</span><span class="n">value</span>
+
+<span class="n">_upfversion_regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    \s*&lt;UPF\s+version\s*=&quot;</span>
+<span class="sd">       (?P&lt;version&gt;.*)&quot;&gt;</span>
+<span class="sd">   &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+
+<span class="n">_element_v1_regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (?P&lt;element_name&gt;[a-zA-Z]{1,2})</span>
+<span class="sd">    \s+</span>
+<span class="sd">    Element</span>
+<span class="sd">   &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+
+<span class="n">_element_v2_regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    \s*</span>
+<span class="sd">    element\s*=\s*(?P&lt;quote_symbol&gt;[&#39;&quot;])\s*</span>
+<span class="sd">    (?P&lt;element_name&gt;[a-zA-Z]{1,2})\s*</span>
+<span class="sd">    (?P=quote_symbol)</span>
+<span class="sd">   &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_pseudos_from_structure</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">family_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a family name (a UpfFamily group in the DB) and a AiiDA</span>
+<span class="sd">    structure, return a dictionary associating each kind name with its</span>
+<span class="sd">    UpfData object.</span>
+
+<span class="sd">    :raise aiida.common.MultipleObjectsError: if more than one UPF for the same element is</span>
+<span class="sd">       found in the group.</span>
+<span class="sd">    :raise aiida.common.NotExistent: if no UPF for an element in the group is</span>
+<span class="sd">       found in the group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">NotExistent</span><span class="p">,</span> <span class="n">MultipleObjectsError</span>
+
+    <span class="n">family_pseudos</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">UpfData</span><span class="o">.</span><span class="n">get_upf_group</span><span class="p">(</span><span class="n">family_name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">family</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">UpfData</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">element</span> <span class="ow">in</span> <span class="n">family_pseudos</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MultipleObjectsError</span><span class="p">(</span>
+                    <span class="s2">&quot;More than one UPF for element </span><span class="si">{}</span><span class="s2"> found in &quot;</span>
+                    <span class="s2">&quot;family </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">family_name</span><span class="p">))</span>
+            <span class="n">family_pseudos</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+
+    <span class="n">pseudo_list</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">kinds</span><span class="p">:</span>
+        <span class="n">symbol</span> <span class="o">=</span> <span class="n">kind</span><span class="o">.</span><span class="n">symbol</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pseudo_list</span><span class="p">[</span><span class="n">kind</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">family_pseudos</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotExistent</span><span class="p">(</span><span class="s2">&quot;No UPF for element </span><span class="si">{}</span><span class="s2"> found in family </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="p">,</span> <span class="n">family_name</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">pseudo_list</span>
+
+
+<span class="k">def</span> <span class="nf">get_pseudos_dict</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">family_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a dictionary of {kind: pseudo} for all the elements within the given</span>
+<span class="sd">    structure using a the given pseudo family name.</span>
+
+<span class="sd">    :param structure: The structure that will be used.</span>
+<span class="sd">    :param family_name: the name of the group containing the pseudos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+    <span class="c1"># A dict {kind_name: pseudo_object}</span>
+    <span class="n">kind_pseudo_dict</span> <span class="o">=</span> <span class="n">get_pseudos_from_structure</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">family_name</span><span class="p">)</span>
+
+    <span class="c1"># We have to group the species by pseudo, I use the pseudo PK</span>
+    <span class="c1"># pseudo_dict will just map PK-&gt;pseudo_object</span>
+    <span class="n">pseudo_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Will contain a list of all species of the pseudo with given PK</span>
+    <span class="n">pseudo_species</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">kindname</span><span class="p">,</span> <span class="n">pseudo</span> <span class="ow">in</span> <span class="n">kind_pseudo_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">pseudo_dict</span><span class="p">[</span><span class="n">pseudo</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">pseudo</span>
+        <span class="n">pseudo_species</span><span class="p">[</span><span class="n">pseudo</span><span class="o">.</span><span class="n">pk</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kindname</span><span class="p">)</span>
+
+    <span class="n">pseudos</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">pseudo_pk</span> <span class="ow">in</span> <span class="n">pseudo_dict</span><span class="p">:</span>
+        <span class="n">pseudo</span> <span class="o">=</span> <span class="n">pseudo_dict</span><span class="p">[</span><span class="n">pseudo_pk</span><span class="p">]</span>
+        <span class="n">kinds</span> <span class="o">=</span> <span class="n">pseudo_species</span><span class="p">[</span><span class="n">pseudo_pk</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span>
+            <span class="n">pseudos</span><span class="p">[</span><span class="n">kind</span><span class="p">]</span> <span class="o">=</span> <span class="n">pseudo</span>
+
+    <span class="k">return</span> <span class="n">pseudos</span>
+
+
+<span class="k">def</span> <span class="nf">upload_upf_family</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">group_label</span><span class="p">,</span> <span class="n">group_description</span><span class="p">,</span>
+                      <span class="n">stop_if_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Upload a set of UPF files in a given group.</span>
+
+<span class="sd">    :param folder: a path containing all UPF files to be added.</span>
+<span class="sd">        Only files ending in .UPF (case-insensitive) are considered.</span>
+<span class="sd">    :param group_label: the name of the group to create. If it exists and is</span>
+<span class="sd">        non-empty, a UniquenessError is raised.</span>
+<span class="sd">    :param group_description: a string to be set as the group description.</span>
+<span class="sd">        Overwrites previous descriptions, if the group was existing.</span>
+<span class="sd">    :param stop_if_existing: if True, check for the md5 of the files and,</span>
+<span class="sd">        if the file already exists in the DB, raises a MultipleObjectsError.</span>
+<span class="sd">        If False, simply adds the existing UPFData node to the group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="kn">from</span> <span class="nn">aiida</span> <span class="k">import</span> <span class="n">orm</span>
+    <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">UniquenessError</span>
+    <span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">md5_file</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;folder must be a directory&quot;</span><span class="p">)</span>
+
+    <span class="c1"># only files, and only those ending with .upf or .UPF;</span>
+    <span class="c1"># go to the real file if it is a symlink</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="k">if</span>
+             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="ow">and</span>
+             <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.upf&#39;</span><span class="p">)]</span>
+
+    <span class="n">nfiles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="n">automatic_user</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+    <span class="n">group</span><span class="p">,</span> <span class="n">group_created</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">Group</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">group_label</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="n">UPFGROUP_TYPE</span><span class="p">,</span>
+                                                           <span class="n">user</span><span class="o">=</span><span class="n">automatic_user</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">group</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="o">!=</span> <span class="n">automatic_user</span><span class="o">.</span><span class="n">email</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">UniquenessError</span><span class="p">(</span><span class="s2">&quot;There is already a UpfFamily group with label </span><span class="si">{}</span><span class="s2">&quot;</span>
+                              <span class="s2">&quot;, but it belongs to user </span><span class="si">{}</span><span class="s2">, therefore you &quot;</span>
+                              <span class="s2">&quot;cannot modify it&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_label</span><span class="p">,</span>
+                                                        <span class="n">group</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
+
+    <span class="c1"># Always update description, even if the group already existed</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">group_description</span>
+
+    <span class="c1"># NOTE: GROUP SAVED ONLY AFTER CHECKS OF UNICITY</span>
+
+    <span class="n">pseudo_and_created</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">md5sum</span> <span class="o">=</span> <span class="n">md5_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.md5&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">md5sum</span><span class="p">}})</span>
+        <span class="n">existing_upf</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">existing_upf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># return the upfdata instances, not stored</span>
+            <span class="n">pseudo</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">UpfData</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">use_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                    <span class="n">store_upf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="c1"># to check whether only one upf per element exists</span>
+            <span class="c1"># NOTE: actually, created has the meaning of &quot;to_be_created&quot;</span>
+            <span class="n">pseudo_and_created</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pseudo</span><span class="p">,</span> <span class="n">created</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">stop_if_existing</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;A UPF with identical MD5 to &quot;</span>
+                    <span class="s2">&quot; </span><span class="si">{}</span><span class="s2"> cannot be added with stop_if_existing&quot;</span>
+                    <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">existing_upf</span> <span class="o">=</span> <span class="n">existing_upf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pseudo_and_created</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">existing_upf</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
+    <span class="c1"># check whether pseudo are unique per element</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">md5sum</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pseudo_and_created</span><span class="p">]</span>
+    <span class="c1"># If group already exists, check also that I am not inserting more than</span>
+    <span class="c1"># once the same element</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">group_created</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">aiida_n</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="c1"># Skip non-pseudos</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aiida_n</span><span class="p">,</span> <span class="n">UpfData</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">aiida_n</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">aiida_n</span><span class="o">.</span><span class="n">md5sum</span><span class="p">))</span>
+
+    <span class="n">elements</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>  <span class="c1"># Discard elements with the same MD5, that would</span>
+    <span class="c1"># not be stored twice</span>
+    <span class="n">elements_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements_names</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">elements_names</span><span class="p">)):</span>
+        <span class="n">duplicates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">elements_names</span>
+                          <span class="k">if</span> <span class="n">elements_names</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">duplicates_string</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">UniquenessError</span><span class="p">(</span><span class="s2">&quot;More than one UPF found for the elements: &quot;</span> <span class="o">+</span>
+                              <span class="n">duplicates_string</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># At this point, save the group, if still unstored</span>
+    <span class="k">if</span> <span class="n">group_created</span><span class="p">:</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+    <span class="c1"># save the upf in the database, and add them to group</span>
+    <span class="k">for</span> <span class="n">pseudo</span><span class="p">,</span> <span class="n">created</span> <span class="ow">in</span> <span class="n">pseudo_and_created</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">created</span><span class="p">:</span>
+            <span class="n">pseudo</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+
+            <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;New node </span><span class="si">{}</span><span class="s2"> created for file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">pseudo</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">pseudo</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reusing node </span><span class="si">{}</span><span class="s2"> for file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">pseudo</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">pseudo</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+
+    <span class="c1"># Add elements to the group all togetehr</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_nodes</span><span class="p">([</span><span class="n">pseudo</span> <span class="k">for</span> <span class="n">pseudo</span><span class="p">,</span> <span class="n">created</span> <span class="ow">in</span> <span class="n">pseudo_and_created</span><span class="p">])</span>
+
+    <span class="n">nuploaded</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">created</span> <span class="ow">in</span> <span class="n">pseudo_and_created</span> <span class="k">if</span> <span class="n">created</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">nfiles</span><span class="p">,</span> <span class="n">nuploaded</span>
+
+
+<span class="k">def</span> <span class="nf">parse_upf</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">check_filename</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Try to get relevant information from the UPF. For the moment, only the</span>
+<span class="sd">    element name. Note that even UPF v.2 cannot be parsed with the XML minidom!</span>
+<span class="sd">    (e.g. due to the &amp; characters in the human-readable section).</span>
+
+<span class="sd">    If check_filename is True, raise a ParsingError exception if the filename</span>
+<span class="sd">    does not start with the element name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ParsingError</span>
+    <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">AIIDA_LOGGER</span>
+    <span class="c1"># TODO: move these data in a &#39;chemistry&#39; module</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm.nodes.data.structure</span> <span class="k">import</span> <span class="n">_valid_symbols</span>
+
+    <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">upf_contents</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">upf_contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">match</span> <span class="o">=</span> <span class="n">_upfversion_regexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">upf_contents</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">)</span>
+        <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Version found: </span><span class="si">{}</span><span class="s2"> for file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">version</span><span class="p">,</span> <span class="n">fname</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Assuming version 1 for file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+
+    <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">version</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">version_major</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="c1"># If the version string does not contain a dot, fallback</span>
+        <span class="c1"># to version 1</span>
+        <span class="n">AIIDA_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Falling back to version 1 for file </span><span class="si">{}</span><span class="s2">, &quot;</span>
+                           <span class="s2">&quot;version string &#39;</span><span class="si">{}</span><span class="s2">&#39; unrecognized&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span> <span class="n">version</span><span class="p">))</span>
+        <span class="n">version_major</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">element</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">version_major</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">_element_v1_regexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">upf_contents</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;element_name&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># all versions &gt; 1</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">_element_v2_regexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">upf_contents</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;element_name&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParsingError</span><span class="p">(</span><span class="s2">&quot;Unable to find the element of UPF </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">))</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_valid_symbols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParsingError</span><span class="p">(</span><span class="s2">&quot;Unknown element symbol </span><span class="si">{}</span><span class="s2"> for file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">element</span><span class="p">,</span> <span class="n">fname</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">check_filename</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
+                <span class="n">element</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="n">ParsingError</span><span class="p">(</span><span class="s2">&quot;Filename </span><span class="si">{0}</span><span class="s2"> was recognized for element &quot;</span>
+                               <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">, but the filename does not start &quot;</span>
+                               <span class="s2">&quot;with </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">element</span><span class="p">))</span>
+
+    <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span>
+
+    <span class="k">return</span> <span class="n">parsed_data</span>
+
+
+<div class="viewcode-block" id="UpfData"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData">[docs]</a><span class="k">class</span> <span class="nc">UpfData</span><span class="p">(</span><span class="n">SinglefileData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function not yet documented.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="UpfData.__init__"><a class="viewcode-back" href="../../../../../apidoc/aiida.orm.nodes.data.html#aiida.orm.UpfData.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UpfData.get_or_create"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.get_or_create">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_or_create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">use_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_upf</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass the same parameter of the init; if a file with the same md5</span>
+<span class="sd">        is found, that UpfData is returned.</span>
+
+<span class="sd">        :param filepath: an absolute filepath on disk</span>
+<span class="sd">        :param use_first: if False (default), raise an exception if more than \</span>
+<span class="sd">                one potential is found.\</span>
+<span class="sd">                If it is True, instead, use the first available pseudopotential.</span>
+<span class="sd">        :param bool store_upf: If false, the UpfData objects are not stored in</span>
+<span class="sd">                the database. default=True.</span>
+<span class="sd">        :return (upf, created): where upf is the UpfData object, and create is either\</span>
+<span class="sd">            True if the object was created, or False if the object was retrieved\</span>
+<span class="sd">            from the DB.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">md5_file</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;filepath must be an absolute path&quot;</span><span class="p">)</span>
+        <span class="n">md5</span> <span class="o">=</span> <span class="n">md5_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">pseudos</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_md5</span><span class="p">(</span><span class="n">md5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pseudos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">store_upf</span><span class="p">:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">filepath</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pseudos</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">use_first</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="n">pseudos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;More than one copy of a pseudopotential &quot;</span>
+                                     <span class="s2">&quot;with the same MD5 has been found in the &quot;</span>
+                                     <span class="s2">&quot;DB. pks=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pseudos</span><span class="p">])))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">pseudos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">upffamily_type_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">UPFGROUP_TYPE</span>
+
+<div class="viewcode-block" id="UpfData.store"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.store">[docs]</a>    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store the node, reparsing the file so that the md5 and the element</span>
+<span class="sd">        are correctly reset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ParsingError</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">md5_from_filelike</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stored</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parse_upf</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+        <span class="c1"># Open in binary mode which is required for generating the md5 checksum</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">md5</span> <span class="o">=</span> <span class="n">md5_from_filelike</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParsingError</span><span class="p">(</span><span class="s2">&quot;No &#39;element&#39; parsed in the UPF file </span><span class="si">{}</span><span class="s2">;&quot;</span>
+                               <span class="s2">&quot; unable to store&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="n">md5</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UpfData.from_md5"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.from_md5">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_md5</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">md5</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of all UPF pseudopotentials that match a given MD5 hash.</span>
+
+<span class="sd">        Note that the hash has to be stored in a _md5 attribute, otherwise</span>
+<span class="sd">        the pseudo will not be found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm.querybuilder</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+        <span class="n">qb</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">qb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.md5&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">md5</span><span class="p">}})</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">_</span> <span class="k">for</span> <span class="p">[</span><span class="n">_</span><span class="p">]</span> <span class="ow">in</span> <span class="n">qb</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="UpfData.set_file"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.set_file">[docs]</a>    <span class="k">def</span> <span class="nf">set_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        I pre-parse the file to store the attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ParsingError</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">md5_file</span><span class="p">,</span> <span class="n">md5_from_filelike</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parse_upf</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">md5sum</span> <span class="o">=</span> <span class="n">md5_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">md5sum</span> <span class="o">=</span> <span class="n">md5_from_filelike</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParsingError</span><span class="p">(</span><span class="s2">&quot;No &#39;element&#39; parsed in the UPF file </span><span class="si">{}</span><span class="s2">; unable to store&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">set_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="n">md5sum</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UpfData.get_upf_family_names"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.get_upf_family_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_upf_family_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the list of all upf family names to which the pseudo belongs.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Group</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Group</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">upffamily_type_string</span><span class="p">}},</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}},</span> <span class="n">with_group</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span> <span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">md5sum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UpfData._validate"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData._validate">[docs]</a>    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.exceptions</span> <span class="k">import</span> <span class="n">ValidationError</span>
+        <span class="kn">from</span> <span class="nn">aiida.common.files</span> <span class="k">import</span> <span class="n">md5_from_filelike</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_validate</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parse_upf</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+        <span class="c1"># Open in binary mode which is required for generating the md5 checksum</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">md5</span> <span class="o">=</span> <span class="n">md5_from_filelike</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;No &#39;element&#39; could be parsed in the UPF &quot;</span>
+                                  <span class="s2">&quot;file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">upf_abspath</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">attr_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;element&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;attribute &#39;element&#39; not set.&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">attr_md5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;attribute &#39;md5&#39; not set.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">attr_element</span> <span class="o">!=</span> <span class="n">element</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;Attribute &#39;element&#39; says &#39;</span><span class="si">{}</span><span class="s2">&#39; but &#39;</span><span class="si">{}</span><span class="s2">&#39; was &quot;</span>
+                                  <span class="s2">&quot;parsed instead.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">attr_element</span><span class="p">,</span> <span class="n">element</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">attr_md5</span> <span class="o">!=</span> <span class="n">md5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;Attribute &#39;md5&#39; says &#39;</span><span class="si">{}</span><span class="s2">&#39; but &#39;</span><span class="si">{}</span><span class="s2">&#39; was &quot;</span>
+                                  <span class="s2">&quot;parsed instead.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">attr_md5</span><span class="p">,</span> <span class="n">md5</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="UpfData.get_upf_group"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.get_upf_group">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_upf_group</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group_label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the UpfFamily group with the given name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Group</span>
+
+        <span class="k">return</span> <span class="n">Group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">group_label</span><span class="p">,</span> <span class="n">type_string</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">upffamily_type_string</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UpfData.get_upf_groups"><a class="viewcode-back" href="../../../../../developer_guide/core/orm_overview.html#aiida.orm.UpfData.get_upf_groups">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_upf_groups</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filter_elements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return all names of groups of type UpfFamily, possibly with some filters.</span>
+
+<span class="sd">        :param filter_elements: A string or a list of strings.</span>
+<span class="sd">               If present, returns only the groups that contains one Upf for</span>
+<span class="sd">               every element present in the list. Default=None, meaning that</span>
+<span class="sd">               all families are returned.</span>
+<span class="sd">        :param user: if None (default), return the groups for all users.</span>
+<span class="sd">               If defined, it should be either a DbUser instance, or a string</span>
+<span class="sd">               for the username (that is, the user email).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Group</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">QueryBuilder</span>
+        <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">User</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="p">()</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">upffamily_type_string</span><span class="p">}}</span>
+
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Group</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;email&#39;</span><span class="p">:{</span><span class="s1">&#39;==&#39;</span><span class="p">:</span><span class="n">user</span><span class="p">}},</span> <span class="n">with_group</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_elements</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">filter_elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">filter_elements</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">filter_elements</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">actual_filter_elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">filter_elements</span><span class="p">]</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">UpfData</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;attributes.element&#39;</span><span class="p">:{</span><span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="n">filter_elements</span><span class="p">}},</span> <span class="n">with_group</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+        <span class="n">query</span><span class="o">.</span><span class="n">order_by</span><span class="p">({</span><span class="n">Group</span><span class="p">:{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;asc&#39;</span><span class="p">}})</span> 
+        <span class="k">return</span> <span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

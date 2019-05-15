@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.parsers package &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>aiida.parsers package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apidoc/aiida.parsers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aiida.parsers">
+<span id="aiida-parsers-package"></span><h1>aiida.parsers package<a class="headerlink" href="#module-aiida.parsers" title="Permalink to this headline">¶</a></h1>
+<p>Module for classes and utilities to write parsers for calculation jobs.</p>
+<dl class="class">
+<dt id="aiida.parsers.Parser">
+<em class="property">class </em><code class="descclassname">aiida.parsers.</code><code class="descname">Parser</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for a Parser that can parse the outputs produced by a CalcJob process.</p>
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.__abstractmethods__">
+<code class="descname">__abstractmethods__</code><em class="property"> = frozenset({'parse'})</em><a class="headerlink" href="#aiida.parsers.Parser.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.parsers.parser', '__doc__': 'Base class for a Parser that can parse the outputs produced by a CalcJob process.', '__init__': &lt;function Parser.__init__&gt;, 'logger': &lt;property object&gt;, 'node': &lt;property object&gt;, 'exit_codes': &lt;property object&gt;, 'retrieved': &lt;property object&gt;, 'outputs': &lt;property object&gt;, 'out': &lt;function Parser.out&gt;, 'get_outputs_for_parsing': &lt;function Parser.get_outputs_for_parsing&gt;, 'parse_from_node': &lt;classmethod object&gt;, 'parse': &lt;function Parser.parse&gt;, '__dict__': &lt;attribute '__dict__' of 'Parser' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Parser' objects&gt;, '__abstractmethods__': frozenset({'parse'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#aiida.parsers.Parser.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.Parser.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Parser instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> – the <cite>CalcJobNode</cite> that contains the results of the executed <cite>CalcJob</cite> process.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.parsers.parser'</em><a class="headerlink" href="#aiida.parsers.Parser.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.parsers.Parser.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser._abc_impl">
+<code class="descname">_abc_impl</code><em class="property"> = &lt;_abc_data object&gt;</em><a class="headerlink" href="#aiida.parsers.Parser._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.exit_codes">
+<code class="descname">exit_codes</code><a class="headerlink" href="#aiida.parsers.Parser.exit_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the exit codes defined for the process class of the node being parsed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ExitCodesNamespace of ExitCode named tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.Parser.get_outputs_for_parsing">
+<code class="descname">get_outputs_for_parsing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.get_outputs_for_parsing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser.get_outputs_for_parsing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dictionary of nodes that should be passed to the <cite>Parser.parse</cite> call.</p>
+<p>Output nodes can be marked as being required by the <cite>parse</cite> method, by setting the <cite>pass_to_parser</cite> attribute,
+in the <cite>spec.output</cite> call in the process spec of the <cite>CalcJob</cite>, to True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary of nodes that are required by the <cite>parse</cite> method</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.logger">
+<code class="descname">logger</code><a class="headerlink" href="#aiida.parsers.Parser.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the logger preconfigured for the calculation node associated with this parser instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>logging.Logger</cite></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.node">
+<code class="descname">node</code><a class="headerlink" href="#aiida.parsers.Parser.node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the node instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the <cite>CalcJobNode</cite> instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.Parser.out">
+<code class="descname">out</code><span class="sig-paren">(</span><em>link_label</em>, <em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a node as an output with the given link label.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>link_label</strong> – the name of the link label</li>
+<li><strong>node</strong> – the node to register as an output</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="aiida.common.html#aiida.common.ModificationNotAllowed" title="aiida.common.ModificationNotAllowed"><strong>aiida.common.ModificationNotAllowed</strong></a> – if an output node was already registered with the same link label</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.outputs">
+<code class="descname">outputs</code><a class="headerlink" href="#aiida.parsers.Parser.outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dictionary of outputs that have been registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">an AttributeDict instance with the registered output nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.Parser.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the contents of the output files retrieved in the <cite>FolderData</cite>.</p>
+<p>This method should be implemented in the sub class. Outputs can be registered through the <cite>out</cite> method.
+After the <cite>parse</cite> call finishes, the runner will automatically link them up to the underlying <cite>CalcJobNode</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – output nodes attached to the <cite>CalcJobNode</cite> of the parser instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an instance of ExitCode or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.parsers.Parser.parse_from_node">
+<em class="property">classmethod </em><code class="descname">parse_from_node</code><span class="sig-paren">(</span><em>node</em>, <em>store_provenance=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.parse_from_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.Parser.parse_from_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the outputs directly from the <cite>CalcJobNode</cite>.</p>
+<p>If <cite>store_provenance</cite> is set to False, a <cite>CalcFunctionNode</cite> will still be generated, but it will not be stored.
+It’s storing method will also be disabled, making it impossible to store, because storing it afterwards would
+not have the expected effect, as the outputs it produced will not be stored with it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node</strong> – a <cite>CalcJobNode</cite> instance</li>
+<li><strong>store_provenance</strong> – bool, if True will store the parsing as a <cite>CalcFunctionNode</cite> in the provenance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a tuple of the parsed results and the <cite>CalcFunctionNode</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.Parser.retrieved">
+<code class="descname">retrieved</code><a class="headerlink" href="#aiida.parsers.Parser.retrieved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aiida.parsers.plugins.html">aiida.parsers.plugins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aiida.parsers.plugins.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aiida.parsers.plugins.arithmetic.html">aiida.parsers.plugins.arithmetic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="aiida.parsers.plugins.arithmetic.html#module-aiida.parsers.plugins.arithmetic.add">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aiida.parsers.plugins.templatereplacer.html">aiida.parsers.plugins.templatereplacer package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="aiida.parsers.plugins.templatereplacer.html#module-aiida.parsers.plugins.templatereplacer.doubler">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-aiida.parsers.parser">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-aiida.parsers.parser" title="Permalink to this headline">¶</a></h2>
+<p>This module implements a generic output plugin, that is general enough
+to allow the reading of the outputs of a calculation.</p>
+<dl class="class">
+<dt id="aiida.parsers.parser.Parser">
+<em class="property">class </em><code class="descclassname">aiida.parsers.parser.</code><code class="descname">Parser</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for a Parser that can parse the outputs produced by a CalcJob process.</p>
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.__abstractmethods__">
+<code class="descname">__abstractmethods__</code><em class="property"> = frozenset({'parse'})</em><a class="headerlink" href="#aiida.parsers.parser.Parser.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'aiida.parsers.parser', '__doc__': 'Base class for a Parser that can parse the outputs produced by a CalcJob process.', '__init__': &lt;function Parser.__init__&gt;, 'logger': &lt;property object&gt;, 'node': &lt;property object&gt;, 'exit_codes': &lt;property object&gt;, 'retrieved': &lt;property object&gt;, 'outputs': &lt;property object&gt;, 'out': &lt;function Parser.out&gt;, 'get_outputs_for_parsing': &lt;function Parser.get_outputs_for_parsing&gt;, 'parse_from_node': &lt;classmethod object&gt;, 'parse': &lt;function Parser.parse&gt;, '__dict__': &lt;attribute '__dict__' of 'Parser' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Parser' objects&gt;, '__abstractmethods__': frozenset({'parse'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#aiida.parsers.parser.Parser.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.parser.Parser.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Parser instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> – the <cite>CalcJobNode</cite> that contains the results of the executed <cite>CalcJob</cite> process.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.__module__">
+<code class="descname">__module__</code><em class="property"> = 'aiida.parsers.parser'</em><a class="headerlink" href="#aiida.parsers.parser.Parser.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#aiida.parsers.parser.Parser.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser._abc_impl">
+<code class="descname">_abc_impl</code><em class="property"> = &lt;_abc_data object&gt;</em><a class="headerlink" href="#aiida.parsers.parser.Parser._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.exit_codes">
+<code class="descname">exit_codes</code><a class="headerlink" href="#aiida.parsers.parser.Parser.exit_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the exit codes defined for the process class of the node being parsed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ExitCodesNamespace of ExitCode named tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.parser.Parser.get_outputs_for_parsing">
+<code class="descname">get_outputs_for_parsing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.get_outputs_for_parsing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser.get_outputs_for_parsing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dictionary of nodes that should be passed to the <cite>Parser.parse</cite> call.</p>
+<p>Output nodes can be marked as being required by the <cite>parse</cite> method, by setting the <cite>pass_to_parser</cite> attribute,
+in the <cite>spec.output</cite> call in the process spec of the <cite>CalcJob</cite>, to True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary of nodes that are required by the <cite>parse</cite> method</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.logger">
+<code class="descname">logger</code><a class="headerlink" href="#aiida.parsers.parser.Parser.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the logger preconfigured for the calculation node associated with this parser instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>logging.Logger</cite></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.node">
+<code class="descname">node</code><a class="headerlink" href="#aiida.parsers.parser.Parser.node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the node instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the <cite>CalcJobNode</cite> instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.parser.Parser.out">
+<code class="descname">out</code><span class="sig-paren">(</span><em>link_label</em>, <em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a node as an output with the given link label.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>link_label</strong> – the name of the link label</li>
+<li><strong>node</strong> – the node to register as an output</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="aiida.common.html#aiida.common.ModificationNotAllowed" title="aiida.common.ModificationNotAllowed"><strong>aiida.common.ModificationNotAllowed</strong></a> – if an output node was already registered with the same link label</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.outputs">
+<code class="descname">outputs</code><a class="headerlink" href="#aiida.parsers.parser.Parser.outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dictionary of outputs that have been registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">an AttributeDict instance with the registered output nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="aiida.parsers.parser.Parser.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the contents of the output files retrieved in the <cite>FolderData</cite>.</p>
+<p>This method should be implemented in the sub class. Outputs can be registered through the <cite>out</cite> method.
+After the <cite>parse</cite> call finishes, the runner will automatically link them up to the underlying <cite>CalcJobNode</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – output nodes attached to the <cite>CalcJobNode</cite> of the parser instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an instance of ExitCode or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="aiida.parsers.parser.Parser.parse_from_node">
+<em class="property">classmethod </em><code class="descname">parse_from_node</code><span class="sig-paren">(</span><em>node</em>, <em>store_provenance=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aiida/parsers/parser.html#Parser.parse_from_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aiida.parsers.parser.Parser.parse_from_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the outputs directly from the <cite>CalcJobNode</cite>.</p>
+<p>If <cite>store_provenance</cite> is set to False, a <cite>CalcFunctionNode</cite> will still be generated, but it will not be stored.
+It’s storing method will also be disabled, making it impossible to store, because storing it afterwards would
+not have the expected effect, as the outputs it produced will not be stored with it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node</strong> – a <cite>CalcJobNode</cite> instance</li>
+<li><strong>store_provenance</strong> – bool, if True will store the parsing as a <cite>CalcFunctionNode</cite> in the provenance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a tuple of the parsed results and the <cite>CalcFunctionNode</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="aiida.parsers.parser.Parser.retrieved">
+<code class="descname">retrieved</code><a class="headerlink" href="#aiida.parsers.parser.Parser.retrieved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

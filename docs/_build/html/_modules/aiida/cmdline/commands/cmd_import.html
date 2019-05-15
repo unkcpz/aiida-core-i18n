@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.cmdline.commands.cmd_import &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.cmdline.commands.cmd_import</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.cmdline.commands.cmd_import</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;`verdi import` command.&quot;&quot;&quot;</span>
+<span class="c1"># pylint: disable=broad-except,too-many-arguments,too-many-locals,too-many-branches</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">click</span>
+
+<span class="kn">from</span> <span class="nn">aiida.cmdline.commands.cmd_verdi</span> <span class="k">import</span> <span class="n">verdi</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.params</span> <span class="k">import</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.params.types</span> <span class="k">import</span> <span class="n">GroupParamType</span><span class="p">,</span> <span class="n">ImportPath</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.utils</span> <span class="k">import</span> <span class="n">decorators</span><span class="p">,</span> <span class="n">echo</span>
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span>
+
+<span class="n">EXTRAS_MODE_EXISTING</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;keep_existing&#39;</span><span class="p">,</span> <span class="s1">&#39;update_existing&#39;</span><span class="p">,</span> <span class="s1">&#39;mirror&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;ask&#39;</span><span class="p">]</span>
+<span class="n">EXTRAS_MODE_NEW</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;import&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">]</span>
+<span class="n">COMMENT_MODE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;newest&#39;</span><span class="p">,</span> <span class="s1">&#39;overwrite&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># pylint: disable=too-few-public-methods</span>
+<div class="viewcode-block" id="ExtrasImportCode"><a class="viewcode-back" href="../../../../apidoc/aiida.cmdline.commands.html#aiida.cmdline.commands.cmd_import.ExtrasImportCode">[docs]</a><span class="k">class</span> <span class="nc">ExtrasImportCode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Exit codes for the verdi command line.&quot;&quot;&quot;</span>
+    <span class="n">keep_existing</span> <span class="o">=</span> <span class="s1">&#39;kcl&#39;</span>
+    <span class="n">update_existing</span> <span class="o">=</span> <span class="s1">&#39;kcu&#39;</span>
+    <span class="n">mirror</span> <span class="o">=</span> <span class="s1">&#39;ncu&#39;</span>
+    <span class="n">none</span> <span class="o">=</span> <span class="s1">&#39;knl&#39;</span>
+    <span class="n">ask</span> <span class="o">=</span> <span class="s1">&#39;kca&#39;</span></div>
+
+
+<div class="viewcode-block" id="_try_import"><a class="viewcode-back" href="../../../../apidoc/aiida.cmdline.commands.html#aiida.cmdline.commands.cmd_import._try_import">[docs]</a><span class="k">def</span> <span class="nf">_try_import</span><span class="p">(</span><span class="n">migration_performed</span><span class="p">,</span> <span class="n">file_to_import</span><span class="p">,</span> <span class="n">archive</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">migration</span><span class="p">,</span> <span class="n">non_interactive</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Utility function for `verdi import` to try to import archive</span>
+
+<span class="sd">    :param migration_performed: Boolean to determine the exception message to throw for IncompatibleArchiveVersionError</span>
+<span class="sd">    :param file_to_import: Absolute path, including filename, of file to be migrated.</span>
+<span class="sd">    :param archive: Filename of archive to be migrated, and later attempted imported.</span>
+<span class="sd">    :param group: AiiDA Group into which the import will be associated.</span>
+<span class="sd">    :param migration: Whether or not to force migration of archive, if needed.</span>
+<span class="sd">    :param non_interactive: Whether or not the user should be asked for input for any reason.</span>
+<span class="sd">    :param kwargs: Key-word-arguments that _must_ contain:</span>
+
+<span class="sd">    `&#39;extras_mode_existing&#39;`: `import_data`&#39;s `&#39;extras_mode_existing&#39;` keyword, determining import rules for Extras.</span>
+<span class="sd">    `&#39;extras_mode_new&#39;`: `import_data`&#39;s `&#39;extras_mode_new&#39;` keyword, determining import rules for Extras.</span>
+<span class="sd">    `&#39;comment_mode&#39;`: `import_data`&#39;s `&#39;comment_mode&#39;` keyword, determining import rules for Comments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm.importexport</span> <span class="k">import</span> <span class="n">import_data</span>
+
+    <span class="c1"># Checks</span>
+    <span class="n">expected_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;extras_mode_existing&#39;</span><span class="p">,</span> <span class="s1">&#39;extras_mode_new&#39;</span><span class="p">,</span> <span class="s1">&#39;comment_mode&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">expected_keys</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> needed for utility function &#39;</span><span class="si">{}</span><span class="s2">&#39; to use in &#39;import_data&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;_try_import&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Initialization</span>
+    <span class="n">migrate_archive</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">import_data</span><span class="p">(</span><span class="n">file_to_import</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">IncompatibleArchiveVersionError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">migration_performed</span><span class="p">:</span>
+            <span class="c1"># Migration has been performed, something is still wrong</span>
+            <span class="n">crit_message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> has been migrated, but it still cannot be imported.</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">,</span> <span class="n">exception</span><span class="p">)</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_critical</span><span class="p">(</span><span class="n">crit_message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Migration has not yet been tried.</span>
+            <span class="k">if</span> <span class="n">migration</span><span class="p">:</span>
+                <span class="c1"># Confirm migration</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">non_interactive</span><span class="p">:</span>
+                    <span class="n">migrate_archive</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">migrate_archive</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span>
+                        <span class="s2">&quot;Do you want to try and migrate </span><span class="si">{}</span><span class="s2"> to the newest export file version?</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Note: This will not change your current file.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">),</span>
+                        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Abort</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_critical</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;an exception occurred while importing the archive </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">non_interactive</span><span class="p">:</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s1">&#39;do you want to continue?&#39;</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;imported archive </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">migrate_archive</span></div>
+
+
+<div class="viewcode-block" id="_migrate_archive"><a class="viewcode-back" href="../../../../apidoc/aiida.cmdline.commands.html#aiida.cmdline.commands.cmd_import._migrate_archive">[docs]</a><span class="k">def</span> <span class="nf">_migrate_archive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">temp_folder</span><span class="p">,</span> <span class="n">file_to_import</span><span class="p">,</span> <span class="n">archive</span><span class="p">,</span> <span class="n">non_interactive</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+    <span class="sd">&quot;&quot;&quot;Utility function for `verdi import` to migrate archive</span>
+<span class="sd">    Invoke click command `verdi export migrate`, passing in the archive,</span>
+<span class="sd">    outputting the migrated archive in a temporary SandboxFolder.</span>
+<span class="sd">    Try again to import the now migrated file, after a successful migration.</span>
+
+<span class="sd">    :param ctx: Click context used to invoke `verdi export migrate`.</span>
+<span class="sd">    :param temp_folder: SandboxFolder, where the migrated file will be temporarily outputted.</span>
+<span class="sd">    :param file_to_import: Absolute path, including filename, of file to be migrated.</span>
+<span class="sd">    :param archive: Filename of archive to be migrated, and later attempted imported.</span>
+<span class="sd">    :param non_interactive: Whether or not the user should be asked for input for any reason.</span>
+<span class="sd">    :return: Absolute path to migrated archive within SandboxFolder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.commands.cmd_export</span> <span class="k">import</span> <span class="n">migrate</span>
+
+    <span class="c1"># Echo start</span>
+    <span class="n">echo</span><span class="o">.</span><span class="n">echo_info</span><span class="p">(</span><span class="s2">&quot;migrating archive </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+
+    <span class="c1"># Initialization</span>
+    <span class="n">temp_out_file</span> <span class="o">=</span> <span class="s1">&#39;migrated_importfile.aiida&#39;</span>
+
+    <span class="c1"># Migration</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+            <span class="n">migrate</span><span class="p">,</span> <span class="n">input_file</span><span class="o">=</span><span class="n">file_to_import</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">temp_folder</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">temp_out_file</span><span class="p">),</span> <span class="n">silent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s2">&quot;an exception occurred while migrating the archive </span><span class="si">{}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Use &#39;verdi export migrate&#39; to update this export file.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">non_interactive</span><span class="p">:</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s1">&#39;do you want to continue?&#39;</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s2">&quot;archive migrated, proceeding with import&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">temp_folder</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">temp_out_file</span><span class="p">)</span></div>
+
+
+<span class="nd">@verdi</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;import&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;archives&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">ImportPath</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">readable</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-w&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--webpages&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">MultipleValueOption</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Discover all URL targets pointing to files with the .aiida extension for these HTTP addresses. &quot;</span>
+    <span class="s2">&quot;Automatically discovered archive URLs will be downloadeded and added to ARCHIVES for importing&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-G&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--group&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">GroupParamType</span><span class="p">(</span><span class="n">create_if_not_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Specify group to which all the import nodes will be added. If such a group does not exist, it will be&#39;</span>
+    <span class="s1">&#39; created automatically.&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-e&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--extras-mode-existing&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">EXTRAS_MODE_EXISTING</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;keep_existing&#39;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify which extras from the export archive should be imported for nodes that are already contained in the &quot;</span>
+    <span class="s2">&quot;database: &quot;</span>
+    <span class="s2">&quot;ask: import all extras and prompt what to do for existing extras. &quot;</span>
+    <span class="s2">&quot;keep_existing: import all extras and keep original value of existing extras. &quot;</span>
+    <span class="s2">&quot;update_existing: import all extras and overwrite value of existing extras. &quot;</span>
+    <span class="s2">&quot;mirror: import all extras and remove any existing extras that are not present in the archive. &quot;</span>
+    <span class="s2">&quot;none: do not import any extras.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-n&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--extras-mode-new&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">EXTRAS_MODE_NEW</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;import&#39;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify whether to import extras of new nodes: &quot;</span>
+    <span class="s2">&quot;import: import extras. &quot;</span>
+    <span class="s2">&quot;none: do not import extras.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;--comment-mode&#39;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">COMMENT_MODE</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;newest&#39;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify the way to import Comments with identical UUIDs: &quot;</span>
+    <span class="s2">&quot;newest: Only the newest Comments (based on mtime) (default).&quot;</span>
+    <span class="s2">&quot;overwrite: Replace existing Comments with those from the import file.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;--migration/--no-migration&#39;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force migration of export file archives, if needed.&quot;</span><span class="p">)</span>
+<span class="nd">@options</span><span class="o">.</span><span class="n">NON_INTERACTIVE</span><span class="p">()</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
+<span class="k">def</span> <span class="nf">cmd_import</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">archives</span><span class="p">,</span> <span class="n">webpages</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">extras_mode_existing</span><span class="p">,</span> <span class="n">extras_mode_new</span><span class="p">,</span> <span class="n">comment_mode</span><span class="p">,</span> <span class="n">migration</span><span class="p">,</span>
+               <span class="n">non_interactive</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Import one or multiple exported AiiDA archives</span>
+
+<span class="sd">    The ARCHIVES can be specified by their relative or absolute file path, or their HTTP URL.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">urllib</span>
+
+    <span class="kn">from</span> <span class="nn">aiida.common.folders</span> <span class="k">import</span> <span class="n">SandboxFolder</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm.importexport</span> <span class="k">import</span> <span class="n">get_valid_import_links</span>
+
+    <span class="n">archives_url</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">archives_file</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Build list of archives to be imported</span>
+    <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">archives</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">archive</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">archive</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">):</span>
+            <span class="n">archives_url</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">archives_file</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+
+    <span class="c1"># Discover and retrieve *.aiida files at URL(s)</span>
+    <span class="k">if</span> <span class="n">webpages</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">webpage</span> <span class="ow">in</span> <span class="n">webpages</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_info</span><span class="p">(</span><span class="s1">&#39;retrieving archive URLS from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">webpage</span><span class="p">))</span>
+                <span class="n">urls</span> <span class="o">=</span> <span class="n">get_valid_import_links</span><span class="p">(</span><span class="n">webpage</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_error</span><span class="p">(</span><span class="s1">&#39;an exception occurred while trying to discover archives at URL </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">webpage</span><span class="p">))</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">non_interactive</span><span class="p">:</span>
+                    <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="s1">&#39;do you want to continue?&#39;</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> archive URLs discovered and added&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)))</span>
+                <span class="n">archives_url</span> <span class="o">+=</span> <span class="n">urls</span>
+
+    <span class="c1"># Preliminary sanity check</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">archives_url</span> <span class="o">+</span> <span class="n">archives_file</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_critical</span><span class="p">(</span><span class="s1">&#39;no valid exported archives were found&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Import initialization</span>
+    <span class="n">import_opts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;file_to_import&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;archive&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span><span class="p">,</span>
+        <span class="s2">&quot;migration&quot;</span><span class="p">:</span> <span class="n">migration</span><span class="p">,</span>
+        <span class="s2">&quot;extras_mode_existing&quot;</span><span class="p">:</span> <span class="n">ExtrasImportCode</span><span class="p">[</span><span class="n">extras_mode_existing</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="s2">&quot;extras_mode_new&quot;</span><span class="p">:</span> <span class="n">extras_mode_new</span><span class="p">,</span>
+        <span class="s2">&quot;comment_mode&quot;</span><span class="p">:</span> <span class="n">comment_mode</span><span class="p">,</span>
+        <span class="s2">&quot;non_interactive&quot;</span><span class="p">:</span> <span class="n">non_interactive</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Import local archives</span>
+    <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">archives_file</span><span class="p">:</span>
+
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_info</span><span class="p">(</span><span class="s1">&#39;importing archive </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+
+        <span class="c1"># Initialization</span>
+        <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;archive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">archive</span>
+        <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;file_to_import&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;archive&#39;</span><span class="p">]</span>
+
+        <span class="c1"># First attempt to import archive</span>
+        <span class="n">migrate_archive</span> <span class="o">=</span> <span class="n">_try_import</span><span class="p">(</span><span class="n">migration_performed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+
+        <span class="c1"># Migrate archive if needed and desired</span>
+        <span class="k">if</span> <span class="n">migrate_archive</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">SandboxFolder</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_folder</span><span class="p">:</span>
+                <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;file_to_import&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_migrate_archive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">temp_folder</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+                <span class="n">_try_import</span><span class="p">(</span><span class="n">migration_performed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+
+    <span class="c1"># Import web-archives</span>
+    <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">archives_url</span><span class="p">:</span>
+
+        <span class="c1"># Initialization</span>
+        <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;archive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">archive</span>
+
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_info</span><span class="p">(</span><span class="s1">&#39;downloading archive </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_warning</span><span class="p">(</span><span class="s1">&#39;downloading archive </span><span class="si">{}</span><span class="s1"> failed: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">archive</span><span class="p">,</span> <span class="n">exception</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="n">SandboxFolder</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_folder</span><span class="p">:</span>
+            <span class="n">temp_file</span> <span class="o">=</span> <span class="s1">&#39;importfile.tar.gz&#39;</span>
+
+            <span class="c1"># Download archive to temporary file</span>
+            <span class="n">temp_folder</span><span class="o">.</span><span class="n">create_file_from_filelike</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">temp_file</span><span class="p">)</span>
+            <span class="n">echo</span><span class="o">.</span><span class="n">echo_success</span><span class="p">(</span><span class="s1">&#39;archive downloaded, proceeding with import&#39;</span><span class="p">)</span>
+
+            <span class="c1"># First attempt to import archive</span>
+            <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;file_to_import&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_folder</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">temp_file</span><span class="p">)</span>
+            <span class="n">migrate_archive</span> <span class="o">=</span> <span class="n">_try_import</span><span class="p">(</span><span class="n">migration_performed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+
+            <span class="c1"># Migrate archive if needed and desired</span>
+            <span class="k">if</span> <span class="n">migrate_archive</span><span class="p">:</span>
+                <span class="n">import_opts</span><span class="p">[</span><span class="s1">&#39;file_to_import&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_migrate_archive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">temp_folder</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+                <span class="n">_try_import</span><span class="p">(</span><span class="n">migration_performed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">import_opts</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

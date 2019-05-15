@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.cmdline.commands.cmd_run &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+      <li>aiida.cmdline.commands.cmd_run</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.cmdline.commands.cmd_run</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;`verdi run` command.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+
+<span class="kn">from</span> <span class="nn">aiida.cmdline.commands.cmd_verdi</span> <span class="k">import</span> <span class="n">verdi</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.params.options.multivalue</span> <span class="k">import</span> <span class="n">MultipleValueOption</span>
+<span class="kn">from</span> <span class="nn">aiida.cmdline.utils</span> <span class="k">import</span> <span class="n">decorators</span><span class="p">,</span> <span class="n">echo</span>
+
+
+<div class="viewcode-block" id="update_environment"><a class="viewcode-back" href="../../../../apidoc/aiida.cmdline.commands.html#aiida.cmdline.commands.cmd_run.update_environment">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">update_environment</span><span class="p">(</span><span class="n">new_argv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used as a context manager, changes sys.argv with the</span>
+<span class="sd">    new_argv argument, and restores it upon exit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[:]</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="n">new_argv</span><span class="p">[:]</span>
+    <span class="k">yield</span>
+
+    <span class="c1"># Restore old parameters when exiting from the context manager</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="n">_argv</span></div>
+
+
+<span class="nd">@verdi</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">context_settings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ignore_unknown_options</span><span class="o">=</span><span class="kc">True</span><span class="p">,))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;scriptname&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;varargs&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">UNPROCESSED</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;--group&#39;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Enables the autogrouping&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--group-name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Specify the name of the auto group&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--exclude&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">MultipleValueOption</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Exclude these classes from auto grouping&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--include&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">MultipleValueOption</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">],</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Include these classes from auto grouping&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-E&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--excludesubclasses&#39;</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">MultipleValueOption</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Exclude these classes and their sub classes from auto grouping&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s1">&#39;-I&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--includesubclasses&#39;</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">MultipleValueOption</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Include these classes and their sub classes from auto grouping&#39;</span><span class="p">)</span>
+<span class="nd">@decorators</span><span class="o">.</span><span class="n">with_dbenv</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">scriptname</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">excludesubclasses</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">includesubclasses</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=too-many-arguments,exec-used</span>
+    <span class="sd">&quot;&quot;&quot;Execute an AiiDA script.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.cmdline.utils.shell</span> <span class="k">import</span> <span class="n">DEFAULT_MODULES_LIST</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">autogroup</span>
+
+    <span class="c1"># Prepare the environment for the script to be run</span>
+    <span class="n">globals_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;__builtins__&#39;</span><span class="p">:</span> <span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;__name__&#39;</span><span class="p">:</span> <span class="s1">&#39;__main__&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;__file__&#39;</span><span class="p">:</span> <span class="n">scriptname</span><span class="p">,</span>
+        <span class="s1">&#39;__doc__&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">&#39;__package__&#39;</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Dynamically load modules (the same of verdi shell) - but in globals_dict, not in the current environment</span>
+    <span class="k">for</span> <span class="n">app_mod</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">alias</span> <span class="ow">in</span> <span class="n">DEFAULT_MODULES_LIST</span><span class="p">:</span>
+        <span class="n">globals_dict</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alias</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="n">app_mod</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{},</span> <span class="n">model_name</span><span class="p">),</span> <span class="n">model_name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
+        <span class="n">automatic_group_name</span> <span class="o">=</span> <span class="n">group_name</span>
+        <span class="k">if</span> <span class="n">automatic_group_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">timezone</span>
+
+            <span class="n">automatic_group_name</span> <span class="o">=</span> <span class="s1">&#39;Verdi autogroup on &#39;</span> <span class="o">+</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+
+        <span class="n">aiida_verdilib_autogroup</span> <span class="o">=</span> <span class="n">autogroup</span><span class="o">.</span><span class="n">Autogroup</span><span class="p">()</span>
+        <span class="n">aiida_verdilib_autogroup</span><span class="o">.</span><span class="n">set_exclude</span><span class="p">(</span><span class="n">exclude</span><span class="p">)</span>
+        <span class="n">aiida_verdilib_autogroup</span><span class="o">.</span><span class="n">set_include</span><span class="p">(</span><span class="n">include</span><span class="p">)</span>
+        <span class="n">aiida_verdilib_autogroup</span><span class="o">.</span><span class="n">set_exclude_with_subclasses</span><span class="p">(</span><span class="n">excludesubclasses</span><span class="p">)</span>
+        <span class="n">aiida_verdilib_autogroup</span><span class="o">.</span><span class="n">set_include_with_subclasses</span><span class="p">(</span><span class="n">includesubclasses</span><span class="p">)</span>
+        <span class="n">aiida_verdilib_autogroup</span><span class="o">.</span><span class="n">set_group_name</span><span class="p">(</span><span class="n">automatic_group_name</span><span class="p">)</span>
+
+        <span class="c1"># Note: this is also set in the exec environment! This is the intended behavior</span>
+        <span class="n">autogroup</span><span class="o">.</span><span class="n">current_autogroup</span> <span class="o">=</span> <span class="n">aiida_verdilib_autogroup</span>
+
+    <span class="c1"># Initialize the variable here, otherwise we get UnboundLocalError in the finally clause if it fails to open</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Here we use a standard open and not io.open, as exec will later fail if passed a unicode type string.</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">scriptname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+        <span class="n">echo</span><span class="o">.</span><span class="n">echo_critical</span><span class="p">(</span><span class="s2">&quot;Unable to load file &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scriptname</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Must add also argv[0]</span>
+            <span class="n">new_argv</span> <span class="o">=</span> <span class="p">[</span><span class="n">scriptname</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">varargs</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">update_environment</span><span class="p">(</span><span class="n">new_argv</span><span class="o">=</span><span class="n">new_argv</span><span class="p">):</span>
+                <span class="c1"># Add local folder to sys.path</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">))</span>
+                <span class="c1"># Compile the script for execution and pass it to exec with the globals_dict</span>
+                <span class="n">exec</span><span class="p">(</span><span class="nb">compile</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">scriptname</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">,</span> <span class="n">dont_inherit</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">globals_dict</span><span class="p">)</span>  <span class="c1"># yapf: disable # pylint: disable=exec-used</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>  <span class="c1"># pylint: disable=try-except-raise</span>
+            <span class="c1"># Script called sys.exit()</span>
+            <span class="c1"># Re-raise the exception to have the error code properly returned at the end</span>
+            <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

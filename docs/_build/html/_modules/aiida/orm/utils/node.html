@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aiida.orm.utils.node &mdash; AiiDA 1.0.0b2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> AiiDA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/quick_installation.html">Quick installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/updating_installation.html">Updating AiiDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/index.html">First things first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/daemon.html">Setup the daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/computers.html">Setup a computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/codes.html">Setup a code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/plugins.html">Plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/provenance.html">Provenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../concepts/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/processes.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/functions.html">Calculation and work functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Working with AiiDA</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#scripting">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#data-types">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#groups">Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#schedulers">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#querying-data">Querying data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#caching">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#result-manager">Result manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#backups">Backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#rest-api">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../working_with_aiida/index.html#cookbook">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../import_export/index.html">Import and Export</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">AiiDA design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-core">AiiDA core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html#aiida-plugins">AiiDA plugins</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">StructureData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#pseudopotentials">Pseudopotentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html#plugin-development">Plugin development</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_">`aiida package &lt;https://aiida-core.readthedocs.io/en/latest/apidoc/aiida.html&gt;`_</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">AiiDA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../aiida.html">aiida</a> &raquo;</li>
+        
+          <li><a href="../utils.html">aiida.orm.utils</a> &raquo;</li>
+        
+      <li>aiida.orm.utils.node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aiida.orm.utils.node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">###########################################################################</span>
+<span class="c1"># Copyright (c), The AiiDA team. All rights reserved.                     #</span>
+<span class="c1"># This file is part of the AiiDA code.                                    #</span>
+<span class="c1">#                                                                         #</span>
+<span class="c1"># The code is hosted on GitHub at https://github.com/aiidateam/aiida_core #</span>
+<span class="c1"># For further information on the license, see the LICENSE.txt file        #</span>
+<span class="c1"># For further information please visit http://www.aiida.net               #</span>
+<span class="c1">###########################################################################</span>
+<span class="sd">&quot;&quot;&quot;Utilities to operate on `Node` classes.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numbers</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">aiida.common</span> <span class="k">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">aiida.common.utils</span> <span class="k">import</span> <span class="n">strip_prefix</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;load_node_class&#39;</span><span class="p">,</span> <span class="s1">&#39;get_type_string_from_class&#39;</span><span class="p">,</span> <span class="s1">&#39;get_query_type_from_type_string&#39;</span><span class="p">,</span> <span class="s1">&#39;AbstractNodeMeta&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;clean_value&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_node_class"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.load_node_class">[docs]</a><span class="k">def</span> <span class="nf">load_node_class</span><span class="p">(</span><span class="n">type_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the `Node` sub class that corresponds to the given type string.</span>
+
+<span class="sd">    :param type_string: the `type` string of the node</span>
+<span class="sd">    :return: a sub class of `Node`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Node</span>
+    <span class="kn">from</span> <span class="nn">aiida.plugins.entry_point</span> <span class="k">import</span> <span class="n">load_entry_point</span>
+
+    <span class="k">if</span> <span class="n">type_string</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Node</span>
+
+    <span class="k">if</span> <span class="n">type_string</span> <span class="o">==</span> <span class="s1">&#39;data.Data.&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Data</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">type_string</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">DbContentError</span><span class="p">(</span><span class="s1">&#39;The type string `</span><span class="si">{}</span><span class="s1">` is invalid&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_string</span><span class="p">))</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">base_path</span> <span class="o">=</span> <span class="n">type_string</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">EntryPointError</span>
+
+    <span class="c1"># This exception needs to be there to make migrations work that rely on the old type string starting with `node.`</span>
+    <span class="c1"># Since now the type strings no longer have that prefix, we simply strip it and continue with the normal logic.</span>
+    <span class="k">if</span> <span class="n">base_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;node.&#39;</span><span class="p">):</span>
+        <span class="n">base_path</span> <span class="o">=</span> <span class="n">strip_prefix</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;node.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Data nodes are the only ones with sub classes that are still external, so if the plugin is not available</span>
+    <span class="c1"># we fall back on the base node type</span>
+    <span class="k">if</span> <span class="n">base_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;data.&#39;</span><span class="p">):</span>
+        <span class="n">entry_point_name</span> <span class="o">=</span> <span class="n">strip_prefix</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;data.&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;aiida.data&#39;</span><span class="p">,</span> <span class="n">entry_point_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MissingEntryPointError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Data</span>
+
+    <span class="k">if</span> <span class="n">base_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;process&#39;</span><span class="p">):</span>
+        <span class="n">entry_point_name</span> <span class="o">=</span> <span class="n">strip_prefix</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;nodes.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;aiida.node&#39;</span><span class="p">,</span> <span class="n">entry_point_name</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">EntryPointError</span><span class="p">(</span><span class="s1">&#39;unknown type string </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_string</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_type_string_from_class"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.get_type_string_from_class">[docs]</a><span class="k">def</span> <span class="nf">get_type_string_from_class</span><span class="p">(</span><span class="n">class_module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the module and name of a class, determine the orm_class_type string, which codifies the</span>
+<span class="sd">    orm class that is to be used. The returned string will always have a terminating period, which</span>
+<span class="sd">    is required to query for the string in the database</span>
+
+<span class="sd">    :param class_module: module of the class</span>
+<span class="sd">    :param class_name: name of the class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">aiida.plugins.entry_point</span> <span class="k">import</span> <span class="n">get_entry_point_from_class</span><span class="p">,</span> <span class="n">entry_point_group_to_module_path_map</span>
+
+    <span class="n">group</span><span class="p">,</span> <span class="n">entry_point</span> <span class="o">=</span> <span class="n">get_entry_point_from_class</span><span class="p">(</span><span class="n">class_module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+    <span class="c1"># If we can reverse engineer an entry point group and name, we&#39;re dealing with an external class</span>
+    <span class="k">if</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">entry_point</span><span class="p">:</span>
+        <span class="n">module_base_path</span> <span class="o">=</span> <span class="n">entry_point_group_to_module_path_map</span><span class="p">[</span><span class="n">group</span><span class="p">]</span>
+        <span class="n">type_string</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module_base_path</span><span class="p">,</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+    <span class="c1"># Otherwise we are dealing with an internal class</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">type_string</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+    <span class="n">prefixes</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;aiida.orm.nodes.&#39;</span><span class="p">,)</span>
+
+    <span class="c1"># Sequentially and **in order** strip the prefixes if present</span>
+    <span class="k">for</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">prefixes</span><span class="p">:</span>
+        <span class="n">type_string</span> <span class="o">=</span> <span class="n">strip_prefix</span><span class="p">(</span><span class="n">type_string</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+
+    <span class="c1"># This needs to be here as long as `aiida.orm.nodes.data` does not live in `aiida.orm.nodes.data` because all the</span>
+    <span class="c1"># `Data` instances will have a type string that starts with `data.` instead of `nodes.`, so in order to match any</span>
+    <span class="c1"># `Node` we have to look for any type string essentially.</span>
+    <span class="k">if</span> <span class="n">type_string</span> <span class="o">==</span> <span class="s1">&#39;node.Node.&#39;</span><span class="p">:</span>
+        <span class="n">type_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">return</span> <span class="n">type_string</span></div>
+
+
+<span class="k">def</span> <span class="nf">is_valid_node_type_string</span><span class="p">(</span><span class="n">type_string</span><span class="p">,</span> <span class="n">raise_on_false</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether type string of a Node is valid.</span>
+
+<span class="sd">    :param type_string: the plugin_type_string attribute of a Node</span>
+<span class="sd">    :return: True if type string is valid, else false</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Currently the type string for the top-level node is empty.</span>
+    <span class="c1"># Change this when a consistent type string hierarchy is introduced.</span>
+    <span class="k">if</span> <span class="n">type_string</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># Note: this allows for the user-defined type strings like &#39;group&#39; in the QueryBuilder</span>
+    <span class="c1"># as well as the usual type strings like &#39;data.parameter.ParameterData.&#39;</span>
+    <span class="k">if</span> <span class="n">type_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">type_string</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">raise_on_false</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">DbContentError</span><span class="p">(</span><span class="s1">&#39;The type string </span><span class="si">{}</span><span class="s1"> is invalid&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_string</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="get_query_type_from_type_string"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.get_query_type_from_type_string">[docs]</a><span class="k">def</span> <span class="nf">get_query_type_from_type_string</span><span class="p">(</span><span class="n">type_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Take the type string of a Node and create the queryable type string</span>
+
+<span class="sd">    :param type_string: the plugin_type_string attribute of a Node</span>
+<span class="sd">    :return: the type string that can be used to query for</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">is_valid_node_type_string</span><span class="p">(</span><span class="n">type_string</span><span class="p">,</span> <span class="n">raise_on_false</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Currently the type string for the top-level node is empty.</span>
+    <span class="c1"># Change this when a consistent type string hierarchy is introduced.</span>
+    <span class="k">if</span> <span class="n">type_string</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">type_path</span> <span class="o">=</span> <span class="n">type_string</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">type_string</span> <span class="o">=</span> <span class="n">type_path</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span>
+
+    <span class="k">return</span> <span class="n">type_string</span></div>
+
+
+<div class="viewcode-block" id="clean_value"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.clean_value">[docs]</a><span class="k">def</span> <span class="nf">clean_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get value from input and (recursively) replace, if needed, all occurrences</span>
+<span class="sd">    of BaseType AiiDA data nodes with their value, and List with a standard list.</span>
+<span class="sd">    It also makes a deep copy of everything</span>
+<span class="sd">    The purpose of this function is to convert data to a type which can be serialized and deserialized</span>
+<span class="sd">    for storage in the DB without its value changing.</span>
+
+<span class="sd">    Note however that there is no logic to avoid infinite loops when the</span>
+<span class="sd">    user passes some perverse recursive dictionary or list.</span>
+<span class="sd">    In any case, however, this would not be storable by AiiDA...</span>
+
+<span class="sd">    :param value: A value to be set as an attribute or an extra</span>
+<span class="sd">    :return: a &quot;cleaned&quot; value, potentially identical to value, but with</span>
+<span class="sd">        values replaced where needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Must be imported in here to avoid recursive imports</span>
+    <span class="kn">from</span> <span class="nn">aiida.orm</span> <span class="k">import</span> <span class="n">BaseType</span>
+
+    <span class="k">def</span> <span class="nf">clean_builtin</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function to clean build-in python values (`BaseType`).</span>
+
+<span class="sd">        It mainly checks that we don&#39;t store NaN or Inf.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">or</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+            <span class="c1"># see https://www.postgresql.org/docs/current/static/datatype-json.html#JSON-TYPE-MAPPING-TABLE</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;nan and inf/-inf can not be serialized to the database&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">val</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">BaseType</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">clean_builtin</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="c1"># Check dictionary before iterables</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">clean_value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)):</span>
+        <span class="c1"># list, tuple, ... but not a string</span>
+        <span class="c1"># This should also properly take care of dealing with the</span>
+        <span class="c1"># basedatatypes.List object</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">clean_value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
+
+    <span class="c1"># If I don&#39;t know what to do I just return the value</span>
+    <span class="c1"># itself - it&#39;s not super robust, but relies on duck typing</span>
+    <span class="c1"># (e.g. if there is something that behaves like an integer</span>
+    <span class="c1"># but is not an integer, I still accept it)</span>
+
+    <span class="k">return</span> <span class="n">clean_builtin</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbstractNodeMeta"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.AbstractNodeMeta">[docs]</a><span class="k">class</span> <span class="nc">AbstractNodeMeta</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Some python black magic to set correctly the logger also in subclasses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=arguments-differ,protected-access,too-many-function-args</span>
+
+<div class="viewcode-block" id="AbstractNodeMeta.__new__"><a class="viewcode-back" href="../../../../apidoc/aiida.orm.utils.html#aiida.orm.utils.node.AbstractNodeMeta.__new__">[docs]</a>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">):</span>
+        <span class="n">newcls</span> <span class="o">=</span> <span class="n">ABCMeta</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span>
+        <span class="n">newcls</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">namespace</span><span class="p">[</span><span class="s1">&#39;__module__&#39;</span><span class="p">],</span> <span class="n">name</span><span class="p">))</span>
+
+        <span class="c1"># Set the plugin type string and query type string based on the plugin type string</span>
+        <span class="n">newcls</span><span class="o">.</span><span class="n">_plugin_type_string</span> <span class="o">=</span> <span class="n">get_type_string_from_class</span><span class="p">(</span><span class="n">namespace</span><span class="p">[</span><span class="s1">&#39;__module__&#39;</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">newcls</span><span class="o">.</span><span class="n">_query_type_string</span> <span class="o">=</span> <span class="n">get_query_type_from_type_string</span><span class="p">(</span><span class="n">newcls</span><span class="o">.</span><span class="n">_plugin_type_string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">newcls</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
