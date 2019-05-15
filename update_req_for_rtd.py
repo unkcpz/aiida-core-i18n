@@ -28,7 +28,7 @@ def update_req_for_rtd(pre_commit):
     docs_dir = os.path.abspath(os.path.dirname(__file__))
     root_dir = os.path.join(docs_dir, os.pardir)
 
-    with open(os.path.join(root_dir, 'setup.json'), 'r') as info:
+    with open(os.path.join(root_dir, 'aiida_core/setup.json'), 'r') as info:
         setup_json = json.load(info)
 
     extras = setup_json['extras_require']
