@@ -1,5 +1,5 @@
 # AiiDA-l10n-zh_CN
-[![Documentation Status](https://readthedocs.org/projects/aiida-l10n-zh_CN/badge/?version=latest)](https://aiida-l10n-zh_CN.readthedocs.io/zh_CN/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/aiida-zh-cn/badge/?version=latest)](https://aiida-zh-cn.readthedocs.io/zh_CN/latest/?badge=latest)
 
 [Transifex](https://www.transifex.com/) is used as translation platform.
 The workflow is described as following, to process the translation work of AiiDA documentation.
