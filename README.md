@@ -1,44 +1,8 @@
 # AiiDA-l10n-zh_CN
-[![Documentation Status](https://readthedocs.org/projects/aiida-zh-cn/badge/?version=latest)](https://aiida-zh-cn.readthedocs.io/zh_CN/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/aiida-core-zh-cn/badge/?version=latest)](https://aiida-core-zh-cn.readthedocs.io/zh_CN/latest/?badge=latest)
 
 [Transifex](https://www.transifex.com/) is used as translation platform.
 The workflow is described as following, to process the translation work of AiiDA documentation.
-
-## Workflow for transifex maintainers
-
-### 0. push `pot` files to transifex
-
-In `aiida_core/docs/` directory,
-generate `pot` files:
-
-```sh
-$ make gettext
-```
-
-Creating `.tx/config` file:
-
-```sh
-$ tx init --no-interactive
-$ sphinx-intl update-txconfig-resources --pot-dir build/locale --transifex-project-name aiida-documentation
-```
-
-*make sure* not to include apidoc which should not be translated in `.tx/config`. (manually remove these lines?)
-
-```sh
-$ tx push -s
-```
-
-### 1. When docs of source language update
-
-If `.tx/config` is going to be reset to track new `pot` files, runing:
-
-```sh
-$ make gettext
-$ sphinx-intl update-txconfig-resources --pot-dir build/locale --transifex-project-name aiida-documentation
-$ tx push -s
-```
-
-*make sure* not to include apidoc which should not be translated in `.tx/config`. (manually remove these lines?)
 
 ## Workflow for transifex translators
 
@@ -52,7 +16,7 @@ $ tx push -s
 
 This repository is a template for how to add a new localization.
 
-### 0. Create a github repository 'aiida-l10n-<lang>'
+### 0. Create a github repository 'aiida-l10n-\<lang\>'
 
 The source code of documentation comes from aiida_core.
 Therefore, submodule the `aiida_core` in the new created repository.
