@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the AiiDA package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Jason.Yu <morty.yu@yahoo.com>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-17 21:47+0200\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
+"Last-Translator: Jason.Yu <morty.yu@yahoo.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +23,7 @@ msgstr ""
 
 #: ../docs/source/concepts/calculations.rst:5
 msgid "Calculations"
-msgstr ""
+msgstr "Calculations"
 
 #: ../docs/source/concepts/calculations.rst:7
 msgid ""
@@ -27,14 +31,16 @@ msgid ""
 "section<concepts_processes>` for details) that *creates* new data. "
 "Currently, there are two ways of implementing a calculation process:"
 msgstr ""
+"Calculation 是一个能够创建新数据的process (详情参见 :ref:`process 章节<concepts_processes>` )"
+" 。 当前，有两种calculation的实现，分别是："
 
 #: ../docs/source/concepts/calculations.rst:10
 msgid ":ref:`calculation function<concepts_calcfunctions>`"
-msgstr ""
+msgstr ":ref:`calculation function<concepts_calcfunctions>`"
 
 #: ../docs/source/concepts/calculations.rst:11
 msgid ":ref:`calculation job<concepts_calcjobs>`"
-msgstr ""
+msgstr ":ref:`calculation job<concepts_calcjobs>`"
 
 #: ../docs/source/concepts/calculations.rst:13
 msgid ""
@@ -45,6 +51,8 @@ msgid ""
 "external codes that are optionally run on remote computing clusters, the "
 "calculation job is the better alternative."
 msgstr ""
+"前者是简单的将一个python函数转变为一个process，这适用于计算量不大且易于实现的python函数。对于复杂的计算任务，通常需要外部的计算软件参与，这些代码通常运行在远端的集群上，因此使用"
+" calculation job更为合适。"
 
 #: ../docs/source/concepts/calculations.rst:17
 msgid ""
@@ -54,25 +62,28 @@ msgid ""
 ":ref:`calculation functions<working_calcfunctions>` and :ref:`calculation "
 "jobs<working_calcjobs>`."
 msgstr ""
+"下列章节将分别介绍两者，但是这里只是简单介绍概念而不深入详细的实现和使用细节。详细的内容请参考相应的进阶章节 :ref:`calculation "
+"functions<working_calcfunctions>` 和 :ref:`calculation "
+"jobs<working_calcjobs>` 。"
 
 #: ../docs/source/concepts/calculations.rst:24
 msgid "Calculation functions"
-msgstr ""
+msgstr "Calculation functions"
 
 #: ../docs/source/concepts/calculations.rst:26
 msgid "Consider the following computational task at hand:"
-msgstr ""
+msgstr "以下列计算任务为例："
 
 #: ../docs/source/concepts/calculations.rst:29
 msgid ""
 "Given three integers, add the first two and then multiply the sum by the "
 "third."
-msgstr ""
+msgstr "给定三个整数，将前两者求和后与第三者相乘。"
 
 #: ../docs/source/concepts/calculations.rst:31
 msgid ""
 "In plain python code, the solution would look something like the following:"
-msgstr ""
+msgstr "常规的python代码如下："
 
 #: ../docs/source/concepts/calculations.rst:36
 msgid ""
@@ -87,6 +98,12 @@ msgid ""
 "graph<concepts_provenance>` when executed. Updating the previous snippet "
 "with ``calcfunction`` decorators yields:"
 msgstr ""
+"这些代码会直接得到想要的结果，但是，并没有关于运算过程的provenance。结果与输入之间并没有保留运算关系。 为保留运算过程，我们使用 "
+":py:meth:`~aiida.engine.processes.functions.calcfunction`。  "
+"AiiDA的``calcfunction`` 是一个 `装饰器 <https://docs.python.org/3/glossary.html"
+"#term-decorator>`_ 它将一个函数装饰成为一个calculation process，这使得其可以自动将得到结果的计算过程储存为一个 "
+":ref:`provenance 图<concepts_provenance>` 。. 使用 ``calcfunction`` "
+"装饰器更性上面代码片段后为:"
 
 #: ../docs/source/concepts/calculations.rst:45
 msgid ""
@@ -102,6 +119,11 @@ msgid ""
 "only has to wrap them in the :py:class:`~aiida.orm.nodes.data.int.Int` node "
 "sub class, which makes them storable in the database:"
 msgstr ""
+"我们只需要简单的在每一个函数前增加 ``@calcfunction`` 装饰器。 增加的装饰器使得 AiiDA "
+"知晓被装饰的函数在执行后的provenance需要被储存进 provenance图中 。 也就是执行函数后将输入和输出与一个calculation "
+"nod连接。  "
+"新的代码块还涉及将输入和输出储存进provenance图。之前的代码中，输入和输出都是普通的python整型数据结构，是无法作为node自动存入provenance图中的。为实现该特性，用户只需要将输入输出封装成"
+" :py:class:`~aiida.orm.nodes.data.int.Int`  类即可，这样他们就能够被储存进入数据库中了。"
 
 #: ../docs/source/concepts/calculations.rst:55
 msgid ""
@@ -111,6 +133,8 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.int.Int` node that contains the result of "
 "the computation."
 msgstr ""
+"前后函数中的的代码差异就只是输入被封装成了 :py:class:`~aiida.orm.nodes.data.int.Int` 类。 "
+"同样返回的结果也被封装成 :py:class:`~aiida.orm.nodes.data.int.Int` 包含计算结果的node。"
 
 #: ../docs/source/concepts/calculations.rst:59
 msgid ""
@@ -122,16 +146,21 @@ msgid ""
 "results from process function, refer to the :ref:`advanced "
 "section<working_calcfunctions>`"
 msgstr ""
+"因为函数中的 ``x`` 和 ``y`` 都已经是 :py:class:`~aiida.orm.nodes.data.int.Int` "
+"类的实例，因为所有的运算都已经重载，无需类型转换，加法过程的结果也是该类的实例。需要清楚的记住只有 "
+":py:class:`~aiida.orm.nodes.node.Node` "
+"的实例，或是其子类的实例可以被储存进数据库。有关如何从process函数中返回可储存的结果，请参考 "
+":ref:`进阶章节<working_calcfunctions>`"
 
 #: ../docs/source/concepts/calculations.rst:63
 msgid ""
 "With these trivial changes, the full provenance of result produced by "
 "running the function is maintained and looks like the following:"
-msgstr ""
+msgstr "在这样简单的修改后，函数运行并产生结果的整个provenance就被保留下来，如下所示："
 
 #: ../docs/source/concepts/calculations.rst:68
 msgid "The provenance generated by the calcfunction example"
-msgstr ""
+msgstr "calculation例子生成的provenance"
 
 #: ../docs/source/concepts/calculations.rst:70
 msgid ""
@@ -143,6 +172,8 @@ msgid ""
 " launch functions that will return a tuple, that in addition to the results,"
 " also return the ``pk`` or the node associated with the process"
 msgstr ""
+"上面的例子展示了如何运行一个calculation：简单的调用并运行。calculation返回的结果就是对应函数的结果。然而用户可能还会想要得到有关calculation"
+" node的信息。下列代码块展示了如何用另外两个函数在运行的同时获得process的 ``pk`` 和node信息。"
 
 #: ../docs/source/concepts/calculations.rst:78
 msgid ""
@@ -153,10 +184,14 @@ msgid ""
 "the section on :ref:`calculation function "
 "development<working_calcfunctions>`."
 msgstr ""
+"这是一个关于calculation "
+"function的一个简单概述。请从以下链接:ref:`启动process<working_processes_launching>`` "
+"中获得有关如可启动process的详细细节。如果你想要知晓有关如何实现一个calculation "
+"funciton并找到更为详细的示例，请参考章节:ref:`calculation function 开发`。 "
 
 #: ../docs/source/concepts/calculations.rst:86
 msgid "Calculation jobs"
-msgstr ""
+msgstr "Calculation jobs"
 
 #: ../docs/source/concepts/calculations.rst:88
 msgid ""
@@ -174,6 +209,12 @@ msgid ""
 "and explain in broad lines how a calculation job models the execution of an "
 "external code and what tasks it performs when launched."
 msgstr ""
+"在前面章节 :ref:`calculation functions<concepts_calcfunctions>` "
+"，我们展示了如何将简单的python函数转换成一个process，以使其在启动执行后，其结果能够自动记录在provenance图中。然而并非所有计算过程都能够通过简单的python函数实现，而是通常涉及外部代码来实现。为了实现外部代码与内部引擎的接口"
+" AiiDA 引入了 :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` "
+"process 类 。 可以在 :ref:`后续章节<working_calcjobs>` "
+"中找到关于如何实现与外部代码接口的细节和示例。这里，只关注calculation job的整体特征和使用场景，即如何通过calculation "
+"job来驱动外部代码的运行。"
 
 #: ../docs/source/concepts/calculations.rst:94
 msgid ""
@@ -182,6 +223,8 @@ msgid ""
 "reads an input file containing two integers, sums them and echoes the "
 "result, for example:"
 msgstr ""
+"为了展示calculation "
+"job是如何工作的，我们首先需要一份外部代码样例。我们假设一个外部代码是一个bash脚本，它读入一个包含两个整数的文件，并将他们求和后返回结果，如："
 
 #: ../docs/source/concepts/calculations.rst:108
 msgid ""
@@ -201,6 +244,12 @@ msgid ""
 ":ref:`computer that is configured in AiiDA<setup_computer>`, including "
 "remote machines accessible over for example SSH."
 msgstr ""
+"运行后，该脚本会从名为 ``aiida.in`` 的文件中读取数据，数据需要是两整数。脚本会将这两个整数解析成变量 ``x`` 和 ``y`` "
+"，并打印求和后的结果。当你要用AiiDA运行这段代码，你需要告诉AiiDA如何运行这段代码。:py:class:`~aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation`"
+" 就是一个实现与上述脚本接口的 calculation job。 一个 ``CalcJob`` "
+"就是一个关于特定代码如何运行的接口，通常作为一个计算插件调用，它的功能主要是告知AiiDA如何运行这样一份外部代码。这包括了如何从输入产生需要的输入文件，如何运行外部代码，以及当外部代码运行完成后如何取回运行结果文件。之所以需要"
+" ‘取出’ 运行结果，是因为calculation job可能不仅仅在本地运行，还会通过SSH在远端已经 "
+":ref:`配置入AiiDA配置文件<setup_computer>` 的集群上运行。"
 
 #: ../docs/source/concepts/calculations.rst:115
 msgid ""
@@ -208,16 +257,18 @@ msgid ""
 "functions<concepts_calcfunctions>` described before, they can be run in an "
 "identical way."
 msgstr ""
+"因为 ``CalcJob`` 和前面所述的 :ref:`calculation functions<concepts_calcfunctions>` "
+"一样是一个process，所以他们通过相同的方式运行。"
 
 #: ../docs/source/concepts/calculations.rst:120
 msgid ""
 "the provenance generated by running the calculation job will look something "
 "like this:"
-msgstr ""
+msgstr "通过运行calculation job产生的provenance图如下所示："
 
 #: ../docs/source/concepts/calculations.rst:125
 msgid "The provenance generated by the calculation job example"
-msgstr ""
+msgstr "calculation job例子生成的provenance"
 
 #: ../docs/source/concepts/calculations.rst:127
 msgid ""
@@ -234,6 +285,14 @@ msgid ""
 "executable and some other code related attributes defined during the "
 ":ref:`code setup<setup_code>`."
 msgstr ""
+"calculation job的执行在provenance图中表示为一个process节点如图所示，图 "
+":numref:`fig_calculation_jobs_provenance_arithmetic_add` 中粉色正方形标注 `C1` "
+"的节点。输入参数 ``x`` 和 ``y`` 以及使用的 ``code`` 都与process节点连接。 ``code`` 作为输入参数节点在 "
+"*所有的* calculation job中都存在，用以表示真实执行的外部代码。 节点是 "
+":py:class:`~aiida.orm.nodes.data.code.Code` 类的实例，该类是 "
+":py:class:`~aiida.orm.nodes.data.data.Data` "
+"类的子类。因此该节点同样是一个data节点。该节点的作用是记录外部可执行代码以及代码相关的信息 这写信息是在 :ref:`code "
+"设置<setup_code>` 中提供的。"
 
 #: ../docs/source/concepts/calculations.rst:133
 msgid ""
@@ -249,10 +308,17 @@ msgid ""
 " there. How the parser fits into the concept of calculation jobs will be "
 "addressed in :ref:`this section<concepts_calcjobs_parsers>`."
 msgstr ""
+"这个 calculation job生成两个输出，一个是包含了 ``x`` 和 ``y`` 求和结果的整数数据节点，和一个数据类型为 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData`  "
+"的节点，该节点包含了存放计算结果的文件夹。需要注意到的是，（除了 ``retrieved`` node）所有的calculation "
+"job的计算结果都不是由其自身产生的，而是通过 :py:class:`~aiida.parsers.parser.Parser` "
+"类解析产生的。原则上解析的步骤不是必须的因此calculation job可以没有输出，但一定会有 ``retrieved``` 数据节点。，How "
+"the parser fits into the concept of calculation jobs will be addressed "
+"in有关calculation job中结果解析器概念的详细内容请参考 :ref:`这里<concepts_calcjobs_parsers>`。"
 
 #: ../docs/source/concepts/calculations.rst:141
 msgid "Transport tasks"
-msgstr ""
+msgstr "传输任务"
 
 #: ../docs/source/concepts/calculations.rst:143
 msgid ""
@@ -261,32 +327,35 @@ msgid ""
 "performed quite some tasks. When a calculation job is launched, the engine "
 "will take it roughly through the following steps:"
 msgstr ""
+"AiiDA内部引擎执行了一系列工作，以实现provenance图 "
+":numref:`fig_calculation_jobs_provenance_arithmetic_add` 。 。当一个calculation "
+"job启动时，AiiDA内部引擎执行下列步骤："
 
 #: ../docs/source/concepts/calculations.rst:146
 msgid ""
 "Upload: the calculation job implementation is used to transform the input "
 "nodes into the required input files, which are uploaded to a 'working' "
 "directory on the target machine"
-msgstr ""
+msgstr "上传：calculation job会从输入节点得到输入文件，再将输入文件上传到目标计算机器的工作目录中"
 
 #: ../docs/source/concepts/calculations.rst:147
 msgid ""
 "Submit: a job to execute the calculation is submitted to the scheduler of "
 "the computer on which the input `code` is configured."
-msgstr ""
+msgstr "提交：提交一个作业到作业调度工具到配置文件中 `code` 所在的计算机。 "
 
 #: ../docs/source/concepts/calculations.rst:148
 msgid ""
 "Update: the engine will query the scheduler to check for the status of the "
 "calculation job"
-msgstr ""
+msgstr "更新：内部引擎会不断查询作业系统以返回calculation job的状态。"
 
 #: ../docs/source/concepts/calculations.rst:149
 msgid ""
 "Retrieve: once the job has finished, the engine will retrieve the output "
 "files, specified by the plugin and store them in a node attached as ouput "
 "node to the calculation"
-msgstr ""
+msgstr "获取：一旦作业结束，引擎会取回输出文件，依据插件中定义的方式将输出结果储存在provenance图的节点中。"
 
 #: ../docs/source/concepts/calculations.rst:151
 msgid ""
@@ -300,6 +369,11 @@ msgid ""
 "the calculation job on a different machine, all you have to do is change the"
 " ``code`` input to one that is configured for that machine."
 msgstr ""
+"以上的所有任务都需要AiiDA内部引擎与计算资源间的交互。 Since the 因为将 "
+":py:class:`~aiida.orm.nodes.data.code.Code` "
+"配置为与特定计算资源:py:class:`~aiida.orm.computers.Computer`关联并作为calculation job "
+"的输入，引擎会知晓如何运行这些任务。 ``CalcJob`` 的实现是独立的，因此在内部代码中不依赖 `code` "
+"和计算资源信息。因此要在另外的计算资源中运行这个calculation job，用户只需要改变对特定计算资源配置的 ``code`` 输入即可。"
 
 #: ../docs/source/concepts/calculations.rst:156
 msgid ""
@@ -313,10 +387,13 @@ msgid ""
 "called a 'transport' and therefore the tasks it performs using this "
 "transport are called 'transport tasks'"
 msgstr ""
+"之前提到，calculation job不但可以运行在AiiDA引擎运行的机器上，还能运行在远端的机器上。通过输入参数 ’code' "
+"就能指定要运行的机器，因为code中包含了运行代码的特定机器的信息。如果机器不是在本地，AiiDA引擎需要连接远端机器以执行上面四个任务。引擎连接远端计算资源的操作称作"
+" ’transport' (传输)，因此完成该操作的任务称作'传输任务'"
 
 #: ../docs/source/concepts/calculations.rst:165
 msgid "Exponential backoff mechanism"
-msgstr ""
+msgstr "反复退让机制"
 
 #: ../docs/source/concepts/calculations.rst:167
 msgid ""
@@ -337,6 +414,12 @@ msgid ""
 "output of ``verdi process list`` will give more information on why the task "
 "failed:"
 msgstr ""
+"当远端机器协作执行calculation "
+"job的过程中，AiiDA引擎需要为每一个传输任务建立一条链接。当连接远端服务器时，所有服务器端的潜在问题都可能发生，这会导致calculation "
+"job失败。比如，远端计算资源可能宕机而导致结果无法获得，或者引擎所在的本地端可能无法连接网络。然而，这些问题都是不确定的。为了防止calculation"
+" job异常或持续无法连接，AiiDA使用了‘反复退让策略’。当引擎执行了一个传输任务时遇到异常，calculation "
+"job不会直接失败，而是提交一个相同的任务后续重新执行。任务会自动重新加入作业系统直到其顺利结束。在连续5次尝试后，若任务还是失败，引擎会单纯的暂停calculation"
+" job而不是重新提交。``verdi process list`` 能够输出有关任务失败的更多信息："
 
 #: ../docs/source/concepts/calculations.rst:186
 msgid ""
@@ -347,6 +430,10 @@ msgid ""
 " The engine will then automatically reschedule the task that failed last and"
 " the calculation job will continue where it left off."
 msgstr ""
+"当calculation "
+"job因为传输任务失败后且反复重试后依旧无法连接而暂停后，用户可以查看问题。如果发现问题是临时发生的，且问题被解决后，用户可以重新使用 ``verdi "
+"process play`` 来恢复暂停的任务。AiiDA引擎会自动重新提交之前失败的任务，且暂停的calculation "
+"job会继续在停止的地方恢复执行。"
 
 #: ../docs/source/concepts/calculations.rst:190
 msgid ""
@@ -356,10 +443,12 @@ msgid ""
 "delays between retries and the maximum number of retries are currently not "
 "configurable, but they might be in the future."
 msgstr ""
+"该反复退让机制是的AiiDA内部引擎对于calculation "
+"job的稳健性提高，将临时问题发生所导致的计算资源浪费减少到最小。当前有关该策略的设置参数如重试间隔延时和最大重试次数都不能够修改，但在未来可能会支持修改。"
 
 #: ../docs/source/concepts/calculations.rst:196
 msgid "Parsers"
-msgstr ""
+msgstr "解析器"
 
 #: ../docs/source/concepts/calculations.rst:197
 msgid ""
@@ -383,10 +472,21 @@ msgid ""
 " to specify it in the inputs, please refer to the :ref:`detailed parser "
 "section<working_calcjobs_parsers>`,"
 msgstr ""
+"前面章节阐述了 ``CalcJob`` 类函数接口连接AiiDA引擎和外部运行代码。Calculation job 插件还会告知引擎 "
+":ref:`传输任务<concepts_calcjobs_transport_tasks>` "
+"该如何结束。如前所述，任务在输出文件获取后停止，这时引擎会在calculation job节点后增加标记为 ``retrieved`` 的 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData`  节点。这样calculation "
+"job就顺利完成了。然而用户通常还会想要将输出文件解析为特定的输出并表示为provenance图中的节点。这可以通过 "
+":py:class:`~aiida.parsers.parser.Parser` 类来实现并在calculation "
+"job的输入中指定。这样，引擎就会在任务成功结束并创建输出文件后调用解析器。解析器通过以下方式实现，在获取文件后解析并转换成输出节点。For "
+"technical details on how to implement a parser for a calculation job and how"
+" to specify it in the inputs, please refer to the :ref:`detailed parser "
+"section`,有关解析器的实现细节以及如何在calculation job输入中指定解析器，请参考 "
+":ref:`解析器详情章节<working_calcjobs_parsers>` 。"
 
 #: ../docs/source/concepts/processes.rst:5
 msgid "Processes"
-msgstr ""
+msgstr "Processes"
 
 #: ../docs/source/concepts/processes.rst:7
 msgid ""
@@ -398,6 +498,9 @@ msgid ""
 "This can be a local runner or one of the daemon runners in case of the "
 "daemon running the process."
 msgstr ""
+"所有可以通过AiiDA运行的事件都是:py:class:`~aiida.engine.processes.process.Process` 类的实例。 "
+"``Process`` 类包含了有关运行用户，运行方法，运行逻辑的所有信息。特别的，运行该Process的用户属于类 "
+":py:class:`~aiida.engine.runners.Runner` 的实例。该运行者可以是本地用户，也可是守护进程的的持有者。"
 
 #: ../docs/source/concepts/processes.rst:12
 msgid ""
@@ -411,6 +514,11 @@ msgid ""
 "and serves as the record of the process' execution in the database and by "
 "extension the provenance graph."
 msgstr ""
+"除了以上相关的运行信息，所有被运行的 ``Process`` 还需要在数据库中储存运行时所发生的事件。 "
+"例如，它的真实输入是什么，运行时的日志信息是什么，或者最后的输出是什么等。为实现该目的，所有的process都被设计成为  "
+":py:class:`~aiida.orm.nodes.process.ProcessNode` 类的子类.  ``ProcessNode`` 类是 "
+":py:class:`~aiida.orm.nodes.Node` "
+"类的子类，并用于在数据库中记录process的运行时信息以及在provenance图中记录额外信息。"
 
 #: ../docs/source/concepts/processes.rst:17
 msgid ""
@@ -420,22 +528,25 @@ msgid ""
 "good thing to remember is that while it is running, we are dealing with the "
 "``Process`` and when it is finished we interact with the ``ProcessNode``."
 msgstr ""
+"其父类的分工是非常明确的。``Process`` 类描述了任务该如何运行，``ProcessNode`` "
+"类则用于在数据库中记录当时间运行时真实发生的过程。也就是说当事件运行时用户面对``Process``类，而事件运行结束后使用``ProcessNode``"
+" 进行交互。"
 
 #: ../docs/source/concepts/processes.rst:24
 msgid "Process types"
-msgstr ""
+msgstr "Process 类别"
 
 #: ../docs/source/concepts/processes.rst:26
 msgid "Processes in AiiDA come in two flavors:"
-msgstr ""
+msgstr "AiiDA中的Process主要有以下两类："
 
 #: ../docs/source/concepts/processes.rst:28
 msgid "Calculation-like"
-msgstr ""
+msgstr "算例类型"
 
 #: ../docs/source/concepts/processes.rst:29
 msgid "Workflow-like"
-msgstr ""
+msgstr "工作流类型"
 
 #: ../docs/source/concepts/processes.rst:31
 msgid ""
@@ -449,6 +560,9 @@ msgid ""
 "explained in detail in the :ref:`provenance "
 "implementation<concepts_provenance_implementation>` documentation."
 msgstr ""
+"算例类型的process能够*创建*新的数据，而工作流类型的process能够组合其他process形成一个process并*返回*由其中的算例process创建的数据。这两者在AiiDA中扮演了重要的作用，因此有必要分清两者的区别。"
+" 因此这两个不同类型的processes是两种不同的 ``ProcessNode`` 的子类。这些节点的继承关系和它们与 ``Data`` "
+"节点之间的连接类型将在章节 :ref:`provenance 实现<concepts_provenance_implementation>` 中详述。"
 
 #: ../docs/source/concepts/processes.rst:36
 msgid ""
@@ -456,65 +570,69 @@ msgid ""
 "following table shows with which node class it is represented in the "
 "provenance graph and what the process is used for."
 msgstr ""
+"当前， ``aiida-core`` "
+"中有如下表中四类processes，表中还展示了不同的process表示在provenance图中的具体节点类型和process的具体使用场景。"
 
 #: ../docs/source/concepts/processes.rst:39
 msgid "Process class"
-msgstr ""
+msgstr "Process 类"
 
 #: ../docs/source/concepts/processes.rst:39
 msgid "Node class"
-msgstr ""
+msgstr "Node 类"
 
 #: ../docs/source/concepts/processes.rst:39
 msgid "Used for"
-msgstr ""
+msgstr "使用场景"
 
 #: ../docs/source/concepts/processes.rst:41
 msgid ":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`"
 
 #: ../docs/source/concepts/processes.rst:41
 msgid ":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`"
-msgstr ""
+msgstr ":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`"
 
 #: ../docs/source/concepts/processes.rst:41
 msgid "Calculations performed by external codes"
-msgstr ""
+msgstr "外部软件代码执行的算例"
 
 #: ../docs/source/concepts/processes.rst:42
 msgid ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`"
 
 #: ../docs/source/concepts/processes.rst:42
 msgid ":py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`"
-msgstr ""
+msgstr ":py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`"
 
 #: ../docs/source/concepts/processes.rst:42
 msgid "Workflows that run multiple calculations"
-msgstr ""
+msgstr "多个算例组成的工作流"
 
 #: ../docs/source/concepts/processes.rst:43
 #: ../docs/source/concepts/processes.rst:44
 msgid ":py:class:`~aiida.engine.processes.functions.FunctionProcess`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.functions.FunctionProcess`"
 
 #: ../docs/source/concepts/processes.rst:43
 msgid ""
 ":py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`"
 msgstr ""
+":py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`"
 
 #: ../docs/source/concepts/processes.rst:43
 msgid "Python functions decorated with the ``calcfunction`` decorator"
-msgstr ""
+msgstr "``calculation`` 装饰器装饰的python 函数"
 
 #: ../docs/source/concepts/processes.rst:44
 msgid ""
 ":py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`"
 msgstr ""
+":py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`"
 
 #: ../docs/source/concepts/processes.rst:44
 msgid "Python functions decorated with the ``workfunction`` decorator"
-msgstr ""
+msgstr "``workfunction`` 装饰器装饰的python 函数"
 
 #: ../docs/source/concepts/processes.rst:47
 msgid ""
@@ -527,6 +645,11 @@ msgid ""
 "developing sections for :ref:`calculations<working_calculations>` and "
 ":ref:`workflows<working_workflows>`, respectively."
 msgstr ""
+"有关 ``CalcJob`` 和 ``calcfunction`` 的描述，请参考 :ref:`calculations "
+"concept<concepts_calculations>` ，有关 ``WorkChain`` 和 ``workfunction`` 请参考 "
+":ref:`workflows concept<concepts_workflows>` 。 关于它们的实现和使用等更加细致的讨论请分别参考 "
+":ref:`calculations<working_calculations>`  和 "
+":ref:`workflows<working_workflows>` 。"
 
 #: ../docs/source/concepts/processes.rst:50
 msgid ""
@@ -535,10 +658,13 @@ msgid ""
 ":py:meth:`~aiida.engine.processes.functions.calcfunction` or "
 ":py:meth:`~aiida.engine.processes.functions.workfunction` is run."
 msgstr ""
+"``FunctionProcess`` 不需要直接实现，而是通过在python函数前添加装饰器来动态的通过AiiDA引擎创建。比如创建 "
+":py:meth:`~aiida.engine.processes.functions.calcfunction`  "
+":py:meth:`~aiida.engine.processes.functions.workfunction` 。"
 
 #: ../docs/source/concepts/processes.rst:56
 msgid "Process state"
-msgstr ""
+msgstr "Process 状态"
 
 #: ../docs/source/concepts/processes.rst:57
 msgid ""
@@ -551,38 +677,42 @@ msgid ""
 "as its database record, under the ``process_state`` attribute. The process "
 "can be in one of six states:"
 msgstr ""
+"每个被执行的``Process`` 实例都有其不同时刻的状态。该性质告诉用户当前process所处于的运行时状态。这个信息被储存在``Process``"
+" 实例中或工作流引擎中，这些状态通过 ``plumpy`` 库来变换。然而当``Process`` "
+"实例运行结束时他就‘死亡’了，因此我们这时还会将算例节点的状态信息按照 ``process_state`` "
+"属性记录进数据库中。process的状态有以下六种："
 
 #: ../docs/source/concepts/processes.rst:64
 msgid "*Active*"
-msgstr ""
+msgstr "*Active*"
 
 #: ../docs/source/concepts/processes.rst:64
 msgid "*Terminated*"
-msgstr ""
+msgstr "*Terminated*"
 
 #: ../docs/source/concepts/processes.rst:66
 msgid "Created"
-msgstr ""
+msgstr "Created"
 
 #: ../docs/source/concepts/processes.rst:66
 msgid "Killed"
-msgstr ""
+msgstr "Killed"
 
 #: ../docs/source/concepts/processes.rst:67
 msgid "Running"
-msgstr ""
+msgstr "Running"
 
 #: ../docs/source/concepts/processes.rst:67
 msgid "Excepted"
-msgstr ""
+msgstr "Excepted"
 
 #: ../docs/source/concepts/processes.rst:68
 msgid "Waiting"
-msgstr ""
+msgstr "Waiting"
 
 #: ../docs/source/concepts/processes.rst:68
 msgid "Finished"
-msgstr ""
+msgstr "Finished"
 
 #: ../docs/source/concepts/processes.rst:71
 msgid ""
@@ -602,6 +732,12 @@ msgid ""
 "that the result of the process can also considered to be successful, it just"
 " executed without any problems."
 msgstr ""
+"左边列是三个‘激活’状态，右边列时三个‘结束’状态。一旦一个process到达结束状态之一，其状态就会始终停留在那里。当process被创建时，自动将其状态设置为"
+" ``Created`` 状态。一旦其被运行器选中并处于激活的状态，它就被转向 ``Running`` "
+"状态。如果一个process等待其他的process完成，也就是说，它等待完成时，它处于 ``Waiting`` 状态。 如果process处于 "
+"``Killed`` 状态，说明用户通过指令终止了它的运行，也可能时父process终止了它的运行。 ``Excepted`` "
+"状态则表示运行过程中抛出了没有捕获的异常，或process没有如预期正常结束。 最后是 ``Finished`` "
+"状态，该状态表示process成功运行。注意，这个状态并不代表process的运行结果是正确可靠的，它只是代表了运行顺利结束，没有出错。"
 
 #: ../docs/source/concepts/processes.rst:81
 msgid ""
@@ -614,102 +750,107 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.process.ProcessNode`, which defines handy "
 "properties to query the process state and exit status."
 msgstr ""
+"为了区分成功和失败的结束状态，AiiDA引擎使用 :ref:`exit status<concepts_process_exit_codes>` "
+"标签。这是一个储存在process节点中的整型信息，可以被process设置。 "
+"数值0表示process结果成功，非零表示process失败。所有以上process的节点类型都是 "
+":py:class:`~aiida.orm.nodes.process.ProcessNode` "
+"的子类，其定义了可用于查询process当前状态和结束状态的属性 。"
 
 #: ../docs/source/concepts/processes.rst:87
 msgid "Property"
-msgstr ""
+msgstr "属性"
 
 #: ../docs/source/concepts/processes.rst:87
 msgid "Meaning"
-msgstr ""
+msgstr "含义"
 
 #: ../docs/source/concepts/processes.rst:89
 msgid "``process_state``"
-msgstr ""
+msgstr "``process_state``"
 
 #: ../docs/source/concepts/processes.rst:89
 msgid "Returns the current process state"
-msgstr ""
+msgstr "返回当前process状态"
 
 #: ../docs/source/concepts/processes.rst:90
 msgid "``exit_status``"
-msgstr ""
+msgstr "``exit_status``"
 
 #: ../docs/source/concepts/processes.rst:90
 msgid "Returns the exit status, or None if not set"
-msgstr ""
+msgstr "返回process结束时的具体退出状态，如果没有设置则是 ``None``"
 
 #: ../docs/source/concepts/processes.rst:91
 msgid "``exit_message``"
-msgstr ""
+msgstr "``exit_message``"
 
 #: ../docs/source/concepts/processes.rst:91
 msgid "Returns the exit message, or None if not set"
-msgstr ""
+msgstr "返回退出信息，如果没有设置则为 ``None``"
 
 #: ../docs/source/concepts/processes.rst:92
 msgid "``is_terminated``"
-msgstr ""
+msgstr "``is_terminated``"
 
 #: ../docs/source/concepts/processes.rst:92
 msgid ""
 "Returns ``True`` if the process was either ``Killed``, ``Excepted`` or "
 "``Finished``"
-msgstr ""
+msgstr "如果process是 ``Killed`` ， ``Excepted`` 或 ``Finished`` 状态之一，则返回 ``True``"
 
 #: ../docs/source/concepts/processes.rst:93
 msgid "``is_killed``"
-msgstr ""
+msgstr "``is_killed``"
 
 #: ../docs/source/concepts/processes.rst:93
 msgid "Returns ``True`` if the process is ``Killed``"
-msgstr ""
+msgstr "返回 ``True`` 如果process的状态时 ``Killed``"
 
 #: ../docs/source/concepts/processes.rst:94
 msgid "``is_excepted``"
-msgstr ""
+msgstr "``is_excepted``"
 
 #: ../docs/source/concepts/processes.rst:94
 msgid "Returns ``True`` if the process is ``Excepted``"
-msgstr ""
+msgstr "返回 ``True`` 如火process的状态时 ``Excepted``"
 
 #: ../docs/source/concepts/processes.rst:95
 msgid "``is_finished``"
-msgstr ""
+msgstr "``is_finished``"
 
 #: ../docs/source/concepts/processes.rst:95
 msgid "Returns ``True`` if the process is ``Finished``"
-msgstr ""
+msgstr "返回 ``True`` 如果process的状态时 ``Finished``"
 
 #: ../docs/source/concepts/processes.rst:96
 msgid "``is_finished_ok``"
-msgstr ""
+msgstr "``is_finished_ok``"
 
 #: ../docs/source/concepts/processes.rst:96
 msgid ""
 "Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
 "equal to zero"
-msgstr ""
+msgstr "返回 ``True`` 如果process的状态是 ``Finished`` 且 ``exit_status`` 的值为0"
 
 #: ../docs/source/concepts/processes.rst:97
 msgid "``is_failed``"
-msgstr ""
+msgstr "``is_failed``"
 
 #: ../docs/source/concepts/processes.rst:97
 msgid ""
 "Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
 "non-zero"
-msgstr ""
+msgstr "返回 ``True`` 如果process的状态是 ``Finished`` 且 ``exit_status`` 的值非零"
 
 #: ../docs/source/concepts/processes.rst:100
 msgid ""
 "When you load a calculation node from the database, you can use these "
 "property methods to inquire about its state and exit status."
-msgstr ""
+msgstr "当用户从数据库中加载这些算例节点，可以使用这些属性方法来查询算例的当前状态和退出状态。"
 
 #: ../docs/source/concepts/processes.rst:106
 msgid "Process exit codes"
-msgstr ""
+msgstr "Process结束代码"
 
 #: ../docs/source/concepts/processes.rst:107
 msgid ""
@@ -734,20 +875,23 @@ msgid ""
 ":ref:`calculation<working_calculations>` and "
 ":ref:`workflow<working_workflows>` development sections."
 msgstr ""
+"上面章节提到，process的状态为 ``Finished`` 并不代表任务的结果是正确的。``Finished`` 状态仅仅表示process运行到结束时没有碰到异常或被杀死。要区分process的成功和失败的状态，需要用到‘结束状态’ （exit status）  在软件编程中结束状态<https://en.wikipedia.org/wiki/Exit_status>`_是一个普遍的概念，它是一个整数，0表示正常结束，非零表示出错。 为标记process运行出错，用户通过返回类型为 :py:class:`~aiida.engine.processes.exit_code.ExitCode` 的命名元组(named tuple) 来表示，该元组整数元素表示结束状态，字符串信息 ``exit_message`` 描述错误原因。当AiiDA引擎从process接收到 ``ExitCode`` ，它会将该process节点设置上结束码和结束信息，用以产生provenance图。 关于结束码如何定义和返回，其详细信息参考 :ref:`calculation<working_calculations>` 和 :ref:`workflow<working_workflows>` 开发章节.\n"
+"关于结束码如何定义和返回，其详细信息参考"
 
 #: ../docs/source/concepts/processes.rst:120
 msgid "Process lifetime"
-msgstr ""
+msgstr "Process 生命周期"
 
 #: ../docs/source/concepts/processes.rst:122
 msgid ""
 "The lifetime of a process is defined as the time from the moment it is "
 "launched until it reaches a :ref:`terminal state<concepts_process_state>`."
 msgstr ""
+"process的生命周期被定义为从process启动的时刻到它到达 :ref:`结束状态<concepts_process_state>` 的时刻。"
 
 #: ../docs/source/concepts/processes.rst:127
 msgid "Process and node distinction"
-msgstr ""
+msgstr "Process及其节点的区别"
 
 #: ../docs/source/concepts/processes.rst:128
 msgid ""
@@ -766,10 +910,15 @@ msgid ""
 "actually show the state of the process instances, but rather the state of "
 "the node to which they have last written their state."
 msgstr ""
+"如本章节 :ref:`引言<concepts_processes>` 所描述的， 'process' 及其在provenance图中表示运行状态的节点 "
+"'process node' 之间有清晰明确的不同。当Process启动，内存中会创建一个 ``Process`` "
+"的实例并将其传入对应的运行器等待其完成。该process实例只存在其运行的与python解释器中。比如对于一个运行着的守护进程，我们不能够直接获取其状态。这就是为什么process需要将其当前状态写入provenance图中的原因。"
+" 通过这种方式，节点充当了表示process内存中状态的一个‘代理’或镜像。这表明大部分 ``verdi`` 指令如 ``verdi process "
+"list`` 中输出的并非process的真实状态，而是其刚刚写入节点中的状态。"
 
 #: ../docs/source/concepts/processes.rst:136
 msgid "Process tasks"
-msgstr ""
+msgstr "Process 任务"
 
 #: ../docs/source/concepts/processes.rst:137
 msgid ""
@@ -787,6 +936,14 @@ msgid ""
 " sent to the process queue of RabbitMQ. This task is simply a small message "
 "that just contains an identifier for the process."
 msgstr ""
+"前面章节解释了启动一个process就是在内存中创建一个 ``Process`` 类的实例。 当process被‘运行’(详情参见章节 :ref:`启动"
+" processes<working_processes_launch>` )，也就是在本地解释器中，process实例将会随着解释器的终止而终止。 "
+"这使得通过 "
+"‘submitting‘的方式来开启一个process成为最好的启动方式。当一个process被提交（submitting），内存中同时创建了一个 "
+"``Process`` "
+"的实例，同样，在数据库中创建一个持久的process节点来代表这个process。这个实例及其节点被称作process检查点，有关检查点的更多信息请参考"
+" :ref:`will follow later<concepts_process_checkpoints>` 。 紧接着process "
+"实例被关闭且一个 'continuation task' 被发送到 RabbitMQ。 该任务是一个包含process特征信息的一个信息。"
 
 #: ../docs/source/concepts/processes.rst:145
 msgid ""
@@ -805,6 +962,7 @@ msgid ""
 "continuation task has been sent to RabbitMQ, it will at some point be "
 "finished, while allowing the machine to be shutdown."
 msgstr ""
+"当所有的运行器守护进程运行时，会产生一个process队列，RabbitMQ会将可继续任务负载均衡的分配到运行器中，且保证每次向一个运行器发送一个任务。运行器守护进程可以向内存中从数据库以持续任务的形式加载process实例的检查点。一旦process达到终止状态，守护进程消息处理者会通知RabbitMQ该任务成功完成。如果运行器守护进程在结束一个运行的process之前被关闭或异常退出，任务会被自动重新发送到RabbitMQ中。所有的任务都在通过RabbitMQ的process队列中持久保留在硬盘上，这保证了当一个持久任务被发送到RabbitMQ时，机器可以关闭和重启。"
 
 #: ../docs/source/concepts/processes.rst:152
 msgid ""
@@ -818,10 +976,13 @@ msgid ""
 "because the process was intentionally terminated, or unintentionally due to "
 "a bug or problem, the process will never continue running again."
 msgstr ""
+"每一个运行器守护进程有一个可并发任务数上限，该上限约束了同时可运行的任务数量，当一些任务运行时，其他任务处于队列中等待被执行。当一个Process的实际任务处于等待被执行的队列中时，尽管它的状态时"
+" activate "
+"且没有终止，它也没有被实际运行。这时，因为process并没有被实际运行，也就是在内存中并没有一个运行器运行它，用户这时不能与其交互。同样的，当process中的任务因为process的内部错误或因为外部bug和其他问题而退出，这个process将不会继续运行。"
 
 #: ../docs/source/concepts/processes.rst:161
 msgid "Process checkpoints"
-msgstr ""
+msgstr "Process检查点"
 
 #: ../docs/source/concepts/processes.rst:162
 msgid ""
@@ -835,18 +996,20 @@ msgid ""
 "explained in the previous section, that allows processes to continue after "
 "the machine they were running on, has been shutdown and restarted."
 msgstr ""
+"Process检查点是 ``Process`` 实例在内存中的完整表示，可以被储存在数据库中。因为它是一个完整表示，因此 ``Process`` "
+"实例可以从该检查点重新创建。在任何process发生状态转移时都会通过记录完整的process的各种属性和信息创建一个检查点。这个机制用来使机器能够通过上面章节提到的RabbitMQ持久队列来记录process，从而允许process在机器关闭和重启后可以继续执行。"
 
 #: ../docs/source/concepts/provenance.rst:5
 msgid "Provenance"
-msgstr ""
+msgstr "Provenance"
 
 #: ../docs/source/concepts/provenance.rst:8
 msgid "Graph concept"
-msgstr ""
+msgstr "Provenance图概念"
 
 #: ../docs/source/concepts/provenance.rst:11
 msgid "Nodes and links"
-msgstr ""
+msgstr "节点和连接"
 
 #: ../docs/source/concepts/provenance.rst:13
 msgid ""
@@ -856,10 +1019,12 @@ msgid ""
 "of files or a crystal structure. Processes operate on this data in order to "
 "produce new data."
 msgstr ""
+"在AiiDA **数据** 和 **process** "
+"是两个最为重要的概念。前者不仅代表了简单的数据结构如整型浮点型，还代表了更为复杂的数据结构如参数字典或文件的文件夹信息或者晶体结构数据。Process则能作用于这些数据并产生新的数据。"
 
 #: ../docs/source/concepts/provenance.rst:17
 msgid "Processes come in two different forms:"
-msgstr ""
+msgstr "Process有两种形式："
 
 #: ../docs/source/concepts/provenance.rst:19
 msgid ""
@@ -867,6 +1032,7 @@ msgid ""
 " the case, for instance, for externals simulation codes, that generate new "
 "data"
 msgstr ""
+"**Calculations** 是能够**产生**新的数据的的process，比如，使用外部代码，该类型process能够产生新的结果数据"
 
 #: ../docs/source/concepts/provenance.rst:20
 msgid ""
@@ -876,47 +1042,53 @@ msgid ""
 "They can only return data that is already in the database (one typical case "
 "is to return data created by a calculation they called)."
 msgstr ""
+"**工作流** "
+"是**组合**了其他工作流或者其他calculation的process，它是能够以逻辑流方式组合并调用其他process的process。工作流有数据输入，但不能够产生新的数据输出，它只能够返回已经储存在数据库中的数据（典型的情况是调用calculation"
+" process并返回由其创建的数据）。 "
 
 #: ../docs/source/concepts/provenance.rst:22
 msgid ""
 "Data and processes are represented in the AiiDA provenance graph as the "
 "**nodes** of that graph. The graph edges are referred to as **links** and "
 "come in different forms:"
-msgstr ""
+msgstr "数据和process在AiiDA的provenance图中以**节点**的形式表示。图中的边被称作**连接**，有以下几种形式："
 
 #: ../docs/source/concepts/provenance.rst:25
 msgid ""
 "**input** links: connect data nodes to the process nodes that used them as "
 "input, both calculations and workflows"
 msgstr ""
+"**input** 连接：从数据节点连接到process节点，数据节点作为process节点的输入，calculations和工作流均支持该连接"
 
 #: ../docs/source/concepts/provenance.rst:26
 msgid ""
 "**create** links: connect calculation nodes to the data nodes that they "
 "created"
-msgstr ""
+msgstr "**create** 连接：从calculation节点连接到数据节点，来表示其创建的数据来源"
 
 #: ../docs/source/concepts/provenance.rst:27
 msgid ""
 "**return** links: connect workflow nodes to the data nodes that they "
 "returned"
-msgstr ""
+msgstr "**return** 连接：从工作流节点连接到数据节点，表示工作流返回的数据"
 
 #: ../docs/source/concepts/provenance.rst:28
 msgid ""
 "**call** links: connecting workflow nodes to the process nodes that they "
 "directly called, be it calculations or workflows"
 msgstr ""
+"**call** "
+"连接：从工作流节点连接到process节点用以表示工作流调用的process，调用的process可以是calculation也可是一个工作流"
 
 #: ../docs/source/concepts/provenance.rst:30
 msgid ""
 "Note that the **create** and **return** links are often collectively "
 "referred to as **output** links."
-msgstr ""
+msgstr "**create** 和 **return** 连接通常统称为 **output** 输出连接。"
 
 #: ../docs/source/concepts/provenance.rst:34
 msgid "Data provenance and logical provenance"
-msgstr ""
+msgstr "数据可验证性和逻辑可验证性"
 
 #: ../docs/source/concepts/provenance.rst:36
 msgid ""
@@ -927,10 +1099,11 @@ msgid ""
 "retrace how a particular piece of data came into existence, thus ensuring "
 "its reproducibility."
 msgstr ""
+"AiiDA自动将流程实体储存在数据库中，并将实体连接成为有向图。有向图自动跟踪了数据如何从calculation产生或从工作流中返回。通过跟踪数据的流向，用户总是可以清楚的回溯特定的数据是如何产生的，这保证了该数据的可重复性。"
 
 #: ../docs/source/concepts/provenance.rst:40
 msgid "In particular, we define two types of provenance:"
-msgstr ""
+msgstr "特别的，我们定义了两种类型的可验证性："
 
 #: ../docs/source/concepts/provenance.rst:42
 msgid ""
@@ -942,6 +1115,10 @@ msgid ""
 "**directed acyclic graph** (DAG), i.e. its nodes are connected by directed "
 "edges and it does not contain any cycles."
 msgstr ""
+"其一为 **数据可验证性**(data provenance)，考察图中只包含数据和calculation的部分（不包含工作流），以及考察只有 "
+"**input** 和 **create** "
+"连接的部分。数据可验证性记录了关于该数据如何产生的整个完整流程。根据因果关系，数据的可验证性部分在图中是一个有向无环图**directed "
+"acyclic graph**(DAG)，也就是说节点和节点之间直接通过有向边连接，且图中没有环。"
 
 #: ../docs/source/concepts/provenance.rst:43
 msgid ""
@@ -950,6 +1127,8 @@ msgid ""
 "them. The logical provenance is *not* acyclic, e.g. a workflow that acts as "
 "a filter can return one of its own inputs, directly introducing a cycle."
 msgstr ""
+"**逻辑可验证性** (logical provenance)是图中只包含工作流和数据节点的部分，包含了 **input** , **return**,"
+" 和 **call** 连接。逻辑可验证性部分是有环图，比如一个表示过滤器的工作流会返回它自身，这自动导致在图中引入了环。"
 
 #: ../docs/source/concepts/provenance.rst:45
 msgid ""
@@ -964,10 +1143,11 @@ msgid ""
 "the logical provenance can also show that the specific structure was not "
 "picked at random but via a specific workflow logic."
 msgstr ""
+"数据可验证性就是有关calculation如何用特定输入产生数据的日志信息。单纯的数据可验证性就已经保证了流程的可重复性（用户可以使用calculation的输入来产生完全相同的输出结果）。而逻辑可验证性提供了关于如何运行一个特定的calculation的附加信息。想象这样一个情景，开始时你有100个晶体结构，你需要以一定条件筛选出一个，然后将其加入模拟。数据可验证性仅仅表示了你如何对选出的结构进行计算模拟，而逻辑可验证性添加了关于如何筛选该晶体构型的信息，因为该构型不是随机挑选，而是通过一定的工作逻辑和条件筛选得到。"
 
 #: ../docs/source/concepts/provenance.rst:52
 msgid "Other entities"
-msgstr ""
+msgstr "其他实体"
 
 #: ../docs/source/concepts/provenance.rst:54
 msgid ""
@@ -978,6 +1158,10 @@ msgid ""
 "for organizational purposes) and the :py:class:`~aiida.orm.users.User` (to "
 "keep track of the user who first generated a given node, computer or group)."
 msgstr ""
+"除了上述节点（数据和process），AiiDA还定义了一些其他相关实体比如  "
+":py:class:`~aiida.orm.computers.Computer`  （表示执行运算或储存数据的计算机，超算或者集群）， "
+":py:class:`~aiida.orm.groups.Group`  （用于组织数据的节点类型），和  "
+":py:class:`~aiida.orm.users.User`  （跟踪数据等节点的创建者，或group和user节点的拥有者）。"
 
 #: ../docs/source/concepts/provenance.rst:56
 msgid ""
@@ -985,16 +1169,16 @@ msgid ""
 "provenance concepts above are actually implemented in AiiDA, with specific "
 "reference to the python classes that implement them and the class-"
 "inheritance relationships."
-msgstr ""
+msgstr "下列章节我们更加详细讲解上述提到的可验证性的概念在AiiDA中如何通过引用和继承特定的python类型来实现的。"
 
 #: ../docs/source/concepts/provenance.rst:61
 #: ../docs/source/concepts/workflows.rst:119
 msgid "Implementation"
-msgstr ""
+msgstr "实现"
 
 #: ../docs/source/concepts/provenance.rst:64
 msgid "Graph nodes"
-msgstr ""
+msgstr "图的节点"
 
 #: ../docs/source/concepts/provenance.rst:66
 msgid ""
@@ -1003,16 +1187,19 @@ msgid ""
 " of calculations or workflows, and **data nodes** (``Data``), that represent"
 " pieces of data."
 msgstr ""
+"AiiDA可验证图中的**节点**可以分类两大类：第一类是表示process执行的 **process 节点** (``ProcessNode``)， "
+"和表示数据的 **数据节点**(``Data``)。"
 
 #: ../docs/source/concepts/provenance.rst:68
 msgid "In particular, **process nodes** are divided into two sub categories:"
-msgstr ""
+msgstr "**process节点** 被细分为两个小类："
 
 #: ../docs/source/concepts/provenance.rst:70
 msgid ""
 "**calculation nodes** (``CalculationNode``): Represent code execution that "
 "creates new data. These are further subdivided in two subclasses:"
 msgstr ""
+"**calculation 节点** (``CalculationNode``)： 用以表示创建数据的和储存用来运行的代码的信息。又被分为两个小类："
 
 #: ../docs/source/concepts/provenance.rst:72
 msgid ""
@@ -1020,12 +1207,16 @@ msgid ""
 "AiiDA, typically via a job batch scheduler (see the concept of "
 ":ref:`calculation jobs<concepts_calcjobs>`)."
 msgstr ""
+"``CalcJobNode``: 通过作业调度系统来AiiDA以外的软件来执行的process的节点 (参考 :ref:`calculation "
+"jobs<concepts_calcjobs>`)."
 
 #: ../docs/source/concepts/provenance.rst:73
 msgid ""
 "``CalcFunctionNode``: Represents the execution of a python function (see the"
 " concept of :ref:`calculation functions<concepts_calcfunctions>`)."
 msgstr ""
+"``CalcFunctionNode``: 表示执行python函数的process的节点 (参考 :ref:`calculation "
+"functions<concepts_calcfunctions>`)."
 
 #: ../docs/source/concepts/provenance.rst:75
 msgid ""
@@ -1034,6 +1225,8 @@ msgid ""
 "optionally return the data created by the processes they called. These are "
 "further subdivided in two subclasses:"
 msgstr ""
+"**工作流节点** "
+"(``WorkflowNode``)：表示了则和其他工作流或其他calculation的一段python代码所代表的节点，该节点可以返回由其中调用的process创建的数据。其又被细分为两个小类："
 
 #: ../docs/source/concepts/provenance.rst:77
 msgid ""
@@ -1041,6 +1234,8 @@ msgid ""
 "built-in checkpoints, such that the process may be paused/stopped/resumed "
 "(see the concept of :ref:`work chains<concepts_workchains>`)."
 msgstr ""
+"``WorkChainNode``: 用以表示含有内置检查点可同process执行的python类的实例，因此它可以暂停/停止/重载 (see the "
+"concept of :ref:`work chains<concepts_workchains>`)."
 
 #: ../docs/source/concepts/provenance.rst:78
 msgid ""
@@ -1048,10 +1243,12 @@ msgid ""
 "other processes (see the concept of :ref:`work "
 "functions<concepts_workfunctions>`)."
 msgstr ""
+"``WorkFunctionNode``: 表示了可以调用其他process的python函数的process (参考 :ref:`work "
+"functions<concepts_workfunctions>`)."
 
 #: ../docs/source/concepts/provenance.rst:80
 msgid "The class hierarchy of the process nodes is shown in the figure below."
-msgstr ""
+msgstr "上述process节点类的继承关系如下图所示。"
 
 #: ../docs/source/concepts/provenance.rst:85
 msgid ""
@@ -1062,6 +1259,8 @@ msgid ""
 "a place to define common functionality (see section on :ref:`processes "
 "<concepts_processes>`)."
 msgstr ""
+"process节点ORM类的继承关系。只有最下层的类会实际写入可验证性图中。上面两层的父类只要用于分类不同的process节点，使得在开发中能够更容易的定义不同的节点名，为不同的节点指定通用的方法（详情参考"
+" :ref:`processes`<concepts_processes>）."
 
 #: ../docs/source/concepts/provenance.rst:88
 msgid ""
@@ -1070,45 +1269,47 @@ msgid ""
 "operate on it. Often, the name of the subclass contains the word “Data” "
 "appended to it, but this is not a requirement. A few examples:"
 msgstr ""
+"对于数据节点，基础的数据类 ``Data`` "
+"被继承为能够提供数据操作和数据储存方式的子类。通常，这些子类的命名需要包含”Data“作为后缀，但这并非必须的，比如："
 
 #: ../docs/source/concepts/provenance.rst:91
 msgid "**Float, Int, Bool, Str, List**, ..."
-msgstr ""
+msgstr "**Float, Int, Bool, Str, List**, 等"
 
 #: ../docs/source/concepts/provenance.rst:92
 msgid ""
 "**Dict**: represents a dictionary of key-value pairs - these are parameters "
 "of a general nature that do not need to belong to more specific data sub-"
 "classes"
-msgstr ""
+msgstr "**Dict**: 表示字典型的键值对，这些都是基础类型，并不需要被继承为其他的子类来使用"
 
 #: ../docs/source/concepts/provenance.rst:93
 msgid ""
 "**StructureData**: represents crystal structure data (containing chemical "
 "symbols, atomic positions of the atoms, periodic cell for periodic "
 "structures, …)"
-msgstr ""
+msgstr "**StructureData**: 用以表示i晶体的结构数据（包含有元素符号，原子位置，对于周期性体系还有晶胞信息等）"
 
 #: ../docs/source/concepts/provenance.rst:94
 msgid ""
 "**ArrayData**: represents generic numerical arrays of data (python numpy "
 "arrays)"
-msgstr ""
+msgstr "**ArrayData**: 用以表示常规的数值数组（也就是python中的numpy数组）"
 
 #: ../docs/source/concepts/provenance.rst:96
 msgid "For more detailed information see :ref:`AiiDA data types <DataTypes>`."
-msgstr ""
+msgstr "更多相关信息请参考 :ref:`AiiDA 数据类型 <DataTypes>` 。"
 
 #: ../docs/source/concepts/provenance.rst:98
 msgid ""
 "In the next section we introduce the links between nodes, creating the AiiDA"
 " graph, and then we show some examples to clarify what we introduced up to "
 "now."
-msgstr ""
+msgstr "接下来的章节，我们将介绍连接节点的连接，这样就创建了完整的AiiDA可验证性图，在往后，我们给出一些上述内容的例子。"
 
 #: ../docs/source/concepts/provenance.rst:101
 msgid "Graph links"
-msgstr ""
+msgstr "图的连接"
 
 #: ../docs/source/concepts/provenance.rst:103
 msgid ""
@@ -1119,6 +1320,9 @@ msgid ""
 "**calculation nodes** with squares and **workflow nodes** with diamond "
 "shapes."
 msgstr ""
+"Process节点与输入输出数据节点之间通过有向边连接。Calculation process可以 *创建* "
+"数据，而工作流process只能调用calculations并返回其创建的输出。请看以下图作为例子，我们将 **数据节点** "
+"用圈来表示，**calculation节点** 用正方形来表示 **工作流节点** 使用菱形表示。"
 
 #: ../docs/source/concepts/provenance.rst:110
 msgid ""
@@ -1128,6 +1332,9 @@ msgid ""
 "The calculation *creates* a new **data node** (D\\ :sub:`2`\\) that is also "
 "*returned* by the **workflow node**."
 msgstr ""
+"一个工作流的简单可验证性图 (W\\ :sub:`1`) *调用* 算例 (C\\ :sub:`1`。 该工作流将一个 **数据节点** (D\\ "
+":sub:`1`\\) 作为输入，当算例调用时将其传入算例。该算例 **创建** 了一个新的 **数据节点**  (D\\ :sub:`2`\\) "
+"该节点被 **工作流节点** *返回* 。"
 
 #: ../docs/source/concepts/provenance.rst:112
 msgid ""
@@ -1137,6 +1344,8 @@ msgid ""
 " has big consequences. By allowing workflow processes to *return* data, it "
 "can also *return* data that was among its inputs."
 msgstr ""
+"注意这里用不同类型的线段和命名区别两种到达 D\\ :sub:`2` 上的有向连接是有意的。因为算例 *创建* "
+"了新的数据，而工作流仅仅只是返回了数据。这个潜在的区别有重要的意义。因为工作流流程能够 *返回* 数据，它同样能够 *返回* 它的输入。"
 
 #: ../docs/source/concepts/provenance.rst:119
 msgid ""
@@ -1145,6 +1354,8 @@ msgid ""
 ":sub:`3` to W\\ :sub:`1` and the return link from W\\ :sub:`1` to D\\ "
 ":sub:`3` introduce a cycle in the graph."
 msgstr ""
+"**工作流节点** 的可验证性图例中有三个 **数据节点** 作为输入，并*返回* 了其中一个输入。从输入 D\\ :sub:`3` 到 W\\ "
+":sub:`1` 的输入连接和从 W\\ :sub:`1` 到 D\\ :sub:`3` 的返回连接使得图形成了环。"
 
 #: ../docs/source/concepts/provenance.rst:121
 msgid ""
@@ -1158,6 +1369,10 @@ msgid ""
 "data. With this provision, the acyclicity of the graph is restored in the "
 "creation plane."
 msgstr ""
+"图中所示的情景 :numref:`fig_provenance_cycle` "
+"在可验证性图中引入了环，打破了DAG有向无环的特征。为了还能够储存有向无环图 （DAG）我们将整个图分割成两个部分： **创建可验证性** 和 "
+"**逻辑可验证性** 。 所有的算例流程都包含在创建的部分该流程只能*创建* 到它所新建的数据节点的连接。而工作流流程中包含在逻辑部分，该流程只能够 "
+"*返回* 到达数据的连接。按照这种约定，无环图被保存在创建部分。"
 
 #: ../docs/source/concepts/provenance.rst:126
 msgid ""
@@ -1167,10 +1382,11 @@ msgid ""
 "calculations and sub-workflows, that each may also call more sub-processes, "
 "to finally produce and return one or more data nodes as its result."
 msgstr ""
+"另外一个将可验证图分成这样两个部分的好处是，对于一个复杂的工作流，用户可以以不同的粒度来查看不同的部分。比有一个高度聚合的工作流，它调用了非常多的算例和子工作流，子工作流有可能调用许多的子流程，这些子流程返回一个或多个数据节点作为其结果，"
 
 #: ../docs/source/concepts/provenance.rst:131
 msgid "Graph examples"
-msgstr ""
+msgstr "可验证图的例子"
 
 #: ../docs/source/concepts/provenance.rst:133
 msgid ""
@@ -1180,6 +1396,9 @@ msgid ""
 "number `z`. This sequence as represented in the provenance graph would look "
 "something like is shown in :numref:`fig_provenance_add_multiply_data`."
 msgstr ""
+"通过以上对AiiDA可验证性图的基础定义，我们来看以下下列更有趣的例子。考虑这样一系列运算，首先将 两个数 `x` 和 `y` "
+"相加，在将结果成上第三个数 `z` 。这个运算过程表示成可验证性图如下图所示 "
+":numref:`fig_provenance_add_multiply_data` 。"
 
 #: ../docs/source/concepts/provenance.rst:140
 msgid ""
@@ -1190,6 +1409,10 @@ msgid ""
 "D\\ :sub:`4` then forms the input of C\\ :sub:`2` which multiplies their "
 "values in order to *creates* the product, represented by D\\ :sub:`5`."
 msgstr ""
+"DAG 计算 `(x+y)*z`. 我们有两个简单的算例： C\\ :sub:`1` 表示求和而 C\\ :sub:`2` 表示乘法运算。两个数据节点 "
+"D\\ :sub:`1` 和 D\\ :sub:`2` 是 C\\ :sub:`1` 的输入，它会 *创建* 数据节点 D\\ :sub:`4`\\ 。"
+" 与数据节点 D\\ :sub:`3` 进行运算， D\\ :sub:`4` 成为算例 C\\ :sub:`2` 的输入，两者相乘并 *创建* "
+"乘积，表示为 D\\ :sub:`5` 数据节点。"
 
 #: ../docs/source/concepts/provenance.rst:142
 msgid ""
@@ -1198,6 +1421,8 @@ msgid ""
 "the two calculations in succession, we get a graph as is shown in "
 ":numref:`fig_provenance_add_multiply_full`."
 msgstr ""
+"在这个简单的例子中，没有外部流程来控制这些运算的顺序。而当引入工作流后，这两个算例按照顺序调用，我们得到如图所示的可验证性图 "
+":numref:`fig_provenance_add_multiply_full`."
 
 #: ../docs/source/concepts/provenance.rst:148
 msgid ""
@@ -1209,6 +1434,11 @@ msgid ""
 ":sub:`2`\\). Calculation C\\ :sub:`2` *creates* data node D\\ :sub:`5`, "
 "which is finally *returned* by workflow W\\ :sub:`1`\\."
 msgstr ""
+"工作流执行了同样的运算 `(x+y)*z` 。此处，输入节点 D\\ :sub:`1`, D\\ :sub:`2` 和 D\\ :sub:`3` "
+"是工作流 W\\ :sub:`1` 的输入，该工作流节点使用 D\\ :sub:`1` and D\\ :sub:`2` *调用* 算例 C\\ "
+":sub:`1` 然后 *调用* 算例 C\\ :sub:`2` 使用 D\\ :sub:`3` 和 D\\ :sub:`4` (被 C\\ "
+":sub:`2`\\ *创建*)。 算例 C\\ :sub:`2` *创建* 数据节点 D\\ :sub:`5` ，最终作为返回值被工作流 W\\ "
+":sub:`1`\\ *返回* ."
 
 #: ../docs/source/concepts/provenance.rst:150
 msgid ""
@@ -1217,10 +1447,13 @@ msgid ""
 "end up with the exact same graph as shown in "
 ":numref:`fig_provenance_add_multiply_data`."
 msgstr ""
+"注意到，如果我们忽略图 :numref:`fig_provenance_add_multiply_full` "
+"中，工作流节点和与其相连的所有连接，将会得到与 :numref:`fig_provenance_add_multiply_data` "
+"完全相同的可验证性图。"
 
 #: ../docs/source/concepts/workflows.rst:5
 msgid "Workflows"
-msgstr ""
+msgstr "工作流"
 
 #: ../docs/source/concepts/workflows.rst:7
 msgid ""
@@ -1230,14 +1463,16 @@ msgid ""
 "of a typical scientific workflow. Currently, there are two ways of "
 "implementing a workflow process:"
 msgstr ""
+"AiiDA中的工作刘是一个流程（process） (详情参见 :ref:`流程章节<concepts_processes>` ) "
+"它能够调用其他工作流和其他算例并可以 *返回* 数据因此能够编码特定的科学工作流逻辑。当前，有两类工作流流程的实现。"
 
 #: ../docs/source/concepts/workflows.rst:10
 msgid ":ref:`work functions<concepts_workfunctions>`"
-msgstr ""
+msgstr ":ref:`工作函数（work functions）<concepts_workfunctions>`"
 
 #: ../docs/source/concepts/workflows.rst:11
 msgid ":ref:`work chains<concepts_workchains>`"
-msgstr ""
+msgstr ":ref:`工作链（work chains）<concepts_workchains>`"
 
 #: ../docs/source/concepts/workflows.rst:13
 msgid ""
@@ -1250,6 +1485,9 @@ msgid ""
 "here on out, we will use the terms, workflows, work chains and work "
 "functions interchangeably, as a 'pars pro toto' and 'totum pro parte'."
 msgstr ""
+"前一种较为简单，仅仅是对python函数的封装变换。这对那些并不是非常耗费计算量的工作流非常合适并且它能够容易的通过python函数实现。对于更为复杂的工作流，工作链（work"
+" "
+"chain）是更好的选择。通过将工作函数和工作链将流程连接，我们就定义出了作为的工作流。为了简单起见，我们这里在使用特定术语时对三者不作明显区分，好比“石头剪刀布”和“剪刀石头布”。"
 
 #: ../docs/source/concepts/workflows.rst:19
 msgid ""
@@ -1259,10 +1497,12 @@ msgid ""
 "functions<working_workfunctions>` and :ref:`work "
 "chains<working_workchains>`."
 msgstr ""
+"在下面章节中，每个概念都会被解释，但是不会深入关于实现和运行的细节。详细内容请参见各自的进阶章节 :ref:`工作函数` and "
+":ref:`工作链<working_workchains>`."
 
 #: ../docs/source/concepts/workflows.rst:26
 msgid "Work functions"
-msgstr ""
+msgstr "工作函数"
 
 #: ../docs/source/concepts/workflows.rst:28
 msgid ""
@@ -1275,6 +1515,9 @@ msgid ""
 ":ref:`process<concepts_process_types>` section and it is very important that"
 " you understand this distinction."
 msgstr ""
+"工作流可以如果 :ref:`算例函数<concepts_calcfunctions>` 一样实现，然而他们的使用场景时不同的。应为工作函数是一个 "
+"'工作型' 流程，它只能*返回*以有的数据，而算例函数时一个 '算例型' 流程，它只能 *创建* 新的数据。这个区别在 "
+":ref:`流程<concepts_process_types>` 章节中以被详述，这个区别是非常重要的。"
 
 #: ../docs/source/concepts/workflows.rst:32
 msgid ""
@@ -1293,12 +1536,17 @@ msgid ""
 "this logical provenance of the *sequence of calls* of processes is exactly "
 "what workflow-like processes, such as the ``workfunction`` are designed for."
 msgstr ""
+"为解释 ``workfunction`` 的用法，我们将继续 :ref:`算例函数<concepts_calcfunctions>` "
+"的例子。因此在开始之前，请阅读该章节。例子中展示了如何使用 ``calcfunction`` "
+"装饰器来创建能够计算给定三个整数的求和前两个数后乘第三个数的算式的函数，并能够保证可验证性。,然而，尽管算例函数保证了数据的可验证性，但是关于何者调用这些函数的逻辑信息没有保留。从算例函数创建的可验证性图中，不能够推导出其中一个函数在另一个函数之前被调用，也无从知晓第一个"
+" ``add`` 函数是否在被调用很长时间之后，其输出才作为输入被 ``multiply`` 函数调用。捕捉这些 *调用序列* "
+"的逻辑可验证性就是工作型流程所设计的目标。"
 
 #: ../docs/source/concepts/workflows.rst:38
 msgid ""
 "Consider the following example, where we implement a function called "
 "``add_and_multiply`` that we decorate with the ``workfunction`` decorator."
-msgstr ""
+msgstr "考虑下列例子，我们实现了一个叫做 ``add_and_multiply`` 的函数并使用 ``workfunction`` 装饰器装饰它。"
 
 #: ../docs/source/concepts/workflows.rst:43
 msgid ""
@@ -1308,10 +1556,11 @@ msgid ""
 "we look at the provenance graph generated by this example, we would see "
 "something like the following:"
 msgstr ""
+"不同于直接使用脚本来调用算例函数，此处我们通过工作流算例来调用算例函数，这会将第一个算例的结果作为中间结果传递给第二个算例。可以从这个例子的可验证性图中发现以下特点："
 
 #: ../docs/source/concepts/workflows.rst:49
 msgid "The full provenance generated by the work function example"
-msgstr ""
+msgstr "所有的可验证性都被工作函数的例子中创建"
 
 #: ../docs/source/concepts/workflows.rst:51
 msgid ""
@@ -1328,12 +1577,16 @@ msgid ""
 " demonstrated by the provenance graph below, which is the exact same as the "
 "one before, except only data and workflow nodes are shown:"
 msgstr ""
+"可以清除的发现，该可验证性图包含了比算例函数的例子更多的信息。这些信息是否真的有需要，还是取决于使用情景和用户，但是更多的信息总是更号的。如章节 "
+":ref:`可验证性图的实现<concepts_provenance_implementation>`中， "
+"关于算例型流程和工作流型流程之间严格的区分第一眼看来对于新用户来说显得过于冗长。 然而附加的代表逻辑可验证性的工作流部分使得用户能够忽略计算的细节。 "
+"这个部分如下面的可验证性图所示，和前面的完整的可验证性图相同，但只显示了数据和工作流节点："
 
 #: ../docs/source/concepts/workflows.rst:60
 msgid ""
 "The 'logical' provenance generated by the work function example, where only "
 "the workflow and data nodes, with their links, are shown"
-msgstr ""
+msgstr "工作函数例子中创建的“逻辑” 可验证性，只包含工作流节点和数据节点及其节点间的连接"
 
 #: ../docs/source/concepts/workflows.rst:62
 msgid ""

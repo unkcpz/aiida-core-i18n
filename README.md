@@ -78,3 +78,7 @@ tx pull -l <lang>
 ### 2. A new localization project is better to include the transltion style guid as following
 
 ## Chinese translation style guide(中文翻译指南)
+
+calculation翻译作（算例），因此，calculation job则是（算例作业），calculation function翻译为（算例函数）
+
+process不作翻译，因为在AiiDA中有Process类作为实现。process翻译作过程或进程都容易与计算机术语混淆。

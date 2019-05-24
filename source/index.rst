@@ -105,9 +105,9 @@ How to cite
 ***********
 
 If you use AiiDA for your research, please cite the following work:
-
+  
 .. highlights:: Giovanni Pizzi, Andrea Cepellotti, Riccardo Sabatini, Nicola Marzari,
-    and Boris Kozinsky, *AiiDA: automated interactive infrastructure and database
+    and Boris Kozinsky, *AiiDA: automated interactive infrastructure and database 
     for computational science*, Comp. Mat. Sci 111, 218-230 (2016);
     https://doi.org/10.1016/j.commatsci.2015.09.013; http://www.aiida.net.
 
@@ -116,8 +116,8 @@ If you use AiiDA for your research, please cite the following work:
 Acknowledgements
 ****************
 
-This work is supported by the `MARVEL National Centre for Competency in Research`_
-funded by the `Swiss National Science Foundation`_, as well as by the
+This work is supported by the `MARVEL National Centre for Competency in Research`_ 
+funded by the `Swiss National Science Foundation`_, as well as by the 
 `MaX European Centre of Excellence`_ funded by the Horizon 2020 EINFRA-5 program, Grant No. 676598.
 
 .. figure:: images/MARVEL.png

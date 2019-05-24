@@ -242,7 +242,8 @@ latex_documents = [
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed
 # from docs.readthedocs.org
 # NOTE: it is needed to have these lines before load_dbenv()
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+# on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+on_rtd = True
 
 if not on_rtd:  # only import and set the theme if we're building docs locally
     try:
@@ -303,8 +304,9 @@ def run_apidoc(_):
     env["SPHINX_APIDOC_OPTIONS"] = 'members,special-members,private-members,undoc-members,show-inheritance'
     subprocess.check_call([cmd_path] + options, env=env)
 
-def setup(app):
-    app.connect('builder-inited', run_apidoc)
+# def setup(app):
+#     if os.environ.get('RUN_APIDOC', None) != 'False':
+#         app.connect('builder-inited', run_apidoc)
 
 
 # -- Options for manual page output --------------------------------------------
