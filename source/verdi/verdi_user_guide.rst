@@ -334,13 +334,13 @@ Below is a list with all available subcommands.
       --help  Show this message and exit.
 
     Commands:
-      decr     Remove NUMBER [default=1] workers from the running daemon
-      incr     Add NUMBER [default=1] workers to the running daemon
-      logshow  Show the log of the daemon, press CTRL+C to quit
+      decr     Remove NUMBER [default=1] workers from the running daemon.
+      incr     Add NUMBER [default=1] workers to the running daemon.
+      logshow  Show the log of the daemon, press CTRL+C to quit.
       restart  Restart the daemon.
-      start    Start the daemon
-      status   Print the status of the current daemon or all daemons
-      stop     Stop the daemon
+      start    Start the daemon with NUMBER workers [default=1].
+      status   Print the status of the current daemon or all daemons.
+      stop     Stop the daemon.
 
 
 .. _verdi_data:
@@ -636,7 +636,6 @@ Below is a list with all available subcommands.
       --first-name TEXT               First name of the user.  [required]
       --last-name TEXT                Last name of the user.  [required]
       --institution TEXT              Institution of the user.  [required]
-      --password TEXT                 Optional password to connect to REST API.
       --db-engine [postgresql_psycopg2]
                                       Engine to use to connect to the database.
       --db-backend [django|sqlalchemy]
@@ -749,7 +748,6 @@ Below is a list with all available subcommands.
       --first-name TEXT               First name of the user.  [required]
       --last-name TEXT                Last name of the user.  [required]
       --institution TEXT              Institution of the user.  [required]
-      --password TEXT                 Optional password to connect to REST API.
       --db-engine [postgresql_psycopg2]
                                       Engine to use to connect to the database.
       --db-backend [django|sqlalchemy]

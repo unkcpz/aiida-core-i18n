@@ -8,7 +8,7 @@ AiiDA is designed to run on `Unix <https://en.wikipedia.org/wiki/Unix>`_ operati
 
 * `bash <https://en.wikipedia.org/wiki/Bash_(Unix_shell)>`_ or
   `zsh <https://en.wikipedia.org/wiki/Z_shell>`_ (The shell)
-* `python-2.7.x`_ (The programming language used by AiiDA)
+* `python`_ 2.7 or >= 3.6 (The programming language used by AiiDA)
 * `python-pip`_ (Python package manager)
 * `postgresql`_ (Database software, version 9.4 or higher)
 * `RabbitMQ`_ (A message broker necessary for AiiDA to communicate between processes)
@@ -21,7 +21,7 @@ Depending on your set up, there are a few optional dependencies:
 
 .. _graphviz: https://www.graphviz.org/download 
 .. _git: https://git-scm.com/downloads
-.. _python-2.7.x: https://www.python.org/downloads
+.. _python: https://www.python.org/downloads
 .. _python-pip: https://packaging.python.org/installing/#requirements-for-installing-packages
 .. _virtualenv: https://packages.ubuntu.com/xenial/virtualenv
 .. _postgresql: https://www.postgresql.org/downloads
@@ -54,7 +54,7 @@ The following will install the basic ``python`` requirements and the ``git`` sou
 
 .. code-block:: bash
 
-    sudo apt-get install git python2.7-dev python-pip virtualenv
+    sudo apt-get install git python2.7-dev python3-dev python-pip virtualenv
 
 To install the requirements for the ``postgres`` database run the following:
 
@@ -63,19 +63,20 @@ To install the requirements for the ``postgres`` database run the following:
     sudo apt-get install postgresql postgresql-server-dev-all postgresql-client
 
 For a more detailed description of database requirements and usage see the :ref:`database<database>` section.
-Finally, to install the RabbitMQ message broker, run the following command:
+Finally, install the RabbitMQ message broker:
 
 .. code-block:: bash
 
     sudo apt-get install rabbitmq-server
 
-After a reboot, RabbitMQ should be started automatically as it is added as a self starting service. You can check whether it is running by checking the status through the command:
+This adds RabbitMQ as a system service. To check whether it is running:
 
 .. code-block:: bash
 
     sudo rabbitmqctl status
 
-If you are having problems installing RabbitMQ, please refer to the detailed instructions  provided on the `website of RabbitMQ itself for Debian based distributions <https://www.rabbitmq.com/install-debian.html>`_.
+If it is not running already, it should after a reboot.
+For problems with installing RabbitMQ, refer to the detailed instructions  provided on the `website of RabbitMQ itself for Debian based distributions <https://www.rabbitmq.com/install-debian.html>`_.
 
 
 .. _details_brew:
@@ -98,7 +99,7 @@ After you have installed Homebrew, you can install the basic requirements as fol
 
     brew install git python postgresql
 
-To start the `postgres` database server, execute:
+To start the ``postgres`` database server, execute:
 
 .. code-block:: bash
 
