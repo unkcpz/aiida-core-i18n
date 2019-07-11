@@ -928,6 +928,7 @@ msgid ""
 "you still want to use AiiDA with other computers, or submit the calculations"
 " in the AiiDA database anyway."
 msgstr ""
+"禁用了机器之后，AiiDA将不能从指定机器获取计算信息和提交算例。这在有的时候非常有用，比如，如果计算资源正在维护，但你还是想利用AiiDA在其他计算资源上提交任务。"
 
 #: ../docs/source/get_started/computers.rst:358
 msgid "The relevant commands are::"
@@ -936,11 +937,11 @@ msgstr "相关的指令是 ::"
 #: ../docs/source/get_started/computers.rst:363
 msgid ""
 "Note that the above commands will disable the computer for all AiiDA users."
-msgstr ""
+msgstr "注意上面的命令将会对所有用户禁用计算资源。"
 
 #: ../docs/source/get_started/computers.rst:367
 msgid "On not bombarding the remote computer with requests"
-msgstr ""
+msgstr "为了不会对远端计算资源造成过多的请求"
 
 #: ../docs/source/get_started/computers.rst:369
 msgid ""
@@ -948,14 +949,15 @@ msgid ""
 "opening connections and executing scheduler commands with a high frequency."
 "  To limit this AiiDA currently has two settings:"
 msgstr ""
+"有一些机器（尤其是计算中心）可能不允许保持一个开启的连接并高频次地执行任务调度队列查询指令。为了限制高频次的查询，AiiDA当前有两种设置 :"
 
 #: ../docs/source/get_started/computers.rst:373
 msgid "The transport safe open interval, and,"
-msgstr ""
+msgstr "安全的传输开启间隔，和，"
 
 #: ../docs/source/get_started/computers.rst:374
 msgid "the minimum job poll interval"
-msgstr ""
+msgstr "最小的任务请求间隔"
 
 #: ../docs/source/get_started/computers.rst:376
 msgid ""
@@ -966,24 +968,25 @@ msgid ""
 "update could be the sum of the two intervals, however this is unlikely to "
 "happen in practice."
 msgstr ""
+"这两个设置同时生效。AiiDA将不会从远端的机器上更新任务列表，直到任务请求间隔结束（第一个请求会立即执行）。最大的可能请求时间因此是两者间隔的加和，但是这在使用中不太可能出现。"
 
 #: ../docs/source/get_started/computers.rst:382
 msgid ""
 "The transport open interval is currently hardcoded by the transport plugin; "
 "typically for SSH it's longer than for local transport."
-msgstr ""
+msgstr "当前，传输开启的间隔是在传输插件中硬编码的；这对于SSH传输是有用的，因为它的时间长于本地传输。"
 
 #: ../docs/source/get_started/computers.rst:385
 msgid ""
 "The job poll interval can be set programmatically on the corresponding "
 "``Computer`` object in verdi shell::"
-msgstr ""
+msgstr "任务请求间隔可以使用verdi shell 中使用相应的 ``Computer`` 对象编程设置完成 ::"
 
 #: ../docs/source/get_started/computers.rst:391
 msgid ""
 "would set the transport interval on a computer called 'localhost' to 30 "
 "seconds."
-msgstr ""
+msgstr "这会将 ‘localhost’ 这个机器的传输间隔设置为30秒。"
 
 #: ../docs/source/get_started/computers.rst:393
 msgid ""
@@ -992,6 +995,8 @@ msgid ""
 "the time being there is no way around this and if these limits must be "
 "respected then do not run with more than one worker."
 msgstr ""
+"所有这些间隔都是这对每一个 *worker* "
+"生效的，这意味着每个有多个worker的后台进程从整体上不会在意这个间隔时长。所以暂时没有办法有效的限制这个间隔，如果要，那么只能使用一个worker。"
 
 #: ../docs/source/get_started/index.rst:6
 msgid "First things first"
@@ -1023,7 +1028,7 @@ msgstr "安装插件"
 msgid ""
 "While the ``aiida-core`` package provides the workflow engine and database "
 "model, it relies on *plugins* for connecting to specific simulation codes."
-msgstr ""
+msgstr "尽管 ``aiida-core`` 提供了工作流引擎和数据库模型，它还是要依赖 *插件* 来连接特定的模拟计算代码。"
 
 #: ../docs/source/get_started/index.rst:22
 msgid ""
@@ -1031,30 +1036,34 @@ msgid ""
 "<https://aiidateam.github.io/aiida-registry>`_. If a plugin for your code "
 "does not yet exist, you may need to :ref:`write one <plugin_development>`."
 msgstr ""
+"在 `AiiDA 插件注册 <https://aiidateam.github.io/aiida-registry>`_ "
+"上查找AiiDA插件。如果你需要的计算代码的插件还不存在，你可能需要 :ref:`写一个 <plugin_development>` 。"
 
 #: ../docs/source/get_started/index.rst:24
 msgid ""
 "Most plugins are hosted on the `Python Package Index "
 "<https://pypi.org/search/?q=aiida>`_ and can be installed as follows::"
 msgstr ""
+"大多数的插件都托管在 `Python Package Index <https://pypi.org/search/?q=aiida>`_ "
+"并且可以通过下列方式安装 ::"
 
 #: ../docs/source/get_started/index.rst:29
 msgid ""
 "If no PyPI package is available for a plugin, you can install the plugin "
 "directly from a source code repository, e.g.::"
-msgstr ""
+msgstr "如果没有 PyPI包可用，你可以直接从源代码仓库安装插件，例如 ::"
 
 #: ../docs/source/get_started/index.rst:36
 msgid ""
 "After installing new plugins, **restart the daemon**  using ``verdi daemon "
 "restart``."
-msgstr ""
+msgstr "安装新的插件后，使用 ``verdi daemon restart`` , **重启后台守护进程**。"
 
 #: ../docs/source/get_started/index.rst:39
 msgid ""
 "The reentry cache can also be updated from python when access to the "
 "commandline is not available (e.g. in jupyter notebooks)."
-msgstr ""
+msgstr "如果你无法使用命令行（比如在jupyter notebook中），reentry的缓存也可以直接从python更新。"
 
 #: ../docs/source/get_started/index.rst:47
 msgid "What does ``pip install aiida-diff`` do?"
@@ -1062,12 +1071,12 @@ msgstr " ``pip install aiida-diff`` 命令做了什么?"
 
 #: ../docs/source/get_started/index.rst:49
 msgid "resolves and installs the dependencies on other python packages"
-msgstr ""
+msgstr "解析并安装依赖的python包"
 
 #: ../docs/source/get_started/index.rst:50
 msgid ""
 "creates a folder ``aiida_diff.egg-info/`` with metadata about the package"
-msgstr ""
+msgstr "创建文件夹 ``aiida_diff.egg-info/`` 及其包相关的元数据"
 
 #: ../docs/source/get_started/index.rst:51
 msgid ""
@@ -1077,6 +1086,9 @@ msgid ""
 "python without reinstalling (when restarting the interpreter), but changes "
 "to the **metadata** will not."
 msgstr ""
+"如果参数 ``-e`` 被使用，那么会创建一个从python包使用路径到 ``aiida-diff`` 源代码文件夹的链接，并将文件夹 ``.egg-"
+"info`` 存放在使用路径中。对 **源代码** 的修改将不用重装就能被python载入 (重新安装解释器), 但是对 **元数据** "
+"的修改不会被重载。"
 
 #: ../docs/source/get_started/index.rst:57
 msgid "For further details, see the Python `packaging user guide`_."
