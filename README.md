@@ -79,6 +79,26 @@ tx pull -l <lang>
 
 ## Chinese translation style guide(中文翻译指南)
 
-calculation翻译作（算例），因此，calculation job则是（算例作业），calculation function翻译为（算例函数）
+```text
+process: 例程。目的是区别linux的进程和广义的流程的概念，是AiiDA中一个特有的基础概念。
+provenance: 可验证性。表示了数据和流程是可以重复并可以追踪来源过程的。
+provenance graph: 可验证性图。AiiDA生成的有可验证性的图结构。
+calculation: 算例。
+calculation job: 算例任务。
+calculation function: 算例函数。
+workflow: 工作流。
+workflow function: 工作流函数。
+workchain: 工作链。
 
-process不作翻译，因为在AiiDA中有Process类作为实现。process翻译作过程或进程都容易与计算机术语混淆。
+...
+```
+
+## When original documentation updated
+
+UPDATE the source code:
+
+```bash
+$ sh update_source.sh
+```
+
+The content in transfix will automatically updated by travis.
