@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the AiiDA package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Jason.Eu <morty.yu@yahoo.com>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-24 09:00+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
+"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +23,7 @@ msgstr ""
 
 #: ../docs/source/working/calculations.rst:5
 msgid "Calculations"
-msgstr ""
+msgstr "算例(Calculations)"
 
 #: ../docs/source/working/calculations.rst:7
 msgid ""
@@ -27,20 +31,22 @@ msgid ""
 "section<concepts_processes>` for details) that *creates* new data. "
 "Currently, there are two ways of implementing a calculation process:"
 msgstr ""
+"算例是能够 *创建* 新的数据的一个例程(详情参看 :ref:`process section<concepts_processes>`  )。 "
+"当前，有两种实现算例例程的方法 :"
 
 #: ../docs/source/working/calculations.rst:10
 msgid ":ref:`calculation function<working_calcfunctions>`"
-msgstr ""
+msgstr ":ref:`算例函数<working_calcfunctions>`"
 
 #: ../docs/source/working/calculations.rst:11
 msgid ":ref:`calculation job<working_calcjobs>`"
-msgstr ""
+msgstr ":ref:`算例任务<working_calcjobs>`"
 
 #: ../docs/source/working/calculations.rst:13
 msgid ""
 "This section will provide detailed information and best practices on how to "
 "implement these two calculation types."
-msgstr ""
+msgstr "该章节关于如何实现这两种算例的详细信息和最佳案例。"
 
 #: ../docs/source/working/calculations.rst:16
 msgid ""
@@ -50,10 +56,12 @@ msgid ""
 " read and understood the basic concept of :ref:`calculation "
 "processes<concepts_calculations>`."
 msgstr ""
+"该章认为读者已经对基础概念和算例函数与算例任务之间的区别和使用场景有所了解。因此在继续下面的阅读前，你需要阅读和理解 "
+":ref:`算例例程<concepts_calculations>` 的基础概念."
 
 #: ../docs/source/working/calculations.rst:22
 msgid "Calculation functions"
-msgstr ""
+msgstr "算例函数(Calculation functions)"
 
 #: ../docs/source/working/calculations.rst:24
 msgid ""
@@ -68,10 +76,15 @@ msgid ""
 "'workflow'-like processes. What this entails in terms of intended usage and "
 "limitations for calculation functions is the scope of this section."
 msgstr ""
+"章节 :ref:`算例函数及其概念<concepts_calcfunctions>` 已经描述了其使用目的: "
+"自动在可验证性图中记录算例的运行和运行所需的输入和产生的输出。之后的 The "
+":ref:`例程函数章节<working_process_functions>` "
+"详细描述了实现例程函数时候的规则和细节，如同工作函数，规则和实现同时适用于例程函数这一例程函数的子类。但是，算例函数这种 “算例型” "
+"的例程和工作函数这种“工作型” 的例程之间还是有些区别的。 就算例函数的预期使用和限制，还在本节描述。"
 
 #: ../docs/source/working/calculations.rst:30
 msgid "Creating data"
-msgstr ""
+msgstr "创建数据"
 
 #: ../docs/source/working/calculations.rst:31
 msgid ""
@@ -93,12 +106,18 @@ msgid ""
 " yourself**, or the engine will raise an exception, as shown in the "
 "following example:"
 msgstr ""
+"前面曾多次提到: 算例函数，如同所有的“算例性”例程一样，能够  “创建” 数据，但所谓的“创建”具体指什么？ "
+"在此处的上下文中，术语“创建”并不简单的描述通过交互式shell或脚本在可验证性图中创建数据节点。 "
+"而是指代了通过例程实现的计算中从一些数据产生新的数据的过程。这就是算例函数所实际产生的效果。它以一个或多个数据节点作为输入，并返回以这些输入作为操作对象的一个或多个数据节点作为输出。正如小节"
+" :ref:`技术细节<working_process_functions>` "
+"所解释的，输出是通过从函数中返回数据节点的方式简单创建的。后端引擎会从函数中检查返回值并将返回节点连接在表示算例函数的算例节点上。为验证输出节点确实是“创建”的，AiiDA引擎会检查这个节点是没有被储存过的。因此，**不要手动储存你所创建的节点**"
+" 是很重要的，否则引擎会产生一个如下异常 :"
 
 #: ../docs/source/working/calculations.rst:44
 msgid ""
 "Because the returned node is already stored, the engine will raise the "
 "following exception:"
-msgstr ""
+msgstr "因为返回的节点已经储存，AiiDA引擎会产生一个如下异常 :"
 
 #: ../docs/source/working/calculations.rst:52
 msgid ""
@@ -106,7 +125,7 @@ msgid ""
 "created in the function body, is indistinguishable from a node that was "
 "already stored and had simply been loaded in the function body and returned,"
 " e.g.:"
-msgstr ""
+msgstr "该严格限制的原因是，节点需要在被创建后才会被储存，这有别与在函数体中或函数的返回中载入一个已经储存的节点，如 ::"
 
 #: ../docs/source/working/calculations.rst:57
 msgid ""
@@ -115,6 +134,8 @@ msgid ""
 "to prevent this ambiguity that calculation functions require all returned "
 "output nodes to be *unstored*."
 msgstr ""
+"载入的节点会从算例函数中产生一个 `create` 连接，即便该节点不是由该函数创建的。正是为了避免这种模糊性，要求算例函数返回的所有输出节点都是 "
+"*unstored* 的。"
 
 #: ../docs/source/working/calculations.rst:60
 msgid ""
@@ -123,10 +144,12 @@ msgid ""
 "process, it *cannot* create new data. For more details refer to the "
 ":ref:`work function section<working_workfunctions>`."
 msgstr ""
+"注意到工作流函数有完全相反的要求，即所有函数返回的输出必须 *已经被储存* ，因为如一个“工作流”型的例程，它是 *不能* 创建新的数据的。详情请参考 "
+":ref:`工作流函数小节<working_workfunctions>` 。"
 
 #: ../docs/source/working/calculations.rst:66
 msgid "Calculation jobs"
-msgstr ""
+msgstr "算例任务(Calculation jobs)"
 
 #: ../docs/source/working/calculations.rst:68
 msgid ""
@@ -141,11 +164,18 @@ msgid ""
 "with :ref:`generic processes<working_processes>` before continuing, because "
 "all the concepts explained there will apply also to calculation jobs."
 msgstr ""
+"为描述如何实现算例任务，我们继续章节 :ref:`算例任务的概念<concepts_calcjobs>` "
+"中展示的例子。例子中我们描述了对两个整数求和并通过简单的bash脚本实现的代码，以及 "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` "
+"类如何被用于在AiiDA中运行这段代码。因为该类是 "
+":py:class:`~aiida.engine.processes.process.Process` "
+"类的子类，则拥有它的全部性质。因此在继续之前阅读章节 :ref:`泛型例程<working_processes>` "
+"也是很有用的。因为那里所描述的所有特性在此处算例任务中同样适用。"
 
 #: ../docs/source/working/calculations.rst:77
 #: ../docs/source/working/workflows.rst:151
 msgid "Define"
-msgstr ""
+msgstr "定义"
 
 #: ../docs/source/working/calculations.rst:78
 msgid ""
@@ -157,21 +187,26 @@ msgid ""
 "method of the ``CalcJob`` class, is the ``define`` class method. Here you "
 "define, what inputs it takes and what outputs it will generate."
 msgstr ""
+"要实现一个算例任务，使用者只需要继承 "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 例程类并实现 "
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define` "
+"方法。你可以使用认可python许可的类名。``CalcJob`` 中最重要的方法是 ``define`` "
+"类方法。在这个方法中，你定义了输入和算例运行产生的输出。"
 
 #: ../docs/source/working/calculations.rst:86
 msgid ""
 "As the snippet above demonstrates, the class method takes two arguments:"
-msgstr ""
+msgstr "如上面代码片段所展示的，该类方法接受两个参数 :"
 
 #: ../docs/source/working/calculations.rst:88
 msgid ""
 "``cls`` this is the reference of the class itself and is mandatory for any "
 "class method"
-msgstr ""
+msgstr "``cls`` 是指向该类自身的可以访问类的所有类方法的变量"
 
 #: ../docs/source/working/calculations.rst:89
 msgid "``spec`` which is the 'specification'"
-msgstr ""
+msgstr "``spec`` 是 “计算规格和详情” (specification)"
 
 #: ../docs/source/working/calculations.rst:92
 msgid ""
@@ -181,6 +216,8 @@ msgid ""
 " the ``define`` method of the parent class, which is necessary for the "
 "calculation job to work properly"
 msgstr ""
+"请不要忘记在 ``define`` 方法的首行加入 ``super(ArithmeticAddCalculation, "
+"self).define(spec)``  ，这里你需要用你自己的类名。这会调用 ``define`` 方法的父类，使得算例任务可以正确工作。"
 
 #: ../docs/source/working/calculations.rst:95
 msgid ""
@@ -196,6 +233,11 @@ msgid ""
 "Since we expect integers, we specify that the valid type is the database "
 "storable :py:class:`~aiida.orm.nodes.data.int.Int` class."
 msgstr ""
+"正如其名所示， ``spec`` "
+"可以用于指定算例任务的性质。比如，它可以用于定义算例任务所需的输入。在我们的例子中，我们需要接受两个整数作为输入，所以我们通过调用 "
+"``spec.input()`` 定义这些 “规格参数”。 "
+"第一个参数是输入的名称。该名称之后会被用于在启动算例任务时输入的指定，还会被作为在可验证性图中连接算例节点的数据节点的标签。另外，正如我们在这里所用到的，你还可以指定特定输入允许的参数类型。因为我们在此处希望得到整形的变量，我们指定允许的类型是数据库可储存的"
+" :py:class:`~aiida.orm.nodes.data.int.Int` 类。"
 
 #: ../docs/source/working/calculations.rst:105
 msgid ""
@@ -207,11 +249,14 @@ msgid ""
 "``CalcJob``. For this reason, you **do not** again have to declare this "
 "input."
 msgstr ""
+"因为我们继承了 ``CalcJob`` 类并调用了它的 ``define`` 方法，这会同时继承其声明的端口(port)。 "
+"如果你查看类的实现，你会发现在基类 ``CalcJob`` 中已经定义了输入 ``code`` 以接受一个 ``Code`` 示例。这会指向用户在运行 "
+"``CalcJob`` 时所要使用的计算代码。因此， **请不要** 重复声明该输入。"
 
 #: ../docs/source/working/calculations.rst:110
 msgid ""
 "Next we should define what outputs we expect the calculation to produce:"
-msgstr ""
+msgstr "之后我们需要定义我们期望得到的算例输出 :"
 
 #: ../docs/source/working/calculations.rst:115
 msgid ""
@@ -226,10 +271,16 @@ msgid ""
 "provide a lot more functionality. Fore more details, please refer to the "
 "section on :ref:`process specifications<working_processes_spec>`."
 msgstr ""
+"如同输入，用户需要指定每个输出因有的节点类型。默认的，一个定义了的输出将会是 '必给的' "
+"(required)，意味着如果算例任务终止但没有得到输出，则例程(process)会被标记为失败。要指明一个输出不是必须的而是可选的，用户可以在 "
+"``spec.output`` 调用中使用 ``required=False``  。可以注意到，例程的规格详情以及其 "
+":py:meth:`~aiida.engine.processes.process_spec.ProcessSpec.input` 和 "
+":py:meth:`~aiida.engine.processes.process_spec.ProcessSpec.output` "
+"方法提供了许多功能。详情可以参考章节 :ref:`例程规格<working_processes_spec>` 。"
 
 #: ../docs/source/working/calculations.rst:125
 msgid "Prepare"
-msgstr ""
+msgstr "准备"
 
 #: ../docs/source/working/calculations.rst:126
 msgid ""
@@ -240,23 +291,25 @@ msgid ""
 "let's consider what one typically does when manually preparing to run a "
 "computing job through a scheduler:"
 msgstr ""
+"通过例程的规格定义，我们能够知晓算例任务所期望的输入和将会产生的输出。剩下的任务就是告知引擎算例任务事实上需要如何运行。为了理解AiiDA引擎为了完成算例任务将会执行的步骤，我们来看一下当用户手动通过任务调度工具执行一个计算任务时会采取的具体步骤"
+" :"
 
 #: ../docs/source/working/calculations.rst:130
 msgid ""
 "Prepare a working directory in some scratch space on the machine where the "
 "job will run"
-msgstr ""
+msgstr "在计算资源的可用空间上，准备一个任务运行的工作文件夹"
 
 #: ../docs/source/working/calculations.rst:131
 msgid "Create the raw input files required by the executable"
-msgstr ""
+msgstr "创建可执行软件所需的的原始输入文件"
 
 #: ../docs/source/working/calculations.rst:132
 msgid ""
 "Create a launch script containing scheduler directives, loading of "
 "environment variables and finally calling the executable with certain "
 "command line parameters."
-msgstr ""
+msgstr "创建一个包含调度程序指令的启动脚本，加载环境变量，最后使用特定命令行参数调用可执行文件。"
 
 #: ../docs/source/working/calculations.rst:134
 msgid ""
@@ -267,6 +320,9 @@ msgid ""
 " method. The implementation of the ``ArithmeticAddCalculation`` that we are "
 "considering in the example looks like the following:"
 msgstr ""
+"所以我们要做的就是直到AiiDA引擎对指定算例任务完成这些步骤。由于。由于这些步骤对每个计算是不同的，我们需要通过 "
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
+" 方法来实现这些步骤。在样例中展示的 ``ArithmeticAddCalculation`` 实现如下 :"
 
 #: ../docs/source/working/calculations.rst:141
 msgid ""
@@ -281,6 +337,10 @@ msgid ""
 "should be returned from the method as the only value. In principle, this is "
 "what one **should do** in the ``prepare_for_submission`` method:"
 msgstr ""
+"在我们逐行研究代码之前，让我们先描述一下这里发生的事情的全貌。该类方法的目的是帮助AiiDA引擎完成如上所述的准备和提交计算任务所需的三个步骤。所需的原始输入文件可以写入沙箱文件夹，该文件夹之后会以"
+" ``folder`` 参数传入。所需的其他所有信息，如拷贝文件的指令和指令参数均通过 "
+":py:class:`~aiida.common.datastructures.CalcInfo` "
+"数据结构定义，这个值应该作为方法返回的唯一值。理论上，这是用户在方法 ``prepare_for_submission`` 中 **应该做的** :"
 
 #: ../docs/source/working/calculations.rst:147
 msgid ""
@@ -654,37 +714,39 @@ msgstr ""
 
 #: ../docs/source/working/calculations.rst:324
 msgid ":ref:`parser_name<working_calcjobs_options_parser_name>`"
-msgstr ""
+msgstr ":ref:`parser_name<working_calcjobs_options_parser_name>`"
 
 #: ../docs/source/working/calculations.rst:325
 msgid ":ref:`input_filename<working_calcjobs_options_input_filename>`"
-msgstr ""
+msgstr ":ref:`input_filename<working_calcjobs_options_input_filename>`"
 
 #: ../docs/source/working/calculations.rst:326
 msgid ":ref:`output_filename<working_calcjobs_options_output_filename>`"
-msgstr ""
+msgstr ":ref:`output_filename<working_calcjobs_options_output_filename>`"
 
 #: ../docs/source/working/calculations.rst:327
 msgid ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
-msgstr ""
+msgstr ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
 
 #: ../docs/source/working/calculations.rst:328
 msgid ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
-msgstr ""
+msgstr ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
 
 #: ../docs/source/working/calculations.rst:329
 msgid ":ref:`resources<working_calcjobs_options_resources>`"
-msgstr ""
+msgstr ":ref:`resources<working_calcjobs_options_resources>`"
 
 #: ../docs/source/working/calculations.rst:330
 msgid ""
 ":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
 msgstr ""
+":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
 
 #: ../docs/source/working/calculations.rst:331
 msgid ""
 ":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
 msgstr ""
+":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
 
 #: ../docs/source/working/calculations.rst:332
 msgid ":ref:`queue_name<working_calcjobs_options_queue_name>`"
@@ -3377,8 +3439,8 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:570
 msgid "https://docs.python.org/3.5/library/functions.html#classmethod"
-msgstr ""
+msgstr "https://docs.python.org/3.5/library/functions.html#classmethod"
 
 #: ../docs/source/working/workflows.rst:571
 msgid "https://en.wikipedia.org/wiki/Fizz_buzz"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Fizz_buzz"
