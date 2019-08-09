@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the AiiDA package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Jianxing Huang <jx.huang.x@gmail.com>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-16 20:22+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
+"Last-Translator: Jianxing Huang <jx.huang.x@gmail.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +23,7 @@ msgstr ""
 
 #: ../docs/source/examples/pseudo_tutorial.rst:4
 msgid "Introduction: Pseudopotential families"
-msgstr ""
+msgstr "介绍：赝势族"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:6
 msgid ""
@@ -36,6 +40,9 @@ msgid ""
 "develop a set of pseudopotentials that covers most of the periodic table for"
 " different functionals."
 msgstr ""
+"给每个原子都附上赝势文件是枯燥的。很多情况下，不需要给所有计算都准备不同的赝势文件；最有可能的情况是，对于一个项目通常固定一个能满足需求的合适的赝势文件。此外，对于高通量计算，经常是保持相同的需求并对多种元素进行计算。这也是有几个项目想要开发一组赝势来同时涵盖到不同需求的原因（仅举几例，如"
+" `PSLibrary <http://qe-forge.org/gf/project/pslibrary/frs/>`_ 或是 `GBRV "
+"<http://www.physics.rutgers.edu/gbrv/>` ）。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:18
 msgid ""
@@ -44,6 +51,8 @@ msgid ""
 "special type of `AiiDA Group of nodes`. Within each family, at most one "
 "pseudopotential can be present for a given chemical element."
 msgstr ""
+"基于这个原因，引入了*赝势族*的概念。每个赝势族都是一组特殊的 `AiiDA Group of nodes` "
+"类型的赝势。在每个赝势族中，对于每个给定的化学元素，仅有一个赝势与之对应。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:23
 msgid ""
@@ -51,7 +60,7 @@ msgid ""
 "periodic table. This means that you can create a pseudopotential family "
 "containing only the pseudopotentials for a few elements that you are "
 "interested in."
-msgstr ""
+msgstr "赝势族不需要涵盖整张周期表。这意味着可以建立一个仅包含待研究的几种元素的赝势族。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:28
 msgid ""
@@ -59,11 +68,11 @@ msgid ""
 "same family. It is your responsibility to group only those with the same "
 "type, or obtained using the same functionals, approximations and / or levels"
 " of theory."
-msgstr ""
+msgstr "原则上，可以将不同种类的赝势放入同一个赝势族中。但是赝势族理应用作相同类型或是实现相同功能，近似，理论水平的赝势的分类。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:33
 msgid "Creating a pseudopotential family"
-msgstr ""
+msgstr "新建一个赝势族"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:36
 msgid ""
@@ -71,6 +80,8 @@ msgid ""
 "<https://github.com/aiidateam/aiida-quantumespresso/>`_. For interfaces to "
 "other codes, please refer to the respective plugin documentation."
 msgstr ""
+"以下命令仅对 `Quantum ESPRESSO 接口 <https://github.com/aiidateam/aiida-"
+"quantumespresso/>`_. 生效。对于其他计算代码接口，请参阅相应的插件文档。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:40
 msgid ""
@@ -79,6 +90,8 @@ msgid ""
 "single folder -- we'll call it ``path/to/folder``. You can then add the "
 "family to the AiiDA database with ``verdi``::"
 msgstr ""
+"接下来，就让我们开始创建一个赝势族。首先，需要准备一个 ``path/to/folder`` 文件夹，其中用来放置将属于同一赝势族的赝势文件。之后可以用"
+" ``verdi`` 来把赝势族添加至AiiDA数据库中 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:47
 msgid ""
@@ -86,6 +99,8 @@ msgid ""
 " final parameter is a string that is set in the ``description`` field of the"
 " group."
 msgstr ""
+"其中 ``name_of_the_family`` 是赝势族的唯一名称，最后一个参数用来设置 ``description`` "
+"字段（译者注：用作描述赝势族，用来记录更多详细的信息）。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:50
 msgid ""
@@ -94,12 +109,14 @@ msgid ""
 "group. The code will raise an error if you try to add two (different) "
 "pseudopotentials for the same element."
 msgstr ""
+"如果有相同 ``name_of_the_family`` "
+"的赝势族已经存在，则该文件中的赝势将会被添加至此赝势族中。如果尝试为同种元素添加两个（不同的）赝势，则将会引发错误。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:54
 msgid ""
 "After the upload (which may take some seconds, so please be patient) the "
 "pseudopotential family will be ready for use."
-msgstr ""
+msgstr "上传完成之后（可能需要几秒钟的时间，请耐心等待），就可以使用赝势族了。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:58
 msgid ""
@@ -109,21 +126,23 @@ msgid ""
 "(without changing anything in the database) if an existing pseudopotential "
 "is found."
 msgstr ""
+"如果上传了一个已存在于数据库中的赝势，AiiDA将会使用已存在的 ``UPFData`` 节点，而不会创建重复的节点。使用可选标签 ``--stop-"
+"if-existing`` 的话，当发现已有赝势时会中止行为（不更改数据库中的任何内容）。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:65
 msgid "Getting the list of existing families"
-msgstr ""
+msgstr "查询已有赝势族列表"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:66
 msgid ""
 "To see wich pseudopotential families already exist in the database, type ::"
-msgstr ""
+msgstr "输入以下命令可查看数据库中已有的赝势族 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:71
 msgid ""
 "Add a ``-d`` (or ``--with-description``) flag if you also want to read the "
 "description of each family."
-msgstr ""
+msgstr "如果想获取每个赝势族描述信息的话，请使用 ``-d`` （或是 ``--with-description`` ）标签。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:73
 msgid ""
@@ -132,27 +151,29 @@ msgid ""
 "get only the families containing the elements ``Ba``, ``Ti`` and ``O``, use "
 "::"
 msgstr ""
+"也可以使用 ``-e`` 选项筛选得到包含给定一组元素的赝势族。比如，如果想要得到包含 ``Ba``, ``Ti`` 和 ``O`` "
+"元素的赝势族，可以使用如下命令 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:81
 msgid "For more information on the command line options, type ::"
-msgstr ""
+msgstr "使用如下命令查看更多的可选信息 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:88
 msgid "Manually adding pseudopotentials"
-msgstr ""
+msgstr "手动添加赝势"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:90
 msgid ""
 "If you do not want to use pseudopotentials from a family, it is also "
 "possible to manually add them to the database (even though we discourage "
 "this in general)."
-msgstr ""
+msgstr "如果不想通过赝势族来使用赝势，也可以手动把赝势添加至数据库中（一般不推荐这么做）。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:93
 msgid ""
 "A possible way of doing it is the following: we start by creating a list of "
 "pseudopotential filenames that we need to use::"
-msgstr ""
+msgstr "比较合适的做法是：首先新建一份赝势文件文件名的列表，如下所示 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:101
 msgid ""
@@ -164,23 +185,26 @@ msgid ""
 "tells us if the pseudopotential was already present or not. We also store "
 "the returned nodes in a list (``pseudos_to_use``)."
 msgstr ""
+"在这个简短的例子中，赝势文件应和脚本位于同一文件夹中。之后，用循环遍历这些文件名并将其添加至AiiDA数据库中。``get_or_create`` "
+"方法可检查赝势是否已在数据库中，有的话会返回数据库中已有的节点，如果没，则会储存它。返回的第二个值是布尔值，表示赝势是否已有。之后，将返回的节点存入列表（"
+" ``pseudos_to_use`` ）中。"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:118
 msgid ""
 "As the last step, we make a loop over the pseudopotentials, and attach its "
 "pseudopotential object to the calculation::"
-msgstr ""
+msgstr "最后一步，用循环遍历所有的赝势并将此对象输入至算例中 ::"
 
 #: ../docs/source/examples/pseudo_tutorial.rst:125
 msgid ""
 "When the pseudopotential is created, it is parsed and the elements to which "
 "it refers is stored in the database and can be accessed using the "
 "``pseudo.element`` property, as shown above."
-msgstr ""
+msgstr "新建赝势对象时，会对其进行解析，将其对应的元素存入数据库中，并能像上面所示那样使用 ``pseudo.element`` 属性来进行访问。"
 
 #: ../docs/source/examples/structure_tutorial.rst:4
 msgid "General comments"
-msgstr ""
+msgstr "引言"
 
 #: ../docs/source/examples/structure_tutorial.rst:6
 msgid ""
@@ -188,6 +212,8 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.structure.StructureData` object to create "
 "complex crystals."
 msgstr ""
+"本节包括了如何使用 :py:class:`~aiida.orm.nodes.data.structure.StructureData` "
+"对象来创建复杂晶体的示例。"
 
 #: ../docs/source/examples/structure_tutorial.rst:10
 msgid ""
@@ -198,14 +224,18 @@ msgid ""
 "AiiDA formats. On the other hand, we tried to define a \"standard\" format "
 "for structures in AiiDA, that can be used across different codes."
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.structure.StructureData` "
+"类中并不包含操作晶体结构的整套方法。实际上，已存在操作晶体结构的python包，比如 `ASE "
+"<https://wiki.fysik.dtu.dk/ase/>`_ ，因此仅需提供 "
+"ASE与AiiDA格式之间相互转换的简单方法。另一方面，已为AiiDA中的结构定义了“标准”的格式，以便其可以在不同的代码中被使用。"
 
 #: ../docs/source/examples/structure_tutorial.rst:20
 msgid "How to use ``StructureData``"
-msgstr ""
+msgstr "如何使用 ``StructureData``"
 
 #: ../docs/source/examples/structure_tutorial.rst:22
 msgid "Take a look at the following example::"
-msgstr ""
+msgstr "请看一下以下的例子 ::"
 
 #: ../docs/source/examples/structure_tutorial.rst:33
 msgid ""
@@ -215,20 +245,22 @@ msgid ""
 "the cube (this cell has been just chosen as an example and most probably "
 "does not exist)."
 msgstr ""
+"通过以上命令，使用立方晶胞且晶格参数取4埃来创建晶体结构 ``s`` "
+"，晶胞中有两个原子：原点处有一个铁（Fe）原子，体心处又一个氧（O）原子（此晶胞只是一个例子，很可能不存在这样的晶胞）。"
 
 #: ../docs/source/examples/structure_tutorial.rst:39
 msgid ""
 "As you can see in the example above, both the cell coordinates and the atom "
 "coordinates are expressed in angstrom, and the position of the atoms are "
 "given in a global absolute reference frame."
-msgstr ""
+msgstr "正如以上例子所示，晶胞坐标和原子坐标的单位均为埃，原子的位置为全局绝对坐标参考系。"
 
 #: ../docs/source/examples/structure_tutorial.rst:43
 msgid ""
 "In this way, any periodic structure can be defined. If you want to import "
 "from ASE in order to specify the coordinates, e.g., in terms of the crystal "
 "lattice vectors, see the guide on the conversion to/from ASE below."
-msgstr ""
+msgstr "用这种方法可以定义任意的周期性结构。为了从ASE导入以便指定坐标，比如根据晶格向量，请参阅下面关于从ASE导入/导出的教程。"
 
 #: ../docs/source/examples/structure_tutorial.rst:47
 msgid ""
@@ -241,6 +273,10 @@ msgid ""
 "going to be used. The list of masses is stored in the module "
 ":py:mod:`aiida.common.constants`, in the ``elements`` dictionary."
 msgstr ""
+"使用 :py:meth:`~aiida.orm.nodes.data.structure.StructureData.append_atom` "
+"方法时，可传入更多的参数。特别重要的一点是，可以指定原子的质量。比如对于声子计算，如果未指定质量，则会使用 `NIST "
+"<http://www.nist.gov/pml/data/index.cfm>`_ 提供的数据（2014年10月检索）。原子质量的列表储存在 "
+":py:mod:`aiida.common.constants` 模块的 ``elements`` 字典中。"
 
 #: ../docs/source/examples/structure_tutorial.rst:56
 msgid ""
@@ -255,26 +291,30 @@ msgid ""
 "be lower or equal to one; if the sum is lower than one, it means that there "
 "is a given probability of having a vacancy at that specific site position."
 msgstr ""
+"此外，在AiiDA的 :py:class:`~aiida.orm.nodes.data.structure.StructureData` "
+"类中还有合金，空位或是部分占据的晶体结构。如果选择合金，则参数 ``symbols`` 应为元素符号的列表，且要提供与 ``symbols`` "
+"长度相同的 ``weights`` 列表，其值介于 0.（未占用）和 1.（全占用）之间，这用来指示 ``symbols`` "
+"列表中各元素在该位点处所占的比例。占用率的总和须小于或等于1，如果总和小于1，则意味着此位点有存在空位的可能性。"
 
 #: ../docs/source/examples/structure_tutorial.rst:69
 msgid "As an example, you could use::"
-msgstr ""
+msgstr "举个例子 ::"
 
 #: ../docs/source/examples/structure_tutorial.rst:73
 msgid ""
 "to add a site at the origin of a structure ``s`` consisting of an alloy of "
 "90% of Barium and 10% of Calcium (again, just an example)."
-msgstr ""
+msgstr "会在结构 ``s`` 的原点处添加一个由90%的钡和10%的钙组成的合金的位点（再次说明，这仅仅是个例子）。"
 
 #: ../docs/source/examples/structure_tutorial.rst:76
 msgid "The following line instead::"
-msgstr ""
+msgstr "如果是如下代码 ::"
 
 #: ../docs/source/examples/structure_tutorial.rst:80
 msgid ""
 "would create a site with 90% probability of being occupied by Calcium, and "
 "10% of being a vacancy."
-msgstr ""
+msgstr "则会添加一个90%概率被钙占用但是10%概率是空位的位点。"
 
 #: ../docs/source/examples/structure_tutorial.rst:83
 msgid ""
@@ -282,17 +322,19 @@ msgid ""
 "verify, respectively, if more than one element if given in the symbols list,"
 " and if the sum of all weights is smaller than one."
 msgstr ""
+"实用的属性 ``s.is_alloy`` 和 ``s.has_vacancies`` "
+"可分别用作验证给定的元素符号列表中是否多于一种元素，以及所有权重之和是否小于1。"
 
 #: ../docs/source/examples/structure_tutorial.rst:87
 msgid ""
 "if you pass more than one symbol, the property ``s.is_alloy`` will always be"
 " ``True``, even if only one symbol has occupancy 1 and all others have "
 "occupancy zero::"
-msgstr ""
+msgstr "蔬果传递了超过一种元素符号，``s.is_alloy`` 属性就为 ``True`` ，即使只有一种元素占用率为1，而其余元素为0 ::"
 
 #: ../docs/source/examples/structure_tutorial.rst:98
 msgid "Internals: Kinds and Sites"
-msgstr ""
+msgstr "结构内部：物种与位点"
 
 #: ../docs/source/examples/structure_tutorial.rst:99
 msgid ""
@@ -304,6 +346,10 @@ msgid ""
 "or elements, occupancies, mass, ...) and identified by a label (normally, "
 "simply the element chemical symbol)."
 msgstr ""
+"在内部，:py:meth:`~aiida.orm.nodes.data.structure.StructureData.append_atom` "
+"方法用来操作结构中的物种（kind）与位点（site）。``Kinds`` 是 "
+":py:class:`~aiida.orm.nodes.data.structure.Kind` "
+"类的实例，用来表示包含给定属性（组成元素或是元素，占用率，质量，……）的化学物种，并由标签（通常仅使用化学元素符号）进行识别。"
 
 #: ../docs/source/examples/structure_tutorial.rst:106
 msgid ""
@@ -312,12 +358,17 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.structure.Kind`  to identify its properties"
 " (which element it is, the mass, ...) and to its three spatial coordinates."
 msgstr ""
+"``Sites`` 是 :py:class:`~aiida.orm.nodes.data.structure.Site` "
+"类的实例，可用来表示单独的位点。每个位点都引用一个 :py:class:`~aiida.orm.nodes.data.structure.Kind` "
+"来表示它们的属性（哪个元素，质量多少，……）以及三个空间坐标。"
 
 #: ../docs/source/examples/structure_tutorial.rst:112
 msgid ""
 "The :py:meth:`~aiida.orm.nodes.data.structure.StructureData.append_atom` "
 "works in the following way:"
 msgstr ""
+":py:meth:`~aiida.orm.nodes.data.structure.StructureData.append_atom` "
+"按以下规则来运行："
 
 #: ../docs/source/examples/structure_tutorial.rst:115
 msgid ""
@@ -325,6 +376,8 @@ msgid ""
 " the properties passed as parameters (i.e., all parameters except "
 "``position``)."
 msgstr ""
+"它创建来一个新的 :py:class:`~aiida.orm.nodes.data.structure.Kind` 类，其属性作为参数进行传递（即除了 "
+"``position`` 以外的所有参数）。"
 
 #: ../docs/source/examples/structure_tutorial.rst:119
 msgid ""

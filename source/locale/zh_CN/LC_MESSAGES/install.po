@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Jason.Eu <morty.yu@yahoo.com>, 2019
+# Jianxing Huang <jx.huang.x@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-16 20:22+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
-"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
+"Last-Translator: Jianxing Huang <jx.huang.x@gmail.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +80,7 @@ msgstr ""
 
 #: ../docs/source/install/configuration.rst:32
 msgid "Isolating AiiDA environments"
-msgstr ""
+msgstr "独立的AiiDA环境"
 
 #: ../docs/source/install/configuration.rst:34
 msgid ""
@@ -88,16 +89,19 @@ msgid ""
 "or ``conda``), you can ask AiiDA to use a separate ``.aiida`` configuration "
 "directory per environment."
 msgstr ""
+"默认情况下，AiiDA的配置文件路径位于 ``~/.aiida`` 。在多个虚拟环境中（使用 ``virtualenv`` 或者 ``conda`` "
+"）运行AiiDA时，可以在每个环境中使用独立的 ``.aiida`` 配置路径。"
 
 #: ../docs/source/install/configuration.rst:38
 msgid "Create your virtual environment ``aiida2``"
-msgstr ""
+msgstr "创建 ``aiida2`` 虚拟环境"
 
 #: ../docs/source/install/configuration.rst:39
 msgid ""
 "Edit the activation script ``~/.virtualenvs/aiida2/bin/activate`` and append"
 " a line to set the ``AIIDA_PATH`` environment variable::"
 msgstr ""
+"在激活脚本 ``~/.virtualenvs/aiida2/bin/activate`` 中新增一行用来设置环境变量 ``AIIDA_PATH`` ::"
 
 #: ../docs/source/install/configuration.rst:46
 msgid ""
@@ -106,6 +110,9 @@ msgid ""
 "``/home/user/miniconda/envs/aiida``), and place a file ``aiida-init.sh`` in "
 "that folder which exports the ``AIIDA_PATH``."
 msgstr ""
+"对于 ``conda`` 来说，要在 conda 所创建环境的根目录下（例如 ``/home/user/miniconda/envs/aiida`` "
+"）新建形如  ``etc/conda/activate.d`` 的目录结构，并在新建的 ``activate.d`` 文件夹中创建文件 ``aiida-"
+"init.sh`` ，在其中设置好环境变量 ``AIIDA_PATH`` 。"
 
 #: ../docs/source/install/configuration.rst:51
 msgid "Deactivate and re-activate the virtual environment"
@@ -115,19 +122,17 @@ msgstr "退出并重新激活虚拟环境"
 msgid ""
 "You can test that everything is set up correctly if you can reproduce the "
 "following::"
-msgstr ""
-"You can test that everything is set up correctly if you can reproduce the "
-"following::"
+msgstr "可以用以下步骤来测试所有内容是否都已正确设置 ::"
 
 #: ../docs/source/install/configuration.rst:62
 msgid ""
 "Now simply :ref:`create a new AiiDA profile <setup_aiida>` in the ``aiida2``"
 " environment."
-msgstr ""
+msgstr "现在就可对 ``aiida2`` 环境 \\:ref\\:`配置新的 AiiDA profile <setup_aiida>` 。"
 
 #: ../docs/source/install/configuration.rst:65
 msgid "``AIIDA_PATH`` Details"
-msgstr ""
+msgstr "``AIIDA_PATH`` 细节"
 
 #: ../docs/source/install/configuration.rst:67
 msgid ""
@@ -137,28 +142,32 @@ msgid ""
 "will be used. If no ``.aiida`` directory is found, one will be created in "
 "the last path that was considered."
 msgstr ""
+"``AIIDA_PATH`` 的值可以是以冒号分隔的路径列表。AiiDA将遍历每个路径并检查它们是否包含 ``.aiida`` "
+"目录，并会使用找到的第一个配置目录。如果找不到 ``.aiida`` 目录，将会在最后一个路径中新建一个目录。"
 
 #: ../docs/source/install/configuration.rst:72
 msgid ""
 "For example, the directory structure in your home folder ``~/`` might look "
 "like this ::"
-msgstr ""
+msgstr "比如，假设home文件夹 ``~/`` 的目录结构如下所示 ::"
 
 #: ../docs/source/install/configuration.rst:81
 msgid ""
 "If you leave the ``AIIDA_PATH`` variable unset, the default location "
 "``~/.aiida`` will be used. However, if you set ::"
-msgstr ""
+msgstr "如果未设置 ``AIIDA_PATH`` 变量的值，将会使用默认路径 ``~/.aiida`` 。但如果使用如下设置 ::"
 
 #: ../docs/source/install/configuration.rst:86
 msgid "the configuration directory ``~/project_a/.aiida`` will be used."
-msgstr ""
+msgstr "则就会使用 ``~/project_a/.aiida`` 作为配置路径"
 
 #: ../docs/source/install/configuration.rst:89
 msgid ""
 "If there was no ``.aiida`` directory in ``~/project_a``, AiiDA would have "
 "created it for you. Thus make sure to set the ``AIIDA_PATH`` correctly."
 msgstr ""
+"如果 ``~/project_a`` 中没有 ``.aiida`` 目录，那么AiiDA将会创建这个文件夹。因此需要特别注意是否正确设置了 "
+"``AIIDA_PATH`` 环境变量。"
 
 #: ../docs/source/install/configuration.rst:94
 msgid "Using AiiDA in Jupyter"
@@ -217,6 +226,9 @@ msgid ""
 "core>/aiida/tools/ipython/aiida_magic_register.py`` to the same folder. The "
 "current ipython profile folder can be located using::"
 msgstr ""
+"当ipython内核启动或是使用了行魔法 ``%aiida`` 时，都会执行此文件. 如果本地已存在 ``aiida-core`` "
+"仓库的话，也可以把文件 ``<aiida-core>/aiida/tools/ipython/aiida_magic_register.py`` "
+"复制到相同的文件夹中。当前的ipython配置文件夹可用如下命令来定位::"
 
 #: ../docs/source/install/configuration.rst:136
 msgid ""
@@ -311,7 +323,7 @@ msgstr "你可能需要在虚拟环境中安装 ``pip`` 和 ``setuptools`` 以�
 
 #: ../docs/source/install/installation.rst:48
 msgid "Aiida python package"
-msgstr "AiiDA python package"
+msgstr "AiiDA python包"
 
 #: ../docs/source/install/installation.rst:53
 msgid ""
@@ -410,9 +422,8 @@ msgid ""
 "you might encounter an error related to the ``gss`` package. To fix this you"
 " need to install the ``libffi-dev`` and ``libkrb5-dev`` packages::"
 msgstr ""
-"If you are installing the optional ``ssh_kerberos`` and you are on Ubuntu "
-"you might encounter an error related to the ``gss`` package. To fix this you"
-" need to install the ``libffi-dev`` and ``libkrb5-dev`` packages::"
+"如果Ubuntu中已安装了 ``ssh_kerberos`` ，则有可能会有 ``gss`` 包相关的错误。可通过安装 ``libffi-dev`` 与"
+" ``libkrb5-dev`` 来解决错误 ::"
 
 #: ../docs/source/install/installation.rst:106
 msgid "AiiDA profile setup"
@@ -688,7 +699,7 @@ msgstr "现在，你已经准备好进入 :ref:`开始<get_started>` 章节的�
 msgid ""
 "For configuration of tab completion , using AiiDA in jupyter & more, see the"
 " :ref:`configuration instructions <configure_aiida>` before moving on."
-msgstr ""
+msgstr "要配置tab补齐的功能，或在jupyter及其他地方使用AiiDA，请参考 :ref:`配置指南<configure_aiida>` 。"
 
 #: ../docs/source/install/prerequisites.rst:5
 #: ../docs/source/install/quick_installation.rst:8
@@ -1115,6 +1126,8 @@ msgid ""
 "dependencies on the ``numpy`` package. In this case you may be presented "
 "with a message like the following::"
 msgstr ""
+"[**numpy 依赖**] 在纯净版的 Ubuntu 16.04 系统中，用pip运行 ``pip install -e aiida_core`` "
+"可能会遇到对 ``numpy`` 的依赖问题，而使安装失败。遇到这种情况，会有如下报错信息 ::"
 
 #: ../docs/source/install/troubleshooting.rst:31
 msgid ""
@@ -1338,11 +1351,11 @@ msgstr "要检测一台你设置的机器是否会输出不必要的信息，你
 msgid ""
 "which checks and, in case of problems, suggests how to solve the problem. "
 "You can track the discussion on this issue in `aiidateam/aiida-core#1890`_."
-msgstr ""
+msgstr "这会执行一个检查，以避免出现错误，若出现错误，会告知解决办法。 你可以参考`aiidateam/aiida_core#1890`_."
 
 #: ../docs/source/install/troubleshooting.rst:177
 msgid "Improvements for dependencies"
-msgstr ""
+msgstr "解决依赖问题"
 
 #: ../docs/source/install/troubleshooting.rst:178
 msgid ""
@@ -1351,6 +1364,8 @@ msgid ""
 "command ``verdi data structure show --format=ase <PK>``), might end up with "
 "the following error message::"
 msgstr ""
+"[**Activating the ASE visualizer**]  在虚拟环境中，尝试用 ``ase`` 来可视化查看结构时（通过 shell "
+"运行或是使用命令 ``verdi data structure show --format=ase <PK>``），可能会有以下错误 ::"
 
 #: ../docs/source/install/troubleshooting.rst:186
 msgid ""
@@ -1359,37 +1374,38 @@ msgid ""
 "virtual environment. You can follow the following procedure to get around "
 "this issue:"
 msgstr ""
+"这是因为 ``pygtk`` 目前还不能通过pip安装。需要单独安装它并在虚拟环境中手动添加一些合适的软链接。可以按照以下步骤来解决此问题："
 
 #: ../docs/source/install/troubleshooting.rst:190
 msgid "Install the ``python-gtk2`` package. Under Ubuntu, do::"
-msgstr ""
+msgstr "安装 ``python-gtk2`` 包。在Ubuntu中可按以下步骤 ::"
 
 #: ../docs/source/install/troubleshooting.rst:194
 msgid ""
 "Create the ``lib/python2.7/dist-packages`` folder within your virtual "
 "environment::"
-msgstr ""
+msgstr "在虚拟环境中创建 ``lib/python2.7/dist-packages`` 文件夹"
 
 #: ../docs/source/install/troubleshooting.rst:200
 msgid ""
 "where ``<AIIDA_VENV_FOLDER>`` is the virtual environment folder you have "
 "created during the installation process."
-msgstr ""
+msgstr "``<AIIDA_VENV_FOLDER>``表示安装过程中创建的虚拟环境文件夹。"
 
 #: ../docs/source/install/troubleshooting.rst:203
 msgid ""
 "Create several symbolic links from this folder, pointing to a number of "
 "files in ``/usr/lib/python2.7/dist-packages/``::"
-msgstr ""
+msgstr "在此文件夹中新建几个软链接指向 ``/usr/lib/python2.7/dist-packages/`` 中的文件 ::"
 
 #: ../docs/source/install/troubleshooting.rst:214
 msgid ""
 "After that, ``verdi data structure show --format=ase <PK>`` should work."
-msgstr ""
+msgstr "之后就可成功运行 ``verdi data structure show --format=ase <PK>``"
 
 #: ../docs/source/install/troubleshooting.rst:217
 msgid "Use in ipython/jupyter"
-msgstr ""
+msgstr "在ipython/jupyter中使用"
 
 #: ../docs/source/install/troubleshooting.rst:219
 msgid ""
@@ -1399,34 +1415,38 @@ msgid ""
 "including the ``notebook`` option and run Jupyter from the AiiDA virtual "
 "environment."
 msgstr ""
+"为了在Jupyter中使用AiiDA的对象与函数，需要指定使用安装在AiiDA虚拟环境中的iPython内核。如果使用 ``pip`` 同时安装了 "
+"AiiDA 与 ``notebook`` 的话，之后再在AiiDA虚拟环境中启动Jupyter，那么会默认使用AiiDA虚拟环境中的iPython内核。"
 
 #: ../docs/source/install/troubleshooting.rst:221
 msgid ""
 "If, for any reason, you do not want to install Jupyter in the virtual "
 "environment, you might consider to install it out of the virtual "
 "environment, if not already done::"
-msgstr ""
+msgstr "如果不想把Jupyter装在虚拟环境之中，那么要确保虚拟环境之外已安装了Jupyter，可以用如下命令安装 ::"
 
 #: ../docs/source/install/troubleshooting.rst:225
 msgid "Then, activate the AiiDA virtual environment::"
-msgstr ""
+msgstr "之后，激活AiiDA虚拟环境 ::"
 
 #: ../docs/source/install/troubleshooting.rst:229
 msgid "and setup the AiiDA iPython kernel::"
-msgstr ""
+msgstr "并设置AiiDA iPython内核 ::"
 
 #: ../docs/source/install/troubleshooting.rst:234
 msgid "where you have chosen a meaningful name for the new kernel."
-msgstr ""
+msgstr "给这个新建的内核取一个有意义的名字。"
 
 #: ../docs/source/install/troubleshooting.rst:236
 msgid "Finally, start a Jupyter server::"
-msgstr ""
+msgstr "最终可以按如下命令开启Jupyter服务 ::"
 
 #: ../docs/source/install/troubleshooting.rst:240
 msgid ""
 "and from the newly opened browser tab select ``New -> <aiida.kernel.name>``"
 msgstr ""
+"在新打开的浏览器标签中选择 ``New -> <aiida.kernel.name>`` (也有可能是 ``新建 -> "
+"<aiida.kernel.name>``)"
 
 #: ../docs/source/install/troubleshooting.rst:243
 msgid "Postgres restart problem"
@@ -1439,10 +1459,13 @@ msgid ""
 " older postgres versions (<9.4), PostgreSQL could refuse to restart after a "
 "crash or after a restore from binary backup."
 msgstr ""
+"较旧版本的postgres(<9.4)可能会受 `bug "
+"<https://wiki.postgresql.org/wiki/May_2015_Fsync_Permissions_Bug>` "
+"这个bug的影响，PostgreSQL会在崩溃后，抑或是从二进制备份恢复后拒绝重启。"
 
 #: ../docs/source/install/troubleshooting.rst:248
 msgid "The error message would be something like::"
-msgstr ""
+msgstr "错误信息可能如下所示 ::"
 
 #: ../docs/source/install/troubleshooting.rst:257
 msgid ""
@@ -1454,6 +1477,11 @@ msgid ""
 "following these steps. It's a good idea to make a backup of the server.crt "
 "and server.key files before removing them)::"
 msgstr ""
+"如果发生这个错误，那么需要更改所有软链接文件的权限为Postgres用户可写。比如，在Ubuntu中使用 PostgreSQL "
+"9.1，可能会有如下报错：**WARNING**: Make sure these configuration files are symbolic "
+"links before executing these commands! "
+"如果已存在server.crt或是server.key文件，可按如下步骤来修改 "
+"（在删除server.crt和server.key文件之前最后将它们备份一下） ::"
 
 #: ../docs/source/install/updating_installation.rst:5
 msgid "Updating AiiDA"
@@ -1461,7 +1489,7 @@ msgstr "升级AiiDA"
 
 #: ../docs/source/install/updating_installation.rst:10
 msgid "Instructions"
-msgstr ""
+msgstr "指南"
 
 #: ../docs/source/install/updating_installation.rst:14
 msgid ""
@@ -1471,32 +1499,35 @@ msgid ""
 "instructions for older versions, refer to the :ref:`table "
 "below<update_older_versions>`."
 msgstr ""
+"以下步骤是从 ``v0.12.*`` 版本升级至 ``v1.0.0`` "
+"版本的指南。任意版本的升级可能都带有自身必要的转移，因此每次升级只能提升一个版本。可按 :ref:`table "
+"below<update_older_versions>` 查看旧版的指南。"
 
 #: ../docs/source/install/updating_installation.rst:18
 msgid ""
 "Finish all running calculations. After migrating your database, you will not"
 " be able to resume unfinished calculations. Data of finished calculations "
 "will of course be automatically migrated."
-msgstr ""
+msgstr "确保所有计算已完成。在转移数据库后，将无法恢复未完成的计算。不过，已完成计算的数据会自动地转移。"
 
 #: ../docs/source/install/updating_installation.rst:19
 msgid ""
 "Finish all running legacy workflows. The legacy workflows are completely "
 "deprecated and all data will be removed from your database, so make sure to "
 "create a backup (see point 5)."
-msgstr ""
+msgstr "确保所有旧版工作流已完成。旧版工作流将会被弃用，所有数据都会从数据库中删除，所以请务必创建备份（详情见第5点）。"
 
 #: ../docs/source/install/updating_installation.rst:20
 msgid "Enter the python environment where AiiDA is installed"
-msgstr "进入AiiDA安装所在的python环境"
+msgstr "进入安装AiiDA所在的python环境。"
 
 #: ../docs/source/install/updating_installation.rst:21
 msgid "Stop the daemon using ``verdi daemon stop``"
-msgstr ""
+msgstr "运行  ``verdi daemon stop`` 来关闭守护进程。"
 
 #: ../docs/source/install/updating_installation.rst:22
 msgid "Create a backup of your :ref:`database and repository<backup>`"
-msgstr ""
+msgstr "创建 :ref:`数据库与仓库<backup>` 的备份。"
 
 #: ../docs/source/install/updating_installation.rst:26
 msgid ""
@@ -1507,16 +1538,18 @@ msgid ""
 "databases of multiple millions of nodes can take up to a few hours to "
 "migrate."
 msgstr ""
+"一旦转移了数据库，就无法再使用旧版的 ``aiida-core`` "
+"，除非从已备份的数据库与仓库中恢复。此外，视数据库大小而定，数据转移可能会耗费相当长的时间，因此请耐心等待。数百万个节点的大型数据库会需要转移几个小时。"
 
 #: ../docs/source/install/updating_installation.rst:30
 msgid "Update your ``aiida-core`` installation"
-msgstr ""
+msgstr "升级 ``aiida-core`` "
 
 #: ../docs/source/install/updating_installation.rst:32
 msgid ""
 "If you have installed AiiDA through ``pip`` simply run: ``pip install "
 "--upgrade aiida-core``"
-msgstr ""
+msgstr "如果通过 ``pip`` 安装AiiDA的话，只需运行：``pip install --upgrade aiida-core``"
 
 #: ../docs/source/install/updating_installation.rst:33
 msgid ""
@@ -1524,12 +1557,14 @@ msgid ""
 "first delete all the ``.pyc`` files (``find . -name \"*.pyc\" -delete``) "
 "before updating your branch."
 msgstr ""
+"如果通过git仓库 ``pip install -e .`` 安装的话，那么在升级分支之前，首先删除所有的 ``.pyc`` 文件（ ``find . "
+"-name \"*.pyc\" -delete`` ）。"
 
 #: ../docs/source/install/updating_installation.rst:35
 msgid ""
 "Finally, after having upgraded the installation, migrate your database with "
 "``verdi -p <profile_name> database migrate``"
-msgstr ""
+msgstr "升级完成后，通过 ``verdi -p 1 database migrate`` 来转移数据库。"
 
 #: ../docs/source/install/updating_installation.rst:37
 msgid ""
@@ -1539,20 +1574,24 @@ msgid ""
 "python API, so you probably will have to update your code and installed "
 "plugins."
 msgstr ""
+"成功转移数据库之后就可继续使用现有数据了。不过，python API中存在一些 "
+":ref:`向后不兼容的改变<updating_backward_incompatible_changes>` "
+"，因此可能需要更新计算代码（code）以及已安装的插件。"
 
 #: ../docs/source/install/updating_installation.rst:44
 msgid "Backwards incompatible changes"
-msgstr ""
+msgstr "向后不兼容的改变"
 
 #: ../docs/source/install/updating_installation.rst:46
 msgid ""
 "The following list covers the most important backward incompatible changes "
 "between ``aiida-core==0.12.*`` and ``aiida-core==1.0.0``."
 msgstr ""
+"下面的清单包括了 ``aiida-core==1.0.0`` 相对于 ``aiida-core==0.12.*`` 最重要的向后不兼容改变。"
 
 #: ../docs/source/install/updating_installation.rst:49
 msgid "General"
-msgstr ""
+msgstr "普遍情况"
 
 #: ../docs/source/install/updating_installation.rst:51
 msgid ""
@@ -1561,6 +1600,9 @@ msgid ""
 "<python_api_public_list>` for the rules on the publicness of parts of the "
 "python API `[#2357] <https://github.com/aiidateam/aiida-core/pull/2357>`__"
 msgstr ""
+"重组了一些二级模块，各种类和函数都已经重命名或是更换过了。请参阅 :ref:`这节 <python_api_public_list>` "
+"来了解部分公共python API更改的规则 `[#2357] <https://github.com/aiidateam/aiida-"
+"core/pull/2357>`__"
 
 #: ../docs/source/install/updating_installation.rst:52
 msgid ""
@@ -1568,18 +1610,24 @@ msgid ""
 "reorganized significantly `[#2524] <https://github.com/aiidateam/aiida-"
 "core/pull/2524>`__"
 msgstr ""
+"``aiida.work`` 模块已重新组织并重命名为 ``aiida.engine`` `[#2524] "
+"<https://github.com/aiidateam/aiida-core/pull/2524>`__"
 
 #: ../docs/source/install/updating_installation.rst:53
 msgid ""
 "The module ``aiida.scheduler`` has been renamed to ``aiida.schedulers`` "
 "`[#2498] <https://github.com/aiidateam/aiida-core/pull/2498>`__"
 msgstr ""
+"``aiida.scheduler`` 已重命名为 ``aiida.schedulers`` `[#2498] "
+"<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 
 #: ../docs/source/install/updating_installation.rst:54
 msgid ""
 "The module ``aiida.transport`` has been renamed to ``aiida.transports`` "
 "`[#2498] <https://github.com/aiidateam/aiida-core/pull/2498>`__"
 msgstr ""
+"``aiida.transport`` 已重命名为 ``aiida.transports`` `[#2498] "
+"<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 
 #: ../docs/source/install/updating_installation.rst:55
 msgid ""
@@ -1587,16 +1635,20 @@ msgid ""
 "placed in other places where appropriate `[#2357] "
 "<https://github.com/aiidateam/aiida-core/pull/2357>`__"
 msgstr ""
+"``aiida.utils`` 已被删除，其中的内容已放置在其他合适的地方了 `[#2357] "
+"<https://github.com/aiidateam/aiida-core/pull/2357>`__"
 
 #: ../docs/source/install/updating_installation.rst:56
 msgid ""
 "Requirements were moved from ``setup_requirements.py`` to ``setup.json`` "
 "`[#2307] <https://github.com/aiidateam/aiida-core/pull/2307>`__"
 msgstr ""
+"``setup_requirements.py`` 替换为了 ``setup.json`` `[#2307] "
+"<https://github.com/aiidateam/aiida-core/pull/2307>`__"
 
 #: ../docs/source/install/updating_installation.rst:60
 msgid "ORM"
-msgstr ""
+msgstr "对象关系映射（ORM）"
 
 #: ../docs/source/install/updating_installation.rst:62
 msgid ""
@@ -1610,6 +1662,7 @@ msgid ""
 "linktypes is mostly invisible to the user, but existing import statements "
 "will need to be updated."
 msgstr ""
+"为了给使用AiiDA条目的用户定义更清晰的接口，并允许（将来）在不同的配置间进行切换，已经重新设计了节点和链接的基础层次结构（并且已经实施了新的范例，包扩所有用户会与之交互的“前端”类，以及用户不应直接使用的“后端”类，它使用通用接口实现与数据库的交互，且是独立于底层ORM的）。节点和链接的重组对用户来说基本上是不可见的，但是现有的import语句需要更改。"
 
 #: ../docs/source/install/updating_installation.rst:65
 msgid ""
@@ -1621,22 +1674,32 @@ msgid ""
 "core/pull/#2481>`__\\ `[#2544] <https://github.com/aiidateam/aiida-"
 "core/pull/2544>`__"
 msgstr ""
+"重构了ORM `[#2190] <https://github.com/aiidateam/aiida-core/pull/2190>`__\\ "
+"`[#2210] <https://github.com/aiidateam/aiida-core/pull/2210>`__\\ `[#2227] "
+"<https://github.com/aiidateam/aiida-core/pull/2227>`__\\ `[#2225] "
+"<https://github.com/aiidateam/aiida-core/pull/2225>`__\\ `[#2481] "
+"<https://github.com/aiidateam/aiida-core/pull/#2481>`__\\ `[#2544] "
+"<https://github.com/aiidateam/aiida-core/pull/2544>`__"
 
 #: ../docs/source/install/updating_installation.rst:66
 msgid "Renamed the node classes for the various process types"
-msgstr ""
+msgstr "重命名了各种例程类型的节点类"
 
 #: ../docs/source/install/updating_installation.rst:67
 msgid ""
 "``WorkCalculation`` to ``WorkChainNode`` `[#2192] "
 "<https://github.com/aiidateam/aiida-core/pull/2192>`__"
 msgstr ""
+"重命名 ``WorkCalculation`` 为 ``WorkChainNode`` `[#2192] "
+"<https://github.com/aiidateam/aiida-core/pull/2192>`__"
 
 #: ../docs/source/install/updating_installation.rst:68
 msgid ""
 "``FunctionCalculation`` to ``WorkFunctionNode`` `[#2189] "
 "<https://github.com/aiidateam/aiida-core/pull/2189>`__"
 msgstr ""
+"重命名 ``FunctionCalculation`` 为 ``WorkFunctionNode`` `[#2189] "
+"<https://github.com/aiidateam/aiida-core/pull/2189>`__"
 
 #: ../docs/source/install/updating_installation.rst:69
 msgid ""
@@ -1644,12 +1707,17 @@ msgid ""
 "/aiida-core/pull/2184>`__ `[#2201] <https://github.com/aiidateam/aiida-"
 "core/pull/2201>`__"
 msgstr ""
+"重命名 ``JobCalculation`` 为 ``CalcJobNode`` `[#2184] "
+"<https://github.com/aiidateam/aiida-core/pull/2184>`__ `[#2201] "
+"<https://github.com/aiidateam/aiida-core/pull/2201>`__"
 
 #: ../docs/source/install/updating_installation.rst:70
 msgid ""
 "``InlineCalculation`` to ``CalcFunctionNode`` `[#2195] "
 "<https://github.com/aiidateam/aiida-core/pull/2195>`__"
 msgstr ""
+"重命名 ``InlineCalculation`` 为 ``CalcFunctionNode`` `[#2195] "
+"<https://github.com/aiidateam/aiida-core/pull/2195>`__"
 
 #: ../docs/source/install/updating_installation.rst:71
 msgid ""
@@ -1658,48 +1726,56 @@ msgid ""
 "/aiida-core/pull/2402>`__\\ `[#2497] <https://github.com/aiidateam/aiida-"
 "core/pull/2497>`__"
 msgstr ""
+"重构了 ``aiida.orm`` 模块，所有的节点子类都在 ``aiida.orm.nodes`` 模块中 `[#2402] "
+"<https://github.com/aiidateam/aiida-core/pull/2402>`__\\ `[#2497] "
+"<https://github.com/aiidateam/aiida-core/pull/2497>`__"
 
 #: ../docs/source/install/updating_installation.rst:72
 msgid ""
 "Make ``Code`` a real sub class of ``Data`` `[#2193] "
 "<https://github.com/aiidateam/aiida-core/pull/2193>`__"
 msgstr ""
+"使 ``Code`` 成为 ``Data`` 的真正子类 `[#2193] <https://github.com/aiidateam/aiida-"
+"core/pull/2193>`__"
 
 #: ../docs/source/install/updating_installation.rst:73
 msgid ""
 "Implement new link types `[#2220] <https://github.com/aiidateam/aiida-"
 "core/pull/2220>`__"
 msgstr ""
+"使用了新的链接类型 `[#2220] <https://github.com/aiidateam/aiida-core/pull/2220>`__"
 
 #: ../docs/source/install/updating_installation.rst:75
 msgid "``CREATE``: ``CalculationNode -> Data``"
-msgstr ""
+msgstr "``CREATE``: ``CalculationNode -> Data``"
 
 #: ../docs/source/install/updating_installation.rst:76
 msgid "``RETURN``: ``WorkflowNode -> Data``"
-msgstr ""
+msgstr "``RETURN``: ``WorkflowNode -> Data``"
 
 #: ../docs/source/install/updating_installation.rst:77
 msgid "``INPUT_CALC``: ``Data -> CalculationNode``"
-msgstr ""
+msgstr "``INPUT_CALC``: ``Data -> CalculationNode``"
 
 #: ../docs/source/install/updating_installation.rst:78
 msgid "``INPUT_WORK``: ``Data -> WorkflowNode``"
-msgstr ""
+msgstr "``INPUT_WORK``: ``Data -> WorkflowNode``"
 
 #: ../docs/source/install/updating_installation.rst:79
 msgid "``CALL_CALC``: ``WorkflowNode -> CalculationNode``"
-msgstr ""
+msgstr "``CALL_CALC``: ``WorkflowNode -> CalculationNode``"
 
 #: ../docs/source/install/updating_installation.rst:80
 msgid "``CALL_WORK``: ``WorkflowNode -> WorkflowNode``"
-msgstr ""
+msgstr "``CALL_WORK``: ``WorkflowNode -> WorkflowNode``"
 
 #: ../docs/source/install/updating_installation.rst:82
 msgid ""
 "Moved the plugin factories to ``aiida.plugins.factories`` `[#2498] "
 "<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 msgstr ""
+"插件工厂已移至 ``aiida.plugins.factories`` `[#2498] <https://github.com/aiidateam"
+"/aiida-core/pull/2498>`__"
 
 #: ../docs/source/install/updating_installation.rst:83
 msgid ""
@@ -1708,28 +1784,36 @@ msgid ""
 "``Node.repository`` property `[#2506] <https://github.com/aiidateam/aiida-"
 "core/pull/2506>`__"
 msgstr ""
+"``Node`` 实例库中使用的方法已被移至 ``Repository`` 实用程序，该实用程序通过 ``Node.repository`` 属性公开 "
+"`[#2506] <https://github.com/aiidateam/aiida-core/pull/2506>`__"
 
 #: ../docs/source/install/updating_installation.rst:84
 msgid ""
 "Removed the ``Error`` data sub class and its entry point `[#2529] "
 "<https://github.com/aiidateam/aiida-core/pull/2529>`__"
 msgstr ""
+"移除 ``Error`` 数据子类及其入口 `[#2529] <https://github.com/aiidateam/aiida-"
+"core/pull/2529>`__"
 
 #: ../docs/source/install/updating_installation.rst:85
 msgid ""
 "Removed the ``FrozenDict`` data sub class and its entry point `[#2532] "
 "<https://github.com/aiidateam/aiida-core/pull/2532>`__"
 msgstr ""
+"移除 ``FrozenDict`` 数据子类及其入口 `[#2532] <https://github.com/aiidateam/aiida-"
+"core/pull/2532>`__"
 
 #: ../docs/source/install/updating_installation.rst:86
 msgid ""
 "Renamed the ``ParameterData`` data sub class to ``Dict`` `[#2517] "
 "<https://github.com/aiidateam/aiida-core/pull/2517>`__"
 msgstr ""
+"``ParameterData`` 数据子类重命名为 ``Dict`` `[#2517] <https://github.com/aiidateam"
+"/aiida-core/pull/2517>`__"
 
 #: ../docs/source/install/updating_installation.rst:90
 msgid "``QueryBuilder``"
-msgstr ""
+msgstr "``QueryBuilder``"
 
 #: ../docs/source/install/updating_installation.rst:92
 msgid ""
@@ -1738,78 +1822,95 @@ msgid ""
 "core/pull/2224>`__\\ `[#2278] <https://github.com/aiidateam/aiida-"
 "core/pull/2278>`__"
 msgstr ""
+"更改了关系指示器关键字，例如 ``input_of`` 现在是 ``with_outgoing`` 。`[#2224] "
+"<https://github.com/aiidateam/aiida-core/pull/2224>`__\\ `[#2278] "
+"<https://github.com/aiidateam/aiida-core/pull/2278>`__"
 
 #: ../docs/source/install/updating_installation.rst:93
 msgid ""
 "Changed type of UUIDs returned by the ``QueryBuilder`` to always be of type "
 "unicode `[#2259] <https://github.com/aiidateam/aiida-core/pull/2259>`__"
 msgstr ""
+"使 ``QueryBuilder`` 返回的UUIDs类型始终为unicode类型 `[#2259] "
+"<https://github.com/aiidateam/aiida-core/pull/2259>`__"
 
 #: ../docs/source/install/updating_installation.rst:97
 msgid "``Group``"
-msgstr ""
+msgstr "``Group``"
 
 #: ../docs/source/install/updating_installation.rst:99
 msgid ""
 "Change group type strings `[#2329] <https://github.com/aiidateam/aiida-"
 "core/pull/2329>`__"
 msgstr ""
+"更改了Group类型字符串 `[#2329] <https://github.com/aiidateam/aiida-"
+"core/pull/2329>`__"
 
 #: ../docs/source/install/updating_installation.rst:101
 msgid "``data.upf.family`` to ``data.upf``"
-msgstr ""
+msgstr "更改 ``data.upf.family`` 为 ``data.upf``"
 
 #: ../docs/source/install/updating_installation.rst:102
 msgid "``aiida.import`` to ``auto.import``"
-msgstr ""
+msgstr "更改 ``aiida.import`` 为 ``auto.import``"
 
 #: ../docs/source/install/updating_installation.rst:103
 msgid "``autogroup.run`` to ``auto.run``"
-msgstr ""
+msgstr "更改 ``autogroup.run`` 为 ``auto.run``"
 
 #: ../docs/source/install/updating_installation.rst:104
 msgid "custom ones to ``user``"
-msgstr ""
+msgstr "自定义 ``user``"
 
 #: ../docs/source/install/updating_installation.rst:106
 msgid ""
 "Remove ``Group.query`` and ``Group.group_query`` methods have been removed "
 "`[#2329] <https://github.com/aiidateam/aiida-core/pull/2329>`__"
 msgstr ""
+"移除 ``Group.query`` 与 ``Group.group_query`` `[#2329] "
+"<https://github.com/aiidateam/aiida-core/pull/2329>`__"
 
 #: ../docs/source/install/updating_installation.rst:107
 msgid ""
 "Renamed ``type`` column of ``Group`` database model to ``type_string`` "
 "`[#2329] <https://github.com/aiidateam/aiida-core/pull/2329>`__"
 msgstr ""
+"``Group`` 数据库模型的 ``type`` 列重命名为 ``type_string`` `[#2329] "
+"<https://github.com/aiidateam/aiida-core/pull/2329>`__"
 
 #: ../docs/source/install/updating_installation.rst:108
 msgid ""
 "Renamed ``name`` column of ``Group`` database model to ``label`` `[#2329] "
 "<https://github.com/aiidateam/aiida-core/pull/2329>`__"
 msgstr ""
+"``Group`` 数据库模型的 ``name`` 列重命名为 ``label`` `[#2329] "
+"<https://github.com/aiidateam/aiida-core/pull/2329>`__"
 
 #: ../docs/source/install/updating_installation.rst:109
 msgid ""
 "Class method ``Group.get_or_create`` has been removed, use the collection "
 "method ``Group.objects.get_or_create`` instead"
 msgstr ""
+"移除了类方法（class method） ``Group.get_or_create`` ，使用了容器方法（collection method） "
+"``Group.objects.get_or_create``"
 
 #: ../docs/source/install/updating_installation.rst:110
 msgid ""
 "Class method ``Group.get_from_string`` has been removed, use the class "
 "method ``Group.get`` instead"
-msgstr ""
+msgstr "移除了类方法 ``Group.get_from_string`` ，使用了类方法 ``Group.get``"
 
 #: ../docs/source/install/updating_installation.rst:114
 msgid "``Node``"
-msgstr ""
+msgstr "``Node``"
 
 #: ../docs/source/install/updating_installation.rst:116
 msgid ""
 "The column ``type`` has been renamed to ``node_type`` `[#2522] "
 "<https://github.com/aiidateam/aiida-core/pull/2522>`__"
 msgstr ""
+"列 ``type`` 重命名为 ``node_type`` `[#2522] <https://github.com/aiidateam/aiida-"
+"core/pull/2522>`__"
 
 #: ../docs/source/install/updating_installation.rst:117
 msgid ""
@@ -1818,6 +1919,9 @@ msgid ""
 "``get_outgoing`` `[#2236] <https://github.com/aiidateam/aiida-"
 "core/pull/2236>`__"
 msgstr ""
+"移除了 ``get_inputs``，``get_outputs``，``get_inputs_dict`` 和 "
+"``get_outputs_dict``，使用了 ``get_incoming`` 和 ``get_outgoing`` `[#2236] "
+"<https://github.com/aiidateam/aiida-core/pull/2236>`__"
 
 #: ../docs/source/install/updating_installation.rst:118
 msgid ""
@@ -1825,20 +1929,23 @@ msgid ""
 "functionality has partially been replaced by: `[#2569] "
 "<https://github.com/aiidateam/aiida-core/pull/2569>`__"
 msgstr ""
+"移除了链接管理器方法 ``Node.inp`` 与 ``Node.out`` ，其功能部分被替换为：`[#2569] "
+"<https://github.com/aiidateam/aiida-core/pull/2569>`__"
 
 #: ../docs/source/install/updating_installation.rst:120
 msgid ""
 "The link manager properties ``inputs`` and ``outputs`` for the "
 "``CalculationNode`` and ``WorkflowNode`` classes."
 msgstr ""
+"``CalculationNode`` 和 ``WorkflowNode`` 类的链接管理器属性 ``inputs`` 与 ``outputs`` 。"
 
 #: ../docs/source/install/updating_installation.rst:121
 msgid "Added the ``Data.creator`` property"
-msgstr ""
+msgstr "增加了 ``Data.creator`` 属性"
 
 #: ../docs/source/install/updating_installation.rst:122
 msgid "Added the ``ProcessNode.caller`` property"
-msgstr ""
+msgstr "增加了 ``ProcessNode.caller`` 属性"
 
 #: ../docs/source/install/updating_installation.rst:123
 msgid ""
@@ -1846,22 +1953,27 @@ msgid ""
 "uniqueness on the label is no longer supported and ``get_incoming`` and "
 "``get_outgoing`` should be used instead."
 msgstr ""
+"当标签没有唯一性时，将不支持使用tab 键补齐来遍历AiiDA图，而应使用 ``get_incoming`` 和 ``get_outgoing`` 。"
 
 #: ../docs/source/install/updating_installation.rst:125
 msgid ""
 "The classes ``Node``, ``ProcessNode`` can no longer be stored but only their"
 " sub classes `[#2301] <https://github.com/aiidateam/aiida-core/pull/2301>`__"
 msgstr ""
+"无法再储存 ``Node`` 和 ``ProcessNode`` 类，仅能储存它们的子类 `[#2301] "
+"<https://github.com/aiidateam/aiida-core/pull/2301>`__"
 
 #: ../docs/source/install/updating_installation.rst:129
 msgid "``Data``"
-msgstr ""
+msgstr "``Data``"
 
 #: ../docs/source/install/updating_installation.rst:131
 msgid ""
 "``Kind.is_alloy()`` has been changed to a property ``Kind.is_alloy`` "
 "`[#2374] <https://github.com/aiidateam/aiida-core/pull/2374>`__"
 msgstr ""
+"``Kind.is_alloy()`` 方法更改为  ``Kind.is_alloy`` 属性 `[#2374] "
+"<https://github.com/aiidateam/aiida-core/pull/2374>`__"
 
 #: ../docs/source/install/updating_installation.rst:132
 msgid ""
@@ -1869,6 +1981,8 @@ msgid ""
 "``Kind.has_vacancies`` `[#2374] <https://github.com/aiidateam/aiida-"
 "core/pull/2374>`__"
 msgstr ""
+"``Kind.has_vacancies()`` 方法更改为 ``Kind.has_vacancies`` 属性 `[#2374] "
+"<https://github.com/aiidateam/aiida-core/pull/2374>`__"
 
 #: ../docs/source/install/updating_installation.rst:133
 msgid ""
@@ -1876,6 +1990,8 @@ msgid ""
 "``StructureData.is_alloy`` `[#2374] <https://github.com/aiidateam/aiida-"
 "core/pull/2374>`__"
 msgstr ""
+"``StructureData.is_alloy()`` 方法更改为 ``StructureData.is_alloy`` 属性 `[#2374] "
+"<https://github.com/aiidateam/aiida-core/pull/2374>`__"
 
 #: ../docs/source/install/updating_installation.rst:134
 msgid ""
@@ -1883,6 +1999,8 @@ msgid ""
 "``StructureData.has_vacancies`` `[#2374] <https://github.com/aiidateam"
 "/aiida-core/pull/2374>`__"
 msgstr ""
+"``StructureData.has_vacancies()`` 方法更改为 ``StructureData.has_vacancies`` 属性 "
+"`[#2374] <https://github.com/aiidateam/aiida-core/pull/2374>`__"
 
 #: ../docs/source/install/updating_installation.rst:135
 msgid ""
@@ -1890,6 +2008,8 @@ msgid ""
 "``CifData.get_structure()``. `[#2422] <https://github.com/aiidateam/aiida-"
 "core/pull/2422>`__"
 msgstr ""
+"``CifData._get_aiida_structure()`` 重命名为 ``CifData.get_structure()`` `[#2422]"
+" <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:136
 msgid ""
@@ -1897,6 +2017,8 @@ msgid ""
 "``StructureData`` has been changed from ``ase`` to ``pymatgen`` `[#1257] "
 "<https://github.com/aiidateam/aiida-core/pull/1257>`__"
 msgstr ""
+"``get_structure`` 中用于转化成 ``StructureData`` 的 ``CifData`` 默认库从 ``ase`` 变为了 "
+"``pymatgen`` `[#1257] <https://github.com/aiidateam/aiida-core/pull/1257>`__"
 
 #: ../docs/source/install/updating_installation.rst:137
 msgid ""
@@ -1905,6 +2027,9 @@ msgid ""
 "``get_content`` `[#2506] <https://github.com/aiidateam/aiida-"
 "core/pull/2506>`__"
 msgstr ""
+"``SinglefileData`` 中的方法 ``get_file_content``，``add_path`` 和 ``remove_path`` "
+"已被移除，转而使用 ``put_object_from_file`` 和 ``get_content`` `[#2506] "
+"<https://github.com/aiidateam/aiida-core/pull/2506>`__"
 
 #: ../docs/source/install/updating_installation.rst:138
 msgid ""
@@ -1912,6 +2037,8 @@ msgid ""
 "``ArrayData.get_iterarrays()``. `[#2422] <https://github.com/aiidateam"
 "/aiida-core/pull/2422>`__"
 msgstr ""
+"``ArrayData.iterarrays()`` 重命名为 ``ArrayData.get_iterarrays()`` `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:139
 msgid ""
@@ -1919,6 +2046,8 @@ msgid ""
 "``TrajectoryData.get_cif()``. `[#2422] <https://github.com/aiidateam/aiida-"
 "core/pull/2422>`__"
 msgstr ""
+"``TrajectoryData._get_cif()`` 重命名为 ``TrajectoryData.get_cif()`` `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:140
 msgid ""
@@ -1926,6 +2055,9 @@ msgid ""
 "``TrajectoryData.get_structure()``. `[#2422] <https://github.com/aiidateam"
 "/aiida-core/pull/2422>`__"
 msgstr ""
+"``TrajectoryData._get_aiida_structure()`` 重命名为 "
+"``TrajectoryData.get_structure()`` `[#2422] <https://github.com/aiidateam"
+"/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:141
 msgid ""
@@ -1933,18 +2065,24 @@ msgid ""
 "``StructureData.get_cif()``. `[#2422] <https://github.com/aiidateam/aiida-"
 "core/pull/2422>`__"
 msgstr ""
+"``StructureData._get_cif()`` 重命名为 ``StructureData.get_cif()`` `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:142
 msgid ""
 "``Code.full_text_info()`` has been renamed to ``Code.get_full_text_info()``."
 " `[#2422] <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 msgstr ""
+"``Code.full_text_info()`` 重命名为 ``Code.get_full_text_info()`` `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:143
 msgid ""
 "``Code.is_hidden()`` has been renamed and changed to ``Code.hidden`` "
 "property. `[#2422] <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 msgstr ""
+"``Code.is_hidden()`` 方法更改为 ``Code.hidden`` 属性 `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:144
 msgid ""
@@ -1952,6 +2090,8 @@ msgid ""
 "``RemoteData.is_empty``. `[#2422] <https://github.com/aiidateam/aiida-"
 "core/pull/2422>`__"
 msgstr ""
+"``RemoteData.is_empty()`` 方法更改为 ``RemoteData.is_empty`` 属性 `[#2422] "
+"<https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:145
 msgid ""
@@ -1960,6 +2100,9 @@ msgid ""
 "implications on the ordering of the arguments passed to this method. "
 "`[#2422] <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 msgstr ""
+"``TrajectoryData.set_trajectory()`` 方法的参数 ``stepids`` 和 ``cells`` "
+"变成可选的了，这影响了原来传入此方法参数的顺序 `[#2422] <https://github.com/aiidateam/aiida-"
+"core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:146
 msgid ""
@@ -1967,6 +2110,8 @@ msgid ""
 "array data but is now accessible through the ``TrajectoryData.symbols`` "
 "attribute. `[#2422] <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 msgstr ""
+"``TrajectoryData`` 的原子符号列表不再储存为数组数据类型，而使用 ``TrajectoryData.symbols`` 属性进行访问 "
+"`[#2422] <https://github.com/aiidateam/aiida-core/pull/2422>`__"
 
 #: ../docs/source/install/updating_installation.rst:147
 msgid ""
@@ -1974,52 +2119,68 @@ msgid ""
 "``BandsData._prepare_dat_2`` `[#3114] <https://github.com/aiidateam/aiida-"
 "core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 ``BandsData._prepare_dat_1`` and ``BandsData._prepare_dat_2`` "
+"`[#3114] <https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:148
 msgid ""
 "Removed deprecated method `KpoinstData.bravais_lattice` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData.bravais_lattice` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:149
 msgid ""
 "Removed deprecated method `KpoinstData._set_bravais_lattice` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData._set_bravais_lattice` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:150
 msgid ""
 "Removed deprecated method `KpoinstData._get_or_create_bravais_lattice` "
 "`[#3114] <https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData._get_or_create_bravais_lattice` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:151
 msgid ""
 "Removed deprecated method `KpoinstData.set_kpoints_path` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData.set_kpoints_path` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:152
 msgid ""
 "Removed deprecated method `KpoinstData._find_bravais_info` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData._find_bravais_info` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:153
 msgid ""
 "Removed deprecated method `KpoinstData.find_bravais_lattice` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData.find_bravais_lattice` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:154
 msgid ""
 "Removed deprecated method `KpoinstData.get_special_kpoints` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了已弃用的方法 `KpoinstData.get_special_kpoints` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:157
 msgid "``Process``"
-msgstr ""
+msgstr "``Process``"
 
 #: ../docs/source/install/updating_installation.rst:159
 msgid ""
@@ -2028,16 +2189,21 @@ msgid ""
 "moved within the ``metadata`` namespace `[#1105] "
 "<https://github.com/aiidateam/aiida-core/pull/1105>`__"
 msgstr ""
+"过去以下划线为开头的元数据输入（ ``_label``，``_description`` 和 ``_options`` ）不再使用下划线，改变了其在 "
+"``metadata`` 命名空间中的地位 `[#1105] <https://github.com/aiidateam/aiida-"
+"core/pull/1105>`__"
 
 #: ../docs/source/install/updating_installation.rst:160
 msgid ""
 "Non-storable input ports are now markable as such through the ``non_db`` "
 "keyword `[#1105] <https://github.com/aiidateam/aiida-core/pull/1105>`__"
 msgstr ""
+"不可储存的输入端口现在可以使用 ``non_db`` 关键字进行标记 `[#1105] <https://github.com/aiidateam"
+"/aiida-core/pull/1105>`__"
 
 #: ../docs/source/install/updating_installation.rst:164
 msgid "Inline calculations"
-msgstr ""
+msgstr "内联算例"
 
 #: ../docs/source/install/updating_installation.rst:166
 msgid ""
@@ -2045,10 +2211,12 @@ msgid ""
 " ``calcfunction``. `[#2203] <https://github.com/aiidateam/aiida-"
 "core/pull/2203>`__"
 msgstr ""
+"``calcfunction`` 装饰器取代了 ``make_inline`` 和 ``optional_inline`` 装饰器 `[#2203] "
+"<https://github.com/aiidateam/aiida-core/pull/2203>`__"
 
 #: ../docs/source/install/updating_installation.rst:170
 msgid "``JobCalculation``"
-msgstr ""
+msgstr "``JobCalculation``"
 
 #: ../docs/source/install/updating_installation.rst:172
 msgid ""
@@ -2061,12 +2229,18 @@ msgid ""
 "supporting both ways of submitting. In version 1.0 we have decided to keep "
 "only one single way of submitting calculations for simplicity."
 msgstr ""
+"在新引擎中，将无法通过创建 ``Calculation`` 的实例来调用 ``calculation.use_xxx`` "
+"方法的技巧来创建算例作业，这在早期AiiDA版本中很常见。现在需要把正确的 ``Calculation`` 类传递至 ``run`` 或者 "
+"``submit`` 函数，把节点以 ``kwargs`` "
+"参数的形式传入。在过去的几个版本中，通过支持两种提交方法来保持了向后的兼容性。在1.0版本中，为了简单起见，仅保留了一种提交方法。"
 
 #: ../docs/source/install/updating_installation.rst:176
 msgid ""
 "``JobCalculation`` has been replaced by ``CalcJob`` process class `[#2389] "
 "<https://github.com/aiidateam/aiida-core/pull/2389>`__"
 msgstr ""
+"替换 ``JobCalculation`` 为 ``CalcJob`` 例程类 `[#2389] "
+"<https://github.com/aiidateam/aiida-core/pull/2389>`__"
 
 #: ../docs/source/install/updating_installation.rst:177
 msgid ""
@@ -2074,6 +2248,8 @@ msgid ""
 "``CalculationTools`` plugin `[#2331] <https://github.com/aiidateam/aiida-"
 "core/pull/2331>`__"
 msgstr ""
+"可用 ``CalculationTools`` 插件来实现节点类的自定义方法 `[#2331] "
+"<https://github.com/aiidateam/aiida-core/pull/2331>`__"
 
 #: ../docs/source/install/updating_installation.rst:178
 msgid ""
@@ -2081,6 +2257,8 @@ msgid ""
 "generic ``set_option`` method `[#2361] <https://github.com/aiidateam/aiida-"
 "core/pull/2361>`__"
 msgstr ""
+"``JobCalculation`` 的显式方法 ``set_`` 替换为通用方法 ``set_option`` `[#2361] "
+"<https://github.com/aiidateam/aiida-core/pull/2361>`__"
 
 #: ../docs/source/install/updating_installation.rst:179
 msgid ""
@@ -2088,6 +2266,8 @@ msgid ""
 "generic ``get_option`` method `[#1961] <https://github.com/aiidateam/aiida-"
 "core/pull/1961>`__"
 msgstr ""
+"``JobCalculation`` 的显式方法 ``get_`` 替换为通用方法 ``get_option`` `[#1961] "
+"<https://github.com/aiidateam/aiida-core/pull/1961>`__"
 
 #: ../docs/source/install/updating_installation.rst:180
 msgid ""
@@ -2095,6 +2275,8 @@ msgid ""
 " be used for querying `[#2389] <https://github.com/aiidateam/aiida-"
 "core/pull/2389>`__"
 msgstr ""
+"新的算例作业状态被设置为属性，不过仅可用于查询 `[#2389] <https://github.com/aiidateam/aiida-"
+"core/pull/2389>`__"
 
 #: ../docs/source/install/updating_installation.rst:181
 msgid ""
@@ -2102,10 +2284,12 @@ msgid ""
 "``JobCalculations`` has been removed `[#2389] <https://github.com/aiidateam"
 "/aiida-core/pull/2389>`__"
 msgstr ""
+"移除了记录 ``JobCalculations`` 旧版作业状态的 ``DbCalcState`` 表 `[#2389] "
+"<https://github.com/aiidateam/aiida-core/pull/2389>`__"
 
 #: ../docs/source/install/updating_installation.rst:185
 msgid "``Parser``"
-msgstr ""
+msgstr "``Parser``"
 
 #: ../docs/source/install/updating_installation.rst:187
 msgid ""
@@ -2113,28 +2297,30 @@ msgid ""
 "arguments and return signatures have changed, for details see the PR "
 "`[#2397] <https://github.com/aiidateam/aiida-core/pull/2397>`__"
 msgstr ""
+"重命名 ``parse_from_retrieved`` 为 ``parse`` 。此外参数和返回已更改，更多细节见PR  `[#2397] "
+"<https://github.com/aiidateam/aiida-core/pull/2397>`__"
 
 #: ../docs/source/install/updating_installation.rst:191
 msgid "``WorkChain``"
-msgstr ""
+msgstr "``WorkChain``"
 
 #: ../docs/source/install/updating_installation.rst:193
 msgid ""
 "The free function ``submit`` in any ``WorkChain`` should be replaced with "
 "``self.submit``."
-msgstr ""
+msgstr "任意 ``WorkChain`` 自由函数 ``submit`` 需要 替换为 ``self.submit`` 。"
 
 #: ../docs/source/install/updating_installation.rst:194
 msgid ""
 "The future returned by ``submit`` no longer has the ``pid`` attribute but "
 "rather ``pk``."
-msgstr ""
+msgstr "以后 ``submit`` 将不再返回 ``pid`` ，而是用 ``pk`` 。"
 
 #: ../docs/source/install/updating_installation.rst:195
 msgid ""
 "The ``workfunction`` decorator can only be used for functions that return "
 "one of the inputs they receive, for all other use the ``calcfunction``"
-msgstr ""
+msgstr "``workfunction`` 装饰器仅能用于函数返回值为其某个输入的函数，对于其他函数使用 ``calcfunction``"
 
 #: ../docs/source/install/updating_installation.rst:196
 msgid ""
@@ -2144,6 +2330,9 @@ msgid ""
 "core.readthedocs.io/en/latest/concepts/processes.html#the-process-"
 "builder>`__ on how to use it."
 msgstr ""
+"``get_inputs_template`` 类替换为 ``get_builder`` 。使用方法请参阅文档中 `例程构造器部分 <https"
+"://aiida-core.readthedocs.io/en/latest/concepts/processes.html#the-process-"
+"builder>`"
 
 #: ../docs/source/install/updating_installation.rst:197
 msgid ""
@@ -2152,26 +2341,30 @@ msgid ""
 "core.readthedocs.io/en/latest/concepts/workflows.html#ports-and-"
 "portnamespaces>`__ on how to use them."
 msgstr ""
+"``input_group`` 已弃用且被命名空间所代替。使用方法请参阅文档中 `端口部分 <https://aiida-"
+"core.readthedocs.io/en/latest/concepts/workflows.html#ports-and-"
+"portnamespaces>`"
 
 #: ../docs/source/install/updating_installation.rst:198
 msgid ""
 "The use of a ``.`` (period) in output keys is not supported in "
 "``Process.out`` because that is now reserved to indicate namespaces."
-msgstr ""
+msgstr "``Process.out`` 不支持在输出的键值中使用 ``.`` （句号），因为目前保留这来指向命名空间。"
 
 #: ../docs/source/install/updating_installation.rst:202
 msgid "Legacy workflows"
-msgstr ""
+msgstr "旧版工作流"
 
 #: ../docs/source/install/updating_installation.rst:204
 msgid ""
 "Remove implementation of legacy workflows `[#2379] "
 "<https://github.com/aiidateam/aiida-core/pull/2379>`__"
 msgstr ""
+"移除了旧版工作流的实现 `[#2379] <https://github.com/aiidateam/aiida-core/pull/2379>`__"
 
 #: ../docs/source/install/updating_installation.rst:208
 msgid "``verdi``"
-msgstr ""
+msgstr "``verdi``"
 
 #: ../docs/source/install/updating_installation.rst:210
 msgid ""
@@ -2185,42 +2378,57 @@ msgid ""
 "or warnings always in the same style). Moreover, some of the commands have "
 "been renamed to be consistent with the new names of the classes in AiiDA."
 msgstr ""
+"``verdi`` 命令行的接口已被移至新系统中（称为 ``click``），使所有 ``verdi`` "
+"命令的接口保持一致：目前对于所有命令，指定节点的方式都是相同的（通过PK, "
+"UUID或者LABEL），具有相同含义的命令行选项在所有命令中使用相同的标签（flags）。为了实现这一点，已经更改了各种verdi命令的接口来确保一致性。并且大多数命令的输出已被标准化（比如，输出的错误或者警报保持相同的风格）。此外，一些命令已被重命名以确保与AiiDA类的新名称保持一致。"
 
 #: ../docs/source/install/updating_installation.rst:215
 msgid ""
 "Removed ``verdi data plugins`` in favor of ``verdi plugin list`` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了 ``verdi data plugins`` ，而使用 ``verdi plugin list`` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:216
 msgid ""
 "Removed ``verdi code rename`` in favor of ``verdi code relabel`` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了 ``verdi code rename`` ，而使用 ``verdi code relabel`` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:217
 msgid ""
 "Removed ``verdi code update`` in favor of ``verdi code duplicate`` `[#3114] "
 "<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 msgstr ""
+"移除了 ``verdi code update`` ，而使用 ``verdi code duplicate`` `[#3114] "
+"<https://github.com/aiidateam/aiida-core/pull/3114>`__"
 
 #: ../docs/source/install/updating_installation.rst:218
 msgid ""
 "Removed ``verdi work`` in favor of ``verdi process`` `[#2574] "
 "<https://github.com/aiidateam/aiida-core/pull/2574>`__"
 msgstr ""
+"移除了 ``verdi work`` ，而使用 ``verdi process`` `[#2574] "
+"<https://github.com/aiidateam/aiida-core/pull/2574>`__"
 
 #: ../docs/source/install/updating_installation.rst:219
 msgid ""
 "Removed ``verdi calculation`` in favor of ``verdi process`` and ``verdi "
 "calcjob`` `[#2574] <https://github.com/aiidateam/aiida-core/pull/2574>`__"
 msgstr ""
+"移除了 ``verdi calculation`` ，而使用 ``verdi process`` 和 ``verdi calcjob`` "
+"`[#2574] <https://github.com/aiidateam/aiida-core/pull/2574>`__"
 
 #: ../docs/source/install/updating_installation.rst:220
 msgid ""
 "Removed ``verdi workflows`` `[#2379] <https://github.com/aiidateam/aiida-"
 "core/pull/2379>`__"
 msgstr ""
+"移除了 ``verdi workflows`` `[#2379] <https://github.com/aiidateam/aiida-"
+"core/pull/2379>`__"
 
 #: ../docs/source/install/updating_installation.rst:221
 msgid ""
@@ -2228,6 +2436,8 @@ msgid ""
 "*property*`` in favor of ``verdi config`` `[#2354] "
 "<https://github.com/aiidateam/aiida-core/pull/2354>`__"
 msgstr ""
+"弃用了使用命令来设置与获取配置的选项 ``verdi devel *property*`` ，而使用 ``verdi config`` `[#2354]"
+" <https://github.com/aiidateam/aiida-core/pull/2354>`__"
 
 #: ../docs/source/install/updating_installation.rst:222
 msgid ""
@@ -2235,6 +2445,8 @@ msgid ""
 "improve performance, with ``--verbose`` flag to restore old behavior "
 "`[#1428] <https://github.com/aiidateam/aiida-core/pull/1428>`__"
 msgstr ""
+"为了提高性能，``verdi code show`` 默认情况下已不再显示算例的数量，使用 ``--verbose`` 标签来使用旧版功能 "
+"`[#1428] <https://github.com/aiidateam/aiida-core/pull/1428>`__"
 
 #: ../docs/source/install/updating_installation.rst:223
 msgid ""
@@ -2242,10 +2454,12 @@ msgid ""
 "``eval \"$(verdi completioncommand)\"`` line in your activation script with "
 "``eval \"$(_VERDI_COMPLETE-source verdi)\"``"
 msgstr ""
+"``verdi`` 的tab补齐行为已发生改变，只需把激活脚本中的 ``eval \"$(verdi completioncommand)\"`` 改为"
+" ``eval \"$(_VERDI_COMPLETE-source verdi)\"``"
 
 #: ../docs/source/install/updating_installation.rst:227
 msgid "Daemon"
-msgstr ""
+msgstr "守护进程"
 
 #: ../docs/source/install/updating_installation.rst:229
 msgid ""
@@ -2253,16 +2467,20 @@ msgid ""
 " in parallel, so ``verdi daemon configureuser`` has been removed `[#1217] "
 "<https://github.com/aiidateam/aiida-core/pull/1217>`__"
 msgstr ""
+"每个配置文件目前都能并行地独立地运行自己的守护进程，因此移除了 ``verdi daemon configureuser`` `[#1217] "
+"<https://github.com/aiidateam/aiida-core/pull/1217>`__"
 
 #: ../docs/source/install/updating_installation.rst:230
 msgid ""
 "Replaced ``Celery`` with ``Circus`` as the daemonizer of the daemon `[#1213]"
 " <https://github.com/aiidateam/aiida-core/pull/1213>`__"
 msgstr ""
+"替换 ``Celery`` 为 ``Circus`` 作为守护进程的守护进程 `[#1213] "
+"<https://github.com/aiidateam/aiida-core/pull/1213>`__"
 
 #: ../docs/source/install/updating_installation.rst:234
 msgid "Schedulers"
-msgstr ""
+msgstr "调度程序"
 
 #: ../docs/source/install/updating_installation.rst:236
 msgid ""
@@ -2270,6 +2488,8 @@ msgid ""
 "conforming to python conventions `[#1799] <https://github.com/aiidateam"
 "/aiida-core/pull/1799>`__"
 msgstr ""
+"``aiida.daemon.execmanager.job_states`` 重命名为 ``JOB_STATES`` 以符合python的惯例 "
+"`[#1799] <https://github.com/aiidateam/aiida-core/pull/1799>`__"
 
 #: ../docs/source/install/updating_installation.rst:237
 msgid ""
@@ -2277,26 +2497,32 @@ msgid ""
 "``aiida.scheduler.Scheduler._get_detailed_jobinfo_command()`` raises "
 "``aiida.common.exceptions.FeatureNotAvailable`` (was ``NotImplemented``)."
 msgstr ""
+"抽象方法 ``aiida.scheduler.Scheduler._get_detailed_jobinfo_command()`` 引发了 "
+"``aiida.common.exceptions.FeatureNotAvailable`` （是 ``NotImplemented``）。"
 
 #: ../docs/source/install/updating_installation.rst:238
 msgid ""
 "Moved the ``SchedulerFactory`` to ``aiida.plugins.factories`` `[#2498] "
 "<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 msgstr ""
+"移动 ``SchedulerFactory`` 到 ``aiida.plugins.factories`` `[#2498] "
+"<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 
 #: ../docs/source/install/updating_installation.rst:242
 msgid "Transports"
-msgstr ""
+msgstr "传输"
 
 #: ../docs/source/install/updating_installation.rst:244
 msgid ""
 "Moved the ``TransportFactory`` to ``aiida.plugins.factories`` `[#2498] "
 "<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 msgstr ""
+"移动 ``TransportFactory`` 到 ``aiida.plugins.factories`` `[#2498] "
+"<https://github.com/aiidateam/aiida-core/pull/2498>`__"
 
 #: ../docs/source/install/updating_installation.rst:248
 msgid "Export import"
-msgstr ""
+msgstr "导出与导入"
 
 #: ../docs/source/install/updating_installation.rst:250
 msgid ""
@@ -2304,10 +2530,12 @@ msgid ""
 "automatically be converted when using ``verdi import``, or alternatively can"
 " be manually exported using ``verdi export migrate``"
 msgstr ""
+"新导出的压缩文件格式开始于 ``v0.6`` 。使用 ``verdi import`` 时，旧版压缩文件会进行自动转化，或者也可以使用 ``verdi "
+"export migrate`` 来手动导出"
 
 #: ../docs/source/install/updating_installation.rst:256
 msgid "Older versions"
-msgstr ""
+msgstr "之前的版本"
 
 #: ../docs/source/install/updating_installation.rst:258
 msgid ""
@@ -2317,6 +2545,8 @@ msgid ""
 " Update instructions for older versions can be found in the documentation of"
 " the corresponding version:"
 msgstr ""
+"使用 ``verdi --version`` 来查看当前安装的版本。如果此命令不存在，那么说明是旧版的AiiDA，就需要从 "
+"``aiida.__init__.py`` 文件中来获取版本信息。在相应版本的文档中可以找到之前版本的更新指南："
 
 #: ../docs/source/install/updating_installation.rst:262
 msgid "`0.11.*`_"
