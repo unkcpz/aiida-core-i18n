@@ -410,6 +410,8 @@ msgid ""
 "example. The exact number of input files and their content will of course "
 "depend on the code for which the calculation job is being written."
 msgstr ""
+"这个输入文件的格式恰好是 :ref:`bash script<concepts_calcjobs>` "
+"期望我们在本例中使用的格式。输入文件的确切数量及其内容当然将取决于为其编写算例任务的代码。"
 
 #: ../docs/source/working/calculations.rst:171
 msgid ""
@@ -420,31 +422,35 @@ msgid ""
 " the remote computer where the code will be executed. In this simple "
 "example, we define four simple attributes:"
 msgstr ""
+"写好输入文件后，我们现在必须创建一个 :py:class:`~aiida.common.datastructures.CalcInfo` "
+"的实例，该实例应该从方法返回。这个数据结构将精确地指示引擎如何执行计算代码，比如应该将哪些文件复制到将要执行代码的远程计算机。在这个简单的例子中，我们定义了四个简单的属性:"
 
 #: ../docs/source/working/calculations.rst:175
 msgid ""
 "``codes_info``: a list of :py:class:`~aiida.common.datastructures.CodeInfo` "
 "datastructures, that tell which codes to run consecutively during the job"
 msgstr ""
+"``codes_info``: 一个由数据结构 :py:class:`~aiida.common.datastructures.CodeInfo` "
+"构成的列表，用以告知任务运行期间要顺序执行的计算代码"
 
 #: ../docs/source/working/calculations.rst:176
 msgid ""
 "``local_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the local machine"
-msgstr ""
+msgstr "``local_copy_list``: 元组列表，指示要从本地计算机复制哪些文件到工作目录"
 
 #: ../docs/source/working/calculations.rst:177
 msgid ""
 "``remote_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the machine on which the job will run"
-msgstr ""
+msgstr "``remote_copy_list``: 一个元组列表，它指示要将哪些文件从运行任务的机器复制到工作目录"
 
 #: ../docs/source/working/calculations.rst:178
 msgid ""
 "``retrieve_list``: a list of tuples instructing which files should be "
 "retrieved from the working directory and stored in the local repository "
 "after the job has finished"
-msgstr ""
+msgstr "``retrieve_list``: 一个元组列表，指示应从工作目录检索哪些文件，并在作业完成后存储在本地存储库中"
 
 #: ../docs/source/working/calculations.rst:180
 msgid ""
@@ -462,6 +468,12 @@ msgid ""
 "instruct the executable to read its input from the filename stored in the "
 "option ``input_filename``."
 msgstr ""
+"在本例中，我们只需要运行一个计算代码，因此 ``codes_info`` 列表有一个 ``CodeInfo`` "
+"数据结构。这个数据结构需要定义它需要运行哪些代码，这是传递给 ``CalcJob`` 的输入之一，并通过它的UUID来实现。通过 "
+"``stdout_name`` 属性，我们告诉引擎可执行文件的输出应该重定向到哪里。在本例中，它被设置为 ``output_filename`` "
+"选项的值。计算作业中有哪些选项可用，它们做什么以及如何设置这些选项，将在 :ref:`选项章节<working_calcjobs_options>` "
+"中进行说明。最后，``cmdline_params`` 属性接受一个带有命令行参数的列表，这些命令行参数将放在启动脚本中可执行文件的 *后面* "
+"。在这里，我们使用它显式地指示可执行文件从存储在选项 ``input_filename`` 中的文件名中读取其输入。"
 
 #: ../docs/source/working/calculations.rst:190
 msgid ""
@@ -469,6 +481,8 @@ msgid ""
 "``self.options.input_filename``, this is also the filename we used when "
 "writing that very input file in the sandbox folder."
 msgstr ""
+"因为我们指示可执行文件应该从 ``self.options.input_filename`` "
+"读取输入，这也是我们在数据临时储存文件夹中编写输入文件时使用的文件名。"
 
 #: ../docs/source/working/calculations.rst:192
 msgid ""
@@ -477,6 +491,8 @@ msgid ""
 " describe their intended goals. The implementation details will be described"
 " in full in the :ref:`file lists section<working_calcjobs_file_lists>`."
 msgstr ""
+"最后，我们必须定义各种“文件列表”，这些“文件列表”告诉我们要将哪些文件从何处复制到何处，以及要检索哪些文件。在这里，我们将简要描述他们的预期目标。实现细节将在"
+" :ref:`文件列表章节<working_calcjobs_file_lists>` 中详细描述。"
 
 #: ../docs/source/working/calculations.rst:196
 msgid ""
@@ -708,7 +724,7 @@ msgstr ""
 
 #: ../docs/source/working/calculations.rst:319
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: ../docs/source/working/calculations.rst:320
 msgid ""
@@ -723,176 +739,181 @@ msgstr ""
 
 #: ../docs/source/working/calculations.rst:324
 msgid ":ref:`parser_name<working_calcjobs_options_parser_name>`"
-msgstr ""
+msgstr ":ref:`parser_name<working_calcjobs_options_parser_name>`"
 
 #: ../docs/source/working/calculations.rst:325
 msgid ":ref:`input_filename<working_calcjobs_options_input_filename>`"
-msgstr ""
+msgstr ":ref:`input_filename<working_calcjobs_options_input_filename>`"
 
 #: ../docs/source/working/calculations.rst:326
 msgid ":ref:`output_filename<working_calcjobs_options_output_filename>`"
-msgstr ""
+msgstr ":ref:`output_filename<working_calcjobs_options_output_filename>`"
 
 #: ../docs/source/working/calculations.rst:327
 msgid ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
-msgstr ""
+msgstr ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
 
 #: ../docs/source/working/calculations.rst:328
 msgid ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
-msgstr ""
+msgstr ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
 
 #: ../docs/source/working/calculations.rst:329
 msgid ":ref:`resources<working_calcjobs_options_resources>`"
-msgstr ""
+msgstr ":ref:`resources<working_calcjobs_options_resources>`"
 
 #: ../docs/source/working/calculations.rst:330
 msgid ""
 ":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
 msgstr ""
+":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
 
 #: ../docs/source/working/calculations.rst:331
 msgid ""
 ":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
 msgstr ""
+":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
 
 #: ../docs/source/working/calculations.rst:332
 msgid ":ref:`queue_name<working_calcjobs_options_queue_name>`"
-msgstr ""
+msgstr ":ref:`queue_name<working_calcjobs_options_queue_name>`"
 
 #: ../docs/source/working/calculations.rst:333
 msgid ":ref:`account<working_calcjobs_options_account>`"
-msgstr ""
+msgstr ":ref:`account<working_calcjobs_options_account>`"
 
 #: ../docs/source/working/calculations.rst:334
 msgid ":ref:`qos<working_calcjobs_options_qos>`"
-msgstr ""
+msgstr ":ref:`qos<working_calcjobs_options_qos>`"
 
 #: ../docs/source/working/calculations.rst:335
 msgid ":ref:`computer<working_calcjobs_options_computer>`"
-msgstr ""
+msgstr ":ref:`computer<working_calcjobs_options_computer>`"
 
 #: ../docs/source/working/calculations.rst:336
 msgid ":ref:`withmpi<working_calcjobs_options_withmpi>`"
-msgstr ""
+msgstr ":ref:`withmpi<working_calcjobs_options_withmpi>`"
 
 #: ../docs/source/working/calculations.rst:337
 msgid ""
 ":ref:`mpirun_extra_params<working_calcjobs_options_mpirun_extra_params>`"
 msgstr ""
+":ref:`mpirun_extra_params<working_calcjobs_options_mpirun_extra_params>`"
 
 #: ../docs/source/working/calculations.rst:338
 msgid ""
 ":ref:`import_sys_environment<working_calcjobs_options_import_sys_environment>`"
 msgstr ""
+":ref:`import_sys_environment<working_calcjobs_options_import_sys_environment>`"
 
 #: ../docs/source/working/calculations.rst:339
 msgid ""
 ":ref:`environment_variables<working_calcjobs_options_environment_variables>`"
 msgstr ""
+":ref:`environment_variables<working_calcjobs_options_environment_variables>`"
 
 #: ../docs/source/working/calculations.rst:340
 msgid ":ref:`priority<working_calcjobs_options_priority>`"
-msgstr ""
+msgstr ":ref:`priority<working_calcjobs_options_priority>`"
 
 #: ../docs/source/working/calculations.rst:341
 msgid ":ref:`max_memory_kb<working_calcjobs_options_max_memory_kb>`"
-msgstr ""
+msgstr ":ref:`max_memory_kb<working_calcjobs_options_max_memory_kb>`"
 
 #: ../docs/source/working/calculations.rst:342
 msgid ":ref:`prepend_text<working_calcjobs_options_prepend_text>`"
-msgstr ""
+msgstr ":ref:`prepend_text<working_calcjobs_options_prepend_text>`"
 
 #: ../docs/source/working/calculations.rst:343
 msgid ":ref:`append_text<working_calcjobs_options_append_text>`"
-msgstr ""
+msgstr ":ref:`append_text<working_calcjobs_options_append_text>`"
 
 #: ../docs/source/working/calculations.rst:345
 msgid "More detailed information about their usage, follows below."
-msgstr ""
+msgstr "有关其用法的更多详细信息如下。"
 
 #: ../docs/source/working/calculations.rst:350
 msgid "``parser_name``"
-msgstr ""
+msgstr "``parser_name``"
 
 #: ../docs/source/working/calculations.rst:355
 msgid "``input_filename``"
-msgstr ""
+msgstr "``input_filename``"
 
 #: ../docs/source/working/calculations.rst:360
 msgid "``output_filename``"
-msgstr ""
+msgstr "``output_filename``"
 
 #: ../docs/source/working/calculations.rst:365
 msgid "``scheduler_stdout``"
-msgstr ""
+msgstr "``scheduler_stdout``"
 
 #: ../docs/source/working/calculations.rst:370
 msgid "``scheduler_stderr``"
-msgstr ""
+msgstr "``scheduler_stderr``"
 
 #: ../docs/source/working/calculations.rst:375
 msgid "``resources``"
-msgstr ""
+msgstr "``resources``"
 
 #: ../docs/source/working/calculations.rst:380
 msgid "``max_wallclock_seconds``"
-msgstr ""
+msgstr "``max_wallclock_seconds``"
 
 #: ../docs/source/working/calculations.rst:385
 msgid "``custom_scheduler_commands``"
-msgstr ""
+msgstr "``custom_scheduler_commands``"
 
 #: ../docs/source/working/calculations.rst:390
 msgid "``queue_name``"
-msgstr ""
+msgstr "``queue_name``"
 
 #: ../docs/source/working/calculations.rst:395
 msgid "``account``"
-msgstr ""
+msgstr "``account``"
 
 #: ../docs/source/working/calculations.rst:400
 msgid "``qos``"
-msgstr ""
+msgstr "``qos``"
 
 #: ../docs/source/working/calculations.rst:405
 msgid "``computer``"
-msgstr ""
+msgstr "``computer``"
 
 #: ../docs/source/working/calculations.rst:410
 msgid "``withmpi``"
-msgstr ""
+msgstr "``withmpi``"
 
 #: ../docs/source/working/calculations.rst:415
 msgid "``mpirun_extra_params``"
-msgstr ""
+msgstr "``mpirun_extra_params``"
 
 #: ../docs/source/working/calculations.rst:420
 msgid "``import_sys_environment``"
-msgstr ""
+msgstr "``import_sys_environment``"
 
 #: ../docs/source/working/calculations.rst:425
 msgid "``environment_variables``"
-msgstr ""
+msgstr "``environment_variables``"
 
 #: ../docs/source/working/calculations.rst:430
 msgid "``priority``"
-msgstr ""
+msgstr "``priority``"
 
 #: ../docs/source/working/calculations.rst:435
 msgid "``max_memory_kb``"
-msgstr ""
+msgstr "``max_memory_kb``"
 
 #: ../docs/source/working/calculations.rst:440
 msgid "``prepend_text``"
-msgstr ""
+msgstr "``prepend_text``"
 
 #: ../docs/source/working/calculations.rst:445
 msgid "``append_text``"
-msgstr ""
+msgstr "``append_text``"
 
 #: ../docs/source/working/calculations.rst:451
 msgid "Launch"
-msgstr ""
+msgstr "发动"
 
 #: ../docs/source/working/calculations.rst:453
 msgid ""
@@ -1438,7 +1459,7 @@ msgstr ""
 
 #: ../docs/source/working/functions.rst:206
 msgid "Provenance"
-msgstr ""
+msgstr "可验证性（Provenance）"
 
 #: ../docs/source/working/functions.rst:207
 msgid ""
@@ -1450,19 +1471,19 @@ msgstr ""
 
 #: ../docs/source/working/functions.rst:209
 msgid "Function name"
-msgstr ""
+msgstr "函数名"
 
 #: ../docs/source/working/functions.rst:210
 msgid "Function namespace"
-msgstr ""
+msgstr "函数命名空间"
 
 #: ../docs/source/working/functions.rst:211
 msgid "Function starting line number"
-msgstr ""
+msgstr "函数起始行号"
 
 #: ../docs/source/working/functions.rst:212
 msgid "Function source file"
-msgstr ""
+msgstr "函数源文件"
 
 #: ../docs/source/working/functions.rst:214
 msgid ""
@@ -1496,7 +1517,7 @@ msgstr ""
 
 #: ../docs/source/working/functions.rst:229
 msgid "Reproducibility guidelines"
-msgstr ""
+msgstr "如何保证重现性指南"
 
 #: ../docs/source/working/functions.rst:230
 msgid ""
@@ -1507,15 +1528,15 @@ msgstr ""
 
 #: ../docs/source/working/functions.rst:232
 msgid "Do not leak data into functions"
-msgstr ""
+msgstr "不要将数据泄漏到函数中"
 
 #: ../docs/source/working/functions.rst:233
 msgid "Limit importing of external code"
-msgstr ""
+msgstr "限制导入外部计算代码"
 
 #: ../docs/source/working/functions.rst:234
 msgid "Keep functions self-consistent and in separate files"
-msgstr ""
+msgstr "保持函数自洽并在单独的文件中"
 
 #: ../docs/source/working/functions.rst:236
 msgid ""
@@ -1554,7 +1575,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:5
 msgid "Processes"
-msgstr ""
+msgstr "例程（Processes）"
 
 #: ../docs/source/working/processes.rst:7
 msgid ""
@@ -1567,19 +1588,19 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:11
 msgid ":ref:`calculation functions<working_calcfunctions>`"
-msgstr ""
+msgstr ":ref:`算例函数<working_calcfunctions>`"
 
 #: ../docs/source/working/processes.rst:12
 msgid ":ref:`calculation jobs<working_calcjobs>`"
-msgstr ""
+msgstr ":ref:`算例任务<working_calcjobs>`"
 
 #: ../docs/source/working/processes.rst:13
 msgid ":ref:`work functions<working_workfunctions>`"
-msgstr ""
+msgstr ":ref:`工作流<working_workfunctions>`"
 
 #: ../docs/source/working/processes.rst:14
 msgid ":ref:`work chains<working_workchains>`"
-msgstr ""
+msgstr ":ref:`工作链<working_workchains>`"
 
 #: ../docs/source/working/processes.rst:16
 msgid ""
@@ -1595,11 +1616,11 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:25
 msgid "Defining processes"
-msgstr ""
+msgstr "定义例程"
 
 #: ../docs/source/working/processes.rst:30
 msgid "Process specification"
-msgstr ""
+msgstr "例程规格"
 
 #: ../docs/source/working/processes.rst:31
 msgid ""
@@ -1631,15 +1652,15 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:39
 msgid "``inputs``"
-msgstr ""
+msgstr "``inputs``"
 
 #: ../docs/source/working/processes.rst:40
 msgid "``outputs``"
-msgstr ""
+msgstr "``outputs``"
 
 #: ../docs/source/working/processes.rst:41
 msgid "``exit_codes``"
-msgstr ""
+msgstr "``exit_codes``"
 
 #: ../docs/source/working/processes.rst:43
 msgid ""
@@ -1656,7 +1677,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:53
 msgid "Ports and Port namespaces"
-msgstr ""
+msgstr "端口和端口命名空间"
 
 #: ../docs/source/working/processes.rst:54
 msgid ""
@@ -1725,7 +1746,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:110
 msgid "Validation and defaults"
-msgstr ""
+msgstr "自动校验和默认值"
 
 #: ../docs/source/working/processes.rst:111
 msgid ""
@@ -1742,19 +1763,19 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:116
 msgid "``default``"
-msgstr ""
+msgstr "``default``"
 
 #: ../docs/source/working/processes.rst:117
 msgid "``required``"
-msgstr ""
+msgstr "``required``"
 
 #: ../docs/source/working/processes.rst:118
 msgid "``valid_type``"
-msgstr ""
+msgstr "``valid_type``"
 
 #: ../docs/source/working/processes.rst:119
 msgid "``validator``"
-msgstr ""
+msgstr "``validator``"
 
 #: ../docs/source/working/processes.rst:121
 msgid ""
@@ -1803,7 +1824,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:154
 msgid "Dynamic namespaces"
-msgstr ""
+msgstr "动态命名空间"
 
 #: ../docs/source/working/processes.rst:155
 msgid ""
@@ -1838,7 +1859,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:172
 msgid "Non storable inputs"
-msgstr ""
+msgstr "不存取的输入"
 
 #: ../docs/source/working/processes.rst:173
 msgid ""
@@ -1965,7 +1986,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:251
 msgid "Process metadata"
-msgstr ""
+msgstr "例程元数据"
 
 #: ../docs/source/working/processes.rst:253
 msgid ""
@@ -2005,7 +2026,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:270
 msgid "Launching processes"
-msgstr ""
+msgstr "启动例程"
 
 #: ../docs/source/working/processes.rst:271
 msgid ""
@@ -2023,7 +2044,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:281
 msgid "Process launch"
-msgstr ""
+msgstr "例程启动"
 
 #: ../docs/source/working/processes.rst:283
 msgid ""
@@ -2033,19 +2054,19 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:286
 msgid ":py:func:`~aiida.engine.launch.run`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run`"
 
 #: ../docs/source/working/processes.rst:287
 msgid ":py:func:`~aiida.engine.launch.run_get_node`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run_get_node`"
 
 #: ../docs/source/working/processes.rst:288
 msgid ":py:func:`~aiida.engine.launch.run_get_pk`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run_get_pk`"
 
 #: ../docs/source/working/processes.rst:289
 msgid ":py:func:`~aiida.engine.launch.submit`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.submit`"
 
 #: ../docs/source/working/processes.rst:291
 msgid ""
@@ -2138,11 +2159,11 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:338
 msgid "Simply *calling* the function"
-msgstr ""
+msgstr "只需*调用*函数"
 
 #: ../docs/source/working/processes.rst:339
 msgid "Using the internal run method attributes"
-msgstr ""
+msgstr "使用内部运行方法的属性"
 
 #: ../docs/source/working/processes.rst:341
 msgid ""
@@ -2152,7 +2173,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:350
 msgid "Process builder"
-msgstr ""
+msgstr "例程构建器"
 
 #: ../docs/source/working/processes.rst:351
 msgid ""
@@ -2251,7 +2272,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:424
 msgid "Monitoring processes"
-msgstr ""
+msgstr "监控例程"
 
 #: ../docs/source/working/processes.rst:425
 msgid ""
@@ -2262,7 +2283,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:432
 msgid "verdi process list"
-msgstr ""
+msgstr "verdi process list"
 
 #: ../docs/source/working/processes.rst:433
 msgid ""
@@ -2337,7 +2358,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:503
 msgid "verdi process report"
-msgstr ""
+msgstr "verdi process report"
 
 #: ../docs/source/working/processes.rst:504
 msgid ""
@@ -2362,7 +2383,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:524
 msgid "verdi process status"
-msgstr ""
+msgstr "verdi process status"
 
 #: ../docs/source/working/processes.rst:525
 msgid ""
@@ -2388,7 +2409,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:544
 msgid "verdi process show"
-msgstr ""
+msgstr "verdi process show"
 
 #: ../docs/source/working/processes.rst:545
 msgid ""
@@ -2406,7 +2427,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:595
 msgid "Manipulating processes"
-msgstr ""
+msgstr "操控例程"
 
 #: ../docs/source/working/processes.rst:596
 msgid ""
@@ -2419,7 +2440,7 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:602
 msgid "verdi process pause/play/kill"
-msgstr ""
+msgstr "verdi process pause/play/kill"
 
 #: ../docs/source/working/processes.rst:603
 msgid ""
@@ -2429,15 +2450,15 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:605
 msgid "``verdi process pause``"
-msgstr ""
+msgstr "``verdi process pause``"
 
 #: ../docs/source/working/processes.rst:606
 msgid "``verdi process play``"
-msgstr ""
+msgstr "``verdi process play``"
 
 #: ../docs/source/working/processes.rst:607
 msgid "``verdi process kill``"
-msgstr ""
+msgstr "``verdi process kill``"
 
 #: ../docs/source/working/processes.rst:609
 msgid ""
@@ -2553,7 +2574,7 @@ msgstr ""
 #: ../docs/source/working/processes.rst:664
 #: ../docs/source/working/workflows.rst:576
 msgid "Footnotes"
-msgstr ""
+msgstr "脚注"
 
 #: ../docs/source/working/processes.rst:665
 msgid ""
@@ -2565,7 +2586,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:5
 msgid "Workflows"
-msgstr ""
+msgstr "工作流"
 
 #: ../docs/source/working/workflows.rst:7
 msgid ""
@@ -2578,11 +2599,11 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:10
 msgid ":ref:`work function<working_workfunctions>`"
-msgstr ""
+msgstr ":ref:`工作函数<working_workfunctions>`"
 
 #: ../docs/source/working/workflows.rst:11
 msgid ":ref:`work chain<working_workchains>`"
-msgstr ""
+msgstr ":ref:`工作链<working_workchains>`"
 
 #: ../docs/source/working/workflows.rst:13
 msgid ""
@@ -2601,7 +2622,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:22
 msgid "Work functions"
-msgstr ""
+msgstr "工作函数"
 
 #: ../docs/source/working/workflows.rst:24
 msgid ""
@@ -2611,11 +2632,11 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:26
 msgid ":ref:`concept of work functions<concepts_workfunctions>`"
-msgstr ""
+msgstr ":ref:`工作流函数的概念<concepts_workfunctions>`"
 
 #: ../docs/source/working/workflows.rst:27
 msgid ":ref:`implementation of process functions<working_process_functions>`"
-msgstr ""
+msgstr ":ref:`例程函数的实现<working_process_functions>`"
 
 #: ../docs/source/working/workflows.rst:29
 msgid ""
@@ -2631,7 +2652,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:37
 msgid "Returning data"
-msgstr ""
+msgstr "返回数据"
 
 #: ../docs/source/working/workflows.rst:38
 msgid ""
@@ -2779,7 +2800,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:130
 msgid "Work chains"
-msgstr ""
+msgstr "工作链"
 
 #: ../docs/source/working/workflows.rst:132
 msgid ""
@@ -2793,6 +2814,11 @@ msgid ""
 "with :ref:`generic processes<working_processes>` before continuing, because "
 "all the concepts explained there will apply also to work chains."
 msgstr ""
+":ref:`工作链的基本概念<concepts_workchains>` 已在别处解释过。本节将提供有关应该如何实现工作链的详细信息。工作链由 "
+":py:class:`~aiiida.engine.processes.workchains.workchain.WorkChain` 类实现。因为它是"
+" :py:class:`~aiida.engine.processes.process.Process` "
+"类的子类，所以它共享它的所有属性。在继续前，阅读有关使用的部分 :ref:`generic processes <working_processes>`"
+" 将是非常有价值的，因为那里解释的所有概念也将适用于工作链。"
 
 #: ../docs/source/working/workflows.rst:138
 msgid ""
@@ -2804,12 +2830,16 @@ msgid ""
 ":numref:`fig_work_chains_provenance_add_multiply_workchain_full`. For "
 "convenience we copy the snippet here once more:"
 msgstr ""
+"让我们继续讨论 :ref:`work of workchains <concepts_workchains>` "
+"中的示例，其中我们将两个整数相加并将结果乘以第三个。我们在代码片段中提供了一个非常简单的实现，其生成的可验证性图在执行时显示在 "
+":numref:`fig_work_chains_provenance_add_multiply_workchain_full` "
+"中。为方便起见，我们再次将代码段复制到此处："
 
 #: ../docs/source/working/workflows.rst:145
 msgid ""
 "We will now got through the implementation step-by-step and go into more "
 "detail on the interface and best practices."
-msgstr ""
+msgstr "我们现在将逐步完成实现，并详细介绍结构和最佳实践。"
 
 #: ../docs/source/working/workflows.rst:152
 msgid ""
@@ -2825,12 +2855,18 @@ msgid ""
 " potential exit codes it can return and the logical outline through which it"
 " will accomplish all this."
 msgstr ""
+"要实现一个新的工作链，只需创建一个 "
+":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` "
+"的子类。您可以为新类提供任何有效的python类名，但约定是将它以 ``WorkChain`` "
+"结尾，以便始终立即清楚它引用的内容。在创建了一个新的工作链类之后，第一个也是最重要的实现方法是 "
+":py:meth:`~aiida.engine.processes.process.Process.define` "
+"方法。这是一个类方法，允许开发人员定义工作链的特征，例如它需要什么输入，它可以生成什么输出，它可以返回什么样的退出码以及它将完成所有这些的逻辑大纲。"
 
 #: ../docs/source/working/workflows.rst:157
 msgid ""
 "To implement the ``define`` method, you have to start with the following "
 "three lines:"
-msgstr ""
+msgstr "要实现 ``define`` 方法，您必须从以下三行开始："
 
 #: ../docs/source/working/workflows.rst:165
 msgid ""
@@ -2846,16 +2882,22 @@ msgid ""
 "this case the "
 ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class."
 msgstr ""
+"这里，用工作链的实际名称替换 ``AddAndMultiplyWorkChain`` 。  ``classmethod`` 装饰器表示此方法是类方法 "
+"[＃f1]_ 而不是实例方法。第二行是方法签名，并指定它将接收类本身 ``cls`` 和 ``spec`` ，它们将是 "
+":py:class:`~aiida.engine.processes.process_spec.ProcessSpec` "
+"的一个实例。这是我们将用于定义工作链的输入，输出和其他相关属性的对象。第三行和最后一行非常重要，因为它将调用父类的 ``define`` "
+"方法，在本例中父类为 "
+":py:class:`~aiiida.engine.processes.workchains.workchain.WorkChain` 类。"
 
 #: ../docs/source/working/workflows.rst:173
 msgid ""
 "If you forget to call ``super`` in the ``define`` method, your work chain "
 "will fail miserably!"
-msgstr ""
+msgstr "如果你忘记在 ``define`` 方法中调用 ``super`` ，你的工作链就会失败！"
 
 #: ../docs/source/working/workflows.rst:179
 msgid "Inputs and outputs"
-msgstr ""
+msgstr "输入和输出"
 
 #: ../docs/source/working/workflows.rst:180
 msgid ""
@@ -2872,10 +2914,16 @@ msgid ""
 " is documented in detail in the section on :ref:`ports and port "
 "namespace<working_processes_ports_portnamespaces>`."
 msgstr ""
+"通过这些步骤，您可以通过 ``spec`` 开始定义工作链的有趣属性。在该示例中，您可以看到方法 "
+":py:meth:`~aiida.engine.processes.process_spec.ProcessSpec.input` "
+"如何用于定义多个输入端口，这些端口准确记录工作链所期望的输入。类似地，调用 "
+":py:meth:`~aiida.engine.processes.process_spec.ProcessSpec.output` "
+"来指示工作链将生成带有 ``result`` 标签的输出。这两个端口创建方法支持更多功能，例如添加帮助字符串，验证等等，所有这些都在以下部分详细介绍 "
+":ref:`端口和端口命名空间 <working_processes_ports_portnamespaces>` 。"
 
 #: ../docs/source/working/workflows.rst:189
 msgid "Outline"
-msgstr ""
+msgstr "工作链大纲"
 
 #: ../docs/source/working/workflows.rst:190
 msgid ""
@@ -2892,6 +2940,11 @@ msgid ""
 "take ``self`` as its one and only argument, as demonstrated in the example "
 "snippet."
 msgstr ""
+"大纲是工作链与其他例程区别原因。它是一种定义编码工作链所采用的工作流的更高级逻辑的方法。大纲在 ``define`` 方法中通过 "
+":py:meth:`~aiiida.engine.processes.process_spec.ProcessSpec.outline` "
+"定义。它需要一系列工作链将执行的指令组成，每个指令都作为工作链类的方法实现。在上面的简单示例中，大纲由三个简单的指令组成: ``add`` ， "
+"``multiply`` ， ``results`` 。由于它们是作为实例方法实现的，因此它们以 ``cls .` "
+"为前缀，表明它们实际上是工作链的类方法。出于同样的原因，他们的实现应该将 ``self`` 作为唯一的参数，如示例代码段所示。"
 
 #: ../docs/source/working/workflows.rst:198
 msgid ""
@@ -2902,31 +2955,32 @@ msgid ""
 "illustrate these constructs is by example. The currently available logical "
 "constructs for the work chain outline are:"
 msgstr ""
+"这个简单示例中的大纲并不特别有趣，因为它包含三个将按顺序执行的简单指令。但是，该大纲还支持各种逻辑结构，例如while循环，条件和返回语句。像往常一样，说明这些结构的最佳方法是举例。工作链大纲的当前可用逻辑结构是:"
 
 #: ../docs/source/working/workflows.rst:203
 msgid "``if``, ``elif``, ``else``"
-msgstr ""
+msgstr "``if``, ``elif``, ``else``"
 
 #: ../docs/source/working/workflows.rst:204
 msgid "``while``"
-msgstr ""
+msgstr "``while``"
 
 #: ../docs/source/working/workflows.rst:205
 msgid "``return``"
-msgstr ""
+msgstr "``return``"
 
 #: ../docs/source/working/workflows.rst:207
 msgid ""
 "To distinguish these constructs from the python builtins, they are suffixed "
 "with an underscore, like so ``while_``. To use these in your work chain "
 "design, you will have to import them:"
-msgstr ""
+msgstr "为了将这些结构区分python内置函数，它们的后缀为下划线，就像 ``while_`` 。要在工作链设计中使用它们，您必须导入它们:"
 
 #: ../docs/source/working/workflows.rst:214
 msgid ""
 "The following example shows how to use these logical constructs to define "
 "the outline of a work chain:"
-msgstr ""
+msgstr "以下示例显示如何使用这些逻辑结构来定义工作链的大纲:"
 
 #: ../docs/source/working/workflows.rst:234
 msgid ""
@@ -2941,6 +2995,10 @@ msgid ""
 "return a boolean; ``True`` when the condition holds and ``False`` otherwise."
 " The actual implementation of the outline steps themselves is now trivial:"
 msgstr ""
+"这是众所周知的FizzBuzz[＃f2]_ 问题的实现（以及极其拙劣的实现）。这个想法是程序应该按顺序打印从零到某个限制的数字，除非数字是三个 "
+"``Fizz`` 的倍数打印，五个 ``Buzz`` 的倍数和当它是两者的倍数时，程序应该打印 ``FizzBuzz`` "
+"。注意语法看起来非常像普通的python语法。条件中使用的方法（例如 ``while_`` 和 ``if_`` 构造的括号之间）应该返回一个布尔值; "
+"条件成立时为 ``True`` ，否则为 ``False`` 。大纲步骤本身的实际实施现在是无足轻重的:"
 
 #: ../docs/source/working/workflows.rst:260
 msgid ""
@@ -2957,6 +3015,8 @@ msgid ""
 "However, one can also go overboard and put too finely grained logical blocks"
 " into the outline, causing it to become bulky and difficult to understand."
 msgstr ""
+"这个例子的目的是为了表明，通过精心设计大纲，用户只需要查看大纲就可以了解 *工作链的作用以及* "
+"它是如何实现的。人们不应该看大纲步骤的具体实现，因为大纲本身捕获了所有重要信息。由于工作链的目标应该是执行一项定义明确的任务，因此大纲的目标是以一种清晰而短暂但不过度苛刻的方式捕获实现该目标所需的逻辑。大纲支持各种逻辑流构造，例如条件和while循环，因此在可能的情况下，此逻辑应在大纲中表示，而不是在大纲函数的主体中表示。然而，人们也可能过度使用，并将太细粒度的逻辑块放入大纲中，导致它变得笨重且难以理解。"
 
 #: ../docs/source/working/workflows.rst:266
 msgid ""
@@ -2967,6 +3027,8 @@ msgid ""
 "accomplish that goal. Converting the resulting flow diagram in a one-to-one "
 "fashion into an outline, often results in very reasonable outline designs."
 msgstr ""
+"设计大纲的一个好的经验法则如下: "
+"在开始设计工作链之前，要非常清楚地定义它应该执行的任务。一旦目标明确，绘制连接它们的必要步骤和逻辑决策的示意性框图，以实现该目标。将得到的流程图以一对一的方式转换为轮廓，通常会产生非常合理的大纲设计。"
 
 #: ../docs/source/working/workflows.rst:275
 msgid ""
@@ -2990,7 +3052,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:293
 msgid "Launching work chains"
-msgstr ""
+msgstr "启动工作链"
 
 #: ../docs/source/working/workflows.rst:295
 msgid ""
@@ -3012,7 +3074,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:306
 msgid "Context"
-msgstr ""
+msgstr "上下文（Context）"
 
 #: ../docs/source/working/workflows.rst:307
 msgid ""
@@ -3050,7 +3112,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:335
 msgid "Submitting sub processes"
-msgstr ""
+msgstr "提交子例程"
 
 #: ../docs/source/working/workflows.rst:336
 msgid ""
@@ -3090,7 +3152,7 @@ msgstr ""
 
 #: ../docs/source/working/workflows.rst:362
 msgid "To context"
-msgstr ""
+msgstr "To context （转换为上下文）"
 
 #: ../docs/source/working/workflows.rst:363
 msgid ""
@@ -3099,6 +3161,7 @@ msgid ""
 "should wait for that process to finish before continuing the work chain. To "
 "illustrate how this works, consider the following minimal example:"
 msgstr ""
+"为了存储提交过程的未来(Future)效果，我们可以将其存储在具有特殊构造的上下文(context)中，该构造将告诉引擎它应该在继续工作链之前等待该例程完成。为了说明其工作原理，请考虑以下小示例："
 
 #: ../docs/source/working/workflows.rst:369
 msgid ""
@@ -3121,6 +3184,16 @@ msgid ""
 "case, has terminated its execution, although not necessarily successful, and"
 " we can continue the logic of the work chain."
 msgstr ""
+"如上一节所述，为要提交的给定进程调用 ``self.submit`` "
+"将返回未来结果(future)。要将此未来结果添加到上下文中，我们无法直接访问上下文，如 "
+":ref:`context（上下文）章节<working_workchains_context>` 中所述，而我们需要使用类 "
+":py:class:`~aiida.engine.processes.workchains.context.ToContext` 。这个类必须从 "
+"``aiida.engine`` 模块导入。要将未来结果添加到上下文中，只需构造一个 ``ToContext`` 实例，将 future "
+"作为关键字参数传递，并从outline步骤返回。在这个例子中使用的关键字 ``workchain`` 将是在执行终止后将节点存储在上下文中的键中。将 "
+"``ToContext`` "
+"信号的实例返回给引擎，它必须等待其中包含的预期完成执行，将它们的节点存储在指定键的上下文中，然后继续执行大纲中的下一步。在这个例子中，这是 "
+"``inspect_workchain`` "
+"方法。在这一点上，我们确信这个例程，在这种情况下是一个工作链，已经终止了它的执行，虽然不一定成功，但我们可以继续工作链的逻辑。"
 
 #: ../docs/source/working/workflows.rst:380
 msgid ""
@@ -3133,6 +3206,9 @@ msgid ""
 "not even a single step to follow, there is also nothing the work chain could"
 " do with the results of the sub process, so there is no point in waiting."
 msgstr ""
+"仅使用 ``ToContext`` 构造并不足以告诉引擎它应该等待子进程完成。在大纲中，**需要** "
+"至少有另一个步骤，以添加可等待的步骤。如果没有更多的步骤，根据大纲，引擎将其解释为正在完成的工作链，因此它不会等待子例程完成。这样想: "
+"如果没有一个单独的步骤要遵循，那么工作链对子例程的结果也无能为力，所以等待是没有意义的。"
 
 #: ../docs/source/working/workflows.rst:385
 msgid ""
@@ -3143,6 +3219,8 @@ msgid ""
 " finished before it can continue. To solve this problem, there is another "
 "way to add futures to the context:"
 msgstr ""
+"有时候人们不仅想要启动一个，而是同时启动多个并行运行的进程。使用上述机制，这是不可能的，因为在提交单个进程并返回 ``ToContext`` "
+"实例之后，工作链必须等待例程完成才能继续。要解决这个问题，还有另一种方法可以将未来结果添加到上下文中："
 
 #: ../docs/source/working/workflows.rst:392
 msgid ""
@@ -3161,6 +3239,14 @@ msgid ""
 "the context under the key that was used as the keyword argument in the "
 "``to_context`` call in the previous step."
 msgstr ""
+"在这里，我们在一个大纲步骤中在for循环中提交三个工作链，但是我们不是返回 ``ToContext`` 的实例，而是调用 "
+":meth:`~aiiida.engine.processes.workchains.workchain.WorkChain.to_context ` "
+"方法。这个方法与 ``ToContext`` "
+"类的语法完全相同，只是没有必要返回它的值，所以我们可以在一个大纲步骤中多次调用它。在AiiDA引擎下，其功能也与 ``ToContext`` 类相同。在"
+" ``submit_workchains`` 大纲步骤结束时，引擎将通过调用 ``to_context`` "
+"找到所添加的未来期望结果，并等待所有这些未来结果完成。这里的好处是这三个子工作链可以并行运行，一旦完成所有这些工作链，父工作链将进入下一步，即 "
+"``inspect_workchains`` 。在那里，我们可以在上下文的上下文中找到工作链的节点，该键在上一步的 ``to_context`` "
+"调用中用作关键字参数。"
 
 #: ../docs/source/working/workflows.rst:399
 msgid ""
@@ -3175,10 +3261,12 @@ msgid ""
 "that list as you submit them. How this can be achieved is explained in the "
 "next section."
 msgstr ""
+"由于我们不希望随后调用 ``to_context`` "
+"来覆盖以前的未来，我们必须创建唯一的键来存储它们。在这个例子中，我们选择使用for循环的索引。该名称没有任何意义，只需要保证唯一的密钥名称。这种模式通常会出现在您希望并行启动多个工作链或算例的位置，并且必须提供唯一的名称。但实质上，您实际上只是创建一个列表，最好能够在上下文中创建列表，并在提交时将未来结果添加到该列表中。如何实现这一点将在下一节中解释。"
 
 #: ../docs/source/working/workflows.rst:407
 msgid "Appending"
-msgstr ""
+msgstr "追加"
 
 #: ../docs/source/working/workflows.rst:408
 msgid ""
@@ -3188,6 +3276,9 @@ msgid ""
 "Consider the example from the previous section, but now we will use the "
 "``append_`` function instead:"
 msgstr ""
+"如果要将已提交的子例程的未来结果添加到上下文中，但将其附加到列表而不是将其分配给键，则可以使用 "
+":func:`~aiida.engine.processes.workchains.context.append_ ` "
+"函数。继续考虑上一节中的示例，现在我们将使用 ``append_`` 函数："
 
 #: ../docs/source/working/workflows.rst:414
 msgid ""
@@ -3202,6 +3293,10 @@ msgid ""
 "``inspect_workchains`` step we can simply iterate over it to access all of "
 "them."
 msgstr ""
+"请注意，在 ``submit_workchains`` 步骤中，我们不再需要根据索引生成唯一键，但我们需将未来结果包装在 ``append_`` "
+"函数中，并将其分配给通用键 ``workchains`` 。引擎将看到 ``append_`` 函数，而不是将对应于未来结果的节点分配给键 "
+"'`workchains`` ，它将把它附加到存储在该键下的列表中。如果列表尚不存在，则会自动创建。  ``self.ctx.workchains`` "
+"现在包含一个列表，其中包含已完成工作链的节点，因此在 ``inspect_workchains`` 步骤中，我们可以简单地迭代它以访问所有这些链接。"
 
 #: ../docs/source/working/workflows.rst:421
 msgid ""
@@ -3211,6 +3306,8 @@ msgid ""
 "same order as they were submitted. Therefore it is dangerous to depend on "
 "the order when using the append method."
 msgstr ""
+"已完成的例程的i例程节点**不一定**会以与 ``to_context`` "
+"调用相同的顺序添加到上下文中的列表中。这是因为未来结果可能不一定按照提交的顺序解决。因此，在使用append方法时依赖顺序是危险的。"
 
 #: ../docs/source/working/workflows.rst:425
 msgid ""
@@ -3218,10 +3315,12 @@ msgid ""
 "method. You can also use it in exactly the same way with ``ToContext`` to "
 "append a process to a list in the context in multiple outline steps."
 msgstr ""
+"请注意， ``append_`` 的使用不仅限于 ``to_context`` 方法。您也可以使用与 ``ToContext`` "
+"完全相同的方式将其添加到多个大纲步骤的上下文列表中。"
 
 #: ../docs/source/working/workflows.rst:431
 msgid "Reporting"
-msgstr ""
+msgstr "报告"
 
 #: ../docs/source/working/workflows.rst:432
 msgid ""
@@ -3232,6 +3331,9 @@ msgid ""
 "functions as a logger of sorts. It takes a single argument, a string, that "
 "is the message that needs to be reported:"
 msgstr ""
+"在执行 ``WorkChain`` 时，我们可能希望让用户及时了解其进度和发生的情况。为此，``WorkChain`` 实现了 "
+":py:meth:`~aiiida.engine.processes.process.Process.report` "
+"方法，该方法用作各种日志。它需要一个参数，一个字符串，即需要报告的消息:"
 
 #: ../docs/source/working/workflows.rst:441
 msgid ""
@@ -3247,6 +3349,10 @@ msgid ""
 " ``verdi process report``, so you never have to explicitly reference the "
 "work chain name, outline step name or date and time in the message itself."
 msgstr ""
+"这会将该消息发送到python的内部日志，这将导致它被默认的AiiDA日志拾取，但它也将触发数据库日志处理程序，该处理程序将消息存储在数据库中并将其链接到节点工作链。这允许"
+" ``verdi process report`` 命令检索所有那些使用 ``report`` "
+"方法为特定例程触发的消息。请注意，除了工作链的pk之外，report 方法还将自动记录工作链的名称以及触发报告消息的大纲步骤的名称。此信息将显示在 "
+"``verdi process report`` 的输出中，因此您无需在消息本身中明确引用工作链名称，大纲步骤名称或日期和时间。"
 
 #: ../docs/source/working/workflows.rst:446
 msgid ""
@@ -3254,11 +3360,11 @@ msgid ""
 "such has been designed to be read by humans only. That is to say, the report"
 " system is not designed to pass information programmatically by parsing the "
 "log messages."
-msgstr ""
+msgstr "值得注意的是，报告系统是一种日志，因此只能被设计为容易阅读的。也就是说，报告系统不是为了通过解析日志消息以编程方式传递信息而设计的。"
 
 #: ../docs/source/working/workflows.rst:452
 msgid "Aborting and exit codes"
-msgstr ""
+msgstr "终止和退出码"
 
 #: ../docs/source/working/workflows.rst:453
 msgid ""
@@ -3274,6 +3380,10 @@ msgid ""
 "return value to communicate programmatically the reason for the work chain "
 "stopping."
 msgstr ""
+"在每个大纲步骤结束时，引擎将检查返回值。如果检测到非零整数值，引擎会将其解释为退出码并停止执行工作链，同时将其例程状态设置为 "
+"``Finished``。另外，整数返回值将被设置为工作链的 ``exit_status`` ，它与 ``Finished`` 进程状态相结合则 "
+"worchain 被认为是 ``Failed`` ，正如所解释的那样在以下部分中 :ref:`process state "
+"<concepts_process_state>` 。这很有用，因为它允许工作流设计人员轻松退出工作链并使用返回值以编程方式知晓工作链停止的原因。"
 
 #: ../docs/source/working/workflows.rst:458
 msgid ""
@@ -3281,6 +3391,7 @@ msgid ""
 "<exit_codes>`_ through the process specification of the work chain. Consider"
 " the following example work chain that defines such an exit code:"
 msgstr ""
+"我们假设您已经阅读了关于如何通过工作链的流程规范 `定义退出码<exit_codes>`_ 的`部分。请考虑以下示例工作链，该工作链定义了这样的退出码："
 
 #: ../docs/source/working/workflows.rst:465
 msgid ""
@@ -3290,6 +3401,8 @@ msgid ""
 " can retrieve the corresponding exit code and abort the ``WorkChain`` by "
 "returning it:"
 msgstr ""
+"现在想象一下，在大纲中，我们启动算例并在下一步检查它是否成功完成。如果计算没有成功完成，下面的代码片段显示了如何检索相应的退出码并通过返回它来中止 "
+"``WorkChain`` :"
 
 #: ../docs/source/working/workflows.rst:482
 msgid ""
@@ -3307,6 +3420,13 @@ msgid ""
 " cause the work chain to be aborted and the ``exit_status`` and "
 "``exit_message`` to be set on the node, which were defined in the spec."
 msgstr ""
+"在 ``inspect_calculation`` 大纲中，我们检索已提交的计算并将其添加到上一步中的上下文中，并通过属性 "
+"``is_finished_ok`` 检查它是否成功完成。如果这返回 ``False`` ，在这个例子中，我们只需触发一条报告消息并返回对应于标签 "
+"``ERROR_CALCULATION_FAILED`` 的退出码。请注意，可以通过 ``WorkChain`` 属性 ``exit_codes`` "
+"检索特定的退出码。这将返回已为 ``WorkChain`` "
+"定义的退出代码集合，然后可以通过将其作为属性访问来检索任何特定的退出代码。返回此退出码，它将是 "
+":py:class:`~aiiida.engine.processes.exit_code.ExitCode` "
+"命名为tuple的实例，将导致工作链中止并且在规范中定义的节点上设置 ``exit_status`` 和 `` exit_message`` ."
 
 #: ../docs/source/working/workflows.rst:490
 msgid ""
@@ -3319,6 +3439,10 @@ msgid ""
 " retrieve it through the ``self.exit_codes`` collection, as that makes it "
 "easily retrievable through the spec by the caller of the work chain."
 msgstr ""
+"符号 ``self.exit_codes.ERROR_CALCULATION_FAILED`` 只是语法糖，用于检索带有该错误标签的规范中定义的 "
+"``ExitCode`` 元组。直接构造自己的 ``ExitCode`` "
+"并从大纲步骤返回它将在中止工作链执行和设置退出状态和消息方面具有完全相同的效果。但是，强烈建议通过规范定义退出码并通过 "
+"``self.exit_codes`` 集合检索它，因为这使得工作链的调用者可以通过通过规范轻松检索。"
 
 #: ../docs/source/working/workflows.rst:494
 msgid ""
@@ -3333,10 +3457,14 @@ msgid ""
 "work chain through the ``exit_status`` property, and based on its value "
 "determine how to proceed."
 msgstr ""
+"关于这种中止工作链执行的方法的最好的部分是，退出状态现在可以通过编程方式使用，例如被父工作链知晓并使用。想象一下，父工作链提交了这个工作链。在它终止执行后，父工作链将想知道子工作链发生了什么。正如在"
+" :ref:`report <working_workchains_reporting>` "
+"部分中已经指出的那样，不应该使用工作链的报告消息。退出状态是一种完美的方式。父工作链可以通过 ``exit_status`` "
+"属性轻松请求子工作链的退出状态，并根据其值确定如何继续。"
 
 #: ../docs/source/working/workflows.rst:503
 msgid "Modular workflow design"
-msgstr ""
+msgstr "模块化工作流设计"
 
 #: ../docs/source/working/workflows.rst:504
 msgid ""
@@ -3345,6 +3473,7 @@ msgid ""
 "exactly one task. These workflows can then be wrapped together by a "
 "\"parent\" workflow to create a larger logical unit."
 msgstr ""
+"在创建复杂工作流时，最好将它们分割成更小的模块部分。在最低级别，每个工作流应该只执行一个任务。然后，这些工作流可以由“父”工作流包装在一起，以创建更大的逻辑单元。"
 
 #: ../docs/source/working/workflows.rst:508
 msgid ""
@@ -3353,16 +3482,18 @@ msgid ""
 "One of the tools that AiiDA provides to simplify this is the ability to "
 "*expose* the ports of another work chain."
 msgstr ""
+"为了使这种方法易于管理，需要尽可能简单地将更多父工作流中的多个工作流粘合在一起。 AiiDA为简化此操作而提供的工具之一是 *暴露（expose* "
+"另一个工作链的端口的能力。"
 
 #: ../docs/source/working/workflows.rst:514
 msgid "Exposing inputs and outputs"
-msgstr ""
+msgstr "暴露输入和输出"
 
 #: ../docs/source/working/workflows.rst:515
 msgid ""
 "Consider the following example work chain, which simply takes a few inputs "
 "and returns them again as outputs:"
-msgstr ""
+msgstr "考虑以下示例工作链，它只需要几个输入并将它们作为输出再次返回:"
 
 #: ../docs/source/working/workflows.rst:520
 msgid ""
@@ -3370,6 +3501,7 @@ msgid ""
 "forwards its inputs to ``ChildWorkChain``, and forwards the outputs of the "
 "child to its outputs:"
 msgstr ""
+"作为第一个例子，我们将实现一个小型的封装的工作流，它只是将其输入转发到 ``ChildWorkChain`` ，并将后代的输出转发到它的输出："
 
 #: ../docs/source/working/workflows.rst:525
 msgid ""
@@ -3389,6 +3521,16 @@ msgid ""
 "added to the outputs of the parent work chain. This work chain can now be "
 "run in exactly the same way as the child itself:"
 msgstr ""
+"在这个简单的父工作链的 ``define`` 方法中，我们使用 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 "
+":meth:`~pumpmpy.process_spec.ProcessSpec.expose_outputs` "
+"。这将在父工作链中创建相应的输入和输出端口。此外，AiiDA还记得从该特定工作链类中暴露了哪些输入和输出。在 ``run_child`` "
+"方法中调用子进程时使用此方法。 "
+":meth:`~aiiida.engine.processes.process.Process.exposed_inputs`方法返回父工作链接收到的从子例程中暴露的输入的字典，因此可以用它将这些输入传递给子例程。最后，在"
+" ``finalize`` 方法中，我们使用 "
+":meth:`~aiiida.engine.processes.process.Process.exposed_outputs`来检索暴露给父例程的子例程的输出。使用"
+" :meth:`~aiiida.engine.processes.process.Process.out_many` "
+"，这些输出被添加到父工作链的输出中。现在，此工作链可以与子项本身完全相同的方式运行:"
 
 #: ../docs/source/working/workflows.rst:537
 msgid ""
@@ -3401,12 +3543,16 @@ msgid ""
 "two children, where the inputs and outputs which are not shared are stored. "
 "Our goal is that the workflow can be called as follows:"
 msgstr ""
+"接下来，我们将看到如何通过使用暴露功能的其他功能来创建更复杂的父工作链。以下工作链启动了两个子项。这些子项共享输入 ``a`` ，但有不同的 ``b``"
+" 和 ``c`` 。输出 ``e`` 将仅从第一个子项中获取，而 ``d`` 和 ``f`` "
+"同时从两个子项中获取。为了避免名称冲突，我们需要为两个子节点中的每一个创建一个 *命名空间* "
+"，其中存储未共享的输入和输出。我们的目标是可以按如下方式调用工作流程:"
 
 #: ../docs/source/working/workflows.rst:547
 msgid ""
 "This is achieved by the following workflow. In the next section, we will "
 "explain each of the steps."
-msgstr ""
+msgstr "这是通过以下工作流程实现的。在下一节中，我们将解释每个步骤。"
 
 #: ../docs/source/working/workflows.rst:553
 msgid ""
@@ -3419,6 +3565,11 @@ msgid ""
 "``include=['a']`` to :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs`,"
 " only the input ``a`` is exposed."
 msgstr ""
+"首先，我们希望在顶层公开 ``a`` 输入和 ``e`` 输出。为此，我们再次使用 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_outputs` ，但使用可选关键字 "
+"``include`` 。这指定了一个键列表，只显示该列表中的输入或输出。因此，通过将 ``include = ['a']`` 传递给 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` ，只显示输入 ``a`` 。"
 
 #: ../docs/source/working/workflows.rst:558
 msgid ""
@@ -3429,6 +3580,9 @@ msgid ""
 "``exclude`` keyword, which specifies a list of keys that will not be "
 "exposed."
 msgstr ""
+"另外，我们希望暴露输入 ``b`` 和 ``c`` （输出 ``d`` 和 ``f`` ），但是在特定于两个子项中的每一个的命名空间中。为此，我们将 "
+"``namespace`` 参数传递给 expose 函数。但是，由于我们现在不应该再次暴露 ``a`` （ ``e`` ），我们使用 "
+"``exclude`` 关键字，它指定了一个不会暴露的键列表。"
 
 #: ../docs/source/working/workflows.rst:562
 msgid ""
@@ -3446,6 +3600,12 @@ msgid ""
 "``agglomerate=False``, as shown in the call to ``child_2``. Of course, we "
 "then need to explicitly pass the input ``a``."
 msgstr ""
+"在调用子项时，我们再次使用 :meth:`~aiida.engine.processes.process.Process.exposed_inputs`"
+" 方法来转发暴露的输入。由于输入 ``b`` 和 ``c`` 现在位于特定的命名空间中，我们需要将此命名空间作为附加参数传递。默认情况下， "
+":meth:`~aiida.engine.processes.process.Process.exposed_inputs` "
+"将搜索给定命名空间的所有父命名空间以搜索输入，如调用 ``child_1`` "
+"所示。如果多个名称空间中存在相同的输入键，则最低名称空间中的输入优先。也可以禁用此行为，而只搜索传递的显式命名空间。这是通过设置 "
+"``agglomerate=False`` 来完成的，如调用 ``child_2`` 所示。当然，我们需要显式传递输入 ``a`` 。"
 
 #: ../docs/source/working/workflows.rst:570
 msgid ""
@@ -3457,11 +3617,15 @@ msgid ""
 "outputs are returned by the "
 ":meth:`~aiida.engine.processes.process.Process.exposed_outputs` method."
 msgstr ""
+"最后，我们使用 :meth:`~aiida.engine.processes.process.Process.exposed_outputs` 和 "
+":meth:`~aiida .engine.processes.process.Process.out_many` 将子项们的输出转发给父项输出。同样，"
+" ``namespace`` 和 ``agglomerate`` 选项可用于决定 "
+":meth:`~aiida.engine.processes.process.Process.exposed_outputs` 方法返回哪些输出。"
 
 #: ../docs/source/working/workflows.rst:577
 msgid "https://docs.python.org/3.5/library/functions.html#classmethod"
-msgstr ""
+msgstr "https://docs.python.org/3.5/library/functions.html#classmethod"
 
 #: ../docs/source/working/workflows.rst:578
 msgid "https://en.wikipedia.org/wiki/Fizz_buzz"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Fizz_buzz"

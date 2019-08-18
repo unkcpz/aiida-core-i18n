@@ -34,6 +34,8 @@ msgid ""
 " it will re-use existing calculations if a calculation with the same inputs "
 "is submitted again."
 msgstr ""
+"在使用AiiDA时，有时可能会重新运行已经成功执行的算例。因为这可能会浪费大量计算资源，所以可以启用AiiDA **缓存** "
+"算例，这意味着如果再次提交具有相同输入的计算，它将重用现有的计算。"
 
 #: ../docs/source/working_with_aiida/caching.rst:9
 msgid ""
@@ -43,12 +45,13 @@ msgid ""
 " This allows for the new calculation to be a separate Node in the provenance"
 " graph and, critically, preserves the acyclicity of the graph."
 msgstr ""
+"当缓存算例时，将创建原始算例的副本。此副本将保留新算例的输入链接。原始算例的输出也被复制，并链接到新的算例。这使得新的算例可以作为可验证性图中的一个单独节点，并且保持了图的无环性。"
 
 #: ../docs/source/working_with_aiida/caching.rst:11
 msgid ""
 "Caching is also implemented for Data nodes. This is not very useful in "
 "practice (yet), but is an easy way to show how the caching mechanism works:"
-msgstr ""
+msgstr "数据节点也实现了缓存。这在实践中(目前)还不是很有用，但是这是展示缓存机制工作原理的一种简单方法:"
 
 #: ../docs/source/working_with_aiida/caching.rst:36
 msgid ""
@@ -56,6 +59,8 @@ msgid ""
 "using the cache. The fact that ``n2`` was created from ``n1`` is stored in "
 "the ``_aiida_cached_from`` extra of ``n2``."
 msgstr ""
+"正如你所看到的，通过向 ``store`` 的方法传入 ``use_cache=True`` 可以开启缓存。``n2`` 创建自 ``n1`` "
+"这一事件事实，储存在``_aiida_cached_from`` 这一 ``n2`` 的附加属性中。"
 
 #: ../docs/source/working_with_aiida/caching.rst:38
 msgid ""
@@ -64,6 +69,8 @@ msgid ""
 "internally. Instead, you can pass the ``_use_cache`` flag to the ``run`` or "
 "``submit`` method."
 msgstr ""
+"当通过 ``Process`` 接口运行 ``CalcJob`` 时，且当算例节点存储在内部时，不能直接设置 ``use_cache`` "
+"标志。相反，您可以将 ``_use_cache`` 标志传递给 ``run`` 或 ``submit`` 方法。"
 
 #: ../docs/source/working_with_aiida/caching.rst:40
 msgid ""
@@ -73,6 +80,8 @@ msgid ""
 "should be returned without actually running the workchain. This is explained"
 " in more detail in the section :ref:`caching_provenance`."
 msgstr ""
+"缓存没有为工作链和工作函数实现。与算例不同，它们不仅可以创建新的数据节点，还可以返回已删除的节点。复制缓存的工作链时，如果不实际运行工作链，就不清楚应该返回哪个节点。这在"
+" ref:`caching_provenance` 一节中有更详细的解释。"
 
 #: ../docs/source/working_with_aiida/caching.rst:43
 msgid "Configuration"
@@ -87,6 +96,9 @@ msgid ""
 "calculation or data classes. An example configuration file might look like "
 "this:"
 msgstr ""
+"当然，如果你必须在任何地方手动设置 ``use_cache`` ，那么使用缓存将非常麻烦。要解决这个问题，可以在 "
+"``.aiida/cache_config.yml`` 中设置 ``use_cache`` "
+"的默认值。您可以为特定的算例或数据类指定全局缺省值，或启用/禁用缓存。一个示例配置文件可能是这样的:"
 
 #: ../docs/source/working_with_aiida/caching.rst:57
 msgid ""
@@ -101,15 +113,20 @@ msgid ""
 "name and class name, or (usually) from the string representation of the "
 "class:"
 msgstr ""
+"这意味着缓存为 ``TemplatereplacerCalculation`` 和 ``Str`` "
+"启用，并为所有其他类禁用。在本例中，手动禁用``aiida.orm.nodes.data.float`` 实际上并不是必须的，因为 ``default:"
+" False`` 配置意味着所有类都禁用缓存，除非手动启用缓存。还要注意，必须提供完全限定的类导入名(例如， "
+"``aiida.orm.nodes.data. Str`` )，而不仅仅是类名( ``Str`` "
+")。这是为了避免意外地匹配具有相同名称的类。可以通过组合模块名和类名来得到这个名称，或者(通常)从类的字符串表示中得到:"
 
 #: ../docs/source/working_with_aiida/caching.rst:68
 msgid ""
 "Note that this is not the same as the type string stored in the database."
-msgstr ""
+msgstr "注意，这与数据库中存储的类型字符串不同。"
 
 #: ../docs/source/working_with_aiida/caching.rst:73
 msgid "How are cached nodes matched?"
-msgstr ""
+msgstr "缓存节点是如何匹配的?"
 
 #: ../docs/source/working_with_aiida/caching.rst:75
 msgid ""
@@ -121,33 +138,36 @@ msgid ""
 "database, its hash is stored in the ``_aiida_hash`` extra, and this is used "
 "to find matching nodes."
 msgstr ""
+"要确定给定节点是否与现有节点相同，需要创建节点内容的哈希（hash）。如果数据库中已经存在具有相同哈希的相同类的节点，则认为这是相同的缓存。可以使用 "
+":meth:`.get_hash() <aiida.orm.nodes.Node.get_hash>` "
+"手动检查给定节点的哈希值。一旦一个节点存储在数据库中，它的散列存储在 ``_aiida_hash`` 附加属性中，这将被用于查找匹配的节点。"
 
 #: ../docs/source/working_with_aiida/caching.rst:77
 msgid "By default, this hash is created from:"
-msgstr ""
+msgstr "默认情况下，这个散列是由下面方式创建的:"
 
 #: ../docs/source/working_with_aiida/caching.rst:79
 msgid "all attributes of a node, except the ``_updatable_attributes``"
-msgstr ""
+msgstr "节点的所有属性，除了 ``_updatable_attributes``"
 
 #: ../docs/source/working_with_aiida/caching.rst:80
 msgid "the ``__version__`` of the module which defines the node class"
-msgstr ""
+msgstr "定义节点类的模块的  ``_version__``"
 
 #: ../docs/source/working_with_aiida/caching.rst:81
 msgid "the content of the repository folder of the node"
-msgstr ""
+msgstr "节点的repository文件夹的内容"
 
 #: ../docs/source/working_with_aiida/caching.rst:82
 msgid "the UUID of the computer, if the node has one"
-msgstr ""
+msgstr "如果节点有UUID，则为计算机的UUID"
 
 #: ../docs/source/working_with_aiida/caching.rst:84
 msgid ""
 "In the case of calculations, the hashes of the inputs are also included. "
 "When developing calculation and data classes, there are some methods you can"
 " use to determine how the hash is created:"
-msgstr ""
+msgstr "对某些算例中，输入节点的哈希值也包括在内。在开发算例和数据类时，有一些方法可以用来确定如何创建哈希:"
 
 #: ../docs/source/working_with_aiida/caching.rst:86
 msgid ""
@@ -155,12 +175,14 @@ msgid ""
 "``_hash_ignored_attributes`` attribute. This is a list of attribute names "
 "which are ignored when creating the hash."
 msgstr ""
+"要忽略特定的属性， ``Node`` 子类拥有 ``_hash_ignored_attributes`` "
+"属性。这是一个当创建哈希时要被忽略的属性名的列表。"
 
 #: ../docs/source/working_with_aiida/caching.rst:87
 msgid ""
 "For calculations, the ``_hash_ignored_inputs`` attribute lists inputs that "
 "should be ignored when creating the hash."
-msgstr ""
+msgstr "在创建算例哈希时 ``_hash_ignored_inputs`` 属性列出了需要被忽略的输入的列表的。"
 
 #: ../docs/source/working_with_aiida/caching.rst:88
 msgid ""
@@ -169,6 +191,9 @@ msgid ""
 "method. Note that doing so overrides the behavior described above, so you "
 "should make sure to use the ``super()`` method."
 msgstr ""
+"要添加应该在哈希中考虑的内容，可以覆盖 :meth:`_get_objects_to_hash "
+"<aiida.orm.nodes.Node._get_objects_to_hash>` 方法。注意，这样做会覆盖上面描述的行为，所以应该确保使用 "
+"``super()`` 方法。"
 
 #: ../docs/source/working_with_aiida/caching.rst:89
 msgid ""
@@ -179,12 +204,16 @@ msgid ""
 "<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>` to ignore the "
 "``raw_input`` subfolder of its repository folder."
 msgstr ""
+"将关键字参数传递给 :meth:`get_hash<aiida.orm.nodes.Node.get_hash >` 。它们被传递给' "
+"`aiida.common. hash.make_hash` 。例如，`ignored_folder_content` 关键字由 "
+":class:`JobCalculation <aiida.orm.nodes.process. "
+"calculation.calcjob.CalcJobNode` 使用。以忽略其存储库文件夹的``raw_input`` 子文件夹"
 
 #: ../docs/source/working_with_aiida/caching.rst:91
 msgid ""
 "Additionally, there are two methods you can use to disable caching for "
 "particular nodes:"
-msgstr ""
+msgstr "此外，有两种方法可以用来禁用特定节点的缓存:"
 
 #: ../docs/source/working_with_aiida/caching.rst:93
 msgid ""
@@ -192,13 +221,15 @@ msgid ""
 " a particular node can be used as a cache. This is used for example to "
 "disable caching from failed calculations."
 msgstr ""
+":meth:`~aiida.orm.nodes.Node.is_valid_cache` "
+"属性函数确定是否可以将特定节点用作缓存。例如，这用于从失败的计算中禁用缓存。"
 
 #: ../docs/source/working_with_aiida/caching.rst:94
 msgid ""
 "Node classes have a ``_cachable`` attribute, which can be set to ``False`` "
 "to completely switch off caching for nodes of that class. This avoids "
 "performing queries for the hash altogether."
-msgstr ""
+msgstr "节点类有一个 ``_cachable`` 属性，可以将其设置为 ``False`` ，以完全关闭该类节点的缓存。这避免了对哈希执行查询。"
 
 #: ../docs/source/working_with_aiida/caching.rst:96
 msgid ""
@@ -211,17 +242,19 @@ msgid ""
 "this when modifying the caching behaviour of your calculation and data "
 "classes."
 msgstr ""
+"哈希匹配出错的方式有两种: "
+"假阴性(两个节点应该有相同的哈希，但没有)或假阳性(两个不同的节点有相同的哈希)。重要的是要理解否定是**更加优先的**，因为它们只会增加计算的运行时，就像禁用了缓存一样。然而，误报可能会破坏您的计算逻辑。在修改算例类和数据类的缓存行为时要注意这一点。"
 
 #: ../docs/source/working_with_aiida/caching.rst:101
 msgid "What to do when caching is used when it shouldn't"
-msgstr ""
+msgstr "当缓存在本不应被使用的地方使用时应该怎么办"
 
 #: ../docs/source/working_with_aiida/caching.rst:103
 msgid ""
 "In general, the caching mechanism should trigger only when the output of a "
 "calculation will be exactly the same as if it is run again. However, there "
 "might be some edge cases where this is not true."
-msgstr ""
+msgstr "通常，只有当算例的输出与再次运行时完全相同时，缓存机制才应该触发。然而，在一些边缘情况下，这是不正确的。"
 
 #: ../docs/source/working_with_aiida/caching.rst:105
 msgid ""
@@ -232,25 +265,26 @@ msgid ""
 " changes, there might still be cases (e.g. during development) when you "
 "manually want to stop a particular node from being cached."
 msgstr ""
+"例如，如果解析器位于与算例不同的python模块中，则在更新解析器时，哈希中使用的版本号不会更改。虽然这个问题的“正确”解决方案是在其解析器的行为发生变化时增加计算的版本号，但是仍然有一些情况(例如在开发期间)需要手动停止缓存特定节点。"
 
 #: ../docs/source/working_with_aiida/caching.rst:107
 msgid "In such cases, you can follow these steps to disable caching:"
-msgstr ""
+msgstr "在这种情况下，你可以按照以下步骤禁用缓存:"
 
 #: ../docs/source/working_with_aiida/caching.rst:109
 msgid ""
 "If you suspect that a node has been cached in error, check that it has a "
 "``_aiida_cached_from`` extra. If that's not the case, it is not a problem of"
 " caching."
-msgstr ""
+msgstr "如果您怀疑某个节点在错误缓存，请检查它是否有一个 ``_aiida_cached_from` 附加属性。如果没有，那就不是缓存的问题。"
 
 #: ../docs/source/working_with_aiida/caching.rst:110
 msgid "Get all nodes which match your node, and clear their hash:"
-msgstr ""
+msgstr "获取所有与您的节点匹配的节点，并清除它们的散列:"
 
 #: ../docs/source/working_with_aiida/caching.rst:116
 msgid "Run your calculation again. Now it should not use caching."
-msgstr ""
+msgstr "重新运行你的算例。现在它将不会被缓存。"
 
 #: ../docs/source/working_with_aiida/caching.rst:118
 msgid ""
@@ -259,10 +293,12 @@ msgid ""
 "otherwise it is hard for us to help you) in the AiiDA GitHub repository: "
 "https://github.com/aiidateam/aiida-core/issues/new."
 msgstr ""
+"如果你认为存在一个AiiDA实现上的bug，请在AiiDA GitHub仓库中 https://github.com/aiidateam/aiida-"
+"core/issues/new 新建一个 issue（包含足够的信息以重现错误，否则我们将难以向您提供帮助）。"
 
 #: ../docs/source/working_with_aiida/caching.rst:123
 msgid "Caching and the Provenance Graph"
-msgstr ""
+msgstr "缓存和可验证性图"
 
 #: ../docs/source/working_with_aiida/caching.rst:125
 msgid ""
@@ -270,7 +306,7 @@ msgid ""
 "using duplicate calculations. However, the resulting provenance graph should"
 " be exactly the same as if caching was disabled. This has important "
 "consequences on the kind of caching operations that are possible."
-msgstr ""
+msgstr "缓存机制的目标是通过重用重复算例来加速AiiDA计算。然而，结果的可验证性应该与禁用缓存时完全相同。这对可能的缓存操作类型有重要影响。"
 
 #: ../docs/source/working_with_aiida/caching.rst:127
 msgid ""
@@ -280,13 +316,14 @@ msgid ""
 " equivalent. To successfully use a cached node however, we also need to know"
 " how the new node should be linked to its parents and children."
 msgstr ""
+"可验证性图由描述数据、算例和工作链的节点以及描述这些节点之间关系的链接组成。我们已经看到，节点的哈希值用于确定两个节点是否相等。然而，要成功地使用缓存的节点，我们还需要知道如何将新节点链接到它的父节点和子节点。"
 
 #: ../docs/source/working_with_aiida/caching.rst:129
 msgid ""
 "In the case of a plain data node, this is simple: Copying a data node from "
 "an equivalent node should not change its links, so we just need to preserve "
 "the links which this new node already has."
-msgstr ""
+msgstr "对于普通数据节点，这很简单: 从等效节点复制数据节点不应该更改其链接，因此我们只需要保留这个新节点已经拥有的链接。"
 
 #: ../docs/source/working_with_aiida/caching.rst:131
 msgid ""
@@ -296,6 +333,8 @@ msgid ""
 "copy of each node and link these as its outputs. This makes it look as if "
 "the calculation had produced these outputs itself, without caching."
 msgstr ""
+"对于算例，情况要复杂一些: "
+"节点可以有输入并创建新的数据节点作为输出。同样，新节点需要保留其现有链接。对于输出，算例需要创建每个节点的副本，并将它们链接为输出。这使得算例看起来就像在没有缓存的情况下自己生成了这些输出。"
 
 #: ../docs/source/working_with_aiida/caching.rst:133
 msgid ""
@@ -304,6 +343,7 @@ msgid ""
 "even their ancestors. This is where caching becomes impossible. Consider the"
 " following example (using workfunctions for simplicity):"
 msgstr ""
+"最后，工作链不仅可以创建到它们自己创建的节点的链接，还可以创建到它们调用的计算甚至它们的祖先创建的节点的链接。这就是缓存变得不可能的地方。考虑下面的例子(为简单起见，使用工作函数):"
 
 #: ../docs/source/working_with_aiida/caching.rst:148
 msgid ""
@@ -313,6 +353,8 @@ msgid ""
 "from the first one, it is not clear which of the two input nodes should be "
 "returned."
 msgstr ""
+"两个 ``select`` "
+"工作函数的哈希输入相同。然而，第一个使用相同的输入节点调用两次，而第二个调用有两个不同的输入。如果应该从第一个调用缓存第二个调用，则不清楚应该返回两个输入节点中的哪个。"
 
 #: ../docs/source/working_with_aiida/caching.rst:150
 msgid ""
@@ -322,6 +364,8 @@ msgid ""
 "inputs) can have a different history, there is no way to deduce which links "
 "should be created on the new workchain without actually running it."
 msgstr ""
+"虽然这个例子看起来有些做作，但是结论在更一般的情况下是有效的: "
+"因为工作链可以从它们的历史中返回节点，所以它们不能被缓存。由于即使是两个等价的工作链(具有相同的输入)也可能具有不同的历史，因此没有办法在不实际运行新工作链的情况下推断应该在新工作链上创建哪些链接。"
 
 #: ../docs/source/working_with_aiida/caching.rst:152
 msgid ""
@@ -330,10 +374,12 @@ msgid ""
 "can be avoided with the caching mechanism, it still improves the runtime and"
 " required computer resources a lot."
 msgstr ""
+"总的来说，这个限制是可以接受的: "
+"AiiDA工作链的运行时间通常由花费在昂贵算例中的时间所支配。由于使用缓存机制可以避免这些问题，因此它仍然大大缓和了运行时和所需的计算机资源。"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:2
 msgid "AiiDA cookbook (useful code snippets)"
-msgstr ""
+msgstr "AiiDA cookbook (有用的代码片段)"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:4
 msgid ""
@@ -341,42 +387,43 @@ msgid ""
 "code snippets that may be useful in the everyday usage of AiiDA. Please read"
 " carefully the notes (if any) before running the scripts!"
 msgstr ""
+"cookbook旨在收集有用的简短脚本和代码片段，这些脚本和代码片段可能在AiiDA的日常使用中很有用。在运行脚本之前，请仔细阅读注释(如果有的话)!"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:9
 msgid "Checking the queued jobs on a scheduler"
-msgstr ""
+msgstr "检查调度程序上排队的作业"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:11
 msgid ""
 "If you want to know if which jobs are currently on the scheduler (e.g. to "
 "dynamically decide on which computer to submit, or to delay submission, "
 "etc.) you can use a modification of the following script::"
-msgstr ""
+msgstr "如果您想知道当前调度程序上有哪些作业(例如，动态决定提交哪台计算机，或延迟提交等)，可以使用以下脚本的修改::"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:67
 msgid "Use ``verdi run`` to execute it::"
-msgstr ""
+msgstr "使用 ``verdi run`` 运行它::"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:71
 msgid ""
 "Every time you call the function, an ssh connection is executed! So be "
 "careful and run this function sparsely, or your supercomputer centre might "
 "block your account."
-msgstr ""
+msgstr "每次调用该函数时，都会执行ssh连接!因此，请小心谨慎地运行这个函数，否则您的超级计算机中心可能会阻塞您的帐户。"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:75
 msgid ""
 "Another alternative if you want to call many times the function is to pass "
 "the transport as a parameter, and keep it open from the outside."
-msgstr ""
+msgstr "如果您想多次调用该函数，另一种选择是将传输作为参数传递，并保持它从外部打开。"
 
 #: ../docs/source/working_with_aiida/cookbook.rst:78
 msgid "An example output would be::"
-msgstr ""
+msgstr "一个输出样例是::"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:2
 msgid "Daemon as system service"
-msgstr ""
+msgstr "将守护进程作为系统服务"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:4
 msgid ""
@@ -385,6 +432,8 @@ msgid ""
 "<https://www.freedesktop.org/software/systemd/man/systemd.service.html>`_ "
 "for it."
 msgstr ""
+"如果你希望 AiiDA 守护进程在你启动linux系统的时候运行，你可以为其配置一个 `systemd service "
+"<https://www.freedesktop.org/software/systemd/man/systemd.service.html>`_ 。"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:9
 msgid ""
@@ -392,20 +441,22 @@ msgid ""
 "``{{ venv_dir }}``, ``{{ home_dir }}`` and  ``{{ user }}`` by appropriate "
 "values::"
 msgstr ""
+"使用下面的模板创建文件 ``aiida-daemon@.service`` 并用合适的值替换 ``{{ venv_dir }}``, ``{{ "
+"home_dir }}`` 和  ``{{ user }}`` ::"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:39
 msgid "Install the service like so::"
-msgstr ""
+msgstr "如下安装服务::"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:44
 msgid "Start the AiiDA daemon service for a profile ``profile``::"
-msgstr ""
+msgstr "对 ``profile`` 配置文件开启AiiDA守护进程服务::"
 
 #: ../docs/source/working_with_aiida/daemon_service.rst:48
 msgid ""
 "After this, the AiiDA daemon should start together with your system. To "
 "remove the service again::"
-msgstr ""
+msgstr "在此之后，AiiDA守护进程应该与您的系统一起启动。删除服务::"
 
 #: ../docs/source/working_with_aiida/groups.rst:2
 #: ../docs/source/working_with_aiida/index.rst:89
@@ -419,23 +470,24 @@ msgid ""
 "relationships between calculations and data objecs -- it is often desired to"
 " organize them in Groups."
 msgstr ""
+"组(groups)根据它们之间共享的一些公共属性提供了额外的数据组织级别。由于在默认情况下，AiiDA只管理计算和数据对象之间的临时关系——通常希望将它们分组。"
 
 #: ../docs/source/working_with_aiida/groups.rst:9
 msgid ""
 "Nodes of any types may be organized in Groups. Unlike Nodes, Groups can be "
 "modified at any time. Here we profide the list of typical operations that "
 "may be performed with Groups:"
-msgstr ""
+msgstr "任何类型的节点都可以组织成组。与节点不同，组可以随时修改。在这里，我们介绍了可能与组一起执行的典型操作列表:"
 
 #: ../docs/source/working_with_aiida/groups.rst:13
 msgid ""
 "Any deletion operation like delition of a Group or nodes from a Group will "
 "not delete the nodes themselfs. They will remain in you AiiDA database."
-msgstr ""
+msgstr "任何删除操作，例如删除一个组或组中的一个节点，都不会删除节点本身。他们将留在您的AiiDA数据库。"
 
 #: ../docs/source/working_with_aiida/groups.rst:29
 msgid "**Create a new Group.**"
-msgstr ""
+msgstr "**创建一个新的组。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:18
 #: ../docs/source/working_with_aiida/groups.rst:53
@@ -445,7 +497,7 @@ msgstr ""
 #: ../docs/source/working_with_aiida/groups.rst:95
 #: ../docs/source/working_with_aiida/groups.rst:104
 msgid "From command line interface::"
-msgstr ""
+msgstr "从命令行接口::"
 
 #: ../docs/source/working_with_aiida/groups.rst:22
 #: ../docs/source/working_with_aiida/groups.rst:38
@@ -453,15 +505,15 @@ msgstr ""
 #: ../docs/source/working_with_aiida/groups.rst:88
 #: ../docs/source/working_with_aiida/groups.rst:108
 msgid "From python interface::"
-msgstr ""
+msgstr "从python接口::"
 
 #: ../docs/source/working_with_aiida/groups.rst:50
 msgid "**List available Groups.**"
-msgstr ""
+msgstr "**列出所有可用组。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:32
 msgid "> verdi group list"
-msgstr ""
+msgstr "> verdi group list"
 
 #: ../docs/source/working_with_aiida/groups.rst:34
 msgid ""
@@ -469,45 +521,47 @@ msgid ""
 "you want to show groups of other type use ``-t/--type`` options. If you want"
 " to show groups of all types, use ``-a/--all-types`` option."
 msgstr ""
+"默认情况下 ``verdi group list`` 只显示类型为 *user* 的组。如果你要显示其他类型的组，使用 ``-t/--type`` "
+"参数。如果你要显示所有类型的组，使用 ``-a/--all-types`` 参数。"
 
 #: ../docs/source/working_with_aiida/groups.rst:68
 msgid "**Add nodes to a Group.**"
-msgstr ""
+msgstr "**向组中添加节点。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:57
 msgid "Here we are adding Node with pk number 1 to the group we just created"
-msgstr ""
+msgstr "这里，我们将pk number 1的节点添加到刚刚创建的组中"
 
 #: ../docs/source/working_with_aiida/groups.rst:74
 msgid "**Show information about a Group.**"
-msgstr ""
+msgstr "**显示关于组的信息。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:76
 msgid "**Remove nodes from a Group.**"
-msgstr ""
+msgstr "**从组中移除节点。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:92
 msgid "**Rename Group.**"
-msgstr ""
+msgstr "**重命名组。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:97
 msgid "**Delete Group.**"
-msgstr ""
+msgstr "**删除组。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:116
 msgid "**Copy one group into anohter.**"
-msgstr ""
+msgstr "**将一个组拷贝为其他组。**"
 
 #: ../docs/source/working_with_aiida/groups.rst:100
 msgid ""
 "This operation will copy the content of source group into the destination "
 "group. Moreover, if the destination group does not exist it will be created "
 "automatically."
-msgstr ""
+msgstr "此操作将把原来的组的内容复制到目标组中。此外，如果目标组不存在，将自动创建它。"
 
 #: ../docs/source/working_with_aiida/index.rst:3
 msgid "Command line interface"
-msgstr ""
+msgstr "命令行接口"
 
 #: ../docs/source/working_with_aiida/index.rst:5
 msgid ""
@@ -519,126 +573,129 @@ msgid ""
 "interface of ``verdi``. This will make understanding and using ``verdi`` a "
 "lot easier!"
 msgstr ""
+"与AiiDA交互的主要方式是通过一个名为 ``verdi`` "
+"的命令行界面工具。下面，您将看到所有可用命令的概述，并超链接到对它们的用法和可用参数的更详细说明。但在您开始之前，请花几分钟阅读 "
+":ref:`常规概念<cli_concepts>` ，它适用于 ``verdi`` 的整个接口。这将使理解和使用 ``verdi`` 容易得多!"
 
 #: ../docs/source/working_with_aiida/index.rst:12
 msgid ":ref:`calcjob<verdi_calcjob>`:  Inspect and manage calcjobs."
-msgstr ""
+msgstr ":ref:`calcjob<verdi_calcjob>`:  检查和管理算例任务（calcjobs）。"
 
 #: ../docs/source/working_with_aiida/index.rst:13
 msgid ":ref:`code<verdi_code>`:  Setup and manage codes."
-msgstr ""
+msgstr ":ref:`code<verdi_code>`:  设置和管理计算代码。"
 
 #: ../docs/source/working_with_aiida/index.rst:14
 msgid ""
 ":ref:`comment<verdi_comment>`:  Inspect, create and manage node comments."
-msgstr ""
+msgstr ":ref:`comment<verdi_comment>`:  检查，创建和管理节点注释。"
 
 #: ../docs/source/working_with_aiida/index.rst:15
 msgid ""
 ":ref:`completioncommand<verdi_completioncommand>`:  Return the bash code to "
 "activate completion."
-msgstr ""
+msgstr ":ref:`completioncommand<verdi_completioncommand>`:  返回激活补齐命令的bash代码。"
 
 #: ../docs/source/working_with_aiida/index.rst:16
 msgid ":ref:`computer<verdi_computer>`:  Setup and manage computers."
-msgstr ""
+msgstr ":ref:`computer<verdi_computer>`:  设置和管理计算资源。"
 
 #: ../docs/source/working_with_aiida/index.rst:17
 msgid ""
 ":ref:`config<verdi_config>`:  Set, unset and get profile specific or global "
 "configuration options."
-msgstr ""
+msgstr ":ref:`config<verdi_config>`:  放置，移除，或获取特定的或全局的配置文件选项。"
 
 #: ../docs/source/working_with_aiida/index.rst:18
 msgid ":ref:`daemon<verdi_daemon>`:  Inspect and manage the daemon."
-msgstr ""
+msgstr ":ref:`daemon<verdi_daemon>`:  检查和管理守护进程。"
 
 #: ../docs/source/working_with_aiida/index.rst:19
 msgid ":ref:`data<verdi_data>`:  Inspect, create and manage data nodes."
-msgstr ""
+msgstr ":ref:`data<verdi_data>`:  检查，创建和管理数据节点。"
 
 #: ../docs/source/working_with_aiida/index.rst:20
 msgid ":ref:`database<verdi_database>`:  Inspect and manage the database."
-msgstr ""
+msgstr ":ref:`database<verdi_database>`:  检查和管理数据库。"
 
 #: ../docs/source/working_with_aiida/index.rst:21
 msgid ":ref:`devel<verdi_devel>`:  Commands for developers."
-msgstr ""
+msgstr ":ref:`devel<verdi_devel>`:  开发者相关的命令。"
 
 #: ../docs/source/working_with_aiida/index.rst:22
 msgid ":ref:`export<verdi_export>`:  Create and manage export archives."
-msgstr ""
+msgstr ":ref:`export<verdi_export>`:  创建和管理输出的存档"
 
 #: ../docs/source/working_with_aiida/index.rst:23
 msgid ""
 ":ref:`graph<verdi_graph>`:  Create visual representations of part of the "
 "provenance graph."
-msgstr ""
+msgstr ":ref:`graph<verdi_graph>`:  创建可视化的部分的可验证性图"
 
 #: ../docs/source/working_with_aiida/index.rst:24
 msgid ":ref:`group<verdi_group>`:  Create, inspect and manage groups."
-msgstr ""
+msgstr ":ref:`group<verdi_group>`:  创建，检查，和管理组。"
 
 #: ../docs/source/working_with_aiida/index.rst:25
 msgid ""
 ":ref:`import<verdi_import>`:  Import one or multiple exported AiiDA archives"
-msgstr ""
+msgstr ":ref:`import<verdi_import>`:  导入一个或多个AiiDA存档"
 
 #: ../docs/source/working_with_aiida/index.rst:26
 msgid ":ref:`node<verdi_node>`:  Inspect, create and manage nodes."
-msgstr ""
+msgstr ":ref:`node<verdi_node>`:  检查，创建和管理节点。"
 
 #: ../docs/source/working_with_aiida/index.rst:27
 msgid ""
 ":ref:`plugin<verdi_plugin>`:  Inspect installed plugins for various entry "
 "point categories."
-msgstr ""
+msgstr ":ref:`plugin<verdi_plugin>`:  对各个载入点检查已经安装的插件。"
 
 #: ../docs/source/working_with_aiida/index.rst:28
 msgid ":ref:`process<verdi_process>`:  Inspect and manage processes."
-msgstr ""
+msgstr ":ref:`process<verdi_process>`:  检查和管理例程。"
 
 #: ../docs/source/working_with_aiida/index.rst:29
 msgid ""
 ":ref:`profile<verdi_profile>`:  Inspect and manage the configured profiles."
-msgstr ""
+msgstr ":ref:`profile<verdi_profile>`:  检查和管理配置信息。"
 
 #: ../docs/source/working_with_aiida/index.rst:30
 msgid ""
 ":ref:`quicksetup<verdi_quicksetup>`:  Setup a new profile where the database"
 " is automatically created and configured."
-msgstr ""
+msgstr ":ref:`quicksetup<verdi_quicksetup>`:  创建并配置一个新的配置信息，其中的数据库会自动创建并配置。"
 
 #: ../docs/source/working_with_aiida/index.rst:31
 msgid ""
 ":ref:`rehash<verdi_rehash>`:  Recompute the hash for nodes in the database"
-msgstr ""
+msgstr ":ref:`rehash<verdi_rehash>`:  重新计算数据库中节点的哈希。"
 
 #: ../docs/source/working_with_aiida/index.rst:32
 msgid ":ref:`restapi<verdi_restapi>`:  Run the AiiDA REST API server"
-msgstr ""
+msgstr ":ref:`restapi<verdi_restapi>`:  运行AiiDA REST API 服务器"
 
 #: ../docs/source/working_with_aiida/index.rst:33
 msgid ":ref:`run<verdi_run>`:  Execute an AiiDA script."
-msgstr ""
+msgstr ":ref:`run<verdi_run>`:  执行AiiDA脚本。"
 
 #: ../docs/source/working_with_aiida/index.rst:34
 msgid ":ref:`setup<verdi_setup>`:  Setup a new profile."
-msgstr ""
+msgstr ":ref:`setup<verdi_setup>`:  设置一个新的配置信息。"
 
 #: ../docs/source/working_with_aiida/index.rst:35
 msgid ""
 ":ref:`shell<verdi_shell>`:  Start a python shell with preloaded AiiDA "
 "environment."
-msgstr ""
+msgstr ":ref:`shell<verdi_shell>`:  开启一个会预先加载AiiDA环境的python shell。"
 
 #: ../docs/source/working_with_aiida/index.rst:36
 msgid ":ref:`status<verdi_status>`:  Print status of AiiDA services."
-msgstr ""
+msgstr ":ref:`status<verdi_status>`:  打印AiiDA服务状态。"
 
 #: ../docs/source/working_with_aiida/index.rst:37
 msgid ":ref:`user<verdi_user>`:  Inspect and manage users."
-msgstr ""
+msgstr ":ref:`user<verdi_user>`:  检查和管理用户。"
 
 #: ../docs/source/working_with_aiida/index.rst:49
 msgid "Python API"
@@ -656,6 +713,8 @@ msgid ""
 "This is possible in two ways, either via an interactive shell, or writing "
 "and running a script. Both methods are described below."
 msgstr ""
+"虽然命令行工具(通过  ``verdi`` "
+")或web接口提供了许多常见的功能，但是为了进行微调(或自动化)，直接访问python对象并调用它们的方法是很有用的。这可以通过两种方式实现，一种是通过交互式shell，另一种是编写和运行脚本。下面将描述这两种方法。"
 
 #: ../docs/source/working_with_aiida/index.rst:77
 msgid "Data types"
@@ -672,6 +731,8 @@ msgid ""
 " to work, AiiDA needs to be able to interact with these schedulers. "
 "Interfaces have been written for some of the most used schedulers."
 msgstr ""
+"如有关算例一节所述，守护进程将 ``CalcJobNode`` "
+"实例提交给外部调度器。要使此功能正常工作，AiiDA需要能够与这些调度程序进行交互。已经存在为一些最常用的调度器编写的接口。"
 
 #: ../docs/source/working_with_aiida/index.rst:111
 msgid "Querying data"
@@ -717,6 +778,11 @@ msgid ""
 "second-level package that are exposed in this way. If a module is mentioned,"
 " then all the resources defined in its ``__all__`` are included"
 msgstr ""
+"``aiida-core`` 的主包称为 ``aiida`` ，其中包含各种子包，我们称之为 ``二级包`` "
+"。这些第二级包可以有进一步嵌套的层次结构。这些包中的某些资源，例如模块、类、函数和变量，是供内部使用的，而其他的 *是设计为* 提供给 ``aida "
+"-core`` 包的用户使用的。为了使用户更容易地找到这些资源，这些资源是用于外部使用的，并将它们与 *不应该使用的内部资源* "
+"区分开来，它们直接暴露在第二层包中。这意味着任何可以直接从第二级包 *导入的资源都将用于外部使用* "
+"。下面我们提供了以这种方式公开的每个二级包的资源列表。如果提到一个模块，那么它的 ``_all__`` 中定义的所有资源都包括在内"
 
 #: ../docs/source/working_with_aiida/python_api.rst:16
 msgid "``aiida.cmdline``"
@@ -772,6 +838,10 @@ msgid ""
 ":py:class:`CalcJobResultManager<aiida.orm.utils.calcjob.CalcJobResultManager>`"
 " class, described in the next section."
 msgstr ""
+"在本节中，我们将描述如何在AiiDA解析计算结果(或一般节点的输入和输出)之后获得计算结果。当在远程计算机上完成计算时，AiiDA将检索结果，并尝试使用默认解析器解析结果(如果给定计算有可用的解析器)。这些结果存储在新节点中，并连接为计算的输出。当然，对于给定的计算，可以"
+" :ref:`直接检查输出节点<db_input_output>` 并获取它们的内容。不过，AiiDA提供了一种直接访问结果的方法，使用 "
+":py:class:`CalcJobResultManager<aiida.orm.utils.calcjob.CalcJobResultManager>`"
+"  ，将在下一节中描述。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:9
 msgid "The CalcJobResultManager"
@@ -789,6 +859,10 @@ msgid ""
 " For example this can be a Quantum ESPRESSO ``pw.x`` calculation. You can "
 "load such a calculation -- we'll call it ``calc`` -- with the command"
 msgstr ""
+"在获取算例的结果之前，我们需要正确结束并解析 "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`"
+" 。例如这可能是一个Quantum ESPRESSO ``pw.x`` 算例。你可以载入该算例 —— 我们将该算例叫做 ``calc`` —— "
+"使用命令:"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:24
 msgid ""
@@ -796,10 +870,12 @@ msgid ""
 "<../working_with_aiida/scripting>`). ``YOURPK`` should be substituted by a "
 "valid calculation PK in your database."
 msgstr ""
+"在 ``verdi shell`` 中，或在 python 脚本中 (如 :doc:`这个文档 "
+"<../working_with_aiida/scripting>`所述)。 ``YOURPK`` 需要替换为你的数据库中的一个可用的算例PK。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:28
 msgid "Using the CalcJobResultManager instance"
-msgstr ""
+msgstr "使用 CalcJobResultManager 实例"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:30
 msgid ""
@@ -809,21 +885,25 @@ msgid ""
 ":class:`~aiida.orm.utils.calcjob.CalcJobResultManager` instance and gives "
 "direct access to parsed data. You can access it as ::"
 msgstr ""
+"每一个 "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`"
+" 有 ``res`` 属性，是一个:class:`~aiida.orm.utils.calcjob.CalcJobResultManager` "
+"实例，并可直接访问解析后数据。你可以这样访问 ::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:37
 msgid ""
 "To get all the possible keys that were parsed, you can convert the instance "
 "into a list. For instance, if you type ::"
-msgstr ""
+msgstr "要获得已解析的所有可能键，可以将实例转换为列表。例如，如果您键入::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:43
 msgid "you will get something like this::"
-msgstr ""
+msgstr "你会得到这样的结果::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:47
 msgid ""
 "(the list of keys has been cut for clarity: you will get many more keys)."
-msgstr ""
+msgstr "(为了更加清晰，列表中的键只有部分显示：你会得到更多的键)。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:50
 msgid ""
@@ -832,18 +912,20 @@ msgid ""
 ":class:`~aiida.orm.utils.calcjob.CalcJobResultManager`. For instance, to get"
 " the final total energy, you can use ::"
 msgstr ""
+"一旦知道已经解析了哪些键，就可以简单地将解析后的值作为 ``res`` 的属性访问 "
+":class:`~aiida.orm.utils.calcjob.CalcJobResultManager` 。例如要获得最后的总能，你可以::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:56
 msgid ""
 "that will print the total energy in units of eV, as also stated in the "
 "``energy_units`` key ::"
-msgstr ""
+msgstr "会打印以eV为单位的总能，如 ``energy_units`` 键中所指示的::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:61
 msgid ""
 "Similarly, you can get any other parsed value, for any code that provides a "
 "parser."
-msgstr ""
+msgstr "类似地，对于提供解析器的任何计算代码，都可以获得任何其他解析值。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:65
 msgid ""
@@ -853,28 +935,32 @@ msgid ""
 ":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`,"
 " you can type ::"
 msgstr ""
+":class:`~aiida.orm.utils.calcjob.CalcJobResultManager` 也整合进 iPython/verdi "
+"shell 补齐机制: 如果 ``calc`` 是一个有效的 "
+":class:`CalcJobNode<aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`"
+" ，你可以键入 ::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:70
 msgid ""
 "and then press the TAB key of the keyboard to get/complete the list of valid"
 " parsed properties for the calculation ``calc``."
-msgstr ""
+msgstr "然后按下键盘的TAB键，得到/完成算例 ``calc`` 的有效解析属性列表。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:75
 msgid "Calculations and workflows inputs and outputs"
-msgstr ""
+msgstr "算例和工作流的输入和输出"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:77
 msgid ""
 "In the following, we will show the methods to access the input and output "
 "nodes of a given calculation or workflow."
-msgstr ""
+msgstr "在下面，我们将展示访问给定算例或工作流的输入和输出节点的方法。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:79
 msgid ""
 "Again, we start by loading a node from the database. Unlike before, this can"
 " be any type of node. For example, we can load the node with PK 17::"
-msgstr ""
+msgstr "同样，我们从数据库加载一个节点开始。与以前不同，这可以是任何类型的节点。例如，我们可以加载 PK 17 节点::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:84
 msgid ""
@@ -887,6 +973,11 @@ msgid ""
 " ``RETURN``, respectively), especially when working on the ``verdi shell``, "
 "is by means of the ``.inputs`` and ``.outputs`` attributes."
 msgstr ""
+"现在，我们要找到与此节点有直接输入或输出链接的节点。有这样几个方法来提取此信息 meth:`get_outgoing() "
+"<aiida.orm.nodes.Node.get_outgoing>`, :meth:`get_incoming() "
+"<aiida.orm.nodes.Node.get_incoming>` 。 使用 ``verdi shell`` "
+"访问一个算例（或工作流）信息，当信息限制在 ``INPUT_CALC`` 和 ``CREATE`` (或者 ``INPUTE_WORK`` 和 "
+"``RETURE``) 时，最实用方法是使用 ``.inputs`` 和 ``.outputs`` 属性。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:91
 msgid ""
@@ -896,10 +987,13 @@ msgid ""
 "``calc`` has an input ``KpointsData`` object under the linkname ``kpoints``."
 " The command ::"
 msgstr ""
+"``.inputs`` 属性可用于列出并访问input节点。input链接的名称可以使用 ``list(calc.inputs)`` "
+"答应，或者交互式地输入 ``calc.inputs. + TAB`` 。 例子，假设 ``calc`` 有输入 ``KpointsData`` "
+"对象在链接 ``kpoints`` 中。命令为 ::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:99
 msgid "returns the ``KpointsData`` object."
-msgstr ""
+msgstr "返回 ``KpointsData`` 对象。"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:101
 msgid ""
@@ -907,10 +1001,12 @@ msgid ""
 "``calc``. Suppose that ``calc`` has an output ``FolderData`` with linkname "
 "``retrieved``, then the command ::"
 msgstr ""
+"同样的 ``.outputs`` 属性用于显示 ``calc`` 的输出。假设 ``calc`` 有输出节点 ``FolderData`` 链接名为 "
+"``retrieved`` ,使用下面命令 ::"
 
 #: ../docs/source/working_with_aiida/resultmanager.rst:107
 msgid "returns the ``FolderData`` object."
-msgstr ""
+msgstr "返回 ``FolderData`` 对象。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:2
 msgid "Verdi shell"
@@ -922,6 +1018,8 @@ msgid ""
 "<http://ipython.org/>`_ shell will be opened (this requires that IPython is "
 "installed on your computer)."
 msgstr ""
+"通过在终端上运行 ``verdi shell`` ，将打开一个新的交互式 `IPython <http://ipython.org/>`_  "
+"shell(这需要在您的计算机上安装IPython)。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:7
 msgid ""
@@ -930,19 +1028,22 @@ msgid ""
 " <writing_python_scripts_for_aiida>`) because the database settings are not "
 "loaded by default and AiiDA does not know how to access the database."
 msgstr ""
+"注意，简单地打开IPython并加载AiiDA模块将不起作用(除非执行 "
+":ref:`下列章节<writing_python_scripts_for_aiida>` "
+"中描述的操作)，因为默认情况下没有加载数据库设置，AiiDA不知道如何访问数据库。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:13
 msgid ""
 "Moreover, by calling ``verdi shell``, you have the additional advantage that"
 " some classes and modules are automatically loaded. In particular the "
 "following modules/classes are already loaded and available::"
-msgstr ""
+msgstr "此外，通过调用 ``verdi shell`` ，还可以自动加载一些类和模块。特别是以下模块/类已经加载并可用::"
 
 #: ../docs/source/working_with_aiida/scripting.rst:20
 msgid ""
 "It is possible to customize the shell by adding modules to be loaded "
 "automatically, thanks to the ``verdi config verdishell.modules`` command."
-msgstr ""
+msgstr "通过添加要自动加载的模块，可以自定义shell，这要归功于 ``verdi config verdishell.modules`` 命令。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:23
 msgid ""
@@ -951,6 +1052,8 @@ msgid ""
 "instance the documentation of the :doc:`ResultManager "
 "<../working_with_aiida/resultmanager>`)."
 msgstr ""
+"另一个优点是启用了bash补全，允许按 ``TAB`` 键查看给定对象的可用子方法(例如，请参阅文档 :doc:`ResultManager "
+"<../working_with_aiida/resultmanager>` )。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:30
 msgid "Python scripts"
@@ -964,6 +1067,8 @@ msgid ""
 " to add, at the beginning of the file and before loading any other AiiDA "
 "module, the following two lines::"
 msgstr ""
+"或者，如果你不需要交互式shell，而更愿意编写一个脚本，然后从命令行启动它，那么您可以编写一个标准的python ``py`` "
+"文件。您需要做的惟一修改是在文件的开头和加载任何其他AiiDA模块之前添加以下两行::"
 
 #: ../docs/source/working_with_aiida/scripting.rst:40
 msgid ""
@@ -973,20 +1078,22 @@ msgid ""
 "interactive shell, you can also add (below the ``load_profile`` call) the "
 "following lines::"
 msgstr ""
+"这将加载数据库设置，并允许AiiDA访问你的数据库。然后，你可以像往常一样加载python和AiiDA的模块和类，并使用它们。如果您想拥有与 "
+"``verdi shell`` 交互式 shell相同的环境，还可以添加(在``load_profile`` 调用之后)以下行::"
 
 #: ../docs/source/working_with_aiida/scripting.rst:49
 msgid "or simply import the only modules that you will need in the script."
-msgstr ""
+msgstr "或者只导入脚本中需要的模块。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:51
 msgid ""
 "While this method will work, we strongly suggest to use instead the ``verdi "
 "run`` command, described here below."
-msgstr ""
+msgstr "虽然这个方法可以工作，但是我们强烈建议使用下面描述的 ``verdi run`` 命令来代替。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:55
 msgid "The ``verdi run`` command and the ``runaiida`` executable"
-msgstr ""
+msgstr "``verdi run`` 命令和 ``runaiida`` 可执行文件"
 
 #: ../docs/source/working_with_aiida/scripting.rst:57
 msgid ""
@@ -995,6 +1102,7 @@ msgid ""
 "parameter the name of a file, and will execute it after having loaded the "
 "modules described above."
 msgstr ""
+"为了简化上面描述的过程，可以使用 ``verdi run`` 执行python文件:这个命令将接受文件的名称作为参数，并在加载了上面描述的模块后执行。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:62
 msgid ""
@@ -1002,6 +1110,8 @@ msgid ""
 "nodes to suitable special groups, of type ``auto.run``, for later usage. You"
 " can get the list of all these groups with the command::"
 msgstr ""
+"命令 ``verdi run`` 的另一个优点是将所有存储的节点添加到适当的特殊组中，类型为 ``auto.run`` "
+"，供以后使用。您可以使用以下命令获得所有这些组的列表::"
 
 #: ../docs/source/working_with_aiida/scripting.rst:69
 msgid ""
@@ -1010,6 +1120,8 @@ msgid ""
 "``verdi run -h``. Note also that further command line parameters to ``verdi "
 "run`` are passed to the script as ``sys.argv``."
 msgstr ""
+"``verdi run`` 的一些命令行选项允许用户微调自动分组行为;有关详细信息，请参考 ``verdi run -h`` "
+"的输出。还要注意，``verdi run`` 的其他命令行参数将作为 ``sys.argv`` 传递给脚本。"
 
 #: ../docs/source/working_with_aiida/scripting.rst:75
 msgid ""
@@ -1020,6 +1132,9 @@ msgid ""
 "permissions, and the file will become an executable that is run using AiiDA."
 " A simple example could be::"
 msgstr ""
+"最后，我们还定义了一个 ``runaiida`` 命令，它将把所有参数传递给 ``verdi run`` 。这样做的原因是，可以定义一个新的脚本运行 "
+"``verdi run`` ，添加作为第一行shebang命令 ``#!/usr/bin/env runaiida`` "
+"，并赋予文件执行权限，该文件将成为使用AiiDA运行的可执行文件。一个简单的例子可以是::"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:2
 msgid "Some tricks"
@@ -1034,13 +1149,13 @@ msgid ""
 "By default, the logging level of AiiDA is minimal to avoid filling logfiles."
 " Only warnings and errors are logged to the daemon log files, while info and"
 " debug messages are discarded."
-msgstr ""
+msgstr "默认情况下，AiiDA的日志级别是最小的，以避免塞满日志文件。只有警告和错误被记录到守护进程日志文件中，而信息和调试消息被丢弃。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:17
 msgid ""
 "If you are experiencing a problem, you can change the default minimum "
 "logging level of AiiDA messages::"
-msgstr ""
+msgstr "如果遇到问题，可以更改AiiDA消息的默认最低日志记录级别::"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:22
 msgid ""
@@ -1048,6 +1163,7 @@ msgid ""
 "is the daemonizer that manages the daemon runners) but most often it is used"
 " by AiiDA developers::"
 msgstr ""
+"您可能还对 ``circus`` 日志消息感兴趣( ``circus`` 库是管理守护进程运行器的后台进程)，但是通常只有AiiDA开发人员使用它::"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:27
 msgid ""
@@ -1056,13 +1172,16 @@ msgid ""
 "circus logs (named ``circus-<profile_name>.log``). Those files can be found "
 "in the ``~/.aiida/daemon/log`` folder."
 msgstr ""
+"对于每个运行守护进程的概要文件，将有两个惟一的日志文件，一个用于AiiDA日志消息(名为' ``aiida-<profile_name>.log`` "
+")，另一个用于 circus日志(名为 ``circus-<profile_name>.log`` )。这些文件可以在 "
+"``~/.aiida/daemon/log`` 文件夹找到。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:31
 msgid ""
 "After rebooting the daemon (``verdi daemon restart``), the number of "
 "messages logged will increase significantly and may help in understanding "
 "the source of the problem."
-msgstr ""
+msgstr "重启守护进程( ``verdi daemon restart`` )后，记录的消息数量将显著增加，这可能有助于理解问题的根源。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:35
 msgid ""
@@ -1075,28 +1194,32 @@ msgid ""
 "this is what is used by messages from, among other things, the work chain "
 "report.."
 msgstr ""
+"在上面的命令中，您可以使用与 ``DEBUG`` 不同的级别。级别列表及其顺序与 "
+"`标准python日志模块<https://docs.python.org/3/library/logging.html#logging-"
+"levels>`_ 相同。除了标准日志级别之外，我们还定义了自定义的 ``REPORT`` 级别，其值为 ``23`` ，位于标准 ``INFO`` 和"
+" ``WARNING`` 级别之间。``REPORT`` 级别是默认的日志记录级别，因为这是用于报告工作链消息使用的日志记录级别。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:43
 msgid ""
 "When the problem is solved, we suggest to bring back the default logging "
 "level, using the two commands::"
-msgstr ""
+msgstr "当问题解决后，我们建议使用以下两个命令恢复默认日志级别::"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:48
 msgid "to avoid to fill the logfiles."
-msgstr ""
+msgstr "以免塞爆日志文件。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:50
 msgid "The config options set for the current profile can be viewed using::"
-msgstr ""
+msgstr "可以使用下面命令查看为当前配置文件设置的配置选项::"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:54
 msgid "in the ``options`` row."
-msgstr ""
+msgstr "在 ``option`` 行。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:59
 msgid "Tips to ease the life of the hard drive (for large databases)"
-msgstr ""
+msgstr "简化硬盘驱动器使用寿命的技巧(适用于大型数据库)"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:61
 msgid ""
@@ -1105,6 +1228,7 @@ msgid ""
 "drive may be constantly working and the computer slowed down a lot. Below "
 "are some solutions to take care of the most typical reasons."
 msgstr ""
+"当您的数据库非常大，即几十万个或更多节点时，这些技巧非常有用。有了这么大的数据库，硬盘驱动器可能会一直工作，计算机运行速度也会大大降低。下面是一些解决方案，可以解决这些典型问题的办法。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:67
 msgid "Repository backup"
@@ -1118,10 +1242,12 @@ msgid ""
 "solution is to use instead the incremental backup described in the "
 ":ref:`repository backup section<repository_backup>`."
 msgstr ""
+"如果通过标准的rsync或备份软件进行备份，那么存储库的备份将花费很长时间，因为它包含的文件夹与节点的数量一样多(每个文件夹可以包含许多文件!)解决方案是使用"
+" :ref:`仓库备份小节<repository_backup>` 中描述的增量备份。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:77
 msgid "mlocate cron job"
-msgstr ""
+msgstr "mlocate cron job"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:79
 msgid ""
@@ -1131,9 +1257,12 @@ msgid ""
 "problematic since the repository contains many folders and will be scanned "
 "everyday. The net effect is a hard drive almost constantly working."
 msgstr ""
+"在典型的Linux发行版中，每天运行一个cron作业(称为 ``updatedb.mlocate`` )来更新文件和文件夹的数据库——这将由 "
+"``locate`` 命令使用。这可能会有问题，因为存储库包含许多文件夹，并且每天都要进行扫描。净效应是硬盘几乎一直在工作。"
 
 #: ../docs/source/working_with_aiida/troubleshooting.rst:86
 msgid ""
 "To avoid this issue, edit as root the file ``/etc/updatedb.conf`` and put in"
 " ``PRUNEPATHS`` the name of the repository folder."
 msgstr ""
+"要避免这个问题，使用root权限编辑文件 ``/etc/updatedb.conf`` 并将仓库文件夹放置在 ``PRUNEPATHS`` 行。"

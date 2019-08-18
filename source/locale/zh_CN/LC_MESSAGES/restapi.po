@@ -1143,6 +1143,12 @@ msgid ""
 "the variable ``aiida-profile`` is set to ``\"django\"``, whereas in "
 "``app2/config.py`` its value is ``\"sqlalchemy\"``."
 msgstr ""
+"所有相关的文件都被放在路径 ``<aiida.source.code.path>/docs/wsgi/`` 中。在每个文件夹 ``app1/`` 和 "
+"``app2/`` 中，有一个名为 ``rest.wsgi`` 的文件包含有一个python脚本，可以依据 ``mod_wsgi`` "
+"中的规则，实例化和配置一个名为 ``application`` 的python网络应用。脚本的写法，对象 ``application`` "
+"通过相同文件夹中的文件 ``config.py`` 配置。事实上，在文件 ``app1/config.py`` 中，变量 ``aiida-"
+"profile`` 设置为 ``\"django\"`` ，而文件 ``app2/config.py`` 中该值为 ``\"sqlalchemy\"``"
+" 。"
 
 #: ../docs/source/restapi/index.rst:492
 msgid ""
@@ -1152,6 +1158,8 @@ msgid ""
 "``config.py`` in a custom path, provided you change the variable "
 "``config_file_path`` in the ``wsgi file`` accordingly."
 msgstr ""
+"不管怎样，只要在Apache配置文件中正确引用 ``wsgi`` 文件及其名称，该文件路径及其名称就无关紧要，如下所示。类似地，您可以将文件 "
+"``config.py`` 放置在自定义路径中，前提是相应地更改 ``wsgi`` 文件中的变量 ``config_file_path`` 。"
 
 #: ../docs/source/restapi/index.rst:497
 msgid ""
@@ -1162,6 +1170,8 @@ msgid ""
 "stable yet, one would like to read the full python error traceback in the "
 "Apache error log."
 msgstr ""
+"在文件 ``rest.wsgi`` 中，你可能仅仅只需要修改 ``catch_internal_server`` 。当设置为 ``True`` "
+"时，它使得当应用可以将执行时的异常完整的传向Apache的日志中。尤其当应用还不是完全稳定之时，用户会非常希望在Apache错误日志中得到完整的python错误追踪。"
 
 #: ../docs/source/restapi/index.rst:503
 msgid ""
@@ -1171,6 +1181,8 @@ msgid ""
 "process. Apache usually creates multiple process dynamically and with this "
 "configuration each process will handle both apps."
 msgstr ""
+"最后，需要通过合适的配置文件设置Apache站点。我们提供两个模板文件: ``one.conf`` 或 ``many.conf`` "
+"。第一个文件告诉Apache将这两个应用程序捆绑到一个惟一的Apache守护进程中。Apache通常动态创建多个进程，通过这种配置，每个进程将处理两个应用程序。"
 
 #: ../docs/source/restapi/index.rst:508
 msgid ""
@@ -1180,6 +1192,8 @@ msgid ""
 " the number of apps, contrarily to the first architecture, where one process"
 " is enough to handle two or even a larger number of apps."
 msgstr ""
+"相反，脚本 ``many.conf`` "
+"定义了两个不同的进程组，每个应用程序对应一个进程组。因此，Apache动态创建的进程将始终处理每个应用程序。Apache守护进程的最小数量等于应用程序的数量，与第一个架构相反，在第一个架构中，一个进程足以处理两个甚至更多的应用程序。"
 
 #: ../docs/source/restapi/index.rst:513
 msgid ""
@@ -1187,6 +1201,8 @@ msgid ""
 "both ``one.conf`` and ``many.conf``, the important directives that should be"
 " updated if one changes the paths or names of the apps are:"
 msgstr ""
+"我们分别将两个应用样例称作 ``django`` 和 ``sqlalchemy`` 。同样的，在文件 ``one.conf`` 和 "
+"``many.conf`` 中，如果你需要修改路径或应用名，需要更新的最重要的指令是:"
 
 #: ../docs/source/restapi/index.rst:517
 msgid ""
@@ -1196,24 +1212,27 @@ msgid ""
 "``many.conf`` this directive appears once per app and is embedded into a "
 "\"Location\" tag, e.g.::"
 msgstr ""
+"``WSGIProcessGroup`` 来定义流程组，以供以后参考。在 ``one.conf`` 这个指令只出现一次来定义通用组 "
+"``profiles`` ，因为只有一种进程处理这两个应用程序。在 ``many.conf`` 这个指令在每个应用程序中出现一次，并嵌入到一个 "
+"\"Location\" 标签中，例如::"
 
 #: ../docs/source/restapi/index.rst:526
 msgid ""
 "``WSGIDaemonProcess`` to define the path to the AiiDA virtual environment. "
 "This appears once per app in both configurations."
-msgstr ""
+msgstr "``WSGIDaemonProcess`` 用来定义AiiDA虚拟环境的路径。该配置在配置文件中仅出现一次。"
 
 #: ../docs/source/restapi/index.rst:529
 msgid ""
 "``WSGIScriptAlias`` to define the absolute path of the ``.wsgi`` file of "
 "each app."
-msgstr ""
+msgstr "``WSGIScriptAlias`` 用来定义每个应用 ``.wsgi`` 文件的绝对路径。"
 
 #: ../docs/source/restapi/index.rst:531
 msgid ""
 "The ``<Directory>`` tag mainly used to grant Apache access to the files used"
 " by each app, e.g.::"
-msgstr ""
+msgstr "``<Directory>`` 标签主要用来赋予Apache对每个应用用到的文件的访问权限::"
 
 #: ../docs/source/restapi/index.rst:537
 msgid ""
@@ -1221,6 +1240,8 @@ msgid ""
 "Apache configuration folder and restart the Apache server. In Ubuntu, this "
 "is usually done with the commands:"
 msgstr ""
+"最后的一步是将 ``one.conf`` 或 ``many.conf`` "
+"移进入Apache配置文件夹并重新启动Apache服务器。在Ubuntu中，这通常是通过以下命令完成的:"
 
 #: ../docs/source/restapi/index.rst:545
 msgid ""
@@ -1230,6 +1251,8 @@ msgid ""
 "to the official documentation of `Apache <https://httpd.apache.org/>`_ and, "
 "more importantly, `WSGI <modwsgi.readthedocs.io/>`_."
 msgstr ""
+"我们相信，我们刚才解释的两个基本架构可以成功地应用于许多不同的部署场景。不过，我们建议需要更好地调整部署设置的用户查看文档 `Apache "
+"<https://httpd.apache.org/>`_ 更重要的 `WSGI <modwsgi.readthedocs.io/>`_ 。"
 
 #: ../docs/source/restapi/index.rst:550
 msgid ""
@@ -1238,6 +1261,8 @@ msgid ""
 "uniquely each app and allow Apache to route the requests to their correct "
 "apps. Examples of well-formed URLs are:"
 msgstr ""
+"Apache处理的请求的url必须从指令 ``WSGIScriptAlias`` "
+"中指定的路径之一开始。这些路径惟一地标识每个应用程序，并允许Apache将请求路由到正确的应用程序。格式良好的url有:"
 
 #: ../docs/source/restapi/index.rst:560
 msgid ""
@@ -1247,6 +1272,9 @@ msgid ""
 "the URLs since Apache listens conventionally to port 80, where any request "
 "lacking the port is automatically redirected."
 msgstr ""
+"第一个(第二个)请求将由应用程序 ``django`` ( ``sqlalchemy`` )处理，即提供从配置文件 ``django`` ( "
+"``sqlalchemy`` "
+")获取的结果。注意，我们没有在url中指定任何端口，因为Apache按照惯例侦听端口80，其中任何缺少端口的请求都会自动重定向。"
 
 #: ../docs/source/restapi/index.rst:566
 msgid "Examples"
