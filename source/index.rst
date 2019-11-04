@@ -64,68 +64,27 @@ For developers
     install/updating_installation
     install/troubleshooting
 
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Getting started
-    :hidden:
-
-    get_started/index
-    get_started/computers
-    get_started/codes
-
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Concepts
-    :hidden:
-
-    concepts/provenance
-    concepts/processes
-    concepts/calculations
-    concepts/workflows
-
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Working with
-    :hidden:
-
-    working/processes
-    working/functions
-    working/calculations
-    working/workflows
-
 .. toctree::
     :maxdepth: 1
     :caption: Working with AiiDA
     :hidden:
 
     working_with_aiida/index
-    import_export/index
-
 
 .. toctree::
     :maxdepth: 1
-    :caption: For AiiDA developers
+    :caption: Reference Guide
     :hidden:
 
-    developer_guide/core/internals
-    developer_guide/core/transport
-    developer_guide/core/modifying_the_schema
-    developer_guide/core/extend_restapi
-    developer_guide/core/caching
-    developer_guide/core/plugin_system
-    developer_guide/tools/sphinx_cheatsheet
-    developer_guide/design/changes
+    reference/index
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Tutorials
-    :hidden:
+   :maxdepth: 1
+   :caption: Development
+   :hidden:
 
-    tutorial/index
-
+   developer_guide/plugins
+   developer_guide/core
 
 .. toctree::
     :maxdepth: 1
@@ -133,19 +92,7 @@ For developers
     :hidden:
 
     apidoc/aiida
-
-.. toctree::
-   :maxdepth: 1
-   :caption: aiida-plugins [Section to be moved]
-   :hidden:
-
-
-   developer_guide/plugins/index
-   developer_guide/devel_tutorial/code_plugin_float_sum
-   developer_guide/devel_tutorial/plugin_tests
-   developer_guide/devel_tutorial/cmdline_plugin
-   developer_guide/devel_tutorial/parser_warnings_policy
-   developer_guide/aiida_sphinxext
+    restapi/index
 
 ***********
 How to cite

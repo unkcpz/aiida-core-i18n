@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 20:22+0000\n"
+"POT-Creation-Date: 2019-10-31 22:43+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
 "Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
@@ -24,194 +24,213 @@ msgstr ""
 
 #: ../docs/source/backup/index.rst:3
 msgid ""
-"In this page you will find useful information on how to backup your "
-"database, how to move it to a different location and how to backup your "
+"On this page you will find useful information on how to backup your "
+"database, how to move it to a different location, and how to backup your "
 "repository."
-msgstr "在这一页中你将找到有关如何备份你的数据库的有用信息，以及如何迁移到其他设备、如何备份仓库等等。"
+msgstr ""
 
-#: ../docs/source/backup/index.rst:10
+#: ../docs/source/backup/index.rst:9
 msgid "Create database backup"
 msgstr "创建数据库的备份"
 
+#: ../docs/source/backup/index.rst:11
+msgid "It is strongly advised to backup the content of your database daily."
+msgstr ""
+
 #: ../docs/source/backup/index.rst:12
 msgid ""
-"It is strongly advised to backup the content of your database daily. Below "
-"are instructions to set this up for the PostgreSQL database, under Ubuntu "
-"(tested with version 12.04)."
-msgstr "强烈推荐每天备份数据库的目录。以下的教程是在Ubuntu下（12.04版以上版本）为PostgreSQL设置此功能。"
+"Below are instructions to set this up for the PostgreSQL database, under "
+"Ubuntu (tested with version 12.04 and 18.04)."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:16
+#: ../docs/source/backup/index.rst:14
 msgid ""
-"Perform the following operation after having set up AiiDA. Only then the "
-"``~/.aiida`` folder (and the files within) will be created."
-msgstr "请在设置好AiiDA后进行以下操作，因为只有在设置好后 ``~/.aiida`` 文件夹（及其包含的文件）才会被建立。"
+"**NB!** in the following, it is assumed that your database is called "
+"``aiidadb``, while the database user and owner is ``aiida``."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:19
+#: ../docs/source/backup/index.rst:18
+msgid ""
+"Perform the following operation after having set up AiiDA. Only then will "
+"the ``.aiida`` folder (and the files within) be created. You can usually "
+"find it here: ``~/.aiida`` (see also :ref:`configure_aiida`)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:22
 msgid ""
 "The database files are not put in the ``.aiida`` folder but in the system "
-"directories which typically are not backed up. Moreover, the database is "
-"spread over lots of files that, if backed up as they are at a given time, "
-"cannot be re-used to restore the database."
+"directories, which are typically not backed up. Moreover, the database is "
+"spread over lots of files that, if backed up as they are at any given time, "
+"cannot be used to restore the database."
 msgstr ""
-"数据库文件并不是放在 ``.aiida`` "
-"文件夹下，而是在无法备份的系统文件夹下。而且，数据库伴随着大量文件，在备份的时候，数据库中的文件将无法被重新读取、存储。"
 
-#: ../docs/source/backup/index.rst:23
+#: ../docs/source/backup/index.rst:25
 msgid ""
 "So you need to periodically (typically once a day) dump the database "
 "contents in a file that will be backed up. This can be done by the following"
-" bash script :download:`backup_postgresql.sh<backup_postgresql.sh>`::"
+" bash script :download:`backup_postgresql.sh <backup_postgresql.sh>`:"
 msgstr ""
-"因此需要按时（典型地如一天一次）转储数据库目录在一个文件中，从而可以方便地备份。这一工作可由以下脚本完成 "
-":download:`backup_postgresql.sh<backup_postgresql.sh>`::"
 
-#: ../docs/source/backup/index.rst:46
+#: ../docs/source/backup/index.rst:33
 msgid ""
-"Before launching the script you need to create the file ``~/.pgpass`` to "
-"avoid having to enter your database password each time you use the script. "
-"It should look like (:download:`.pgpass<pgpass>`)::"
+"Before launching the script you need to create the file ``.pgpass`` to avoid"
+" having to enter your database password each time you use the script. It "
+"should look like (:download:`.pgpass <pgpass>`):"
 msgstr ""
-"启动脚本前须创建 ``~/.pgpass`` 文件，以免每次运行脚本时都必须输入数据库密码。其形式须如下所示 "
-"(:download:`.pgpass<pgpass>`)::"
 
-#: ../docs/source/backup/index.rst:51
+#: ../docs/source/backup/index.rst:38
 msgid ""
 "where ``YOUR_DATABASE_PASSWORD`` is the password you set up for the "
 "database."
 msgstr "其中 ``YOUR_DATABASE_PASSWORD`` 是你为数据库设置的密码。"
 
-#: ../docs/source/backup/index.rst:53
+#: ../docs/source/backup/index.rst:42
 msgid ""
-"Do not forget to put this file in ~/ and to name it ``.pgpass``. Remember "
-"also to give it the right permissions (read and write): ``chmod u=rw "
-".pgpass``."
+"Do not forget to put this file in ``~/`` (your home-directory) and to rename"
+" it ``.pgpass``. Remember also to give it the right permissions (read and "
+"write): ``chmod u=rw .pgpass``."
 msgstr ""
-"不要忘记把这个文件放在 ~/ 中并命名为 ``.pgpass`` 。并记住该文件须进行正确的权限配置（可读可写）：``chmod u=rw "
-".pgpass`` 。"
 
-#: ../docs/source/backup/index.rst:56
+#: ../docs/source/backup/index.rst:45
 msgid ""
 "To dump the database in a file automatically everyday, you can add the "
-"following script :download:`backup-aiidadb-USERNAME<backup-aiidadb-"
-"USERNAME>` in ``/etc/cron.daily/``, which will launch the previous script "
-"once per day::"
+"following script :download:`backup-aiidadb-USERNAME <backup-aiidadb-"
+"USERNAME>` in the folder ``/etc/cron.daily/``, which will launch the "
+"previous script once per day:"
 msgstr ""
-"为了每天自动转储数据库，你可以把如下脚本 :download:`backup-aiidadb-USERNAME<backup-aiidadb-"
-"USERNAME>`  添加到 ``/etc/cron.daily/`` 中，则该脚本将会被每天运行一次 ::"
 
-#: ../docs/source/backup/index.rst:63
+#: ../docs/source/backup/index.rst:50
 msgid ""
-"where all instances of ``USERNAME`` are replaced by your actual user name. "
+"Where all instances of ``USERNAME`` must replaced by your actual user name. "
 "The ``su USERNAME`` makes the dumped file be owned by you rather than by "
 "``root``. Remember to give the script the right permissions::"
 msgstr ""
-"其中所有的 ``USERNAME`` 都替换为你的真实用户名， ``su USERNAME`` 可使转储文件由你而不是 ``root`` "
-"所有。记住给脚本以正确的权限::"
 
-#: ../docs/source/backup/index.rst:69
+#: ../docs/source/backup/index.rst:56
 msgid ""
 "Finally make sure your database folder (``/home/USERNAME/.aiida/``) "
 "containing this dump file and the ``repository`` directory, is properly "
-"backed up by your backup software (under Ubuntu, Backup -> check the "
-"\"Folders\" tab)."
+"backed up by your backup software (under Ubuntu, 12.04: Backup -> check the "
+"\"Folders\" tab, 18.04: Backups -> check the \"Folder to save\" tab)."
 msgstr ""
-"最终确保你的数据库文件夹 (``/home/USERNAME/.aiida/``) 中包含转储文件 ``repository`` "
-"文件夹，并由你的备份软件正确备份（Ubuntu下请访问Backup并检查“文件夹”选项卡)。"
 
-#: ../docs/source/backup/index.rst:73
+#: ../docs/source/backup/index.rst:60
 msgid ""
 "If your database is very large (more than a few hundreds of thousands of "
 "nodes), a standard backup of your repository folder will be very slow (up to"
 " days), thus slowing down your computer dramatically. To fix this problem "
 "you can set up an incremental backup of your repository by following the "
-"instructions :ref:`here<repository_backup>`."
+"instructions :ref:`here <repository_backup>`."
 msgstr ""
-"若你的数据库非常大（包含成百上千的节点），标准备份可能会耗时甚久（甚至几天时间），因此会严重拖慢计算机运行速度。为修复这一问题，你可以根据 "
-":ref:`以下步骤<repository_backup>` 为你的仓库设置一个增量式备份。"
 
-#: ../docs/source/backup/index.rst:81
+#: ../docs/source/backup/index.rst:67
 msgid "Restore database backup"
 msgstr "从备份恢复数据库"
 
+#: ../docs/source/backup/index.rst:69
+msgid ""
+"In order to retrieve the database from a backup, you have to first extract "
+"the gzipped file created by the :ref:`backup script <backup_script>` (should"
+" be created in ``~/.aiida/``)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:71
+msgid ""
+"Then you must create an empty database following the instructions described "
+"in :ref:`database` skipping the ``verdi setup`` phase. The database should "
+"have the same name as the backed up one, and also the same database "
+"username, i.e. you may have to either rename or delete your existing "
+"database."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:73
+msgid ""
+"``cd`` to the folder of the extracted backup file (``aiidadb-backup.psql``) "
+"and, while still acting as the postgres user, type the following command::"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:77
+msgid ""
+"After supplying your database password, this will apply all commands from "
+"your backup file to the database ``aiidadb``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:81
+msgid ""
+"To act as the postgres user, type in ``su - postgres`` or ``sudo su - "
+"postgres`` (depending on your distribution)."
+msgstr ""
+
 #: ../docs/source/backup/index.rst:83
 msgid ""
-"In order to retrieve the database from a backup, you have first to create a "
-"empty database following the instructions described above in \"Setup "
-"instructions: PostgreSQL\" except the ``verdi install`` phase. Once that you"
-" have created your empty database with the same names of the backuped one, "
-"type the following command::"
+"Another way of doing this without having to become the postgres user (on "
+"Ubuntu 18.04) is::"
 msgstr ""
-"为了从备份中恢复数据库，你需要先按照上文 \"Setup instructions: PostgreSQL\" 中的教程（除了 ``verdi "
-"install`` 阶段外）建立一个空的数据库。若命名与原来数据库名一致的空数据库被建立起来，请输入如下的命令::"
 
-#: ../docs/source/backup/index.rst:95
+#: ../docs/source/backup/index.rst:91
 msgid "Move database"
 msgstr "迁移数据库"
 
-#: ../docs/source/backup/index.rst:97
+#: ../docs/source/backup/index.rst:93
 msgid ""
 "It might happen that you need to move the physical location of the database "
 "files on your hard-drive (for instance, due to the lack of space in the "
-"partition where it is located). Below we explain how to do it."
-msgstr "改变数据库文件在硬盘上的的物理位置（例如由于所在分区剩余空间不足）是可能发生的情况。以下我们将给出这一情况的解决方案。"
+"partition where it is located)."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:101
+#: ../docs/source/backup/index.rst:95
 msgid ""
 "First, make sure you have a backup of the full database (see instructions "
-":ref:`here<backup_postgresql>`), and that the AiiDA daemon is not running. "
+":ref:`here <backup_postgresql>`), and that the AiiDA daemon is not running. "
 "Then, become the UNIX ``postgres`` user, typing as root::"
 msgstr ""
-"首先，确保你已经有了数据库的完整备份（请参阅 :ref:`这里<backup_postgresql>` "
-"），并确保AiiDA守护进程不在运行中。然后，在root下切换到UNIX ``postgres`` 用户::"
 
-#: ../docs/source/backup/index.rst:107
+#: ../docs/source/backup/index.rst:100
 msgid ""
 "(or, equivalently, type ``sudo su - postgres``, depending on your "
 "distribution)."
 msgstr "（或者同样地，也可以输入 ``sudo su - postgres`` ，这取决于你使用的发行版）。"
 
-#: ../docs/source/backup/index.rst:109
+#: ../docs/source/backup/index.rst:102
 msgid "Then enter the postgres shell::"
 msgstr "然后输入postgres 命令::"
 
-#: ../docs/source/backup/index.rst:113
+#: ../docs/source/backup/index.rst:106
 msgid "and look for the current location of the data directory::"
 msgstr "然后寻找数据文件夹的当前位置::"
 
-#: ../docs/source/backup/index.rst:117
+#: ../docs/source/backup/index.rst:110
 msgid ""
-"Typically you should get something like ``/var/lib/postgresql/9.1/main``."
-msgstr "你应该可以得到类似 ``/var/lib/postgresql/9.1/main`` 的内容。"
+"Typically, you should get something like ``/var/lib/postgresql/9.1/main`` or"
+" ``/scratch/postgres/9.6/main``."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:119
+#: ../docs/source/backup/index.rst:112
 msgid ""
-"In the above, ``9.1`` is replaced by the actual version number of your "
-"postgres distribution (the same applies to the remainder of the section)."
-msgstr "在以上部分中， ``9.1`` 需被替换为你的postgres的实际版本（对本节其他部分内容也做相同处理）"
+"In the above, ``9.1`` or ``9.6`` is replaced by the actual version number of"
+" your postgres distribution (the same applies to the remainder of the "
+"section)."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:121
+#: ../docs/source/backup/index.rst:114
 msgid ""
 "If you are experiencing memory problems and cannot enter the postgres shell,"
 " you can look directly into the file "
-"``/etc/postgresql/9.1/main/postgresql.conf`` and check out the line defining"
+"``/etc/postgresql/9.6/main/postgresql.conf`` and check out the line defining"
 " the variable ``data_directory``."
 msgstr ""
-"若你遇到了存储错误因而无法进入postgres命令行，可以直接访问 "
-"``/etc/postgresql/9.1/main/postgresql.conf`` 并找到变量 ``data_directory`` "
-"所在的行修改之。"
 
-#: ../docs/source/backup/index.rst:125
-msgid ""
-"Then exit the shell with ``\\q``, and stop the postgres database daemon::"
-msgstr "然后输入 ``\\q`` 退出命令行，并停止postgres数据库的进程::"
+#: ../docs/source/backup/index.rst:116
+msgid "Then exit the shell with ``\\q`` and stop the postgres database daemon::"
+msgstr ""
 
-#: ../docs/source/backup/index.rst:129
+#: ../docs/source/backup/index.rst:120
 msgid ""
 "Copy all the files and folders from the postgres data directory into the new"
 " directory::"
 msgstr "从postgres数据文件夹中拷贝所有的文件和文件夹到新的目标::"
 
-#: ../docs/source/backup/index.rst:133
+#: ../docs/source/backup/index.rst:124
 msgid ""
 "where ``SOURCE_DIRECTORY`` is the directory you got from the ``SHOW "
 "data_directory;`` command, and ``DESTINATION_DIRECTORY`` is the new "
@@ -220,29 +239,26 @@ msgstr ""
 "其中 ``SOURCE_DIRECTORY`` 是从 ``SHOW data_directory;`` 命令中得到的目录， "
 "``DESTINATION_DIRECTORY`` 是数据库文件的新目录。"
 
-#: ../docs/source/backup/index.rst:137
+#: ../docs/source/backup/index.rst:126
 msgid ""
-"The behaviour of the ``cp -a`` command is to create a directory into "
+"The behaviour of the ``cp -a`` command is to create a directory within "
 "``DESTINATION_DIRECTORY``, e.g.::"
-msgstr " ``cp -a`` 命令的作用是在 ``DESTINATION_DIRECTORY`` 中创建一个目录，例如::"
-
-#: ../docs/source/backup/index.rst:141
-msgid "will create the directory ``main`` into ``NEW_DIR``."
-msgstr "将会在 ``NEW_DIR`` 创建一个 ``main`` 目录。"
-
-#: ../docs/source/backup/index.rst:143
-msgid ""
-"Make sure the permissions, owner and group are the same in the old and new "
-"directory (including all levels above the ``DESTINATION_DIRECTORY``). The "
-"owner and group should be both ``postgres``, at the notable exception of "
-"some symbolic links in ``server.crt`` and ``server.key`` (these files might "
-"be absent, depending on your postgresql version number)."
 msgstr ""
-"确保权限、所有者、组等信息在新旧目录下保持一致（包括 ``DESTINATION_DIRECTORY`` 下的各级文件和文件夹）。所有者和组须均为 "
-"``postgres`` ，值得注意的例外包括 ``server.crt`` 和 ``server.key`` "
-"中的一些软连接（这些文件可能不存在，取决于你postgresql的版本号）。"
 
-#: ../docs/source/backup/index.rst:148
+#: ../docs/source/backup/index.rst:130
+msgid "will create the directory ``main`` under ``NEW_DIR``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:132
+msgid ""
+"Make sure the permissions for owner and group are the same in the old and "
+"new directory (including all levels below the ``DESTINATION_DIRECTORY``). "
+"The owner and group should be both ``postgres``, at the notable exception of"
+" some symbolic links in ``server.crt`` and ``server.key`` (these files might"
+" be absent, depending on your postgresql version number)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:137
 msgid ""
 "If the permissions of these links need to be changed, use the ``-h`` option "
 "of ``chown`` to avoid changing the permissions of the destination of the "
@@ -253,118 +269,105 @@ msgstr ""
 "若这些连接的权限需要修改，请使用 ``chown`` 的 ``-h`` "
 "选项来规避对连接目标文件权限的修改。为避免错误地改变了目标文件的权限，请按以下步骤操作（这可能取决于你的实际版本）::"
 
-#: ../docs/source/backup/index.rst:157
+#: ../docs/source/backup/index.rst:143
 msgid ""
-"Then you can change the postgres configuration file, that should typically "
-"be located here::"
-msgstr "然后你可以修改postgres的配置文件，通常位于::"
+"Then you can change the postgres configuration file, which should typically "
+"be located at ``/etc/postgresql/9.6/main/postgresql.conf``."
+msgstr ""
 
-#: ../docs/source/backup/index.rst:162
+#: ../docs/source/backup/index.rst:145
 msgid ""
 "Make a backup version of this file, then look for the line defining "
 "``data_directory`` and replace it with the new data directory path::"
 msgstr "备份此文件，并寻找定义 ``data_directory`` 的行，将其替换为新的目录路径::"
 
-#: ../docs/source/backup/index.rst:167
-msgid "Then start again the database daemon::"
-msgstr "然后启动数据库的进程::"
+#: ../docs/source/backup/index.rst:149
+msgid "Now restart the database daemon::"
+msgstr ""
 
-#: ../docs/source/backup/index.rst:171
-msgid "You can check that the data directory has indeed changed::"
-msgstr "检查确认数据文件夹已经被实际修改::"
+#: ../docs/source/backup/index.rst:153
+msgid "Finally, you can check that the data directory has indeed changed::"
+msgstr ""
 
-#: ../docs/source/backup/index.rst:177
+#: ../docs/source/backup/index.rst:159
 msgid ""
-"Before removing definitely the previous location of the database files, "
+"Before definitively removing the previous location of the database files, "
 "first rename it and test AiiDA with the new database location (e.g. do "
 "simple queries like ``verdi code list`` or create a node and store it). If "
 "everything went fine, you can delete the old database location."
 msgstr ""
-"在移除原来的数据库文件前，请先重命名并测试AiiDA是否可以在新的数据库位置正常工作（例如进行简单的诸如 ``verdi code list`` "
-"的查询或建立节点并存储之）。如果一切正常，你可以删除旧的数据库位置"
 
-#: ../docs/source/backup/index.rst:186
+#: ../docs/source/backup/index.rst:166
 msgid "Setup repository backup"
 msgstr "设置配置文件仓库备份"
 
-#: ../docs/source/backup/index.rst:187
+#: ../docs/source/backup/index.rst:168
 msgid ""
 "Apart from the database backup, you should also backup the AiiDA repository."
-" For small repositories, this can be easily done by a simple directory copy "
-"or, even better, with the use of the rsync command which can copy only the "
-"differences. However, both of the aforementioned approaches are not "
-"efficient in big repositories where even a partial recursive directory "
-"listing may take significant time, especially for filesystems where "
+msgstr ""
+
+#: ../docs/source/backup/index.rst:172
+msgid ""
+"For small repositories, this can be easily done by a simple directory copy "
+"or, even better, with the use of the ``rsync`` command, which can copy only "
+"the differences. However, both of the aforementioned approaches are not "
+"efficient for big repositories, where even a partial recursive directory "
+"listing may take significant time. Especially for filesystems where "
 "accessing a directory has a constant (and significant) latency time. "
 "Therefore, we provide scripts for making efficient backups of the AiiDA "
 "repository."
 msgstr ""
-"除了数据库的备份，AiiDA仓库也应当备份。对小的仓库，这一操作可由简单的复制粘贴完成，或更推荐地使用rsync命令来进行增量复制。然而，这些操作对较大的仓库是不够高效的，因为就连部分递归目录列表的操作都会花去显著的时间，特别是当文件系统访问目录有一个恒定（且重要）的延迟时间。因此，我们提供可以高效地创建AiiDA仓库备份的脚本。"
 
-#: ../docs/source/backup/index.rst:196
+#: ../docs/source/backup/index.rst:174
 msgid ""
 "Before running the backup script, you will have to configure it. Therefore "
-"you should execute the ``backup_setup.py`` which is located under "
+"you should execute the ``backup_setup.py`` script, which is located under "
 "``MY_AIIDA_FOLDER/aiida/manage/backup``. For example::"
 msgstr ""
-"在运行备份脚本前，你需要配置它。因此需要执行 ``MY_AIIDA_FOLDER/aiida/manage/backup`` 下的 "
-"``backup_setup.py`` 。例如::"
 
-#: ../docs/source/backup/index.rst:202
+#: ../docs/source/backup/index.rst:180
 msgid ""
 "where PROFILENAME is the name of the profile you want to use (if you don't "
-"specify the ``-p`` option, the default profile will be used). This will ask "
-"a set of questions. More precisely, it will initially ask for:"
+"specify the ``-p`` option, the default profile will be used)."
 msgstr ""
-"其中 PROFILENAME 是你希望使用的配置的名字（如果不用 ``-p`` 命令来指明，默认配置将会被使用）。一系列问题将被提出，具体地首先包括::"
 
-#: ../docs/source/backup/index.rst:204
+#: ../docs/source/backup/index.rst:182
+msgid ""
+"This will ask a set of questions. More precisely, it will initially ask for:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:184
 msgid ""
 "The backup folder. This is the destination of the backup *configuration "
 "file*. By default a folder named ``backup`` in your ``.aiida`` directory is "
 "proposed to be created."
 msgstr "备份文件夹。这是备份*配置文件*的目标。默认此文件夹会被创建并被放置在你的 ``.aiida`` 文件夹，命名为 ``backup`` 。"
 
-#: ../docs/source/backup/index.rst:208
+#: ../docs/source/backup/index.rst:188
 msgid ""
 "The destination folder of the backup. This is the destination folder of the "
 "files to be backed up. By default it is a folder inside the aforementioned "
-"``backup`` folder (e.g. ``/home/aiida_user/.aiida/backup/backup_dest``)."
+"``backup`` folder (e.g. ``~/.aiida/backup/backup_dest``)."
 msgstr ""
-"备份的目标文件夹。这是将被备份的文件的目的地。默认情况下该文件夹会被创建在上文提到的 ``backup`` 文件夹下（例如： "
-"``/home/aiida_user/.aiida/backup/backup_dest`` ）。"
 
-#: ../docs/source/backup/index.rst:212
+#: ../docs/source/backup/index.rst:194
 msgid ""
 "You should backup the repository on a different disk than the one in which "
-"you have the AiiDA repository! If you just use the same disk, you don't have"
-" any security against the most common data loss cause: disk failure. The "
-"best option is to use a destination folder mounted over ssh. For this you "
-"need to install ``sshfs`` (under ubuntu: ``sudo apt-get install sshfs``)."
+"you have the AiiDA repository! If you just use the same disk, you do not "
+"have any security against the most common data loss cause: disk failure. The"
+" best option is to use a destination folder mounted over ssh. For this  you "
+"need to install ``sshfs`` (under Ubuntu: ``sudo apt-get install sshfs``)."
 msgstr ""
-"备份须被创建在与AiiDA仓库现存位置不同的硬盘！若你使用同一个硬盘，你将无法安全地应对可能出现的最常见的数据丢失风险——硬盘损坏。最佳选项是使用一个通过ssh挂载在本地的目标文件夹。为了实现这一功能，你需要安装"
-" ``sshfs`` （Ubuntu下： ``sudo apt-get install sshfs`` ）。"
 
-#: ../docs/source/backup/index.rst:218
+#: ../docs/source/backup/index.rst:199
 msgid ""
-"E.g. Imagine that you run your calculations on server_1 and you would like "
-"to take regular repository backups to server_2. Then, you could mount a "
-"server_2 directory via sshfs on server_1 using the following command on "
-"server_1:"
+"E.g. imagine that you run your calculations on `server_1` and you would like"
+" to take regular repository backups to `server_2`. Then, you could mount a "
+"`server_2` directory via ``sshfs`` on `server_1` using the following command"
+" on `server_1`:"
 msgstr ""
-"例如：想象你在server_1服务器上运行计算任务，则你须将通常的备份放置在server_2。因此，你可以通过sshfs使用以下命令挂载server_2的一个目录到server_1::"
 
-#: ../docs/source/backup/index.rst:222
-msgid ""
-"``sshfs -o idmap=user -o rw "
-"backup_user@server_2:/home/backup_user/backup_destination_dir/`` "
-"``/home/aiida_user/remote_backup_dir/``"
-msgstr ""
-"``sshfs -o idmap=user -o rw "
-"backup_user@server_2:/home/backup_user/backup_destination_dir/`` "
-"``/home/aiida_user/remote_backup_dir/``"
-
-#: ../docs/source/backup/index.rst:225
+#: ../docs/source/backup/index.rst:206
 msgid ""
 "You should put this line into the actions performed at start-up (under gnome"
 " you can access them by typing ``gnome-session-properties`` in a terminal), "
@@ -377,116 +380,142 @@ msgstr ""
 "进入设置），从而可使远程目录在重启后被自动挂载。**不要**放置在你shell的启动文件中（例如 ``.bashrc`` "
 "），否则每次你打开终端时，计算机都会报挂载点非空的错误。"
 
-#: ../docs/source/backup/index.rst:233
+#: ../docs/source/backup/index.rst:209
 msgid ""
 "A template backup configuration file (``backup_info.json.tmpl``) will be "
-"copied in the backup folder. You can set the backup variables by yourself "
+"created in the backup folder. You can set the backup variables by yourself "
 "after renaming the template file to ``backup_info.json``, or you can answer "
 "the questions asked by the script, and then ``backup_info.json`` will be "
-"created based on you answers."
+"created based on your answers."
 msgstr ""
-"一个备份配置文件的模板文件（ ``backup_info.json.tmpl`` ）会被拷贝到备份目录下。你可以在重命名模板文件为 "
-"``backup_info.json`` 后自行设置备份变量，或者回答脚本提出的问题，则 ``backup_info.json`` "
-"会基于你的回答被创建。"
 
-#: ../docs/source/backup/index.rst:238
+#: ../docs/source/backup/index.rst:212
 msgid ""
-"The main script backs up the AiiDA repository that is referenced by the "
+"The main script will backup the AiiDA repository that is referenced by the "
 "current AiiDA database. The script will start from the "
-"``oldest_object_backedup`` date or the date of the oldest node object found "
-"and it will periodically backup (in periods of ``periodicity`` days) until "
-"the ending date of the backup specified by ``end_date_of_backup`` or "
-"``days_to_backup``"
+"``oldest_object_backedup`` date, or the date of the oldest Node object "
+"found, and it will periodically backup (in periods of ``periodicity`` days) "
+"until the end date of the backup specified by ``end_date_of_backup`` or "
+"``days_to_backup``."
 msgstr ""
-"主脚本备份AiiDA仓库时会依据现有的AiiDA数据库。脚本会从 ``oldest_object_backedup`` "
-"日期或者可以找到的最旧的节点对象创建日期开始，定期备份（在``periodicity``的天数期间），直到``end_date_of_backup``或``days_to_backup``指定的备份结束日期为止。"
 
-#: ../docs/source/backup/index.rst:244
+#: ../docs/source/backup/index.rst:215
 msgid "The backup parameters to be set in the ``backup_info.json`` are:"
 msgstr "``backup_info.json`` 中设置的备份参数包括:"
 
-#: ../docs/source/backup/index.rst:246
-msgid ""
-"``periodicity`` (in days): The backup runs periodically for a number of days"
-" defined in the periodicity variable. The purpose of this variable is to "
-"limit the backup to run only on a few number of days and therefore to limit "
-"the number of files that are backed up at every round. e.g. "
-"``\"periodicity\": 2`` Example: if you have files in the AiiDA repositories "
-"created in the past 30 days, and periodicity is 15, the first run will "
-"backup the files of the first 15 days; a second run of the script will "
-"backup the next 15 days, completing the backup (if it is run within the same"
-" day). Further runs will only backup newer files, if they are created."
+#: ../docs/source/backup/index.rst:0
+msgid "``periodicity`` (in `days`):"
 msgstr ""
-"``periodicity`` "
-"（天数）：备份工作会隔几天定期运行，天数取决于periodicity变量的值。该变量的目的在于限制备份运行的周期，从而限制每一轮需要备份的文件数，例如 "
-"``\"periodicity\": 2`` "
-"。举个例子，若你在最近30天内创建了AiiDA仓库，而periodicity为15，则第一次运行应在最初15天后运行，第二次则在之后的15天后运行，并完成备份。更近的备份只备份新的被创建的文件。"
 
-#: ../docs/source/backup/index.rst:256
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"``oldest_object_backedup`` (timestamp or null): This is the timestamp of the"
-" oldest object that was backed up. If you are not aware of this value or if "
-"it is the first time that you start a backup up for this repository, then "
-"set this value to ``null``. Then the script will search the creation date of"
-" the oldest node object in the database and it will start the backup from "
-"that date. E.g. ``\"oldest_object_backedup\": \"2015-07-20 "
-"11:13:08.145804+02:00\"``"
+"The backup runs periodically for a number of days defined in the periodicity"
+" variable. The purpose of this variable is to limit the backup to run only "
+"on a few number of days and therefore to limit the number of files that are "
+"backed up at every round."
 msgstr ""
-"``oldest_object_backedup`` "
-"（时间戳或null）：即被备份的最早文件创建日期。若你不清楚该值是否为你第一次运行备份的时间，则该值被设置为null。则脚本会搜寻数据库中文件创建日期最久的文件，并从该日期起进行备份。例如：``\"oldest_object_backedup\":"
-" \"2015-07-20 11:13:08.145804+02:00\"`` 。"
 
-#: ../docs/source/backup/index.rst:263
+#: ../docs/source/backup/index.rst:0
+msgid "E.g. ``\"periodicity\": 2``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "Example:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"``end_date_of_backup``: If set, the backup script will backup files that "
-"have a modification date until the value specified by this variable. If not "
-"set, the ending of the backup will be set by the following variable "
-"(``days_to_backup``) which specifies how many days to backup from the start "
-"of the backup. If none of these variables are set (``end_date_of_backup`` "
-"and ``days_to_backup``), then the end date of backup is set to the current "
-"date. E.g. ``\"end_date_of_backup\": null`` or ``\"end_date_of_backup\": "
-"\"2015-07-20 11:13:08.145804+02:00\"``"
+"If you have files in the AiiDA repositories created in the past 30 days, and"
+" periodicity is 15, the first run will backup the files of the first 15 "
+"days; a second run of the script will backup the next 15 days, completing "
+"the backup (if it is run within the same day). Further runs will only backup"
+" newer files, if they are created."
 msgstr ""
-"``end_date_of_backup`` ：若被设置，备份脚本将备份直到该日期的之前被修改的文件。若未设置，备份结束后根据以下变量（ "
-"``days_to_backup`` ）指定从备份开始时起备份的天数设置该变量。若均未被设置（ ``end_date_of_backup`` 和 "
-"``days_to_backup`` ），则备份的结束日期将被设置为当前日期。例如： ``\"end_date_of_backup\": null`` "
-"或 ``\"end_date_of_backup\": \"2015-07-20 11:13:08.145804+02:00\"`` 。"
 
-#: ../docs/source/backup/index.rst:272
+#: ../docs/source/backup/index.rst:0
+msgid "``oldest_object_backedup`` (`timestamp` or ``null``):"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"``days_to_backup``: If set, you specify how many days you will backup from "
-"the starting date of your backup. If it set to ``null`` and also "
-"``end_date_of_backup`` is set to ``null``, then the end date of the backup "
-"is set to the current date. You can not set ``days_to_backup`` & "
-"``end_date_of_backup`` at the same time (it will lead to an error). E.g. "
-"``\"days_to_backup\": null`` or ``\"days_to_backup\": 5``"
+"This is the timestamp of the oldest object that was backed up. If you are "
+"not aware of this value or if it is the first time you start a backup for "
+"this repository, then set this value to ``null``. Then the script will "
+"search the creation date of the oldest Node object in the database and start"
+" the backup from that date."
 msgstr ""
-"``days_to_backup`` ：若被设置，需要指定从开始日期起多少天的内容会被备份。若被设置为 ``null`` 且 "
-"``end_date_of_backup`` 也被设置为 ``null`` ，则备份的结束日期会被设置为当前日期。你不能设置 "
-"``days_to_backup`` 和 ``end_date_of_backup`` "
-"在同一时间（会导致报错）。例如：``\"days_to_backup\": null`` 或 ``\"days_to_backup\": 5`` 。"
 
-#: ../docs/source/backup/index.rst:279
+#: ../docs/source/backup/index.rst:0
+msgid "E.g. ``\"oldest_object_backedup\": \"2015-07-20 11:13:08.145804+02:00\"``"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "``end_date_of_backup`` (`timestamp` or ``null``):"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"``backup_length_threshold`` (in hours): The backup script runs in rounds and"
-" on every round it backs-up a number of days that are controlled primarily "
-"by ``periodicity`` and also by ``end_date_of_backup`` / ``days_to_backup``, "
-"for the last backup round. The ``backup_length_threshold`` specifies the "
-"lowest acceptable round length. This is important for the end of the backup."
+"If set, the backup script will backup files that have a modification date up"
+" until the value specified by this variable. If not set, the ending of the "
+"backup will be set by the ``days_to_backup`` variable, which specifies how "
+"many days to backup from the start of the backup. If none of these variables"
+" are set (``end_date_of_backup`` and ``days_to_backup``), then the end date "
+"of backup is set to the current date."
 msgstr ""
-"``backup_length_threshold`` （单位：小时）：备份脚本是按照轮数运行的，并且每一轮都会备份几天的文件，这一天数由 "
-"``periodicity`` 或者 ``end_date_of_backup`` 和 ``days_to_backup`` 控制，确定最后的备份轮数。"
-" ``backup_length_threshold`` 指定最低可接受周期的长度。这对于备份的结束是很重要的。"
 
-#: ../docs/source/backup/index.rst:285
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"``backup_dir``: The destination directory of the backup. e.g. "
-"``\"backup_dir\": \"/home/aiida_user/.aiida/backup/backup_dest\"``"
+"E.g. ``\"end_date_of_backup\": null`` or ``\"end_date_of_backup\": "
+"\"2015-07-20 11:13:08.145804+02:00\"``."
 msgstr ""
-"``backup_dir``：备份的目的文件夹。例如： ``\"backup_dir\": "
-"\"/home/aiida_user/.aiida/backup/backup_dest\"`` 。"
 
-#: ../docs/source/backup/index.rst:288
+#: ../docs/source/backup/index.rst:0
+msgid "``days_to_backup`` (in `days` or ``null``):"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid ""
+"If set, you specify how many days you will backup from the starting date of "
+"your backup. If it is set to ``null`` and also ``end_date_of_backup`` is set"
+" to ``null``, then the end date of the backup is set to the current date. "
+"You can not set ``days_to_backup`` & ``end_date_of_backup`` at the same time"
+" (it will lead to an error)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "E.g. ``\"days_to_backup\": null`` or ``\"days_to_backup\": 5``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "``backup_length_threshold`` (in `hours`):"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid ""
+"The backup script runs in rounds and on every round it will backup a number "
+"of days that are controlled primarily by ``periodicity`` and also by "
+"``end_date_of_backup`` / ``days_to_backup``, for the last backup round. The "
+"``backup_length_threshold`` specifies the *lowest acceptable* round length. "
+"This is important for the end of the backup."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "E.g. ``backup_length_threshold: 1``"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "``backup_dir`` (absolute path):"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "The destination directory of the backup."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "E.g. ``\"backup_dir\": \"/home/USERNAME/.aiida/backup/backup_dest\"``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:253
 msgid ""
 "To start the backup, run the ``start_backup.py`` script. Run as often as "
 "needed to complete a full backup, and then run it periodically (e.g. calling"
@@ -495,28 +524,27 @@ msgstr ""
 "运行 ``start_backup.py`` "
 "脚本以开始备份。尽可能频繁地运行以完成一次完整的备份，随后周期性地运行（例如：用cron脚本来控制，比如每天运行）以备份最新的修改。"
 
-#: ../docs/source/backup/index.rst:292
+#: ../docs/source/backup/index.rst:258
 msgid "You can set up a cron job using the following command::"
 msgstr "你可以如下命令来创建一个cron工作::"
 
-#: ../docs/source/backup/index.rst:296
-msgid "It will open an editor where you can add a line of the form::"
-msgstr "这将打开一个编辑器以便增加新的行::"
+#: ../docs/source/backup/index.rst:262
+msgid "It will open an editor, where you can add a line of the form::"
+msgstr ""
 
-#: ../docs/source/backup/index.rst:300
+#: ../docs/source/backup/index.rst:266
 msgid "or (if you need to backup a different profile than the default one)::"
 msgstr "或者（若你需要备份与默认配置不同的其他配置）::"
 
-#: ../docs/source/backup/index.rst:304
+#: ../docs/source/backup/index.rst:270
 msgid ""
-"This will launch the backup of the database every day at 3 AM, and send the "
-"output (or any error message) to the email address of the user (provided the"
-" ``mail`` command -- from ``mailutils`` -- is configured appropriately)."
+"This will launch the backup of the database every day at 3 AM (03:00), and "
+"send the output (or any error message) to the email address specified at the"
+" end (provided the ``mail`` command -- from ``mailutils`` -- is configured "
+"appropriately)."
 msgstr ""
-"则备份将在每天凌晨3时开始，并通过用户的电子邮箱地址发送输出（或错误信息）给用户（ ``mailutils`` 提供的 ``mail`` "
-"命令被正确配置）。"
 
-#: ../docs/source/backup/index.rst:308
+#: ../docs/source/backup/index.rst:272
 msgid ""
 "Finally, do not forget to exclude the repository folder from the normal "
 "backup of your home directory!"

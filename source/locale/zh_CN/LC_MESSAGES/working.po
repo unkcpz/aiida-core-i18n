@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 20:22+0000\n"
+"POT-Creation-Date: 2019-10-31 22:43+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
 "Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
@@ -22,8 +22,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../docs/source/working/calculations.rst:5
-msgid "Calculations"
-msgstr "算例(Calculations)"
+#: ../docs/source/working/processes.rst:5
+#: ../docs/source/working/workflows.rst:5
+msgid "Application"
+msgstr ""
 
 #: ../docs/source/working/calculations.rst:7
 msgid ""
@@ -522,6 +524,7 @@ msgid ""
 "working directory, without them having to be retrieved to the engine's "
 "machine in between."
 msgstr ""
+"远程复制列表有助于避免在运行引擎的计算机与执行计算作业的位置之间进行不必要的文件传输。例如，假设您已经在远程集群上完成了计算作业，现在想要启动第二个计算作业，这需要第一次运行的某些输出文件作为其输入。远程复制列表允许您准确指定要复制到远程工作目录的输出文件，而不必将它们检索到引擎的机器之间。"
 
 #: ../docs/source/working/calculations.rst:206
 msgid ""
@@ -531,6 +534,9 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.folder.FolderData` data node and attached "
 "as an output to the ``CalcJobNode`` with the link label ``retrieved``."
 msgstr ""
+"最后，检索列表允许您指示引擎在作业终止后应从工作目录中检索哪些文件。这些文件将被下载到本地机器，存储在 "
+":py:class:`~aiiida.orm.nodes.data.folder.FolderData`数据节点中，并作为输出附加到带有链接标签的 "
+"``CalcJobNode``  ``retrieved`` 。"
 
 #: ../docs/source/working/calculations.rst:211
 msgid ""
@@ -540,39 +546,42 @@ msgid ""
 "the ``code`` input, the ``retrieved`` output is common for all calculation "
 "job implementations."
 msgstr ""
+"我们没有明确地将 ``retrieve`` 文件夹数据节点定义为上面显示的示例 ``ArithmeticAddCalculation`` "
+"实现中的输出。这是因为它已经由 ``CalcJob`` 基类定义。正如 ``code`` 输入一样， ``retrieve`` "
+"输出对于所有计算作业实现都是通用的。"
 
 #: ../docs/source/working/calculations.rst:219
 msgid "File lists"
-msgstr ""
+msgstr "文件列表"
 
 #: ../docs/source/working/calculations.rst:224
 msgid "Local copy list"
-msgstr ""
+msgstr "本地复制列表"
 
 #: ../docs/source/working/calculations.rst:225
 msgid ""
 "The local copy list takes tuples of length three, each of which represents a"
 " file to be copied, defined through the following items:"
-msgstr ""
+msgstr "本地副本列表采用长度为3的元组，每个元组表示要复制的文件，通过以下项定义:"
 
 #: ../docs/source/working/calculations.rst:227
 msgid ""
 "`node uuid`: the node whose repository contains the file, typically a "
 "``SinglefileData`` or ``FolderData`` node"
-msgstr ""
+msgstr "`node uuid`: 其存储库包含文件的节点，通常是 ``SinglefileData`` 或 ``FolderData`` 节点"
 
 #: ../docs/source/working/calculations.rst:228
 msgid ""
 "`source relative path`: the relative path of the file within the node "
 "repository"
-msgstr ""
+msgstr "`source relative path`: 节点存储库中文件的相对路径"
 
 #: ../docs/source/working/calculations.rst:229
 #: ../docs/source/working/calculations.rst:255
 msgid ""
 "`target relative path`: the relative path within the working directory to "
 "which to copy the file"
-msgstr ""
+msgstr "`target relative path`: 要复制文件的工作目录中的相对路径"
 
 #: ../docs/source/working/calculations.rst:231
 msgid ""
@@ -580,6 +589,8 @@ msgid ""
 "``SinglefileData`` node as input with the name ``pseudopotential``, to copy "
 "its contents one can specify:"
 msgstr ""
+"作为一个例子，考虑一个 ``CalcJob`` 实现，它接收一个名为 ``pseudopotential`` 的 ``SinglefileData`` "
+"节点作为输入，以复制其可以指定的内容:"
 
 #: ../docs/source/working/calculations.rst:237
 msgid ""
@@ -588,24 +599,26 @@ msgid ""
 "instead, you need to transfer a specific file from a ``FolderData``, you can"
 " specify the explicit key of the file, like so:"
 msgstr ""
+"根据定义， ``SinglefileData`` 节点只包含一个文件，其相对路径由 ``filename`` 属性返回。相反，如果需要从 "
+"``FolderData`` 传输特定文件，则可以指定文件的显式键，如下所示:"
 
 #: ../docs/source/working/calculations.rst:244
 msgid ""
 "Note that the filenames in the relative source and target path need not be "
 "the same. This depends fully on how the files are stored in the node's "
 "repository and what files need to be written to the working directory."
-msgstr ""
+msgstr "请注意，相对源和目标路径中的文件名不必相同。这完全取决于文件如何存储在节点的存储库中以及需要将哪些文件写入工作目录。"
 
 #: ../docs/source/working/calculations.rst:250
 msgid "Remote copy list"
-msgstr ""
+msgstr "远程复制列表"
 
 #: ../docs/source/working/calculations.rst:251
 msgid ""
 "The remote copy list takes tuples of length three, each of which represents "
 "a file to be copied on the remote machine where the calculation will run, "
 "defined through the following items:"
-msgstr ""
+msgstr "远程复制列表采用长度为3的元组，每个元组表示要在运行计算的远程计算机上复制的文件，通过以下各项定义:"
 
 #: ../docs/source/working/calculations.rst:253
 msgid ""
@@ -613,22 +626,23 @@ msgid ""
 "file resides. For now the remote copy list can only copy files on the same "
 "machine where the job will run."
 msgstr ""
+"`computer uuid`: 这是源文件所在的 ``Computer`` 的UUID。目前，远程复制列表只能复制运行作业的同一台计算机上的文件。"
 
 #: ../docs/source/working/calculations.rst:254
 msgid ""
 "`source absolute path`: the absolute path of the source file on the remote "
 "machine"
-msgstr ""
+msgstr "`source absolute path`: 远程机器上源文件的绝对路径"
 
 #: ../docs/source/working/calculations.rst:261
 msgid ""
 "Note that the source path can point to a directory, in which case its "
 "contents will be recursively copied in its entirety."
-msgstr ""
+msgstr "请注意，源路径可以指向目录，在这种情况下，其内容将以整体递归方式复制。"
 
 #: ../docs/source/working/calculations.rst:266
 msgid "Retrieve list"
-msgstr ""
+msgstr "检索列表"
 
 #: ../docs/source/working/calculations.rst:267
 msgid ""
@@ -645,26 +659,26 @@ msgid ""
 "The retrieved files will be copied over keeping the exact names and "
 "hierarchy. If you require more control over the hierarchy and nesting, you "
 "can use tuples of length three instead, with the following items:"
-msgstr ""
+msgstr "将检索检索到的文件，保留确切的名称和层次结构。如果您需要对层次结构和嵌套进行更多控制，则可以使用长度为3的元组，使用以下项："
 
 #: ../docs/source/working/calculations.rst:278
 msgid ""
 "`source relative path`: the relative path, with respect to the working "
 "directory on the remote, of the file or directory to retrieve"
-msgstr ""
+msgstr "`source relative path`: 相对于要检索的文件或目录的远程工作目录的相对路径"
 
 #: ../docs/source/working/calculations.rst:279
 msgid ""
 "`target relative path`: the relative path where to copy the files locally in"
 " the retrieved folder. The string `'.'` indicates the top level in the "
 "retrieved folder."
-msgstr ""
+msgstr "`target relative path`: 在检索到的文件夹中本地复制文件的相对路径。字符串 `'.'` 表示检索到的文件夹中的顶级。"
 
 #: ../docs/source/working/calculations.rst:280
 msgid ""
 "`depth`: the number of levels of nesting in the folder hierarchy to maintain"
 " when copying, starting from the deepest file"
-msgstr ""
+msgstr "`depth`: 复制时要保留的文件夹层次结构中的嵌套级别数，从最深的文件开始"
 
 #: ../docs/source/working/calculations.rst:282
 msgid ""
@@ -673,6 +687,8 @@ msgid ""
 "``some/remote/path/files/output.dat``. If you want to copy the file, with "
 "the final resulting path ``path/files/output.dat``, you would specify:"
 msgstr ""
+"例如，假设计算将在远程工作目录中编写一个文件，文件夹层次结构为 ``some/remote/path/files/output.dat`` "
+"。如果要复制文件，并使用最终生成的路径 ``path/files/output.dat`` ，则应指定:"
 
 #: ../docs/source/working/calculations.rst:289
 msgid ""
@@ -683,6 +699,9 @@ msgid ""
 "that follow the pattern ``file_*[0-9].xml``, you can instruct to retrieve "
 "all of them as follows:"
 msgstr ""
+"深度为2，确保只复制两层嵌套。如果输出文件具有事先无法知道的动态名称，则可以使用 ``'*'`` glob模式。例如，如果代码将在文件夹 "
+"``relative/path/output`` 中生成许多XML文件，文件名遵循模式 ``file_*[0-9].xml`` "
+"，则可以指示检索所有这些都如下:"
 
 #: ../docs/source/working/calculations.rst:297
 msgid ""
@@ -694,7 +713,7 @@ msgstr ""
 
 #: ../docs/source/working/calculations.rst:302
 msgid "Retrieve temporary list"
-msgstr ""
+msgstr "检索临时列表"
 
 #: ../docs/source/working/calculations.rst:303
 msgid ""
@@ -721,6 +740,16 @@ msgid ""
 "list' is essentially that the files will be available during parsing and "
 "will be destroyed immediately afterwards."
 msgstr ""
+"回想一下，如 :ref:`准备部分<working_calcjobs_prepare>` 中所述，引擎在'检索列表'之后检索的所有文件都存储在 "
+"``retrieve`` "
+"文件夹数据节点中。这意味着您为完成的计算作业检索的任何文件都将存储在您的存储库中。如果要检索大文件，这可能会导致存储库显着增长。但是，通常，您可能只需要这些检索到的文件中包含的部分信息。为了解决这个常见问题，有“检索临时列表”的概念。检索临时列表的规范与普通列表的规范相同"
+" :ref:`retrieve list <working_calcjobs_file_lists_retrieve>` "
+"。唯一的区别是，与检索列表的文件不同，它将永久存储在检索到的 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData` "
+"节点中，检索临时列表的文件将存储在临时沙箱文件夹中。然后将此文件夹传递给 :ref:`parser "
+"<working_calcjobs_parsers>` "
+"，如果为计算作业指定了一个。然后，解析器实现可以解析这些文件并将相关信息存储为输出节点。解析器终止后，引擎将注意使用临时检索的文件自动清理沙箱文件夹。 "
+"“检索临时列表”的合同本质上是文件在解析期间可用，并且将在之后立即销毁。"
 
 #: ../docs/source/working/calculations.rst:319
 msgid "Options"
@@ -734,188 +763,14 @@ msgid ""
 "additonal input called ``options``. These options allow to subtly change the"
 " behavior of the calculation job, for example which parser should be used "
 "once it is finished and special scheduler directives. The full list of "
-"available options are as follows:"
+"available options are documented below as part of the ``CalcJob`` interface:"
 msgstr ""
-
-#: ../docs/source/working/calculations.rst:324
-msgid ":ref:`parser_name<working_calcjobs_options_parser_name>`"
-msgstr ":ref:`parser_name<working_calcjobs_options_parser_name>`"
-
-#: ../docs/source/working/calculations.rst:325
-msgid ":ref:`input_filename<working_calcjobs_options_input_filename>`"
-msgstr ":ref:`input_filename<working_calcjobs_options_input_filename>`"
-
-#: ../docs/source/working/calculations.rst:326
-msgid ":ref:`output_filename<working_calcjobs_options_output_filename>`"
-msgstr ":ref:`output_filename<working_calcjobs_options_output_filename>`"
-
-#: ../docs/source/working/calculations.rst:327
-msgid ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
-msgstr ":ref:`scheduler_stdout<working_calcjobs_options_scheduler_stdout>`"
-
-#: ../docs/source/working/calculations.rst:328
-msgid ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
-msgstr ":ref:`scheduler_stderr<working_calcjobs_options_scheduler_stderr>`"
-
-#: ../docs/source/working/calculations.rst:329
-msgid ":ref:`resources<working_calcjobs_options_resources>`"
-msgstr ":ref:`resources<working_calcjobs_options_resources>`"
-
-#: ../docs/source/working/calculations.rst:330
-msgid ""
-":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
-msgstr ""
-":ref:`max_wallclock_seconds<working_calcjobs_options_max_wallclock_seconds>`"
 
 #: ../docs/source/working/calculations.rst:331
-msgid ""
-":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
-msgstr ""
-":ref:`custom_scheduler_commands<working_calcjobs_options_custom_scheduler_commands>`"
-
-#: ../docs/source/working/calculations.rst:332
-msgid ":ref:`queue_name<working_calcjobs_options_queue_name>`"
-msgstr ":ref:`queue_name<working_calcjobs_options_queue_name>`"
-
-#: ../docs/source/working/calculations.rst:333
-msgid ":ref:`account<working_calcjobs_options_account>`"
-msgstr ":ref:`account<working_calcjobs_options_account>`"
-
-#: ../docs/source/working/calculations.rst:334
-msgid ":ref:`qos<working_calcjobs_options_qos>`"
-msgstr ":ref:`qos<working_calcjobs_options_qos>`"
-
-#: ../docs/source/working/calculations.rst:335
-msgid ":ref:`computer<working_calcjobs_options_computer>`"
-msgstr ":ref:`computer<working_calcjobs_options_computer>`"
-
-#: ../docs/source/working/calculations.rst:336
-msgid ":ref:`withmpi<working_calcjobs_options_withmpi>`"
-msgstr ":ref:`withmpi<working_calcjobs_options_withmpi>`"
-
-#: ../docs/source/working/calculations.rst:337
-msgid ""
-":ref:`mpirun_extra_params<working_calcjobs_options_mpirun_extra_params>`"
-msgstr ""
-":ref:`mpirun_extra_params<working_calcjobs_options_mpirun_extra_params>`"
-
-#: ../docs/source/working/calculations.rst:338
-msgid ""
-":ref:`import_sys_environment<working_calcjobs_options_import_sys_environment>`"
-msgstr ""
-":ref:`import_sys_environment<working_calcjobs_options_import_sys_environment>`"
-
-#: ../docs/source/working/calculations.rst:339
-msgid ""
-":ref:`environment_variables<working_calcjobs_options_environment_variables>`"
-msgstr ""
-":ref:`environment_variables<working_calcjobs_options_environment_variables>`"
-
-#: ../docs/source/working/calculations.rst:340
-msgid ":ref:`priority<working_calcjobs_options_priority>`"
-msgstr ":ref:`priority<working_calcjobs_options_priority>`"
-
-#: ../docs/source/working/calculations.rst:341
-msgid ":ref:`max_memory_kb<working_calcjobs_options_max_memory_kb>`"
-msgstr ":ref:`max_memory_kb<working_calcjobs_options_max_memory_kb>`"
-
-#: ../docs/source/working/calculations.rst:342
-msgid ":ref:`prepend_text<working_calcjobs_options_prepend_text>`"
-msgstr ":ref:`prepend_text<working_calcjobs_options_prepend_text>`"
-
-#: ../docs/source/working/calculations.rst:343
-msgid ":ref:`append_text<working_calcjobs_options_append_text>`"
-msgstr ":ref:`append_text<working_calcjobs_options_append_text>`"
-
-#: ../docs/source/working/calculations.rst:345
-msgid "More detailed information about their usage, follows below."
-msgstr "有关其用法的更多详细信息如下。"
-
-#: ../docs/source/working/calculations.rst:350
-msgid "``parser_name``"
-msgstr "``parser_name``"
-
-#: ../docs/source/working/calculations.rst:355
-msgid "``input_filename``"
-msgstr "``input_filename``"
-
-#: ../docs/source/working/calculations.rst:360
-msgid "``output_filename``"
-msgstr "``output_filename``"
-
-#: ../docs/source/working/calculations.rst:365
-msgid "``scheduler_stdout``"
-msgstr "``scheduler_stdout``"
-
-#: ../docs/source/working/calculations.rst:370
-msgid "``scheduler_stderr``"
-msgstr "``scheduler_stderr``"
-
-#: ../docs/source/working/calculations.rst:375
-msgid "``resources``"
-msgstr "``resources``"
-
-#: ../docs/source/working/calculations.rst:380
-msgid "``max_wallclock_seconds``"
-msgstr "``max_wallclock_seconds``"
-
-#: ../docs/source/working/calculations.rst:385
-msgid "``custom_scheduler_commands``"
-msgstr "``custom_scheduler_commands``"
-
-#: ../docs/source/working/calculations.rst:390
-msgid "``queue_name``"
-msgstr "``queue_name``"
-
-#: ../docs/source/working/calculations.rst:395
-msgid "``account``"
-msgstr "``account``"
-
-#: ../docs/source/working/calculations.rst:400
-msgid "``qos``"
-msgstr "``qos``"
-
-#: ../docs/source/working/calculations.rst:405
-msgid "``computer``"
-msgstr "``computer``"
-
-#: ../docs/source/working/calculations.rst:410
-msgid "``withmpi``"
-msgstr "``withmpi``"
-
-#: ../docs/source/working/calculations.rst:415
-msgid "``mpirun_extra_params``"
-msgstr "``mpirun_extra_params``"
-
-#: ../docs/source/working/calculations.rst:420
-msgid "``import_sys_environment``"
-msgstr "``import_sys_environment``"
-
-#: ../docs/source/working/calculations.rst:425
-msgid "``environment_variables``"
-msgstr "``environment_variables``"
-
-#: ../docs/source/working/calculations.rst:430
-msgid "``priority``"
-msgstr "``priority``"
-
-#: ../docs/source/working/calculations.rst:435
-msgid "``max_memory_kb``"
-msgstr "``max_memory_kb``"
-
-#: ../docs/source/working/calculations.rst:440
-msgid "``prepend_text``"
-msgstr "``prepend_text``"
-
-#: ../docs/source/working/calculations.rst:445
-msgid "``append_text``"
-msgstr "``append_text``"
-
-#: ../docs/source/working/calculations.rst:451
 msgid "Launch"
 msgstr "发动"
 
-#: ../docs/source/working/calculations.rst:453
+#: ../docs/source/working/calculations.rst:333
 msgid ""
 "Launching a calculation job is no different from launching any other process"
 " class, so please refer to the section on :ref:`launching "
@@ -932,11 +787,11 @@ msgid ""
 "for testing or demonstration purposes."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:464
+#: ../docs/source/working/calculations.rst:344
 msgid "Dry run"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:465
+#: ../docs/source/working/calculations.rst:345
 msgid ""
 "The calculation job has one additional feature over all other processes when"
 " it comes to launching them. Since an incorrectly configured calculation job"
@@ -947,7 +802,7 @@ msgid ""
 "as simple as:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:474
+#: ../docs/source/working/calculations.rst:354
 msgid ""
 "When you now launch the process builder, the engine will perform the entire "
 "process of a normal calculation job run, except that it will not actually "
@@ -960,18 +815,59 @@ msgid ""
 "without overwriting the previous results."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:481
+#: ../docs/source/working/calculations.rst:359
+msgid "Moreover, the following applies:"
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:361
+msgid ""
+"when calling :py:func:`~aiida.engine.launch.run` for a calculation with the "
+"``dry_run`` flag set, you will get back its results, being always an empty "
+"dictionary ``{}``;"
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:364
+msgid ""
+"if you call :py:func:`~aiida.engine.launch.run_get_node`, you will get back "
+"as a node an unstored ``CalcJobNode``. In this case, the unstored "
+"``CalcJobNode`` (let's call it ``node``) will have an additional property "
+"``node.dry_run_info``. This is a dictionary that contains additional "
+"information on the dry-run output. In particular, it will have the following"
+" keys:"
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:370
+msgid ""
+"``folder``: the absolute path to the folder within the ``submit_test`` "
+"folder where the files have been created, e.g.: "
+"``/home/user/submit_test/20190726-00019``"
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:373
+msgid ""
+"``script_filename``: the filename of the submission script that AiiDA "
+"generated in the folder, e.g.: ``_aiidasubmit.sh``"
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:376
+msgid ""
+"if you send a dry-run to the :py:func:`~aiida.engine.launch.submit` "
+"function, this will be just forwarded to run and you will get back the "
+"unstored node (with the same properties as above)."
+msgstr ""
+
+#: ../docs/source/working/calculations.rst:383
 msgid ""
 "By default the storing of provenance is enabled and this goes also for a dry"
 " run. If you do not want any nodes to be created during a dry run, simply "
 "set the metadata input ``store_provenance`` to ``False``."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:488
+#: ../docs/source/working/calculations.rst:390
 msgid "Parsing"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:489
+#: ../docs/source/working/calculations.rst:391
 msgid ""
 "The previous sections explained in detail how the execution of an external "
 "executable is wrapped by the ``CalcJob`` class to make it runnable by "
@@ -983,13 +879,13 @@ msgid ""
 "and attach them as queryable output nodes to the calculation job node. To "
 "automatically trigger the parsing of a calculation job after its output has "
 "been retrieved, is to specify the :ref:`parser name "
-"option<working_calcjobs_options_parser_name>`. If the engine find this "
-"option specified, it will load the corresponding parser class, which should "
-"be a sub class of :py:class:`~aiida.parsers.parser.Parser` and calls its "
+"option<working_calcjobs_options>`. If the engine find this option specified,"
+" it will load the corresponding parser class, which should be a sub class of"
+" :py:class:`~aiida.parsers.parser.Parser` and calls its "
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:495
+#: ../docs/source/working/calculations.rst:397
 msgid ""
 "To explain the interface of the ``Parser`` class and the ``parse`` method, "
 "let's take the "
@@ -999,7 +895,7 @@ msgid ""
 " the previous sections."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:502
+#: ../docs/source/working/calculations.rst:404
 msgid ""
 "To create a new parser implementation, simply create a new class that sub "
 "classes the :py:class:`~aiida.parsers.parser.Parser` class. As usual, any "
@@ -1014,28 +910,28 @@ msgid ""
 " of the ``parse`` method is very simple:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:509
+#: ../docs/source/working/calculations.rst:411
 msgid ""
 "Open and load the content of the output files generated by the calculation "
 "job and have been retrieved by the engine"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:510
+#: ../docs/source/working/calculations.rst:412
 msgid ""
 "Create data nodes out of this raw data that are attached as output nodes"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:511
+#: ../docs/source/working/calculations.rst:413
 msgid "Log human-readable warning messages in the case of worrying output"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:512
+#: ../docs/source/working/calculations.rst:414
 msgid ""
 "Optionally return an :ref:`exit code<concepts_process_exit_codes>` to "
 "indicate that the results of the calculation was not successful"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:514
+#: ../docs/source/working/calculations.rst:416
 msgid ""
 "The advantage of adding the raw output data in different form as output "
 "nodes, is that in that form the content becomes queryable. This allows one "
@@ -1044,7 +940,7 @@ msgid ""
 "analyses of big databases."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:517
+#: ../docs/source/working/calculations.rst:419
 msgid ""
 "The ``retrieved`` attribute of the parser will return the ``FolderData`` "
 "node that should have been attached by the engine containing all the "
@@ -1056,7 +952,7 @@ msgid ""
 "wrap the ``self.retrieved`` call in a try-catch block:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:527
+#: ../docs/source/working/calculations.rst:429
 msgid ""
 "If the exception is thrown, it means the retrieved files are not available "
 "and something must have has gone terribly awry with the calculation. In this"
@@ -1074,7 +970,7 @@ msgid ""
 "any exception that occurs during parsing."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:536
+#: ../docs/source/working/calculations.rst:438
 msgid ""
 "Assuming that everything went according to plan during the retrieval, we now"
 " have access to those retrieved files and can start to parse them. In this "
@@ -1084,7 +980,7 @@ msgid ""
 "the sum from it:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:546
+#: ../docs/source/working/calculations.rst:448
 msgid ""
 "Note that again we wrap this parsing action in a try-except block. If the "
 "file cannot be found or cannot be read, we return the appropriate exit code."
@@ -1098,7 +994,7 @@ msgid ""
 "as an output through the ``out`` method:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:558
+#: ../docs/source/working/calculations.rst:460
 msgid ""
 "Note that if we encountered no problems, we do not have to return anything. "
 "The engine will interpret this as the calculation having finished "
@@ -1110,7 +1006,7 @@ msgid ""
 "guidelines:"
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:564
+#: ../docs/source/working/calculations.rst:466
 msgid ""
 "Store data that you might want to query for, in the lightweight data nodes, "
 "such as :py:class:`~aiida.orm.nodes.data.dict.Dict`, "
@@ -1120,7 +1016,7 @@ msgid ""
 "they can be queried for."
 msgstr ""
 
-#: ../docs/source/working/calculations.rst:566
+#: ../docs/source/working/calculations.rst:468
 msgid ""
 "Bigger data sets, such as large (multi-dimnensional) arrays, are better "
 "stored in an :py:class:`~aiida.orm.nodes.data.array.array.ArrayData` or one "
@@ -1132,26 +1028,193 @@ msgid ""
 "database lean and fast!"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:5
-msgid "Calculation and work functions"
+#: ../docs/source/working/data.rst:4
+msgid "Concept"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:7
+#: ../docs/source/working/data.rst:6
+msgid ""
+"The nodes in the :ref:`provenance graph<concepts_provenance>` that are the "
+"inputs and outputs of processes are referred to as `data` and are "
+"represented by :class:`~aiida.orm.nodes.data.data.Data` nodes. Since data "
+"can come in all shapes and forms, the "
+":class:`~aiida.orm.nodes.data.data.Data` class can be sub classed. AiiDA "
+"ships with some basic data types such as the "
+":class:`~aiida.orm.nodes.data.int.Int` which represents a simple integer and"
+" the :class:`~aiida.orm.nodes.data.dict.Dict`, representing a dictionary of "
+"key-value pairs. There are also more complex data types such as the "
+":class:`~aiida.orm.nodes.data.array.array.ArrayData` which can store "
+"multidimensional arrays of numbers. These basic data types serve most needs "
+"for the majority of applications, but more specific solutions may be useful "
+"or even necessary. In the next sections, we will explain :ref:`how a new "
+"data type can be created<working_data_creating_new_types>` and what "
+":ref:`guidelines<working_data_design_guidelines>` should ideally be observed"
+" during the design process."
+msgstr ""
+
+#: ../docs/source/working/data.rst:17
+msgid "Creating new data types"
+msgstr ""
+
+#: ../docs/source/working/data.rst:19
+msgid ""
+"Creating a new data type is as simple as creating a new sub class of the "
+"base :class:`~aiida.orm.nodes.data.data.Data` class."
+msgstr ""
+
+#: ../docs/source/working/data.rst:28
+msgid ""
+"At this point, our new data type does nothing special. Typically, one "
+"creates a new data type to represent a specific type of data. For the "
+"purposes of this example, let's assume that the goal of our ``NewData`` type"
+" is to store a single numerical value. To allow one to construct a new "
+"``NewData`` data node with the desired ``value``, for example:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:37
+msgid ""
+"we need to allow passing that value to the constructor of the node class. "
+"Therefore, we have to override the constructor "
+":meth:`~aiida.orm.nodes.node.Node.__init__`:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:54
+msgid ""
+"For the class to function properly, the signature of the constructor "
+"**cannot be changed** and the constructor of the parent class **has to be "
+"called**."
+msgstr ""
+
+#: ../docs/source/working/data.rst:56
+msgid ""
+"Before calling the construtor of the base class, we have to remove the "
+"``value`` keyword from the keyword arguments ``kwargs``, because the base "
+"class will not expect it and will raise an exception if left in the keyword "
+"arguments. The final step is to actually *store* the value that is passed by"
+" the caller of the constructor. A new node has two locations to permanently "
+"store any of its properties:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:60
+msgid "the database"
+msgstr ""
+
+#: ../docs/source/working/data.rst:61
+msgid "the file repository"
+msgstr ""
+
+#: ../docs/source/working/data.rst:63
+msgid ""
+"The section on :ref:`design guidelines<working_data_design_guidelines>` will"
+" go into more detail what the advantages and disadvantages of each option "
+"are and when to use which. For now, since we are storing only a single "
+"value, the easiest and best option is to use the database. Each node has "
+"*attributes* that can store any key-value pair, as long as the value is JSON"
+" serializable. By adding the value to the node's attributes, they will be "
+"queryable in the database once an instance of the ``NewData`` node is "
+"stored."
+msgstr ""
+
+#: ../docs/source/working/data.rst:74
+msgid ""
+"After storing the node instance in the database, its attributes are frozen, "
+"and ``node.set_attribute('value', 7)`` will fail. By storing the ``value`` "
+"in the attributes of the node instance, we ensure that that ``value`` can be"
+" retrieved even when the node is reloaded at a later point in time."
+msgstr ""
+
+#: ../docs/source/working/data.rst:77
+msgid ""
+"Besides making sure that the content of a data node is stored in the "
+"database or file repository, the data type class can also provide useful "
+"methods for users to retrieve that data. For example, with the current state"
+" of the ``NewData`` class, in order to retrieve the ``value`` of a stored "
+"``NewData`` node, one needs to do:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:85
+msgid ""
+"In other words, the user of the ``NewData`` class needs to know that the "
+"``value`` is stored as an attribute with the name 'value'. This is not easy "
+"to remember and therefore not very user-friendly. Since the ``NewData`` type"
+" is a class, we can give it useful methods. Let's introduce one that will "
+"return the value that was stored for it:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:102
+msgid ""
+"The addition of the instance property ``value`` makes retrieving the value "
+"of a ``NewData`` node a lot easier:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:109
+msgid ""
+"As said before, in addition to their attributes, data types can also store "
+"their properties in the file repository. Imagine a data type that needs to "
+"wrap a single text file."
+msgstr ""
+
+#: ../docs/source/working/data.rst:140
+msgid "To create a new instance of this data type and get its content:"
+msgstr ""
+
+#: ../docs/source/working/data.rst:147
+msgid ""
+"This example is a simplified version of the "
+":class:`~aiida.orm.nodes.data.singlefile.SinglefileData` data class that "
+"ships with `aiida-core`. If this happens to be your use case (or very close "
+"to it), it is of course better to use that class, or you can sub class it "
+"and adapt it where needed."
+msgstr ""
+
+#: ../docs/source/working/data.rst:150
+msgid ""
+"The two new data types we have just implemented are of course trivial and "
+"not very useful, but the concepts are flexible and can easily be applied to "
+"more complex use-cases. The following section will provide useful guidelines"
+" on how to optimally design new data types."
+msgstr ""
+
+#: ../docs/source/working/data.rst:157
+msgid "Database or repository?"
+msgstr ""
+
+#: ../docs/source/working/data.rst:159
+msgid ""
+"When deciding where to store a property of a data type, one has to choose "
+"between the database and the file repository. The database will make it "
+"possible to search in the provenance graph based on criteria based on the "
+"property, e.g. all ``NewData`` nodes where the property is greater than 0. "
+"The downside is that storing too much information in the database can make "
+"it sluggish. Therefore, big data (think large files), whose content does not"
+" necessarily need to be queried for, is better stored in the file "
+"repository. Of course a data type may need to store multiple properties of "
+"varying character, but both storage locations can safely be used in "
+"parellel. When choosing the database as the storage location, the properties"
+" should be stored using the node *attributes*. To set and retrieve them, use"
+" the attribute methods of the :class:`~aiida.orm.nodes.node.Node` class."
+msgstr ""
+
+#: ../docs/source/working/functions.rst:4
+msgid "About"
+msgstr ""
+
+#: ../docs/source/working/functions.rst:6
 msgid ""
 "A process function is a process (see the :ref:`process "
 "section<concepts_processes>` for details) that is implemented as a decorated"
 " python function. Currently, there are two types of process functions:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:10
+#: ../docs/source/working/functions.rst:9
 msgid ":ref:`calculation function<concepts_calcfunctions>`"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:11
+#: ../docs/source/working/functions.rst:10
 msgid ":ref:`work function<concepts_workfunctions>`"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:13
+#: ../docs/source/working/functions.rst:12
 msgid ""
 "The former can *create* new data, whereas the latter can orchestrate other "
 "processes and *return* their results. This section will provide detailed "
@@ -1161,7 +1224,7 @@ msgid ""
 "both process types."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:18
+#: ../docs/source/working/functions.rst:17
 msgid ""
 "This chapter assumes that the basic concept and difference between "
 "calculation functions and work functions is known and when one should use on"
@@ -1171,7 +1234,7 @@ msgid ""
 "functions<concepts_workfunctions>`."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:21
+#: ../docs/source/working/functions.rst:20
 msgid ""
 "The simple example in the :ref:`introductory section on calculation "
 "functions<concepts_calcfunctions>` showed how a simple python function can "
@@ -1184,36 +1247,36 @@ msgid ""
 "of the python function signature standard are supported."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:26
+#: ../docs/source/working/functions.rst:25
 msgid "Function signatures"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:27
+#: ../docs/source/working/functions.rst:26
 msgid ""
 "To explain what features of python function definitions and calls are "
 "supported we first need to be clear about some terminology. When dealing "
 "with functions, there are two distinct parts:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:30
+#: ../docs/source/working/functions.rst:29
 msgid ""
 "`function definitions "
 "<https://docs.python.org/3/reference/compound_stmts.html#function-"
 "definitions>`_"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:31
+#: ../docs/source/working/functions.rst:30
 msgid ""
 "`function calls "
 "<https://docs.python.org/3/reference/expressions.html#calls>`_"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:33
+#: ../docs/source/working/functions.rst:32
 msgid ""
 "Consider the following code snippet that defines a simple python function:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:38
+#: ../docs/source/working/functions.rst:37
 msgid ""
 "The function takes three 'parameters', named ``x``, ``y`` and ``z``. In "
 "addition, the function ``plain_function`` is said to have default values, "
@@ -1223,7 +1286,7 @@ msgid ""
 " In the example below, the function is called with 'positional' arguments:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:46
+#: ../docs/source/working/functions.rst:45
 msgid ""
 "They are called positional, because the arguments are not explicitly named "
 "and so will be matched to the corresponding parameter solely based on their "
@@ -1234,7 +1297,7 @@ msgid ""
 "the default *will* be used as can be seen below:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:54
+#: ../docs/source/working/functions.rst:53
 msgid ""
 "By not specifying the third argument, the default will be used, so in this "
 "case ``z`` will equal ``1``. Additionally, one can employ 'named' arguments "
@@ -1242,7 +1305,7 @@ msgid ""
 "rely on its position:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:60
+#: ../docs/source/working/functions.rst:59
 msgid ""
 "Notice how the order in which we pass the arguments is irrelevant because we"
 " specify the name of each argument explicitly when assigning the value. Now "
@@ -1253,7 +1316,7 @@ msgid ""
 "named arguments before positional ones:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:67
+#: ../docs/source/working/functions.rst:66
 msgid ""
 "Finally, python knows the concept of ``*args`` and ``**kwargs``, also "
 "referred to as variable arguments and keyword arguments, which allow one to "
@@ -1261,7 +1324,7 @@ msgid ""
 "keyword arguments."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:72
+#: ../docs/source/working/functions.rst:71
 msgid ""
 "The variable arguments ``*args`` will receive the positionally passed "
 "arguments as a tuple and the keyword arguments ``**kwargs`` will receive the"
@@ -1270,11 +1333,11 @@ msgid ""
 "functions."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:76
+#: ../docs/source/working/functions.rst:75
 msgid "Default arguments"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:77
+#: ../docs/source/working/functions.rst:76
 msgid ""
 "Default arguments are supported by calculation functions just as normal "
 "python functions as long as it is a :py:class:`~aiida.orm.nodes.node.Node` "
@@ -1287,16 +1350,16 @@ msgid ""
 "``None``. This pattern looks like the following:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:85
+#: ../docs/source/working/functions.rst:84
 msgid ""
 "Both function calls in the example above will have the exact same result."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:88
+#: ../docs/source/working/functions.rst:87
 msgid "Variable and keyword arguments"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:89
+#: ../docs/source/working/functions.rst:88
 msgid ""
 "Variable arguments are *not* supported by process functions. The reasoning "
 "behind this is that the process specification for the "
@@ -1309,7 +1372,7 @@ msgid ""
 " label, to use for the inputs."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:93
+#: ../docs/source/working/functions.rst:92
 msgid ""
 "In contrast, keyword arguments for that reason *are* supported and it is the"
 " keyword used when the function is called that determines the names of the "
@@ -1318,17 +1381,17 @@ msgid ""
 "passed:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:99
+#: ../docs/source/working/functions.rst:98
 msgid "The provenance generated by this example looks like the following:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:104
+#: ../docs/source/working/functions.rst:103
 msgid ""
 "The link labels of the inputs are determined based on the naming of the "
 "parameters when the function is called."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:106
+#: ../docs/source/working/functions.rst:105
 msgid ""
 "Note that the inputs **have to be passed as keyword arguments** because they"
 " are used for the link labels. If the inputs would simply have been passed "
@@ -1339,11 +1402,11 @@ msgid ""
 "that explicitly named in the signature, will raise a ``TypeError``."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:111
+#: ../docs/source/working/functions.rst:110
 msgid "Return values"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:112
+#: ../docs/source/working/functions.rst:111
 msgid ""
 "In :numref:`fig_calculation_functions_kwargs` you can see that the engine "
 "used the label ``result`` for the link connecting the calculation function "
@@ -1354,26 +1417,26 @@ msgid ""
 "record multiple nodes as output. Consider the following snippet:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:121
+#: ../docs/source/working/functions.rst:120
 msgid ""
 "The provenance generated by running this calculation function will look "
 "like:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:126
+#: ../docs/source/working/functions.rst:125
 msgid ""
 "If a dictionary is returned, the keys will be used as the labels for the "
 "links that connect the output nodes with the calculation node."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:128
+#: ../docs/source/working/functions.rst:127
 msgid ""
 "As always, all the values returned by a calculation function have to be "
 "storable, which means they have to be instances of the "
 ":py:class:`~aiida.orm.nodes.node.Node` class."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:131
+#: ../docs/source/working/functions.rst:130
 msgid ""
 "It is very important that you **do not call** "
 ":py:meth:`~aiida.orm.nodes.node.Node.store` **yourself** on the nodes before"
@@ -1384,14 +1447,14 @@ msgid ""
 "throw an exception."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:137
-#: ../docs/source/working/processes.rst:214
+#: ../docs/source/working/functions.rst:136
+#: ../docs/source/working/processes.rst:224
 #: ../docs/source/working/workflows.rst:109
 #: ../docs/source/working/workflows.rst:274
 msgid "Exit codes"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:138
+#: ../docs/source/working/functions.rst:137
 msgid ""
 "So far we have only seen examples of calculation functions where everything "
 "works out just fine. However, the real world is different, and often we will"
@@ -1405,7 +1468,7 @@ msgid ""
 "execution. Consider the following calculation function definition and call:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:148
+#: ../docs/source/working/functions.rst:147
 msgid ""
 "Because the value for ``y`` that is being passed is zero, the engine will "
 "encounter a ``ZeroDivisionError`` exception when the calculation function is"
@@ -1413,7 +1476,7 @@ msgid ""
 " excepted:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:159
+#: ../docs/source/working/functions.rst:158
 msgid ""
 "Exceptions that occur during the execution of a process are recorded as a "
 "log message on the corresponding process node. To show these log messages, "
@@ -1421,7 +1484,7 @@ msgid ""
 "would look something like the following:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:178
+#: ../docs/source/working/functions.rst:177
 msgid ""
 "However, in this particular example the exception is not so much an "
 "unexpected error, but one we could have considered and have seen coming, so "
@@ -1437,7 +1500,7 @@ msgid ""
 " a demonstration:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:187
+#: ../docs/source/working/functions.rst:186
 msgid ""
 "When we run the calculation function now, with the same inputs, instead of "
 "excepting, the process will successfully terminate and its exit status will "
@@ -1445,7 +1508,7 @@ msgid ""
 "displayed by ``verdi process list``:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:199
+#: ../docs/source/working/functions.rst:198
 msgid ""
 "Both approaches are valid and which one to use depends on your use case. The"
 " question you should ask yourself is whether a potential problem merits "
@@ -1457,11 +1520,11 @@ msgid ""
 "makes it easier to query for these specific failure modes."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:206
+#: ../docs/source/working/functions.rst:205
 msgid "Provenance"
 msgstr "可验证性（Provenance）"
 
-#: ../docs/source/working/functions.rst:207
+#: ../docs/source/working/functions.rst:206
 msgid ""
 "In addition to the basic attributes that are stored for all processes such "
 "as the process state and label, the process functions automatically store "
@@ -1469,23 +1532,23 @@ msgid ""
 "represent:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:209
+#: ../docs/source/working/functions.rst:208
 msgid "Function name"
 msgstr "函数名"
 
-#: ../docs/source/working/functions.rst:210
+#: ../docs/source/working/functions.rst:209
 msgid "Function namespace"
 msgstr "函数命名空间"
 
-#: ../docs/source/working/functions.rst:211
+#: ../docs/source/working/functions.rst:210
 msgid "Function starting line number"
 msgstr "函数起始行号"
 
-#: ../docs/source/working/functions.rst:212
+#: ../docs/source/working/functions.rst:211
 msgid "Function source file"
 msgstr "函数源文件"
 
-#: ../docs/source/working/functions.rst:214
+#: ../docs/source/working/functions.rst:213
 msgid ""
 "The first three are retrieved by inspecting the python source code as soon "
 "as the process function is executed and are stored as attributes on the "
@@ -1493,7 +1556,7 @@ msgid ""
 "the process node as follows:"
 msgstr ""
 
-#: ../docs/source/working/functions.rst:220
+#: ../docs/source/working/functions.rst:219
 msgid ""
 "The source code of the file in which the function is defined is also stored,"
 " but since it can be quite big, it is stored as a raw file in the repository"
@@ -1502,7 +1565,7 @@ msgid ""
 " method."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:223
+#: ../docs/source/working/functions.rst:222
 msgid ""
 "The attributes give some querability to the process functions stored in the "
 "provenance graph and by storing the source code of the function that was "
@@ -1515,30 +1578,30 @@ msgid ""
 "called, the source code of which will not be recorded."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:229
+#: ../docs/source/working/functions.rst:228
 msgid "Reproducibility guidelines"
 msgstr "如何保证重现性指南"
 
-#: ../docs/source/working/functions.rst:230
+#: ../docs/source/working/functions.rst:229
 msgid ""
 "Due to the nature of the way process functions are implemented, it is "
 "impossible to guarantee 100% reproducibility, but by following the following"
 " guidelines, one can come as close as possible."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:232
+#: ../docs/source/working/functions.rst:231
 msgid "Do not leak data into functions"
 msgstr "不要将数据泄漏到函数中"
 
-#: ../docs/source/working/functions.rst:233
+#: ../docs/source/working/functions.rst:232
 msgid "Limit importing of external code"
 msgstr "限制导入外部计算代码"
 
-#: ../docs/source/working/functions.rst:234
+#: ../docs/source/working/functions.rst:233
 msgid "Keep functions self-consistent and in separate files"
 msgstr "保持函数自洽并在单独的文件中"
 
-#: ../docs/source/working/functions.rst:236
+#: ../docs/source/working/functions.rst:235
 msgid ""
 "Leaking data into functions is accomplished for example by reading a file on"
 " the local file system in the function body and using its contents for the "
@@ -1548,7 +1611,7 @@ msgid ""
 "the API, but rather they should be direct inputs of the process function."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:240
+#: ../docs/source/working/functions.rst:239
 msgid ""
 "A similar problem occurs when importing other python code. Practically, it "
 "is almost impossible to never import code into process functions, as this "
@@ -1562,7 +1625,7 @@ msgid ""
 " part of a plugin package with a well-defined version number."
 msgstr ""
 
-#: ../docs/source/working/functions.rst:246
+#: ../docs/source/working/functions.rst:245
 msgid ""
 "Finally, as mentioned in the introduction, the source file of a process "
 "function is stored as a file in the repository for *each execution*. "
@@ -1572,10 +1635,6 @@ msgid ""
 "not only improves readability, but it also minimizes the impact on the size "
 "of the file repository."
 msgstr ""
-
-#: ../docs/source/working/processes.rst:5
-msgid "Processes"
-msgstr "例程（Processes）"
 
 #: ../docs/source/working/processes.rst:7
 msgid ""
@@ -1788,23 +1847,40 @@ msgstr ""
 
 #: ../docs/source/working/processes.rst:128
 msgid ""
-"Here we define an input named ``positive_number`` that is not required, if a"
-" value is not explicitly passed, the default ``Int(1)`` will be used and if "
-"a value *is* passed, it should be of type ``Int`` or ``Float`` and it should"
-" be valid according to the ``is_number_positive`` validator. Note that the "
-"validator is nothing more than a free function which takes a single "
-"argument, being the value that is to be validated. If nothing is returned, "
-"the value is considered to be valid. To signal that the value is invalid and"
-" to have a validation error raised, simply return a string with the "
-"validation error message, for example:"
+"Here we define an input named ``positive_number`` that should be of type "
+"``Int`` or ``Float`` and should pass the test of the ``is_number_positive`` "
+"validator. If no value is passed, the default will be used."
+msgstr ""
+
+#: ../docs/source/working/processes.rst:133
+msgid ""
+"In python, it is good practice to avoid mutable defaults for function "
+"arguments, `since they are instantiated at function definition and reused "
+"for each invocation <https://docs.python.org/3/reference/compound_stmts.html"
+"#function-definitions>`_. This can lead to unexpected results when the "
+"default value is changed between function calls. In the context of AiiDA, "
+"nodes (both stored and unstored) are considered *mutable* and should "
+"therefore *not* be used as default values for process ports. However, it is "
+"possible to use a lambda that returns a node instance as done in the example"
+" above. This will return a new instance of the node with the given value, "
+"each time the process is instantiated."
 msgstr ""
 
 #: ../docs/source/working/processes.rst:139
 msgid ""
+"Note that the validator is nothing more than a free function which takes a "
+"single argument, being the value that is to be validated. If nothing is "
+"returned, the value is considered to be valid. To signal that the value is "
+"invalid and to have a validation error raised, simply return a string with "
+"the validation error message, for example:"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:149
+msgid ""
 "The ``valid_type`` can define a single type, or a tuple of valid types."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:143
+#: ../docs/source/working/processes.rst:153
 msgid ""
 "Note that by default all ports are required, but specifying a default value "
 "implies that the input is not required and as such specifying "
@@ -1812,7 +1888,7 @@ msgid ""
 "example above simply for clarity."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:146
+#: ../docs/source/working/processes.rst:156
 msgid ""
 "The validation of input or output values with respect to the specification "
 "of the corresponding port, happens at the instantiation of the process and "
@@ -1822,11 +1898,11 @@ msgid ""
 "thrown and the process state will be set to ``Excepted``."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:154
+#: ../docs/source/working/processes.rst:164
 msgid "Dynamic namespaces"
 msgstr "动态命名空间"
 
-#: ../docs/source/working/processes.rst:155
+#: ../docs/source/working/processes.rst:165
 msgid ""
 "In the previous section we described the various attributes related to "
 "validation and claimed that all the port variants share those attributes, "
@@ -1838,7 +1914,7 @@ msgid ""
 "this question lies in the ``PortNamespace`` attribute ``dynamic``."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:160
+#: ../docs/source/working/processes.rst:170
 msgid ""
 "Often when designing the specification of a ``Process``, we cannot know "
 "exactly which inputs we want to be able to pass to the process. However, "
@@ -1857,11 +1933,11 @@ msgid ""
 " port would be."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:172
+#: ../docs/source/working/processes.rst:182
 msgid "Non storable inputs"
 msgstr "不存取的输入"
 
-#: ../docs/source/working/processes.rst:173
+#: ../docs/source/working/processes.rst:183
 msgid ""
 "In principle, the only valid types for inputs and outputs should be "
 "instances of a :py:class:`~aiida.orm.nodes.data.data.Data` node, or one of "
@@ -1872,7 +1948,7 @@ msgid ""
 "storable type anyway."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:178
+#: ../docs/source/working/processes.rst:188
 msgid ""
 "AiiDA allows you to break the provenance as to be not too restrictive, but "
 "always tries to urge you and guide you in a direction to keep the "
@@ -1881,7 +1957,7 @@ msgid ""
 "lose the information."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:181
+#: ../docs/source/working/processes.rst:191
 msgid ""
 "For this situation, the ``InputPort`` has the attribute ``non_db``. By "
 "default this is set to ``False``, but by setting it to ``True`` the port is "
@@ -1891,11 +1967,11 @@ msgid ""
 "function."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:189
+#: ../docs/source/working/processes.rst:199
 msgid "Automatic input serialization"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:191
+#: ../docs/source/working/processes.rst:201
 msgid ""
 "Quite often, inputs which are given as python data types need to be cast to "
 "the corresponding AiiDA type before passing them to a process. Doing this "
@@ -1905,7 +1981,7 @@ msgid ""
 "if the given input is *not* already an AiiDA type."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:195
+#: ../docs/source/working/processes.rst:205
 msgid ""
 "For inputs which are stored in the database (``non_db=False``), the "
 "serialization function should return an AiiDA data type. For ``non_db`` "
@@ -1913,7 +1989,7 @@ msgid ""
 "than once."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:198
+#: ../docs/source/working/processes.rst:208
 msgid ""
 "The following example work chain takes three inputs ``a``, ``b``, ``c``, and"
 " simply returns the given inputs. The "
@@ -1921,7 +1997,7 @@ msgid ""
 "serialization function."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:203
+#: ../docs/source/working/processes.rst:213
 msgid ""
 "This work chain can now be called with native Python types, which will "
 "automatically converted to AiiDA types by the "
@@ -1930,13 +2006,13 @@ msgid ""
 "be recognized by :func:`aiida.orm.nodes.data.base.to_aiida_type`."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:208
+#: ../docs/source/working/processes.rst:218
 msgid ""
 "Of course, you can also use the serialization feature to perform a more "
 "complex serialization of the inputs."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:215
+#: ../docs/source/working/processes.rst:225
 msgid ""
 "Any ``Process`` most likely will have one or multiple expected failure "
 "modes. To clearly communicate to the caller what went wrong, the ``Process``"
@@ -1949,7 +2025,7 @@ msgid ""
 "their execution."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:220
+#: ../docs/source/working/processes.rst:230
 msgid ""
 "Potential exit codes for the ``Process`` can be defined through the "
 "``ProcessSpec``, just like inputs and ouputs. Any exit code consists of a "
@@ -1958,7 +2034,7 @@ msgid ""
 "the following example:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:229
+#: ../docs/source/working/processes.rst:239
 msgid ""
 "This defines an exit code for the ``Process`` with exit status ``418`` and "
 "exit message ``the work chain had an identity crisis``. The string "
@@ -1966,7 +2042,7 @@ msgid ""
 "this particular exit code somewhere in the ``Process`` code itself."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:232
+#: ../docs/source/working/processes.rst:242
 msgid ""
 "Whenever a ``Process`` exits through a particular error code, the caller "
 "will be able to introspect it through the ``exit_status`` and "
@@ -1975,7 +2051,7 @@ msgid ""
 "able to do the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:243
+#: ../docs/source/working/processes.rst:253
 msgid ""
 "This is useful, because the caller can now programmatically, based on the "
 "``exit_status``, decide how to proceed. This is an infinitely more robust "
@@ -1984,11 +2060,50 @@ msgid ""
 "query for failed processes with specific error codes."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:251
+#: ../docs/source/working/processes.rst:261
+msgid "Exit code conventions"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:262
+msgid ""
+"In principle, the only restriction on the exit status of an exit code is "
+"that it should be a positive integer or zero. However, to make effective use"
+" of exit codes, there are some guidelines and conventions as to decide what "
+"integers to use. Note that since the following rules are *guidelines* you "
+"can choose to ignore them and currently the engine will not complain, but "
+"this might change in the future. Regardless, we advise you to follow the "
+"guidelines since it will improve the interoperability of your code with "
+"other existing plugins. The following integer ranges are reserved or "
+"suggested:"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:268
+msgid "0 -  99: Reserved for internal use by `aiida-core`"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:269
+msgid ""
+"100 - 199: Reserved for errors parsed from scheduler output of calculation "
+"jobs (note: this is not yet implemented)"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:270
+msgid "200 - 299: Suggested to be used for process input validation errors"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:271
+msgid "300 - 399: Suggested for critical process errors"
+msgstr ""
+
+#: ../docs/source/working/processes.rst:273
+msgid "For any other exit codes, one can use the integers from 400 and up."
+msgstr ""
+
+#: ../docs/source/working/processes.rst:279
 msgid "Process metadata"
 msgstr "例程元数据"
 
-#: ../docs/source/working/processes.rst:253
+#: ../docs/source/working/processes.rst:281
 msgid ""
 "Each process, in addition to the normal inputs defined through its process "
 "specifcation, can take optional 'metadata'. These metadata differ from "
@@ -1999,22 +2114,22 @@ msgid ""
 "inputs are available for *all* process classes:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:258
+#: ../docs/source/working/processes.rst:286
 msgid "``label``: will set the label on the ``ProcessNode``"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:259
+#: ../docs/source/working/processes.rst:287
 msgid "``description``: will set the description on the ``ProcessNode``"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:260
+#: ../docs/source/working/processes.rst:288
 msgid ""
 "``store_provenance``: boolean flag, by default ``True``, that when set to "
 "``False``, will ensure that the execution of the process **is not** stored "
 "in the provenance graph"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:262
+#: ../docs/source/working/processes.rst:290
 msgid ""
 "Sub classes of the :py:class:`~aiida.engine.processes.process.Process` class"
 " can specify further metadata inputs, refer to their specific documentation "
@@ -2024,11 +2139,11 @@ msgid ""
 "following section."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:270
+#: ../docs/source/working/processes.rst:298
 msgid "Launching processes"
 msgstr "启动例程"
 
-#: ../docs/source/working/processes.rst:271
+#: ../docs/source/working/processes.rst:299
 msgid ""
 "Any process can be launched by 'running' or 'submitting' it. Running means "
 "to run the process in the current python interpreter in a blocking way, "
@@ -2042,33 +2157,33 @@ msgid ""
 "debugging and testing purposes."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:281
+#: ../docs/source/working/processes.rst:309
 msgid "Process launch"
 msgstr "例程启动"
 
-#: ../docs/source/working/processes.rst:283
+#: ../docs/source/working/processes.rst:311
 msgid ""
 "To launch a process, one can use the free functions that can be imported "
 "from the :py:mod:`aiida.engine` module. There are four different functions:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:286
+#: ../docs/source/working/processes.rst:314
 msgid ":py:func:`~aiida.engine.launch.run`"
 msgstr ":py:func:`~aiida.engine.launch.run`"
 
-#: ../docs/source/working/processes.rst:287
+#: ../docs/source/working/processes.rst:315
 msgid ":py:func:`~aiida.engine.launch.run_get_node`"
 msgstr ":py:func:`~aiida.engine.launch.run_get_node`"
 
-#: ../docs/source/working/processes.rst:288
+#: ../docs/source/working/processes.rst:316
 msgid ":py:func:`~aiida.engine.launch.run_get_pk`"
 msgstr ":py:func:`~aiida.engine.launch.run_get_pk`"
 
-#: ../docs/source/working/processes.rst:289
+#: ../docs/source/working/processes.rst:317
 msgid ":py:func:`~aiida.engine.launch.submit`"
 msgstr ":py:func:`~aiida.engine.launch.submit`"
 
-#: ../docs/source/working/processes.rst:291
+#: ../docs/source/working/processes.rst:319
 msgid ""
 "As the name suggest, the first three will 'run' the process and the latter "
 "will 'submit' it to the daemon. Running means that the process will be "
@@ -2078,21 +2193,21 @@ msgid ""
 "and the interpreter is released straight away."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:295
+#: ../docs/source/working/processes.rst:323
 msgid ""
 "All functions have the exact same interface ``launch(process, **inputs)`` "
 "where:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:297
+#: ../docs/source/working/processes.rst:325
 msgid "``process`` is the process class or process function to launch"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:298
+#: ../docs/source/working/processes.rst:326
 msgid "``inputs`` are the inputs as keyword arguments to pass to the process."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:300
+#: ../docs/source/working/processes.rst:328
 msgid ""
 "What inputs can be passed depends on the exact process class that is to be "
 "launched. For example, when we want to run an instance of the "
@@ -2101,25 +2216,25 @@ msgid ""
 " inputs under the name ``x`` and ``y`` [#f1]_, we would do the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:306
+#: ../docs/source/working/processes.rst:334
 msgid ""
 "The function will submit the calculation to the daemon and immediately "
 "return control to the interpreter, returning the node that is used to "
 "represent the process in the provenance graph."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:309
+#: ../docs/source/working/processes.rst:337
 msgid ""
 "Process functions, i.e. python functions decorated with the ``calcfunction``"
 " or ``workfunction`` decorators, **cannot be submitted** but can only be "
 "run."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:311
+#: ../docs/source/working/processes.rst:339
 msgid "The ``run`` function is called identically:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:316
+#: ../docs/source/working/processes.rst:344
 msgid ""
 "except that it does not submit the process to the daemon, but executes it in"
 " the current interpreter, blocking it until the process is terminated. The "
@@ -2130,7 +2245,7 @@ msgid ""
 "can use one of the following variants:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:323
+#: ../docs/source/working/processes.rst:351
 msgid ""
 "Finally, the :py:func:`~aiida.engine.launch.run` launcher has two attributes"
 " ``get_node`` and ``get_pk`` that are simple proxies to the "
@@ -2140,7 +2255,7 @@ msgid ""
 " single import:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:329
+#: ../docs/source/working/processes.rst:357
 msgid ""
 "If you want to launch a process class that takes a lot more inputs, often it"
 " is useful to define them in a dictionary and use the python syntax ``**`` "
@@ -2148,7 +2263,7 @@ msgid ""
 "examples used above would look like the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:335
+#: ../docs/source/working/processes.rst:363
 msgid ""
 "Process functions, i.e. :ref:`calculation functions<concepts_calcfunctions>`"
 " and :ref:`work functions<concepts_workfunctions>`, can be launched like any"
@@ -2157,25 +2272,25 @@ msgid ""
 "have two additional methods of being launched:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:338
+#: ../docs/source/working/processes.rst:366
 msgid "Simply *calling* the function"
 msgstr "只需*调用*函数"
 
-#: ../docs/source/working/processes.rst:339
+#: ../docs/source/working/processes.rst:367
 msgid "Using the internal run method attributes"
 msgstr "使用内部运行方法的属性"
 
-#: ../docs/source/working/processes.rst:341
+#: ../docs/source/working/processes.rst:369
 msgid ""
 "Using a calculation function to add two numbers as an example, these two "
 "methods look like the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:350
+#: ../docs/source/working/processes.rst:378
 msgid "Process builder"
 msgstr "例程构建器"
 
-#: ../docs/source/working/processes.rst:351
+#: ../docs/source/working/processes.rst:379
 msgid ""
 "As explained in a :ref:`previous section<working_processes_spec>`, the "
 "inputs for a :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` "
@@ -2195,7 +2310,7 @@ msgid ""
 " as an example::"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:361
+#: ../docs/source/working/processes.rst:389
 msgid ""
 "The string ``arithmetic.add`` is the entry point of the "
 "``ArithmeticAddCalculation`` and passing it to the ``CalculationFactory`` "
@@ -2207,7 +2322,7 @@ msgid ""
 " few handy tools to simplify this process."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:365
+#: ../docs/source/working/processes.rst:393
 msgid ""
 "To find out which inputs the builder exposes, you can simply use tab "
 "completion. In an interactive python shell, by simply typing ``builder.`` "
@@ -2217,7 +2332,7 @@ msgid ""
 "information to display as follows::"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:380
+#: ../docs/source/working/processes.rst:408
 msgid ""
 "In the ``Docstring`` you will see a ``help`` string that contains more "
 "detailed information about the input port. Additionally, it will display a "
@@ -2227,21 +2342,21 @@ msgid ""
 "input node in the database, if the process is submitted."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:385
+#: ../docs/source/working/processes.rst:413
 msgid ""
 "Defining an input through the builder is as simple as assigning a value to "
 "the attribute. The following example shows how to set the ``parameters`` "
 "input, as well as the ``description`` and ``label`` metadata inputs::"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:393
+#: ../docs/source/working/processes.rst:421
 msgid ""
 "If you evaluate the ``builder`` instance, simply by typing the variable name"
 " and hitting enter, the current values of the builder's inputs will be "
 "displayed::"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:406
+#: ../docs/source/working/processes.rst:434
 msgid ""
 "In this example, you can see the value that we just set for the "
 "``description`` and the ``label``. In addition, it will also show any "
@@ -2251,7 +2366,7 @@ msgid ""
 " with tab-completion."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:410
+#: ../docs/source/working/processes.rst:438
 msgid ""
 "All that remains is to fill in all the required inputs and we are ready to "
 "launch the process builder. When all the inputs have been defined for the "
@@ -2261,7 +2376,7 @@ msgid ""
 " as :ref:`described above<working_processes_launching>`, i.e.:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:417
+#: ../docs/source/working/processes.rst:445
 msgid ""
 "Note that the process builder is in principle designed to be used in an "
 "interactive shell, as there is where the tab-completion and automatic input "
@@ -2270,22 +2385,22 @@ msgid ""
 "instead of a plain python dictionary."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:424
+#: ../docs/source/working/processes.rst:452
 msgid "Monitoring processes"
 msgstr "监控例程"
 
-#: ../docs/source/working/processes.rst:425
+#: ../docs/source/working/processes.rst:453
 msgid ""
 "When you have launched a process, you may want to investigate its status, "
 "progression and the results. The :ref:`verdi<verdi_overview>` command line "
 "tool provides various commands to do just this."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:432
+#: ../docs/source/working/processes.rst:460
 msgid "verdi process list"
 msgstr "verdi process list"
 
-#: ../docs/source/working/processes.rst:433
+#: ../docs/source/working/processes.rst:461
 msgid ""
 "Your first point of entry will be the ``verdi`` command ``verdi process "
 "list``. This command will print a list of all active processes through the "
@@ -2293,7 +2408,7 @@ msgid ""
 "execution. A typical example may look something like the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:447
+#: ../docs/source/working/processes.rst:475
 msgid ""
 "The 'State' column is a concatenation of the ``process_state`` and the "
 "``exit_status`` of the ``ProcessNode``. By default, the command will only "
@@ -2302,7 +2417,7 @@ msgid ""
 " can use the ``-a`` flag and call ``verdi process list -a``:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:463
+#: ../docs/source/working/processes.rst:491
 msgid ""
 "For more information on the meaning of the 'state' column, please refer to "
 "the documentation of the :ref:`process state <concepts_process_state>`. The "
@@ -2310,13 +2425,13 @@ msgid ""
 "``verdi process list -S created`` will return:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:475
+#: ../docs/source/working/processes.rst:503
 msgid ""
 "To query for a specific exit status, one can use ``verdi process list -E "
 "0``:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:487
+#: ../docs/source/working/processes.rst:515
 msgid ""
 "This simple tool should give you a good idea of the current status of "
 "running processes and the status of terminated ones. For a complete list of "
@@ -2324,31 +2439,31 @@ msgid ""
 "process<verdi_process>`."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:490
+#: ../docs/source/working/processes.rst:518
 msgid ""
 "If you are looking for information about a specific process node, the "
 "following three commands are at your disposal:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:492
+#: ../docs/source/working/processes.rst:520
 msgid ""
 "``verdi process report`` gives a list of the log messages attached to the "
 "process"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:493
+#: ../docs/source/working/processes.rst:521
 msgid ""
 "``verdi process status`` print the call hierarchy of the process and status "
 "of all its nodes"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:494
+#: ../docs/source/working/processes.rst:522
 msgid ""
 "``verdi process show`` print details about the status, inputs, outputs, "
 "callers and callees of the process"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:496
+#: ../docs/source/working/processes.rst:524
 msgid ""
 "In the following sections, we will explain briefly how the commands work. "
 "For the purpose of example, we will show the output of the commands for a "
@@ -2356,11 +2471,11 @@ msgid ""
 "which simply calls a ``PwCalculation``."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:503
+#: ../docs/source/working/processes.rst:531
 msgid "verdi process report"
 msgstr "verdi process report"
 
-#: ../docs/source/working/processes.rst:504
+#: ../docs/source/working/processes.rst:532
 msgid ""
 "The developer of a process can attach log messages to the node of a process "
 "through the :py:meth:`~aiida.engine.processes.process.Process.report` "
@@ -2368,7 +2483,7 @@ msgid ""
 "messages in chronological order:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:514
+#: ../docs/source/working/processes.rst:542
 msgid ""
 "The log message will include a timestamp followed by the level of the log, "
 "which is always ``REPORT``. The second block has the format ``pk|class "
@@ -2381,11 +2496,11 @@ msgid ""
 "database, so overuse can unnecessarily bloat the database."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:524
+#: ../docs/source/working/processes.rst:552
 msgid "verdi process status"
 msgstr "verdi process status"
 
-#: ../docs/source/working/processes.rst:525
+#: ../docs/source/working/processes.rst:553
 msgid ""
 "This command is most useful for ``WorkChain`` instances, but also works for "
 "``CalcJobs``. One of the more powerful aspect of work chains, is that they "
@@ -2395,7 +2510,7 @@ msgid ""
 "example output is the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:535
+#: ../docs/source/working/processes.rst:563
 msgid ""
 "The command prints a tree representation of the hierarchical call structure,"
 " that recurses all the way down. In this example, there is just a single "
@@ -2407,11 +2522,11 @@ msgid ""
 " of all the children calculations it called."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:544
+#: ../docs/source/working/processes.rst:572
 msgid "verdi process show"
 msgstr "verdi process show"
 
-#: ../docs/source/working/processes.rst:545
+#: ../docs/source/working/processes.rst:573
 msgid ""
 "Finally, there is a command that displays detailed information about the "
 "``ProcessNode``, such as its inputs, outputs and the optional other "
@@ -2419,17 +2534,17 @@ msgid ""
 "``PwBaseWorkChain`` would look like the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:589
+#: ../docs/source/working/processes.rst:617
 msgid ""
 "This overview should give you all the information if you want to inspect a "
 "process' inputs and outputs in closer detail as it provides you their pk's."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:595
+#: ../docs/source/working/processes.rst:623
 msgid "Manipulating processes"
 msgstr "操控例程"
 
-#: ../docs/source/working/processes.rst:596
+#: ../docs/source/working/processes.rst:624
 msgid ""
 "To understand how one can manipulate running processes, one has to "
 "understand the principles of the :ref:`process/node "
@@ -2438,29 +2553,29 @@ msgid ""
 "sections first."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:602
+#: ../docs/source/working/processes.rst:630
 msgid "verdi process pause/play/kill"
 msgstr "verdi process pause/play/kill"
 
-#: ../docs/source/working/processes.rst:603
+#: ../docs/source/working/processes.rst:631
 msgid ""
 "The ``verdi`` command line interface provides three commands to interact "
 "with 'live' processes."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:605
+#: ../docs/source/working/processes.rst:633
 msgid "``verdi process pause``"
 msgstr "``verdi process pause``"
 
-#: ../docs/source/working/processes.rst:606
+#: ../docs/source/working/processes.rst:634
 msgid "``verdi process play``"
 msgstr "``verdi process play``"
 
-#: ../docs/source/working/processes.rst:607
+#: ../docs/source/working/processes.rst:635
 msgid "``verdi process kill``"
 msgstr "``verdi process kill``"
 
-#: ../docs/source/working/processes.rst:609
+#: ../docs/source/working/processes.rst:637
 msgid ""
 "The first pauses a process temporarily, the second resumes any paused "
 "processes and the third one permanently kills them. The sub command names "
@@ -2469,7 +2584,7 @@ msgid ""
 "deserves additional explanation nonetheless."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:612
+#: ../docs/source/working/processes.rst:640
 msgid ""
 "As the section on :ref:`the distinction between the process and the "
 "node<concepts_process_node_distinction>` explained, manipulating a process "
@@ -2486,7 +2601,7 @@ msgid ""
 "sent for that specific process over RabbitMQ."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:620
+#: ../docs/source/working/processes.rst:648
 msgid ""
 "This does not just apply to daemon runners, but also normal runners. That is"
 " to say that if you were to launch a process in a local runner, that "
@@ -2496,7 +2611,7 @@ msgid ""
 "by a daemon runner."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:624
+#: ../docs/source/working/processes.rst:652
 msgid ""
 "In the case of 'pause', 'play' and 'kill', one is sending what is called a "
 "Remote Procedure Call (RPC) over RabbitMQ. The RPC will include the process "
@@ -2513,7 +2628,7 @@ msgid ""
 " an RPC, the command will return an error:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:635
+#: ../docs/source/working/processes.rst:663
 msgid ""
 "Depending on the cause of the process being unreachable, the problem may "
 "resolve itself automatically over time and one can try again at a later "
@@ -2530,7 +2645,7 @@ msgid ""
 "situations."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:642
+#: ../docs/source/working/processes.rst:670
 msgid ""
 "This brings us to another potential unintuitive aspect of interacting with "
 "processes. The previous paragraph already mentioned it in passing, but when "
@@ -2547,7 +2662,7 @@ msgid ""
 "something like the following:"
 msgstr ""
 
-#: ../docs/source/working/processes.rst:653
+#: ../docs/source/working/processes.rst:681
 msgid ""
 "The 'scheduled' indicates that the actual killing might not necessarily have"
 " happened just yet. This means that even after having called ``verdi process"
@@ -2555,7 +2670,7 @@ msgid ""
 " be listed as active in the output of ``verdi process list``."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:656
+#: ../docs/source/working/processes.rst:684
 msgid ""
 "By default, the ``pause``, ``play`` and ``kill`` commands will only ask for "
 "the confirmation of the runner that the request has been scheduled and not "
@@ -2571,22 +2686,18 @@ msgid ""
 "that the command waits before timing out, with the ``-t/--timeout`` flag."
 msgstr ""
 
-#: ../docs/source/working/processes.rst:664
+#: ../docs/source/working/processes.rst:692
 #: ../docs/source/working/workflows.rst:576
 msgid "Footnotes"
 msgstr "脚注"
 
-#: ../docs/source/working/processes.rst:665
+#: ../docs/source/working/processes.rst:693
 msgid ""
 "Note that the "
 ":py:class:`~aiida.calculations.plugins.arithmetic.add.ArithmeticAddCalculation`"
 " process class also takes a ``code`` as input, but that has been omitted for"
 " the purposes of the example."
 msgstr ""
-
-#: ../docs/source/working/workflows.rst:5
-msgid "Workflows"
-msgstr "工作流"
 
 #: ../docs/source/working/workflows.rst:7
 msgid ""
