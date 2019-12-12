@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Jianxing Huang <jx.huang.x@gmail.com>, 2019
+# Jason.Eu <morty.yu@yahoo.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-02 08:35+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
-"Last-Translator: Jianxing Huang <jx.huang.x@gmail.com>, 2019\n"
+"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: ../docs/source/backup/index.rst:3
 msgid "AiiDA stores:"
-msgstr ""
+msgstr "AiiDA 储存了："
 
 #: ../docs/source/backup/index.rst:5
 msgid ""
@@ -31,32 +32,34 @@ msgid ""
 "``.aiida`` folder. Typically located at ``~/.aiida`` (see also "
 ":ref:`configure_aiida`)."
 msgstr ""
+"``.aiida`` 文件夹中，``config.json`` 文件中有AiiDA环境配置的相关信息。通常该文件夹在 ``~/.aiida`` "
+"(同时参考 :ref:`configure_aiida`)."
 
 #: ../docs/source/backup/index.rst:7
 msgid ""
 "files associated with nodes in the repository folder (one per profile). "
 "Typically located in the ``.aiida`` folder."
-msgstr ""
+msgstr "项目文件夹的节点相关的文件（每个profile配置有一个独立的文件夹）。通常存在于 ``.aiida`` 文件夹中。"
 
 #: ../docs/source/backup/index.rst:9
 msgid "queryable metadata in the PostgreSQL database (one per profile)."
-msgstr ""
+msgstr "PostgreSQL 数据库中可查询的元数据（每个profile配置有独立的数据）。"
 
 #: ../docs/source/backup/index.rst:11
 msgid ""
 "All three components are required for the operation of AiiDA and should be "
 "backed up."
-msgstr ""
+msgstr "所有以上三种信息都是AiiDA运行时所需要的，因此需要被同时备份。"
 
 #: ../docs/source/backup/index.rst:16
 msgid "Repository backup (``.aiida`` folder)"
-msgstr ""
+msgstr "配置文件仓库的备份 (``.aiida`` 文件夹)"
 
 #: ../docs/source/backup/index.rst:18
 msgid ""
 "For **small repositories** back up the ``.aiida`` folder either by making a "
 "full copy or using tools for incremental backups like ``rsync``."
-msgstr ""
+msgstr "对于 **小型的仓库** 可以通过拷贝或者增量式备份工具 ``rsync`` 来备份。 "
 
 #: ../docs/source/backup/index.rst:20
 msgid ""
@@ -66,6 +69,8 @@ msgid ""
 "which files have been added since your last backup. The instructions below "
 "explain how to use it:"
 msgstr ""
+"对于有上百万个节点的 **大型仓库** , "
+"即便是增量备份工具也会耗费大量时间。AiiDA提供了一个帮助脚本，其中使用了AiiDA数据库的优势，以用来决定哪些文件在你的最新一次备份中需要加入。下面的指南解释了如何使用它："
 
 #: ../docs/source/backup/index.rst:25
 msgid ""
@@ -73,6 +78,8 @@ msgid ""
 "where ``PROFILENAME`` is the name of the AiiDA profile that should be backed"
 " up. | This will ask for information on:"
 msgstr ""
+"使用命令  ``verdi -p PROFILENAME devel configure-backup`` 配置你的这次备份，其中  "
+"``PROFILENAME`` 时你要备份的AiiDA配置文件名。这个过程会需要下面几个信息："
 
 #: ../docs/source/backup/index.rst:28
 msgid ""
@@ -80,6 +87,8 @@ msgid ""
 " This defaults to a folder named ``backup_PROFILENAME`` in your ``.aiida`` "
 "directory."
 msgstr ""
+"“备份的文件夹”， 也就是备份后储存配置文件的位置。默认为 ``.aiida`` 文件夹中名为  ``backup_PROFILENAME`` "
+"的文件夹。"
 
 #: ../docs/source/backup/index.rst:31
 msgid ""
@@ -87,6 +96,8 @@ msgid ""
 "This defaults to a subfolder of the backup folder but we **strongly suggest "
 "to back up to a different drive** (see note below)."
 msgstr ""
+"“目标文件夹”， 是储存备份后的所有相关信息文件的位置。这默认会在上面“备份文件夹” 的子目录中，但我们 **强烈建议将文件备份在另外一个储存设备中**"
+" （请看下面的提示）"
 
 #: ../docs/source/backup/index.rst:34
 msgid ""
@@ -94,13 +105,15 @@ msgid ""
 "``backup_info.json`` configuration file (can also be edited manually) and a "
 "``start_backup.py`` script."
 msgstr ""
+"该配置步骤会在“备份文件夹” 中创建两个文件：一个名为 ``backup_info.json`` 配置文件（可以手动编辑）和一个名为 "
+"``start_backup.py`` 的脚本。"
 
 #: ../docs/source/backup/index.rst:38
 msgid ""
 "Using the same disk for your backup forgoes protection against the most "
 "common cause of data loss: disk failure. One simple option is to use a "
 "destination folder mounted over ssh."
-msgstr ""
+msgstr "使用相同的存储设备来备份将会无法预防比如设备故障导致的问题。一个简单的选项是使用一个通过ssh挂载在目标位置的文件夹。"
 
 #: ../docs/source/backup/index.rst:41
 msgid ""
@@ -109,6 +122,8 @@ msgid ""
 "to `server_2`. Mount a `server_2` directory on `server_1` using the "
 "following command on `server_1`:"
 msgstr ""
+"在Ubuntu系统中，使用 ``sudo apt-get install sshfs`` 来安装 ``sshfs``。比如你在 `server_2` "
+"上运行你的算例，并想将算例备份到 `server_2` 上。 将 `server_2` 的目标文件夹通过下面命令挂载到 `server_1` 上："
 
 #: ../docs/source/backup/index.rst:49
 msgid ""
@@ -117,12 +132,14 @@ msgid ""
 "file (e.g. ``.bashrc``) or your computer will complain that the mount point "
 "is not empty whenever you open a new terminal."
 msgstr ""
+"在命令行中使用 ``gnome-session-properties`` 来将该行加入启动运行中。请 **不要** "
+"将其加入你的shell的启动文件中(如 ``.bashrc``) 否则你的计算机会在你每次重新打开一个新的终端时报出挂载点以被使用的消息。"
 
 #: ../docs/source/backup/index.rst:53
 msgid ""
 "Run the ``start_backup.py`` script in the \"backup folder\" to start the "
 "backup."
-msgstr ""
+msgstr "运行 “备份文件夹” 中的 ``start_backup.py`` 脚本开始备份。"
 
 #: ../docs/source/backup/index.rst:55
 msgid ""
@@ -131,20 +148,23 @@ msgid ""
 "certain end date if specified (using ``end_date_of_backup`` or "
 "``days_to_backup``), see :ref:`backup_configuration_options` below."
 msgstr ""
+"这会将所有时间晚于 ``oldest_object_backedup`` 的数据备份。它只会在一定的 ``periodicity`` "
+"时间里进行新的备份，如果设置了备份的最后时间，将会备份到那个时间为止的数据。 (分别使用 ``end_date_of_backup`` 或 "
+"``days_to_backup`` 来指定上述参数), 参考下面的 :ref:`backup_configuration_options` "
 
 #: ../docs/source/backup/index.rst:0
 msgid ""
 "Once you've checked that it works, make sure to run the script periodically "
 "(e.g. using a daily cron job, see note below)."
-msgstr ""
+msgstr "一旦你检查并确保备份可以进行，请保证周期性的进行数据的备份（比如使用日常cron 任务，请看下面的提示）"
 
 #: ../docs/source/backup/index.rst:62
 msgid "On Ubuntu, you can set up a cron job using::"
-msgstr ""
+msgstr "在Ubuntu中，你可以使用下面命令来设置一个cron任务 ::"
 
 #: ../docs/source/backup/index.rst:66
 msgid "It will open an editor, where you can add a line of the form::"
-msgstr ""
+msgstr "这会开启一个编辑器，其中你可以加入如下一行::"
 
 #: ../docs/source/backup/index.rst:70
 msgid "or (if you need to backup a different profile than the default one)::"
@@ -157,24 +177,26 @@ msgid ""
 " end (provided the ``mail`` command -- from ``mailutils`` -- is configured "
 "appropriately)."
 msgstr ""
+"这会在每天的凌晨三点(03:00)开启对数据库的备份，并将输出（或任何错误消息）发送到指定的邮箱中。 (通过``mailutils`` 的 "
+"``mail`` 命令 如果有合理配置的话)."
 
 #: ../docs/source/backup/index.rst:77
 msgid ""
 "Finally, if you have a separate automatic backup of your home directory set "
 "up, do not forget to exclude the repository folder."
-msgstr ""
+msgstr "最后，如果你有另外的对home目录的自动备份，请记得不要在其中备份AiiDA的配置文件夹。"
 
 #: ../docs/source/backup/index.rst:83
 msgid "Configuration options"
-msgstr ""
+msgstr "配置选项"
 
 #: ../docs/source/backup/index.rst:85
 msgid "The configuration options in the ``backup_info.json`` are:"
-msgstr ""
+msgstr "在文件 ``backup_info.json`` 中的配置选项有:"
 
 #: ../docs/source/backup/index.rst:0
 msgid "``periodicity`` (in `days`):"
-msgstr ""
+msgstr "``periodicity`` (单位为 `days`):"
 
 #: ../docs/source/backup/index.rst:0
 msgid ""
@@ -182,11 +204,11 @@ msgid ""
 " variable. The purpose of this variable is to limit the backup to run only "
 "on a few number of days and therefore to limit the number of files that are "
 "backed up at every round."
-msgstr ""
+msgstr "备份会在指定的周期时间时运行。该变量的目的为在特定的时间运行备份以减少每轮需要备份的文件。"
 
 #: ../docs/source/backup/index.rst:0
 msgid "E.g. ``\"periodicity\": 2``."
-msgstr ""
+msgstr "如. ``\"periodicity\": 2``."
 
 #: ../docs/source/backup/index.rst:0
 msgid ""
@@ -196,10 +218,12 @@ msgid ""
 "completing the backup (if it is run within the same day). Further runs will "
 "only backup newer files, if they are created."
 msgstr ""
+"例子：如果在AiiDA "
+"仓库中有近30天的文件，备份周期设置为15,在第一次运行备份会首先备份头15天的文件；第二次才会备份接下来15天的文件直到完成备份（如果两次运行在同一天）。再之后的运行只会备份在这之后的新的文件。"
 
 #: ../docs/source/backup/index.rst:0
 msgid "``oldest_object_backedup`` (`timestamp` or ``null``):"
-msgstr ""
+msgstr "``oldest_object_backedup`` (`timestamp` 或者 ``null``):"
 
 #: ../docs/source/backup/index.rst:0
 msgid ""
