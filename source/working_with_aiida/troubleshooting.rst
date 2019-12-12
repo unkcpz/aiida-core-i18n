@@ -1,12 +1,3 @@
-Some tricks
-===========
-
-.. toctree::
-  :maxdepth: 1
-
-  ../setup/ssh_proxycommand
-
-
 Increasing the debug level
 ==========================
 
@@ -55,33 +46,81 @@ in the ``options`` row.
 
 .. _repo_troubleshooting:
 
-Tips to ease the life of the hard drive (for large databases)
-=============================================================
+AiiDA performance tuning
+========================
 
-Those tips are useful when your database is very large, i.e. several hundreds of
-thousands of nodes or more. With such large databases the hard drive
-may be constantly working and the computer slowed down a lot. Below are some
-solutions to take care of the most typical reasons.
+AiiDA supports running hundreds of thousands of calculations and graphs with
+millions of nodes. However, to scale to this amount, you might need to properly
+configure some variables in AiiDA to balance the load on your CPU and disk.
 
-Repository backup
------------------
+Here are a few things you can do in order to keep AiiDA running smoothly:
 
-The backup of the repository takes an extensively long time if it is done through
-a standard rsync or backup software, since it contains as many folders as the number
-of nodes (and each folder can contain many files!).
-A solution is to use instead the incremental
-backup described in the :ref:`repository backup section<repository_backup>`.
+  1. :ref:`Move the Postgresql database<move_postgresql>` to a fast disk (SSD),
+     ideally on a large partition.
 
+  2. Use AiiDA's tools for making :ref:`efficient incremental
+     backups<repository_backup>` of the file repository.
 
-mlocate cron job
-----------------
+  3. Your operating system may be indexing the file repository.
+     :ref:`Disable this<disable_repo_indexing>`.
 
-Under typical Linux distributions, there is a cron job (called
-``updatedb.mlocate``) running every day to update a database of files and
-folders -- this is to be used by the ``locate`` command. This might become
-problematic since the repository contains many folders and
-will be scanned everyday. The net effect is a hard drive almost constantly
-working.
+  4. The verdi deamon can manage an arbitrary number of parallel workers;
+     by default only one is activated. If ``verdi daemon status`` shows
+     the daemon worker(s) constantly at high CPU usage, use
+     ``verdi daemon incr X`` to add ``X`` daemon workers.
+     However, don't use many more workers than CPU cores on your machine
+     (or ideally, if you have many cores, leave one or two available for the
+     database).
 
-To avoid this issue, edit as root the file ``/etc/updatedb.conf``
-and put in ``PRUNEPATHS`` the name of the repository folder.
+  5. If you submit to a supercomputer shared by many users (e.g., in a
+     supercomputer center), be careful not to overload the supercomputer with
+     too many jobs:
+
+     - keep the number of jobs in the queue under control (the exact number
+       depends on the supercomputer: discuss this with your supercomputer
+       administrators, and you can redirect them to
+       :ref:`this page<for_cluster_admins>` that may contain useful information
+       for them).
+       While in the future `this might be dealt by AiiDA
+       automatically <https://github.com/aiidateam/aiida-core/issues/88>`_,
+       you are responsible for this at the moment. This can be achieved for
+       instance by submitting only a maximum number of workflows to AiiDA,
+       and submitting new ones only when the previous ones complete.
+     - Tune the parameters that AiiDA uses to avoid overloading the
+       supercomputer with connections or batch requests. For SSH transports,
+       the default is 30 seconds, which means that when each worker opens
+       a SSH connection to a computer, it will reuse it as long as there are
+       tasks to execute and then close it. Opening a new connection will not
+       happen before 30 seconds has passed from the opening of the previous
+       one. We stress that this is *per daemon worker*, so that if you have
+       10 workers, your supercomputer will on average see 10 connections every
+       30 seconds. Therefore, if you are using many workers and you mostly have
+       long-running jobs, you can set a longer time (e.g., 120 seconds)
+       by reconfiguring the computer with
+       ``verdi computer configure ssh <COMPUTER_NAME>`` and changing the value
+       of the *Connection cooldown time* or, alternatively, by running::
+
+         verdi computer configure ssh --non-interactive --safe-interval <SECONDS> <COMPUTER_NAME>
+     - In addition to the connection cooldown time described above, AiiDA also
+       avoids running too often the command to get the list of jobs in the queue
+       (``squeue``, ``qstat``, ...), as this can also impact the
+       performance of the scheduler. For a given computer, you can increase
+       how many seconds must pass between requests. First load the
+       computer in a shell with ``computer = load_computer(<COMPUTER_NAME>)``.
+       You can check the current value in seconds (by default, 10) with
+       ``computer.get_minimum_job_poll_interval()``.
+       You can then set it to a higher value using::
+
+         computer.set_minimum_job_poll_interval(<NEW_VALUE_SECONDS>)
+
+Various tips & tricks
+=====================
+
+.. toctree::
+  :maxdepth: 1
+
+  tips/ssh_proxycommand
+  tips/move_db
+  tips/repo_indexing
+  tips/for_cluster_admins
+

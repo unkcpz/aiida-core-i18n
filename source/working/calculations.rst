@@ -89,7 +89,7 @@ As the snippet above demonstrates, the class method takes two arguments:
  * ``spec`` which is the 'specification'
 
 .. warning::
-    Do not forget to add the line ``super(ArithmeticAddCalculation, self).define(spec)`` as the first line of the ``define`` method, where you replace the class name with the name of your calculation job.
+    Do not forget to add the line ``super().define(spec)`` as the first line of the ``define`` method, where you replace the class name with the name of your calculation job.
     This will call the ``define`` method of the parent class, which is necessary for the calculation job to work properly
 
 As the name suggests, the ``spec`` can be used to specify the properties of the calculation job.
@@ -323,6 +323,7 @@ The full list of available options are documented below as part of the ``CalcJob
 
 .. aiida-calcjob:: CalcJob
     :module: aiida.engine.processes.calcjobs
+    :expand-namespaces:
 
 
 .. _working_calcjobs_launch:

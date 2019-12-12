@@ -5,16 +5,15 @@
 # 
 # Translators:
 # Jianxing Huang <jx.huang.x@gmail.com>, 2019
-# Jason.Eu <morty.yu@yahoo.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 22:43+0000\n"
+"POT-Creation-Date: 2019-12-02 08:35+0000\n"
 "PO-Revision-Date: 2019-05-17 20:01+0000\n"
-"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
+"Last-Translator: Jianxing Huang <jx.huang.x@gmail.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,385 +22,155 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../docs/source/backup/index.rst:3
+msgid "AiiDA stores:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:5
 msgid ""
-"On this page you will find useful information on how to backup your "
-"database, how to move it to a different location, and how to backup your "
-"repository."
+"the profile configuration in the ``config.json`` file located in the "
+"``.aiida`` folder. Typically located at ``~/.aiida`` (see also "
+":ref:`configure_aiida`)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:7
+msgid ""
+"files associated with nodes in the repository folder (one per profile). "
+"Typically located in the ``.aiida`` folder."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:9
-msgid "Create database backup"
-msgstr "创建数据库的备份"
+msgid "queryable metadata in the PostgreSQL database (one per profile)."
+msgstr ""
 
 #: ../docs/source/backup/index.rst:11
-msgid "It is strongly advised to backup the content of your database daily."
+msgid ""
+"All three components are required for the operation of AiiDA and should be "
+"backed up."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:12
-msgid ""
-"Below are instructions to set this up for the PostgreSQL database, under "
-"Ubuntu (tested with version 12.04 and 18.04)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:14
-msgid ""
-"**NB!** in the following, it is assumed that your database is called "
-"``aiidadb``, while the database user and owner is ``aiida``."
+#: ../docs/source/backup/index.rst:16
+msgid "Repository backup (``.aiida`` folder)"
 msgstr ""
 
 #: ../docs/source/backup/index.rst:18
 msgid ""
-"Perform the following operation after having set up AiiDA. Only then will "
-"the ``.aiida`` folder (and the files within) be created. You can usually "
-"find it here: ``~/.aiida`` (see also :ref:`configure_aiida`)."
+"For **small repositories** back up the ``.aiida`` folder either by making a "
+"full copy or using tools for incremental backups like ``rsync``."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:22
+#: ../docs/source/backup/index.rst:20
 msgid ""
-"The database files are not put in the ``.aiida`` folder but in the system "
-"directories, which are typically not backed up. Moreover, the database is "
-"spread over lots of files that, if backed up as they are at any given time, "
-"cannot be used to restore the database."
+"For **large repositories** with more than 100k nodes, even incremental "
+"backups can take a significant amount of time. AiiDA provides a helper "
+"script that takes advantage of the AiiDA database in order to figure out "
+"which files have been added since your last backup. The instructions below "
+"explain how to use it:"
 msgstr ""
 
 #: ../docs/source/backup/index.rst:25
 msgid ""
-"So you need to periodically (typically once a day) dump the database "
-"contents in a file that will be backed up. This can be done by the following"
-" bash script :download:`backup_postgresql.sh <backup_postgresql.sh>`:"
+"Configure your backup using ``verdi -p PROFILENAME devel configure-backup`` "
+"where ``PROFILENAME`` is the name of the AiiDA profile that should be backed"
+" up. | This will ask for information on:"
 msgstr ""
 
-#: ../docs/source/backup/index.rst:33
+#: ../docs/source/backup/index.rst:28
 msgid ""
-"Before launching the script you need to create the file ``.pgpass`` to avoid"
-" having to enter your database password each time you use the script. It "
-"should look like (:download:`.pgpass <pgpass>`):"
+"The \"backup folder\", where the backup *configuration file* will be placed."
+" This defaults to a folder named ``backup_PROFILENAME`` in your ``.aiida`` "
+"directory."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:31
+msgid ""
+"The \"destination folder\", where the files of the backup will be stored. "
+"This defaults to a subfolder of the backup folder but we **strongly suggest "
+"to back up to a different drive** (see note below)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:34
+msgid ""
+"The configuration step creates two files in the \"backup folder\": a "
+"``backup_info.json`` configuration file (can also be edited manually) and a "
+"``start_backup.py`` script."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:38
 msgid ""
-"where ``YOUR_DATABASE_PASSWORD`` is the password you set up for the "
-"database."
-msgstr "其中 ``YOUR_DATABASE_PASSWORD`` 是你为数据库设置的密码。"
-
-#: ../docs/source/backup/index.rst:42
-msgid ""
-"Do not forget to put this file in ``~/`` (your home-directory) and to rename"
-" it ``.pgpass``. Remember also to give it the right permissions (read and "
-"write): ``chmod u=rw .pgpass``."
+"Using the same disk for your backup forgoes protection against the most "
+"common cause of data loss: disk failure. One simple option is to use a "
+"destination folder mounted over ssh."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:45
+#: ../docs/source/backup/index.rst:41
 msgid ""
-"To dump the database in a file automatically everyday, you can add the "
-"following script :download:`backup-aiidadb-USERNAME <backup-aiidadb-"
-"USERNAME>` in the folder ``/etc/cron.daily/``, which will launch the "
-"previous script once per day:"
+"On Ubuntu, install ``sshfs`` using ``sudo apt-get install sshfs``. Imagine "
+"you run your calculations on `server_1` and would like to back up regularly "
+"to `server_2`. Mount a `server_2` directory on `server_1` using the "
+"following command on `server_1`:"
 msgstr ""
 
-#: ../docs/source/backup/index.rst:50
+#: ../docs/source/backup/index.rst:49
 msgid ""
-"Where all instances of ``USERNAME`` must replaced by your actual user name. "
-"The ``su USERNAME`` makes the dumped file be owned by you rather than by "
-"``root``. Remember to give the script the right permissions::"
+"Use ``gnome-session-properties`` in the terminal to add this line to the "
+"actions performed at start-up. Do **not** add it to your shell's startup "
+"file (e.g. ``.bashrc``) or your computer will complain that the mount point "
+"is not empty whenever you open a new terminal."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:56
+#: ../docs/source/backup/index.rst:53
 msgid ""
-"Finally make sure your database folder (``/home/USERNAME/.aiida/``) "
-"containing this dump file and the ``repository`` directory, is properly "
-"backed up by your backup software (under Ubuntu, 12.04: Backup -> check the "
-"\"Folders\" tab, 18.04: Backups -> check the \"Folder to save\" tab)."
+"Run the ``start_backup.py`` script in the \"backup folder\" to start the "
+"backup."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:60
+#: ../docs/source/backup/index.rst:55
 msgid ""
-"If your database is very large (more than a few hundreds of thousands of "
-"nodes), a standard backup of your repository folder will be very slow (up to"
-" days), thus slowing down your computer dramatically. To fix this problem "
-"you can set up an incremental backup of your repository by following the "
-"instructions :ref:`here <repository_backup>`."
+"This will back up all data added after the ``oldest_object_backedup`` date. "
+"It will only carry out a new backup every ``periodicity`` days, until a "
+"certain end date if specified (using ``end_date_of_backup`` or "
+"``days_to_backup``), see :ref:`backup_configuration_options` below."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:67
-msgid "Restore database backup"
-msgstr "从备份恢复数据库"
-
-#: ../docs/source/backup/index.rst:69
+#: ../docs/source/backup/index.rst:0
 msgid ""
-"In order to retrieve the database from a backup, you have to first extract "
-"the gzipped file created by the :ref:`backup script <backup_script>` (should"
-" be created in ``~/.aiida/``)."
+"Once you've checked that it works, make sure to run the script periodically "
+"(e.g. using a daily cron job, see note below)."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:71
-msgid ""
-"Then you must create an empty database following the instructions described "
-"in :ref:`database` skipping the ``verdi setup`` phase. The database should "
-"have the same name as the backed up one, and also the same database "
-"username, i.e. you may have to either rename or delete your existing "
-"database."
+#: ../docs/source/backup/index.rst:62
+msgid "On Ubuntu, you can set up a cron job using::"
 msgstr ""
 
-#: ../docs/source/backup/index.rst:73
+#: ../docs/source/backup/index.rst:66
+msgid "It will open an editor, where you can add a line of the form::"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:70
+msgid "or (if you need to backup a different profile than the default one)::"
+msgstr "或者（若你需要备份与默认配置不同的其他配置）::"
+
+#: ../docs/source/backup/index.rst:74
 msgid ""
-"``cd`` to the folder of the extracted backup file (``aiidadb-backup.psql``) "
-"and, while still acting as the postgres user, type the following command::"
+"This will launch the backup of the database every day at 3 AM (03:00), and "
+"send the output (or any error message) to the email address specified at the"
+" end (provided the ``mail`` command -- from ``mailutils`` -- is configured "
+"appropriately)."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:77
 msgid ""
-"After supplying your database password, this will apply all commands from "
-"your backup file to the database ``aiidadb``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:81
-msgid ""
-"To act as the postgres user, type in ``su - postgres`` or ``sudo su - "
-"postgres`` (depending on your distribution)."
+"Finally, if you have a separate automatic backup of your home directory set "
+"up, do not forget to exclude the repository folder."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:83
-msgid ""
-"Another way of doing this without having to become the postgres user (on "
-"Ubuntu 18.04) is::"
+msgid "Configuration options"
 msgstr ""
 
-#: ../docs/source/backup/index.rst:91
-msgid "Move database"
-msgstr "迁移数据库"
-
-#: ../docs/source/backup/index.rst:93
-msgid ""
-"It might happen that you need to move the physical location of the database "
-"files on your hard-drive (for instance, due to the lack of space in the "
-"partition where it is located)."
+#: ../docs/source/backup/index.rst:85
+msgid "The configuration options in the ``backup_info.json`` are:"
 msgstr ""
-
-#: ../docs/source/backup/index.rst:95
-msgid ""
-"First, make sure you have a backup of the full database (see instructions "
-":ref:`here <backup_postgresql>`), and that the AiiDA daemon is not running. "
-"Then, become the UNIX ``postgres`` user, typing as root::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:100
-msgid ""
-"(or, equivalently, type ``sudo su - postgres``, depending on your "
-"distribution)."
-msgstr "（或者同样地，也可以输入 ``sudo su - postgres`` ，这取决于你使用的发行版）。"
-
-#: ../docs/source/backup/index.rst:102
-msgid "Then enter the postgres shell::"
-msgstr "然后输入postgres 命令::"
-
-#: ../docs/source/backup/index.rst:106
-msgid "and look for the current location of the data directory::"
-msgstr "然后寻找数据文件夹的当前位置::"
-
-#: ../docs/source/backup/index.rst:110
-msgid ""
-"Typically, you should get something like ``/var/lib/postgresql/9.1/main`` or"
-" ``/scratch/postgres/9.6/main``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:112
-msgid ""
-"In the above, ``9.1`` or ``9.6`` is replaced by the actual version number of"
-" your postgres distribution (the same applies to the remainder of the "
-"section)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:114
-msgid ""
-"If you are experiencing memory problems and cannot enter the postgres shell,"
-" you can look directly into the file "
-"``/etc/postgresql/9.6/main/postgresql.conf`` and check out the line defining"
-" the variable ``data_directory``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:116
-msgid "Then exit the shell with ``\\q`` and stop the postgres database daemon::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:120
-msgid ""
-"Copy all the files and folders from the postgres data directory into the new"
-" directory::"
-msgstr "从postgres数据文件夹中拷贝所有的文件和文件夹到新的目标::"
-
-#: ../docs/source/backup/index.rst:124
-msgid ""
-"where ``SOURCE_DIRECTORY`` is the directory you got from the ``SHOW "
-"data_directory;`` command, and ``DESTINATION_DIRECTORY`` is the new "
-"directory for the database files."
-msgstr ""
-"其中 ``SOURCE_DIRECTORY`` 是从 ``SHOW data_directory;`` 命令中得到的目录， "
-"``DESTINATION_DIRECTORY`` 是数据库文件的新目录。"
-
-#: ../docs/source/backup/index.rst:126
-msgid ""
-"The behaviour of the ``cp -a`` command is to create a directory within "
-"``DESTINATION_DIRECTORY``, e.g.::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:130
-msgid "will create the directory ``main`` under ``NEW_DIR``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:132
-msgid ""
-"Make sure the permissions for owner and group are the same in the old and "
-"new directory (including all levels below the ``DESTINATION_DIRECTORY``). "
-"The owner and group should be both ``postgres``, at the notable exception of"
-" some symbolic links in ``server.crt`` and ``server.key`` (these files might"
-" be absent, depending on your postgresql version number)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:137
-msgid ""
-"If the permissions of these links need to be changed, use the ``-h`` option "
-"of ``chown`` to avoid changing the permissions of the destination of the "
-"links. In case you have changed the permission of the links destination by "
-"mistake, they should typically be (beware that this might depend on your "
-"actual distribution!)::"
-msgstr ""
-"若这些连接的权限需要修改，请使用 ``chown`` 的 ``-h`` "
-"选项来规避对连接目标文件权限的修改。为避免错误地改变了目标文件的权限，请按以下步骤操作（这可能取决于你的实际版本）::"
-
-#: ../docs/source/backup/index.rst:143
-msgid ""
-"Then you can change the postgres configuration file, which should typically "
-"be located at ``/etc/postgresql/9.6/main/postgresql.conf``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:145
-msgid ""
-"Make a backup version of this file, then look for the line defining "
-"``data_directory`` and replace it with the new data directory path::"
-msgstr "备份此文件，并寻找定义 ``data_directory`` 的行，将其替换为新的目录路径::"
-
-#: ../docs/source/backup/index.rst:149
-msgid "Now restart the database daemon::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:153
-msgid "Finally, you can check that the data directory has indeed changed::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:159
-msgid ""
-"Before definitively removing the previous location of the database files, "
-"first rename it and test AiiDA with the new database location (e.g. do "
-"simple queries like ``verdi code list`` or create a node and store it). If "
-"everything went fine, you can delete the old database location."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:166
-msgid "Setup repository backup"
-msgstr "设置配置文件仓库备份"
-
-#: ../docs/source/backup/index.rst:168
-msgid ""
-"Apart from the database backup, you should also backup the AiiDA repository."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:172
-msgid ""
-"For small repositories, this can be easily done by a simple directory copy "
-"or, even better, with the use of the ``rsync`` command, which can copy only "
-"the differences. However, both of the aforementioned approaches are not "
-"efficient for big repositories, where even a partial recursive directory "
-"listing may take significant time. Especially for filesystems where "
-"accessing a directory has a constant (and significant) latency time. "
-"Therefore, we provide scripts for making efficient backups of the AiiDA "
-"repository."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:174
-msgid ""
-"Before running the backup script, you will have to configure it. Therefore "
-"you should execute the ``backup_setup.py`` script, which is located under "
-"``MY_AIIDA_FOLDER/aiida/manage/backup``. For example::"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:180
-msgid ""
-"where PROFILENAME is the name of the profile you want to use (if you don't "
-"specify the ``-p`` option, the default profile will be used)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:182
-msgid ""
-"This will ask a set of questions. More precisely, it will initially ask for:"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:184
-msgid ""
-"The backup folder. This is the destination of the backup *configuration "
-"file*. By default a folder named ``backup`` in your ``.aiida`` directory is "
-"proposed to be created."
-msgstr "备份文件夹。这是备份*配置文件*的目标。默认此文件夹会被创建并被放置在你的 ``.aiida`` 文件夹，命名为 ``backup`` 。"
-
-#: ../docs/source/backup/index.rst:188
-msgid ""
-"The destination folder of the backup. This is the destination folder of the "
-"files to be backed up. By default it is a folder inside the aforementioned "
-"``backup`` folder (e.g. ``~/.aiida/backup/backup_dest``)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:194
-msgid ""
-"You should backup the repository on a different disk than the one in which "
-"you have the AiiDA repository! If you just use the same disk, you do not "
-"have any security against the most common data loss cause: disk failure. The"
-" best option is to use a destination folder mounted over ssh. For this  you "
-"need to install ``sshfs`` (under Ubuntu: ``sudo apt-get install sshfs``)."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:199
-msgid ""
-"E.g. imagine that you run your calculations on `server_1` and you would like"
-" to take regular repository backups to `server_2`. Then, you could mount a "
-"`server_2` directory via ``sshfs`` on `server_1` using the following command"
-" on `server_1`:"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:206
-msgid ""
-"You should put this line into the actions performed at start-up (under gnome"
-" you can access them by typing ``gnome-session-properties`` in a terminal), "
-"so that the remote directory is mounted automatically after a reboot. Do "
-"**not** put it in your shell's startup file (e.g. ``.bashrc``) - otherwise "
-"each time you open a new terminal, your computer will complain that the "
-"mount point is not empty..."
-msgstr ""
-"你需要设法在启动时便执行以上命令（在gnome桌面环境下你可以在终端中输入 ``gnome-session-properties`` "
-"进入设置），从而可使远程目录在重启后被自动挂载。**不要**放置在你shell的启动文件中（例如 ``.bashrc`` "
-"），否则每次你打开终端时，计算机都会报挂载点非空的错误。"
-
-#: ../docs/source/backup/index.rst:209
-msgid ""
-"A template backup configuration file (``backup_info.json.tmpl``) will be "
-"created in the backup folder. You can set the backup variables by yourself "
-"after renaming the template file to ``backup_info.json``, or you can answer "
-"the questions asked by the script, and then ``backup_info.json`` will be "
-"created based on your answers."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:212
-msgid ""
-"The main script will backup the AiiDA repository that is referenced by the "
-"current AiiDA database. The script will start from the "
-"``oldest_object_backedup`` date, or the date of the oldest Node object "
-"found, and it will periodically backup (in periods of ``periodicity`` days) "
-"until the end date of the backup specified by ``end_date_of_backup`` or "
-"``days_to_backup``."
-msgstr ""
-
-#: ../docs/source/backup/index.rst:215
-msgid "The backup parameters to be set in the ``backup_info.json`` are:"
-msgstr "``backup_info.json`` 中设置的备份参数包括:"
 
 #: ../docs/source/backup/index.rst:0
 msgid "``periodicity`` (in `days`):"
@@ -420,16 +189,12 @@ msgid "E.g. ``\"periodicity\": 2``."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:0
-msgid "Example:"
-msgstr ""
-
-#: ../docs/source/backup/index.rst:0
 msgid ""
-"If you have files in the AiiDA repositories created in the past 30 days, and"
-" periodicity is 15, the first run will backup the files of the first 15 "
-"days; a second run of the script will backup the next 15 days, completing "
-"the backup (if it is run within the same day). Further runs will only backup"
-" newer files, if they are created."
+"Example: If you have files in the AiiDA repositories created in the past 30 "
+"days, and periodicity is 15, the first run will backup the files of the "
+"first 15 days; a second run of the script will backup the next 15 days, "
+"completing the backup (if it is run within the same day). Further runs will "
+"only backup newer files, if they are created."
 msgstr ""
 
 #: ../docs/source/backup/index.rst:0
@@ -515,37 +280,120 @@ msgstr ""
 msgid "E.g. ``\"backup_dir\": \"/home/USERNAME/.aiida/backup/backup_dest\"``."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:253
-msgid ""
-"To start the backup, run the ``start_backup.py`` script. Run as often as "
-"needed to complete a full backup, and then run it periodically (e.g. calling"
-" it from a cron script, for instance every day) to backup new changes."
-msgstr ""
-"运行 ``start_backup.py`` "
-"脚本以开始备份。尽可能频繁地运行以完成一次完整的备份，随后周期性地运行（例如：用cron脚本来控制，比如每天运行）以备份最新的修改。"
-
-#: ../docs/source/backup/index.rst:258
-msgid "You can set up a cron job using the following command::"
-msgstr "你可以如下命令来创建一个cron工作::"
-
-#: ../docs/source/backup/index.rst:262
-msgid "It will open an editor, where you can add a line of the form::"
+#: ../docs/source/backup/index.rst:126
+msgid "Database backup"
 msgstr ""
 
-#: ../docs/source/backup/index.rst:266
-msgid "or (if you need to backup a different profile than the default one)::"
-msgstr "或者（若你需要备份与默认配置不同的其他配置）::"
-
-#: ../docs/source/backup/index.rst:270
+#: ../docs/source/backup/index.rst:128
 msgid ""
-"This will launch the backup of the database every day at 3 AM (03:00), and "
-"send the output (or any error message) to the email address specified at the"
-" end (provided the ``mail`` command -- from ``mailutils`` -- is configured "
-"appropriately)."
+"PostgreSQL typically spreads database information over multiple files that, "
+"if backed up directly, are not guaranteed to restore the database. We "
+"therefore strongly recommend to periodically dump the database contents to a"
+" file (which you can then back up using your method of choice)."
 msgstr ""
 
-#: ../docs/source/backup/index.rst:272
+#: ../docs/source/backup/index.rst:131
 msgid ""
-"Finally, do not forget to exclude the repository folder from the normal "
-"backup of your home directory!"
-msgstr "最终，不要忘记从home文件夹的正常备份中排除仓库文件夹！"
+"The instructions below show how to achieve this under Ubuntu 12.04 and "
+"18.04. In the following, we assume your database is called ``aiidadb``, and "
+"the database user and owner is ``aiida``. You'll find this information in "
+"the output of ``verdi profile show``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:135
+msgid ""
+"In order to dump your database, use a bash script similar to "
+":download:`backup_postgresql.sh <backup_postgresql.sh>`:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:143
+msgid ""
+"In order to avoid having to enter your database password each time you use "
+"the script, you can create a file :download:`.pgpass <pgpass>` in your home "
+"directory:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:147
+msgid ""
+"where ``YOUR_DATABASE_PASSWORD`` is the password you set up for the "
+"database."
+msgstr "其中 ``YOUR_DATABASE_PASSWORD`` 是你为数据库设置的密码。"
+
+#: ../docs/source/backup/index.rst:149
+msgid "This file needs read and write permissions: ``chmod u=rw ~/.pgpass``."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:152
+msgid ""
+"In order to automatically dump the database to a file "
+"``~/.aiida/${AIIDADB}-backup.psql.gz`` once per day, you can add a cron job:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:154
+msgid ""
+"Add the following script :download:`backup-aiidadb-USERNAME <backup-aiidadb-"
+"USERNAME>` to the folder ``/etc/cron.daily/``:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:159
+msgid "and replace all instances of ``USERNAME`` with your UNIX user name."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:161
+msgid "Remember to give the script execute permissions::"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:165
+msgid ""
+"Finally make sure your database folder (``/home/USERNAME/.aiida/``) "
+"containing this dump file and the ``repository`` directory, is properly "
+"backed up by your backup software (under Ubuntu, 12.04: Backup -> check the "
+"\"Folders\" tab, 18.04: Backups -> check the \"Folder to save\" tab)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:170
+msgid "Restore backup"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:172
+msgid "In order to restore a backup, you will need to:"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid "Restore the repository folder."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid ""
+"If you used the :ref:`backup script <backup_script>`, this involves "
+"extracting the corresponding zip file (should be created in ``~/.aiida/``)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid ""
+"Create an empty database following the instructions described in "
+":ref:`database` skipping the ``verdi setup`` phase."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:0
+msgid ""
+"The database should have the same name and database username as the original"
+" one (i.e. if you are restoring on the original postgresql cluster, you may "
+"have to either rename or delete the original database)."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:180
+msgid ""
+"As the ``postgres`` user, ``cd`` to the folder containing the database dump "
+"(``aiidadb-backup.psql``) and load it::"
+msgstr ""
+
+#: ../docs/source/backup/index.rst:185
+msgid ""
+"After supplying your database password, the database should be restored."
+msgstr ""
+
+#: ../docs/source/backup/index.rst:189
+msgid ""
+"On Ubuntu, type ``sudo su - postgres`` to become the postgres UNIX user."
+msgstr ""
