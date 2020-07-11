@@ -24,6 +24,11 @@ import sys
 import aiida
 from aiida.manage.configuration import load_documentation_profile
 
+# zh_CN special
+
+locale_dirs = ['../locales/']
+language = 'zh_CN'
+
 # Load the dummy profile even if we are running locally, this way the documentation will succeed even if the current
 # default profile of the AiiDA installation does not use a Django backend.
 load_documentation_profile()

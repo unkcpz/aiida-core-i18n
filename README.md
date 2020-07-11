@@ -1,69 +1,109 @@
-# <img src="http://www.aiida.net/wp-content/uploads/2020/06/logo_aiida.png" alt="AiiDA" width="200"/>
+# AiiDA-l10n-zh_CN
+[![Documentation Status](https://readthedocs.org/projects/aiida-core-zh-cn/badge/?version=latest)](https://aiida-core-zh-cn.readthedocs.io/zh_CN/latest/?badge=latest)
 
-AiiDA (www.aiida.net) is a workflow manager for computational science with a strong focus on provenance, performance and extensibility.
+[Transifex](https://www.transifex.com/) is used as translation platform.
+The workflow is described as following, to process the translation work of AiiDA documentation.
 
-|    | |
-|-----|----------------------------------------------------------------------------|
-|Latest release| [![PyPI version](https://badge.fury.io/py/aiida-core.svg)](https://badge.fury.io/py/aiida-core) [![conda-forge](https://img.shields.io/conda/vn/conda-forge/aiida-core.svg?style=flat)](https://anaconda.org/conda-forge/aiida-core) [![PyPI pyversions](https://img.shields.io/pypi/pyversions/aiida-core.svg)](https://pypi.python.org/pypi/aiida-core/) |
-|Getting help| [![Docs status](https://readthedocs.org/projects/aiida-core/badge)](http://aiida-core.readthedocs.io/) [![Google Group](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/aiidausers)
-|Build status| [![Build Status](https://github.com/aiidateam/aiida-core/workflows/aiida-core/badge.svg)](https://github.com/aiidateam/aiida-core/actions) [![Coverage Status](https://codecov.io/gh/aiidateam/aiida-core/branch/develop/graph/badge.svg)](https://codecov.io/gh/aiidateam/aiida-core) |
-|Activity| [![PyPI-downloads](https://img.shields.io/pypi/dm/aiida-core.svg?style=flat)](https://pypistats.org/packages/aiida-core) [![Commit Activity](https://img.shields.io/github/commit-activity/m/aiidateam/aiida-core.svg)](https://github.com/aiidateam/aiida-core/pulse)
-|Community| [![Affiliated with NumFOCUS](https://img.shields.io/badge/NumFOCUS-affiliated%20project-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org/sponsored-projects/affiliated-projects) [![Twitter](https://img.shields.io/twitter/follow/aiidateam.svg?style=social&label=Follow)](https://twitter.com/aiidateam)
+## Workflow for transifex translators
 
+1. Login to transifex service.
+2. Go to AiiDA documentation translation page.
+3. Click Request language and fill form.
+4. Wait acceptance by transifex AiiDA Docs translation maintainers.
+5. (After acceptance) Translate on transifex.
 
-## Features
+## How to add a new localization to the documentation?
 
- -   **Workflows:** Write complex, auto-documenting workflows in
-     python, linked to arbitrary executables on local and remote
-     computers. The event-based workflow engine supports tens of
-     thousands of processes per hour with full checkpointing.
- -   **Data provenance:** Automatically track inputs, outputs & metadata
-     of all calculations in a provenance graph for full
-     reproducibility. Perform fast queries on graphs containing
-     millions of nodes.
- -   **HPC interface:** Move your calculations to a different computer
-     by changing one line of code. AiiDA is compatible with schedulers
-     like [SLURM](https://slurm.schedmd.com), [PBS
-     Pro](https://www.pbspro.org/),
-     [torque](http://www.adaptivecomputing.com/products/torque/),
-     [SGE](http://gridscheduler.sourceforge.net/) or
-     [LSF](https://www.ibm.com/support/knowledgecenter/SSETD4/product_welcome_platform_lsf.html)
-     out of the box.
- -   **Plugin interface:** Extend AiiDA with [plugins](https://aiidateam.github.io/aiida-registry/) for new simulation codes (input generation & parsing), data types, schedulers, transport modes and more.
- -   **Open Science:** Export subsets of your provenance graph and share them with peers or make them available online for everyone
-     on the [Materials Cloud](https://www.materialscloud.org).
- -   **Open source:** AiiDA is released under the [MIT open source license](LICENSE.txt)
+This repository is a template for how to add a new localization.
 
-## Installation
+### 0. Create a github repository 'aiida-l10n-\<lang\>'
 
-Please see AiiDA's [documentation](https://aiida-core.readthedocs.io/en/latest/).
+The source code of documentation comes from aiida_core.
+Therefore, submodule the `aiida_core` in the new created repository.
 
-## How to contribute [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub issues by-label](https://img.shields.io/github/issues/aiidateam/aiida-core/good%20first%20issue)](https://github.com/aiidateam/aiida-core/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+```sh
+$ git submodule add "https://github.com/aiidateam/aiida_core.git"
+$ git submodule init
+$ git submodule update
+```
 
-The AiiDA team appreciates help from a wide range of different backgrounds.
-Small improvements of the documentation or minor bug fixes are always welcome.
+You can update submodule by running:
 
-Please see the [Contributor wiki](https://github.com/aiidateam/aiida-core/wiki) on how to get started.
+```sh
+git submodule foreach git pull
+```
 
-## Frequently Asked Questions
+The submodule is just a pointer to a particular commit of the submodule's repository. To point to a latest version refer to [Git submodules: Specify a branch/tag](https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule). Running:
 
-If you are experiencing problems with your AiiDA installation, please refer to the [FAQ page of the documentation](https://aiida-core.readthedocs.io/en/latest/howto/faq.html).
+```sh
+aiida-l10n-<lang> $ cd aiida_core
+aiida_core $ git checkout develop
+aiida_core $ cd ..
+aiida-l10n-<lang> $ git add .
+aiida-l10n-<lang> $ git commit -m "moved aiida_core to develop"
+aiida-l10n-<lang> > git push
+```
 
-## How to cite
+Copy the source code of docs to current project. Every time when official documentation update, do this to track the latest docs code.
 
-If you use AiiDA in your research, please consider citing the AiiDA paper:
+```sh
+$ cp -R aiida_core/docs/source ./
+```
 
-> Giovanni Pizzi, Andrea Cepellotti, Riccardo Sabatini, Nicola Marzari,
-> and Boris Kozinsky, *AiiDA: automated interactive infrastructure and
-> database for computational science*, Comp. Mat. Sci 111, 218-230
-> (2016); <https://doi.org/10.1016/j.commatsci.2015.09.013>;
-> <http://www.aiida.net>.
+Because the folder structure is changed, the `conf.py` need to be replaced by conf.py.tmpl:
 
-## License
+```sh
+cp conf.py.tmpl source/conf.py
+```
 
-AiiDA is distributed under the MIT open source license (see [`LICENSE.txt`](LICENSE.txt)).
-For a list of other open source components included in AiiDA, see [`open_source_licenses.txt`](open_source_licenses.txt).
+Creating `.tx/config` file (used for `tx pull`):
 
-## Acknowledgements
+```sh
+$ tx init --no-interactive
+$ sphinx-intl update-txconfig-resources --pot-dir build/locale --transifex-project-name aiida-documentation
+```
 
-AiiDA is a [NumFOCUS Affiliated Project](https://www.numfocus.org) and supported by the [MARVEL National Centre of Competence in Research](http://www.marvel-nccr.ch), the [MaX European Centre of Excellence](http://www.max-centre.eu) and by a number of other supporting projects, partners and institutions, whose complete list is available on the [AiiDA website acknowledgements page](http://www.aiida.net/acknowledgements/).
+*make sure* not to include apidoc which should not be translated in `.tx/config`.
+
+## Retrieve translated files from transifex
+
+Translators can directly translate the documentation in transifex, enter from:
+https://www.transifex.com/aiidateam/aiida-core/translate/#zh_CN
+
+Every time when the maintainer of the i18n repository feels its a proper time to update the translated documentation, he can pull the translated `.po` file from transifex and update the documentation through sphinx-doc.
+
+Getting the `.po` file from transifex platform:
+
+```sh
+tx pull -l <lang>
+```
+
+### 2. A new localization project is better to include the transltion style guid as following
+
+## Chinese translation style guide(中文翻译指南)
+
+```text
+process: 例程。目的是区别linux的进程和广义的流程的概念，是AiiDA中一个特有的基础概念。
+provenance: 可验证性。表示了数据和流程是可以重复并可以追踪来源过程的。
+provenance graph: 可验证性图。AiiDA生成的有可验证性的图结构。
+calculation: 算例。
+calculation job: 算例任务。
+calculation function: 算例函数。
+workflow: 工作流。
+workflow function: 工作流函数。
+workchain: 工作链。
+
+...
+```
+
+## When original documentation updated
+
+UPDATE the source code:
+
+```bash
+$ sh update_source.sh
+```
+This will update the source code so that the API doc is always latest.
+Meanwhile, this command will update the `requirements_for_rtd.txt` in order to sync the file with official repository.
+
+The content in transfix will automatically updated by github action.
