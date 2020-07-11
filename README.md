@@ -4,6 +4,15 @@
 [Transifex](https://www.transifex.com/) is used as translation platform.
 The workflow is described as following, to process the translation work of AiiDA documentation.
 
+## For maintainer of this repository
+
+...
+
+add `*.mo` in the `.gitignore` file in `docs/` otherwise the output `.mo` generated from
+`.po` files will not updated to the latest version if the timestamp is not newer.
+
+## Guide for who want to add new localization
+
 ## Workflow for transifex translators
 
 1. Login to transifex service.
@@ -12,11 +21,7 @@ The workflow is described as following, to process the translation work of AiiDA
 4. Wait acceptance by transifex AiiDA Docs translation maintainers.
 5. (After acceptance) Translate on transifex.
 
-## How to add a new localization to the documentation?
-
-This repository is a template for how to add a new localization.
-
-### 0. Create a github repository 'aiida-l10n-\<lang\>'
+### Create a github repository 'aiida-l10n-\<lang\>'
 
 The source code of documentation comes from aiida_core.
 Therefore, submodule the `aiida_core` in the new created repository.
