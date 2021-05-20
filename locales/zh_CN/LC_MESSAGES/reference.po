@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Jason.Eu <morty.yu@yahoo.com>, 2019
+# Jason.Eu <morty.yu@yahoo.com>, 2021
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-29 08:46+0000\n"
 "PO-Revision-Date: 2019-10-31 22:43+0000\n"
-"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2019\n"
+"Last-Translator: Jason.Eu <morty.yu@yahoo.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: ../docs/source/reference/api/public.rst:4
 msgid "Overview of public API"
-msgstr ""
+msgstr "公共API概述"
 
 #: ../docs/source/reference/api/public.rst:6
 msgid ""
@@ -45,46 +45,51 @@ msgid ""
 "second-level package that are exposed in this way. If a module is mentioned,"
 " then all the resources defined in its ``__all__`` are included"
 msgstr ""
+"``aiida-core`` 的主包为 "
+"``aiida``，它包含各种子包，我们称之为“二级包”。这些第二级包可以有进一步的嵌套层次结构。这些包中的某些资源，例如模块、类、函数和变量，*仅用于*内部使用，而其他资源是可以被"
+" ``aida -core`` "
+"包的用户所使用。为了让用户更容易找到这些可供外部使用的对象,它们直接暴露在第二级包中,以与*不应该使用的内部对象*区分开来。这意味着任何可以从第二级包中直接导入的对象都是供外部使用的。下面我们提供了以这种方式公开的每秒资源级包的列表。如果提到一个模块，则包含在其"
+" ``__all__`` 中定义的所有对象"
 
 #: ../docs/source/reference/api/public.rst:16
 msgid "``aiida.cmdline``"
-msgstr ""
+msgstr "``aiida.cmdline``"
 
 #: ../docs/source/reference/api/public.rst:28
 msgid "``aiida.common``"
-msgstr ""
+msgstr "``aiida.common``"
 
 #: ../docs/source/reference/api/public.rst:40
 msgid "``aiida.engine``"
-msgstr ""
+msgstr "``aiida.engine``"
 
 #: ../docs/source/reference/api/public.rst:64
 msgid "``aiida.orm``"
-msgstr ""
+msgstr "``aiida.orm``"
 
 #: ../docs/source/reference/api/public.rst:109
 msgid "``aiida.parsers``"
-msgstr ""
+msgstr "``aiida.parsers``"
 
 #: ../docs/source/reference/api/public.rst:117
 msgid "``aiida.plugins``"
-msgstr ""
+msgstr "``aiida.plugins``"
 
 #: ../docs/source/reference/api/public.rst:132
 msgid "``aiida.scheduler``"
-msgstr ""
+msgstr "``aiida.scheduler``"
 
 #: ../docs/source/reference/api/public.rst:140
 msgid "``aiida.tools``"
-msgstr ""
+msgstr "``aiida.tools``"
 
 #: ../docs/source/reference/api/public.rst:153
 msgid "``aiida.transport``"
-msgstr ""
+msgstr "``aiida.transport``"
 
 #: ../docs/source/reference/backup_script.rst:5
 msgid "Repository backup script configuration options"
-msgstr ""
+msgstr "仓库备份脚本配置选项"
 
 #: ../docs/source/reference/backup_script.rst:7
 msgid ""
@@ -92,12 +97,14 @@ msgid ""
 " that is provided with AiiDA (whose use is described :ref:`in this howto "
 "<how-to:installation:backup:repository>`)."
 msgstr ""
+"下面我们将描述AiiDA提供的仓库备份脚本的配置选项(其用途描述 :ref:`在指南 <how-"
+"to:installation:backup:repository>`)."
 
 #: ../docs/source/reference/backup_script.rst:9
 msgid ""
 "Here are the flags that can be set in the ``backup_info.json`` file and "
 "their meaning:"
-msgstr ""
+msgstr "下面是可以在``backup_info.json`` 文件中设置的标志及其含义:"
 
 #: ../docs/source/reference/backup_script.rst:11
 msgid ""
@@ -107,6 +114,9 @@ msgid ""
 " the number of files that are backed up at every round. E.g. "
 "``\"periodicity\": 2``."
 msgstr ""
+"``periodicity`` "
+"（天数）：备份工作会隔几天定期运行，天数取决于periodicity变量的值。该变量的目的在于限制备份运行的周期，从而限制每一轮需要备份的文件数，例如 "
+"``\"periodicity\": 2`` 。"
 
 #: ../docs/source/reference/backup_script.rst:15
 msgid ""
@@ -116,6 +126,8 @@ msgid ""
 "completing the backup (if it is run within the same day). Further runs will "
 "only backup newer files, if they are created."
 msgstr ""
+"例子：如果在AiiDA "
+"仓库中有近30天的文件，备份周期设置为15,在第一次运行备份会首先备份头15天的文件；第二次才会备份接下来15天的文件直到完成备份（如果两次运行在同一天）。再之后的运行只会备份在这之后的新的文件。"
 
 #: ../docs/source/reference/backup_script.rst:18
 msgid ""
@@ -126,6 +138,9 @@ msgid ""
 " oldest Node object in the database and start the backup from that date. "
 "E.g. ``\"oldest_object_backedup\": \"2015-07-20 11:13:08.145804+02:00\"``"
 msgstr ""
+"``oldest_object_backedup`` "
+"（时间戳或null）：即被备份的最早文件创建日期。若你不清楚该值是否为你第一次运行备份的时间，则该值被设置为null。则脚本会搜寻数据库中文件创建日期最久的文件，并从该日期起进行备份。例如：``\"oldest_object_backedup\":"
+" \"2015-07-20 11:13:08.145804+02:00\"`` 。"
 
 #: ../docs/source/reference/backup_script.rst:23
 msgid ""
@@ -138,6 +153,11 @@ msgid ""
 " is set to the current date. E.g. ``\"end_date_of_backup\": null`` or "
 "``\"end_date_of_backup\": \"2015-07-20 11:13:08.145804+02:00\"``."
 msgstr ""
+"``end_date_of_backup`` "
+"（时间戳或null）：若被设置，备份脚本将备份直到该日期的之前被修改的文件。若未设置，备份结束后根据以下变量（ ``days_to_backup`` "
+"）指定从备份开始时起备份的天数设置该变量。若均未被设置（ ``end_date_of_backup`` 和 ``days_to_backup`` "
+"），则备份的结束日期将被设置为当前日期。例如： ``\"end_date_of_backup\": null`` 或 "
+"``\"end_date_of_backup\": \"2015-07-20 11:13:08.145804+02:00\"`` 。"
 
 #: ../docs/source/reference/backup_script.rst:28
 msgid ""
@@ -149,6 +169,10 @@ msgid ""
 "to an error). E.g. ``\"days_to_backup\": null`` or ``\"days_to_backup\": "
 "5``."
 msgstr ""
+"``days_to_backup`` （天数或null）：若被设置，需要指定从开始日期起多少天的内容会被备份。若被设置为 ``null`` 且 "
+"``end_date_of_backup`` 也被设置为 ``null`` ，则备份的结束日期会被设置为当前日期。你不能设置 "
+"``days_to_backup`` 和 ``end_date_of_backup`` "
+"在同一时间（会导致报错）。例如：``\"days_to_backup\": null`` 或 ``\"days_to_backup\": 5`` 。"
 
 #: ../docs/source/reference/backup_script.rst:33
 msgid ""
@@ -160,144 +184,149 @@ msgid ""
 "This is important for the end of the backup. E.g. ``backup_length_threshold:"
 " 1``"
 msgstr ""
+"``backup_length_threshold`` （小时）：备份脚本是按照轮数运行的，并且每一轮都会备份几天的文件，这一天数由 "
+"``periodicity`` 或者 ``end_date_of_backup`` 和 ``days_to_backup`` 控制，确定最后的备份轮数。"
+" ``backup_length_threshold`` 指定最低可接受周期的长度。这对于备份的结束是很重要的。"
 
 #: ../docs/source/reference/backup_script.rst:38
 msgid ""
 "``backup_dir`` (absolute path): The destination directory of the backup. "
 "E.g. ``\"backup_dir\": \"/home/USERNAME/.aiida/backup/backup_dest\"``."
 msgstr ""
+"``backup_dir`` (绝对路径)：备份的目的文件夹。例如： ``\"backup_dir\": "
+"\"/home/USERNAME/.aiida/backup/backup_dest\"``."
 
 #: ../docs/source/reference/command_line.rst:5
 msgid "AiiDA Command Line"
-msgstr ""
+msgstr "AiiDA命令行"
 
 #: ../docs/source/reference/command_line.rst:10
 msgid "Commands"
-msgstr ""
+msgstr "命令"
 
 #: ../docs/source/reference/command_line.rst:11
 msgid "Below is a list with all available subcommands."
-msgstr ""
+msgstr "以下是全部子命令的完整列表。"
 
 #: ../docs/source/reference/command_line.rst:16
 msgid "``verdi archive``"
-msgstr ""
+msgstr "``verdi archive``"
 
 #: ../docs/source/reference/command_line.rst:37
 msgid "``verdi calcjob``"
-msgstr ""
+msgstr "``verdi calcjob``"
 
 #: ../docs/source/reference/command_line.rst:61
 msgid "``verdi code``"
-msgstr ""
+msgstr "``verdi code``"
 
 #: ../docs/source/reference/command_line.rst:86
 msgid "``verdi comment``"
-msgstr ""
+msgstr "``verdi comment``"
 
 #: ../docs/source/reference/command_line.rst:107
 msgid "``verdi completioncommand``"
-msgstr ""
+msgstr "``verdi completioncommand``"
 
 #: ../docs/source/reference/command_line.rst:125
 msgid "``verdi computer``"
-msgstr ""
+msgstr "``verdi computer``"
 
 #: ../docs/source/reference/command_line.rst:153
 msgid "``verdi config``"
-msgstr ""
+msgstr "``verdi config``"
 
 #: ../docs/source/reference/command_line.rst:176
 msgid "``verdi daemon``"
-msgstr ""
+msgstr "``verdi daemon``"
 
 #: ../docs/source/reference/command_line.rst:200
 msgid "``verdi data``"
-msgstr ""
+msgstr "``verdi data``"
 
 #: ../docs/source/reference/command_line.rst:215
 msgid "``verdi database``"
-msgstr ""
+msgstr "``verdi database``"
 
 #: ../docs/source/reference/command_line.rst:236
 msgid "``verdi devel``"
-msgstr ""
+msgstr "``verdi devel``"
 
 #: ../docs/source/reference/command_line.rst:259
 msgid "``verdi export``"
-msgstr ""
+msgstr "``verdi export``"
 
 #: ../docs/source/reference/command_line.rst:279
 msgid "``verdi graph``"
-msgstr ""
+msgstr "``verdi graph``"
 
 #: ../docs/source/reference/command_line.rst:297
 msgid "``verdi group``"
-msgstr ""
+msgstr "``verdi group``"
 
 #: ../docs/source/reference/command_line.rst:324
 msgid "``verdi help``"
-msgstr ""
+msgstr "``verdi help``"
 
 #: ../docs/source/reference/command_line.rst:339
 msgid "``verdi import``"
-msgstr ""
+msgstr "``verdi import``"
 
 #: ../docs/source/reference/command_line.rst:392
 msgid "``verdi node``"
-msgstr ""
+msgstr "``verdi node``"
 
 #: ../docs/source/reference/command_line.rst:420
 msgid "``verdi plugin``"
-msgstr ""
+msgstr "``verdi plugin``"
 
 #: ../docs/source/reference/command_line.rst:438
 msgid "``verdi process``"
-msgstr ""
+msgstr "``verdi process``"
 
 #: ../docs/source/reference/command_line.rst:464
 msgid "``verdi profile``"
-msgstr ""
+msgstr "``verdi profile``"
 
 #: ../docs/source/reference/command_line.rst:485
 msgid "``verdi quicksetup``"
-msgstr ""
+msgstr "``verdi quicksetup``"
 
 #: ../docs/source/reference/command_line.rst:545
 msgid "``verdi rehash``"
-msgstr ""
+msgstr "``verdi rehash``"
 
 #: ../docs/source/reference/command_line.rst:567
 msgid "``verdi restapi``"
-msgstr ""
+msgstr "``verdi restapi``"
 
 #: ../docs/source/reference/command_line.rst:593
 msgid "``verdi run``"
-msgstr ""
+msgstr "``verdi run``"
 
 #: ../docs/source/reference/command_line.rst:624
 msgid "``verdi setup``"
-msgstr ""
+msgstr "``verdi setup``"
 
 #: ../docs/source/reference/command_line.rst:683
 msgid "``verdi shell``"
-msgstr ""
+msgstr "``verdi shell``"
 
 #: ../docs/source/reference/command_line.rst:704
 msgid "``verdi status``"
-msgstr ""
+msgstr "``verdi status``"
 
 #: ../docs/source/reference/command_line.rst:721
 msgid "``verdi user``"
-msgstr ""
+msgstr "``verdi user``"
 
 #: ../docs/source/reference/index.rst:3
 msgid "Reference"
-msgstr ""
+msgstr "Reference"
 
 #: ../docs/source/reference/rest_api.rst:5
 msgid "AiiDA REST API"
-msgstr ""
+msgstr "AiiDA REST API"
 
 #: ../docs/source/reference/rest_api.rst:7
 msgid ""
@@ -308,64 +337,66 @@ msgid ""
 "restful.readthedocs.io/en/latest/>`_ and returns responses in `JSON "
 "<https://www.json.org/json-en.html>`_ format."
 msgstr ""
+"AiiDA的`RESTful `_ `API `_ 是使用 `Flask RESTful framework `_ 实现的，并以`JSON `_ "
+"格式返回响应。"
 
 #: ../docs/source/reference/rest_api.rst:12
 msgid "Available endpoints and responses"
-msgstr ""
+msgstr "可用的接入点和响应"
 
 #: ../docs/source/reference/rest_api.rst:14
 msgid ""
 "In order to obtain a list of all available endpoints, query the API base URL"
 " or the `/server/endpoints` endpoint::"
-msgstr ""
+msgstr "为了获得所有可用端点的列表，查询API基URL或 `/server/endpoints` 接入点::"
 
 #: ../docs/source/reference/rest_api.rst:19
 msgid ""
 "The HTTP response of the REST API consists of a status code, a header, and a"
 " JSON object."
-msgstr ""
+msgstr "REST API的HTTP响应由一个状态码、一个报头和一个JSON对象组成。"
 
 #: ../docs/source/reference/rest_api.rst:21
 msgid "Possible status codes are:"
-msgstr ""
+msgstr "可能的状态代码有:"
 
 #: ../docs/source/reference/rest_api.rst:23
 msgid "200 for successful requests."
-msgstr ""
+msgstr "200为成功请求。"
 
 #: ../docs/source/reference/rest_api.rst:24
 msgid ""
 "400 for bad requests. The JSON object contains an error message describing "
 "the issue with the request."
-msgstr ""
+msgstr "400是错误请求。JSON对象包含一个描述请求问题的错误消息。"
 
 #: ../docs/source/reference/rest_api.rst:26
 msgid ""
 "500 for a generic internal server error. The JSON object contains a generic "
 "error message."
-msgstr ""
+msgstr "500 表示通用内部服务器错误。 JSON对象仅包含一般错误消息。"
 
 #: ../docs/source/reference/rest_api.rst:28
 msgid ""
 "404 for invalid URL. The request does not match any resource, and no JSON is"
 " returned."
-msgstr ""
+msgstr "404为无效URL。请求不匹配任何资源，并且不返回JSON。"
 
 #: ../docs/source/reference/rest_api.rst:31
 msgid ""
 "The header is a standard HTTP response header with the additional custom "
 "fields"
-msgstr ""
+msgstr "报头是带有附加自定义字段的标准HTTP响应报头"
 
 #: ../docs/source/reference/rest_api.rst:33
 msgid "``X-Total-Counts`` and"
-msgstr ""
+msgstr "``X-Total-Counts`` 和"
 
 #: ../docs/source/reference/rest_api.rst:34
 msgid ""
 "``Link`` (only if paginated results are required, see the Pagination "
 "section)."
-msgstr ""
+msgstr "``Link``  (仅当需要分页结果时，请参阅分页章节)。"
 
 #: ../docs/source/reference/rest_api.rst:36
 msgid ""
@@ -374,14 +405,16 @@ msgid ""
 "``method``, ``url``, ``url_root``, ``path``, ``query_string``, and "
 "``resource_type`` fields."
 msgstr ""
+"JSON对象的 ``data`` 字段包含API返回的主有效负载。JSON对象还包含了 ``method`` "
+"、``url``、``url_root``、``path``、``query_string``和 ``resource_type``字段中的请求信息。"
 
 #: ../docs/source/reference/rest_api.rst:42
 msgid "Nodes"
-msgstr ""
+msgstr "节点"
 
 #: ../docs/source/reference/rest_api.rst:44
 msgid "Get a list of |Node| objects."
-msgstr ""
+msgstr "获取 |Node| 对象的列表"
 
 #: ../docs/source/reference/rest_api.rst:46
 #: ../docs/source/reference/rest_api.rst:94
@@ -408,7 +441,7 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:846
 #: ../docs/source/reference/rest_api.rst:890
 msgid "REST URL::"
-msgstr ""
+msgstr "REST URL::"
 
 #: ../docs/source/reference/rest_api.rst:50
 #: ../docs/source/reference/rest_api.rst:98
@@ -435,7 +468,7 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:850
 #: ../docs/source/reference/rest_api.rst:894
 msgid "Description:"
-msgstr ""
+msgstr "描述:"
 
 #: ../docs/source/reference/rest_api.rst:52
 msgid ""
@@ -443,6 +476,8 @@ msgid ""
 "(``offset=8``) of the database table and the list will be ordered by ``id`` "
 "in descending order."
 msgstr ""
+"从数据库表的第9行（``offset = 8``）开始返回两个 |Node| 对象（``limit = 2``）的列表，列表将按 ``id`` "
+"降序排序。"
 
 #: ../docs/source/reference/rest_api.rst:54
 #: ../docs/source/reference/rest_api.rst:103
@@ -469,139 +504,142 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:854
 #: ../docs/source/reference/rest_api.rst:898
 msgid "Response::"
-msgstr ""
+msgstr "响应::"
 
 #: ../docs/source/reference/rest_api.rst:92
 msgid "Get a list of all nodes with attribute called ``pbc1``:"
-msgstr ""
+msgstr "获取属性为 ``pbc1`` 的所有节点的列表:"
 
 #: ../docs/source/reference/rest_api.rst:100
 msgid ""
 "Returns the list of |Node| objects. Every node object contains value of "
 "attribute called ``pbc1`` if present otherwise ``null``."
-msgstr ""
+msgstr "返回|节点|对象的列表。每个节点对象都包含一个名为 ``pbc1`` 的属性值，否则为 ``null``。"
 
 #: ../docs/source/reference/rest_api.rst:144
 msgid "Get a list of all available |Node| types from the database."
-msgstr ""
+msgstr "从数据库获取所有可用 |Node| 类型的列表。"
 
 #: ../docs/source/reference/rest_api.rst:152
 msgid "Returns the list of full_types from database."
-msgstr ""
+msgstr "从数据库返回full_types的列表。"
 
 #: ../docs/source/reference/rest_api.rst:173
 msgid "Get a list of all available download formats."
-msgstr ""
+msgstr "获取所有可用下载格式的列表。"
 
 #: ../docs/source/reference/rest_api.rst:181
 msgid "Returns the list of available download formats."
-msgstr ""
+msgstr "返回可用下载格式的列表。"
 
 #: ../docs/source/reference/rest_api.rst:225
 msgid "Get the details of a single |Node| object."
-msgstr ""
+msgstr "获取单个 |Node| 对象的详细信息:"
 
 #: ../docs/source/reference/rest_api.rst:233
 msgid "Returns the details of the |Node| object with ``uuid=\"12f95e1c...\"``."
-msgstr ""
+msgstr "使用``uuid=\"12f95e1c...\"`` 返 回 |Node| 对象的详细信息。"
 
 #: ../docs/source/reference/rest_api.rst:262
 msgid "Get the list of incoming of a specific |Node|."
-msgstr ""
+msgstr "获取特定 |Node| 的传入列表。"
 
 #: ../docs/source/reference/rest_api.rst:270
 msgid ""
 "Returns the list of the first two input nodes (``limit=2``) of the |Node| "
 "object with ``uuid=\"de83b#...\"``."
-msgstr ""
+msgstr "返回带有 ``uuid=\"de83b#...\"`` 的 *Node* 对象的前两个输入节点（ ``limit = 2`` ）的列表。"
 
 #: ../docs/source/reference/rest_api.rst:314
 msgid "Filter the incoming/outgoing of a |Node| by their full type."
-msgstr ""
+msgstr "根据完整类型过滤 |Node| 的 incoming/outgoing。"
 
 #: ../docs/source/reference/rest_api.rst:322
 msgid ""
 "Returns the list of the *dict* incoming nodes of the |Node| object with "
 "``uuid=\"de83b1...\"``."
-msgstr ""
+msgstr "使用 ``uuid=\"de83b1...\"`` 返回|节点|对象的*dict*传入 |Node| 的列表。"
 
 #: ../docs/source/reference/rest_api.rst:359
 msgid ""
 "Returns the list of the *dict* outgoing nodes of the |Node| object with "
 "``uuid=\"de83b1...\"``."
-msgstr ""
+msgstr "返回带有``uuid=\"de83b1...\"`` 的 |Node| 对象的 *dict* outgoing节点的列表。"
 
 #: ../docs/source/reference/rest_api.rst:390
 msgid "Getting the list of the attributes/extras of a specific |Node|."
-msgstr ""
+msgstr "获取特定 |Node| 的 attributes/extras 列表。"
 
 #: ../docs/source/reference/rest_api.rst:398
 msgid ""
 "Returns the list of all attributes of the |Node| object with "
 "``uuid=\"ffe11...\"``."
-msgstr ""
+msgstr "返回 ``uuid=\"ffe11...\"`` 对象的所有属性列表。"
 
 #: ../docs/source/reference/rest_api.rst:427
 msgid ""
 "Returns the list of all the extras of the |Node| object with "
 "``uuid=\"ffe11...\"``."
-msgstr ""
+msgstr "返回 ``uuid =\"ffe11 ...\"``  |Node| 对象的所有 extras 属性。"
 
 #: ../docs/source/reference/rest_api.rst:449
 msgid "Getting a user-defined list of attributes/extras of a specific |Node|."
-msgstr ""
+msgstr "获取特定 |Node| 的用户定义的attributes/extras列表"
 
 #: ../docs/source/reference/rest_api.rst:457
 msgid ""
 "Returns a list of the attributes ``append_text`` and ``is_local`` of the "
 "|Node| object with ``uuid=\"ffe11...\"``."
 msgstr ""
+"返回 ``uuid=\"ffe11...\"`` 的 |Node| 对象的 ``append_text`` 和 ``is_local`` 属性列表。"
 
 #: ../docs/source/reference/rest_api.rst:483
 msgid ""
 "Returns a list of the extras ``trialBool`` and ``trialInt`` of the |Node| "
 "object with ``uuid=\"ffe11...\"``."
 msgstr ""
+"返回 ``uuid=\"ffe11...\"`` 的 |Node| 对象的 ``trialBool`` 和 ``trialInt``extras "
+"属性列表。"
 
 #: ../docs/source/reference/rest_api.rst:503
 msgid "Get comments of specific |Node|."
-msgstr ""
+msgstr "获取特定 |Node| 的注释。"
 
 #: ../docs/source/reference/rest_api.rst:511
 msgid "Returns comments of the given |Node|."
-msgstr ""
+msgstr "返回给定 |Node| 的注释。"
 
 #: ../docs/source/reference/rest_api.rst:528
 msgid ""
 "Get list of all the files/directories from the repository of a specific "
 "|Node|."
-msgstr ""
+msgstr "从特定 |Node| 的存储库中获取所有文件/目录的列表。"
 
 #: ../docs/source/reference/rest_api.rst:536
 msgid "Returns a list of all the files/directories from node repository"
-msgstr ""
+msgstr "返回节点仓库中所有文件/目录的列表"
 
 #: ../docs/source/reference/rest_api.rst:574
 msgid "Download a file from the repository of a |Node|."
-msgstr ""
+msgstr "从 |Node| 的存储库中下载文件。"
 
 #: ../docs/source/reference/rest_api.rst:582
 msgid "Downloads the file ``aiida.in`` from node repository"
-msgstr ""
+msgstr "在节点存储库中的下载文件``aiida.in`` "
 
 #: ../docs/source/reference/rest_api.rst:601
 msgid ""
 "There are specific download formats (check ``nodes/download_formats`` "
 "endpoint) available to download different types of nodes."
-msgstr ""
+msgstr "有特定的下载格式(检查``nodes/download_formats`` 接入点)可用于下载不同类型的节点。"
 
 #: ../docs/source/reference/rest_api.rst:589
 msgid "This endpoint is used to download file in given format."
-msgstr ""
+msgstr "此端点用于下载给定格式的文件。"
 
 #: ../docs/source/reference/rest_api.rst:597
 msgid "Downloads structure node of uuid=fafdsf in ``xsf`` format"
-msgstr ""
+msgstr "下载 ``xsf`` 格式 uuid=fafdsf 的晶体结构节点"
 
 #: ../docs/source/reference/rest_api.rst:604
 msgid "Processes"
@@ -609,33 +647,33 @@ msgstr "例程"
 
 #: ../docs/source/reference/rest_api.rst:606
 msgid "Get the report of a |ProcessNode|."
-msgstr ""
+msgstr "获取 |ProcessNode| 的报告。"
 
 #: ../docs/source/reference/rest_api.rst:614
 msgid "Returns report of process of ``uuid=\"8b95cd85-....\"``"
-msgstr ""
+msgstr "返回列程  ``uuid=\"8b95cd85-....\"`` 的报告"
 
 #: ../docs/source/reference/rest_api.rst:632
 msgid "CalcJobs"
-msgstr ""
+msgstr " 算例任务CalcJobs"
 
 #: ../docs/source/reference/rest_api.rst:634
 msgid "Get a list of input or output files of given |CalcJobNode|."
-msgstr ""
+msgstr "获取给定|CalcJobNode|的输入或输出文件列表。"
 
 #: ../docs/source/reference/rest_api.rst:642
 msgid ""
 "Returns a list of all input files of given |CalcJobNode| of "
 "``uuid=\"sffs241j-....\"``"
-msgstr ""
+msgstr "返回给定|CalcJobNode| (``uuid=\"sffs241j-....\"``)的所有输入文件列表"
 
 #: ../docs/source/reference/rest_api.rst:676
 msgid "Computers"
-msgstr ""
+msgstr "计算资源Computers"
 
 #: ../docs/source/reference/rest_api.rst:678
 msgid "Get a list of |Computer| objects."
-msgstr ""
+msgstr "获取 |Computer| 对象列表"
 
 #: ../docs/source/reference/rest_api.rst:686
 msgid ""
@@ -643,45 +681,47 @@ msgid ""
 " 3rd row (``offset=2``) of the database table. The list will be ordered by "
 "ascending values of ``id``."
 msgstr ""
+"从数据库表的第3行（ ``offset=2`` ）开始返回三个 |Computer| 对象（ ``limit=3`` ）的列表，列表将按 ``id`` "
+"升序排序。"
 
 #: ../docs/source/reference/rest_api.rst:732
 msgid "Get details of a single |Computer| object:"
-msgstr ""
+msgstr "获取单个 |Computer| 对象的详细信息："
 
 #: ../docs/source/reference/rest_api.rst:740
 msgid ""
 "Returns the details of the |Computer| object ``uuid=\"5d490d77-638d...\"``."
-msgstr ""
+msgstr "返回 `uuid=\"5d490d77-638d...\"`` |Computer| 对象的详细信息。"
 
 #: ../docs/source/reference/rest_api.rst:769
 msgid "Users"
-msgstr ""
+msgstr "用户Users"
 
 #: ../docs/source/reference/rest_api.rst:771
 msgid "Getting a list of the |User| s"
-msgstr ""
+msgstr "获取 |User| 列表"
 
 #: ../docs/source/reference/rest_api.rst:779
 msgid "Returns a list of all the |User| objects."
-msgstr ""
+msgstr "返回所有  |User|  对象的列表。"
 
 #: ../docs/source/reference/rest_api.rst:809
 msgid "Getting a list of |User| s whose first name starts with a given string"
-msgstr ""
+msgstr "获取 |User| 名(first name)以给定字符串开头的用户列表"
 
 #: ../docs/source/reference/rest_api.rst:817
 msgid ""
 "Returns a lists of the |User| objects whose first name starts with "
 "``\"aii\"``, regardless the case of the characters."
-msgstr ""
+msgstr "返回一个 |User| 对象的列表，其名字以 ``\"aii\"`` 开头，无论字符是大小写。"
 
 #: ../docs/source/reference/rest_api.rst:842
 msgid "Groups"
-msgstr ""
+msgstr "组Groups"
 
 #: ../docs/source/reference/rest_api.rst:844
 msgid "Getting a list of |Group| s"
-msgstr ""
+msgstr "获取 |Group| 列表"
 
 #: ../docs/source/reference/rest_api.rst:852
 msgid ""
@@ -689,18 +729,20 @@ msgid ""
 " row of the database table (``offset=0``) and the list will be ordered by "
 "``user_id`` in descending order."
 msgstr ""
+"返回有10个  |Group|  对象的列表 (``limit=10``) ，从数据库表的第一行开始 (``offset=0``) 并且列表通过 "
+"``user_id`` 降序排列。"
 
 #: ../docs/source/reference/rest_api.rst:888
 msgid "Getting the details of a specific group"
-msgstr ""
+msgstr "获取特定组的详细信息"
 
 #: ../docs/source/reference/rest_api.rst:896
 msgid "Returns the details of the |Group| object with ``uuid=\"a6e5b...\"``."
-msgstr ""
+msgstr "返回  ``uuid=\"a6e5b...\"`` 的  |Group|  对象的详细信息。"
 
 #: ../docs/source/reference/rest_api.rst:927
 msgid "Pagination"
-msgstr ""
+msgstr "分页"
 
 #: ../docs/source/reference/rest_api.rst:929
 msgid ""
@@ -708,19 +750,21 @@ msgid ""
 " the URL path. The page limit can be controlled via the "
 "``perpage=(PERPAGE)`` query string (maximum page limit is 400). Examples::"
 msgstr ""
+"每个页面有20个结果，可以通过在URL路径上添加``/page/2``(第2页)来访问。页面限制可以通过``perpage=(PERPAGE)`` "
+"查询字符串来控制(最大页面限制是400)。例子::"
 
 #: ../docs/source/reference/rest_api.rst:937
 msgid ""
 "If no page number is specified, the system redirects the request to page 1. "
 "When pagination is used, the **header** of the response contains two more "
 "non-empty fields:"
-msgstr ""
+msgstr "如果未指定页码，如上例所示，系统会将请求重定向到第1页。使用分页时，响应的**报头**包含两个额外的非空字段："
 
 #: ../docs/source/reference/rest_api.rst:940
 msgid ""
 "``X-Total-Counts`` (custom field): the total number of results returned by "
 "the query, i.e. the sum of the results of all pages."
-msgstr ""
+msgstr "``X-Total-Counts`` （自定义字段）：查询返回的结果总数，即所有页面结果的总和"
 
 #: ../docs/source/reference/rest_api.rst:941
 msgid ""
@@ -728,6 +772,7 @@ msgid ""
 "you send a request whose results fill 8 pages. Then the value of the "
 "``Links`` field would look like::"
 msgstr ""
+"``Links`` : 指向第一页，上一页，下一页和最后一页的链接。假设您发送的请求的结果将填充8页。那么 ``Links`` 字段的值将会是 ::"
 
 #: ../docs/source/reference/rest_api.rst:949
 msgid ""
@@ -735,84 +780,86 @@ msgid ""
 "``limit`` and ``offset`` filters, see :ref:`below <reference:rest-"
 "api:filtering:unique>`."
 msgstr ""
+"除了分页，结果的数量也可以使用``limit``和``offset``过滤器来控制，参考 :ref:` `这里 <reference:rest-"
+"api:filtering:unique>`。"
 
 #: ../docs/source/reference/rest_api.rst:955
 msgid "Filtering results"
-msgstr ""
+msgstr "筛选结果"
 
 #: ../docs/source/reference/rest_api.rst:957
 msgid ""
 "The filter query string is formed by one or more **fields**, separated by "
 "the special character ``&``."
-msgstr ""
+msgstr "过滤查询字符串由一个或多个**字段**组成，用特殊字符``&``隔。"
 
 #: ../docs/source/reference/rest_api.rst:959
 msgid "Each field has the form (``key``)(``operator``)(``value``)."
-msgstr ""
+msgstr "每个字段的形式 (``key``)(``operator``)(``value``)。"
 
 #: ../docs/source/reference/rest_api.rst:961
 msgid ""
 "Fields can only contain alphanumeric characters plus ``_``, and the first "
 "character cannot be a number (similar to Python variable names)."
-msgstr ""
+msgstr "字段只能包含字母数字字符加上 ``_``，第一个字符不能是数字(类似于Python变量名)。"
 
 #: ../docs/source/reference/rest_api.rst:962
 msgid ""
 "In the following *id* is a synonym for the *PK* used in other sections of "
 "the documentation."
-msgstr ""
+msgstr "以下 *id* 和 *pk* 是同义的（*pk* 通常用于文档的其他章节）。"
 
 #: ../docs/source/reference/rest_api.rst:967
 msgid "Filter keys"
-msgstr ""
+msgstr "筛选键"
 
 #: ../docs/source/reference/rest_api.rst:969
 msgid ""
 "Unique filters can be specified only once in a query string. All of them "
 "must be followed by the operator ``=``."
-msgstr ""
+msgstr "唯一筛选器只能在查询字符串中指定一次。它们后面都必须有操作符``=``。"
 
 #: ../docs/source/reference/rest_api.rst:972
 msgid "Unique filters"
-msgstr ""
+msgstr "唯一的筛选器"
 
 #: ../docs/source/reference/rest_api.rst:975
 #: ../docs/source/reference/rest_api.rst:1033
 msgid "Filter key"
-msgstr ""
+msgstr "筛选键"
 
 #: ../docs/source/reference/rest_api.rst:976
 #: ../docs/source/reference/rest_api.rst:1218
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ../docs/source/reference/rest_api.rst:978
 msgid "``limit``"
-msgstr ""
+msgstr "``limit``"
 
 #: ../docs/source/reference/rest_api.rst:979
 msgid "Number of results (integer)."
-msgstr ""
+msgstr "结果数(整型)。"
 
 #: ../docs/source/reference/rest_api.rst:981
 msgid "``offset``"
-msgstr ""
+msgstr "``offset``"
 
 #: ../docs/source/reference/rest_api.rst:982
 msgid "Skips the first ``offset`` results (integer)."
-msgstr ""
+msgstr "跳过``offset`` 个结果(整型)。"
 
 #: ../docs/source/reference/rest_api.rst:984
 msgid "``perpage``"
-msgstr ""
+msgstr "``perpage``"
 
 #: ../docs/source/reference/rest_api.rst:985
 msgid "How many results to show per page (integer)."
-msgstr ""
+msgstr "每页要显示多少结果(整型)。"
 
 #: ../docs/source/reference/rest_api.rst:987
 msgid "``orderby``"
-msgstr ""
+msgstr "``orderby``"
 
 #: ../docs/source/reference/rest_api.rst:988
 msgid ""
@@ -821,11 +868,11 @@ msgid ""
 "strings corresponds to alphabetical (reverse-alphabetical) order, whereas "
 "for datetime objects it corresponds to chronological (reverse-chronological)"
 " order. Examples::"
-msgstr ""
+msgstr "``+<property>`` 升序和  ``-<property>`` 降序 (``"
 
 #: ../docs/source/reference/rest_api.rst:996
 msgid "``attributes_filter``"
-msgstr ""
+msgstr "``attributes_filter``"
 
 #: ../docs/source/reference/rest_api.rst:997
 msgid ""
@@ -833,99 +880,100 @@ msgid ""
 "``attributes=true``. Available in the endpoints ``/contents/attributes`` and"
 " ``/nodes``. Example::"
 msgstr ""
+"要返回的属性列表，以逗号分隔。与``attributes=true``一起使用。在接入点``/contents/attributes``和``/nodes``中可用。例如::"
 
 #: ../docs/source/reference/rest_api.rst:1004
 msgid "``extras_filter``"
-msgstr ""
+msgstr "``extras_filter``"
 
 #: ../docs/source/reference/rest_api.rst:1005
 msgid ""
 "Similar to ``attributes_filter`` but for extras. It is used in the endpoints"
 " ``/contents/extras`` and ``/nodes``."
-msgstr ""
+msgstr "类似于``attributes_filter``，但用于附加。它用于接入点``/contents/extras``和``/nodes``。"
 
 #: ../docs/source/reference/rest_api.rst:1007
 #: ../docs/source/reference/rest_api.rst:1037
 msgid "``attributes``"
-msgstr ""
+msgstr "``attributes``"
 
 #: ../docs/source/reference/rest_api.rst:1008
 msgid ""
 "Pass ``true`` in order to return attributes in the ``/nodes`` endpoint "
 "(excluded by default)."
-msgstr ""
+msgstr "传递``true``以返回``/nodes``端点中的属性(默认排除)。"
 
 #: ../docs/source/reference/rest_api.rst:1010
 msgid "``extras``"
-msgstr ""
+msgstr "``extras``"
 
 #: ../docs/source/reference/rest_api.rst:1011
 msgid ""
 "Pass ``true`` in order to return extras in the ``/nodes`` endpoint (excluded"
 " by default)."
-msgstr ""
+msgstr "传递``true``以返回``/nodes``端点中的属性(默认排除)。"
 
 #: ../docs/source/reference/rest_api.rst:1013
 msgid "``download_format``"
-msgstr ""
+msgstr "``download_format``"
 
 #: ../docs/source/reference/rest_api.rst:1014
 msgid "to specify download format in ``/download`` endpoint."
-msgstr ""
+msgstr "在``/download``接入点中指定下载格式。"
 
 #: ../docs/source/reference/rest_api.rst:1016
 msgid "``download``"
-msgstr ""
+msgstr "``download``"
 
 #: ../docs/source/reference/rest_api.rst:1017
 msgid ""
 "in ``/download`` endpoint, if ``download=false`` it displays the content in "
 "the browser instead of downloading a file."
-msgstr ""
+msgstr "在``/download`` endpoint中，如果``download=false``它将在浏览器中显示内容，而不是下载文件。"
 
 #: ../docs/source/reference/rest_api.rst:1019
 msgid "``filename``"
-msgstr ""
+msgstr "``filename``"
 
 #: ../docs/source/reference/rest_api.rst:1020
 msgid ""
 "this filter is used to pass file name in ``/repo/list`` and "
 "``/repo/contents`` endpoint."
-msgstr ""
+msgstr "这个过滤器用于在``/repo/list``和``/repo/contents``端点中传递文件名。"
 
 #: ../docs/source/reference/rest_api.rst:1022
 msgid "``tree_in_limit``"
-msgstr ""
+msgstr "``tree_in_limit``"
 
 #: ../docs/source/reference/rest_api.rst:1023
 msgid "specifies the limit on tree incoming nodes."
-msgstr ""
+msgstr "指定树传入节点的限制。"
 
 #: ../docs/source/reference/rest_api.rst:1025
 msgid "``tree_out_limit``"
-msgstr ""
+msgstr "``tree_out_limit``"
 
 #: ../docs/source/reference/rest_api.rst:1026
 msgid "specifies the limit on tree outgoing nodes."
-msgstr ""
+msgstr "对树出节点的限制。"
 
 #: ../docs/source/reference/rest_api.rst:1028
 msgid ""
 "Regular filters can be compounded, requiring all specified filters to apply."
-msgstr ""
+msgstr "常规过滤器可以复合，需要应用所有指定的过滤器。"
 
 #: ../docs/source/reference/rest_api.rst:1030
 msgid "Regular filters"
-msgstr ""
+msgstr "常规筛选器"
 
 #: ../docs/source/reference/rest_api.rst:1034
 #: ../docs/source/reference/rest_api.rst:1217
 msgid "Value type"
-msgstr ""
+msgstr "值类型"
 
 #: ../docs/source/reference/rest_api.rst:1035
 msgid "Supported resources"
-msgstr ""
+msgstr "支持的对象"
 
 #: ../docs/source/reference/rest_api.rst:1038
 #: ../docs/source/reference/rest_api.rst:1044
@@ -943,7 +991,7 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:1086
 #: ../docs/source/reference/rest_api.rst:1092
 msgid "string"
-msgstr ""
+msgstr "string"
 
 #: ../docs/source/reference/rest_api.rst:1039
 #: ../docs/source/reference/rest_api.rst:1042
@@ -951,143 +999,145 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:1072
 #: ../docs/source/reference/rest_api.rst:1078
 msgid "nodes"
-msgstr ""
+msgstr "nodes"
 
 #: ../docs/source/reference/rest_api.rst:1040
 msgid "``ctime``"
-msgstr ""
+msgstr "``ctime``"
 
 #: ../docs/source/reference/rest_api.rst:1041
 #: ../docs/source/reference/rest_api.rst:1071
 msgid "datetime"
-msgstr ""
+msgstr "datetime"
 
 #: ../docs/source/reference/rest_api.rst:1043
 msgid "``description``"
-msgstr ""
+msgstr "``description``"
 
 #: ../docs/source/reference/rest_api.rst:1045
 #: ../docs/source/reference/rest_api.rst:1093
 msgid "computers, groups, nodes"
-msgstr ""
+msgstr "computers, groups, nodes"
 
 #: ../docs/source/reference/rest_api.rst:1046
 msgid "``email`` \\*"
-msgstr ""
+msgstr "``email`` \\*"
 
 #: ../docs/source/reference/rest_api.rst:1048
 #: ../docs/source/reference/rest_api.rst:1051
 #: ../docs/source/reference/rest_api.rst:1063
 #: ../docs/source/reference/rest_api.rst:1069
 msgid "users"
-msgstr ""
+msgstr "users"
 
 #: ../docs/source/reference/rest_api.rst:1049
 msgid "``first_name``"
-msgstr ""
+msgstr "``first_name``"
 
 #: ../docs/source/reference/rest_api.rst:1052
 msgid "``full_type``"
-msgstr ""
+msgstr "``full_type``"
 
 #: ../docs/source/reference/rest_api.rst:1055
 msgid "``hostname``"
-msgstr ""
+msgstr "``hostname``"
 
 #: ../docs/source/reference/rest_api.rst:1057
 #: ../docs/source/reference/rest_api.rst:1075
 #: ../docs/source/reference/rest_api.rst:1081
 #: ../docs/source/reference/rest_api.rst:1084
 msgid "computers"
-msgstr ""
+msgstr "computers"
 
 #: ../docs/source/reference/rest_api.rst:1058
 msgid "``id``"
-msgstr ""
+msgstr "``id``"
 
 #: ../docs/source/reference/rest_api.rst:1059
 #: ../docs/source/reference/rest_api.rst:1089
 msgid "integer"
-msgstr ""
+msgstr "integer"
 
 #: ../docs/source/reference/rest_api.rst:1060
 msgid "users, computers, groups, nodes"
-msgstr ""
+msgstr "users, computers, groups, nodes"
 
 #: ../docs/source/reference/rest_api.rst:1061
 msgid "``institution``"
-msgstr ""
+msgstr "``institution``"
 
 #: ../docs/source/reference/rest_api.rst:1064
 msgid "``label``"
-msgstr ""
+msgstr "``label``"
 
 #: ../docs/source/reference/rest_api.rst:1066
 msgid "groups, nodes"
-msgstr ""
+msgstr "groups, nodes"
 
 #: ../docs/source/reference/rest_api.rst:1067
 msgid "``last_name``"
-msgstr ""
+msgstr "``last_name``"
 
 #: ../docs/source/reference/rest_api.rst:1070
 msgid "``mtime``"
-msgstr ""
+msgstr "``mtime``"
 
 #: ../docs/source/reference/rest_api.rst:1073
 msgid "``name``"
-msgstr ""
+msgstr "``name``"
 
 #: ../docs/source/reference/rest_api.rst:1076
 msgid "``node_type``"
-msgstr ""
+msgstr "``node_type``"
 
 #: ../docs/source/reference/rest_api.rst:1079
 msgid "``scheduler_type``"
-msgstr ""
+msgstr "``scheduler_type``"
 
 #: ../docs/source/reference/rest_api.rst:1082
 msgid "``transport_type``"
-msgstr ""
+msgstr "``transport_type``"
 
 #: ../docs/source/reference/rest_api.rst:1085
 msgid "``type_string``"
-msgstr ""
+msgstr "``type_string``"
 
 #: ../docs/source/reference/rest_api.rst:1087
 #: ../docs/source/reference/rest_api.rst:1090
 msgid "groups"
-msgstr ""
+msgstr "groups"
 
 #: ../docs/source/reference/rest_api.rst:1088
 msgid "``user_id``"
-msgstr ""
+msgstr "``user_id``"
 
 #: ../docs/source/reference/rest_api.rst:1091
 msgid "``uuid``"
-msgstr ""
+msgstr "``uuid``"
 
 #: ../docs/source/reference/rest_api.rst:1096
 msgid ""
 "\\* Key filtered out in response of the ``/users/`` endpoint privacy "
 "reasons."
-msgstr ""
+msgstr "由于``/users/``端点隐私原因，密钥被过滤掉。"
 
 #: ../docs/source/reference/rest_api.rst:1098
 msgid ""
 "Node types are specified by a string that defines their position in the "
 "AiiDA source tree, ending with a dot. Examples:"
-msgstr ""
+msgstr "节点的类型需要通过定义AiiDA源数据树中的字符串指定，并以一个 ``.`` 作为结尾。例子::"
 
 #: ../docs/source/reference/rest_api.rst:1101
 msgid "``node_type=\"data.code.Code.\"`` selects only objects of type |Code|."
-msgstr ""
+msgstr "``node_type=\"data.code.Code.\"`` 仅选取|Code| 类型的对象"
 
 #: ../docs/source/reference/rest_api.rst:1102
 msgid ""
 "``node_type=\"data.remote.RemoteData.\"`` selects only objects of type "
 ":py:class:`~aiida.orm.nodes.data.remote.RemoteData`."
 msgstr ""
+"``node_type=\"data.remote.RemoteData.\"`` "
+"只选择类型对象:py:class:`~aiida.orm.nodes.data.remote.RemoteData`."
 
 #: ../docs/source/reference/rest_api.rst:1104
 msgid ""
@@ -1095,6 +1145,8 @@ msgid ""
 "with one or more filters, the filters are applied to the incoming (outgoing)"
 " nodes of the selected *id*. For example, the request::"
 msgstr ""
+"当使用*links/incoming* "
+"(*links/outgoing*)端点与一个或多个过滤器组合时，过滤器将应用于所选*id*的传入(传出)节点。例如，请求::"
 
 #: ../docs/source/reference/rest_api.rst:1109
 msgid ""
@@ -1102,17 +1154,19 @@ msgid ""
 "\"a67fba41\" and then select only those nodes of full_type "
 "*data.dict.Dict.|*."
 msgstr ""
+"会首先搜索以\"a67fba41-8a\" 开头的 *uuid* 节点的输出节点，再选取这些节点中类型为  *data.dict.Dict.|* "
+"的节点。"
 
 #: ../docs/source/reference/rest_api.rst:1114
 #: ../docs/source/reference/rest_api.rst:1120
 msgid "Filter operators"
-msgstr ""
+msgstr "筛选操作符"
 
 #: ../docs/source/reference/rest_api.rst:1116
 msgid ""
 "The operators supported by a specific filter key are uniquely determined by "
 "the value type associated with that key."
-msgstr ""
+msgstr "特定筛选键支持的操作符由与该键关联的值类型唯一确定。"
 
 #: ../docs/source/reference/rest_api.rst:1118
 msgid ""
@@ -1121,38 +1175,40 @@ msgid ""
 " operators ``=``, ``<``, ``<=``, ``>``, ``>=`` plus the membership operator "
 "``=in=``:"
 msgstr ""
+"例如，需要布尔值的键只允许使用标识操作符``=``，而整型值允许使用比较操作符``=``, ``<``, ``<=``, ``>``, "
+"``>=``加上成员操作符``=in=``:"
 
 #: ../docs/source/reference/rest_api.rst:1123
 msgid "Operator"
-msgstr ""
+msgstr "操作符"
 
 #: ../docs/source/reference/rest_api.rst:1124
 msgid "Meaning"
-msgstr ""
+msgstr "含义"
 
 #: ../docs/source/reference/rest_api.rst:1125
 msgid "Accepted value types"
-msgstr ""
+msgstr "接受的值类型"
 
 #: ../docs/source/reference/rest_api.rst:1126
 msgid "``=``"
-msgstr ""
+msgstr "``=``"
 
 #: ../docs/source/reference/rest_api.rst:1127
 msgid "identity"
-msgstr ""
+msgstr "等于"
 
 #: ../docs/source/reference/rest_api.rst:1128
 msgid "integers, strings, bool, datetime"
-msgstr ""
+msgstr "整型，字符串，布尔，日期时间"
 
 #: ../docs/source/reference/rest_api.rst:1129
 msgid "``>``"
-msgstr ""
+msgstr "``>``"
 
 #: ../docs/source/reference/rest_api.rst:1130
 msgid "greater than"
-msgstr ""
+msgstr "大于"
 
 #: ../docs/source/reference/rest_api.rst:1131
 #: ../docs/source/reference/rest_api.rst:1134
@@ -1160,168 +1216,168 @@ msgstr ""
 #: ../docs/source/reference/rest_api.rst:1140
 #: ../docs/source/reference/rest_api.rst:1149
 msgid "integers, strings, datetime"
-msgstr ""
+msgstr "整数，字符串，日期时间"
 
 #: ../docs/source/reference/rest_api.rst:1132
 msgid "``<``"
-msgstr ""
+msgstr "``<``"
 
 #: ../docs/source/reference/rest_api.rst:1133
 msgid "less than"
-msgstr ""
+msgstr "小于"
 
 #: ../docs/source/reference/rest_api.rst:1135
 msgid "``>=``"
-msgstr ""
+msgstr "``>=``"
 
 #: ../docs/source/reference/rest_api.rst:1136
 msgid "greater than or equal to"
-msgstr ""
+msgstr "大于或等于"
 
 #: ../docs/source/reference/rest_api.rst:1138
 msgid "``<=``"
-msgstr ""
+msgstr "``<=``"
 
 #: ../docs/source/reference/rest_api.rst:1139
 msgid "less than or equal to"
-msgstr ""
+msgstr "小于或等于"
 
 #: ../docs/source/reference/rest_api.rst:1141
 msgid "``=like=``"
-msgstr ""
+msgstr "``=like=``"
 
 #: ../docs/source/reference/rest_api.rst:1142
 msgid "pattern matching"
-msgstr ""
+msgstr "模式匹配"
 
 #: ../docs/source/reference/rest_api.rst:1143
 #: ../docs/source/reference/rest_api.rst:1146
 msgid "strings"
-msgstr ""
+msgstr "字符串"
 
 #: ../docs/source/reference/rest_api.rst:1144
 msgid "``=ilike=``"
-msgstr ""
+msgstr "``=ilike=``"
 
 #: ../docs/source/reference/rest_api.rst:1145
 msgid "case-insensitive pattern matching"
-msgstr ""
+msgstr "不区分大小写的模式匹配"
 
 #: ../docs/source/reference/rest_api.rst:1147
 msgid "``=in=``"
-msgstr ""
+msgstr "``=in=``"
 
 #: ../docs/source/reference/rest_api.rst:1148
 msgid "identity with one element of a list"
-msgstr ""
+msgstr "与列表中的某个元素等价"
 
 #: ../docs/source/reference/rest_api.rst:1153
 msgid "Pattern matching"
-msgstr ""
+msgstr "模式匹配"
 
 #: ../docs/source/reference/rest_api.rst:1155
 msgid ""
 "The pattern matching operators ``=like=`` and ``=ilike=`` must be followed "
 "by the pattern definition, namely, a string where two characters assume "
 "special meaning:"
-msgstr ""
+msgstr "模式匹配运算符 ``=like=`` 和 ``=ilike=`` 必须后接模式定义，即一个含有两个特殊含义字符的字符串:"
 
 #: ../docs/source/reference/rest_api.rst:1157
 msgid ""
 "``%`` is used to replace an arbitrary sequence of characters, including no "
 "characters."
-msgstr ""
+msgstr "``%``用于替换任意字符序列，包括无字符。"
 
 #: ../docs/source/reference/rest_api.rst:1158
 msgid "``_`` is used to replace one or zero characters."
-msgstr ""
+msgstr "``_`` 用于替换一个或零个字符。"
 
 #: ../docs/source/reference/rest_api.rst:1160
 msgid ""
 "When special characters are required verbatim, escape them by pre-pending a "
 "backslash ``\\``."
-msgstr ""
+msgstr "当需要逐字转换特殊字符时，通过前置反斜杠``\\``来转义它们。"
 
 #: ../docs/source/reference/rest_api.rst:1162
 msgid "Pattern matching with ``=like=`` and ``=ilike=``"
-msgstr ""
+msgstr "模式匹配``=like=``和``=ilike=``"
 
 #: ../docs/source/reference/rest_api.rst:1165
 msgid "Filter"
-msgstr ""
+msgstr "筛选器"
 
 #: ../docs/source/reference/rest_api.rst:1166
 msgid "Matches"
-msgstr ""
+msgstr "匹配"
 
 #: ../docs/source/reference/rest_api.rst:1167
 msgid "Doesn't match"
-msgstr ""
+msgstr "不匹配"
 
 #: ../docs/source/reference/rest_api.rst:1168
 msgid "``name=like=\"a%d_\"``"
-msgstr ""
+msgstr "``name=like=\"a%d_\"``"
 
 #: ../docs/source/reference/rest_api.rst:1169
 #: ../docs/source/reference/rest_api.rst:1176
 #: ../docs/source/reference/rest_api.rst:1178
 msgid "\"aiida\""
-msgstr ""
+msgstr "\"aiida\""
 
 #: ../docs/source/reference/rest_api.rst:1170
 msgid "\"AiiDA\""
-msgstr ""
+msgstr "\"AiiDA\""
 
 #: ../docs/source/reference/rest_api.rst:1171
 msgid "``name=ilike=\"a%d_\"``"
-msgstr ""
+msgstr "``name=ilike=\"a%d_\"``"
 
 #: ../docs/source/reference/rest_api.rst:1172
 msgid "\"aiida\", \"AiiDA\""
-msgstr ""
+msgstr "\"aiida\", \"AiiDA\""
 
 #: ../docs/source/reference/rest_api.rst:1174
 msgid "``name=like=\"a_d_\"``"
-msgstr ""
+msgstr "``name=like=\"a_d_\"``"
 
 #: ../docs/source/reference/rest_api.rst:1177
 msgid "``name=like=\"aii%d_a\"``"
-msgstr ""
+msgstr "``name=like=\"aii%d_a\"``"
 
 #: ../docs/source/reference/rest_api.rst:1180
 msgid "``uuid=like=\"cdfd48%\"``"
-msgstr ""
+msgstr "``uuid=like=\"cdfd48%\"``"
 
 #: ../docs/source/reference/rest_api.rst:1181
 msgid "\"cdfd48f9-7ed2-4969-ba06-09c752b83d2\""
-msgstr ""
+msgstr "\"cdfd48f9-7ed2-4969-ba06-09c752b83d2\""
 
 #: ../docs/source/reference/rest_api.rst:1183
 msgid "``description=like=\"This calculation is %\\% useful\"``"
-msgstr ""
+msgstr "``description=like=\"This calculation is %\\% useful\"``"
 
 #: ../docs/source/reference/rest_api.rst:1184
 msgid "\"This calculation is 100% useful\""
-msgstr ""
+msgstr "\"This calculation is 100% useful\""
 
 #: ../docs/source/reference/rest_api.rst:1188
 msgid "Membership"
-msgstr ""
+msgstr "隶属操作"
 
 #: ../docs/source/reference/rest_api.rst:1190
 msgid ""
 "The membership operator ``=in=`` has to be followed by a comma-separated "
 "list of values of the same type. The condition is fulfilled if the column "
 "value of an object is an element of the list."
-msgstr ""
+msgstr "隶属运算符 ``=in=`` 必须后接逗号，以分隔相同类的值的列表。当对象列的值是列表中的元素时条件满足。"
 
 #: ../docs/source/reference/rest_api.rst:1193
 msgid "Examples::"
-msgstr ""
+msgstr "例子::"
 
 #: ../docs/source/reference/rest_api.rst:1199
 msgid "Comparison"
-msgstr ""
+msgstr "对比操作"
 
 #: ../docs/source/reference/rest_api.rst:1201
 msgid ""
@@ -1329,43 +1385,47 @@ msgid ""
 "ordering for integers, (case-insensitive) alphabetical ordering for strings,"
 " and chronological ordering for datetime values."
 msgstr ""
+"对比运算符 ``<``, ``>``, ``<=``, ``>=``  对整数的使用自然顺序, 对于字符串(不区分大小写) "
+"使用字符串顺序，对日期值使用时间顺序。"
 
 #: ../docs/source/reference/rest_api.rst:1203
 msgid "Examples:"
-msgstr ""
+msgstr "例子:"
 
 #: ../docs/source/reference/rest_api.rst:1205
 msgid ""
 "``http://localhost:5000/api/v4/nodes?id>578`` selects the nodes having an id"
 " larger than 578."
-msgstr ""
+msgstr "``http://localhost:5000/api/v4/nodes?id>578`` 选取id大于 578 的节点。"
 
 #: ../docs/source/reference/rest_api.rst:1206
 msgid ""
 "``http://localhost:5000/api/v4/users/?last_name<=\"m\"`` selects only the "
 "users whose last name begins with a character in the range [a-m]."
 msgstr ""
+"``http://localhost:5000/api/v4/users/?last_name<=\"m\"`` 选取用户的姓（last name）以 "
+"[a-m]字母开头的用户。"
 
 #: ../docs/source/reference/rest_api.rst:1210
 #: ../docs/source/reference/rest_api.rst:1214
 msgid "Filter value types"
-msgstr ""
+msgstr "筛选值的类型"
 
 #: ../docs/source/reference/rest_api.rst:1212
 msgid "Filter values should be specified as follows:"
-msgstr ""
+msgstr "过滤值应如下指定:"
 
 #: ../docs/source/reference/rest_api.rst:1220
 msgid "``bool``"
-msgstr ""
+msgstr "``bool``"
 
 #: ../docs/source/reference/rest_api.rst:1221
 msgid "Either ``true`` or ``false`` (lower case)."
-msgstr ""
+msgstr "``true``或``false``(小写)。"
 
 #: ../docs/source/reference/rest_api.rst:1223
 msgid "``datetime``"
-msgstr ""
+msgstr "``datetime``"
 
 #: ../docs/source/reference/rest_api.rst:1225
 msgid ""
@@ -1374,16 +1434,18 @@ msgid ""
 "required to avoid any problem arising from comparing datetime values "
 "expressed in different time zones. The formats of each field are:"
 msgstr ""
+"日期时间对象以 ``(DATE)T(TIME)(SHIFT)``  格式表示，其中 ``(SHIFT)`` "
+"是相对于UTC时间的时差。这是为了避免因比较在不同时区表达的日期时间值而产生的任何问题。每个字段的格式为 :"
 
 #: ../docs/source/reference/rest_api.rst:1229
 msgid "``YYYY-MM-DD`` for ``(DATE)`` (mandatory)."
-msgstr ""
+msgstr "``YYYY-MM-DD`` for ``(DATE)`` (强制需要)."
 
 #: ../docs/source/reference/rest_api.rst:1230
 msgid ""
 "``HH:MM:SS`` for ``(TIME)`` (optional). The formats ``HH`` and ``HH:MM`` are"
 " supported too."
-msgstr ""
+msgstr "``HH:MM:SS`` for ``(TIME)`` (可选). 也支持格式 ``HH`` 和 ``HH:MM`` 。"
 
 #: ../docs/source/reference/rest_api.rst:1231
 msgid ""
@@ -1394,24 +1456,27 @@ msgid ""
 "daylight saving times so the user is required to adjust the shift to take "
 "them into account."
 msgstr ""
+"``+/-HH:MM`` 用于 ``(SHIFT)`` (可选, 如果使用则 ``(TIME)`` 需要指定). 同样支持格式 ``+/-HH`` "
+"。如果没有指定时差偏移 UTC 时间会被使用。时差偏移的格式依照常规的惯例，向东 (向西) 偏移对应 正值 (负值)。 "
+"API并不知晓夏时令，因此用户在调整时需要将其考虑在内。"
 
 #: ../docs/source/reference/rest_api.rst:1236
 msgid ""
 "This format is ``ISO-8601`` compliant. Note that date and time fields have "
 "to be separated by the character ``T``. Examples::"
-msgstr ""
+msgstr "此格式符合 ``ISO-8601`` 标准。注意，日期和时间字段必须用字符``T`` 分隔。例如 :"
 
 #: ../docs/source/reference/rest_api.rst:1244
 msgid "``integer``"
-msgstr ""
+msgstr "``integer``"
 
 #: ../docs/source/reference/rest_api.rst:1245
 msgid "Positive integer numbers."
-msgstr ""
+msgstr "正整数。"
 
 #: ../docs/source/reference/rest_api.rst:1247
 msgid "``string``"
-msgstr ""
+msgstr "``string``"
 
 #: ../docs/source/reference/rest_api.rst:1248
 msgid ""
@@ -1420,3 +1485,5 @@ msgid ""
 "unlikely occurrence of a sequence of double quotes you will have to escape "
 "it by writing twice as many double quotes."
 msgstr ""
+"用双引号括起来的文字。如果字符串包含双引号，则必须将它们转义为 ``\"\"`` "
+"（两个双引号）。请注意，在不太可能出现的有两个双引号序列的情况下，您必须通过编写两倍的双引号来转义它。"
