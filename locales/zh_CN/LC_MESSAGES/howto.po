@@ -2784,11 +2784,11 @@ msgstr "用一系列正确的命令行参数设置运行这个程序"
 #: ../docs/source/howto/plugin_codes.rst:22
 msgid ""
 "Finally, you will probably want a *parser* plugin, which tells AiiDA how to:"
-msgstr ""
+msgstr "最后，你可能需要一个*解析*插件，它告诉AiiDA如何:"
 
 #: ../docs/source/howto/plugin_codes.rst:24
 msgid "Parse the output of the code."
-msgstr ""
+msgstr "解析计算代码的输出。"
 
 #: ../docs/source/howto/plugin_codes.rst:26
 msgid ""
@@ -2797,6 +2797,9 @@ msgid ""
 "two numbers, using it to :ref:`run the code<how-to:plugin-codes:run>`, and "
 ":ref:`writing a parser <how-to:plugin-codes:parsing>` for its outputs."
 msgstr ""
+"这篇如何做将带你完成 :ref:`创建一个计算插件<how-to:plugin-codes:interfacing>` "
+"的过程，为一个简单的可执行文件，执行两个数字相加，使用它 :ref:`运行计算代码 <how-to:plugin-codes:run>` ，和为输出 "
+":ref:`编写一个解析器 <how-to:plugin-codes:parsing>` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:28
 msgid ""
@@ -2804,16 +2807,18 @@ msgid ""
 "and our \"input file\" will be a `bash` script ``aiida.in`` that sums two "
 "numbers and prints the result:"
 msgstr ""
+"在下面的例子中，我们的 |Code| 将是 `bash` 可执行文件，而我们的\"输入文件\"将是 `bash` 脚本， "
+"``aiida.in``，对两个数字求和并输出结果:"
 
 #: ../docs/source/howto/plugin_codes.rst:34
 msgid "We will run this as:"
-msgstr ""
+msgstr "我们将这样运行:"
 
 #: ../docs/source/howto/plugin_codes.rst:40
 msgid ""
 "thus writing the sum of the two numbers ``numx`` and ``numy`` (provided by "
 "the user) to the output file ``aiida.out``."
-msgstr ""
+msgstr "因此，将两个数字 ``numx`` 和 ``numy`` (由用户提供)写到输出文件 ``aida .out`` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:43
 #: ../docs/source/howto/plugin_codes.rst:263
@@ -2828,35 +2833,38 @@ msgid ""
 "<how-to:plugin-codes:transport>` and the interaction with its "
 ":ref:`scheduling software<how-to:plugin-codes:scheduler>`."
 msgstr ""
+"加上前面的句: :ref:`与外部机器的通信<how-to:plugin-codes:transport>` 和与它的 :ref:`调度软件<how-"
+"to:plugin-codes:scheduler>` 的交互。"
 
 #: ../docs/source/howto/plugin_codes.rst:51
 msgid "Interfacing external codes"
-msgstr ""
+msgstr "连接外部代码"
 
 #: ../docs/source/howto/plugin_codes.rst:53
 msgid ""
 "Start by creating a file ``calculations.py`` and subclass the |CalcJob| "
 "class:"
-msgstr ""
+msgstr "首先创建一个文件 ``calculation .py`` 和 |CalcJob| 类的子类:"
 
 #: ../docs/source/howto/plugin_codes.rst:67
 msgid ""
 "In the following, we will tell AiiDA how to run our code by implementing two"
 " key methods:"
-msgstr ""
+msgstr "下面，我们将告诉AiiDA如何通过实现两个关键方法来运行我们的代码:"
 
 #: ../docs/source/howto/plugin_codes.rst:69
 msgid ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define`"
-msgstr ""
+msgstr ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define`"
 
 #: ../docs/source/howto/plugin_codes.rst:70
 msgid ""
 ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 msgstr ""
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 
 #: ../docs/source/howto/plugin_codes.rst:73
 msgid "Defining the spec"
-msgstr ""
+msgstr "定义规范（spec）"
 
 #: ../docs/source/howto/plugin_codes.rst:75
 msgid ""
@@ -2866,6 +2874,10 @@ msgid ""
 ":py:class:`~aiida.engine.processes.process_spec.CalcJobProcessSpec` class, "
 "which is passed as the |spec| argument to the |define| method. For example:"
 msgstr ""
+"|define|方法告诉AiiDA |CalcJob| 所期望的输入和它产生的输出(退出代码将在 :ref:`稍后讨论<how-to:plugin-"
+"codes:parsing:errors>` )。这是通过 "
+":py:class:`~aiida.engine.processes.process_spec.CalcJobProcessSpec` "
+"实例实现的，它作为 |spec|参数传递给 |define| 方法。例如:"
 
 #: ../docs/source/howto/plugin_codes.rst:83
 msgid ""
@@ -2873,6 +2885,7 @@ msgid ""
 "parent class. This necessary step defines the `inputs` and `outputs` that "
 "are common to all |CalcJob|'s."
 msgstr ""
+"该方法的第一行调用 |CalcJob| 父类的 |define| 方法。这个必要的步骤定义了所有 |CalcJob| 通用的“输入”和“输出”。"
 
 #: ../docs/source/howto/plugin_codes.rst:86
 msgid ""
@@ -2884,12 +2897,16 @@ msgid ""
 "defined here to a (successfully) finished calculation using the link label "
 "provided."
 msgstr ""
+"接下来，我们使用 :py:meth:`~plumpy.process_spec.ProcessSpec.input`  方法来定义两个输入数 ``x``"
+" 和 ``y`` (我们支持整数和浮点数)，我们使用 "
+":py:meth:`~plumpy.process_spec.ProcessSpec.output` 来定义计算的唯一输出，标签为 ``sum`` "
+"。AiiDA将使用提供的链接标签将这里定义的输出附加到(成功地)完成的计算。"
 
 #: ../docs/source/howto/plugin_codes.rst:90
 msgid ""
 "This holds for *required* outputs (the default behaviour). Use "
 "``required=False`` in order to mark an output as optional."
-msgstr ""
+msgstr "这适用于*必需的*输出(默认行为)。使用 ``required=False`` 将输出标记为可选。"
 
 #: ../docs/source/howto/plugin_codes.rst:95
 msgid ""
@@ -2898,6 +2915,9 @@ msgid ""
 "dictionary) and :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` "
 "(file wrapper) input nodes."
 msgstr ""
+"对于更复杂的模拟代码的输入参数和输入文件，可以考虑使用 :py:class:`~aiida.orm.nodes.data.dict.Dict`  "
+"(python字典)和 :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` "
+"(文件封装)输入节点。"
 
 #: ../docs/source/howto/plugin_codes.rst:97
 msgid ""
@@ -2909,6 +2929,9 @@ msgid ""
 ":py:attr:`~plumpy.process_spec.ProcessSpec.inputs` attribute, which behaves "
 "like a dictionary."
 msgstr ""
+"最后，我们设置了几个默认的  ``options`` ，比如解析器的名称(稍后将实现)、输入和输出文件的名称，以及用于这种计算的计算资源。这些  "
+"``options`` 已经在 |spec| 中通过 ``super().define(spec)`` 调用定义了，它们可以通过 "
+":py:attr:`~plumpy.process_spec.ProcessSpec.inputs` 的属性，它的行为类似于一个字典。"
 
 #: ../docs/source/howto/plugin_codes.rst:102
 msgid ""
@@ -2917,12 +2940,13 @@ msgid ""
 " that contain information about the computer they reside on, their path in "
 "the file system and more."
 msgstr ""
+"|CalcJob|需要的另一个重要输入是使用哪个外部可执行文件。外部可执行文件由|Code|实例表示，这些实例包含关于它们所在的计具体算机、以及所在的文件系统中的路径等信息。"
 
 #: ../docs/source/howto/plugin_codes.rst:105
 msgid ""
 "They are passed to a |CalcJob| via the ``code`` input, which is defined in "
 "the |CalcJob| base class, so you don't have to:"
-msgstr ""
+msgstr "它们通过 ``code`` 输入传递给|CalcJob|，这是在|CalcJob|基类中定义的，所以你不必:"
 
 #: ../docs/source/howto/plugin_codes.rst:113
 msgid ""
@@ -2932,10 +2956,13 @@ msgid ""
 "inputs, etc.) see the :ref:`Defining Processes "
 "<topics:processes:usage:defining>` topic."
 msgstr ""
+"在 ``define`` 中没有 ``return`` 语句: ``define`` 方法直接修改它接收到的 |spec| 对象。有关设置 "
+"`inputs` 和 `outputs` (包括验证、可变数量输入等)的更多细节，请参见 :ref:`定义过程 "
+"<topics:processes:usage:defining>` 主题。"
 
 #: ../docs/source/howto/plugin_codes.rst:117
 msgid "Preparing for submission"
-msgstr ""
+msgstr "准备提交"
 
 #: ../docs/source/howto/plugin_codes.rst:119
 msgid ""
@@ -2947,12 +2974,16 @@ msgid ""
 "instructions for the AiiDA engine on how the code should be run. For "
 "example:"
 msgstr ""
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
+" 方法有两个作用: 以外部代码期望的格式创建输入文件，并返回一个 "
+":py:class:`~aiida.common.datastructures.CalcInfo` "
+"对象，该对象包含AiiDA引擎关于该计算代码应如何运行的指令。例如:"
 
 #: ../docs/source/howto/plugin_codes.rst:127
 msgid ""
 "Unlike the |define| method, the ``prepare_for_submission`` method is "
 "implemented from scratch and so there is no super call."
-msgstr ""
+msgstr "与 |define| 方法不同，``prepare_for_submission`` 方法是从头开始实现的，因此没有继承调用。"
 
 #: ../docs/source/howto/plugin_codes.rst:129
 msgid ""
@@ -2962,6 +2993,8 @@ msgid ""
 "``self.inputs.x`` and ``self.inputs.y`` that were provided as inputs by the "
 "caller."
 msgstr ""
+"第一步是编写开头提到的简单bash脚本:将数字 ``x`` 和 ``y`` 相加，使用Python的字符串插值将 ``x`` 和 ``y`` "
+"占位符替换为实际值，即调用方作为输入提供的 ``self.inputs.x`` 和 ``self.inputs.y`` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:131
 msgid ""
@@ -2971,6 +3004,9 @@ msgid ""
 " that all required inputs have been set and that all inputs have a valid "
 "type."
 msgstr ""
+"在调用 |prepare_for_submission| 之前，为计算提供的所有输入都根据 ``spec`` 进行验证。因此，当访问 "
+":py:attr:`~plumpy.processes.Process.inputs` "
+"的属性，您可以安全地假设所有必需的输入都已设置，并且所有输入都具有有效的类型。"
 
 #: ../docs/source/howto/plugin_codes.rst:134
 msgid ""
@@ -2980,6 +3016,8 @@ msgid ""
 "create a single input file, but you can create as many as you need, "
 "including subfolders if required."
 msgstr ""
+"``folder`` 参数(一个| folder "
+"|实例)允许我们将输入文件写入一个虚拟文件夹，其内容将后续被转移到实际计算发生的计算资源。在本例中，我们只创建一个输入文件，但是您可以根据需要创建任意数量的输入文件，如果需要，还可以创建子文件夹。"
 
 #: ../docs/source/howto/plugin_codes.rst:139
 msgid ""
@@ -2990,12 +3028,15 @@ msgid ""
 "being "
 "stored<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`."
 msgstr ""
+"默认情况下，虚拟 ``folder`` "
+"的内容也会永久存储在计算节点的文件存储库中，以保证额外的来源。在某些情况下(例如许可证问题，文件大小)，你可能想要改变这种行为和 "
+":ref:`排除指定储存文件<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`。"
 
 #: ../docs/source/howto/plugin_codes.rst:142
 msgid ""
 "After having written the necessary input files, we let AiiDA know how to run"
 " the code via the |CodeInfo| object."
-msgstr ""
+msgstr "在编写了必要的输入文件之后，我们将让AiiDA知道如何通过|CodeInfo|对象运行代码。"
 
 #: ../docs/source/howto/plugin_codes.rst:144
 msgid ""
@@ -3003,10 +3044,12 @@ msgid ""
 "via the generic ``code`` input mentioned previously (in this example, the "
 "``code`` will represent a ``bash`` executable)."
 msgstr ""
+"首先，我们转发|代码|实例的 ``uuid``，用户通过前面提到的通用 ``Code`` 输入传递(在这个例子中，``Code`` 将代表 "
+"``bash`` 可执行文件)。"
 
 #: ../docs/source/howto/plugin_codes.rst:146
 msgid "Second, let's recall how we want our executable to be run:"
-msgstr ""
+msgstr "其次，让我们回顾一下我们希望的可执行文件是如何运行的:"
 
 #: ../docs/source/howto/plugin_codes.rst:154
 msgid ""
@@ -3014,6 +3057,8 @@ msgid ""
 "record standard output of the executable in the output file -- this is done "
 "using the ``stdin_name`` and ``stdout_name`` attributes of the |CodeInfo|."
 msgstr ""
+"我们希望通过标准输入将输入文件传递给可执行文件，并在输出文件中记录可执行文件的标准输出——这是通过使用|CodeInfo|的 "
+"``stdin_name`` 和 ``stdout_name`` 属性完成的。"
 
 #: ../docs/source/howto/plugin_codes.rst:158
 msgid ""
@@ -3022,12 +3067,16 @@ msgid ""
 "including further configuration options). In that case, use the |CodeInfo| "
 "``cmdline_params`` attribute:"
 msgstr ""
+"许多可执行文件不从标准输入读取，而是要求通过命令行参数(可能包括进一步的配置选项)传递输入文件的路径。在这种情况下，可使用|CodeInfo| 的 "
+"``cmdline_params`` 属性:"
 
 #: ../docs/source/howto/plugin_codes.rst:167
 msgid ""
 "``self.options.input_filename`` is just a shorthand for "
 "``self.inputs.metadata['options']['input_filename']``."
 msgstr ""
+"``self.options.input_filename`` 是 "
+"``self.inputs.metadata['options']['input_filename']``的简写。"
 
 #: ../docs/source/howto/plugin_codes.rst:169
 msgid ""
@@ -3041,6 +3090,11 @@ msgid ""
 "allow you to easily customize how to move files to and from the remote "
 "working directory in order to prevent the creation of unnecessary copies."
 msgstr ""
+"最后，我们将|CodeInfo|传递给|CalcInfo|对象(一个计算作业可能涉及多个可执行文件，所以 "
+"``codes_info``是一个列表)。我们定义了文件名的 "
+"``retrieve_list``，在作业完成后，引擎应该从作业运行的目录中检索这些文件名。引擎将这些文件存储在|FolderData|节点中，该节点将作为输出节点附加到带有"
+" ``retrieved`` 标签的算例中。有 :ref:`其他可用的文件列表 "
+"<topics:calculations:usage:calcjobs:file_lists>`，允许您轻松定制如何移动文件到远程工作目录或从远程工作目录，以防止创建不必要的副本。"
 
 #: ../docs/source/howto/plugin_codes.rst:174
 msgid ""
@@ -3049,17 +3103,19 @@ msgid ""
 "to the Topics section on :ref:`defining calculations "
 "<topics:calculations:usage>`."
 msgstr ""
+"这是一个如何实现|CalcJob|类以与外部代码接口AiiDA的示例。关于|CalcJob|类的更多细节，请参阅 :ref:`定义计算 "
+"<topics:calculations:usage>` 的主题部分。"
 
 #: ../docs/source/howto/plugin_codes.rst:180
 msgid "Parsing the outputs"
-msgstr ""
+msgstr "解析输出"
 
 #: ../docs/source/howto/plugin_codes.rst:182
 msgid ""
 "Parsing the output files produced by a code into AiiDA nodes is optional, "
 "but it can make your data queryable and therefore easier to access and "
 "analyze."
-msgstr ""
+msgstr "将代码生成的输出文件解析到AiiDA节点是可选的，但它可以使数据可查询，从而更容易访问和分析。"
 
 #: ../docs/source/howto/plugin_codes.rst:184
 msgid ""
@@ -3068,12 +3124,14 @@ msgid ""
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method. The following is an "
 "example of a simple implementation:"
 msgstr ""
+"要创建一个解析器插件，可以子类化|Parser|类(例如在一个名为 ``parser. py`` 的文件中)，并实现它的 "
+":py:meth:`~aiida.parsers.parser.Parser.parse` 。下面是一个简单的实现示例:"
 
 #: ../docs/source/howto/plugin_codes.rst:191
 msgid ""
 "Before the ``parse()`` method is called, two important attributes are set on"
 " the |Parser|  instance:"
-msgstr ""
+msgstr "在调用 ``parse()`` 方法之前，|Parser| 实例上设置了两个重要的属性:"
 
 #: ../docs/source/howto/plugin_codes.rst:193
 msgid ""
@@ -3082,6 +3140,8 @@ msgid ""
 "provides the means to :py:meth:`~aiida.orm.nodes.node.Node.open` any file it"
 " contains."
 msgstr ""
+"``self.retrieved``: |FolderData|的一个实例，它指向包含|CalcJob|指示要检索的所有输出文件的文件夹，并提供了方法 "
+":py:meth:`~aiida.orm.nodes.node.Node.open`  来打开它包含的任何文件。"
 
 #: ../docs/source/howto/plugin_codes.rst:195
 msgid ""
@@ -3090,6 +3150,9 @@ msgid ""
 "representing the finished calculation, which, among other things, provides "
 "access to all of its inputs (``self.node.inputs``)."
 msgstr ""
+"``self.node``:  "
+":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` "
+"表示完成的计算，它提供对其所有输入的访问(``self.node.inputs``)。"
 
 #: ../docs/source/howto/plugin_codes.rst:197
 msgid ""
@@ -3099,6 +3162,9 @@ msgid ""
 "content is cast to an integer, since the output file should contain the sum "
 "produced by the ``aiida.in`` bash script."
 msgstr ""
+" "
+":py:meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.get_option`"
+" 方法用于获取输出文件的文件名。它的内容被转换为整数，因为输出文件应该包含 ``aiida.in`` bash脚本产生的求和结果。"
 
 #: ../docs/source/howto/plugin_codes.rst:200
 msgid ""
@@ -3111,6 +3177,8 @@ msgid ""
 "corresponding |CalcJob|. If any of the registered outputs do not match the "
 "specification, the calculation will be marked as failed."
 msgstr ""
+"最后,  :py:meth:`~aiida.parsers.parser.Parser.out` "
+"方法用于将解析后的求和结果链接为计算的输出。第一个参数是输出的名称，它将用作连接计算和数据节点的链接的标签，第二个参数应该记录为输出的节点。注意，输出的类型应该与相应|CalcJob|的流程规范指定的类型匹配。如果任何注册输出不符合规范，计算将被标记为失败。"
 
 #: ../docs/source/howto/plugin_codes.rst:205
 msgid ""
@@ -3120,6 +3188,9 @@ msgid ""
 "``define`` method can set a default value for the parser name as was done in"
 " the :ref:`previous section <how-to:plugin-codes:interfacing>`:"
 msgstr ""
+"为了请求自动解析|CalcJob|(一旦完成)，用户可以在启动作业时设置 ``metadata.options.parser_name`` "
+"。如果一个有特定的默认解析器，|CalcJob| 的 ``define`` 方法可以为解析器名称设置一个默认值，如 :ref:`前述章节 <how-to"
+":plugin-codes:interfacing>`中所做的:"
 
 #: ../docs/source/howto/plugin_codes.rst:215
 msgid ""
@@ -3128,10 +3199,12 @@ msgid ""
 "register a parser class through an entry point is explained in the how-to "
 "section on :ref:`registering plugins <how-to:plugins-develop>`."
 msgstr ""
+"注意，默认值不是设置为|Parser|类本身，而是设置为注册解析器类的*入口点字符串*。如何通过入口点注册解析器类，将在如何 :ref:`注册插件 "
+"<how-to:plugins-develop>` 一节中解释。"
 
 #: ../docs/source/howto/plugin_codes.rst:222
 msgid "Handling parsing errors"
-msgstr ""
+msgstr "处理解析错误"
 
 #: ../docs/source/howto/plugin_codes.rst:224
 msgid ""
@@ -3142,6 +3215,9 @@ msgid ""
 ":ref:`workflows <how-to:run-workflows>` can then decide how to proceed, "
 "e.g., by modifying input parameters and resubmitting the calculation."
 msgstr ""
+"到目前为止，我们还没有花太多精力来处理运行外部代码时可能出现的潜在错误。然而，有很多方法会导致代码名义上执行失败。|Parser| "
+"可以在检测和通报此类错误中发挥重要作用，其中 :ref:`工作流 <how-to:run-"
+"workflows>`可以决定如何继续，例如，通过修改输入参数和重新提交计算。"
 
 #: ../docs/source/howto/plugin_codes.rst:228
 msgid ""
@@ -3151,24 +3227,28 @@ msgid ""
 ":py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` "
 "example, defines the following exit codes:"
 msgstr ""
+"解析器通过 :ref:`退出状态码<topics:processes:concepts:exit_codes>` "
+"传递错误，该代码定义在|CalcJob|的|spec|中。 "
+":py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` "
+"例子中，定义了以下退出代码:"
 
 #: ../docs/source/howto/plugin_codes.rst:237
 msgid "Each ``exit_code`` defines:"
-msgstr ""
+msgstr "每一个 ``exit_code`` 定义了:"
 
 #: ../docs/source/howto/plugin_codes.rst:239
 msgid "an exit status (a positive integer),"
-msgstr ""
+msgstr "一个退出状态(是一个正整数)，"
 
 #: ../docs/source/howto/plugin_codes.rst:240
 msgid ""
 "a label that can be used to reference the code in the |parse| method "
 "(through the ``self.exit_codes`` property, as shown below), and"
-msgstr ""
+msgstr "该标签可以用来引用|parse|方法中的状态码(通过 ``self.exit_codes`` 属性，如下所示)，和"
 
 #: ../docs/source/howto/plugin_codes.rst:241
 msgid "a message that provides a more detailed description of the problem."
-msgstr ""
+msgstr "包括了一个更详细的描述。"
 
 #: ../docs/source/howto/plugin_codes.rst:243
 msgid ""
@@ -3177,28 +3257,29 @@ msgid ""
 "is a more complete version of the example |Parser| presented in the previous"
 " section:"
 msgstr ""
+"为了通知AiiDA一个失败的计算，只需从 ``parse`` 方法返回与检测到的问题对应的退出代码。下面是上一节给出的|Parser| 的完整版本:"
 
 #: ../docs/source/howto/plugin_codes.rst:250
 msgid "It checks:"
-msgstr ""
+msgstr "它检查:"
 
 #: ../docs/source/howto/plugin_codes.rst:252
 msgid "Whether a retrieved folder is present."
-msgstr ""
+msgstr "检索的文件夹是否存在。"
 
 #: ../docs/source/howto/plugin_codes.rst:253
 msgid ""
 "Whether the output file can be read (whether ``open()`` or ``read()`` will "
 "throw an ``OSError``)."
-msgstr ""
+msgstr "输出文件是否可以读取(``open()`` 或 ``read()`` 都会抛出 ``OSError`` )。"
 
 #: ../docs/source/howto/plugin_codes.rst:254
 msgid "Whether the output file contains an integer."
-msgstr ""
+msgstr "输出文件是否包含整数。"
 
 #: ../docs/source/howto/plugin_codes.rst:255
 msgid "Whether the sum is negative."
-msgstr ""
+msgstr "求和结果是否为负。"
 
 #: ../docs/source/howto/plugin_codes.rst:257
 msgid ""
@@ -3213,42 +3294,49 @@ msgid ""
 " be inspected inside an output parser and how they can optionally be "
 "overridden."
 msgstr ""
+"AiiDA将|parse|方法返回的退出代码存储在正在解析的计算节点上，然后可以从那里进一步检查它。关于 :ref:`定义进程 "
+"<topics:processes:usage:defining>` "
+"的主题部分提供了关于退出码的更多细节。注意，调度器插件还可以实现对作业调度器生成的输出的解析，在出现问题的情况下设置退出代码。关于 "
+":ref:`任务调度器状态码 <topics:calculations:usage:calcjobs:scheduler-errors>` "
+"的主题部分解释了如何在输出解析器中检查它们，以及如何可选地重写它们。"
 
 #: ../docs/source/howto/plugin_codes.rst:267
 msgid "title: Configuring remote computers"
-msgstr ""
+msgstr "主题:配置远程计算机"
 
 #: ../docs/source/howto/plugin_codes.rst:269
 msgid "`#4123`_"
-msgstr ""
+msgstr "`#4123`_"
 
 #: ../docs/source/howto/plugin_codes.rst:274
 msgid "Registering entry points"
-msgstr ""
+msgstr "注册接入点"
 
 #: ../docs/source/howto/plugin_codes.rst:276
 msgid ""
 ":ref:`Entry points <how-to:plugins-develop:entrypoints>` are the preferred "
 "method of registering new calculation, parser and other plugins with AiiDA."
 msgstr ""
+":ref:`接入点Entry points <how-to:plugins-develop:entrypoints>` "
+"是注册新的计算，解析器和其他插件与AiiDA的首选方法。"
 
 #: ../docs/source/howto/plugin_codes.rst:278
 msgid ""
 "With your ``calculations.py`` and ``parsers.py`` files at hand, let's "
 "register entry points for the plugins they contain:"
-msgstr ""
+msgstr "有了 ``calculation .py`` 和 ``parser .py`` 文件，让我们为它们包含的插件注册接入点:"
 
 #: ../docs/source/howto/plugin_codes.rst:280
 msgid "Move your two scripts into a subfolder ``aiida_add``:"
-msgstr ""
+msgstr "将你的两个脚本移动到 ``aiida_add`` 子文件夹中:"
 
 #: ../docs/source/howto/plugin_codes.rst:287
 msgid "You have just created an ``aiida_add`` Python *package*!"
-msgstr ""
+msgstr "这样你就创建了一个 ``aiida_add`` *Python包*!"
 
 #: ../docs/source/howto/plugin_codes.rst:289
 msgid "Write a minimalistic ``setup.py`` script for your new package:"
-msgstr ""
+msgstr "为你的新包编写一个极简的 ``setup.py`` 脚本:"
 
 #: ../docs/source/howto/plugin_codes.rst:305
 msgid ""
@@ -3256,53 +3344,57 @@ msgid ""
 "``aiida_add`` is the name of the *package*. The aiida-core documentation "
 "uses the term *package* a bit more loosely."
 msgstr ""
+"严格地说，`aiida -add`` 是*分发包的名称*，而 ``aiida_add``是*包的名称*。aiida-"
+"core文档对术语*包*的使用比较随意。"
 
 #: ../docs/source/howto/plugin_codes.rst:309
 msgid ""
 "Install your new ``aiida-add`` plugin package. See the :ref:`how-to:plugins-"
 "install` section for details."
-msgstr ""
+msgstr "安装新的 ``aiida-add`` 插件包。详情请参阅 :ref:`如何做:安装插件` 一节。"
 
 #: ../docs/source/howto/plugin_codes.rst:312
 msgid "After this, you should see your plugins listed:"
-msgstr ""
+msgstr "在这之后，你应该能看到你的插件列表:"
 
 #: ../docs/source/howto/plugin_codes.rst:325
 msgid "Running a calculation"
-msgstr ""
+msgstr "运行算例"
 
 #: ../docs/source/howto/plugin_codes.rst:327
 msgid ""
 "With the entry points set up, you are ready to launch your first calculation"
 " with the new plugin:"
-msgstr ""
+msgstr "设置好接入点后，你就可以开始使用新插件进行第一次计算了:"
 
 #: ../docs/source/howto/plugin_codes.rst:330
 msgid ""
 "If you haven't already done so, :ref:`set up your computer<how-to:run-"
 "codes:computer>`. In the following we assume it to be the localhost:"
-msgstr ""
+msgstr "如果您还没有这样做，请使用 :ref:`设置计算资源 ` 。下面我们假设它是localhost:"
 
 #: ../docs/source/howto/plugin_codes.rst:338
 msgid "Write a ``launch.py`` script:"
-msgstr ""
+msgstr "编写一个 ``launch.py`` 脚本:"
 
 #: ../docs/source/howto/plugin_codes.rst:368
 msgid ""
 "``output_dict`` is a dictionary containing all the output nodes keyed after "
 "their label. In this case: \"remote_folder\", \"retrieved\" and \"sum\"."
 msgstr ""
+"``output_dict`` 是一个字典，包含所有以标签为键值的输出节点。在本例中: \"remote_folder\"， "
+"\"retried_folder\" 和 \"sum\"。"
 
 #: ../docs/source/howto/plugin_codes.rst:372
 #: ../docs/source/howto/plugin_codes.rst:412
 msgid "Launch the calculation:"
-msgstr ""
+msgstr "启动算例:"
 
 #: ../docs/source/howto/plugin_codes.rst:379
 msgid ""
 "If everything goes well, this should print the results of your calculation, "
 "something like:"
-msgstr ""
+msgstr "如果一切顺利，这应该会打印出你的计算结果，像这样:"
 
 #: ../docs/source/howto/plugin_codes.rst:388
 msgid ""
@@ -3311,40 +3403,41 @@ msgid ""
 "inspect the input folder generated by AiiDA before any calculation is "
 "launched."
 msgstr ""
+"如果遇到解析错误，可以使用 :ref:`主题:算例:使用:算例任务:dry_run`，它允许您在启动任何计算之前检查AiiDA生成的输入文件夹。"
 
 #: ../docs/source/howto/plugin_codes.rst:391
 msgid ""
 "Finally instead of running your calculation in the current shell, you can "
 "submit your calculation to the AiiDA daemon:"
-msgstr ""
+msgstr "最后，你可以将你的计算提交给AiiDA守护进程，而不是在当前shell中运行你的计算:"
 
 #: ../docs/source/howto/plugin_codes.rst:393
 msgid "(Re)start the daemon to update its Python environment:"
-msgstr ""
+msgstr "(重新)启动守护进程来更新它的Python环境:"
 
 #: ../docs/source/howto/plugin_codes.rst:399
 msgid "Update your launch script to use:"
-msgstr ""
+msgstr "更新你的启动脚本以供使用:"
 
 #: ../docs/source/howto/plugin_codes.rst:409
 msgid ""
 "``node`` is the |CalcJobNode| representing the state of the underlying "
 "calculation process (which may not be finished yet)."
-msgstr ""
+msgstr "``node`` 是|CalcJobNode|，表示底层计算过程的状态(可能还没有完成)。"
 
 #: ../docs/source/howto/plugin_codes.rst:418
 msgid "This should print the UUID and the PK of the submitted calculation."
-msgstr ""
+msgstr "这应该打印提交算例的UUID和PK。"
 
 #: ../docs/source/howto/plugin_codes.rst:420
 msgid ""
 "You can use the verdi command line interface to "
 ":ref:`monitor<topics:processes:usage:monitoring>` this processes:"
-msgstr ""
+msgstr "你可以使用verdi命令行接口 :ref:`监视 <topics:processes:usage:monitoring>` 这个进程:"
 
 #: ../docs/source/howto/plugin_codes.rst:427
 msgid "This marks the end of this how-to."
-msgstr ""
+msgstr "教程的如何做部分到这儿就完结了。"
 
 #: ../docs/source/howto/plugin_codes.rst:429
 msgid ""
@@ -3354,26 +3447,29 @@ msgid ""
 ":plugins-develop` in order to learn how to quickly create a feature-rich new"
 " plugin package from scratch."
 msgstr ""
+"|CalcJob|和|Parser|插件仍然是相当基础的， ``aiida "
+"-add``插件包缺少一些有用的功能，如包元数据、文档、测试、CI等。继续阅读 "
+":ref:`如何做:插件的开发`，学习如何快速从头创建一个功能丰富的新插件包。"
 
 #: ../docs/source/howto/plugin_codes.rst:437
 msgid "title: Adding support for a custom scheduler"
-msgstr ""
+msgstr "主题:添加自定义调度程序的支持"
 
 #: ../docs/source/howto/plugin_codes.rst:439
 msgid "`#3989`_"
-msgstr ""
+msgstr "`#3989`_"
 
 #: ../docs/source/howto/plugin_codes.rst:444
 msgid "title: Adding support for a custom transport"
-msgstr ""
+msgstr "主题:添加对自定义传输的支持"
 
 #: ../docs/source/howto/plugin_codes.rst:446
 msgid "`#3990`_"
-msgstr ""
+msgstr "`#3990`_"
 
 #: ../docs/source/howto/plugins_develop.rst:5
 msgid "How to package plugins"
-msgstr ""
+msgstr "如何打包插件"
 
 #: ../docs/source/howto/plugins_develop.rst:7
 msgid ""
@@ -3382,6 +3478,8 @@ msgid ""
 " writing specific extensions, see :ref:`how-to:plugin-codes:interfacing` and"
 " :ref:`topics:data_types:plugin`."
 msgstr ""
+"本节重点讨论如何*打包* AiiDA扩展(插件)，以便其他人可以测试、发布并最终重用它们。有关编写特定扩展的指南，请参见 :ref:`how-to"
+":plugin-codes:interfacing` 和 :ref:`topics:data_types:plugin`."
 
 #: ../docs/source/howto/plugins_develop.rst:12
 msgid ""
@@ -3389,16 +3487,19 @@ msgid ""
 "codes:interfacing`, :ref:'how-to:plugin-codes:scheduler', :ref:'how-to"
 ":plugin-codes:transport' or :ref:`topics:data_types:plugin`."
 msgstr ""
+"有关编写特定扩展的指南，请参见 :ref:`how-to:plugin-codes:interfacing`, :ref:'how-to:plugin-"
+"codes:scheduler', :ref:'how-to:plugin-codes:transport' 或 "
+":ref:`topics:data_types:plugin`."
 
 #: ../docs/source/howto/plugins_develop.rst:18
 msgid "Creating a plugin package"
-msgstr ""
+msgstr "创建插件包"
 
 #: ../docs/source/howto/plugins_develop.rst:21
 msgid ""
 "AiiDA plugins can be bundled and distributed in a `Python package "
 "<packages>`_ that provides a set of extensions to AiiDA."
-msgstr ""
+msgstr "AiiDA插件可以打包并在 `Python包 <packages>`_ 它为AiiDA提供了一系列扩展。"
 
 #: ../docs/source/howto/plugins_develop.rst:25
 msgid ""
@@ -3407,10 +3508,12 @@ msgid ""
 "modules or it may include the files necessary for building and installing a "
 "package to be distributed via the `Python Package Index (PyPI) <pypi>`_."
 msgstr ""
+"Python社区对“包”这个术语的使用相当随意。根据上下文的不同，它可能只是指包含单个Python模块的文件夹，也可能包括构建和安装通过 "
+"`Python包索引(PyPI)分发的包所需的文件 <pypi>`_ 。"
 
 #: ../docs/source/howto/plugins_develop.rst:32
 msgid "Quickstart"
-msgstr ""
+msgstr "快速入门"
 
 #: ../docs/source/howto/plugins_develop.rst:34
 msgid ""
@@ -3419,6 +3522,8 @@ msgid ""
 "structure, already customized according to the desired name of your plugin, "
 "following AiiDA conventions."
 msgstr ""
+"快速创建全新的AiiDA插件包的最快方法是使用 `AiiDA插件cutter <plugin-cutter>`_ "
+"以模板的基本文件夹结构，定制根据您的插件的期望元信息，同时遵循AiiDA的一系列约定。"
 
 #: ../docs/source/howto/plugins_develop.rst:36
 msgid ""
@@ -3426,16 +3531,18 @@ msgid ""
 " instructions. See also the `aiida-diff`_ demo plugin package for an in-"
 "depth explanation of the files & folders produced by the plugin cutter."
 msgstr ""
+"到 `AiiDA插件cutter <plugin-cutter>`_ 并遵循使用说明，参见 `aiida-diff`_ "
+"样本插件包，了解插件cutter生成的文件和文件夹的详细说明。"
 
 #: ../docs/source/howto/plugins_develop.rst:39
 msgid ""
 "In the following, we explain some of the conventions implemented by the "
 "AiiDA plugin cutter."
-msgstr ""
+msgstr "下面，我们将解释AiiDA插件cutter实现的一些约定。"
 
 #: ../docs/source/howto/plugins_develop.rst:43
 msgid "Choosing a name"
-msgstr ""
+msgstr "选择一个名字"
 
 #: ../docs/source/howto/plugins_develop.rst:45
 msgid ""
@@ -3443,10 +3550,12 @@ msgid ""
 "plugin distribution on `PyPI`_ and ``aiida_mycode`` for the corresponding "
 "python package, leading to the following folder structure::"
 msgstr ""
+"AiiDA插件包的命名约定是 ``aiida -mycode`` ，对于在 `PyPI`_ 上发布的插件，对应的python包是 "
+"``aiida_mycode`` ，它有如下的文件夹结构::"
 
 #: ../docs/source/howto/plugins_develop.rst:53
 msgid "Python package names cannot contain dashes, thus the underscore."
-msgstr ""
+msgstr "Python包名不能包含破折号，因此使用下划线。"
 
 #: ../docs/source/howto/plugins_develop.rst:55
 msgid ""
@@ -3456,11 +3565,13 @@ msgid ""
 "provided on the registry), both to reserve your plugin name and to inform "
 "others of your ongoing development."
 msgstr ""
+"如果你打算最终发布你的插件包，请到 `AiiDA插件注册表 <registry>`_ "
+"并选择一个还没有被占用的名称。你也被鼓励预先注册你的包(注册表上提供的说明)，既保留你的插件名，也通知其他人你正在进行的开发。"
 
 #: ../docs/source/howto/plugins_develop.rst:62
 #: ../docs/source/howto/plugins_develop.rst:156
 msgid "Folder structure"
-msgstr ""
+msgstr "目录结构"
 
 #: ../docs/source/howto/plugins_develop.rst:64
 msgid ""
@@ -3469,14 +3580,16 @@ msgid ""
 "structure for an AiiDA plugin, illustrating different levels of nesting (see"
 " also the `aiida-diff demo plugin`_)::"
 msgstr ""
+"插件的整体文件夹结构由你决定，但最好遵循一组基本的约定。下面是AiiDA插件的文件夹结构的一个例子，说明了不同层次的嵌套(参见 `aiida-"
+"diff样列插件`_ )::"
 
 #: ../docs/source/howto/plugins_develop.rst:91
 msgid "A minimal plugin package instead might look like::"
-msgstr ""
+msgstr "一个最精简的插件包是这样的::"
 
 #: ../docs/source/howto/plugins_develop.rst:102
 msgid "Registering plugins through entry points"
-msgstr ""
+msgstr "注册插件接入点"
 
 #: ../docs/source/howto/plugins_develop.rst:104
 msgid ""
@@ -3484,6 +3597,8 @@ msgid ""
 " new *entry point* (for details, see :ref:`topics:plugins:entrypoints`). "
 "Adding a new entry point consists of the following steps:"
 msgstr ""
+"AiiDA插件是AiiDA的扩展，它通过一个新的*接入点*来指定自己(详细信息，参见 "
+":ref:`topics:plugins:entrypoints`)。添加新的接入点包括以下步骤:"
 
 #: ../docs/source/howto/plugins_develop.rst:107
 msgid ""
@@ -3491,6 +3606,8 @@ msgid ""
 " with the name of the plugin package (omitting the 'aiida-' prefix). For a "
 "package ``aiida-mycode``, this will usually mean ``\"mycode.<something>\"``"
 msgstr ""
+"选定一个名字。我们强烈建议每个接入点的名称以插件包的名称开头(省略 'aiida-' 前缀)。对于一个包 ``aiida -mycode`` "
+"，这通常意味着 ``\"mycode.<something>\"``"
 
 #: ../docs/source/howto/plugins_develop.rst:111
 msgid ""
@@ -3498,39 +3615,41 @@ msgid ""
 "defined by AiiDA via ``verdi plugin list``. For a documentation of the "
 "groups, see :ref:`topics:plugins:entrypointgroups`."
 msgstr ""
+"找到正确的接入点分组。你可以通过 ``verdi plugin list`` 列出AiiDA定义的入口点组。有关分组的文档，请参见 "
+":ref:`topics:plugins:entrypointgroups` 。"
 
 #: ../docs/source/howto/plugins_develop.rst:114
 msgid ""
 "Adding the entry point to the ``entry_points`` field in the ``setup.json`` "
 "file::"
-msgstr ""
+msgstr "将接入点添加到 ``setup.json`` 文件的 ``entry_points`` 字段:"
 
 #: ../docs/source/howto/plugins_develop.rst:124
 msgid ""
 "Let setuptools and reentry know about your entry point by installing your "
 "plugin again::"
-msgstr ""
+msgstr "让setuptools和reentry知道你的接入点以安装你的插件::"
 
 #: ../docs/source/howto/plugins_develop.rst:129
 msgid ""
 "Your new entry point should now show up in ``verdi plugin list "
 "aiida.calculations``."
-msgstr ""
+msgstr "你的新入口点现在应该显示在  ``verdi plugin list aiida.calculations`` 中。"
 
 #: ../docs/source/howto/plugins_develop.rst:133
 msgid ""
 "Taking a package with the name ``aiida-diff`` as example, what does ``pip "
 "install aiida-diff`` do?"
-msgstr ""
+msgstr "以一个名为 ``aiida-diff`` 的包为例，那么 ``pip install aiida -diff`` 的作用是什么呢?"
 
 #: ../docs/source/howto/plugins_develop.rst:135
 msgid "It resolves and installs the dependencies on other python packages"
-msgstr ""
+msgstr "它解析并安装依赖的python包"
 
 #: ../docs/source/howto/plugins_develop.rst:136
 msgid ""
 "It creates a folder ``aiida_diff.egg-info/`` with metadata about the package"
-msgstr ""
+msgstr "它创建文件夹 ``aiida_diff.egg-info/`` 及其包相关的元数据"
 
 #: ../docs/source/howto/plugins_develop.rst:137
 msgid ""
@@ -3540,16 +3659,19 @@ msgid ""
 "up by python without reinstalling (when restarting the interpreter),  but "
 "changes to the **metadata** will not."
 msgstr ""
+"如果参数 ``-e`` 被使用，那么会创建一个从python包使用路径到 ``aiida-diff`` 源代码文件夹的链接，并将文件夹 ``.egg-"
+"info`` 存放在使用路径中。对 **源代码** 的修改将不用重装就能被python载入 (重新安装解释器), 但是对 **元数据** "
+"的修改不会被重载。"
 
 #: ../docs/source/howto/plugins_develop.rst:140
 msgid ""
 "For further details, see the Python `packaging user guide "
 "<https://packaging.python.org/distributing/#configuring-your-project>`_."
-msgstr ""
+msgstr "更多的详细信息，请参见Python `包用户导引`_."
 
 #: ../docs/source/howto/plugins_develop.rst:147
 msgid "Testing a plugin package"
-msgstr ""
+msgstr "测试插件包"
 
 #: ../docs/source/howto/plugins_develop.rst:149
 msgid ""
@@ -3559,28 +3681,30 @@ msgid ""
 "developed. We recommend using the `pytest`_ framework for testing AiiDA "
 "plugins."
 msgstr ""
+"为你的AiiDA插件编写测试，并使用像 `GitHub Actions`_ "
+"这样的免费平台运行持续集成测试是确保你的插件工作并在开发过程中持续工作的最好方法。我们建议使用 `pytest`_ 框架来测试AiiDA插件。"
 
 #: ../docs/source/howto/plugins_develop.rst:152
 msgid ""
 "For an example of how to write tests and how to set up continuous "
 "integration, see the `aiida-diff`_ demo plugin package."
-msgstr ""
+msgstr "有关如何编写测试和如何设置持续集成的示例，请参见 `aiida-diff`_ 样例插件包。"
 
 #: ../docs/source/howto/plugins_develop.rst:158
 msgid ""
 "We suggest the following folder structure for including tests in AiiDA "
 "plugin packages::"
-msgstr ""
+msgstr "我们建议使用以下文件夹结构在AiiDA插件包中包含测试:"
 
 #: ../docs/source/howto/plugins_develop.rst:165
 msgid ""
 "Keeping the tests outside the plugin package keeps the distribution of your "
 "plugin package light."
-msgstr ""
+msgstr "将测试放在插件包之外可以使插件包的分发轻量化。"
 
 #: ../docs/source/howto/plugins_develop.rst:168
 msgid "AiiDA's fixtures"
-msgstr ""
+msgstr "AiiDA的fixtures"
 
 #: ../docs/source/howto/plugins_develop.rst:170
 msgid ""
@@ -3592,6 +3716,9 @@ msgid ""
 "the test environment for you (for more details, see "
 ":ref:`topics:plugins:testfixtures`)."
 msgstr ""
+"许多测试需要在测试开始之前设置完整的AiiDA环境，例如一些AiiDA数据节点。pytest库有`fixture`_ "
+"的概念，用于封装你想在测试开始前运行的代码。AiiDA在 :py:mod:`aiida.manage.tests.pytest_fixtures` "
+"中附带了一些fixture，会负责为您设置测试环境(更多详细信息，请参阅 :ref:`topics:plugins:testfixtures` )。"
 
 #: ../docs/source/howto/plugins_develop.rst:174
 msgid ""
@@ -3599,74 +3726,76 @@ msgid ""
 "``conftest.py`` (see also `pytest docs <conftest>`_) at the root level of "
 "your plugin package as follows::"
 msgstr ""
+"为了让这些fixture在你的测试中可用，在你的插件包的根目录下创建一个 `conftest.py` (请参见 `pytest 文档 "
+"<conftest>`_ )，如下所示:"
 
 #: ../docs/source/howto/plugins_develop.rst:192
 msgid ""
 "You can now start writing tests e.g. in a ``tests/test_calculations.py`` "
 "file::"
-msgstr ""
+msgstr "你现在可以开始编写测试了，例如在 ``tests/test_calculations.py`` 文件中::"
 
 #: ../docs/source/howto/plugins_develop.rst:212
 msgid ""
 "In order to run your tests, simply type ``pytest`` at the root level or your"
 " package. pytest automatically discovers and executes files, classes and "
 "function names starting with the word ``test``."
-msgstr ""
+msgstr "要运行测试，只需在根级别或您的包中键入 ``pytest`` 。Pytest自动发现并执行以 ``test`` 开头的文件、类和函数名。"
 
 #: ../docs/source/howto/plugins_develop.rst:222
 msgid "Documenting a plugin package"
-msgstr ""
+msgstr "为插件包编制文档"
 
 #: ../docs/source/howto/plugins_develop.rst:224
 msgid ""
 "AiiDA plugin packages are python packages, and general `best practises for "
 "writing python documentation <https://docs.python-"
 "guide.org/writing/documentation/>`_ apply."
-msgstr ""
+msgstr "AiiDA插件包是python包，通常遵循 `编写python文档的最佳实践`_ 。"
 
 #: ../docs/source/howto/plugins_develop.rst:226
 msgid ""
 "In the following, we mention a few hints that apply specifically to AiiDA "
 "plugins."
-msgstr ""
+msgstr "下面，我们将提到一些特别适用于AiiDA插件的提示"
 
 #: ../docs/source/howto/plugins_develop.rst:229
 msgid "Repository-level documentation"
-msgstr ""
+msgstr "全代码仓库层次的文档"
 
 #: ../docs/source/howto/plugins_develop.rst:231
 msgid ""
 "Since the source code of most AiiDA plugins is hosted on GitHub, the first "
 "contact of a new user with your plugin package is likely the landing page of"
 " your GitHub repository."
-msgstr ""
+msgstr "由于大多数AiiDA插件的源代码都托管在GitHub上，所以使用你的插件包的新用户，第一个接触的很可能是你的GitHub库的登录页面。"
 
 #: ../docs/source/howto/plugins_develop.rst:233
 msgid ""
 "Make sure to have a useful ``README.md``, describing what your plugin does "
 "and how to install it."
-msgstr ""
+msgstr "确保有一个有用的 ``README.md`` ，描述你的插件做什么和如何安装它。"
 
 #: ../docs/source/howto/plugins_develop.rst:234
 msgid "Leaving a contact email and adding a license is also a good idea."
-msgstr ""
+msgstr "留下联系邮件并添加许可也是必要的。"
 
 #: ../docs/source/howto/plugins_develop.rst:235
 msgid ""
 "Make sure the information in the ``setup.json`` file is correct and up to "
 "date (in particular the version number), since this information is used to "
 "advertise your package on the AiiDA plugin registry."
-msgstr ""
+msgstr "确保 ``setup.json`` 文件是正确的并且是最新的(特别是版本号)，因为这个信息被用来在AiiDA插件注册表上发布你的包。"
 
 #: ../docs/source/howto/plugins_develop.rst:238
 msgid "Source-code-level documentation"
-msgstr ""
+msgstr "代码级别文档"
 
 #: ../docs/source/howto/plugins_develop.rst:240
 msgid ""
 "Source-code level documentations matters both for users of your plugin's "
 "python API and, particularly, for attracting contributions from others."
-msgstr ""
+msgstr "源代码级别的文档对于插件的python API的用户来说很重要，特别是有助于吸引其他人的贡献。"
 
 #: ../docs/source/howto/plugins_develop.rst:242
 msgid ""
@@ -3677,17 +3806,19 @@ msgid ""
 "calculations/workflows expect and which outputs they produce directly "
 "through the ``verdi`` cli. For example, try::"
 msgstr ""
+"当添加新的算例类型或工作流时，请确保使用 `docstrings`_ ，并使用 ``help`` 参数记录输入端口和输出端口。你的插件的用户可以通过 "
+"``verdi`` 命令行接口检查算例/工作流期望的输入和他们直接产生的输出。例如,尝试运行:"
 
 #: ../docs/source/howto/plugins_develop.rst:249
 msgid "Documentation website"
-msgstr ""
+msgstr "文档的网站"
 
 #: ../docs/source/howto/plugins_develop.rst:251
 msgid ""
 "For simple plugins, a well-written ``README.md`` can be a good start. Once "
 "the README grows out of proportion, you may want to consider creating a "
 "dedicated documentation website."
-msgstr ""
+msgstr "对于简单的插件，一个好的  ``README.md`` 是一个好的开始。一旦README变得很大，您可能需要考虑创建一个专门的文档网站。"
 
 #: ../docs/source/howto/plugins_develop.rst:254
 msgid ""
@@ -3701,6 +3832,9 @@ msgid ""
 "diff.readthedocs.io/en/latest/developer_guide/index.html>`_ for instructions"
 " on how to build it."
 msgstr ""
+"`Sphinx`_ 工具可以非常容易地为python包创建文档网站，而 `ReadTheDocs`_ 服务将免费在线托管您的Sphinx文档"
+"。`aiida-diff演示插件<aiida-diff>`_ 附带了一个完整的基于sphinx的文档模板，包括手动编写的页面和你插件的python "
+"API的自动生成文档。详情参见 `aiida-diff开发指南`_ 。"
 
 #: ../docs/source/howto/plugins_develop.rst:258
 msgid ""
@@ -3712,25 +3846,29 @@ msgid ""
 "``aiida-process``, ``aiida-calcjob`` or ``aiida-workchain`` directives in "
 "your ReST files like so::"
 msgstr ""
+"AiiDA提供了一个sphinx扩展，用于插入 ``Process`` 类(算例和工作流)的自动生成文档到你的sphinx文档(类似于 ``verdi "
+"plugin list`` )。启用扩展添加 ``aiida.sphinxext`` 到 ``docs/conf.py`` 文件的 "
+"``extensions`` 列表中。你现在可以在你的ReST文件中使用 ``aiida-process`` ， ``aiida-calcjob`` 或"
+" ``aiida-workchain`` 指令，如下:"
 
 #: ../docs/source/howto/plugins_develop.rst:266
 msgid "Here,"
-msgstr ""
+msgstr "这里，"
 
 #: ../docs/source/howto/plugins_develop.rst:268
 msgid "``MyWorkChain`` is the name of the workchain to be documented."
-msgstr ""
+msgstr "``MyWorkChain`` 是要记录的工作链的名称。"
 
 #: ../docs/source/howto/plugins_develop.rst:269
 msgid ""
 "``:module:`` is the python module from which the workchain can be imported."
-msgstr ""
+msgstr "``:module:`` 是可以导入工作链的python模块。"
 
 #: ../docs/source/howto/plugins_develop.rst:270
 msgid ""
 "``:hide-unstored-inputs:`` hides workchain inputs that are not stored in the"
 " database (shown by default)."
-msgstr ""
+msgstr "``:hide-unstored-inputs:`` 隐藏没有存储在数据库中的工作链输入(默认显示)。"
 
 #: ../docs/source/howto/plugins_develop.rst:274
 msgid ""
@@ -3738,41 +3876,43 @@ msgid ""
 "i.e. it is used automatically by the generic ``automodule``, ``autoclass`` "
 "directives when applied to workchain classes."
 msgstr ""
+"``aiida-workchain`` 指令被连接到 ``sphinx.ext.autodoc`` ，也就是说，当应用于工作链类时，它会被泛型 "
+"``automodule`` 和 ``autoclass`` 指令自动使用。"
 
 #: ../docs/source/howto/plugins_develop.rst:281
 msgid "Publishing a plugin package"
-msgstr ""
+msgstr "发布插件包"
 
 #: ../docs/source/howto/plugins_develop.rst:283
 msgid ""
 "AiiDA plugin packages are published on the `AiiDA plugin registry "
 "<registry>`_ and the `python package index (PyPI) <pypi>`_."
-msgstr ""
+msgstr "AiiDA插件包发布在 `AiiDA插件注册表 <registry>`_ 和 `python包索引(PyPI) <pypi>`_ 。"
 
 #: ../docs/source/howto/plugins_develop.rst:285
 msgid "Before publishing your plugin, make sure your plugin comes with:"
-msgstr ""
+msgstr "在发布你的插件之前，确保你的插件带有:"
 
 #: ../docs/source/howto/plugins_develop.rst:287
 msgid "a ``setup.json`` file with the plugin metadata"
-msgstr ""
+msgstr "一个  ``setup.json``  文件与插件元数据"
 
 #: ../docs/source/howto/plugins_develop.rst:288
 msgid "a ``setup.py`` file for installing your plugin via ``pip``"
-msgstr ""
+msgstr "一个  ``setup.json``  文件用于通过 ``pip`` 安装你的插件"
 
 #: ../docs/source/howto/plugins_develop.rst:289
 msgid "a license"
-msgstr ""
+msgstr "一个软件许可证"
 
 #: ../docs/source/howto/plugins_develop.rst:291
 msgid ""
 "For examples of these files, see the `aiida-diff demo plugin <aiida-diff>`_."
-msgstr ""
+msgstr "这些文件的例子，参见 `aiida-diff演示插件 <aiida-diff>`_ 。"
 
 #: ../docs/source/howto/plugins_develop.rst:296
 msgid "Publishing on the plugin registry"
-msgstr ""
+msgstr "在插件注册表上发布"
 
 #: ../docs/source/howto/plugins_develop.rst:298
 msgid ""
@@ -3780,29 +3920,31 @@ msgid ""
 " available AiiDA plugins. It collects information on the type of plugins "
 "provided by your package, which AiiDA versions it is compatible with, etc."
 msgstr ""
+"`AiiDA插件注册表<registry>`_ "
+"旨在成为所有公开可用的AiiDA插件的集合地。它收集关于包提供的插件类型的信息，它兼容的AiiDA版本，等等。"
 
 #: ../docs/source/howto/plugins_develop.rst:301
 msgid ""
 "In order to register your plugin package, simply go to the `plugin registry "
 "<registry>`_ and follow the instructions in the README."
-msgstr ""
+msgstr "为了注册你的插件包，只需去 `plugin registry <registry>`_ 并遵循README中的说明。"
 
 #: ../docs/source/howto/plugins_develop.rst:305
 msgid ""
 "The plugin registry reads the metadata of your plugin from the "
 "``setup.json`` file in your plugin repository."
-msgstr ""
+msgstr "插件注册表从  ``setup.json``  中读取插件的元数据。"
 
 #: ../docs/source/howto/plugins_develop.rst:308
 msgid ""
 "We encourage you to **get your plugin package listed as soon as possible**, "
 "both in order to reserve the plugin name and to inform others of the ongoing"
 " development."
-msgstr ""
+msgstr "我们鼓励您**尽快列出您的插件包**，这既是为了保留插件名称，也是为了告知其他人正在进行的开发。"
 
 #: ../docs/source/howto/plugins_develop.rst:311
 msgid "Publishing on PyPI"
-msgstr ""
+msgstr "PyPI上发布"
 
 #: ../docs/source/howto/plugins_develop.rst:313
 msgid ""
@@ -3811,16 +3953,19 @@ msgid ""
 "making the plugin available on the `python package index <PyPI>`_. This "
 "makes it possible for users to simply ``pip install aiida-myplugin``."
 msgstr ""
+"对于发布AiiDA插件包，我们建议遵循 `打包python项目指南 <packaging>`_ ，其中包括让插件在 `python包索引 "
+"<PyPI>`_ 。这使得用户可以简单地用 ``pip install aiida-myplugin``。"
 
 #: ../docs/source/howto/plugins_develop.rst:317
 msgid ""
 "When updating the version of your plugin, don't forget to update the version"
 " number both in the ``setup.json`` and in ``aiida_mycode/__init__.py``."
 msgstr ""
+"当更新你的插件版本时，不要忘记在  ``setup.json`` 以及 ``aiida_mycode/__init__.py`` 中更新版本号。"
 
 #: ../docs/source/howto/plugins_install.rst:5
 msgid "How to install plugins"
-msgstr ""
+msgstr "如何安装插件"
 
 #: ../docs/source/howto/plugins_install.rst:7
 msgid ""
@@ -3832,6 +3977,10 @@ msgid ""
 "plugin registry <https://aiidateam.github.io/aiida-registry>`_ gives an "
 "overview of public plugin packages."
 msgstr ""
+"AiiDA的功能可以通过插件进行扩展。有各种类型的功能可以扩展，如新的 :ref:`数据类型 <topics:data_types:plugin>` ，"
+" :ref:`算例插件 <how-to:plugin-codes>` 等等。多个插件可以捆绑在一起，并在一个 :ref:`插件包 <how-to"
+":plugins-develop>` 中分发。 `AiiDA插件注册表<https://aiidateam.github.io/aiida-"
+"registry>`_ 给出了公共插件包的概述。"
 
 #: ../docs/source/howto/plugins_install.rst:12
 msgid ""
@@ -3840,48 +3989,50 @@ msgid ""
 "`Python Package Index (PyPI) <https://pypi.org/search/?q=aiida>`_ you can "
 "install it as follows:"
 msgstr ""
+"安装AiiDA插件包是通过 `pip <https://pypi.org/project/pip/>`_ 完成的。如果该包是通过 `Python "
+"Package Index (PyPI) <https://pypi.org/search/?q=aiida>`_  分发的，你可以按照如下方式安装它:"
 
 #: ../docs/source/howto/plugins_install.rst:19
 msgid ""
 "A package can also be installed from the source code. For example, if the "
 "code is available through a Git repository:"
-msgstr ""
+msgstr "也可以从源代码安装包。例如，如果源代码可以通过Git存储库获得:"
 
 #: ../docs/source/howto/plugins_install.rst:30
 msgid ""
 "Each time when you install a new plugin package you should make sure to run "
 "the following command to let AiiDA know about the new plugins that come with"
 " it:"
-msgstr ""
+msgstr "每次当你安装一个新的插件包时，你应该确保运行以下命令让AiiDA知道它附带的新插件:"
 
 #: ../docs/source/howto/plugins_install.rst:36
 msgid ""
 "If you forget to run this command, AiiDA will not be able to find the "
 "plugins. The reentry cache can also be updated from python when access to "
 "the commandline is not available (e.g. in Jupyter notebooks)."
-msgstr ""
+msgstr "如果您忘记运行此命令，AiiDA将无法找到插件。当无法访问命令行时(例如在jupiter笔记本中)，可以从python重载缓存。"
 
 #: ../docs/source/howto/plugins_install.rst:46
 msgid ""
 "If your daemon was running when installing or updating a plugin package, "
 "make sure to restart it with the ``--reset`` flag for changes to take "
 "effect:"
-msgstr ""
+msgstr "如果你的守护进程在安装或更新一个插件包时处于运行状态，请确保使用 ``--reset`` 标志重启它使更改生效:"
 
 #: ../docs/source/howto/plugins_install.rst:52
 msgid "This needs to be done *after* the command ``reentry scan`` is called."
-msgstr ""
+msgstr "这需要在命令  ``reentry scan``  被调用之后运行。"
 
 #: ../docs/source/howto/plugins_install.rst:54
 msgid "To verify which plugins are currently installed, use the command:"
-msgstr ""
+msgstr "要验证当前安装了哪些插件，可以使用以下命令:"
 
 #: ../docs/source/howto/plugins_install.rst:60
 msgid ""
 "It will list the various categories of functionality that can be extended "
 "through plugins. To see which plugins are installed for any of these "
 "categories, pass the category name as an argument, e.g.:"
-msgstr ""
+msgstr "它将列出可以通过插件扩展的各种功能类别。要查看这些类别中安装了哪些插件，请传递类别名称作为参数，例如:"
 
 #: ../docs/source/howto/run_codes.rst:5
 msgid "How to run external codes"
@@ -3894,6 +4045,8 @@ msgid ""
 "calculation through AiiDA (similar to the :ref:`introductory tutorial "
 "<tutorial:basic:calcjob>`, but in more detail)."
 msgstr ""
+"这篇指南引导您完成设置(可能是远程)计算资源的步骤，在计算机上设置计算代码，并通过AiiDA提交计算(类似于 :ref:`入门教程 "
+"<tutorial:basic:calcjob>` ，但更详细)。"
 
 #: ../docs/source/howto/run_codes.rst:9
 msgid ""
@@ -3905,24 +4058,28 @@ msgid ""
 "how to install an existing plugin. If a plugin for your code is not yet "
 "available, see :ref:`how-to:plugin-codes`."
 msgstr ""
+"要使用AiiDA运行外部代码，你需要一个适当的 :ref:`算例插件 <topics:plugins>` 。在下面，我们假设你的代码的插件已经在 "
+"`aiida插件注册表 <https://aiidateam.github.io/aiida-registry/>`_ 请参阅 :ref:`how-to"
+":plugins-install` 部分，了解如何安装现有插件的详细信息。如果你的计算代码还没有插件可用，请参阅 :ref:`how-to"
+":plugin-codes`。"
 
 #: ../docs/source/howto/run_codes.rst:14
 msgid ""
 "Throughout the process, you will be prompted for information on the computer"
 " and code. In these prompts:"
-msgstr ""
+msgstr "在整个过程中，系统会提示您输入有关计算机器和代码的信息。在这些提示:"
 
 #: ../docs/source/howto/run_codes.rst:17
 msgid ""
 "Type ``?`` followed by ``<enter>`` to get help on what is being asked at any"
 " prompt."
-msgstr ""
+msgstr "键入 ``?`` 后 ``<enter>``，以便在任何时候就被要求的问题获得帮助。"
 
 #: ../docs/source/howto/run_codes.rst:18
 msgid ""
 "Press ``<CTRL>+C`` at any moment to abort the setup process. Your AiiDA "
 "database will remain unmodified."
-msgstr ""
+msgstr "随时按 ``<CTRL>+C`` 终止安装进程。您的AiiDA数据库将保持不变。"
 
 #: ../docs/source/howto/run_codes.rst:23
 msgid ""
@@ -3931,20 +4088,22 @@ msgid ""
 "terminals embedded in some text editors (such as ``emacs``) have been known "
 "to cause problems."
 msgstr ""
+"``verdi`` 命令使用 ``readline`` 扩展来提供默认答案，这需要一个高级终端。使用标准终端——嵌入某些文本编辑器(如 "
+"``emacs`` )中的终端已知会引起问题。"
 
 #: ../docs/source/howto/run_codes.rst:29
 msgid "How to set up a computer"
-msgstr ""
+msgstr "如何配置计算机器"
 
 #: ../docs/source/howto/run_codes.rst:31
 msgid ""
 "A |Computer| in AiiDA denotes a computational resource on which you will run"
 " your calculations. It can either be:"
-msgstr ""
+msgstr "AiiDA中的|Computer|表示您将在其上运行计算的计算资源。它可以是:"
 
 #: ../docs/source/howto/run_codes.rst:34
 msgid "the machine where AiiDA is installed or"
-msgstr ""
+msgstr "安装AiiDA的机器或"
 
 #: ../docs/source/howto/run_codes.rst:35
 msgid ""
@@ -3952,50 +4111,52 @@ msgid ""
 "<https://en.wikipedia.org/wiki/Secure_Shell>`_ from the machine where AiiDA "
 "is installed (possibly :ref:`via a proxy server<how-to:ssh:proxy>`)."
 msgstr ""
+"任何可以从安装了AiiDA的机器上通过 `SSH <https://en.wikipedia.org/wiki/Secure_Shell>`_ "
+"访问的机器(可能是 :ref:`通过代理服务器 <how-to:ssh:proxy>` )。"
 
 #: ../docs/source/howto/run_codes.rst:37
 msgid ""
 "The second option allows managing multiple remote compute resources "
 "(including HPC clusters and cloud services) from the same AiiDA installation"
 " and moving computational jobs between them."
-msgstr ""
+msgstr "第二个选项允许从相同的AiiDA安装管理多个远程计算资源(包括HPC集群和云服务)，并在它们之间转移计算作业。"
 
 #: ../docs/source/howto/run_codes.rst:41
 msgid ""
 "The second option requires access through an SSH keypair. If your compute "
 "resource demands two-factor authentication, you may need to install AiiDA "
 "directly on the compute resource instead."
-msgstr ""
+msgstr "第二个选项需要通过SSH密钥对进行访问。如果计算资源需要双因素身份验证，则可能需要直接在计算资源上安装AiiDA。"
 
 #: ../docs/source/howto/run_codes.rst:46
 msgid "Computer requirements"
-msgstr ""
+msgstr "远端计算机的需求"
 
 #: ../docs/source/howto/run_codes.rst:48
 msgid "Each computer must satisfy the following requirements:"
-msgstr ""
+msgstr "每台计算机器必须满足以下要求:"
 
 #: ../docs/source/howto/run_codes.rst:50
 msgid ""
 "It runs a Unix-like operating system (Linux distros and MacOS should work "
 "fine)"
-msgstr ""
+msgstr "它运行一个类Unix的操作系统(Linux发行版和MacOS均可)"
 
 #: ../docs/source/howto/run_codes.rst:51
 msgid "It has ``bash`` installed"
-msgstr ""
+msgstr "它必须要安装有 ``bash`` "
 
 #: ../docs/source/howto/run_codes.rst:52
 msgid ""
 "(optional) It has batch scheduler installed (see the :ref:`list of supported"
 " schedulers <topics:schedulers>`)"
-msgstr ""
+msgstr "(可选)它安装了调度程序(见 :ref:`支持调度程序列表 <topics:schedulers>` )"
 
 #: ../docs/source/howto/run_codes.rst:54
 msgid ""
 "If you are configuring a remote computer, start by :ref:`configuring "
 "password-less SSH access <how-to:ssh>` to it."
-msgstr ""
+msgstr "如果您正在配置一台远程计算机，请从 :ref:`配置无密码SSH访问<how-to:ssh>` 开始"
 
 #: ../docs/source/howto/run_codes.rst:58
 msgid ""
@@ -4003,65 +4164,67 @@ msgid ""
 "shell. Please ensure that your remote ``bash`` configuration does not load a"
 " different shell."
 msgstr ""
+"AiiDA会在远端机器上使用 ``bash`` ， 而不论远端的默认shell是什么。因此，确保你的远端机器上的 ``bash`` "
+"配置中没有加载其他shell。"
 
 #: ../docs/source/howto/run_codes.rst:65
 msgid "Computer setup"
-msgstr ""
+msgstr "计算资源的设置"
 
 #: ../docs/source/howto/run_codes.rst:67
 msgid ""
 "The configuration of computers happens in two steps: setting up the public "
 "metadata associated with the |Computer| in AiiDA provenance graphs, and "
 "configuring private connection details."
-msgstr ""
+msgstr "计算机的配置分两个步骤进行:在AiiDA可验证性图中设置与|Computer|关联的公共元数据，以及配置私有连接详细信息。"
 
 #: ../docs/source/howto/run_codes.rst:69
 msgid "Start by creating a new computer instance in the database:"
-msgstr ""
+msgstr "首先在数据库中创建一个新的计算机器实例:"
 
 #: ../docs/source/howto/run_codes.rst:75
 msgid ""
 "At the end, the command will open your default editor on a file containing a"
 " summary of the configuration up to this point. You can add ``bash`` "
 "commands that will be executed"
-msgstr ""
+msgstr "最后，该命令将在最后打开默认编辑器并包含到此为止的配置信息。您可以添加将要执行的 ``bash`` 命令"
 
 #: ../docs/source/howto/run_codes.rst:78
 msgid ""
 "*before* the actual execution of the job (under 'Pre-execution script'), and"
-msgstr ""
+msgstr "实际执行任务*前* (在 ``预执行脚本`` 下)，和"
 
 #: ../docs/source/howto/run_codes.rst:79
 msgid "*after* the script submission (under 'Post execution script')."
-msgstr ""
+msgstr "在脚本提交*后* (在 ``后执行脚本``下)。"
 
 #: ../docs/source/howto/run_codes.rst:81
 msgid ""
 "Use these additional lines to perform any further set up of the environment "
 "on the computer, for example loading modules or exporting environment "
 "variables:"
-msgstr ""
+msgstr "使用这些额外的行在计算机上执行任何进一步的环境设置，例如加载模块或导出环境变量:"
 
 #: ../docs/source/howto/run_codes.rst:90
 msgid ""
 "Don't specify settings here that are specific to a code or calculation: you "
 "can set further pre-execution commands at the ``Code`` and even ``CalcJob`` "
 "level."
-msgstr ""
+msgstr "请不要在这里设置计算代码，算例相关的指令——你可以在 ``Code`` 和 ``CalcJob`` 层面设置前置命令。"
 
 #: ../docs/source/howto/run_codes.rst:92
 msgid ""
 "When you are done editing, save and quit. The computer has now been created "
 "in the database but you still need to *configure* access to it using your "
 "credentials."
-msgstr ""
+msgstr "当你完成编辑保存并退出。 现在计算资源就被创建在数据库中了，但你还需要 *配置* 访问该资源的方式及凭证。"
 
 #: ../docs/source/howto/run_codes.rst:96
 msgid ""
 "In order to avoid having to retype the setup information the next time "
 "around, you can provide some (or all) of the information via a configuration"
 " file:"
-msgstr ""
+msgstr "为了避免下次重复输入配置信息，可以使用配置文件来包含上述信息以配置代码 ::"
 
 #: ../docs/source/howto/run_codes.rst:102
 msgid ""
@@ -4069,20 +4232,22 @@ msgid ""
 "<https://en.wikipedia.org/wiki/YAML#Syntax>`__. This file contains the "
 "information in a series of key-value pairs:"
 msgstr ""
+"其中 ``computer.yml`` 是 `YAML format "
+"<https://en.wikipedia.org/wiki/YAML#Syntax>`__ 格式的配置文件，该文件中包含一系列键值对。"
 
 #: ../docs/source/howto/run_codes.rst:119
 msgid ""
 "The list of the keys for the ``yaml`` file is given by the options of the "
 "``computer setup`` command:"
-msgstr ""
+msgstr "“yaml”文件的键列表是通过  ``computer setup``  命令的选项给出的:"
 
 #: ../docs/source/howto/run_codes.rst:130
 msgid "Computer connection configuration"
-msgstr ""
+msgstr "计算机器连接配置"
 
 #: ../docs/source/howto/run_codes.rst:132
 msgid "The second step configures private connection details using:"
-msgstr ""
+msgstr "第二步使用以下方法配置私有连接细节:"
 
 #: ../docs/source/howto/run_codes.rst:138
 msgid ""
@@ -4090,34 +4255,36 @@ msgid ""
 "and replace ``TRANSPORTTYPE`` with the name of chosen transport type, i.e., "
 "``local`` for the localhost computer and ``ssh`` for any remote computer."
 msgstr ""
+"将 ``COMPUTERLABEL`` 替换为在设置过程中选择的计算机标签，并将 ``TRANSPORTTYPE`` 替换为所选传输类型的名称，即 "
+"``local`` 用于本地主机计算机， ``ssh`` 用于任何远程计算机。"
 
 #: ../docs/source/howto/run_codes.rst:140
 msgid ""
 "After the setup and configuration have been completed, let's check that "
 "everything is working properly:"
-msgstr ""
+msgstr "安装和配置完成后，让我们检查是否一切正常工作:"
 
 #: ../docs/source/howto/run_codes.rst:146
 msgid ""
 "This command will perform various tests to make sure that AiiDA can connect "
 "to the computer, create new files in the scratch directory, retrieve files "
 "and query the job scheduler."
-msgstr ""
+msgstr "该命令将执行各种测试，以确保AiiDA可以连接到计算机、在临时目录中创建新文件、检索文件和查询作业调度器。"
 
 #: ../docs/source/howto/run_codes.rst:151
 msgid "Mitigating connection overloads"
-msgstr ""
+msgstr "减少连接过载"
 
 #: ../docs/source/howto/run_codes.rst:153
 msgid ""
 "Some compute resources, particularly large supercomputing centers, may not "
 "tolerate submitting too many jobs at once, executing scheduler commands too "
 "frequently, or opening too many SSH connections."
-msgstr ""
+msgstr "一些计算资源，特别是大型超级计算中心，可能不允许同时提交太多作业、过于频繁地执行调度程序命令或打开过多的SSH连接。"
 
 #: ../docs/source/howto/run_codes.rst:155
 msgid "Limit the number of jobs in the queue."
-msgstr ""
+msgstr "限制队列中的作业数量。"
 
 #: ../docs/source/howto/run_codes.rst:157
 msgid ""
@@ -4129,50 +4296,54 @@ msgid ""
 "<https://github.com/aiidateam/aiida-core/wiki/Optimising-the-SLURM-"
 "scheduler-configuration-(for-cluster-administrators)>`_ useful."
 msgstr ""
+"设置要提交的最大工作流数量的限制，并且只有在以前的工作流开始完成后才提交新的工作流。支持的作业数量取决于超级计算机配置，该配置可能被记录为中心用户文档的一部分。超级计算机管理员可能也会参考"
+" `这个页面 <https://github.com/aiidateam/aiida-core/wiki/Optimising-the-SLURM-"
+"scheduler-configuration-(for-cluster-administrators)>`_ 上的信息。"
 
 #: ../docs/source/howto/run_codes.rst:161
 msgid "Increase the time interval between polling the job queue."
-msgstr ""
+msgstr "增加轮询作业队列之间的时间间隔。"
 
 #: ../docs/source/howto/run_codes.rst:163
 msgid ""
 "The time interval (in seconds) can be set through the Python API by loading "
 "the corresponding |Computer| node, e.g. in the ``verdi shell``:"
 msgstr ""
+"时间间隔(以秒为单位)可以通过Python API加载相应的 |Computer| 节点来设置，例如在 ``verdi shell`` 中:"
 
 #: ../docs/source/howto/run_codes.rst:169
 msgid "Increase the connection cooldown time."
-msgstr ""
+msgstr "增加连接冷却时间。"
 
 #: ../docs/source/howto/run_codes.rst:171
 msgid ""
 "This is the minimum time (in seconds) to wait between opening a new "
 "connection. Modify it for an existing computer using:"
-msgstr ""
+msgstr "这是打开新连接之间等待的最小时间(以秒为单位)。使用下列指令修改计算机器的这个参数:"
 
 #: ../docs/source/howto/run_codes.rst:180
 msgid ""
 "The two intervals apply *per daemon worker*, i.e. doubling the number of "
 "workers may end up putting twice the load on the remote computer."
-msgstr ""
+msgstr "这两个间隔作用于*每个守护进程*，也就是说，加倍的工作进程数量最终可能会给远程计算机带来两倍的负载。"
 
 #: ../docs/source/howto/run_codes.rst:183
 msgid "Managing your computers"
-msgstr ""
+msgstr "管理你的计算机器"
 
 #: ../docs/source/howto/run_codes.rst:185
 msgid "Fully configured computers can be listed with:"
-msgstr ""
+msgstr "完全配置的计算机可以如下列出:"
 
 #: ../docs/source/howto/run_codes.rst:191
 msgid ""
 "To get detailed information on the specific computer named "
 "``COMPUTERLABEL``:"
-msgstr ""
+msgstr "要获取名为 ``COMPUTERLABEL`` 的特定计算机器的详细信息:"
 
 #: ../docs/source/howto/run_codes.rst:197
 msgid "To rename a computer or remove it from the database:"
-msgstr ""
+msgstr "重命名计算机器或将其从数据库中删除:"
 
 #: ../docs/source/howto/run_codes.rst:206
 msgid ""
@@ -4180,6 +4351,8 @@ msgid ""
 "it (e.g. any ``CalcJob`` and ``RemoteData`` nodes). Otherwise, AiiDA will "
 "prevent you from doing so in order to preserve provenance."
 msgstr ""
+"在删除|Computer|之前，您需要删除所有链接到它的节点(例如任何 ``CalcJob`` 和 ``RemoteData`` "
+"节点)。否则，AiiDA会阻止你这样做，以保存可验证性。"
 
 #: ../docs/source/howto/run_codes.rst:209
 msgid ""
@@ -4188,14 +4361,15 @@ msgid ""
 "AiiDA from connecting to the given computer to check the state of "
 "calculations or to submit new calculations."
 msgstr ""
+"如果远程计算机正在维护中(或不再运行)，您可能希望**禁用**相应的|Computer|。这样做将阻止AiiDA连接到给定的计算机来检查计算状态或提交新的计算。"
 
 #: ../docs/source/howto/run_codes.rst:220
 msgid "How to setup a code"
-msgstr ""
+msgstr "设置计算代码"
 
 #: ../docs/source/howto/run_codes.rst:222
 msgid "Once your computer is configured, you can set up codes on it."
-msgstr ""
+msgstr "一旦您的计算机器配置好后，您就可以在它上面设置计算代码。"
 
 #: ../docs/source/howto/run_codes.rst:224
 msgid ""
@@ -4205,24 +4379,25 @@ msgid ""
 "were run with a given code (for instance, if a specific version is found to "
 "contain a bug)."
 msgstr ""
+"AiiDA为每个代码存储一组元数据，这些元数据自动附加到使用它的每个计算中。除了对再现性很重要之外，这也使得查询使用给定代码运行的所有计算(例如，如果发现某个特定版本包含bug)变得很容易。"
 
 #: ../docs/source/howto/run_codes.rst:230
 msgid "Setting up a code"
-msgstr ""
+msgstr "设置计算代码"
 
 #: ../docs/source/howto/run_codes.rst:232
 msgid ""
 "The ``verdi code`` CLI is the access point for managing codes in AiiDA. To "
 "setup a new code, execute:"
-msgstr ""
+msgstr "``verdi code`` 命令行是在AiiDA中管理代码的接入点。要设置新代码，请执行:"
 
 #: ../docs/source/howto/run_codes.rst:239
 msgid "and you will be guided through a process to setup your code."
-msgstr ""
+msgstr "你会依照提示导引设置你的计算代码。"
 
 #: ../docs/source/howto/run_codes.rst:241
 msgid "On remote and local codes"
-msgstr ""
+msgstr "关于远程和本地计算代码"
 
 #: ../docs/source/howto/run_codes.rst:244
 msgid ""
@@ -4232,6 +4407,8 @@ msgid ""
 " machine. This setup is referred to as *remote* codes (``Installed on target"
 " computer?: True``)."
 msgstr ""
+"在大多数情况下，建议在使用AiiDA提交计算*之前*在目标机器上安装AiiDA使用的可执行文件，以便利用目标机器上存在的编译器和库。这个设置被称为*远程*代码(``Installed"
+" on target computer?: True``)。"
 
 #: ../docs/source/howto/run_codes.rst:247
 msgid ""
@@ -4242,47 +4419,49 @@ msgid ""
 "stored in the AiiDA file repository and copied to the target computer for "
 "every execution."
 msgstr ""
+"偶尔，您可能需要运行一些小型的、与机器相对独立的脚本(例如Python或bash)，并且手动将它们复制到许多不同的目标计算机上可能很乏味。对于这个情况，AiiDA提供了*本地*代码(``Installed"
+" on target computer?: False``)。本地代码存储在AiiDA文件存储库中，并在每次执行时复制到目标计算机。"
 
 #: ../docs/source/howto/run_codes.rst:251
 msgid ""
 "Do *not* use local codes as a way of encapsulating the environment of "
 "complex executables. Containers are a much better solution to this problem, "
 "and we are working on adding native support for containers in AiiDA."
-msgstr ""
+msgstr "*不要*使用本地代码作为封装复杂可执行文件环境的方式。容器是这个问题的更好解决方案，我们正在努力在AiiDA中添加对容器的本地支持。"
 
 #: ../docs/source/howto/run_codes.rst:255
 msgid ""
 "At the end of these steps, you will be prompted to edit a script, where you "
 "can include ``bash`` commands that will be executed"
-msgstr ""
+msgstr "在这些步骤的最后，将提示您编辑一个脚本，其中可以包含将要执行的 ``bash`` 命令"
 
 #: ../docs/source/howto/run_codes.rst:257
 msgid ""
 "*before* running the submission script (after the 'Pre execution script' "
 "lines), and"
-msgstr ""
+msgstr "运行提交脚本*前*(在'Pre execution script'行之后)"
 
 #: ../docs/source/howto/run_codes.rst:258
 msgid ""
 "*after* running the submission script (after the 'Post execution script' "
 "separator)."
-msgstr ""
+msgstr "运行提交脚本*后*(在'Post execution script'分隔符之后)。"
 
 #: ../docs/source/howto/run_codes.rst:260
 msgid ""
 "Use this, for instance, to load modules or set variables that are needed by "
 "the code, such as:"
-msgstr ""
+msgstr "例如，使用它来加载模块或设置代码所需的变量，例如:"
 
 #: ../docs/source/howto/run_codes.rst:266
 msgid ""
 "At the end, you receive a confirmation, with the *PK* and the *UUID* of your"
 " new code."
-msgstr ""
+msgstr "最后，您将收到一个确认，其中包含新代码的*PK*和*UUID*。"
 
 #: ../docs/source/howto/run_codes.rst:268
 msgid "Using configuration files"
-msgstr ""
+msgstr "使用配置文件"
 
 #: ../docs/source/howto/run_codes.rst:271
 msgid ""
@@ -4290,82 +4469,89 @@ msgid ""
 "all) the information described above can be provided via a configuration "
 "file:"
 msgstr ""
+"类似于 :ref:`计算机器设置 <how-to:run-codes:computer>` ，上面描述的部分(或全部)信息可以通过配置文件提供:"
 
 #: ../docs/source/howto/run_codes.rst:277
 msgid ""
 "where ``code.yml`` is a configuration file in the `YAML format "
 "<https://en.wikipedia.org/wiki/YAML#Syntax>`_."
 msgstr ""
+"其中 ``code.yml`` 是 `YAML format <https://en.wikipedia.org/wiki/YAML#Syntax>`_"
+" 格式的配置文件。"
 
 #: ../docs/source/howto/run_codes.rst:279
 msgid "This file contains the information in a series of key:value pairs:"
-msgstr ""
+msgstr "该文件以键值对的方式存放了一系列信息 :"
 
 #: ../docs/source/howto/run_codes.rst:295
 msgid ""
 "The list of the keys for the ``yaml`` file is given by the available options"
 " of the ``code setup`` command:"
-msgstr ""
+msgstr "``yaml`` 文件的键列表是通过 ``code setup`` 命令的选项给出的:"
 
 #: ../docs/source/howto/run_codes.rst:301
 msgid ""
 "Note: remove the ``--`` prefix and replace ``-`` within the keys with an "
 "underscore ``_``."
-msgstr ""
+msgstr "注意语法上的区别：去掉键选项前的 ``--`` 前缀，并将键中的 ``-`` 替换为下划线 ``_`` 。"
 
 #: ../docs/source/howto/run_codes.rst:304
 msgid "Managing codes"
-msgstr ""
+msgstr "管理计算代码"
 
 #: ../docs/source/howto/run_codes.rst:306
 msgid "You can change the label of a code by using the following command:"
-msgstr ""
+msgstr "你可以使用下面指令修改计算代码的标签 :"
 
 #: ../docs/source/howto/run_codes.rst:312
 msgid ""
 "where <IDENTIFIER> can be the numeric *PK*, the *UUID* or the label of the "
 "code (either ``label`` or ``label@computername``) if the label is unique."
 msgstr ""
+"其中 <IDENTIFIER> 可以是数字*PK*， *UUID*或计算代码的标签(可以是 ``label`` 或 "
+"``label@computername`` )，如果标签是唯一的。"
 
 #: ../docs/source/howto/run_codes.rst:314
 msgid "You can also list all available codes and their identifiers with:"
-msgstr ""
+msgstr "你可以使用下面命令列出所有可用的计算代码（及其对应的ID） ::"
 
 #: ../docs/source/howto/run_codes.rst:320
 msgid ""
 "which also accepts flags to filter only codes on a given computer, or only "
 "codes using a specific plugin, etc. (use the ``-h`` option)."
-msgstr ""
+msgstr "它也接受标志来过滤给定计算机器上的计算代码，或只使用特定插件的代码，等等(使用 ``-h`` 查看更多选项)。"
 
 #: ../docs/source/howto/run_codes.rst:322
 msgid "You can get the information of a specific code with:"
-msgstr ""
+msgstr "你之后可以通过下面代码获取特定计算代码的信息 :"
 
 #: ../docs/source/howto/run_codes.rst:328
 msgid "Finally, to delete a code use:"
-msgstr ""
+msgstr "最后可以使用下面代码删除配置的计算代码 :"
 
 #: ../docs/source/howto/run_codes.rst:334
 msgid ""
 "(only if it wasn't used by any calculation, otherwise an exception is "
 "raised)."
-msgstr ""
+msgstr "(仅当该计算代码不被任何算例使用，否则会抛出一个异常)."
 
 #: ../docs/source/howto/run_codes.rst:338
 msgid ""
 "Codes are a subclass of :py:class:`Node <aiida.orm.nodes.Node>` and, as "
 "such, you can attach ``extras`` to a code, for example:"
 msgstr ""
+"计算代码是 :py:class:`Node <aiida.orm.nodes.Node>`  的子类。因此，你可以在代码中附加 ``extras`` "
+"，例如:"
 
 #: ../docs/source/howto/run_codes.rst:345
 msgid ""
 "These can be useful for querying, for instance in order to find all runs "
 "done with the CP2K code of version 6.1 or later."
-msgstr ""
+msgstr "这些对查询很有用，例如，为了查找使用版本6.1或更高版本的CP2K代码完成的所有运行。"
 
 #: ../docs/source/howto/run_codes.rst:350
 msgid "How to submit a calculation"
-msgstr ""
+msgstr "如何提交算例"
 
 #: ../docs/source/howto/run_codes.rst:352
 msgid ""
@@ -4373,44 +4559,48 @@ msgid ""
 ":ref:`setting up your code <how-to:run-codes:code:setup>`, you are ready to "
 "launch your calculations!"
 msgstr ""
+"在 :ref:`设置你的计算机器<how-to:run-codes:computer>` 和 :ref:`设置你的计算代码 <how-to:run-"
+"codes:code:setup>` 之后，你就可以启动你的计算了!"
 
 #: ../docs/source/howto/run_codes.rst:354
 msgid "Make sure the daemon is running:"
-msgstr ""
+msgstr "确保守护进程正在运行:"
 
 #: ../docs/source/howto/run_codes.rst:360
 msgid "Figure out which inputs your |CalcJob|  plugin needs, e.g. using:"
-msgstr ""
+msgstr "找出|CalcJob|插件需要哪些输入，例如:"
 
 #: ../docs/source/howto/run_codes.rst:366
 msgid "Write a ``submit.py`` script:"
-msgstr ""
+msgstr "编写一个``submit.py``脚本:"
 
 #: ../docs/source/howto/run_codes.rst:386
 msgid ""
 "Of course, the code label and builder inputs need to be adapted to your code"
 " and calculation."
-msgstr ""
+msgstr "当然，计算代码标签和构建器输入需要适应您的代码和算例。"
 
 #: ../docs/source/howto/run_codes.rst:388
 msgid "Submit your calculation to the AiiDA daemon:"
-msgstr ""
+msgstr "提交你的算例到AiiDA守护进程:"
 
 #: ../docs/source/howto/run_codes.rst:394
 msgid ""
 "After this, use ``verdi process list`` to monitor the status of the "
 "calculations."
-msgstr ""
+msgstr "在这之后，使用 ``verdi process list`` 来监控算例的状态。"
 
 #: ../docs/source/howto/run_codes.rst:396
 msgid ""
 "See :ref:`topics:processes:usage:launching` and "
 ":ref:`topics:processes:usage:monitoring` for more details."
 msgstr ""
+"参见 :ref:`topics:processes:usage:launching` 和 "
+":ref:`topics:processes:usage:monitoring` 了解更多细节。"
 
 #: ../docs/source/howto/run_codes.rst:403
 msgid "How to save compute time with caching"
-msgstr ""
+msgstr "如何通过缓存机制节省计算时间"
 
 #: ../docs/source/howto/run_codes.rst:405
 msgid ""
@@ -4418,7 +4608,7 @@ msgid ""
 "calculations multiple times - be it because two workflows include the same "
 "calculation or because one needs to restart a workflow that failed due to "
 "some infrastructure problem."
-msgstr ""
+msgstr "在项目的过程中，您可能会多次运行相同的计算——可能是因为两个工作流包含相同的计算，也可能是因为需要重新启动由于某些基础问题而失败的工作流。"
 
 #: ../docs/source/howto/run_codes.rst:407
 msgid ""
@@ -4427,6 +4617,7 @@ msgid ""
 "simply reuse its outputs, thereby saving valuable computational resources. "
 "This is what we mean by **caching** in AiiDA."
 msgstr ""
+"由于AiiDA存储每个计算的完整起源，它可以检测之前是否运行了一个计算，重用其输出，而不是再次运行它，从而节省宝贵的计算资源。这就是我们所说的AiiDA中的缓存机制。"
 
 #: ../docs/source/howto/run_codes.rst:410
 msgid ""
@@ -4436,6 +4627,9 @@ msgid ""
 "resulting provenance graph is independent of whether caching is enabled or "
 "not (see :numref:`fig_caching`)."
 msgstr ""
+"启用缓存机制后，AiiDA会在数据库中搜索相同的 :ref:`哈希 <topics:provenance:caching:hashing>` "
+"计算。如果找到，AiiDA将创建计算节点及其结果的一个副本，从而确保产生的可验证性图与是否启用缓存无关(参见 "
+":numref:`fig_caching`)。"
 
 #: ../docs/source/howto/run_codes.rst:418
 msgid ""
@@ -4445,6 +4639,7 @@ msgid ""
 "calculations, but an input node **D1'** with the same *hash* as **D1** would"
 " trigger the cache as well."
 msgstr ""
+"当为一个新的计算**C'**重用一个计算**C**的结果时，AiiDA只是简单地复制结果节点并像往常一样将它们连接起来。这个图描述了用于这两个计算的同一个输入节点**D1**，但是一个与**D1**具有相同的哈希值的输入节点**D1'**也会触发缓存。"
 
 #: ../docs/source/howto/run_codes.rst:421
 msgid ""
@@ -4453,31 +4648,36 @@ msgid ""
 "successful and failed calculations enter the cache (more details in "
 ":ref:`topics:provenance:caching:control-caching`)."
 msgstr ""
+"缓存发生在*算例*级别(工作流级别没有缓存，参见 :ref:`topics:provenance: "
+"Caching:limits`)。默认情况下，成功和失败的计算都会进入缓存(更多细节见 :ref:`topics:provenance:caching"
+":control-caching`)。"
 
 #: ../docs/source/howto/run_codes.rst:427
 msgid "How to enable caching"
-msgstr ""
+msgstr "如何启用缓存"
 
 #: ../docs/source/howto/run_codes.rst:429
 msgid ""
 "Caching is **not** enabled by default, see :ref:`the faq <how-to:faq"
 ":caching-not-enabled>`."
-msgstr ""
+msgstr "缓存默认情况下是不启用的，参见 :ref:`常见问题 <how-to:faq:caching-not-enabled>`。"
 
 #: ../docs/source/howto/run_codes.rst:431
 msgid ""
 "Caching is controlled on a per-profile level via the :ref:`verdi config cli "
 "<how-to:installation:configure:options>`."
 msgstr ""
+"缓存通过 :ref:`verdi config cli <how-to:installation:configure:options>` "
+"在每个配置文件级别上进行控制。"
 
 #: ../docs/source/howto/run_codes.rst:433
 msgid "View your current caching configuration:"
-msgstr ""
+msgstr "查看您当前的缓存配置:"
 
 #: ../docs/source/howto/run_codes.rst:444
 msgid ""
 "Enable caching for your current profile or globally (for all profiles):"
-msgstr ""
+msgstr "为当前配置文件或全局(所有配置文件)启用缓存机制:"
 
 #: ../docs/source/howto/run_codes.rst:463
 msgid ""
@@ -4485,6 +4685,8 @@ msgid ""
 "1.6.0. Existing ``cache_config.yml`` files will be migrated to the central "
 "``config.json`` file automatically."
 msgstr ""
+"通过 ``cache_config.yml`` 配置缓存机制，在AiiDA 1.6.0中已弃用。现有的 ``cache_config.yml`` "
+"文件将被迁移到中央配置 ``config.json`` 文件。"
 
 #: ../docs/source/howto/run_codes.rst:467
 msgid ""
@@ -4495,16 +4697,19 @@ msgid ""
 "the same hash is found, AiiDA will reuse its results without repeating the "
 "actual calculation."
 msgstr ""
+"从现在开始，当您启动一个新的计算时，AiiDA将把它的哈希值(一个固定大小的字符串，对于计算的类型和输入是唯一的，参见 :ref:`topics: "
+"origin:caching:hash` "
+")与数据库中已经存在的其他计算值进行比较。如果找到具有相同散列的另一个计算，AiiDA将重用其结果，而不重复实际计算。"
 
 #: ../docs/source/howto/run_codes.rst:472
 msgid ""
 "In contrast to caching, hashing **is** enabled by default, i.e. hashes for "
 "all your calculations will already have been computed."
-msgstr ""
+msgstr "与缓存相比，哈希**是**默认启用，即所有的计算的哈希将已计算给出。"
 
 #: ../docs/source/howto/run_codes.rst:477
 msgid "How to configure caching"
-msgstr ""
+msgstr "如何配置缓存机制"
 
 #: ../docs/source/howto/run_codes.rst:479
 msgid ""
@@ -4513,10 +4718,11 @@ msgid ""
 " or on a per-instance level, meaning it can be controlled for individual "
 "process instances when they are launch."
 msgstr ""
+"可以在例程类级别上配置缓存机制，这意味着规则将自动应用于给定类的所有实例，也可以在每个实例级别上配置，这意味着可以在启动单个流程实例时对其进行控制。"
 
 #: ../docs/source/howto/run_codes.rst:482
 msgid "Class level"
-msgstr ""
+msgstr "类层级"
 
 #: ../docs/source/howto/run_codes.rst:484
 msgid ""
@@ -4525,6 +4731,9 @@ msgid ""
 "entry point strings (see the output of ``verdi plugin list "
 "aiida.calculations``):"
 msgstr ""
+"除了由 ``caching.default_enabled`` "
+"设置的on/off开关，缓存可以使用它们对应的接入点字符串在特定的算例级别上进行控制(参见 ``verdi plugin list "
+"aiida.calculations`` 的输出):"
 
 #: ../docs/source/howto/run_codes.rst:502
 msgid ""
@@ -4534,16 +4743,19 @@ msgid ""
 "It also shows how to enable caching for particular calculations (which has "
 "no effect here due to the profile-wide default)."
 msgstr ""
+"在这个例子中，缓存机制在默认情况下是启用的，但是对于 ``TemplatereplacerCalculation`` 类的计算是显式禁用的，它由对应的 "
+"``aiida.calculations:templatereplacer`` "
+"接入点字符串标识。它还展示了如何为特定的算例启用缓存(由于配置文件范围的默认值，在这里没有效果)。"
 
 #: ../docs/source/howto/run_codes.rst:505
 msgid "To set multiple entry-points at once, use a ``,`` delimiter."
-msgstr ""
+msgstr "若要一次性设置多个接入点，请使用 ``,`` 分隔符。"
 
 #: ../docs/source/howto/run_codes.rst:507
 msgid ""
 "For the available entry-points in your environment, you can list which are "
 "enabled/disabled using:"
-msgstr ""
+msgstr "对于环境中可用的接入点，您可以使用以下方法列出启用/禁用的接入点:"
 
 #: ../docs/source/howto/run_codes.rst:519
 msgid ""
@@ -4557,12 +4769,18 @@ msgid ""
 ":class:`~aiida.orm.nodes.process.calculation.CalculationNode`, you can get "
 "the identifier string through the ``process_type`` attribute."
 msgstr ""
+"对于没有接入点的计算，您需要指定完全限定的Python名称。例如， ``seekpath_structure_analysis`` 算例定义在 "
+"``aiida_quantumespresso.workflow.functions.seekpath_structure_analysis`` "
+"被标记为 "
+"``aiida_quantumespresso.workflows.functions.seekpath_structure_analysis.seekpath_structure_analysis``"
+" 。从已存在的 :class:`~aiida.orm.nodes.process.calculation.CalculationNode` 你可以通过 "
+"``process_type``  属性获取标识符字符串。"
 
 #: ../docs/source/howto/run_codes.rst:523
 msgid ""
 "The caching configuration also accepts ``*`` wildcards. For example, the "
 "following configuration disables caching for all calculation entry points."
-msgstr ""
+msgstr "缓存机制配置也接受 ``*`` 通配符。例如，以下配置禁用所有计算接入点的缓存。"
 
 #: ../docs/source/howto/run_codes.rst:538
 msgid ""
@@ -4570,10 +4788,12 @@ msgid ""
 "following configuration disables caching for all ``aiida.calculation`` entry"
 " points, except those of ``arithmetic``:"
 msgstr ""
+"任何带有通配符的条目都会被更具体的条目覆盖。下面的配置禁用了所有 ``aiida.calculation`` 接入点的缓存。 "
+"``arithmetic`` 的接入点除外:"
 
 #: ../docs/source/howto/run_codes.rst:560
 msgid "Instance level"
-msgstr ""
+msgstr "实例层级"
 
 #: ../docs/source/howto/run_codes.rst:562
 msgid ""
@@ -4582,6 +4802,9 @@ msgid ""
 ":class:`~aiida.manage.caching.disable_caching` context manager, "
 "respectively, regardless of the profile settings:"
 msgstr ""
+"缓存可以通过使用 :class:`~aiida.manage.caching.enable_caching` 或  "
+":class:`~aiida.manage.caching.disable_caching`  "
+"上下文管理器据具体情况来启用或禁用，而不根据配置文件设置:"
 
 #: ../docs/source/howto/run_codes.rst:573
 msgid ""
@@ -4590,12 +4813,14 @@ msgid ""
 "useful when using :py:class:`~aiida.engine.run`, and **not** with "
 ":py:class:`~aiida.engine.submit`."
 msgstr ""
+"这只会影响当前的Python解释器，不会改变守护进程的行为。这意味着这种技术只在使用 :py:class:`~aiida.engine.run` "
+"时有用，而使用 :py:class:`~aiida.engine.submit` 时则不生效。"
 
 #: ../docs/source/howto/run_codes.rst:576
 msgid ""
 "If you suspect a node is being reused in error (e.g. during development), "
 "you can also manually *prevent* a specific node from being reused:"
-msgstr ""
+msgstr "如果你怀疑某个节点被错误地重用(例如在开发过程中)，你也可以手动*防止*某个特定节点被重用:"
 
 #: ../docs/source/howto/run_codes.rst:578
 msgid ""
@@ -4603,24 +4828,26 @@ msgid ""
 ":meth:`~aiida.orm.nodes.Node.get_cache_source` returns a UUID. If it returns"
 " `None`, the node was not cloned."
 msgstr ""
+"加载一个您怀疑是克隆的节点。检查: :meth:`~aiida.orm.nodes.Node.get_cache_source`  "
+"返回一个UUID。如果返回 `None` ，则该节点未被克隆。"
 
 #: ../docs/source/howto/run_codes.rst:582
 msgid ""
 "Clear the hashes of all nodes that are considered identical to this node:"
-msgstr ""
+msgstr "清除与该节点相同的所有节点的哈希值:"
 
 #: ../docs/source/howto/run_codes.rst:589
 msgid ""
 "Run your calculation again. The node in question should no longer be reused."
-msgstr ""
+msgstr "再运行一遍算例。则该节点不应再被重用。"
 
 #: ../docs/source/howto/run_workflows.rst:5
 msgid "How to run multi-step workflows"
-msgstr ""
+msgstr "如何运行多步骤工作流"
 
 #: ../docs/source/howto/run_workflows.rst:8
 msgid "Launching a predefined workflow"
-msgstr ""
+msgstr "启动预定义的工作流"
 
 #: ../docs/source/howto/run_workflows.rst:10
 msgid ""
@@ -4629,6 +4856,7 @@ msgid ""
 "recommended method for loading a workflow is using the ``WorkflowFactory``, "
 "for example:"
 msgstr ""
+"启动预定义工作流的第一步是加载定义要运行的工作流的工作函数或工作链类。加载工作流的推荐方法是使用 ``WorkflowFactory`` ，例如:"
 
 #: ../docs/source/howto/run_workflows.rst:19
 msgid ""
@@ -4639,31 +4867,34 @@ msgid ""
 "likely to break when updating AiiDA or the plugin that supplies the "
 "workflow."
 msgstr ""
+"这本质上和从相应的模块导入工作流是一样的，但是使用 ``WorkflowFactory`` 用所谓的*接入点*(例如 "
+"``'arithmetic.multiply_add'`` "
+")不会在包或插件重新组织时改变。这意味着您的代码在更新AiiDA或提供工作流的插件时不容易出错。"
 
 #: ../docs/source/howto/run_workflows.rst:22
 msgid ""
 "The list of installed plugins can be easily accessed via the verdi CLI:"
-msgstr ""
+msgstr "安装插件列表可以通过verdi命令行轻松访问:"
 
 #: ../docs/source/howto/run_workflows.rst:28
 msgid "To see the list of workflow entry points, simply use:"
-msgstr ""
+msgstr "要查看工作流接入点的列表，只需使用:"
 
 #: ../docs/source/howto/run_workflows.rst:34
 msgid ""
 "By further specifying the entry point of the workflow, you can see its "
 "description, inputs, outputs and exit codes:"
-msgstr ""
+msgstr "通过进一步指定工作流的接入点，您可以看到它的描述、输入、输出和退出状态码:"
 
 #: ../docs/source/howto/run_workflows.rst:41
 msgid "Work functions"
-msgstr ""
+msgstr "工作函数"
 
 #: ../docs/source/howto/run_workflows.rst:43
 msgid ""
 "Running a work function is as simple as calling a typical Python function: "
 "simply call it with the required input arguments:"
-msgstr ""
+msgstr "运行一个工作函数就像调用一个典型的Python函数一样简单:只需使用所需的输入参数调用它:"
 
 #: ../docs/source/howto/run_workflows.rst:53
 msgid ""
@@ -4674,6 +4905,9 @@ msgid ""
 "integers will result in a ``ValueError``, as these cannot be stored in the "
 "provenance graph."
 msgstr ""
+"这里， ``add_and_multiply``  工作函数返回输出 ``Int`` 节点，并将其赋给变量 ``result`` "
+"。请注意，工作函数的输入参数必须是 ``Data`` 节点或其任何子类的实例。使用普通的整数调用 ``add_and_multiply`` 函数将导致 "
+"``ValueError`` ，因为这些实例不能存储在可验证性图中。"
 
 #: ../docs/source/howto/run_workflows.rst:59
 msgid ""
@@ -4684,10 +4918,14 @@ msgid ""
 "the workflow and the work function node. See the :ref:`corresponding topics "
 "section for more details <topics:processes:usage:launching>`."
 msgstr ""
+"虽然上面的例子展示了运行 ``add_and_multiply`` "
+"工作函数的最简单的方法，但是还有其他几种运行进程的方法可以返回不仅仅是结果。例如，AiiDA引擎中的 ``run_get_node`` "
+"函数返回工作流和工作函数节点的结果。参见 :ref:`相应的主题部分了解更多细节 "
+"<topics:processes:usage:launching>`。"
 
 #: ../docs/source/howto/run_workflows.rst:64
 msgid "Work chains"
-msgstr ""
+msgstr "工作链"
 
 #: ../docs/source/howto/run_workflows.rst:66
 msgid ""
@@ -4698,6 +4936,9 @@ msgid ""
 "executed in the same system process as the interpreter in which it is "
 "launched:"
 msgstr ""
+"要启动一个工作链，你可以使用 ``run`` 或 ``submit`` "
+"函数。对于任何一个函数，都需要提供工作链的类作为第一个参数，然后提供输入作为关键字参数。当使用 ``run`` 函数 “运行工作链” "
+"时，它将在与启动它的解释器相同的系统进程中执行:"
 
 #: ../docs/source/howto/run_workflows.rst:81
 msgid ""
@@ -4706,6 +4947,9 @@ msgid ""
 "keyword expansion <https://docs.python.org/3/tutorial/controlflow.html"
 "#unpacking-argument-lists>`_:"
 msgstr ""
+"或者，你可以先构造一个输入字典，然后利用 `Python的自动关键字扩展 "
+"<https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-"
+"lists>`_ 把它传递给 `run`函数:"
 
 #: ../docs/source/howto/run_workflows.rst:88
 msgid ""
@@ -4715,6 +4959,8 @@ msgid ""
 "produced as outputs, where the keys of the dictionary correspond to the "
 "labels of each respective output."
 msgstr ""
+"这在您的工作流程中有很多输入时特别有用。在这两种情况下，运行 ``MultiplyAddWorkChain`` "
+"工作流返回工作流的**结果**，即作为输出产生的节点字典，其中字典的键对应于每个各自输出的标签。"
 
 #: ../docs/source/howto/run_workflows.rst:93
 msgid ""
@@ -4722,6 +4968,7 @@ msgid ""
 "work chain. See the section on :ref:`launching processes for more "
 "details<topics:processes:usage:launching>`."
 msgstr ""
+"与其他列程类似，有多个用于启动工作链的功能。详见 :ref:`启动列程 <topics:processes:usage:launching>`一节。"
 
 #: ../docs/source/howto/run_workflows.rst:96
 msgid ""
@@ -4732,6 +4979,7 @@ msgid ""
 " in parallel. So, it is advisable to *submit* more complex or longer work "
 "chains to the daemon:"
 msgstr ""
+"因为*运行*工作流会阻塞解释器，你必须等到工作流完成后才能重新获得控制权。此外，在工作流完全终止之前，你不能关闭你的计算机甚至你的终端，而且并行运行多个工作流是很困难的。因此，建议通过*提交*的方式将更复杂或更长的工作链放到守护进程运行:"
 
 #: ../docs/source/howto/run_workflows.rst:112
 msgid ""
@@ -4745,6 +4993,10 @@ msgid ""
 "chains in parallel, but also ensures that the progress of a workchain is not"
 " lost when you restart your computer."
 msgstr ""
+"请注意，当使用 ``submit`` "
+"时，工作链不是在本地解释器中运行，而是被发送给守护进程，你立即获得控制权。这允许您同时提交多个工作链，守护进程将开始并行地处理它们。一旦 "
+"``submit`` 调用返回，你将不会像 ``run`` "
+"一样得到结果，但你会得到表示工作链的**节点**。提交一个工作链，而不是直接运行它，不仅更容易并行执行多个工作链，而且还确保当你重启计算机时，工作链的进度不会丢失。"
 
 #: ../docs/source/howto/run_workflows.rst:119
 msgid ""
@@ -4752,7 +5004,7 @@ msgid ""
 "*functions* to the daemon. Older versions only allow the submission of work "
 "*chains*, whereas work *functions* cannot be submitted to the daemon, and "
 "hence can only be *run*."
-msgstr ""
+msgstr "从AiiDA v1.5.0开始，可以将工作链和工作函数提交给守护进程。旧版本只允许提交工作链，而工作函数不能提交给守护进程，只能*运行*。"
 
 #: ../docs/source/howto/run_workflows.rst:121
 msgid ""
@@ -4762,6 +5014,9 @@ msgid ""
 "``get_builder()`` method, which is implemented for every ``CalcJob`` and "
 "``WorkChain``:"
 msgstr ""
+"如果你不熟悉特定的 ``工作链`` 的输入，设置工作链的一个方便的工具是 "
+":ref:`列程构建器<topics:processes:usage:builder>` 。它可以通过 ``get_builder()`` "
+"方法获得，该方法在每个 ``CalcJob`` 和 ``WorkChain`` 中都有实现:"
 
 #: ../docs/source/howto/run_workflows.rst:131
 msgid ""
@@ -4769,57 +5024,60 @@ msgid ""
 "typing ``builder.`` and then hitting ``TAB``. If you want to get more "
 "details on a specific input, you can simply add a ``?`` and press enter:"
 msgstr ""
+"要查看工作链的输入，可以通过键入 ``builder.`` 然后敲击 ``Tab`` "
+"键自动完成。如果你想获得一个特定输入的更多细节，你可以简单地添加一个 ``?`` ，然后回车:"
 
 #: ../docs/source/howto/run_workflows.rst:141
 msgid ""
 "Here you can see that the ``x`` input is required, needs to be of the "
 "``Int`` type and is stored in the database (``\"non_db\": \"False\"``)."
-msgstr ""
+msgstr "这里可以看到输入 ``x`` 是必需的，需要是 ``Int`` 类型，并存储在数据库中( ``non_db``: ``False``)。"
 
 #: ../docs/source/howto/run_workflows.rst:143
 msgid ""
 "Using the builder, the inputs of the ``WorkChain`` can be provided one by "
 "one:"
-msgstr ""
+msgstr "使用构建器， ``WorkChain`` 的输入可以一个一个地提供:"
 
 #: ../docs/source/howto/run_workflows.rst:152
 msgid ""
 "Once the *required* inputs of the workflow have been provided to the "
 "builder, you can either run the work chain or submit it to the daemon:"
-msgstr ""
+msgstr "一旦工作流所*必需的*输入被提供给了构建器，你就可以运行工作链或者将它提交给守护进程:"
 
 #: ../docs/source/howto/run_workflows.rst:161
 msgid ""
 "For more detail on the process builder, see the :ref:`corresponding topics "
 "section<topics:processes:usage:builder>`."
-msgstr ""
+msgstr "有关列程构建器的更多详细信息，请参见 :ref:`相应的主题部分 <topics:processes:usage:builder>`。"
 
 #: ../docs/source/howto/run_workflows.rst:163
 msgid ""
 "Now that you know how to run a pre-defined workflow, you may want to start "
 ":ref:`writing your own<how-to:write-workflows>`."
 msgstr ""
+"现在你知道了如何运行一个预定义的工作流，你可能想要开始 :ref:`编写你自己的工作流 <how-to:write-workflows>`。"
 
 #: ../docs/source/howto/share_data.rst:5
 msgid "How to share data"
-msgstr ""
+msgstr "如何共享数据"
 
 #: ../docs/source/howto/share_data.rst:7
 msgid ""
 "AiiDA offers two avenues for sharing data with others: archive files and the"
 " REST API."
-msgstr ""
+msgstr "AiiDA提供了与他人共享数据的两种途径:归档文件和REST API。"
 
 #: ../docs/source/howto/share_data.rst:13
 msgid "Sharing AiiDA archives"
-msgstr ""
+msgstr "分享AiiDA归档"
 
 #: ../docs/source/howto/share_data.rst:15
 msgid ""
 "You have performed your calculations with AiiDA and you would like to share "
 "your AiiDA provenance graph, for example to make your scientific study "
 "reproducible."
-msgstr ""
+msgstr "您已经使用AiiDA执行了计算，并且您希望分享您的AiiDA可验证性图，例如，使您的科学研究可重复。"
 
 #: ../docs/source/howto/share_data.rst:17
 msgid ""
@@ -4828,10 +5086,12 @@ msgid ""
 "reproducible, and AiiDA will automatically include their entire provenance "
 "using the :ref:`topics:provenance:consistency:traversal-rules`."
 msgstr ""
+"由于AiiDA跟踪每个计算结果的出处，这个步骤很简单:告诉AiiDA您想要再现的**最终结果**，AiiDA将使用 :ref:`topics: "
+"origin:consistency:traversal-rules` 自动包括它们的整个可验证性。"
 
 #: ../docs/source/howto/share_data.rst:21
 msgid "Exporting individual nodes"
-msgstr ""
+msgstr "导出独立的节点"
 
 #: ../docs/source/howto/share_data.rst:22
 msgid ""
@@ -4839,12 +5099,13 @@ msgid ""
 "with PKs ``12``, ``123``, ``1234``. Exporting those results together with "
 "their provenance is as easy as:"
 msgstr ""
+"假设您的研究的关键结果包含在三个AiiDA节点中，其PKs为 ``12``, ``123``, ``1234`` 。导出这些结果和它们的来源很简单:"
 
 #: ../docs/source/howto/share_data.rst:29
 msgid ""
 "As usual, you can use any identifier (label, PK or UUID) to specify the "
 "nodes to be exported."
-msgstr ""
+msgstr "通常，您可以使用任何标识符(标签、PK或UUID)来指定要导出的节点。"
 
 #: ../docs/source/howto/share_data.rst:31
 msgid ""
@@ -4854,18 +5115,21 @@ msgid ""
 "should be sufficient for most cases. See ``verdi archive create --help`` for"
 " ways to modify the traversal rules."
 msgstr ""
+"生成的归档文件 ``my-calculations.aiida`` "
+"包含与导出节点有关的所有信息。默认遍历规则确保包含任何指定节点的完整起源，并且对于大多数情况应该足够了。请参见 ``verdi archive "
+"create --help``  获取修改遍历规则的方法。"
 
 #: ../docs/source/howto/share_data.rst:37
 msgid ""
 "If you want to make sure the archive includes everything you intended, you "
 "can create a new profile and import it:"
-msgstr ""
+msgstr "如果你想确保归档包含了你想要的所有内容，你可以创建一个新的配置文件并导入它:"
 
 #: ../docs/source/howto/share_data.rst:44
 msgid ""
 "Now use, e.g. the :py:class:`~aiida.orm.querybuilder.QueryBuilder` to query "
 "the database."
-msgstr ""
+msgstr "现在使用 :py:class:`~aiida.orm.querybuilder.QueryBuilder` 来查询数据库。"
 
 #: ../docs/source/howto/share_data.rst:46
 msgid ""
@@ -4873,10 +5137,11 @@ msgid ""
 "*inside* an AiiDA archive, since UUIDs are guaranteed to be universally "
 "unique (while PKs aren't)."
 msgstr ""
+"请记住你需要使用 **UUIDs** 告知您的同事如何访问AiiDA归档中的数据，因为 **UUIDs** 被保证是唯一的(而PKs不是)。"
 
 #: ../docs/source/howto/share_data.rst:49
 msgid "Using groups for data exporting"
-msgstr ""
+msgstr "使用组导出数据"
 
 #: ../docs/source/howto/share_data.rst:51
 msgid ""
@@ -4885,10 +5150,12 @@ msgid ""
 " a group ``my-results`` (see :ref:`how-to:data:organize:group`). Then export"
 " the group:"
 msgstr ""
+"如果要导出的结果数量很大，例如在高通量的研究中，使用 ``QueryBuilder`` 将相应的节点添加到 ``my-results`` 组中(参见 "
+":ref:`howto:data:organize:group`)。然后导出组:"
 
 #: ../docs/source/howto/share_data.rst:59
 msgid "Publishing AiiDA archive files"
-msgstr ""
+msgstr "发布AiiDA归档文件"
 
 #: ../docs/source/howto/share_data.rst:61
 msgid ""
@@ -4898,16 +5165,21 @@ msgid ""
 "Archive`_, you also get an interactive *EXPLORE* section, which allows peers"
 " to browse the AiiDA provenance graph directly in the browser."
 msgstr ""
+"AiiDA的档案文件可以发布在任何研究数据仓库，例如 `Materials Cloud Archive`_, `Zenodo`_, 或`Open "
+"Science Framework`_ 。当在 `Materials Cloud Archive`_ "
+"上发布AiiDA档案时，你也会得到一个交互式的*EXPLORE*部分，它允许同行在浏览器中直接浏览AiiDA可验证性图。"
 
 #: ../docs/source/howto/share_data.rst:70
 msgid "Importing an archive"
-msgstr ""
+msgstr "导入归档"
 
 #: ../docs/source/howto/share_data.rst:72
 msgid ""
 "Use ``verdi archive import`` to import AiiDA archives into your current "
 "AiiDA profile. ``verdi archive import`` accepts URLs, e.g.:"
 msgstr ""
+"使用 ``verdi archive import`` 导入AiiDA档案到当前的AiiDA配置文件。 ``verdi archive import``"
+" 接受使用URLs，例如:"
 
 #: ../docs/source/howto/share_data.rst:79
 msgid ""
@@ -4917,6 +5189,9 @@ msgid ""
 " changes. Node extras and comments have special modes for determining how to"
 " import them - for more details, see ``verdi archive import --help``."
 msgstr ""
+"在导入过程中，AiiDA将基于uuid(以及  :py:class:`~aiida.orm.users.User`  "
+"的电子邮件比较)避免标识符冲突和节点重复)。默认情况下，现有实体将使用最新的更改进行更新。额外的节点和注释有特殊的模式来决定如何导入它们-"
+"更多详细信息，请参见 ``verdi archive import --help`` 。"
 
 #: ../docs/source/howto/share_data.rst:83
 msgid ""
@@ -4926,27 +5201,28 @@ msgid ""
 "migrated to the newest version (within a temporary folder) and the import "
 "retried."
 msgstr ""
+"AiiDA归档格式随着时间的推移而发展，但是您仍然可以导入使用以前的AiiDA版本创建的存档。如果在导入过程中检测到过期的归档文件版本，归档文件将自动迁移到最新版本(在一个临时文件夹中)，然后重试导入。"
 
 #: ../docs/source/howto/share_data.rst:86
 msgid ""
 "You can also use ``verdi archive migrate`` to create updated archive files "
 "from existing archive files (or update them in place)."
-msgstr ""
+msgstr "您还可以使用 ``verdi archive migrate`` 从现有的归档文件创建更新的归档文件(或在特定地方更新它们)。"
 
 #: ../docs/source/howto/share_data.rst:88
 msgid ""
 "In order to get a quick overview of an archive file *without* importing it "
 "into your AiiDA profile, use ``verdi archive inspect``:"
-msgstr ""
+msgstr "为了在不导入AiiDA配置文件的情况下快速概览一个归档文件，使用 ``verdi archive inspect``:"
 
 #: ../docs/source/howto/share_data.rst:103
 msgid ""
 "Note: For archive versions 0.2 and below, the overview may be inaccurate."
-msgstr ""
+msgstr "注意:对于0.2及以下的存档版本，概述可能不准确。"
 
 #: ../docs/source/howto/share_data.rst:109
 msgid "Serving data through the REST API"
-msgstr ""
+msgstr "通过REST API提供数据"
 
 #: ../docs/source/howto/share_data.rst:111
 msgid ""
@@ -4954,6 +5230,8 @@ msgid ""
 "returns results in :ref:`JSON format <reference:rest-api:endpoints-"
 "responses>`."
 msgstr ""
+"AiiDA REST API允许通过HTTP(S)查询AiiDA数据库，并以 :ref:`JSON格式 <reference:rest-api"
+":endpoints-responses>` 返回结果。"
 
 #: ../docs/source/howto/share_data.rst:115
 msgid ""
@@ -4962,32 +5240,35 @@ msgid ""
 "This feature is, however, part of the `AiiDA roadmap "
 "<https://github.com/aiidateam/aiida-core/wiki/AiiDA-release-roadmap>`_."
 msgstr ""
+"截至2020年10月，AiiDA REST API只支持 ``GET`` 方法(读取);特别是，它还不支持工作流管理。然而，这个特性是 "
+"`AiiDA未来计划<https://github.com/aiidateam/aiida-core/wiki/AiiDA-release-"
+"roadmap>`_ 的一部分。"
 
 #: ../docs/source/howto/share_data.rst:121
 msgid "Launching the REST API"
-msgstr ""
+msgstr "启动REST API"
 
 #: ../docs/source/howto/share_data.rst:123
 msgid "Start serving data from your default AiiDA profile via the REST API:"
-msgstr ""
+msgstr "开始通过REST API从默认的AiiDA配置文件中提供数据:"
 
 #: ../docs/source/howto/share_data.rst:136
 msgid "The REST API is now running on port ``5000`` of your local computer."
-msgstr ""
+msgstr "REST API现在运行在本地计算机的端口 ``5000`` 上。"
 
 #: ../docs/source/howto/share_data.rst:138
 msgid ""
 "Like all ``verdi`` commands, you can select a different AiiDA profile via "
 "the ``-p PROFILE`` option:"
-msgstr ""
+msgstr "像所有 ``verdi`` 命令一样，你可以通过 ``-p profile`` 选项选择一个不同的AiiDA配置文件:"
 
 #: ../docs/source/howto/share_data.rst:146
 msgid "REST API version history:"
-msgstr ""
+msgstr "REST API版本历史:"
 
 #: ../docs/source/howto/share_data.rst:150
 msgid "Version history"
-msgstr ""
+msgstr "版本历史"
 
 #: ../docs/source/howto/share_data.rst:152
 msgid ""
@@ -4995,55 +5276,57 @@ msgid ""
 "``/processes``, ``/calcjobs``, ``/groups``, ``/computers`` and ``/servers`` "
 "remain."
 msgstr ""
+"``aiida-core`` >= 1.0.0b6: ``v4``. 简单的接入点; 仅支持 ``/nodes``, ``/processes``, "
+"``/calcjobs``, ``/groups``, ``/computers`` 以及保留 ``/servers`` ."
 
 #: ../docs/source/howto/share_data.rst:153
 msgid ""
 "``aiida-core`` >= 1.0.0b3, <1.0.0b6: ``v3``. Development version, never "
 "shipped with a stable release."
-msgstr ""
+msgstr "``aiida-core`` >= 1.0.0b3, <1.0.0b6: ``v3``. 开发版本，从不与稳定版本一起发布。"
 
 #: ../docs/source/howto/share_data.rst:154
 msgid ""
 "``aiida-core`` <1.0.0b3: ``v2``. First API version, with new endpoints added"
 " step by step."
-msgstr ""
+msgstr "``aiida-core`` <1.0.0b3: ``v2``. 第一个API版本，逐步添加了新的接入点。"
 
 #: ../docs/source/howto/share_data.rst:160
 msgid "Querying the REST API"
-msgstr ""
+msgstr "查询REST API"
 
 #: ../docs/source/howto/share_data.rst:162
 msgid "A URL to query the REST API consists of:"
-msgstr ""
+msgstr "一个查询REST API的URL包含:"
 
 #: ../docs/source/howto/share_data.rst:164
 msgid "The *base URL*, by default:"
-msgstr ""
+msgstr "默认情况下，*base URL*:"
 
 #: ../docs/source/howto/share_data.rst:166
 msgid "http://127.0.0.1:5000/api/v4"
-msgstr ""
+msgstr "http://127.0.0.1:5000/api/v4"
 
 #: ../docs/source/howto/share_data.rst:168
 msgid "Querying the base URL returns a list of all available endpoints."
-msgstr ""
+msgstr "查询这个URL将返回所有可用接入点的列表。"
 
 #: ../docs/source/howto/share_data.rst:170
 msgid ""
 "The *path* defining the requested *resource*, optionally followed by a more "
 "specific *endpoint*. For example::"
-msgstr ""
+msgstr "定义被请求的*资源*的*路径*，可以选择后面跟着一个更具体的*接入点*。例如::"
 
 #: ../docs/source/howto/share_data.rst:179
 msgid ""
 "If no endpoint is appended, the API returns a list of objects of that "
 "resource. In order to request a specific object of a resource, append its "
 "*UUID*."
-msgstr ""
+msgstr "如果没有附加接入点，API将返回该资源的对象列表。为了请求一个资源的特定对象，需要附加它的*UUID*。"
 
 #: ../docs/source/howto/share_data.rst:184
 msgid "As usual, you can use partial UUIDs as long as they are unique."
-msgstr ""
+msgstr "通常，只要输入的uuid部分是惟一的，就可以使用它们。"
 
 #: ../docs/source/howto/share_data.rst:186
 msgid ""
@@ -5051,16 +5334,18 @@ msgid ""
 "This also applies to :py:class:`~aiida.orm.users.User` s, which don't have "
 "UUIDs (but instead uses email)."
 msgstr ""
+"为了通过*PK*进行查询，您需要使用 ``id`` 过滤器(见下文)。这也适用于 :py:class:`~aiida.orm.users.User`  "
+"，它没有UUID(而是使用电子邮件)。"
 
 #: ../docs/source/howto/share_data.rst:189
 msgid ""
 "(Optional) The *query string* for filtering, ordering and pagination of "
 "results. For example::"
-msgstr ""
+msgstr "(可选)用于过滤、排序和分页结果的*查询字符串*。例如::"
 
 #: ../docs/source/howto/share_data.rst:196
 msgid "Here are some examples to try::"
-msgstr ""
+msgstr "下面是一些可用的例子:"
 
 #: ../docs/source/howto/share_data.rst:204
 msgid ""
@@ -5069,6 +5354,9 @@ msgid ""
 " REST API and you can query the underlying API, either using your web "
 "browser or using a tool like ``curl``:"
 msgstr ""
+"`在 Materials Cloud 的 EXPLORE 部分 "
+"<https://www.materialscloud.org/explore/menu>`_ 的交互都是由AiiDA REST "
+"API提供的，你可以查询底层API，可以使用你的web浏览器或使用像 ``curl`` 这样的工具:"
 
 #: ../docs/source/howto/share_data.rst:210
 msgid ""
@@ -5076,10 +5364,12 @@ msgid ""
 "well as the format of the responses, see the :ref:`AiiDA REST API reference "
 "<reference:rest-api>`."
 msgstr ""
+"有关接入点的详细用户文档、查询字符串以及响应的格式，请参见 :ref:``AiiDA REST API参考 <reference:rest-api>``"
+" 。"
 
 #: ../docs/source/howto/share_data.rst:215
 msgid "Deploying a REST API server"
-msgstr ""
+msgstr "部署REST API服务器"
 
 #: ../docs/source/howto/share_data.rst:217
 msgid ""
@@ -5090,86 +5380,90 @@ msgid ""
 "<https://www.nginx.com/>`_, which then runs the REST API python application "
 "through the `web server gateway interface (WSGI) <wsgi.readthedocs.io/>`_."
 msgstr ""
+"``verdi restapi`` 命令通过 ``werkzeug`` 基于python的HTTP服务器运行REST "
+"API。为了部署生产环境以服务你的REST API的实例数据，我们建议使用一个成熟的web服务器,比如 `Apache "
+"<https://httpd.apache.org/>`_ 或 `NGINX <https://www.nginx.com/>`_ ，然后通过REST "
+"API的 `服务器网关接口 (WSGI) <wsgi.readthedocs.io/>`_ 运行python应用程序。"
 
 #: ../docs/source/howto/share_data.rst:221
 msgid ""
 "One Apache/NGINX server can host multiple instances of the REST APIs, e.g. "
 "serving data from different AiiDA profiles."
-msgstr ""
+msgstr "一个Apache/NGINX服务器可以承载多个REST API实例，例如服务来自不同AiiDA配置文件的数据。"
 
 #: ../docs/source/howto/share_data.rst:223
 msgid ""
 "A ``myprofile-rest.wsgi`` script for an AiiDA profile ``myprofile`` would "
 "look like this:"
-msgstr ""
+msgstr "AiiDA配置文件 ``myprofile`` 的` `myprofile-rest.wsgi`` 脚本看起来如下:"
 
 #: ../docs/source/howto/share_data.rst:227
 msgid ""
 "See the documentation of :py:func:`~aiida.restapi.run_api.configure_api` for"
 " all available configuration options."
-msgstr ""
+msgstr "请参阅 :py:func:`~aiida.restapi.run_api.configure_api` 的文档获取所有可用的配置选项。"
 
 #: ../docs/source/howto/share_data.rst:229
 msgid ""
 "In the following, we explain how to run this wsgi application using Apache "
 "on Ubuntu."
-msgstr ""
+msgstr "下面，我们将解释如何在Ubuntu上使用Apache运行这个wsgi应用程序。"
 
 #: ../docs/source/howto/share_data.rst:231
 msgid ""
 "Install and enable the ``mod_wsgi`` `WSGI module <modwsgi.readthedocs.io/>`_"
 " module:"
-msgstr ""
+msgstr "安装并启用 ``mod_wsgi`` `WSGI 模块 <modwsgi.readthedocs.io/>`_ :"
 
 #: ../docs/source/howto/share_data.rst:238
 msgid ""
 "Place the WSGI script in a folder on your server, for example "
 "``/home/ubuntu/wsgi/myprofile-rest.wsgi``."
-msgstr ""
+msgstr "将WSGI脚本放在服务器上的一个文件夹中，例如 ``/home/ubuntu/ WSGI /myprofile-rest.wsgi`` 。"
 
 #: ../docs/source/howto/share_data.rst:240
 msgid ""
 "Configure apache to run the WSGI application using a virtual host "
 "configuration similar to:"
-msgstr ""
+msgstr "配置apache以运行WSGI应用程序，使用类似于以下的虚拟主机配置:"
 
 #: ../docs/source/howto/share_data.rst:244
 msgid "Place this ``aiida-rest.conf`` file in ``/etc/apache2/sites-enabled``"
-msgstr ""
+msgstr "将 ``aiida-rest.conf`` 文件放到 ``/etc/apache2/sites-enabled`` 中"
 
 #: ../docs/source/howto/share_data.rst:246
 msgid "Restart apache: ``sudo service apache2 restart``."
-msgstr ""
+msgstr "重启apache: ``sudo service apache2 restart`` 。"
 
 #: ../docs/source/howto/share_data.rst:248
 msgid ""
 "You should now be able to reach your REST API at "
 "``localhost/myprofile/api/v4`` (Port 80)."
-msgstr ""
+msgstr "您现在应该能够在 ``localhost/myprofile/API/v4`` (端口80) 处访问您的REST API。"
 
 #: ../docs/source/howto/ssh.rst:5
 msgid "How to setup SSH connections"
-msgstr ""
+msgstr "如何建立SSH连接"
 
 #: ../docs/source/howto/ssh.rst:7
 msgid ""
 "AiiDA communicates with remote computers via the SSH protocol. There are two"
 " ways of setting up an SSH connection for AiiDA:"
-msgstr ""
+msgstr "AiiDA通过SSH协议与远程计算机进行通信。有两种方法为AiiDA建立SSH连接:"
 
 #: ../docs/source/howto/ssh.rst:10
 msgid "Using a passwordless SSH key (easier, less safe)"
-msgstr ""
+msgstr "使用无密码SSH密钥(更容易，更不安全)"
 
 #: ../docs/source/howto/ssh.rst:11
 msgid ""
 "Using a password-protected SSH key through ``ssh-agent`` (one more step, "
 "safer)"
-msgstr ""
+msgstr "通过 ``SSH -agent`` 使用受密码保护的SSH密钥(多一步，更安全)"
 
 #: ../docs/source/howto/ssh.rst:16
 msgid "Using a passwordless SSH key"
-msgstr ""
+msgstr "使用无密码SSH密钥"
 
 #: ../docs/source/howto/ssh.rst:19
 msgid ""
@@ -5178,34 +5472,38 @@ msgid ""
 "create a new private/public keypair (``aiida``/``aiida.pub``), leaving "
 "passphrase emtpy:"
 msgstr ""
+"网上有很多教程如，这里< https://www.redhat.com/sysadmin/passwordless-ssh>`_ "
+"。简单地说，首先创建一个新的私有/公共密钥对( ``aiida``/``aiida.pub``)，让密码短语为空:"
 
 #: ../docs/source/howto/ssh.rst:26
 msgid ""
 "Copy the public key to the remote machine, normally this will add the public"
 " key to the rmote machine's ``~/.ssh/authorized_keys``:"
-msgstr ""
+msgstr "将公钥复制到远程计算机，通常这会将公钥添加到远程计算机的 ``~/.ssh/authorized_keys`` 中:"
 
 #: ../docs/source/howto/ssh.rst:32
 msgid ""
 "Add the following lines to your ``~/.ssh/config`` file (or create it, if it "
 "does not exist):"
-msgstr ""
+msgstr "将以下行添加到您的 ``~/.ssh/config`` 文件(或创建它，如果它不存在):"
 
 #: ../docs/source/howto/ssh.rst:42
 msgid ""
 "If your cluster needs you to connect to another computer *PROXY* first, you "
 "can use the ``proxy_command`` feature of ssh, see :ref:`how-to:ssh:proxy`."
 msgstr ""
+"如果您的集群需要您首先连接到另一台计算机*代理*，您可以使用ssh的 ``proxy_command`` 特性，参见 :ref:`how-"
+"to:ssh:proxy` 。"
 
 #: ../docs/source/howto/ssh.rst:44
 msgid ""
 "You should now be able to access the remote computer (without the need to "
 "type a password) *via*:"
-msgstr ""
+msgstr "你现在应该可以通过下面指令访问远程计算机(不需要输入密码):"
 
 #: ../docs/source/howto/ssh.rst:52
 msgid "Connection closed failures"
-msgstr ""
+msgstr "连接关闭失败"
 
 #: ../docs/source/howto/ssh.rst:56
 msgid ""
@@ -5215,12 +5513,15 @@ msgid ""
 " file until no output or error is produced: this should make ``sftp`` work "
 "again."
 msgstr ""
+"如果 ``ssh`` 命令可以工作，但 ``sftp`` 命令却不行 (例如打印 ``Connection closed``) "
+"，一个可能的原因是（在集群上）文件 ``~/.bashrc`` 中有打印文本或存在错误。删除/注释这些行，直到没有输出没有错误：这让 ``sftp`` "
+"正常工作."
 
 #: ../docs/source/howto/ssh.rst:59
 msgid ""
 "Finally, if you are planning to use a batch scheduler on the remote "
 "computer, try also:"
-msgstr ""
+msgstr "最后，如果您计划在远程计算机上使用调度程序，请尝试:"
 
 #: ../docs/source/howto/ssh.rst:65
 msgid ""
@@ -5228,6 +5529,8 @@ msgid ""
 "(PBSpro) or the equivalent command of your scheduler and check that it "
 "prints a list of the job queue without errors."
 msgstr ""
+"将 ``QUEUE_VISUALIZATION_COMMAND`` 替换为 ``squeue``(SLURM)， ``qstat`` "
+"(PBSpro)或其他调度程序的等价命令，并检查它是否打印作业队列的列表而没有错误。"
 
 #: ../docs/source/howto/ssh.rst:67
 msgid "Scheduler errors?"
