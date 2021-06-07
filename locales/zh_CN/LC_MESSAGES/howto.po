@@ -2784,11 +2784,11 @@ msgstr "用一系列正确的命令行参数设置运行这个程序"
 #: ../docs/source/howto/plugin_codes.rst:22
 msgid ""
 "Finally, you will probably want a *parser* plugin, which tells AiiDA how to:"
-msgstr ""
+msgstr "最后，你可能需要一个*解析*插件，它告诉AiiDA如何:"
 
 #: ../docs/source/howto/plugin_codes.rst:24
 msgid "Parse the output of the code."
-msgstr ""
+msgstr "解析计算代码的输出。"
 
 #: ../docs/source/howto/plugin_codes.rst:26
 msgid ""
@@ -2797,6 +2797,9 @@ msgid ""
 "two numbers, using it to :ref:`run the code<how-to:plugin-codes:run>`, and "
 ":ref:`writing a parser <how-to:plugin-codes:parsing>` for its outputs."
 msgstr ""
+"这篇如何做将带你完成 :ref:`创建一个计算插件<how-to:plugin-codes:interfacing>` "
+"的过程，为一个简单的可执行文件，执行两个数字相加，使用它 :ref:`运行计算代码 <how-to:plugin-codes:run>` ，和为输出 "
+":ref:`编写一个解析器 <how-to:plugin-codes:parsing>` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:28
 msgid ""
@@ -2804,16 +2807,18 @@ msgid ""
 "and our \"input file\" will be a `bash` script ``aiida.in`` that sums two "
 "numbers and prints the result:"
 msgstr ""
+"在下面的例子中，我们的 |Code| 将是 `bash` 可执行文件，而我们的\"输入文件\"将是 `bash` 脚本， "
+"``aiida.in``，对两个数字求和并输出结果:"
 
 #: ../docs/source/howto/plugin_codes.rst:34
 msgid "We will run this as:"
-msgstr ""
+msgstr "我们将这样运行:"
 
 #: ../docs/source/howto/plugin_codes.rst:40
 msgid ""
 "thus writing the sum of the two numbers ``numx`` and ``numy`` (provided by "
 "the user) to the output file ``aiida.out``."
-msgstr ""
+msgstr "因此，将两个数字 ``numx`` 和 ``numy`` (由用户提供)写到输出文件 ``aida .out`` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:43
 #: ../docs/source/howto/plugin_codes.rst:263
@@ -2828,35 +2833,38 @@ msgid ""
 "<how-to:plugin-codes:transport>` and the interaction with its "
 ":ref:`scheduling software<how-to:plugin-codes:scheduler>`."
 msgstr ""
+"加上前面的句: :ref:`与外部机器的通信<how-to:plugin-codes:transport>` 和与它的 :ref:`调度软件<how-"
+"to:plugin-codes:scheduler>` 的交互。"
 
 #: ../docs/source/howto/plugin_codes.rst:51
 msgid "Interfacing external codes"
-msgstr ""
+msgstr "连接外部代码"
 
 #: ../docs/source/howto/plugin_codes.rst:53
 msgid ""
 "Start by creating a file ``calculations.py`` and subclass the |CalcJob| "
 "class:"
-msgstr ""
+msgstr "首先创建一个文件 ``calculation .py`` 和 |CalcJob| 类的子类:"
 
 #: ../docs/source/howto/plugin_codes.rst:67
 msgid ""
 "In the following, we will tell AiiDA how to run our code by implementing two"
 " key methods:"
-msgstr ""
+msgstr "下面，我们将告诉AiiDA如何通过实现两个关键方法来运行我们的代码:"
 
 #: ../docs/source/howto/plugin_codes.rst:69
 msgid ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define`"
-msgstr ""
+msgstr ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define`"
 
 #: ../docs/source/howto/plugin_codes.rst:70
 msgid ""
 ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 msgstr ""
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 
 #: ../docs/source/howto/plugin_codes.rst:73
 msgid "Defining the spec"
-msgstr ""
+msgstr "定义规范（spec）"
 
 #: ../docs/source/howto/plugin_codes.rst:75
 msgid ""
@@ -2866,6 +2874,10 @@ msgid ""
 ":py:class:`~aiida.engine.processes.process_spec.CalcJobProcessSpec` class, "
 "which is passed as the |spec| argument to the |define| method. For example:"
 msgstr ""
+"|define|方法告诉AiiDA |CalcJob| 所期望的输入和它产生的输出(退出代码将在 :ref:`稍后讨论<how-to:plugin-"
+"codes:parsing:errors>` )。这是通过 "
+":py:class:`~aiida.engine.processes.process_spec.CalcJobProcessSpec` "
+"实例实现的，它作为 |spec|参数传递给 |define| 方法。例如:"
 
 #: ../docs/source/howto/plugin_codes.rst:83
 msgid ""
@@ -2873,6 +2885,7 @@ msgid ""
 "parent class. This necessary step defines the `inputs` and `outputs` that "
 "are common to all |CalcJob|'s."
 msgstr ""
+"该方法的第一行调用 |CalcJob| 父类的 |define| 方法。这个必要的步骤定义了所有 |CalcJob| 通用的“输入”和“输出”。"
 
 #: ../docs/source/howto/plugin_codes.rst:86
 msgid ""
@@ -2884,12 +2897,16 @@ msgid ""
 "defined here to a (successfully) finished calculation using the link label "
 "provided."
 msgstr ""
+"接下来，我们使用 :py:meth:`~plumpy.process_spec.ProcessSpec.input`  方法来定义两个输入数 ``x``"
+" 和 ``y`` (我们支持整数和浮点数)，我们使用 "
+":py:meth:`~plumpy.process_spec.ProcessSpec.output` 来定义计算的唯一输出，标签为 ``sum`` "
+"。AiiDA将使用提供的链接标签将这里定义的输出附加到(成功地)完成的计算。"
 
 #: ../docs/source/howto/plugin_codes.rst:90
 msgid ""
 "This holds for *required* outputs (the default behaviour). Use "
 "``required=False`` in order to mark an output as optional."
-msgstr ""
+msgstr "这适用于*必需的*输出(默认行为)。使用 ``required=False`` 将输出标记为可选。"
 
 #: ../docs/source/howto/plugin_codes.rst:95
 msgid ""
@@ -2898,6 +2915,9 @@ msgid ""
 "dictionary) and :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` "
 "(file wrapper) input nodes."
 msgstr ""
+"对于更复杂的模拟代码的输入参数和输入文件，可以考虑使用 :py:class:`~aiida.orm.nodes.data.dict.Dict`  "
+"(python字典)和 :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` "
+"(文件封装)输入节点。"
 
 #: ../docs/source/howto/plugin_codes.rst:97
 msgid ""
@@ -2909,6 +2929,9 @@ msgid ""
 ":py:attr:`~plumpy.process_spec.ProcessSpec.inputs` attribute, which behaves "
 "like a dictionary."
 msgstr ""
+"最后，我们设置了几个默认的  ``options`` ，比如解析器的名称(稍后将实现)、输入和输出文件的名称，以及用于这种计算的计算资源。这些  "
+"``options`` 已经在 |spec| 中通过 ``super().define(spec)`` 调用定义了，它们可以通过 "
+":py:attr:`~plumpy.process_spec.ProcessSpec.inputs` 的属性，它的行为类似于一个字典。"
 
 #: ../docs/source/howto/plugin_codes.rst:102
 msgid ""
@@ -2917,12 +2940,13 @@ msgid ""
 " that contain information about the computer they reside on, their path in "
 "the file system and more."
 msgstr ""
+"|CalcJob|需要的另一个重要输入是使用哪个外部可执行文件。外部可执行文件由|Code|实例表示，这些实例包含关于它们所在的计具体算机、以及所在的文件系统中的路径等信息。"
 
 #: ../docs/source/howto/plugin_codes.rst:105
 msgid ""
 "They are passed to a |CalcJob| via the ``code`` input, which is defined in "
 "the |CalcJob| base class, so you don't have to:"
-msgstr ""
+msgstr "它们通过 ``code`` 输入传递给|CalcJob|，这是在|CalcJob|基类中定义的，所以你不必:"
 
 #: ../docs/source/howto/plugin_codes.rst:113
 msgid ""
@@ -2932,10 +2956,13 @@ msgid ""
 "inputs, etc.) see the :ref:`Defining Processes "
 "<topics:processes:usage:defining>` topic."
 msgstr ""
+"在 ``define`` 中没有 ``return`` 语句: ``define`` 方法直接修改它接收到的 |spec| 对象。有关设置 "
+"`inputs` 和 `outputs` (包括验证、可变数量输入等)的更多细节，请参见 :ref:`定义过程 "
+"<topics:processes:usage:defining>` 主题。"
 
 #: ../docs/source/howto/plugin_codes.rst:117
 msgid "Preparing for submission"
-msgstr ""
+msgstr "准备提交"
 
 #: ../docs/source/howto/plugin_codes.rst:119
 msgid ""
@@ -2947,12 +2974,16 @@ msgid ""
 "instructions for the AiiDA engine on how the code should be run. For "
 "example:"
 msgstr ""
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
+" 方法有两个作用: 以外部代码期望的格式创建输入文件，并返回一个 "
+":py:class:`~aiida.common.datastructures.CalcInfo` "
+"对象，该对象包含AiiDA引擎关于该计算代码应如何运行的指令。例如:"
 
 #: ../docs/source/howto/plugin_codes.rst:127
 msgid ""
 "Unlike the |define| method, the ``prepare_for_submission`` method is "
 "implemented from scratch and so there is no super call."
-msgstr ""
+msgstr "与 |define| 方法不同，``prepare_for_submission`` 方法是从头开始实现的，因此没有继承调用。"
 
 #: ../docs/source/howto/plugin_codes.rst:129
 msgid ""
@@ -2962,6 +2993,8 @@ msgid ""
 "``self.inputs.x`` and ``self.inputs.y`` that were provided as inputs by the "
 "caller."
 msgstr ""
+"第一步是编写开头提到的简单bash脚本:将数字 ``x`` 和 ``y`` 相加，使用Python的字符串插值将 ``x`` 和 ``y`` "
+"占位符替换为实际值，即调用方作为输入提供的 ``self.inputs.x`` 和 ``self.inputs.y`` 。"
 
 #: ../docs/source/howto/plugin_codes.rst:131
 msgid ""
@@ -2971,6 +3004,9 @@ msgid ""
 " that all required inputs have been set and that all inputs have a valid "
 "type."
 msgstr ""
+"在调用 |prepare_for_submission| 之前，为计算提供的所有输入都根据 ``spec`` 进行验证。因此，当访问 "
+":py:attr:`~plumpy.processes.Process.inputs` "
+"的属性，您可以安全地假设所有必需的输入都已设置，并且所有输入都具有有效的类型。"
 
 #: ../docs/source/howto/plugin_codes.rst:134
 msgid ""
@@ -2980,6 +3016,8 @@ msgid ""
 "create a single input file, but you can create as many as you need, "
 "including subfolders if required."
 msgstr ""
+"``folder`` 参数(一个| folder "
+"|实例)允许我们将输入文件写入一个虚拟文件夹，其内容将后续被转移到实际计算发生的计算资源。在本例中，我们只创建一个输入文件，但是您可以根据需要创建任意数量的输入文件，如果需要，还可以创建子文件夹。"
 
 #: ../docs/source/howto/plugin_codes.rst:139
 msgid ""
@@ -2990,12 +3028,15 @@ msgid ""
 "being "
 "stored<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`."
 msgstr ""
+"默认情况下，虚拟 ``folder`` "
+"的内容也会永久存储在计算节点的文件存储库中，以保证额外的来源。在某些情况下(例如许可证问题，文件大小)，你可能想要改变这种行为和 "
+":ref:`排除指定储存文件<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`。"
 
 #: ../docs/source/howto/plugin_codes.rst:142
 msgid ""
 "After having written the necessary input files, we let AiiDA know how to run"
 " the code via the |CodeInfo| object."
-msgstr ""
+msgstr "在编写了必要的输入文件之后，我们将让AiiDA知道如何通过|CodeInfo|对象运行代码。"
 
 #: ../docs/source/howto/plugin_codes.rst:144
 msgid ""
@@ -3003,10 +3044,12 @@ msgid ""
 "via the generic ``code`` input mentioned previously (in this example, the "
 "``code`` will represent a ``bash`` executable)."
 msgstr ""
+"首先，我们转发|代码|实例的 ``uuid``，用户通过前面提到的通用 ``Code`` 输入传递(在这个例子中，``Code`` 将代表 "
+"``bash`` 可执行文件)。"
 
 #: ../docs/source/howto/plugin_codes.rst:146
 msgid "Second, let's recall how we want our executable to be run:"
-msgstr ""
+msgstr "其次，让我们回顾一下我们希望的可执行文件是如何运行的:"
 
 #: ../docs/source/howto/plugin_codes.rst:154
 msgid ""
@@ -3014,6 +3057,8 @@ msgid ""
 "record standard output of the executable in the output file -- this is done "
 "using the ``stdin_name`` and ``stdout_name`` attributes of the |CodeInfo|."
 msgstr ""
+"我们希望通过标准输入将输入文件传递给可执行文件，并在输出文件中记录可执行文件的标准输出——这是通过使用|CodeInfo|的 "
+"``stdin_name`` 和 ``stdout_name`` 属性完成的。"
 
 #: ../docs/source/howto/plugin_codes.rst:158
 msgid ""
@@ -3022,12 +3067,16 @@ msgid ""
 "including further configuration options). In that case, use the |CodeInfo| "
 "``cmdline_params`` attribute:"
 msgstr ""
+"许多可执行文件不从标准输入读取，而是要求通过命令行参数(可能包括进一步的配置选项)传递输入文件的路径。在这种情况下，可使用|CodeInfo| 的 "
+"``cmdline_params`` 属性:"
 
 #: ../docs/source/howto/plugin_codes.rst:167
 msgid ""
 "``self.options.input_filename`` is just a shorthand for "
 "``self.inputs.metadata['options']['input_filename']``."
 msgstr ""
+"``self.options.input_filename`` 是 "
+"``self.inputs.metadata['options']['input_filename']``的简写。"
 
 #: ../docs/source/howto/plugin_codes.rst:169
 msgid ""
@@ -3041,6 +3090,11 @@ msgid ""
 "allow you to easily customize how to move files to and from the remote "
 "working directory in order to prevent the creation of unnecessary copies."
 msgstr ""
+"最后，我们将|CodeInfo|传递给|CalcInfo|对象(一个计算作业可能涉及多个可执行文件，所以 "
+"``codes_info``是一个列表)。我们定义了文件名的 "
+"``retrieve_list``，在作业完成后，引擎应该从作业运行的目录中检索这些文件名。引擎将这些文件存储在|FolderData|节点中，该节点将作为输出节点附加到带有"
+" ``retrieved`` 标签的算例中。有 :ref:`其他可用的文件列表 "
+"<topics:calculations:usage:calcjobs:file_lists>`，允许您轻松定制如何移动文件到远程工作目录或从远程工作目录，以防止创建不必要的副本。"
 
 #: ../docs/source/howto/plugin_codes.rst:174
 msgid ""
@@ -3049,17 +3103,19 @@ msgid ""
 "to the Topics section on :ref:`defining calculations "
 "<topics:calculations:usage>`."
 msgstr ""
+"这是一个如何实现|CalcJob|类以与外部代码接口AiiDA的示例。关于|CalcJob|类的更多细节，请参阅 :ref:`定义计算 "
+"<topics:calculations:usage>` 的主题部分。"
 
 #: ../docs/source/howto/plugin_codes.rst:180
 msgid "Parsing the outputs"
-msgstr ""
+msgstr "解析输出"
 
 #: ../docs/source/howto/plugin_codes.rst:182
 msgid ""
 "Parsing the output files produced by a code into AiiDA nodes is optional, "
 "but it can make your data queryable and therefore easier to access and "
 "analyze."
-msgstr ""
+msgstr "将代码生成的输出文件解析到AiiDA节点是可选的，但它可以使数据可查询，从而更容易访问和分析。"
 
 #: ../docs/source/howto/plugin_codes.rst:184
 msgid ""
@@ -3068,12 +3124,14 @@ msgid ""
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method. The following is an "
 "example of a simple implementation:"
 msgstr ""
+"要创建一个解析器插件，可以子类化|Parser|类(例如在一个名为 ``parser. py`` 的文件中)，并实现它的 "
+":py:meth:`~aiida.parsers.parser.Parser.parse` 。下面是一个简单的实现示例:"
 
 #: ../docs/source/howto/plugin_codes.rst:191
 msgid ""
 "Before the ``parse()`` method is called, two important attributes are set on"
 " the |Parser|  instance:"
-msgstr ""
+msgstr "在调用 ``parse()`` 方法之前，|Parser| 实例上设置了两个重要的属性:"
 
 #: ../docs/source/howto/plugin_codes.rst:193
 msgid ""
@@ -3082,6 +3140,8 @@ msgid ""
 "provides the means to :py:meth:`~aiida.orm.nodes.node.Node.open` any file it"
 " contains."
 msgstr ""
+"``self.retrieved``: |FolderData|的一个实例，它指向包含|CalcJob|指示要检索的所有输出文件的文件夹，并提供了方法 "
+":py:meth:`~aiida.orm.nodes.node.Node.open`  来打开它包含的任何文件。"
 
 #: ../docs/source/howto/plugin_codes.rst:195
 msgid ""
@@ -3090,6 +3150,9 @@ msgid ""
 "representing the finished calculation, which, among other things, provides "
 "access to all of its inputs (``self.node.inputs``)."
 msgstr ""
+"``self.node``:  "
+":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` "
+"表示完成的计算，它提供对其所有输入的访问(``self.node.inputs``)。"
 
 #: ../docs/source/howto/plugin_codes.rst:197
 msgid ""
@@ -3099,6 +3162,9 @@ msgid ""
 "content is cast to an integer, since the output file should contain the sum "
 "produced by the ``aiida.in`` bash script."
 msgstr ""
+" "
+":py:meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.get_option`"
+" 方法用于获取输出文件的文件名。它的内容被转换为整数，因为输出文件应该包含 ``aiida.in`` bash脚本产生的求和结果。"
 
 #: ../docs/source/howto/plugin_codes.rst:200
 msgid ""
@@ -3111,6 +3177,8 @@ msgid ""
 "corresponding |CalcJob|. If any of the registered outputs do not match the "
 "specification, the calculation will be marked as failed."
 msgstr ""
+"最后,  :py:meth:`~aiida.parsers.parser.Parser.out` "
+"方法用于将解析后的求和结果链接为计算的输出。第一个参数是输出的名称，它将用作连接计算和数据节点的链接的标签，第二个参数应该记录为输出的节点。注意，输出的类型应该与相应|CalcJob|的流程规范指定的类型匹配。如果任何注册输出不符合规范，计算将被标记为失败。"
 
 #: ../docs/source/howto/plugin_codes.rst:205
 msgid ""
@@ -3120,6 +3188,9 @@ msgid ""
 "``define`` method can set a default value for the parser name as was done in"
 " the :ref:`previous section <how-to:plugin-codes:interfacing>`:"
 msgstr ""
+"为了请求自动解析|CalcJob|(一旦完成)，用户可以在启动作业时设置 ``metadata.options.parser_name`` "
+"。如果一个有特定的默认解析器，|CalcJob| 的 ``define`` 方法可以为解析器名称设置一个默认值，如 :ref:`前述章节 <how-to"
+":plugin-codes:interfacing>`中所做的:"
 
 #: ../docs/source/howto/plugin_codes.rst:215
 msgid ""
@@ -3128,10 +3199,12 @@ msgid ""
 "register a parser class through an entry point is explained in the how-to "
 "section on :ref:`registering plugins <how-to:plugins-develop>`."
 msgstr ""
+"注意，默认值不是设置为|Parser|类本身，而是设置为注册解析器类的*入口点字符串*。如何通过入口点注册解析器类，将在如何 :ref:`注册插件 "
+"<how-to:plugins-develop>` 一节中解释。"
 
 #: ../docs/source/howto/plugin_codes.rst:222
 msgid "Handling parsing errors"
-msgstr ""
+msgstr "处理解析错误"
 
 #: ../docs/source/howto/plugin_codes.rst:224
 msgid ""
@@ -3142,6 +3215,9 @@ msgid ""
 ":ref:`workflows <how-to:run-workflows>` can then decide how to proceed, "
 "e.g., by modifying input parameters and resubmitting the calculation."
 msgstr ""
+"到目前为止，我们还没有花太多精力来处理运行外部代码时可能出现的潜在错误。然而，有很多方法会导致代码名义上执行失败。|Parser| "
+"可以在检测和通报此类错误中发挥重要作用，其中 :ref:`工作流 <how-to:run-"
+"workflows>`可以决定如何继续，例如，通过修改输入参数和重新提交计算。"
 
 #: ../docs/source/howto/plugin_codes.rst:228
 msgid ""
