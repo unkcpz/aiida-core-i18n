@@ -450,18 +450,16 @@ def test_parse_not_implemented(generate_process):
     Here we check explicitly that the parsing does not except even if the scheduler does not implement the method.
     """
     process = generate_process()
-
-    retrieved = orm.FolderData()
-    retrieved.add_incoming(process.node, link_label='retrieved', link_type=LinkType.CREATE)
-
-    process.node.set_attribute('detailed_job_info', {})
-
     filename_stderr = process.node.get_option('scheduler_stderr')
     filename_stdout = process.node.get_option('scheduler_stdout')
 
-    retrieved.put_object_from_filelike(io.BytesIO(b'\n'), filename_stderr)
-    retrieved.put_object_from_filelike(io.BytesIO(b'\n'), filename_stdout)
+    retrieved = orm.FolderData()
+    retrieved.put_object_from_filelike(io.StringIO('\n'), filename_stderr, mode='w')
+    retrieved.put_object_from_filelike(io.StringIO('\n'), filename_stdout, mode='w')
     retrieved.store()
+    retrieved.add_incoming(process.node, link_label='retrieved', link_type=LinkType.CREATE)
+
+    process.node.set_attribute('detailed_job_info', {})
 
     process.parse()
 
@@ -484,18 +482,16 @@ def test_parse_scheduler_excepted(generate_process, monkeypatch):
     from aiida.schedulers.plugins.direct import DirectScheduler
 
     process = generate_process()
-
-    retrieved = orm.FolderData()
-    retrieved.add_incoming(process.node, link_label='retrieved', link_type=LinkType.CREATE)
-
-    process.node.set_attribute('detailed_job_info', {})
-
     filename_stderr = process.node.get_option('scheduler_stderr')
     filename_stdout = process.node.get_option('scheduler_stdout')
 
-    retrieved.put_object_from_filelike(io.BytesIO(b'\n'), filename_stderr)
-    retrieved.put_object_from_filelike(io.BytesIO(b'\n'), filename_stdout)
+    retrieved = orm.FolderData()
+    retrieved.put_object_from_filelike(io.StringIO('\n'), filename_stderr, mode='w')
+    retrieved.put_object_from_filelike(io.StringIO('\n'), filename_stdout, mode='w')
     retrieved.store()
+    retrieved.add_incoming(process.node, link_label='retrieved', link_type=LinkType.CREATE)
+
+    process.node.set_attribute('detailed_job_info', {})
 
     msg = 'crash'
 

@@ -511,29 +511,30 @@ class TestQueryBuilder(AiidaTestCase):
         self.assertEqual(len(list(orm.QueryBuilder().append(orm.Node, project=['id']).iterdict())), 4)
 
     def test_append_validation(self):
+        from aiida.common.exceptions import InputValidationError
 
         # So here I am giving two times the same tag
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder().append(orm.StructureData, tag='n').append(orm.StructureData, tag='n')
         # here I am giving a wrong filter specifications
-        with self.assertRaises(TypeError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder().append(orm.StructureData, filters=['jajjsd'])
         # here I am giving a nonsensical projection:
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder().append(orm.StructureData, project=True)
 
         # here I am giving a nonsensical projection for the edge:
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder().append(orm.ProcessNode).append(orm.StructureData, edge_tag='t').add_projection('t', True)
         # Giving a nonsensical limit
-        with self.assertRaises(TypeError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder().append(orm.ProcessNode).limit(2.3)
         # Giving a nonsensical offset
-        with self.assertRaises(TypeError):
+        with self.assertRaises(InputValidationError):
             orm.QueryBuilder(offset=2.3)
 
         # So, I mess up one append, I want the QueryBuilder to clean it!
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InputValidationError):
             qb = orm.QueryBuilder()
             # This also checks if we correctly raise for wrong keywords
             qb.append(orm.StructureData, tag='s', randomkeyword={})
@@ -1430,7 +1431,7 @@ class TestDoubleStar(AiidaTestCase):
             'scheduler_type': self.computer.scheduler_type,
             'hostname': self.computer.hostname,
             'uuid': self.computer.uuid,
-            'label': self.computer.label,
+            'name': self.computer.label,
             'transport_type': self.computer.transport_type,
             'id': self.computer.id,
             'metadata': self.computer.metadata,

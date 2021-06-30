@@ -136,7 +136,7 @@ def _(dbmodel, backend):
     djcomputer_instance = djmodels.DbComputer(
         id=dbmodel.id,
         uuid=dbmodel.uuid,
-        label=dbmodel.label,
+        name=dbmodel.name,
         hostname=dbmodel.hostname,
         description=dbmodel.description,
         transport_type=dbmodel.transport_type,

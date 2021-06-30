@@ -7,7 +7,7 @@
 # For further information on the license, see the LICENSE.txt file        #
 # For further information please visit http://www.aiida.net               #
 ###########################################################################
-"""Tests for the :mod:`aiida.tools.importexport` module."""
+"""Tests for AiiDA archive files (import, export)."""
 from aiida.backends.testbase import AiidaTestCase
 from aiida.tools.importexport import EXPORT_LOGGER, IMPORT_LOGGER
 

@@ -14,6 +14,7 @@ from collections import defaultdict
 import numpy as np
 
 from aiida import orm
+from aiida.common.exceptions import InputValidationError
 from aiida.tools.graph.age_entities import Basket
 from aiida.common.lang import type_check
 
@@ -207,8 +208,8 @@ class QueryRule(Operation, metaclass=ABCMeta):
             for proj_tag, projectionlist in projections.items():
                 try:
                     self._querybuilder.add_projection(proj_tag, projectionlist)
-                except (TypeError, ValueError) as exc:
-                    raise KeyError('The projection for the edge-identifier is invalid.\n') from exc
+                except InputValidationError:
+                    raise KeyError('The projection for the edge-identifier is invalid.\n')
 
     def _load_results(self, target_set, operational_set):
         """Single application of the rules to the operational set

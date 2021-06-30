@@ -47,8 +47,7 @@ class TestCalcJobNode(AiidaTestCase):
                 retrieved = FolderData()
 
                 if with_file:
-                    retrieved._repository.put_object_from_filelike(io.BytesIO(stdout.encode('utf-8')), option_value)  # pylint: disable=protected-access
-                    retrieved._update_repository_metadata()  # pylint: disable=protected-access
+                    retrieved.put_object_from_filelike(io.StringIO(stdout), option_value)
                 if with_option:
                     node.set_option(option_key, option_value)
                 node.store()
@@ -73,8 +72,7 @@ class TestCalcJobNode(AiidaTestCase):
                 retrieved = FolderData()
 
                 if with_file:
-                    retrieved._repository.put_object_from_filelike(io.BytesIO(stderr.encode('utf-8')), option_value)  # pylint: disable=protected-access
-                    retrieved._update_repository_metadata()  # pylint: disable=protected-access
+                    retrieved.put_object_from_filelike(io.StringIO(stderr), option_value)
                 if with_option:
                     node.set_option(option_key, option_value)
                 node.store()

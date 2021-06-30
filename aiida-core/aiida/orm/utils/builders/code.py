@@ -8,6 +8,7 @@
 # For further information please visit http://www.aiida.net               #
 ###########################################################################
 """Manage code objects with lazy loading of the db env"""
+
 import enum
 import os
 
@@ -194,7 +195,7 @@ class CodeBuilder:
         if messages:
             raise self.CodeValidationError(f'{messages}')
 
-    class CodeValidationError(ValueError):
+    class CodeValidationError(Exception):
         """
         A CodeBuilder instance may raise this
 

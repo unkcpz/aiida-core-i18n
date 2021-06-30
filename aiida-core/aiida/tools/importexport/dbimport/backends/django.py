@@ -11,10 +11,12 @@
 """ Django-specific import of AiiDA entities """
 from itertools import chain
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+import warnings
 
 from aiida.common.links import LinkType, validate_link_label
 from aiida.common.progress_reporter import get_progress_reporter
 from aiida.common.utils import get_object_from_string, validate_uuid
+from aiida.common.warnings import AiidaDeprecationWarning
 from aiida.manage.configuration import get_config_option
 from aiida.orm import Group
 
@@ -32,7 +34,7 @@ from aiida.tools.importexport.archive.common import detect_archive_type
 from aiida.tools.importexport.archive.readers import ArchiveReaderAbstract, get_reader
 
 from aiida.tools.importexport.dbimport.backends.common import (
-    _copy_node_repositories, _make_import_group, _sanitize_extras, _strip_checkpoints, MAX_COMPUTERS, MAX_GROUPS
+    _copy_node_repositories, _make_import_group, _sanitize_extras, MAX_COMPUTERS, MAX_GROUPS
 )
 
 
@@ -43,6 +45,7 @@ def import_data_dj(
     extras_mode_existing: str = 'kcl',
     extras_mode_new: str = 'import',
     comment_mode: str = 'newest',
+    silent: Optional[bool] = None,
     **kwargs: Any
 ):  # pylint: disable=unused-argument
     """Import exported AiiDA archive to the AiiDA database and repository.
@@ -98,6 +101,12 @@ def import_data_dj(
         created.
     """
     # Initial check(s)
+    if silent is not None:
+        warnings.warn(
+            'silent keyword is deprecated and will be removed in AiiDA v2.0.0, set the logger level explicitly instead',
+            AiidaDeprecationWarning
+        )  # pylint: disable=no-member
+
     if extras_mode_new not in ['import', 'none']:
         raise exceptions.ImportValidationError(
             f"Unknown extras_mode_new value: {extras_mode_new}, should be either 'import' or 'none'"
@@ -315,7 +324,7 @@ def _select_entity_data(
         return
 
     with get_progress_reporter()(desc=f'Reading archived entities - {entity_name}', total=entity_count) as progress:
-        imported_comp_labels = set()
+        imported_comp_names = set()
         for pk, fields in reader.iter_entity_fields(entity_name):
             progress.update()
             if entity_name == GROUP_ENTITY_NAME:
@@ -331,21 +340,21 @@ def _select_entity_data(
                         )
 
             elif entity_name == COMPUTER_ENTITY_NAME:
-                # Check if there is already a computer with the same label in the database
-                dupl = (model.objects.filter(label=fields['label']) or fields['label'] in imported_comp_labels)
-                orig_label = fields['label']
+                # Check if there is already a computer with the same name in the database
+                dupl = (model.objects.filter(name=fields['name']) or fields['name'] in imported_comp_names)
+                orig_name = fields['name']
                 dupl_counter = 0
                 while dupl:
-                    # Relabel the new computer
-                    fields['label'] = orig_label + DUPL_SUFFIX.format(dupl_counter)
-                    dupl = (model.objects.filter(label=fields['label']) or fields['label'] in imported_comp_labels)
+                    # Rename the new computer
+                    fields['name'] = orig_name + DUPL_SUFFIX.format(dupl_counter)
+                    dupl = (model.objects.filter(name=fields['name']) or fields['name'] in imported_comp_names)
                     dupl_counter += 1
                     if dupl_counter == MAX_COMPUTERS:
                         raise exceptions.ImportUniquenessError(
-                            f'A computer of that label ( {orig_label} ) already exists and I could not create a new one'
+                            f'A computer of that name ( {orig_name} ) already exists and I could not create a new one'
                         )
 
-                imported_comp_labels.add(fields['label'])
+                imported_comp_names.add(fields['name'])
 
             if fields[unique_identifier] in relevant_db_entries:
                 # Already in DB
@@ -355,8 +364,6 @@ def _select_entity_data(
                 if entity_name == NODE_ENTITY_NAME:
                     # format extras
                     fields = _sanitize_extras(fields)
-                    # strip checkpoints
-                    fields = _strip_checkpoints(fields)
                     if extras_mode_new != 'import':
                         fields.pop('extras', None)
                 new_entries[entity_name][str(pk)] = fields
@@ -440,8 +447,8 @@ def _store_entity_data(
 
         # Before storing entries in the DB, I store the files (if these are nodes).
         # Note: only for new entries!
-        repository_metadatas = [obj.repository_metadata for obj in objects_to_create if obj.repository_metadata]
-        _copy_node_repositories(repository_metadatas=repository_metadatas, reader=reader)
+        uuids_to_create = [obj.uuid for obj in objects_to_create]
+        _copy_node_repositories(uuids_to_create=uuids_to_create, reader=reader)
 
         # For the existing nodes that are also in the imported list we also update their extras if necessary
         if existing_entries[entity_name]:

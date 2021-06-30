@@ -36,12 +36,17 @@ def verdi_archive():
 @verdi_archive.command('inspect')
 @click.argument('archive', nargs=1, type=click.Path(exists=True, readable=True))
 @click.option('-v', '--version', is_flag=True, help='Print the archive format version and exit.')
+@click.option('-d', '--data', hidden=True, is_flag=True, help='Print the data contents and exit.')
 @click.option('-m', '--meta-data', is_flag=True, help='Print the meta data contents and exit.')
-def inspect(archive, version, meta_data):
+def inspect(archive, version, data, meta_data):
     """Inspect contents of an archive without importing it.
 
     By default a summary of the archive contents will be printed. The various options can be used to change exactly what
     information is displayed.
+
+    .. deprecated:: 1.5.0
+        Support for the --data flag
+
     """
     import dataclasses
     from aiida.tools.importexport import CorruptArchive, detect_archive_type, get_reader
@@ -52,6 +57,10 @@ def inspect(archive, version, meta_data):
         try:
             if version:
                 echo.echo(reader.export_version)
+            elif data:
+                # data is an internal implementation detail
+                echo.echo_deprecated('--data is deprecated and will be removed in v2.0.0')
+                echo.echo_dictionary(reader._get_data())  # pylint: disable=protected-access
             elif meta_data:
                 echo.echo_dictionary(dataclasses.asdict(reader.metadata))
             else:
@@ -191,6 +200,7 @@ def create(
 @options.ARCHIVE_FORMAT()
 @options.FORCE(help='overwrite output file if it already exists')
 @click.option('-i', '--in-place', is_flag=True, help='Migrate the archive in place, overwriting the original file.')
+@options.SILENT(hidden=True)
 @click.option(
     '-v',
     '--version',
@@ -208,12 +218,20 @@ def create(
     type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'CRITICAL']),
     help='Control the verbosity of console logging'
 )
-def migrate(input_file, output_file, force, in_place, archive_format, version, verbosity):
-    """Migrate an export archive to a more recent format version."""
+def migrate(input_file, output_file, force, silent, in_place, archive_format, version, verbosity):
+    """Migrate an export archive to a more recent format version.
+
+    .. deprecated:: 1.5.0
+        Support for the --silent flag, replaced by --verbosity
+
+    """
     from aiida.common.log import override_log_formatter_context
     from aiida.common.progress_reporter import set_progress_bar_tqdm, set_progress_reporter
     from aiida.tools.importexport import detect_archive_type, EXPORT_VERSION
     from aiida.tools.importexport.archive.migrators import get_migrator, MIGRATE_LOGGER
+
+    if silent is True:
+        echo.echo_deprecated('the --silent option is deprecated, use --verbosity')
 
     if in_place:
         if output_file:

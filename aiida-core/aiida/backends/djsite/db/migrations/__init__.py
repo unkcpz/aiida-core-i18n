@@ -21,7 +21,7 @@ class DeserializationException(AiidaException):
     pass
 
 
-LATEST_MIGRATION = '0048_computer_name_to_label'
+LATEST_MIGRATION = '0045_dbgroup_extras'
 
 
 def _update_schema_version(version, apps, _):

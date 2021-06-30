@@ -418,7 +418,9 @@ class CifData(SinglefileData):
         if not kwargs and self._ase:
             return self.ase
         with self.open() as handle:
-            return CifData.read_cif(handle, **kwargs)
+            cif = CifData.read_cif(handle, **kwargs)
+
+        return cif
 
     def set_ase(self, aseatoms):
         """
@@ -471,8 +473,7 @@ class CifData(SinglefileData):
             with Capturing():
                 tmpf.write(values.WriteOut())
             tmpf.flush()
-            tmpf.seek(0)
-            self.set_file(tmpf)
+            self.set_file(tmpf.name)
 
         self._values = values
 
@@ -784,6 +785,10 @@ class CifData(SinglefileData):
         If parsed values are present, a CIF string is created and written to file. If no parsed values are present, the
         CIF string is read from file.
         """
+        if self._values and not self.is_stored:
+            # Note: this overwrites the CIF file!
+            self.set_values(self._values)
+
         with self.open(mode='rb') as handle:
             return handle.read(), {}
 

@@ -249,7 +249,7 @@ DB_HOST = OverridableOption(
     '--db-host',
     type=types.HostnameType(),
     help='Database server host. Leave empty for "peer" authentication.',
-    default='localhost'
+    default=DEFAULT_DBINFO['host']
 )
 
 DB_PORT = OverridableOption(

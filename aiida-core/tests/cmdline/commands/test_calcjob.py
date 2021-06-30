@@ -9,7 +9,7 @@
 ###########################################################################
 # pylint: disable=protected-access,too-many-locals,invalid-name,too-many-public-methods
 """Tests for `verdi calcjob`."""
-import io
+import gzip
 
 from click.testing import CliRunner
 
@@ -97,7 +97,6 @@ class TestVerdiCalculation(AiidaTestCase):
         ArithmeticAddCalculation = CalculationFactory('arithmetic.add')
         calculations = orm.QueryBuilder().append(ArithmeticAddCalculation).all()[0]
         cls.arithmetic_job = calculations[0]
-        print(cls.arithmetic_job.repository_metadata)
 
     def setUp(self):
         super().setUp()
@@ -193,16 +192,13 @@ class TestVerdiCalculation(AiidaTestCase):
         self.assertEqual(get_result_lines(result)[0], '2 3')
 
         # Test cat binary files
-        self.arithmetic_job._repository.put_object_from_filelike(io.BytesIO(b'COMPRESS'), 'aiida.in')
-        self.arithmetic_job._update_repository_metadata()
-
-        options = [self.arithmetic_job.uuid, 'aiida.in']
+        # I manually added, in the export file, in the files of the arithmetic_job,
+        # a file called 'in_gzipped_data' whose content has been generated with
+        #   with open('in_gzipped_data', 'wb') as f:
+        #       f.write(gzip.compress(b'COMPRESS-INPUT'))
+        options = [self.arithmetic_job.uuid, 'in_gzipped_data']
         result = self.cli_runner.invoke(command.calcjob_inputcat, options)
-        assert result.stdout_bytes == b'COMPRESS'
-
-        # Restore the file
-        self.arithmetic_job._repository.put_object_from_filelike(io.BytesIO(b'2 3\n'), 'aiida.in')
-        self.arithmetic_job._update_repository_metadata()
+        assert gzip.decompress(result.stdout_bytes) == b'COMPRESS-INPUT'
 
     def test_calcjob_outputcat(self):
         """Test verdi calcjob outputcat"""
@@ -224,17 +220,13 @@ class TestVerdiCalculation(AiidaTestCase):
         self.assertEqual(get_result_lines(result)[0], '5')
 
         # Test cat binary files
-        retrieved = self.arithmetic_job.outputs.retrieved
-        retrieved._repository.put_object_from_filelike(io.BytesIO(b'COMPRESS'), 'aiida.out')
-        retrieved._update_repository_metadata()
-
-        options = [self.arithmetic_job.uuid, 'aiida.out']
+        # I manually added, in the export file, in the files of the output retrieved node of the arithmetic_job,
+        # a file called 'gzipped_data' whose content has been generated with
+        #   with open('gzipped_data', 'wb') as f:
+        #       f.write(gzip.compress(b'COMPRESS'))
+        options = [self.arithmetic_job.uuid, 'gzipped_data']
         result = self.cli_runner.invoke(command.calcjob_outputcat, options)
-        assert result.stdout_bytes == b'COMPRESS'
-
-        # Restore the file
-        retrieved._repository.put_object_from_filelike(io.BytesIO(b'5\n'), 'aiida.out')
-        retrieved._update_repository_metadata()
+        assert gzip.decompress(result.stdout_bytes) == b'COMPRESS'
 
     def test_calcjob_cleanworkdir(self):
         """Test verdi calcjob cleanworkdir"""

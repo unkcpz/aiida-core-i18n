@@ -51,6 +51,7 @@ def recursive_provenance(in_node, depth, breadth, num_objects=0):
 def get_export_kwargs(**kwargs):
     """Return default export keyword arguments."""
     obj = {
+        'silent': True,
         'input_calc_forward': True,
         'input_work_forward': True,
         'create_backward': True,
@@ -60,6 +61,7 @@ def get_export_kwargs(**kwargs):
         'include_comments': True,
         'include_logs': True,
         'overwrite': True,
+        'use_compression': True
     }
     obj.update(kwargs)
     return obj
@@ -105,7 +107,7 @@ def test_import(aiida_profile, benchmark, tmp_path, depth, breadth, num_objects)
         aiida_profile.reset_db()
 
     def _run():
-        import_data(str(out_path))
+        import_data(str(out_path), silent=True)
 
     benchmark.pedantic(_run, setup=_setup, iterations=1, rounds=12, warmup_rounds=1)
     load_node(root_uuid)

@@ -14,8 +14,6 @@ import copy
 import io
 import tempfile
 
-import pytest
-
 from aiida import orm
 from aiida.backends.testbase import AiidaTestCase
 from aiida.common.exceptions import InvalidOperation, ModificationNotAllowed, StoringNotAllowed, ValidationError
@@ -545,7 +543,6 @@ class TestNodeBasic(AiidaTestCase):
         with c.open('file4.txt') as handle:
             self.assertEqual(handle.read(), file_content_different)
 
-    @pytest.mark.skip('relies on deleting folders from the repo which is not yet implemented')
     def test_folders(self):
         """
         Similar as test_files, but I manipulate a tree of folders
@@ -592,7 +589,7 @@ class TestNodeBasic(AiidaTestCase):
             self.assertEqual(fhandle.read(), file_content)
 
         # try to exit from the folder
-        with self.assertRaises(FileNotFoundError):
+        with self.assertRaises(ValueError):
             a.list_object_names('..')
 
         # clone into a new node
@@ -600,7 +597,7 @@ class TestNodeBasic(AiidaTestCase):
         self.assertNotEqual(a.uuid, b.uuid)
 
         # Check that the content is there
-        self.assertEqual(set(b.list_object_names()), set(['tree_1']))
+        self.assertEqual(set(b.list_object_names('.')), set(['tree_1']))
         self.assertEqual(set(b.list_object_names('tree_1')), set(['file1.txt', 'dir1']))
         self.assertEqual(set(b.list_object_names(os.path.join('tree_1', 'dir1'))), set(['dir2', 'file2.txt']))
         with b.open(os.path.join('tree_1', 'file1.txt')) as fhandle:
@@ -614,14 +611,14 @@ class TestNodeBasic(AiidaTestCase):
 
         b.put_object_from_tree(dir3, os.path.join('tree_1', 'dir3'))
         # no absolute path here
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             b.put_object_from_tree('dir3', os.path.join('tree_1', 'dir3'))
 
         stream = io.StringIO(file_content_different)
         b.put_object_from_filelike(stream, 'file3.txt')
 
         # I check the new content, and that the old one has not changed old
-        self.assertEqual(set(a.list_object_names()), set(['tree_1']))
+        self.assertEqual(set(a.list_object_names('.')), set(['tree_1']))
         self.assertEqual(set(a.list_object_names('tree_1')), set(['file1.txt', 'dir1']))
         self.assertEqual(set(a.list_object_names(os.path.join('tree_1', 'dir1'))), set(['dir2', 'file2.txt']))
         with a.open(os.path.join('tree_1', 'file1.txt')) as fhandle:
@@ -629,7 +626,7 @@ class TestNodeBasic(AiidaTestCase):
         with a.open(os.path.join('tree_1', 'dir1', 'file2.txt')) as fhandle:
             self.assertEqual(fhandle.read(), file_content)
         # new
-        self.assertEqual(set(b.list_object_names()), set(['tree_1', 'file3.txt']))
+        self.assertEqual(set(b.list_object_names('.')), set(['tree_1', 'file3.txt']))
         self.assertEqual(set(b.list_object_names('tree_1')), set(['file1.txt', 'dir1', 'dir3']))
         self.assertEqual(set(b.list_object_names(os.path.join('tree_1', 'dir1'))), set(['dir2', 'file2.txt']))
         with b.open(os.path.join('tree_1', 'file1.txt')) as fhandle:
@@ -650,7 +647,7 @@ class TestNodeBasic(AiidaTestCase):
         c.delete_object(os.path.join('tree_1', 'dir1', 'dir2'))
 
         # check old
-        self.assertEqual(set(a.list_object_names()), set(['tree_1']))
+        self.assertEqual(set(a.list_object_names('.')), set(['tree_1']))
         self.assertEqual(set(a.list_object_names('tree_1')), set(['file1.txt', 'dir1']))
         self.assertEqual(set(a.list_object_names(os.path.join('tree_1', 'dir1'))), set(['dir2', 'file2.txt']))
         with a.open(os.path.join('tree_1', 'file1.txt')) as fhandle:
@@ -659,7 +656,7 @@ class TestNodeBasic(AiidaTestCase):
             self.assertEqual(fhandle.read(), file_content)
 
         # check new
-        self.assertEqual(set(c.list_object_names()), set(['tree_1']))
+        self.assertEqual(set(c.list_object_names('.')), set(['tree_1']))
         self.assertEqual(set(c.list_object_names('tree_1')), set(['file1.txt', 'dir1']))
         self.assertEqual(set(c.list_object_names(os.path.join('tree_1', 'dir1'))), set(['file2.txt', 'file4.txt']))
         with c.open(os.path.join('tree_1', 'file1.txt')) as fhandle:
@@ -1009,7 +1006,7 @@ class TestNodeBasic(AiidaTestCase):
         """
         Checks that the method Code.get_from_string works correctly.
         """
-        from aiida.common.exceptions import NotExistent, MultipleObjectsError
+        from aiida.common.exceptions import NotExistent, MultipleObjectsError, InputValidationError
 
         # Create some code nodes
         code1 = orm.Code()
@@ -1035,7 +1032,7 @@ class TestNodeBasic(AiidaTestCase):
         self.assertEqual(q_code_2.get_remote_exec_path(), code2.get_remote_exec_path())
 
         # Calling get_from_string for a non string type raises exception
-        with self.assertRaises(TypeError):
+        with self.assertRaises(InputValidationError):
             orm.Code.get_from_string(code1.id)
 
         # Test that the lookup of a nonexistent code works as expected

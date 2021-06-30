@@ -45,7 +45,7 @@ class BackendComputer(BackendEntity):
         """
 
     @abc.abstractproperty
-    def label(self):
+    def name(self):
         pass
 
     @abc.abstractproperty
@@ -71,11 +71,11 @@ class BackendComputer(BackendEntity):
         """
 
     @abc.abstractmethod
-    def get_label(self):
+    def get_name(self):
         pass
 
     @abc.abstractmethod
-    def set_label(self, val):
+    def set_name(self, val):
         pass
 
     def get_hostname(self):

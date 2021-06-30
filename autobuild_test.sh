@@ -25,7 +25,14 @@ if [ -d "$AIIDA_DIR" ]; then
   rm -rf ${AIIDA_DIR}
 fi
 
-git clone --single-branch --branch develop --depth 1 https://github.com/aiidateam/aiida-core.git
+REMOTE="https://github.com/aiidateam/aiida-core.git"
+echo "Getting list of tags from: $REMOTE"
+
+tag=$(git ls-remote --tags --exit-code --refs "$REMOTE" | sed -E 's/^[[:xdigit:]]+[[:space:]]+refs\/tags\/(.+)/\1/g' | tail -n1)
+
+echo "Selected tag: $tag"
+
+git clone --single-branch --branch "$tag" --depth 1 $REMOTE
 
 # delete git of inner repository to make in isolated
 # otherwise the outer repository cannot be upload

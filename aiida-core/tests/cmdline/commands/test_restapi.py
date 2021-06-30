@@ -7,24 +7,40 @@
 # For further information on the license, see the LICENSE.txt file        #
 # For further information please visit http://www.aiida.net               #
 ###########################################################################
-"""Tests for ``verdi restapi``."""
+"""Tests for `verdi restapi`."""
+
+from click.testing import CliRunner
+import pytest
+
+from aiida.backends.testbase import AiidaTestCase
 from aiida.cmdline.commands.cmd_restapi import restapi
-from aiida.restapi import run_api
 
 
-def test_run_restapi(run_cli_command, monkeypatch):
-    """Test ``verdi restapi``."""
+class TestVerdiRestapiCommand(AiidaTestCase):
+    """tests for verdi restapi command"""
 
-    def run_api_noop(*_, **__):
-        pass
+    def setUp(self):
+        super().setUp()
+        self.cli_runner = CliRunner()
 
-    monkeypatch.setattr(run_api, 'run_api', run_api_noop)
+    @pytest.mark.filterwarnings('ignore::aiida.common.warnings.AiidaDeprecationWarning')
+    def test_run_restapi(self):
+        """Test `verdi restapi`.
 
-    options = ['--hostname', 'localhost', '--port', '6000', '--debug', '--wsgi-profile']
-    run_cli_command(restapi, options)
+        Note: This test will need to be changed/removed once the hookup parameter is dropped from the CLI.
+        """
 
+        options = ['--no-hookup', '--hostname', 'localhost', '--port', '6000', '--debug', '--wsgi-profile']
 
-def test_help(run_cli_command):
-    """Tests help text for restapi command."""
-    result = run_cli_command(restapi, ['--help'])
-    assert 'Usage' in result.output
+        result = self.cli_runner.invoke(restapi, options)
+        self.assertIsNone(result.exception, result.output)
+        self.assertClickSuccess(result)
+
+    def test_help(self):
+        """Tests help text for restapi command."""
+        options = ['--help']
+
+        # verdi restapi
+        result = self.cli_runner.invoke(restapi, options)
+        self.assertIsNone(result.exception, result.output)
+        self.assertIn('Usage', result.output)

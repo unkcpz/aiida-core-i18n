@@ -8,6 +8,7 @@
 # For further information please visit http://www.aiida.net               #
 ###########################################################################
 """Tests for cif related functions."""
+
 import pytest
 
 from aiida.orm.nodes.data.cif import parse_formula

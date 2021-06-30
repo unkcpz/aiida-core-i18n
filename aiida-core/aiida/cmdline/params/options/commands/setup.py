@@ -259,7 +259,7 @@ SETUP_DATABASE_BACKEND = QUICKSETUP_DATABASE_BACKEND.clone(
 
 SETUP_DATABASE_HOSTNAME = QUICKSETUP_DATABASE_HOSTNAME.clone(
     prompt='Database host',
-    contextual_default=functools.partial(get_profile_attribute_default, ('database_hostname', 'localhost')),
+    contextual_default=functools.partial(get_profile_attribute_default, ('database_hostname', DEFAULT_DBINFO['host'])),
     cls=options.interactive.InteractiveOption
 )
 

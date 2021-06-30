@@ -14,7 +14,7 @@ How-To Guides
    write_workflows
    workchains_restart
    data
-   query
+   exploring
    share_data
    visualising_graphs/visualising_graphs
    installation

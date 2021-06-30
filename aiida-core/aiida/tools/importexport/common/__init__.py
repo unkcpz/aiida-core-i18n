@@ -9,7 +9,9 @@
 ###########################################################################
 # pylint: disable=wildcard-import,undefined-variable
 """Common utility functions, classes, and exceptions"""
+
+from .archive import *
 from .config import *
 from .exceptions import *
 
-__all__ = (config.__all__ + exceptions.__all__)
+__all__ = (archive.__all__ + config.__all__ + exceptions.__all__)

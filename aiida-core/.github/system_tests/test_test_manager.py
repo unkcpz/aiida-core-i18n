@@ -12,8 +12,6 @@ import unittest
 import warnings
 import sys
 
-import pytest
-
 from aiida.manage.tests import TestManager, get_test_backend_name
 
 
@@ -31,7 +29,6 @@ class TestManagerTestCase(unittest.TestCase):
     def tearDown(self):
         self.test_manager.destroy_all()
 
-    @pytest.mark.filterwarnings('ignore:Creating AiiDA configuration folder')
     def test_pgtest_argument(self):
         """
         Create a temporary profile, passing the pgtest argument.

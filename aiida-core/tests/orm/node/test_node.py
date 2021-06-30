@@ -7,90 +7,53 @@
 # For further information on the license, see the LICENSE.txt file        #
 # For further information please visit http://www.aiida.net               #
 ###########################################################################
-# pylint: disable=attribute-defined-outside-init,no-self-use,too-many-public-methods
+# pylint: disable=too-many-public-methods,no-self-use
 """Tests for the Node ORM class."""
+import io
 import logging
 import os
 import tempfile
 
 import pytest
 
+from aiida.backends.testbase import AiidaTestCase
 from aiida.common import exceptions, LinkType
-from aiida.orm import Computer, Data, Log, Node, User, CalculationNode, WorkflowNode, load_node
+from aiida.orm import Data, Log, Node, User, CalculationNode, WorkflowNode, load_node
 from aiida.orm.utils.links import LinkTriple
 
 
-@pytest.mark.usefixtures('clear_database_before_test_class')
-class TestNode:
+class TestNode(AiidaTestCase):
     """Tests for generic node functionality."""
 
-    def setup_method(self):
-        """Setup for methods."""
+    def setUp(self):
+        super().setUp()
         self.user = User.objects.get_default()
-        _, self.computer = Computer.objects.get_or_create(
-            label='localhost',
-            description='localhost computer set up by test manager',
-            hostname='localhost',
-            transport_type='local',
-            scheduler_type='direct'
-        )
-        self.computer.store()
-
-    def test_instantiate_with_user(self):
-        """Test a Node can be instantiated with a specific user."""
-        new_user = User(email='a@b.com').store()
-        node = Data(user=new_user).store()
-        assert node.user.pk == new_user.pk
-
-    def test_instantiate_with_computer(self):
-        """Test a Node can be instantiated with a specific computer."""
-        node = Data(computer=self.computer).store()
-        assert node.computer.pk == self.computer.pk
 
     def test_repository_garbage_collection(self):
         """Verify that the repository sandbox folder is cleaned after the node instance is garbage collected."""
         node = Data()
-        dirpath = node._repository.backend.sandbox.abspath  # pylint: disable=protected-access
+        dirpath = node._repository._get_temp_folder().abspath  # pylint: disable=protected-access
 
-        assert os.path.isdir(dirpath)
+        self.assertTrue(os.path.isdir(dirpath))
         del node
-        assert not os.path.isdir(dirpath)
+        self.assertFalse(os.path.isdir(dirpath))
 
     def test_computer_user_immutability(self):
         """Test that computer and user of a node are immutable after storing."""
         node = Data().store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             node.computer = self.computer
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             node.user = self.user
 
-    @staticmethod
-    def test_repository_metadata():
-        """Test the basic properties for `repository_metadata`."""
-        node = Data()
-        assert node.repository_metadata == {}
 
-        # Even after storing the metadata should be empty, since it contains no files
-        node.store()
-        assert node.repository_metadata == {}
-
-        node = Data()
-        repository_metadata = {'key': 'value'}
-        node.repository_metadata = repository_metadata
-        assert node.repository_metadata == repository_metadata
-
-        node.store()
-        assert node.repository_metadata != repository_metadata
-
-
-@pytest.mark.usefixtures('clear_database_before_test_class')
-class TestNodeAttributesExtras:
+class TestNodeAttributesExtras(AiidaTestCase):
     """Test for node attributes and extras."""
 
-    def setup_method(self):
-        """Setup for methods."""
+    def setUp(self):
+        super().setUp()
         self.node = Data()
 
     def test_attributes(self):
@@ -99,10 +62,10 @@ class TestNodeAttributesExtras:
 
         self.node.set_attribute('key', original_attribute)
         node_attributes = self.node.attributes
-        assert node_attributes['key'] == original_attribute
+        self.assertEqual(node_attributes['key'], original_attribute)
         node_attributes['key']['nested']['a'] = 2
 
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
         # Now store the node and verify that `attributes` then returns a deep copy
         self.node.store()
@@ -110,7 +73,7 @@ class TestNodeAttributesExtras:
 
         # We change the returned node attributes but the original attribute should remain unchanged
         node_attributes['key']['nested']['a'] = 3
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
     def test_get_attribute(self):
         """Test the `Node.get_attribute` method."""
@@ -118,14 +81,14 @@ class TestNodeAttributesExtras:
 
         self.node.set_attribute('key', original_attribute)
         node_attribute = self.node.get_attribute('key')
-        assert node_attribute == original_attribute
+        self.assertEqual(node_attribute, original_attribute)
         node_attribute['nested']['a'] = 2
 
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
         default = 'default'
-        assert self.node.get_attribute('not_existing', default=default) == default
-        with pytest.raises(AttributeError):
+        self.assertEqual(self.node.get_attribute('not_existing', default=default), default)
+        with self.assertRaises(AttributeError):
             self.node.get_attribute('not_existing')
 
         # Now store the node and verify that `get_attribute` then returns a deep copy
@@ -134,11 +97,11 @@ class TestNodeAttributesExtras:
 
         # We change the returned node attributes but the original attribute should remain unchanged
         node_attribute['nested']['a'] = 3
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
         default = 'default'
-        assert self.node.get_attribute('not_existing', default=default) == default
-        with pytest.raises(AttributeError):
+        self.assertEqual(self.node.get_attribute('not_existing', default=default), default)
+        with self.assertRaises(AttributeError):
             self.node.get_attribute('not_existing')
 
     def test_get_attribute_many(self):
@@ -147,10 +110,10 @@ class TestNodeAttributesExtras:
 
         self.node.set_attribute('key', original_attribute)
         node_attribute = self.node.get_attribute_many(['key'])[0]
-        assert node_attribute == original_attribute
+        self.assertEqual(node_attribute, original_attribute)
         node_attribute['nested']['a'] = 2
 
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
         # Now store the node and verify that `get_attribute` then returns a deep copy
         self.node.store()
@@ -158,28 +121,28 @@ class TestNodeAttributesExtras:
 
         # We change the returned node attributes but the original attribute should remain unchanged
         node_attribute['nested']['a'] = 3
-        assert original_attribute['nested']['a'] == 2
+        self.assertEqual(original_attribute['nested']['a'], 2)
 
     def test_set_attribute(self):
         """Test the `Node.set_attribute` method."""
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.set_attribute('illegal.key', 'value')
 
         self.node.set_attribute('valid_key', 'value')
         self.node.store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             self.node.set_attribute('valid_key', 'value')
 
     def test_set_attribute_many(self):
         """Test the `Node.set_attribute` method."""
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.set_attribute_many({'illegal.key': 'value', 'valid_key': 'value'})
 
         self.node.set_attribute_many({'valid_key': 'value'})
         self.node.store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             self.node.set_attribute_many({'valid_key': 'value'})
 
     def test_reset_attribute(self):
@@ -189,32 +152,32 @@ class TestNodeAttributesExtras:
         attributes_illegal = {'attribute.illegal': 'value', 'attribute_four': 'value'}
 
         self.node.set_attribute_many(attributes_before)
-        assert self.node.attributes == attributes_before
+        self.assertEqual(self.node.attributes, attributes_before)
         self.node.reset_attributes(attributes_after)
-        assert self.node.attributes == attributes_after
+        self.assertEqual(self.node.attributes, attributes_after)
 
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.reset_attributes(attributes_illegal)
 
         self.node.store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             self.node.reset_attributes(attributes_after)
 
     def test_delete_attribute(self):
         """Test the `Node.delete_attribute` method."""
         self.node.set_attribute('valid_key', 'value')
-        assert self.node.get_attribute('valid_key') == 'value'
+        self.assertEqual(self.node.get_attribute('valid_key'), 'value')
         self.node.delete_attribute('valid_key')
 
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             self.node.delete_attribute('valid_key')
 
         # Repeat with stored node
         self.node.set_attribute('valid_key', 'value')
         self.node.store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             self.node.delete_attribute('valid_key')
 
     def test_delete_attribute_many(self):
@@ -224,28 +187,28 @@ class TestNodeAttributesExtras:
         """Test the `Node.clear_attributes` method."""
         attributes = {'attribute_one': 'value', 'attribute_two': 'value'}
         self.node.set_attribute_many(attributes)
-        assert self.node.attributes == attributes
+        self.assertEqual(self.node.attributes, attributes)
 
         self.node.clear_attributes()
-        assert self.node.attributes == {}
+        self.assertEqual(self.node.attributes, {})
 
         # Repeat for stored node
         self.node.store()
 
-        with pytest.raises(exceptions.ModificationNotAllowed):
+        with self.assertRaises(exceptions.ModificationNotAllowed):
             self.node.clear_attributes()
 
     def test_attributes_items(self):
         """Test the `Node.attributes_items` generator."""
         attributes = {'attribute_one': 'value', 'attribute_two': 'value'}
         self.node.set_attribute_many(attributes)
-        assert dict(self.node.attributes_items()) == attributes
+        self.assertEqual(dict(self.node.attributes_items()), attributes)
 
     def test_attributes_keys(self):
         """Test the `Node.attributes_keys` generator."""
         attributes = {'attribute_one': 'value', 'attribute_two': 'value'}
         self.node.set_attribute_many(attributes)
-        assert set(self.node.attributes_keys()) == set(attributes)
+        self.assertEqual(set(self.node.attributes_keys()), set(attributes))
 
     def test_extras(self):
         """Test the `Node.extras` property."""
@@ -253,10 +216,10 @@ class TestNodeAttributesExtras:
 
         self.node.set_extra('key', original_extra)
         node_extras = self.node.extras
-        assert node_extras['key'] == original_extra
+        self.assertEqual(node_extras['key'], original_extra)
         node_extras['key']['nested']['a'] = 2
 
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
         # Now store the node and verify that `extras` then returns a deep copy
         self.node.store()
@@ -264,7 +227,7 @@ class TestNodeAttributesExtras:
 
         # We change the returned node extras but the original extra should remain unchanged
         node_extras['key']['nested']['a'] = 3
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
     def test_get_extra(self):
         """Test the `Node.get_extra` method."""
@@ -272,14 +235,14 @@ class TestNodeAttributesExtras:
 
         self.node.set_extra('key', original_extra)
         node_extra = self.node.get_extra('key')
-        assert node_extra == original_extra
+        self.assertEqual(node_extra, original_extra)
         node_extra['nested']['a'] = 2
 
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
         default = 'default'
-        assert self.node.get_extra('not_existing', default=default) == default
-        with pytest.raises(AttributeError):
+        self.assertEqual(self.node.get_extra('not_existing', default=default), default)
+        with self.assertRaises(AttributeError):
             self.node.get_extra('not_existing')
 
         # Now store the node and verify that `get_extra` then returns a deep copy
@@ -288,11 +251,11 @@ class TestNodeAttributesExtras:
 
         # We change the returned node extras but the original extra should remain unchanged
         node_extra['nested']['a'] = 3
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
         default = 'default'
-        assert self.node.get_extra('not_existing', default=default) == default
-        with pytest.raises(AttributeError):
+        self.assertEqual(self.node.get_extra('not_existing', default=default), default)
+        with self.assertRaises(AttributeError):
             self.node.get_extra('not_existing')
 
     def test_get_extra_many(self):
@@ -301,10 +264,10 @@ class TestNodeAttributesExtras:
 
         self.node.set_extra('key', original_extra)
         node_extra = self.node.get_extra_many(['key'])[0]
-        assert node_extra == original_extra
+        self.assertEqual(node_extra, original_extra)
         node_extra['nested']['a'] = 2
 
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
         # Now store the node and verify that `get_extra` then returns a deep copy
         self.node.store()
@@ -312,29 +275,29 @@ class TestNodeAttributesExtras:
 
         # We change the returned node extras but the original extra should remain unchanged
         node_extra['nested']['a'] = 3
-        assert original_extra['nested']['a'] == 2
+        self.assertEqual(original_extra['nested']['a'], 2)
 
     def test_set_extra(self):
         """Test the `Node.set_extra` method."""
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.set_extra('illegal.key', 'value')
 
         self.node.set_extra('valid_key', 'value')
         self.node.store()
 
         self.node.set_extra('valid_key', 'changed')
-        assert load_node(self.node.pk).get_extra('valid_key') == 'changed'
+        self.assertEqual(load_node(self.node.pk).get_extra('valid_key'), 'changed')
 
     def test_set_extra_many(self):
         """Test the `Node.set_extra` method."""
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.set_extra_many({'illegal.key': 'value', 'valid_key': 'value'})
 
         self.node.set_extra_many({'valid_key': 'value'})
         self.node.store()
 
         self.node.set_extra_many({'valid_key': 'changed'})
-        assert load_node(self.node.pk).get_extra('valid_key') == 'changed'
+        self.assertEqual(load_node(self.node.pk).get_extra('valid_key'), 'changed')
 
     def test_reset_extra(self):
         """Test the `Node.reset_extra` method."""
@@ -343,25 +306,25 @@ class TestNodeAttributesExtras:
         extras_illegal = {'extra.illegal': 'value', 'extra_four': 'value'}
 
         self.node.set_extra_many(extras_before)
-        assert self.node.extras == extras_before
+        self.assertEqual(self.node.extras, extras_before)
         self.node.reset_extras(extras_after)
-        assert self.node.extras == extras_after
+        self.assertEqual(self.node.extras, extras_after)
 
-        with pytest.raises(exceptions.ValidationError):
+        with self.assertRaises(exceptions.ValidationError):
             self.node.reset_extras(extras_illegal)
 
         self.node.store()
 
         self.node.reset_extras(extras_after)
-        assert load_node(self.node.pk).extras == extras_after
+        self.assertEqual(load_node(self.node.pk).extras, extras_after)
 
     def test_delete_extra(self):
         """Test the `Node.delete_extra` method."""
         self.node.set_extra('valid_key', 'value')
-        assert self.node.get_extra('valid_key') == 'value'
+        self.assertEqual(self.node.get_extra('valid_key'), 'value')
         self.node.delete_extra('valid_key')
 
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             self.node.delete_extra('valid_key')
 
         # Repeat with stored node
@@ -369,16 +332,16 @@ class TestNodeAttributesExtras:
         self.node.store()
 
         self.node.delete_extra('valid_key')
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             load_node(self.node.pk).get_extra('valid_key')
 
     def test_delete_extra_many(self):
         """Test the `Node.delete_extra_many` method."""
         self.node.set_extra('valid_key', 'value')
-        assert self.node.get_extra('valid_key') == 'value'
+        self.assertEqual(self.node.get_extra('valid_key'), 'value')
         self.node.delete_extra('valid_key')
 
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             self.node.delete_extra('valid_key')
 
         # Repeat with stored group
@@ -386,43 +349,42 @@ class TestNodeAttributesExtras:
         self.node.store()
 
         self.node.delete_extra('valid_key')
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             load_node(self.node.pk).get_extra('valid_key')
 
     def test_clear_extras(self):
         """Test the `Node.clear_extras` method."""
         extras = {'extra_one': 'value', 'extra_two': 'value'}
         self.node.set_extra_many(extras)
-        assert self.node.extras == extras
+        self.assertEqual(self.node.extras, extras)
 
         self.node.clear_extras()
-        assert self.node.extras == {}
+        self.assertEqual(self.node.extras, {})
 
         # Repeat for stored node
         self.node.store()
 
         self.node.clear_extras()
-        assert load_node(self.node.pk).extras == {}
+        self.assertEqual(load_node(self.node.pk).extras, {})
 
     def test_extras_items(self):
         """Test the `Node.extras_items` generator."""
         extras = {'extra_one': 'value', 'extra_two': 'value'}
         self.node.set_extra_many(extras)
-        assert dict(self.node.extras_items()) == extras
+        self.assertEqual(dict(self.node.extras_items()), extras)
 
     def test_extras_keys(self):
         """Test the `Node.extras_keys` generator."""
         extras = {'extra_one': 'value', 'extra_two': 'value'}
         self.node.set_extra_many(extras)
-        assert set(self.node.extras_keys()) == set(extras)
+        self.assertEqual(set(self.node.extras_keys()), set(extras))
 
 
-@pytest.mark.usefixtures('clear_database_before_test_class')
-class TestNodeLinks:
+class TestNodeLinks(AiidaTestCase):
     """Test for linking from and to Node."""
 
-    def setup_method(self):
-        """Setup for methods."""
+    def setUp(self):
+        super().setUp()
         self.node_source = CalculationNode()
         self.node_target = Data()
 
@@ -435,21 +397,21 @@ class TestNodeLinks:
         calculation.store()
         stored_triples = calculation.get_stored_link_triples()
 
-        assert len(stored_triples) == 1
+        self.assertEqual(len(stored_triples), 1)
 
         link_triple = stored_triples[0]
 
         # Verify the type and value of the tuple elements
-        assert isinstance(link_triple, LinkTriple)
-        assert isinstance(link_triple.node, Node)
-        assert isinstance(link_triple.link_type, LinkType)
-        assert link_triple.node.uuid == data.uuid
-        assert link_triple.link_type == LinkType.INPUT_CALC
-        assert link_triple.link_label == 'input'
+        self.assertTrue(isinstance(link_triple, LinkTriple))
+        self.assertTrue(isinstance(link_triple.node, Node))
+        self.assertTrue(isinstance(link_triple.link_type, LinkType))
+        self.assertEqual(link_triple.node.uuid, data.uuid)
+        self.assertEqual(link_triple.link_type, LinkType.INPUT_CALC)
+        self.assertEqual(link_triple.link_label, 'input')
 
     def test_validate_incoming_ipsum(self):
         """Test the `validate_incoming` method with respect to linking ourselves."""
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             self.node_target.validate_incoming(self.node_target, LinkType.CREATE, 'link_label')
 
     def test_validate_incoming(self):
@@ -458,13 +420,13 @@ class TestNodeLinks:
         For a generic Node all incoming link types are valid as long as the source is also of type Node and the link
         type is a valid LinkType enum value.
         """
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             self.node_target.validate_incoming(self.node_source, None, 'link_label')
 
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             self.node_target.validate_incoming(None, LinkType.CREATE, 'link_label')
 
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             self.node_target.validate_incoming(self.node_source, LinkType.CREATE.value, 'link_label')
 
     def test_add_incoming_create(self):
@@ -476,15 +438,15 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.CREATE, 'link_label')
 
         # Can only have a single incoming CREATE link
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CREATE, 'link_label')
 
         # Even when the source node is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_two, LinkType.CREATE, 'link_label')
 
         # Or when the link label is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CREATE, 'other_label')
 
     def test_add_incoming_call_calc(self):
@@ -496,15 +458,15 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.CALL_CALC, 'link_label')
 
         # Can only have a single incoming CALL_CALC link
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CALL_CALC, 'link_label')
 
         # Even when the source node is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_two, LinkType.CALL_CALC, 'link_label')
 
         # Or when the link label is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CALL_CALC, 'other_label')
 
     def test_add_incoming_call_work(self):
@@ -516,15 +478,15 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.CALL_WORK, 'link_label')
 
         # Can only have a single incoming CALL_WORK link
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CALL_WORK, 'link_label')
 
         # Even when the source node is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_two, LinkType.CALL_WORK, 'link_label')
 
         # Or when the link label is different
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.CALL_WORK, 'other_label')
 
     def test_add_incoming_input_calc(self):
@@ -536,14 +498,14 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.INPUT_CALC, 'link_label')
 
         # Can only have a single incoming INPUT_CALC link from each source node if the label is not unique
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.INPUT_CALC, 'link_label')
 
         # Using another link label is fine
         target.validate_incoming(source_one, LinkType.INPUT_CALC, 'other_label')
 
         # However, using the same link, even from another node is illegal
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_two, LinkType.INPUT_CALC, 'link_label')
 
     def test_add_incoming_input_work(self):
@@ -555,14 +517,14 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.INPUT_WORK, 'link_label')
 
         # Can only have a single incoming INPUT_WORK link from each source node if the label is not unique
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.INPUT_WORK, 'link_label')
 
         # Using another link label is fine
         target.validate_incoming(source_one, LinkType.INPUT_WORK, 'other_label')
 
         # However, using the same link, even from another node is illegal
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_two, LinkType.INPUT_WORK, 'link_label')
 
     def test_add_incoming_return(self):
@@ -574,7 +536,7 @@ class TestNodeLinks:
         target.add_incoming(source_one, LinkType.RETURN, 'link_label')
 
         # Can only have a single incoming RETURN link from each source node if the label is not unique
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.validate_incoming(source_one, LinkType.RETURN, 'link_label')
 
         # From another source node or using another label is fine
@@ -591,7 +553,7 @@ class TestNodeLinks:
         source = WorkflowNode()
         target = Data()
 
-        with pytest.raises(ValueError):
+        with self.assertRaises(ValueError):
             target.add_incoming(source, LinkType.RETURN, 'link_label')
 
     def test_get_incoming(self):
@@ -606,17 +568,17 @@ class TestNodeLinks:
         # Without link type
         incoming_nodes = target.get_incoming().all()
         incoming_uuids = sorted([neighbor.node.uuid for neighbor in incoming_nodes])
-        assert incoming_uuids == sorted([source_one.uuid, source_two.uuid])
+        self.assertEqual(incoming_uuids, sorted([source_one.uuid, source_two.uuid]))
 
         # Using a single link type
         incoming_nodes = target.get_incoming(link_type=LinkType.INPUT_CALC).all()
         incoming_uuids = sorted([neighbor.node.uuid for neighbor in incoming_nodes])
-        assert incoming_uuids == sorted([source_one.uuid, source_two.uuid])
+        self.assertEqual(incoming_uuids, sorted([source_one.uuid, source_two.uuid]))
 
         # Using a link type tuple
         incoming_nodes = target.get_incoming(link_type=(LinkType.INPUT_CALC, LinkType.INPUT_WORK)).all()
         incoming_uuids = sorted([neighbor.node.uuid for neighbor in incoming_nodes])
-        assert incoming_uuids == sorted([source_one.uuid, source_two.uuid])
+        self.assertEqual(incoming_uuids, sorted([source_one.uuid, source_two.uuid]))
 
     def test_node_indegree_unique_pair(self):
         """Test that the validation of links with indegree `unique_pair` works correctly
@@ -635,7 +597,7 @@ class TestNodeLinks:
 
         uuids_incoming = set(node.uuid for node in called.get_incoming().all_nodes())
         uuids_expected = set([caller.uuid, data.uuid])
-        assert uuids_incoming == uuids_expected
+        self.assertEqual(uuids_incoming, uuids_expected)
 
     def test_node_indegree_unique_triple(self):
         """Test that the validation of links with indegree `unique_triple` works correctly
@@ -653,7 +615,7 @@ class TestNodeLinks:
 
         uuids_incoming = set(node.uuid for node in data.get_incoming().all_nodes())
         uuids_expected = set([return_one.uuid, return_two.uuid])
-        assert uuids_incoming == uuids_expected
+        self.assertEqual(uuids_incoming, uuids_expected)
 
     def test_node_outdegree_unique_triple(self):
         """Test that the validation of links with outdegree `unique_triple` works correctly
@@ -674,7 +636,7 @@ class TestNodeLinks:
 
         uuids_outgoing = set(node.uuid for node in creator.get_outgoing().all_nodes())
         uuids_expected = set([data_one.uuid, data_two.uuid])
-        assert uuids_outgoing == uuids_expected
+        self.assertEqual(uuids_outgoing, uuids_expected)
 
     def test_get_node_by_label(self):
         """Test the get_node_by_label() method of the `LinkManager`
@@ -699,12 +661,12 @@ class TestNodeLinks:
 
         # Retrieve a link when the label is unique
         output_the_input = data.get_outgoing(link_type=LinkType.INPUT_CALC).get_node_by_label('the_input')
-        assert output_the_input.pk == calc_two.pk
+        self.assertEqual(output_the_input.pk, calc_two.pk)
 
-        with pytest.raises(exceptions.MultipleObjectsError):
+        with self.assertRaises(exceptions.MultipleObjectsError):
             data.get_outgoing(link_type=LinkType.INPUT_CALC).get_node_by_label('input')
 
-        with pytest.raises(exceptions.NotExistent):
+        with self.assertRaises(exceptions.NotExistent):
             data.get_outgoing(link_type=LinkType.INPUT_CALC).get_node_by_label('some_weird_label')
 
     def test_tab_completable_properties(self):
@@ -748,42 +710,42 @@ class TestNodeLinks:
         output2.add_incoming(top_workflow, link_type=LinkType.RETURN, link_label='result_b')
 
         # creator
-        assert output1.creator.pk == calc1.pk
-        assert output2.creator.pk == calc2.pk
+        self.assertEqual(output1.creator.pk, calc1.pk)
+        self.assertEqual(output2.creator.pk, calc2.pk)
 
         # caller (for calculations)
-        assert calc1.caller.pk == workflow.pk
-        assert calc2.caller.pk == workflow.pk
+        self.assertEqual(calc1.caller.pk, workflow.pk)
+        self.assertEqual(calc2.caller.pk, workflow.pk)
 
         # caller (for workflows)
-        assert workflow.caller.pk == top_workflow.pk
+        self.assertEqual(workflow.caller.pk, top_workflow.pk)
 
         # .inputs for calculations
-        assert calc1.inputs.input_value.pk == input1.pk
-        assert calc2.inputs.input_value.pk == input2.pk
-        with pytest.raises(AttributeError):
+        self.assertEqual(calc1.inputs.input_value.pk, input1.pk)
+        self.assertEqual(calc2.inputs.input_value.pk, input2.pk)
+        with self.assertRaises(AttributeError):
             _ = calc1.inputs.some_label
 
         # .inputs for workflows
-        assert top_workflow.inputs.a.pk == input1.pk
-        assert top_workflow.inputs.b.pk == input2.pk
-        assert workflow.inputs.a.pk == input1.pk
-        assert workflow.inputs.b.pk == input2.pk
-        with pytest.raises(AttributeError):
+        self.assertEqual(top_workflow.inputs.a.pk, input1.pk)
+        self.assertEqual(top_workflow.inputs.b.pk, input2.pk)
+        self.assertEqual(workflow.inputs.a.pk, input1.pk)
+        self.assertEqual(workflow.inputs.b.pk, input2.pk)
+        with self.assertRaises(AttributeError):
             _ = workflow.inputs.some_label
 
         # .outputs for calculations
-        assert calc1.outputs.result.pk == output1.pk
-        assert calc2.outputs.result.pk == output2.pk
-        with pytest.raises(AttributeError):
+        self.assertEqual(calc1.outputs.result.pk, output1.pk)
+        self.assertEqual(calc2.outputs.result.pk, output2.pk)
+        with self.assertRaises(AttributeError):
             _ = calc1.outputs.some_label
 
         # .outputs for workflows
-        assert top_workflow.outputs.result_a.pk == output1.pk
-        assert top_workflow.outputs.result_b.pk == output2.pk
-        assert workflow.outputs.result_a.pk == output1.pk
-        assert workflow.outputs.result_b.pk == output2.pk
-        with pytest.raises(AttributeError):
+        self.assertEqual(top_workflow.outputs.result_a.pk, output1.pk)
+        self.assertEqual(top_workflow.outputs.result_b.pk, output2.pk)
+        self.assertEqual(workflow.outputs.result_a.pk, output1.pk)
+        self.assertEqual(workflow.outputs.result_b.pk, output2.pk)
+        with self.assertRaises(AttributeError):
             _ = workflow.outputs.some_label
 
 
@@ -941,6 +903,26 @@ def test_hashing_errors(aiida_caplog):
     with pytest.raises(exceptions.HashingError, match='package version could not be determined'):
         result = node.get_hash(ignore_errors=False)
     assert result is None
+
+
+# Ignoring the resource errors as we are indeed testing the wrong way of using these (for backward-compatibility)
+@pytest.mark.filterwarnings('ignore::ResourceWarning')
+@pytest.mark.filterwarnings('ignore::aiida.common.warnings.AiidaDeprecationWarning')
+@pytest.mark.usefixtures('clear_database_before_test')
+def test_open_wrapper():
+    """Test the wrapper around the return value of ``Node.open``.
+
+    This should be remove in v2.0.0 because the wrapper should be removed.
+    """
+    filename = 'test'
+    node = Node()
+    node.put_object_from_filelike(io.StringIO('test'), filename)
+
+    # Both `iter` and `next` should not raise
+    next(node.open(filename))
+    iter(node.open(filename))
+    node.open(filename).__next__()
+    node.open(filename).__iter__()
 
 
 @pytest.mark.usefixtures('clear_database_before_test')

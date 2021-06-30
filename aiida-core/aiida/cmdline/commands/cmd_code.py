@@ -19,6 +19,7 @@ from aiida.cmdline.params import options, arguments
 from aiida.cmdline.params.options.commands import code as options_code
 from aiida.cmdline.utils import echo
 from aiida.cmdline.utils.decorators import with_dbenv
+from aiida.common.exceptions import InputValidationError
 
 
 @verdi.group('code')
@@ -75,6 +76,7 @@ def set_code_builder(ctx, param, value):
 @with_dbenv()
 def setup_code(non_interactive, **kwargs):
     """Setup a new code."""
+    from aiida.common.exceptions import ValidationError
     from aiida.orm.utils.builders.code import CodeBuilder
 
     if kwargs.pop('on_computer'):
@@ -86,15 +88,15 @@ def setup_code(non_interactive, **kwargs):
 
     try:
         code = code_builder.new()
-    except ValueError as exception:
+    except InputValidationError as exception:
         echo.echo_critical(f'invalid inputs: {exception}')
 
     try:
         code.store()
-    except Exception as exception:  # pylint: disable=broad-except
+        code.reveal()
+    except ValidationError as exception:
         echo.echo_critical(f'Unable to store the Code: {exception}')
 
-    code.reveal()
     echo.echo_success(f'Code<{code.pk}> {code.full_label} created')
 
 
@@ -242,7 +244,7 @@ def relabel(code, label):
 
     try:
         code.relabel(label)
-    except (TypeError, ValueError) as exception:
+    except InputValidationError as exception:
         echo.echo_critical(f'invalid code label: {exception}')
     else:
         echo.echo_success(f'Code<{code.pk}> relabeled from {old_label} to {code.full_label}')
@@ -267,7 +269,7 @@ def code_list(computer, input_plugin, all_entries, all_users, show_owner):
 
     qb_computer_filters = dict()
     if computer is not None:
-        qb_computer_filters['label'] = computer.label
+        qb_computer_filters['name'] = computer.label
 
     qb_code_filters = dict()
     if input_plugin is not None:
@@ -301,7 +303,7 @@ def code_list(computer, input_plugin, all_entries, all_users, show_owner):
         # return codes that have a computer (and of course satisfy the
         # other filters). The codes that have a computer attached are the
         # remote codes.
-        qb.append(orm.Computer, with_node='code', project=['label'], filters=qb_computer_filters)
+        qb.append(orm.Computer, with_node='code', project=['name'], filters=qb_computer_filters)
         qb.order_by({Code: {'id': 'asc'}})
         showed_results = qb.count() > 0
         print_list_res(qb, show_owner)
@@ -315,7 +317,7 @@ def code_list(computer, input_plugin, all_entries, all_users, show_owner):
         # We have a user assigned to the code so we can ask for the
         # presence of a user even if there is no user filter
         qb.append(orm.User, with_node='code', project=['email'], filters=qb_user_filters)
-        qb.append(orm.Computer, with_node='code', project=['label'])
+        qb.append(orm.Computer, with_node='code', project=['name'])
         qb.order_by({Code: {'id': 'asc'}})
         print_list_res(qb, show_owner)
         showed_results = showed_results or qb.count() > 0
