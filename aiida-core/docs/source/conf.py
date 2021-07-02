@@ -163,7 +163,7 @@ html_context = {
     'doc_path': 'docs/source',
 }
 panels_add_bootstrap_css = False  # pydata-sphinx-theme already loads this
-notfound_urls_prefix = '/projects/aiida-core/en/latest/'
+notfound_urls_prefix = '/projects/aiida-core/zh_CN/latest/'
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
