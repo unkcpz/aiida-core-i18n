@@ -1,0 +1,1273 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014-2020, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 1.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-23 10:56+0000\n"
+"PO-Revision-Date: 2020-07-01 16:11+0000\n"
+"Language-Team: German (https://www.transifex.com/aiidateam/teams/98967/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../docs/source/internals/data_storage.rst:5
+msgid "Data storage"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:7
+#: ../docs/source/internals/index.rst:14
+msgid "Todo"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:11
+msgid "title: Database schema & migrations"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:13
+msgid "`#4035`_"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:17
+msgid "title: File repository"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:19
+msgid "`#4036`_"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:24
+msgid "AiiDA archive format"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:26
+msgid ""
+"An AiiDA archive file is a file usually ending with extension ``.aiida``, "
+"typically compressed in ``.zip`` or ``.tar.gz`` format, with the following "
+"content:"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:28
+msgid ""
+"``metadata.json`` file containing information on the version of AiiDA as "
+"well as the database schema."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:29
+msgid "``data.json`` file containing the nodes and their links."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:30
+msgid ""
+"``nodes/`` directory containing the repository files corresponding to the "
+"nodes."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:35
+msgid "``metadata.json``"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:37
+msgid ""
+"This file contains important information, and it is necessary for the "
+"correct interpretation of ``data.json``. Apart from the data schema, the "
+"AiiDA and archive versions are also mentioned. This is used to avoid any "
+"incompatibilities among different versions of AiiDA. It should be noted that"
+" the schema described in ``metadata.json`` is related to the data itself - "
+"abstracted schema focused on the extracted information - and not how the "
+"data is stored in the database (database schema). This makes the "
+"import/export mechanism transparent to the database system used, backend "
+"selected and how the data is organised in the database (database schema)."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:43
+msgid "Let's have a look at the contents of ``metadata.json``:"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:48
+msgid ""
+"At the beginning of the file, we see the version of the archive file (under "
+"``export_version``) and the version of the AiiDA code. New archive versions "
+"are introduced for several different reasons; this may generally be when:"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:51
+msgid "a change occurs in what can or cannot be exported for each entity,"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:52
+msgid "the database and/or archive schemes are updated or changed,"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:53
+msgid "or standardized exported property values are updated in AiiDA."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:56
+msgid ""
+"For archives of version 0.3 and older it is advisable that you manually try "
+"to convince yourself that the migration was completely successful. While all"
+" migrations are tested, trying to include reasonable edge-cases, the "
+"migrations involed from version 0.3 to 0.4 are intricate and the possibility"
+" of a missing edge-case test is quite real. It is worth noting that if you "
+"ever have an issue, please report it on `GitHub "
+"<https://www.github.com/aiidateam/aiida_core/issues/new>`_, join the `AiiDA "
+"mailing list <http://www.aiida.net/mailing-list/>`_, or use the `contact "
+"form <http://www.aiida.net/contact-new/>`_."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:60
+msgid ""
+"The entities that are exported are mentioned in ``unique_identifiers`` with "
+"their respective unique identifiers. Knowing the unique IDs is useful for "
+"duplicate avoidance (in order to avoid the insertion of the node multiple "
+"times)."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:63
+msgid ""
+"Then in ``all_fields_info``, the properties of each entity are mentioned. "
+"The correlations with other entities are also mentioned. For example, the "
+"entity ``Node`` is related to a ``Computer`` and a ``User``. The "
+"corresponding entity names appear nested next to the properties to show this"
+" correlation."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:70
+msgid ""
+"If you have migrated an archive file to the newest version, there may be an "
+"extra entry in ``metadata.json``. This simply states from which archive "
+"version the file was migrated."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:75
+msgid ""
+"If you supply an old archive file that the current AiiDA code does not "
+"support, ``verdi archive import`` will automatically try to migrate the "
+"archive by calling ``verdi archive migrate``."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:80
+msgid "``data.json``"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:82
+msgid "A sample of the ``data.json`` file follows:"
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:87
+msgid ""
+"At the start of the JSON file shown above, the links among the various AiiDA"
+" nodes are stated (``links_uuid`` field). For every link the UUIDs of the "
+"connected nodes, as well as the name of the link, are mentioned."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:90
+msgid ""
+"Then follows the data \"grouped\" into entity types. It is worth noticing "
+"the references between the instances of the various entities. For example "
+"the DbNode with identifier 5921143 belongs to the user with identifier 2 and"
+" was generated by the computer with identifier 1."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:94
+msgid ""
+"The name of the entities is a reference to the base ORM entities. This "
+"ensures that the archive files are compatible between different actual "
+"database backend/schema implementations (e.g. Django, SQLAlchemy, ...)."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:97
+msgid ""
+"If any groups are extracted, then they are mentioned in the corresponding "
+"field (``groups_uuid``)."
+msgstr ""
+
+#: ../docs/source/internals/data_storage.rst:99
+msgid ""
+"Attributes and extras of the extracted nodes, are described in the final "
+"part of the JSON file. The identifier of the corresponding node is used as a"
+" key for the attribute or extra."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:5
+msgid "Database structure"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:7
+msgid ""
+"The database is the main tool that AiiDA uses to keep track of the "
+"provenance. It directly stores the most critical data and contains the "
+"access information for everything that gets stored in the repository. Its "
+"content is organized into different tables, and although the exact structure"
+" will depend on the backend used (django or sqlalchemy), most of it is the "
+"same for both possibilities."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:11
+msgid ""
+"In the following section, we will first go through the main 9 tables that "
+"are related to the AiiDA entities and their relationships. These tables also"
+" have the property of being the same for both backends. We will give a "
+"general overview and explanation of how they work, and provide a more "
+"exaustive technical description of their internal structure. After that, we "
+"will introduce the remaining tables that either serve a more auxiliary "
+"purpose or are backend specific."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:18
+msgid "The AiiDA entities and their tables"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:20
+msgid ""
+"There are 7 entities that are stored in the database, each within its own "
+"table:"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:22
+msgid ""
+"**db_dbnode:** the `nodes` are the most important entities of AiiDA. The "
+"very provenance graph is made up of interconected data and process nodes."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:25
+msgid ""
+"**db_dbgroup:** `groups` are containers for organizing nodes. A group may "
+"contain many different nodes, but also each node can be included in "
+"different groups."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:28
+msgid ""
+"**db_dbuser:** `users` represent (and contain the information of) the real "
+"life individuals working with the program. Every node that is created has a "
+"single user as its author."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:31
+msgid ""
+"**db_dbcomputer:** `computers` represent (and contain the information of) "
+"the physical hardware resources available. Nodes can be associated with "
+"computers if they are remote codes, remote folders, or processes that had "
+"run remotely."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:34
+msgid ""
+"**db_dbauthinfo:** `authinfos` contain the specific user configurations for "
+"accessing a given computer."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:36
+msgid "**db_dbcomment:** `comments` can be attach to the nodes by the users."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:38
+msgid ""
+"**db_dblog:** `logs` may be attached to nodes by AiiDA to provide further "
+"information of relevant events that transpired during its creation (for "
+"example, warning an errors during the execution of processes)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:41
+msgid ""
+"In all of the tables in the database (not just the ones mentioned above), "
+"the primary key that uniquely identifies each of their members is a positive"
+" integer number called ``id`` (sometimes also ``pk``). However, this number "
+"is only unique within the table, and thus there can be a user with an ``id``"
+" of 2 and a node with an ``id`` of 2 in the same database (or, more "
+"trivially, two different nodes both with an ``id`` of 2, each in a different"
+" database)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:44
+msgid ""
+"What most of the entities also have (all the aforementioned except for users"
+" and authinfos) is a ``uuid`` value. The ``uuid`` is meant to serve as an "
+"identifier that is unique within all tables of all AiiDA databases in the "
+"world. This is a 32-position exadecimal sequence that is stored as a string "
+"with some dash separated sections (for example: ``479a312d-e9b6-4bbb-"
+"93b4-f0a7174ccbf4``)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:48
+msgid ""
+"When going over the descriptions for the entities before, you may have "
+"noticed that all of them have some kind of \"interaction\" or "
+"\"relationship\" with at least one other entity in some way. Some of these "
+"relationships can be tracked inside of one of the related entity's tables, "
+"whilst others require the creation of a whole new table with the only "
+"purpose of keeping track of them."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:53
+msgid "The many-to-one relationship"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:55
+msgid ""
+"You can see an example of a many-to-one relationship between users and "
+"nodes: each node will have one and only one user that has created it, while "
+"a single user may have created many nodes. Although in that case the "
+"relationship is \"mandatory\", this doesn't need to be the case: for "
+"example, not all nodes will have a computer associated with them, but the "
+"ones that do will have only one and no more."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:58
+msgid "The following entities have a many-to-one relationship:"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:60
+msgid "Many `nodes` can be created by the same `user`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:61
+msgid "Many `nodes` can point to the same `computer`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:62
+msgid "Many `groups` can be created by the same `user`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:63
+msgid "Many `authinfos` can be set for the same `user`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:64
+msgid "Many `authinfos` can be set for the same `computer`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:65
+msgid "Many `comments` can be created by the same `user`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:66
+msgid "Many `comments` can be attached to the same `node`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:67
+msgid "Many `logs` can be attached to the same `node`."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:69
+msgid ""
+"The way to keep track of these relationships is by inserting a `foreign key`"
+" column in the table of the \"many\" entity that points to the corresponding"
+" id value of the \"one\" entity they are related to. For example, there is a"
+" ``user_id`` foreign key column in the **db_dbnode** table that stores the "
+"id of the user that created each node."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:74
+msgid "The many-to-many relationship"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:76
+msgid ""
+"This type of relationship is a bit more difficult to track, since now both "
+"members can be related to more than one element. Recording this in the same "
+"table as one of the entities would imply storing a list of values in a "
+"column (which is often discouraged and not well supported). Therefore, it is"
+" more convenient to use an extra table in which each of the connections has "
+"its corresponding entry indicating which are the specific elements that are "
+"related."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:80
+msgid "There are only two many-to-many relationships in AiiDA:"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:82
+msgid ""
+"**Between groups and nodes:** as specified before, many nodes can be inside "
+"the same group and a single node can belong to many different groups. This "
+"relationship is tracked in the **db_dbgroup_dbnodes** table."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:86
+msgid ""
+"**Between nodes themselves (Links):** nodes have what is known as a \"self-"
+"referencing relationship\", meaning that they can be connected among "
+"themselves. Indeed, this is one of the core principles of how the provenance"
+" graph works. This relationship is tracked in the **db_dblinks** table."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:93
+msgid "In depth table descriptions"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:95
+msgid ""
+"In the following section you can find a complete list of all the columns for"
+" each of the tables. Each table will also feature a brief description of its"
+" more specific and relevant columns. There are some that are common in many "
+"of the tables and so will be described here:"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:99
+msgid "The ``id`` and the ``uuid`` columns were already mentioned above."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:101
+msgid ""
+"The `foreign key` columns were already introduced in the many-to-one section"
+" and are easy to recognize."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:103
+msgid ""
+"The columns formatted for timestamps are used to store either the creation "
+"time (``time``, ``ctime``) or the last modification time (``mtime``)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:105
+msgid ""
+"The columns for ``label`` and ``description`` are for what the name "
+"intuitively implies, and their content is ultimately more free-form and up "
+"to the user."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:109
+msgid "db_dbnode"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:111
+msgid ""
+"Each node can be cathegorized according to its ``node_type``, which "
+"indicates what kind of data or process node it is. Additionally, process "
+"nodes also have a ``process_type`` that further indicates what is the "
+"specific plugin it uses."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:114
+msgid ""
+"Nodes can also store two kind of properties: ``attributes`` and ``extras``. "
+"The ``attributes`` are determined by the ``node_type``, and are set before "
+"storing the node and can't be modified afterwards. The ``extras``, on the "
+"other hand, can be added and removed after the node has been stored and are "
+"usually set by the user."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:118
+#: ../docs/source/internals/database.rst:139
+#: ../docs/source/internals/database.rst:152
+#: ../docs/source/internals/database.rst:167
+#: ../docs/source/internals/database.rst:177
+#: ../docs/source/internals/database.rst:193
+#: ../docs/source/internals/database.rst:210
+#: ../docs/source/internals/database.rst:223
+#: ../docs/source/internals/database.rst:237
+#: ../docs/source/internals/database.rst:253
+msgid "``id`` (primary key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:119
+#: ../docs/source/internals/database.rst:153
+#: ../docs/source/internals/database.rst:194
+#: ../docs/source/internals/database.rst:224
+#: ../docs/source/internals/database.rst:238
+msgid "``uuid`` (uuid)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:120
+#: ../docs/source/internals/database.rst:141
+#: ../docs/source/internals/database.rst:154
+msgid "``label`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:121
+#: ../docs/source/internals/database.rst:155
+#: ../docs/source/internals/database.rst:197
+#: ../docs/source/internals/database.rst:257
+msgid "``description`` (text)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:122
+msgid "``node_type`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:123
+msgid "``process_type`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:124
+msgid "``attributes`` (jsonb)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:125
+#: ../docs/source/internals/database.rst:157
+msgid "``extras`` (jsonb)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:126
+#: ../docs/source/internals/database.rst:226
+msgid "``ctime`` (timestamp)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:127
+#: ../docs/source/internals/database.rst:227
+msgid "``mtime`` (timestamp)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:128
+#: ../docs/source/internals/database.rst:159
+#: ../docs/source/internals/database.rst:228
+msgid "``user_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:129
+#: ../docs/source/internals/database.rst:215
+msgid "``dbcomputer_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:133
+msgid "db_dblink"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:135
+msgid ""
+"Each entry in this table contains not only the ``id`` information of the two"
+" nodes that are linked, but also some extra properties of the link "
+"themselves. This includes the ``type`` of the link (see the "
+":ref:`topics:provenance:concepts` section for all possible types) as well as"
+" a ``label``. This last one is more specific and tipically determined by the"
+" procedure generating the process node that links the data nodes."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:140
+msgid "``type`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:142
+msgid "``input_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:143
+msgid "``output_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:147
+msgid "db_dbgroup"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:149
+msgid ""
+"Users will tipically identify and handle groups by using their ``label`` "
+"(which, unlike the ``labels`` in other tables, must be unique). Groups also "
+"have a ``type``, which serves to identify what plugin is being instanced, "
+"and the ``extras`` property for users to set any relevant information."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:156
+msgid "``type_string`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:158
+#: ../docs/source/internals/database.rst:239
+#: ../docs/source/internals/database.rst:256
+msgid "``time`` (timestamp)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:163
+msgid "db_dbgroup_dbnodes"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:165
+msgid ""
+"Unlike the table for the many-to-many relationship between nodes, which adds"
+" a bit of extra contextual information, the table for the relationship "
+"between nodes and groups just assigns an ``id`` for each relation and "
+"records the two elements related."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:168
+#: ../docs/source/internals/database.rst:229
+#: ../docs/source/internals/database.rst:244
+msgid "``dbnode_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:169
+msgid "``dbgroup_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:173
+msgid "db_dbuser"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:175
+msgid ""
+"The user information consists of the most basic personal contact details."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:178
+msgid "``email`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:179
+msgid "``first_name`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:180
+msgid "``last_name`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:181
+msgid "``institution`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:185
+msgid "db_dbcomputer"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:187
+msgid ""
+"Just like groups do with ``labels``, computers are identified within AiiDA "
+"by their ``name`` (and thus it must be unique for each one in the database)."
+" On the other hand, the ``hostname`` is the label that identifies the "
+"computer within the network from which one can access it."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:190
+msgid ""
+"The ``scheduler_type`` column contains the information of the scheduler (and"
+" plugin) that the computer uses to manage jobs, whereas the "
+"``transport_type`` the information of the transport (and plugin) required to"
+" copy files and communicate to and from the computer. The ``metadata`` "
+"contains some general settings for these communication and management "
+"protocols."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:195
+msgid "``name`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:196
+msgid "``hostname`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:198
+#: ../docs/source/internals/database.rst:211
+#: ../docs/source/internals/database.rst:241
+msgid "``metadata`` (jsonb)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:199
+msgid "``transport_type`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:200
+msgid "``scheduler_type`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:204
+msgid "db_dbauthinfo"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:206
+msgid ""
+"The ``auth_params`` contains the specifications that are user-specific of "
+"how to submit jobs in the computer. The table also has an ``enabled`` "
+"logical switch that indicates whether the device is available for use or "
+"not. This last one can be set and unset by the user."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:212
+msgid "``enabled`` (boolean)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:213
+msgid "``auth_params`` (jsonb)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:214
+msgid "``aiidauser_id`` (foreign key)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:219
+msgid "db_dbcomment"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:221
+msgid ""
+"The comment table only has the ``content`` column that is specific to it, "
+"while the rest of the columns just track the contextual information of the "
+"entry."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:225
+msgid "``content`` (text)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:233
+msgid "db_dblog"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:235
+msgid ""
+"The log table not only keeps track of the ``messages`` being recorded, but "
+"also of the ``levelname`` (how critical the message is, from a simple report"
+" to an irrecoverable error) and the ``loggername`` (what process recorded "
+"the message)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:240
+msgid "``message`` (text)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:242
+msgid "``levelname`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:243
+msgid "``loggername`` (varchar255)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:248
+msgid "The auxiliary tables"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:251
+msgid "db_dbsetting"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:254
+msgid "``key`` (varchar1024)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:255
+msgid "``val`` (jsonb)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:261
+msgid "Sequence tables"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:263
+msgid ""
+"These are necessary to keep track of the id primary key for each main table "
+"(including the backend-specific ones). They end in ``_id_seq`` (for example,"
+" **db_dbnode_id_seq**, **db_dbgroup_id_seq**, **db_dblink_id_seq**)."
+msgstr ""
+
+#: ../docs/source/internals/database.rst:268
+msgid "Backend specific tables"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:270
+msgid "**auth_group** (django)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:271
+msgid "**auth_group_permissions** (django)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:272
+msgid "**auth_permission** (django)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:273
+msgid "**django_content_type** (django)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:274
+msgid "**django_migrations** (django)"
+msgstr ""
+
+#: ../docs/source/internals/database.rst:275
+msgid "**alembic_version** (sqlalchemy)"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:5
+msgid "Engine"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:12
+msgid "Controlling caching"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:16
+msgid ""
+"This section covers some details of the caching mechanism which are not "
+"discussed in the :ref:`topics section <topics:provenance:caching>`. If you "
+"are developing plugins and want to modify the caching behavior of your "
+"classes, we recommend you read that section first."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:19
+msgid ""
+"There are several methods which the internal classes of AiiDA use to control"
+" the caching mechanism:"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:21
+msgid ""
+"On the level of the generic :class:`orm.Node <aiida.orm.nodes.Node>` class:"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:23
+msgid ""
+"The :meth:`~aiida.orm.nodes.Node.is_valid_cache` property determines whether"
+" a particular node can be used as a cache. This is used for example to "
+"disable caching from failed calculations."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:25
+msgid ""
+"Node classes have a ``_cachable`` attribute, which can be set to ``False`` "
+"to completely switch off caching for nodes of that class. This avoids "
+"performing queries for the hash altogether."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:28
+msgid ""
+"On the level of the :class:`Process "
+"<aiida.engine.processes.process.Process>` and :class:`orm.ProcessNode "
+"<aiida.orm.nodes.process.ProcessNode>` classes:"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:30
+msgid ""
+"The :meth:`ProcessNode.is_valid_cache "
+"<aiida.orm.nodes.process.ProcessNode.is_valid_cache>` calls "
+":meth:`Process.is_valid_cache "
+"<aiida.engine.processes.process.Process.is_valid_cache>`, passing the node "
+"itself. This can be used in :class:`~aiida.engine.processes.process.Process`"
+" subclasses (e.g. in calculation plugins) to implement custom ways of "
+"invalidating the cache."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:32
+msgid ""
+"The :meth:`ProcessNode._hash_ignored_inputs "
+"<aiida.orm.nodes.process.process.ProcessNode._hash_ignored_inputs>` "
+"attribute lists the inputs that should be ignored when creating the hash. "
+"This is checked by the :meth:`ProcessNode._get_objects_to_hash "
+"<aiida.orm.nodes.process.process.ProcessNode._get_objects_to_hash>` method."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:34
+msgid ""
+"The :meth:`Process.is_valid_cache "
+"<aiida.engine.processes.process.Process.is_valid_cache>` is where the "
+":meth:`exit_codes "
+"<aiida.engine.processes.process_spec.ProcessSpec.exit_code>` that have been "
+"marked by ``invalidates_cache`` are checked."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:38
+msgid "The ``WorkflowNode`` example"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:40
+msgid ""
+"As discussed in the :ref:`topic section "
+"<topics:provenance:caching:limitations>`, nodes which can have ``RETURN`` "
+"links cannot be cached. This is enforced on two levels:"
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:43
+msgid ""
+"The ``_cachable`` property is set to ``False`` in the "
+":class:`~aiida.orm.nodes.Node`, and only re-enabled in "
+":class:`~aiida.orm.nodes.process.calculation.calculation.CalculationNode` "
+"(which affects CalcJobs and calcfunctions). This means that a "
+":class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be"
+" cached."
+msgstr ""
+
+#: ../docs/source/internals/engine.rst:45
+msgid ""
+"The ``_store_from_cache`` method, which is used to \"clone\" an existing "
+"node, will raise an error if the existing node has any ``RETURN`` links. "
+"This extra safe-guard prevents cases where a user might incorrectly override"
+" the ``_cachable`` property on a ``WorkflowNode`` subclass."
+msgstr ""
+
+#: ../docs/source/internals/index.rst:3
+msgid "Internal architecture"
+msgstr ""
+
+#: ../docs/source/internals/index.rst:16
+msgid "global_design orm"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:5
+msgid "Plugin system"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:7
+msgid ""
+"This page explains how to contribute to the plugin system in ``aiida-core``."
+" For instrucions on how to develop plugins, see :ref:`how-to:plugins-"
+"develop`."
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:11
+msgid "Design Principles"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:13
+msgid "Only restrict plugin developers when really necessary;"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:15
+msgid "Avoid database schema changes whenever reasonably possible;"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:17
+msgid ""
+"Finding and loading plugins must be as fast as the plugin allows, especially"
+" for command line interface (CLI) commands. In other words, directly "
+"importing a plugin class should not be noticeably faster than using the "
+"plugin loader/factory;"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:20
+msgid ""
+"Implement as a drop-in replacement, provide backwards compatibility to "
+"pre-0.9 plugin system;"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:22
+msgid ""
+"Plugin management should be as user friendly from the verdi shell as from "
+"the CLI."
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:25
+msgid "Mini-Spec"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:28
+msgid "Nomenclature"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:35
+msgid "``plugin_name``"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:30
+msgid "A unique name identifying the plugin. Suggested naming scheme is"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:32
+msgid "``aiida-<plugin-name>`` for pypi distribution / source code repository"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:33
+msgid ""
+"``aiida_<plugin_name>`` for python package (``import aiida_<plugin_name>``; "
+"dashes replaced by underscores)"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:34
+msgid "``<plugin_name>.ep_name`` for entry points"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:41
+msgid "``category``"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:38
+msgid ""
+"A name given to each aspect of AiiDA that can be extended via plugins, such "
+"as ``calculations``, ``schedulers``, ... (see output of ``verdi plugin "
+"list`` for a complete list)."
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:41
+msgid "Each category maps to an *entry point group* ``aiida.<category>``."
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:44
+msgid "Interfaces"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:47
+msgid "Pluginloader"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:48
+msgid ""
+"The plugin loading functionality is defined in "
+":py:mod:`aiida.plugins.entry_point` and relies on the `reentry package "
+"<https://pypi.org/project/reentry/>`_ to find and load entry points. "
+"``reentry`` is about 10x faster than the equivalent functionality in "
+"``pkg_resources`` from ``setuptools``, leading to significant speedup of "
+"tab-autocompletion in the ``verdi`` cli. If, for some reason, ``reentry`` is"
+" not found, the plugin system falls back on ``pkg_resources``."
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:53
+msgid "Registry Tools"
+msgstr ""
+
+#: ../docs/source/internals/plugin_system.rst:54
+msgid "See the API documentation in :py:mod:`aiida.plugins`."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:8
+msgid "REST API"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:10
+msgid "The AiiDA REST API is made of two main classes:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:12
+msgid ""
+"``App``, inheriting from ``flask.Flask`` (generic class for Flask web "
+"applications)."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:13
+msgid ""
+"``AiidaApi``, inheriting ``flask_restful.Api``. This class defines the "
+"resources served by the REST API."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:15
+msgid ""
+"The instances of both ``AiidaApi`` (let's call it ``api``) and ``App`` "
+"(let's call it ``app``) need to be coupled by setting ``api.app = app``."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:19
+msgid "Extending the REST API"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:21
+msgid ""
+"In the following, we will go through a minimal example of creating an API "
+"that extends the AiiDA REST API by adding an endpoint ``/new-endpoint``. The"
+" endpoint will support two HTTP methods:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:24
+msgid ""
+"*GET*: retrieves the latest created Dict object and returns its ``id``, "
+"``ctime`` in ISO 8601 format, and ``attributes``."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:25
+msgid ""
+"*POST*: creates a ``Dict`` object with placeholder attributes, stores it, "
+"and returns its ``id``."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:27
+msgid "In order to achieve this, we will need to:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:29
+msgid ""
+"Create the ``flask_restful.Resource`` class that will be bound to the new "
+"endpoint."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:30
+msgid ""
+"Extend the :py:class:`~aiida.restapi.api.AiidaApi` class in order to "
+"register the new endpoint."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:31
+msgid ""
+"(Optional) Extend the :py:class:`~aiida.restapi.api.App` class for "
+"additional customization."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:33
+msgid "Let's start by putting the following code into a  file ``api.py``:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:37
+msgid "We will now go through the previous code step by step."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:39
+msgid "First things first: the imports."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:47
+msgid ""
+"To start with, we import the base classes to be extended/employed: "
+"``AiidaApi`` and ``App``. For simplicity, it is advisable to import the "
+"method ``run_api``, as it provides an interface to configure the API, parse "
+"command-line arguments, and couple the two classes representing the API and "
+"the App. However, you can refer to the documentation of `flask_restful "
+"<https://flask-restful.readthedocs.io/>`_ to configure and hook-up an API "
+"through its built-in methods."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:51
+msgid "Then we define a class representing the additional resource:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:91
+msgid ""
+"The class ``NewResource`` contains two methods: ``get`` and ``post``. The "
+"names chosen for these functions are not arbitrary but fixed by ``Flask`` to"
+" individuate the functions that respond to HTTP request of type GET and "
+"POST, respectively. In other words, when the API receives a GET (POST) "
+"request to the URL ``new-endpoint``, the function ``NewResource.get()`` "
+"(``NewResource.post()``) will be executed. The HTTP response is constructed "
+"around the data returned by these functions. The data, which are packed as "
+"dictionaries, are serialized by Flask as a JSON stream of data. All the "
+"Python built-in types can be serialized by Flask (e.g. ``int``, ``float``, "
+"``str``, etc.), whereas for serialization of custom types we let you refer "
+"to the `Flask documentation <http://flask.pocoo.org/docs/>`_ . The "
+"documentation of Flask is the main source of information also for topics "
+"such as customization of HTTP responses, construction of custom URLs (e.g. "
+"accepting parameters), and more advanced serialization issues."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:99
+msgid ""
+"Whenever you face the need to handle errors, consider to use the AiiDA REST "
+"API-specific exceptions already defined in  "
+":py:class:`aiida.restapi.common.exceptions`. The reason will become clear "
+"slightly later in this section."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:102
+msgid ""
+"Once the new resource is defined, we have to register it to the API by "
+"assigning it one (or more) endpoint(s). This is done in the ``__init__()`` "
+"of ``NewApi`` by means of the method ``add_resource()``:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:118
+msgid ""
+"In our original intentions, the main (if not the only) purpose of overriding"
+" the ``__init__()`` method is to register new resources to the API. In fact,"
+" the general form of ``__init__()`` is meant to be:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:135
+msgid ""
+"In the example, indeed, the only characteristic line is "
+":python:`self.add_resource(NewResource, '/new-endpoint/', "
+"strict_slashes=False)`. Anyway, the method ``add_resource()`` is defined and"
+" documented in `Flask <http://flask.pocoo.org/docs/>`_."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:138
+msgid "Finally, the ``main`` code configures and runs the API:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:177
+msgid ""
+"The `click package <https://click.palletsprojects.com/en/7.x/>`_ is used to "
+"provide a a nice command line interface to process the options and handle "
+"the default values to pass to the ``newendpoint`` function."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:179
+msgid ""
+"The method ``run_api()`` accomplishes several functions: it couples the API "
+"to an instance of ``flask.Flask``, namely, the Flask fundamental class "
+"representing a web app. Consequently, the app is configured and, if "
+"required, hooked up."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:182
+msgid "It takes as inputs:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:184
+msgid ""
+"the classes representing the API and the application. We strongly suggest to"
+" pass to ``run_api()`` the :py:class:`aiida.restapi.api.App` class, "
+"inheriting from ``flask.Flask``, as it handles correctly AiiDA RESTApi-"
+"specific exceptions."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:187
+msgid ""
+"positional arguments representing the command-line arguments/options, passed"
+" by the click function. Types, defaults and help strings can be set in the "
+"``@click.option`` definitions, and will be handled by the command line call."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:191
+msgid "A few more things before using the script:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:193
+msgid ""
+"if you want to customize further the error handling, you can take "
+"inspiration by looking at the definition of ``App`` and create your derived "
+"class ``NewApp(App)``."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:196
+msgid ""
+"the supported command line options are identical to those of ``verdi "
+"restapi``. Use ``verdi restapi --help`` for their full documentation. If you"
+" want to add more options or modify the existing ones, create you custom "
+"runner taking inspiration from ``run_api``."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:200
+msgid "It is time to run ``api.py``. Type in a terminal"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:214
+msgid ""
+"Let's use ``curl`` with the GET method to ask for the latest created node:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:220
+msgid "The form of the output (and only the form) should resemble"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:233
+msgid ""
+"whereas the actual values of the response dictionary as well as the internal"
+" structure of the attributes field will be in general very different."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:235
+msgid ""
+"Now, let us create a node through the POST method, and check it again "
+"through GET:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:251
+msgid ""
+"The POST request triggers the creation of a new ``Dict`` node, as confirmed "
+"by the response to the GET request."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:253
+msgid ""
+"As a final remark, there might be circumstances in which you do not want to "
+"use the internal werkzeug-based server. For example, you might want to run "
+"the app through Apache using a wsgi script. In this case, simply use "
+"``configure_api`` to return a custom object ``api``:"
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:262
+msgid ""
+"The ``app`` can be retrieved by ``api.app``. This snippet of code becomes "
+"the fundamental block of a *wsgi* file used by Apache as documented in  :ref"
+":`how-to:share:serve:deploy`. Moreover, we recommend to consult the "
+"documentation of `mod_wsgi <https://modwsgi.readthedocs.io/>`_."
+msgstr ""
+
+#: ../docs/source/internals/rest_api.rst:267
+msgid ""
+"Optionally, create a click option for the variable ``catch_internal_server``"
+" to be ``False`` in order to let exceptions (including python tracebacks) "
+"bubble up to the apache error log. This can be particularly useful when the "
+"``app`` is still under heavy development."
+msgstr ""
