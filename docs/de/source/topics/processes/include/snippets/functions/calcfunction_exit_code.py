@@ -1,1 +1,0 @@
-../../../../../../../.././aiida-core/docs/source/topics/processes/include/snippets/functions/calcfunction_exit_code.py

@@ -1,1 +1,0 @@
-../../../../../../../.././aiida-core/docs/source/topics/workflows/include/snippets/expose_inputs/simple_parent.py

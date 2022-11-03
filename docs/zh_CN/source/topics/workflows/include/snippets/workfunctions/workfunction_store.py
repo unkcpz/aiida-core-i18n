@@ -1,1 +1,0 @@
-../../../../../../../.././aiida-core/docs/source/topics/workflows/include/snippets/workfunctions/workfunction_store.py

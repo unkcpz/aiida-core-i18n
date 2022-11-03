@@ -1,1 +1,0 @@
-../.././aiida-core/docs/__init__.py

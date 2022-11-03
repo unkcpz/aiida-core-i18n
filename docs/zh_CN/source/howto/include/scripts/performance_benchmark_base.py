@@ -1,1 +1,0 @@
-../../../../../.././aiida-core/docs/source/howto/include/scripts/performance_benchmark_base.py

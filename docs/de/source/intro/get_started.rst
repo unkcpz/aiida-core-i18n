@@ -1,1 +1,0 @@
-../../../.././aiida-core/docs/source/intro/get_started.rst

@@ -1,1 +1,0 @@
-../../../.././aiida-core/docs/source/howto/share_data.rst

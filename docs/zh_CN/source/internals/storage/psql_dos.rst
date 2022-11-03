@@ -1,1 +1,0 @@
-../../../../.././aiida-core/docs/source/internals/storage/psql_dos.rst

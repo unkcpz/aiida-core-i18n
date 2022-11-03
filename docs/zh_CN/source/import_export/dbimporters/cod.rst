@@ -1,1 +1,0 @@
-../../../../.././aiida-core/docs/source/import_export/dbimporters/cod.rst

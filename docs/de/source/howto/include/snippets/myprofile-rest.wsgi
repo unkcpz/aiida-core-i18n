@@ -1,1 +1,0 @@
-../../../../../.././aiida-core/docs/source/howto/include/snippets/myprofile-rest.wsgi

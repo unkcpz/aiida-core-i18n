@@ -1,1 +1,0 @@
-../../../.././aiida-core/docs/source/import_export/external_dbs.rst

@@ -1,1 +1,0 @@
-../../../.././aiida-core/docs/source/developer_guide/plugins.rst

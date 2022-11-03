@@ -1,1 +1,0 @@
-../../../.././aiida-core/docs/source/internals/global_design.rst
