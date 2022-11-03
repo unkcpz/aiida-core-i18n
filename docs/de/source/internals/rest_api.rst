@@ -1,0 +1,1 @@
+../../../.././aiida-core/docs/source/internals/rest_api.rst

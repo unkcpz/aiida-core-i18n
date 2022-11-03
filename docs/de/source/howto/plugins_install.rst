@@ -1,0 +1,1 @@
+../../../.././aiida-core/docs/source/howto/plugins_install.rst

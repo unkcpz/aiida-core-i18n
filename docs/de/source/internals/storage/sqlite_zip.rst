@@ -1,0 +1,1 @@
+../../../../.././aiida-core/docs/source/internals/storage/sqlite_zip.rst

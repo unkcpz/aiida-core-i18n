@@ -1,0 +1,1 @@
+../../../.././aiida-core/docs/source/intro/install_system.rst

@@ -1,0 +1,1 @@
+../../../../.././aiida-core/docs/source/reference/apidoc/aiida.storage.sqlite_zip.rst

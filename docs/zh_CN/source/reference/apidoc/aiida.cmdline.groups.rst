@@ -1,0 +1,1 @@
+../../../../.././aiida-core/docs/source/reference/apidoc/aiida.cmdline.groups.rst

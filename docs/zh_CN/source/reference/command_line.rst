@@ -1,0 +1,1 @@
+../../../.././aiida-core/docs/source/reference/command_line.rst

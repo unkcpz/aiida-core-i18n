@@ -1,0 +1,1 @@
+../../.././aiida-core/docs/source/external_redirects.rst
