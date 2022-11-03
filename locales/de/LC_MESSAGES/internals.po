@@ -1,0 +1,1655 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014-2020, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-03 14:17+0000\n"
+"PO-Revision-Date: 2022-11-03 14:19+0000\n"
+"Language-Team: German (https://www.transifex.com/aiidateam/teams/98967/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/internals/engine.rst:5
+msgid "Engine"
+msgstr ""
+
+#: ../../source/internals/engine.rst:12
+msgid "Controlling caching"
+msgstr ""
+
+#: ../../source/internals/engine.rst:16
+msgid ""
+"This section covers some details of the caching mechanism which are not "
+"discussed in the :ref:`topics section <topics:provenance:caching>`. If you "
+"are developing plugins and want to modify the caching behavior of your "
+"classes, we recommend you read that section first."
+msgstr ""
+
+#: ../../source/internals/engine.rst:19
+msgid ""
+"There are several methods which the internal classes of AiiDA use to control"
+" the caching mechanism:"
+msgstr ""
+
+#: ../../source/internals/engine.rst:21
+msgid "On the level of the generic :class:`orm.Node <aiida.orm.Node>` class:"
+msgstr ""
+
+#: ../../source/internals/engine.rst:23
+msgid ""
+"The :meth:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` property "
+"determines whether a particular node can be used as a cache. This is used "
+"for example to disable caching from failed calculations."
+msgstr ""
+
+#: ../../source/internals/engine.rst:25
+msgid ""
+"Node classes have a ``_cachable`` attribute, which can be set to ``False`` "
+"to completely switch off caching for nodes of that class. This avoids "
+"performing queries for the hash altogether."
+msgstr ""
+
+#: ../../source/internals/engine.rst:28
+msgid ""
+"On the level of the :class:`Process "
+"<aiida.engine.processes.process.Process>` and :class:`orm.ProcessNode "
+"<aiida.orm.ProcessNode>` classes:"
+msgstr ""
+
+#: ../../source/internals/engine.rst:30
+msgid ""
+"The :meth:`ProcessNodeCaching.is_valid_cache "
+"<aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` calls "
+":meth:`Process.is_valid_cache "
+"<aiida.engine.processes.process.Process.is_valid_cache>`, passing the node "
+"itself. This can be used in :class:`~aiida.engine.processes.process.Process`"
+" subclasses (e.g. in calculation plugins) to implement custom ways of "
+"invalidating the cache."
+msgstr ""
+
+#: ../../source/internals/engine.rst:32
+msgid ""
+"The :meth:`ProcessNodeCaching._hash_ignored_inputs "
+"<aiida.orm.nodes.process.process.ProcessNodeCaching._hash_ignored_inputs>` "
+"attribute lists the inputs that should be ignored when creating the hash. "
+"This is checked by the :meth:`ProcessNodeCaching._get_objects_to_hash "
+"<aiida.orm.nodes.process.process.ProcessNodeCaching._get_objects_to_hash>` "
+"method."
+msgstr ""
+
+#: ../../source/internals/engine.rst:34
+msgid ""
+"The :meth:`Process.is_valid_cache "
+"<aiida.engine.processes.process.Process.is_valid_cache>` is where the "
+":meth:`exit_codes "
+"<aiida.engine.processes.process_spec.ProcessSpec.exit_code>` that have been "
+"marked by ``invalidates_cache`` are checked."
+msgstr ""
+
+#: ../../source/internals/engine.rst:38
+msgid "The ``WorkflowNode`` example"
+msgstr ""
+
+#: ../../source/internals/engine.rst:40
+msgid ""
+"As discussed in the :ref:`topic section "
+"<topics:provenance:caching:limitations>`, nodes which can have ``RETURN`` "
+"links cannot be cached. This is enforced on two levels:"
+msgstr ""
+
+#: ../../source/internals/engine.rst:43
+msgid ""
+"The ``_cachable`` property is set to ``False`` in the "
+":class:`~aiida.orm.Node`, and only re-enabled in "
+":class:`~aiida.orm.nodes.process.calculation.calculation.CalculationNode` "
+"(which affects CalcJobs and calcfunctions). This means that a "
+":class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be"
+" cached."
+msgstr ""
+
+#: ../../source/internals/engine.rst:45
+msgid ""
+"The ``_store_from_cache`` method, which is used to \"clone\" an existing "
+"node, will raise an error if the existing node has any ``RETURN`` links. "
+"This extra safe-guard prevents cases where a user might incorrectly override"
+" the ``_cachable`` property on a ``WorkflowNode`` subclass."
+msgstr ""
+
+#: ../../source/internals/index.rst:3
+msgid "Internal architecture"
+msgstr ""
+
+#: ../../source/internals/index.rst:12
+msgid "Todo"
+msgstr ""
+
+#: ../../source/internals/index.rst:14
+msgid "global_design"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:5
+msgid "Plugin system"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:7
+msgid ""
+"This page explains how to contribute to the plugin system in ``aiida-core``."
+" For instrucions on how to develop plugins, see :ref:`how-to:plugins-"
+"develop`."
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:11
+msgid "Design Principles"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:13
+msgid "Only restrict plugin developers when really necessary;"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:15
+msgid "Avoid database schema changes whenever reasonably possible;"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:17
+msgid ""
+"Finding and loading plugins must be as fast as the plugin allows, especially"
+" for command line interface (CLI) commands. In other words, directly "
+"importing a plugin class should not be noticeably faster than using the "
+"plugin loader/factory;"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:20
+msgid ""
+"Implement as a drop-in replacement, provide backwards compatibility to "
+"pre-0.9 plugin system;"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:22
+msgid ""
+"Plugin management should be as user friendly from the verdi shell as from "
+"the CLI."
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:25
+msgid "Mini-Spec"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:28
+msgid "Nomenclature"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:35
+msgid "``plugin_name``"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:30
+msgid "A unique name identifying the plugin. Suggested naming scheme is"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:32
+msgid "``aiida-<plugin-name>`` for pypi distribution / source code repository"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:33
+msgid ""
+"``aiida_<plugin_name>`` for python package (``import aiida_<plugin_name>``; "
+"dashes replaced by underscores)"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:34
+msgid "``<plugin_name>.ep_name`` for entry points"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:41
+msgid "``category``"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:38
+msgid ""
+"A name given to each aspect of AiiDA that can be extended via plugins, such "
+"as ``calculations``, ``schedulers``, ... (see output of ``verdi plugin "
+"list`` for a complete list)."
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:41
+msgid "Each category maps to an *entry point group* ``aiida.<category>``."
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:44
+msgid "Interfaces"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:47
+msgid "Pluginloader"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:48
+msgid ""
+"The plugin loading functionality is defined in "
+":py:mod:`aiida.plugins.entry_point`."
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:51
+msgid "Registry Tools"
+msgstr ""
+
+#: ../../source/internals/plugin_system.rst:52
+msgid "See the API documentation in :py:mod:`aiida.plugins`."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:8
+msgid "REST API"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:10
+msgid "The AiiDA REST API is made of two main classes:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:12
+msgid ""
+"``App``, inheriting from ``flask.Flask`` (generic class for Flask web "
+"applications)."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:13
+msgid ""
+"``AiidaApi``, inheriting ``flask_restful.Api``. This class defines the "
+"resources served by the REST API."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:15
+msgid ""
+"The instances of both ``AiidaApi`` (let's call it ``api``) and ``App`` "
+"(let's call it ``app``) need to be coupled by setting ``api.app = app``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:19
+msgid "Extending the REST API"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:21
+msgid ""
+"In the following, we will go through a minimal example of creating an API "
+"that extends the AiiDA REST API by adding an endpoint ``/new-endpoint``. The"
+" endpoint will support two HTTP methods:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:24
+msgid ""
+"*GET*: retrieves the latest created Dict object and returns its ``id``, "
+"``ctime`` in ISO 8601 format, and ``attributes``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:25
+msgid ""
+"*POST*: creates a ``Dict`` object with placeholder attributes, stores it, "
+"and returns its ``id``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:27
+msgid "In order to achieve this, we will need to:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:29
+msgid ""
+"Create the ``flask_restful.Resource`` class that will be bound to the new "
+"endpoint."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:30
+msgid ""
+"Extend the :py:class:`~aiida.restapi.api.AiidaApi` class in order to "
+"register the new endpoint."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:31
+msgid ""
+"(Optional) Extend the :py:class:`~aiida.restapi.api.App` class for "
+"additional customization."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:33
+msgid "Let's start by putting the following code into a  file ``api.py``:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:37
+msgid "We will now go through the previous code step by step."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:39
+msgid "First things first: the imports."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:47
+msgid ""
+"To start with, we import the base classes to be extended/employed: "
+"``AiidaApi`` and ``App``. For simplicity, it is advisable to import the "
+"method ``run_api``, as it provides an interface to configure the API, parse "
+"command-line arguments, and couple the two classes representing the API and "
+"the App. However, you can refer to the documentation of `flask_restful "
+"<https://flask-restful.readthedocs.io/>`_ to configure and hook-up an API "
+"through its built-in methods."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:51
+msgid "Then we define a class representing the additional resource:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:91
+msgid ""
+"The class ``NewResource`` contains two methods: ``get`` and ``post``. The "
+"names chosen for these functions are not arbitrary but fixed by ``Flask`` to"
+" individuate the functions that respond to HTTP request of type GET and "
+"POST, respectively. In other words, when the API receives a GET (POST) "
+"request to the URL ``new-endpoint``, the function ``NewResource.get()`` "
+"(``NewResource.post()``) will be executed. The HTTP response is constructed "
+"around the data returned by these functions. The data, which are packed as "
+"dictionaries, are serialized by Flask as a JSON stream of data. All the "
+"Python built-in types can be serialized by Flask (e.g. ``int``, ``float``, "
+"``str``, etc.), whereas for serialization of custom types we let you refer "
+"to the `Flask documentation <http://flask.pocoo.org/docs/>`_ . The "
+"documentation of Flask is the main source of information also for topics "
+"such as customization of HTTP responses, construction of custom URLs (e.g. "
+"accepting parameters), and more advanced serialization issues."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:99
+msgid ""
+"Whenever you face the need to handle errors, consider to use the AiiDA REST "
+"API-specific exceptions already defined in  "
+":py:class:`aiida.restapi.common.exceptions`. The reason will become clear "
+"slightly later in this section."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:102
+msgid ""
+"Once the new resource is defined, we have to register it to the API by "
+"assigning it one (or more) endpoint(s). This is done in the ``__init__()`` "
+"of ``NewApi`` by means of the method ``add_resource()``:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:118
+msgid ""
+"In our original intentions, the main (if not the only) purpose of overriding"
+" the ``__init__()`` method is to register new resources to the API. In fact,"
+" the general form of ``__init__()`` is meant to be:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:135
+msgid ""
+"In the example, indeed, the only characteristic line is "
+":python:`self.add_resource(NewResource, '/new-endpoint/', "
+"strict_slashes=False)`. Anyway, the method ``add_resource()`` is defined and"
+" documented in `Flask <http://flask.pocoo.org/docs/>`_."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:138
+msgid "Finally, the ``main`` code configures and runs the API:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:177
+msgid ""
+"The `click package <https://click.palletsprojects.com/en/7.x/>`_ is used to "
+"provide a a nice command line interface to process the options and handle "
+"the default values to pass to the ``newendpoint`` function."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:179
+msgid ""
+"The method ``run_api()`` accomplishes several functions: it couples the API "
+"to an instance of ``flask.Flask``, namely, the Flask fundamental class "
+"representing a web app. Consequently, the app is configured and, if "
+"required, hooked up."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:182
+msgid "It takes as inputs:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:184
+msgid ""
+"the classes representing the API and the application. We strongly suggest to"
+" pass to ``run_api()`` the :py:class:`aiida.restapi.api.App` class, "
+"inheriting from ``flask.Flask``, as it handles correctly AiiDA RESTApi-"
+"specific exceptions."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:187
+msgid ""
+"positional arguments representing the command-line arguments/options, passed"
+" by the click function. Types, defaults and help strings can be set in the "
+"``@click.option`` definitions, and will be handled by the command line call."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:191
+msgid "A few more things before using the script:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:193
+msgid ""
+"if you want to customize further the error handling, you can take "
+"inspiration by looking at the definition of ``App`` and create your derived "
+"class ``NewApp(App)``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:196
+msgid ""
+"the supported command line options are identical to those of ``verdi "
+"restapi``. Use ``verdi restapi --help`` for their full documentation. If you"
+" want to add more options or modify the existing ones, create you custom "
+"runner taking inspiration from ``run_api``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:200
+msgid "It is time to run ``api.py``. Type in a terminal"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:214
+msgid ""
+"Let's use ``curl`` with the GET method to ask for the latest created node:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:220
+msgid "The form of the output (and only the form) should resemble"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:233
+msgid ""
+"whereas the actual values of the response dictionary as well as the internal"
+" structure of the attributes field will be in general very different."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:235
+msgid ""
+"Now, let us create a node through the POST method, and check it again "
+"through GET:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:251
+msgid ""
+"The POST request triggers the creation of a new ``Dict`` node, as confirmed "
+"by the response to the GET request."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:253
+msgid ""
+"As a final remark, there might be circumstances in which you do not want to "
+"use the internal werkzeug-based server. For example, you might want to run "
+"the app through Apache using a wsgi script. In this case, simply use "
+"``configure_api`` to return a custom object ``api``:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:262
+msgid ""
+"The ``app`` can be retrieved by ``api.app``. This snippet of code becomes "
+"the fundamental block of a *wsgi* file used by Apache as documented in  "
+":ref:`how-to:share:serve:deploy`. Moreover, we recommend to consult the "
+"documentation of `mod_wsgi <https://modwsgi.readthedocs.io/>`_."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:267
+msgid ""
+"Optionally, create a click option for the variable ``catch_internal_server``"
+" to be ``False`` in order to let exceptions (including python tracebacks) "
+"bubble up to the apache error log. This can be particularly useful when the "
+"``app`` is still under heavy development."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:4
+msgid "General architecture"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:6
+msgid ""
+"The storage of data is an important aspect of the AiiDA system. The design "
+"for this subsystem is illustrated below."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:13
+msgid "UML diagram of the storage architecture."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:15
+msgid ""
+"Blue indicates frontend classes, red indicates backend classes, and green "
+"indicates singletons."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:17
+msgid ""
+"Separate data is stored per ``Profile``, forming a single provenance graph. "
+"A :py:class:`~aiida.manage.configuration.profile.Profile` instance "
+"represents a dictionary that includes the configuration details for "
+"accessing the storage for that profile, such as a database URI, etc. "
+"Multiple ``Profile`` can be stored in a "
+":py:class:`~aiida.manage.configuration.config.Config` instance, which is "
+"stored in the configuration file (``config.json``)."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:21
+msgid ""
+"Within a single Python process, a single "
+":py:class:`~aiida.manage.manager.Manager` instance can be loaded, to manage "
+"access to a globally loaded ``Profile`` and its "
+":py:class:`~aiida.orm.implementation.storage_backend.StorageBackend` "
+"instance."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:23
+msgid ""
+"The storage API subsystem is based on an Object Relational Mapper (ORM) and "
+"is divided into two main parts: the frontend and the backend. The frontend "
+"is responsible for the user interface, and is agnostic of any particular "
+"storage technologies, and the backend is responsible for implementing "
+"interfaces with specific technologies (such as SQL databases)."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:30
+msgid "Frontend ORM"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:32
+msgid ""
+"The frontend ORM comprises of a number of "
+":py:class:`~aiida.orm.entities.Collection` and "
+":py:class:`~aiida.orm.entities.Entity` subclasses, representing access to a "
+"single ORM type."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:34
+msgid ":py:class:`~aiida.orm.User`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:35
+msgid "Represents the author of a particular entity."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:38
+msgid ":py:class:`~aiida.orm.Node`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:37
+msgid ""
+"Represents a node in a provenance graph, containing data for a particular "
+"process (:py:class:`~aiida.orm.ProcessNode`) or process input/output "
+"(:py:class:`~aiida.orm.Data`). Nodes are connected by links, that form an "
+"acyclic graph. Nodes also have a "
+":py:class:`~aiida.repository.repository.Repository` instance, which is used "
+"to store binary data of the node (see also :ref:`internal-"
+"architecture:repository`)."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:40
+msgid ":py:class:`~aiida.orm.Comment`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:41
+msgid "Represents a comment on a node, by a particular user."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:42
+msgid ":py:class:`~aiida.orm.Log`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:43
+msgid ""
+"Represents a log message on a :py:class:`~aiida.orm.ProcessNode`, by a "
+"particular user."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:45
+msgid ":py:class:`~aiida.orm.Group`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:45
+msgid ""
+"Represents a group of nodes. A single node can be part of multiple groups "
+"(i.e. a one-to-many relationship)."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:48
+msgid ":py:class:`~aiida.orm.Computer`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:48
+msgid ""
+"Represents a compute resource on which a process is executed. A single "
+"computer can be attached to multiple :py:class:`~aiida.orm.ProcessNode` "
+"(i.e. a one-to-many relationship)."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:51
+msgid ":py:class:`~aiida.orm.AuthInfo`"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:51
+msgid ""
+"Represents a authentication information for a particular computer and user."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:53
+msgid ""
+"The :py:class:`~aiida.orm.QueryBuilder` allows for querying of specific "
+"entities and their associated data."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:56
+msgid "Backend Implementations"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:58
+msgid ""
+"Backend implementations must implement the classes outlines in "
+":py:mod:`aiida.orm.implementation`."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:60
+msgid "There are currently two core backend implementations:"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:62
+msgid ""
+"``psql_dos`` is implemented as the primary storage backend, see "
+":ref:`internal_architecture:storage:psql_dos`."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:63
+msgid ""
+"``sqlite_zip`` is implemented as a storage backend for the AiiDA archive, "
+"see :ref:`internal_architecture:storage:sqlite_zip`."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:66
+msgid "Storage maintenance and profile locking"
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:68
+msgid ""
+"The "
+":py:meth:`~aiida.orm.implementation.storage_backend.StorageBackend.maintain`"
+" method is allows for maintenance operations on the storage (for example, to"
+" optimise memory usage), and is called by `verdi storage maintain`."
+msgstr ""
+
+#: ../../source/internals/storage/architecture.rst:70
+msgid ""
+"During \"full\" maintenance, to guarantee the safety of its procedures, it "
+"may be necessary that the storage is not accessed by other processes. The "
+":py:class`~aiida.manage.profile_access.ProfileAccessManager` allows for "
+"profile access requests, and locking of profiles during such procedures. "
+":py:meth:`~aiida.manage.profile_access.ProfileAccessManager.request_access` "
+"is called within "
+":py:meth:`~aiida.manage.manager.Manager.get_profile_storage`."
+msgstr ""
+
+#: ../../source/internals/storage/index.rst:2
+msgid "Storage"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:4
+msgid "``psql_dos`` format"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:6
+msgid ""
+"The :py:class:`~aiida.storage.psql_dos.backend.PsqlDosBackend` is the "
+"primary format for storing provenance data. It stores data in two places:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:9
+msgid "A `PostgreSQL <https://www.postgresql.org/>`_ database."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:10
+msgid ""
+"A disk-objectstore repository (see :ref:`internal-"
+"architecture:repository:dostore`)."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:12
+msgid ""
+"The database stores all \"JSONable\" entity data, organized into different "
+"tables (closely related to AiiDA ORM entities) and columns/fields. Larger "
+"binary data (such as input/output file content), required for nodes, are "
+"stored in the disk-objectstore, and referenced by "
+"`db_dbnode.repository_metadata` as a virtual file-system."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:15
+msgid ""
+"Interfacing with the database is achieved using the `sqlalchemy "
+"<https://www.sqlalchemy.org/>`_ ORM API."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:19
+msgid "The PostgreSQL database schema"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:21
+msgid ""
+"The following section provides a complete schema for the PostgreSQL "
+"database."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:24
+#: ../../source/internals/storage/sqlite_zip.rst:87
+msgid "Tables"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:26
+msgid ""
+"In all tables, the primary key that uniquely identifies each of their "
+"members is a positive integer number in the ``id`` field. However, this "
+"number is only unique within the table, and thus there can be a user with an"
+" ``id`` of 2 and a node with an ``id`` of 2 in the same database (or, more "
+"trivially, two different nodes both with an ``id`` of 2, each in a different"
+" database)."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:29
+msgid ""
+"Most of the entities also have a ``uuid`` value. The ``uuid`` is meant to "
+"serve as an identifier that is unique within all tables of all AiiDA "
+"databases in the world. This is a 32-position hexadecimal sequence that is "
+"stored as a string with some dash separated sections (for example: "
+"``479a312d-e9b6-4bbb-93b4-f0a7174ccbf4``)."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:35
+msgid "``*`` indicates columns with a unique constraint"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:36
+msgid "``→`` indicate foreign keys"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:37
+msgid "``?`` indicate value types that are nullable."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+msgid "Columns:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+msgid "Constraints:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/psql_dos.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+#: ../../source/internals/storage/sqlite_zip.rst:0
+msgid "Indexes:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:61
+msgid "The many-to-one relationship"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:63
+msgid ""
+"You can see an example of a many-to-one relationship between users and "
+"nodes: each node will have one and only one user that has created it, while "
+"a single user may have created many nodes. Although in that case the "
+"relationship is \"mandatory\", this doesn't need to be the case: for "
+"example, not all nodes will have a computer associated with them, but the "
+"ones that do will have only one and no more."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:66
+msgid "The following entities have a many-to-one relationship:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:68
+msgid "Many `nodes` can be created by the same `user`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:69
+msgid "Many `nodes` can point to the same `computer`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:70
+msgid "Many `groups` can be created by the same `user`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:71
+msgid "Many `authinfos` can be set for the same `user`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:72
+msgid "Many `authinfos` can be set for the same `computer`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:73
+msgid "Many `comments` can be created by the same `user`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:74
+msgid "Many `comments` can be attached to the same `node`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:75
+msgid "Many `logs` can be attached to the same `node`."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:77
+msgid ""
+"The way to keep track of these relationships is by inserting a `foreign key`"
+" column in the table of the \"many\" entity that points to the corresponding"
+" id value of the \"one\" entity they are related to. For example, there is a"
+" ``user_id`` foreign key column in the **db_dbnode** table that stores the "
+"id of the user that created each node."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:82
+msgid "The many-to-many relationship"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:84
+msgid ""
+"This type of relationship is a bit more difficult to track, since now both "
+"members can be related to more than one element. Recording this in the same "
+"table as one of the entities would imply storing a list of values in a "
+"column (which is often discouraged and not well supported). Therefore, it is"
+" more convenient to use an extra table in which each of the connections has "
+"its corresponding entry indicating which are the specific elements that are "
+"related."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:88
+msgid "There are only two many-to-many relationships in AiiDA:"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:92
+msgid "Between groups and nodes"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:91
+msgid ""
+"as specified before, many nodes can be inside the same group and a single "
+"node can belong to many different groups. This relationship is tracked in "
+"the **db_dbgroup_dbnodes** table."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:97
+msgid "Between nodes themselves (Links)"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:95
+msgid ""
+"nodes have what is known as a \"self-referencing relationship\", meaning "
+"that they can be connected among themselves. Indeed, this is one of the core"
+" principles of how the provenance graph works. This relationship is tracked "
+"in the **db_dblinks** table."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:100
+msgid "Storage schema migrations"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:102
+msgid ""
+"Migrations of the storage schema, to bring it inline with updates to the "
+"``aiida-core`` API, are implemented by "
+":py:class:`~aiida.storage.psql_dos.migrator.PsqlDostoreMigrator` , using "
+"`alembic <https://alembic.sqlalchemy.org>`_."
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:105
+msgid "Legacy schema"
+msgstr ""
+
+#: ../../source/internals/storage/psql_dos.rst:107
+msgid ""
+"The `psql_dos` storage format originates from the merging of the `django` "
+"and `sqlalchemy` backends, present in `aiida-core` version 1. Both backends "
+"had very similar PostgreSQL database schema, and there are now two separate "
+"migration branches to merge these into a single schema."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:5
+msgid "Repository"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:7
+msgid ""
+"The file repository in AiiDA, often referred to simply as the repository, is"
+" the data store where all binary data is persisted, that belong to the "
+":py:class:`~aiida.orm.Node` in the provenance graph. In this chapter, the "
+"design and implementation of the file repository is described, which largely"
+" draws from :doc:`aep:007_improved_file_repository/readme` and "
+":doc:`aep:006_efficient_object_store_for_repository/readme`."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:11
+msgid ""
+"The current architecture is heavily influenced by lessons learned from the "
+"original design of the file repository in the earliest version of AiiDA that"
+" had difficulty scaling to large numbers of files. For that reason, at end "
+"of the chapter there is a description of the original design and its "
+"limitations. This can be instructive in understanding the design of the "
+"current solution."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:18
+msgid "Design"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:20
+msgid ""
+"The following requirements were considered during the design of the file "
+"repository implementation:"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:22
+msgid ""
+"Scalability: the repository should be able to store millions of files, all "
+"the while permitting efficient backups."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:23
+msgid ""
+"Heterogeneity: the repository should operate efficiently for data that is "
+"heterogeneous in size, with object of size ranging from a few bytes to "
+"multiple gigabytes."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:24
+msgid ""
+"Simplicity: the solution should not require an actively running server to "
+"operate."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:25
+msgid ""
+"Concurrency: the repository should support multiple concurrent reading and "
+"writing processes."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:26
+msgid ""
+"Efficiency: the repository should automatically deduplicate file content in "
+"an effort to reduce the total amount of required storage space."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:28
+msgid ""
+"These are merely the requirements for the data store that persists the "
+"content of the files, or the *backend* file repository. The frontend "
+"interface that is employed by users to store files has another set of "
+"requirements altogether. Users are used to think about file storage in terms"
+" of a file hierarchy, as they would on a normal file system, where files are"
+" stored in (nested) directories. Moreover, in the context of AiiDA, a node "
+"is expected to have their own subset of files with their own hierarchy, an "
+"example of which is shown in :numref:`fig:internal-"
+"architecture:repository:design-node-repository`. The frontend interface "
+"therefore needs to allow users to store and address files with such a "
+"hierarchy on a per node basis, even if only virtually. With that guarantee, "
+"the backend implementation is free to store the files in any way imaginable "
+"in order to meet the requirements specified above."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:40
+msgid ""
+"Schematic representation of a possible virtual file hierarchy of a node in "
+"the provenance graph. From a user's perspective, each node can contain an "
+"arbitrary number of files and directories with a certain file hierarchy. The"
+" hierarchy is completely virtual, however, in the sense that the hierarchy "
+"is not necessarily maintained literally in the data store containing the "
+"file content."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:44
+msgid ""
+"To satisfy the requirements of the frontend interface and the actual data "
+"store at the same time, the file repository solution in AiiDA is divided "
+"into two components: a *frontend*, which is agnostic of any particular "
+"storage technology, and a *backend*, which implements the interface to the "
+"storage."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:50
+msgid "The file repository frontend"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:52
+msgid ""
+"To understand how the file repository frontend integrates the ORM and the "
+"file repository backend, consider the following class diagram:"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:59
+msgid ""
+"The file repository backend is interfaced through the "
+":class:`~aiida.repository.repository.Repository` class. It maintains a "
+"reference of an instance of one of the available file repository backend "
+"implementations, be it the sandbox or disk object store variant, to store "
+"file objects and to retrieve the content for stored objects. Internally, it "
+"keeps a virtual file hierarchy, which allows clients to address files by "
+"their path in the file hierarchy as opposed to have the unique key "
+"identifiers created by the backend. Finally, the "
+":class:`~aiida.orm.nodes.node.Node` class, which is the main point of "
+"interaction of users with the entire API, mixes in the "
+":class:`~aiida.orm.nodes.repository.NodeRepository` class. The latter keeps "
+"an instance of the :class:`~aiida.repository.repository.Repository` class to"
+" which all repository operations are forwarded, after the check of node "
+"mutability is performed."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:65
+msgid ""
+"As opposed to the backend interface, the frontend "
+":class:`~aiida.repository.repository.Repository` *does* understand the "
+"concept of a file hierarchy and keeps it fully in memory. This allows "
+"clients to interact with this interface as if the files were stored with the"
+" indicated hierarchy and address them by their relative filepaths, as "
+"opposed to the unique string identifiers that are generated by the backend. "
+"It is important to note, however, that this virtual hierarchy is not "
+"initialized based on the actual contents of the file repository backend. In "
+"fact it *cannot* be, because the backend has no notion of a file hierarchy "
+"and so cannot provide its hierarchy to the "
+":class:`~aiida.repository.repository.Repository` when it is constructed. "
+"This means that the :class:`~aiida.repository.repository.Repository` only "
+"exposes a *subset* of the files that are contained within a file repository "
+"backend."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:71
+msgid ""
+"To persist the virtual hierarchy of the files stored for any particular "
+"node, it is stored in the database. The node database model has a JSONB "
+"column called ``repository_metadata`` that contains the virtual file "
+"hierarchy in a serialized form. This serialized form is generated by the "
+":meth:`~aiida.repository.repository.Repository.serialize` method, and the "
+":meth:`~aiida.repository.repository.Repository.from_serialized` class method"
+" can be used to reconstruct a repository instance with a pre-existing file "
+"hierarchy. Note that upon constructing from a serialized file hierarchy, the"
+" :class:`~aiida.repository.repository.Repository` will not actually validate"
+" that the file objects contained within the hierarchy are *actually* "
+"contained in the backend."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:76
+msgid ""
+"The final integration of the "
+":class:`~aiida.repository.repository.Repository` class with the ORM is "
+"through the :class:`~aiida.orm.nodes.repository.NodeRepository` class, which"
+" is mixed into the :class:`~aiida.orm.nodes.node.Node` class. This layer "
+"serves a couple of functions:"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:79
+msgid "It implements the mutability rules of nodes"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:80
+msgid "It serves as a translation layer between string and byte streams."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:82
+msgid ""
+"The first is necessary because after a node has been stored, its content is "
+"considered immutable, which includes the content of its file repository. The"
+" :class:`~aiida.orm.utils.mixins.Sealable` mixin overrides the "
+":class:`~aiida.repository.repository.Repository` methods that mutate "
+"repository content, to ensure that process nodes *can* mutate their content,"
+" as long as they are not sealed."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:85
+msgid ""
+"The second *raison-d'être* of the "
+":class:`~aiida.orm.nodes.repository.NodeRepository` is to allow clients to "
+"work with string streams instead of byte streams. As explained in the "
+"section on the :ref:`file repository backend <internal-"
+"architecture:repository:design:repository-backend>`, it only works with byte"
+" streams. However, users of the frontend API are often more used to working "
+"with strings and files with a given encoding. The "
+":class:`~aiida.orm.nodes.repository.NodeRepository` overrides the "
+"*put*-methods and accepts string streams, and enables returning file handles"
+" to existing file objects that automatically decode the byte content. The "
+"only additional requirement for operating with strings instead of bytes is "
+"that the client specifies the encoding. Since the file repository backend "
+"does not store any sort of metadata, it is impossible to deduce the file "
+"encoding and automatically decode it. Likewise, using the default file "
+"encoding of the system may yield the wrong result since the file could have "
+"been imported and actually have been originally written on another system "
+"with a different encoding. Encoding and decoding of file objects is "
+"therefore the responsibility of the frontend user."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:97
+msgid "The file repository backend"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:99
+msgid ""
+"In a clear separation of responsibilities, the backend is solely tasked with"
+" storing the content of files and returning them upon request as efficiently"
+" as possible, both when retrieving files individual as well as in bulk. For "
+"simplicity, the repository backend only deals with raw byte streams and does"
+" not maintain any sort of file hierarchy. The interface that any backend "
+"file repository should implement is defined by the "
+":class:`~aiida.repository.backend.abstract.AbstractRepositoryBackend` "
+"abstract class."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:107
+msgid ""
+"The "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_filelike`"
+" is the main method that, given a stream or filelike-object of bytes, will "
+"write it as an object to the repository and return a key. The "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_file`"
+" is a convenience method that allows to store a file object directly from a "
+"file on the local file system, and simply calls through to "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_filelike`."
+" The key returned by the *put*-methods, which could be any type of string, "
+"should uniquely identify the stored object. Using the key, "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.open` "
+"and "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.get_object_content`"
+" can be used to obtain a handle to the object or its entire content read "
+"into memory, respectively. Finally, the "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.has_object`"
+" and "
+":meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.delete_object`"
+" can be used to determine whether the repository contains an object with a "
+"certain key, or delete it, respectively."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:113
+msgid ""
+"The abstract repository backend interface is implemented for the `disk "
+"object store`_ "
+"(:class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`)"
+" as well as a scratch sandbox "
+"(:class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend`). The "
+"latter implementation simply implements the interface using a temporary "
+"scratch folder on the local file system to store the file content. File "
+"objects are stored in a flat manner where the filename, that functions as "
+"the unique key, is based on a randomly generated UUID, as shown in "
+":numref:`fig:internal-architecture:repository:design-sandbox`."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:122
+msgid ""
+"The file structure created by the "
+":class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` "
+"implementation of the file repository backend. Files are stored in a "
+"completely flat structure with the name determined by a randomly generated "
+"UUID. This is the most efficient method for writing and reading files on a "
+"local file system. Since these sandbox repositories are intended to have "
+"very short lifetimes and contain relatively few objects, the typical "
+"drawbacks of a flat file store do not apply."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:127
+msgid ""
+"The simple flat structure of this sandbox implementation should not be a "
+"limitation since this backend should only be used for short-lived temporary "
+"file repositories. The use case is to provide a file repository for unstored"
+" nodes. New node instances that created in interactive shell sessions are "
+"often discarded before being stored, so it is important that not only the "
+"creation of new files, but also their deletion once the node is deleted, is "
+"as efficient as possible. The disk object store is not optimized for "
+"efficient ad-hoc object deletion, but rather, object deletion is implemented"
+" as a soft-delete and the actual deletion should be performed during "
+"maintenance operations, such as the packing of loose objects. That is why a "
+"new node instance upon instantiation gets an instance of the "
+"class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` "
+"repository. Only when the node gets stored, are the files copied to the "
+"permanent backend file repository (such as the "
+":class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`)."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:137
+msgid "The disk object store"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:139
+msgid ""
+"The disk object store was designed from scratch in order to satisfy the "
+"technical requirements of the file repository described in the previous "
+"section. The concept is simple: the file repository is represented by a "
+"*container* which is a directory on the local file system and contains all "
+"the file content. When a file is written to the container, it is first "
+"written to the *scratch* directory. Once this operation has finished "
+"successfully, the file is moved atomically to the *loose* directory. It is "
+"called *loose* because each file in this directory is stored as an "
+"individual or *loose* object. The name of the object is given by the hash "
+"computed from its content, currently using the `sha256 algorithm "
+"<https://en.wikipedia.org/wiki/SHA-2>`_. The *loose* directory applies one "
+"level of sharding based on the first two characters of the object hashes, in"
+" order to make the lookup of objects more performant as described in "
+":ref:`internal-architecture:repository:original-design`. A schematic "
+"overview of the folder structure of a disk object store *container* is shown"
+" in :numref:`fig:internal-architecture:repository:design-dos`."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:153
+msgid ""
+"Schematic representation of the file hierarchy in a *container* of the `disk"
+" object store <https://pypi.org/project/disk-objectstore/>`_ package. When "
+"writing files to the container, they are first written to a *scratch* "
+"sandbox folder and then moved atomically to the *loose* directory. During "
+"maintenance operations, *loose* files can be concatenated to pack files that"
+" are stored in the *packed* directory."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:157
+msgid ""
+"The approach of creating new files in the repository by first writing them "
+"to the scratch sandbox folder before atomically moving them to the *loose* "
+"object directory, directly addresses the requirement of *concurrency*. By "
+"relying on the *atomic* file move operation of the operating system, all "
+"*loose* objects are guaranteed to be protected from data corruptions, within"
+" the limits of the atomicity guarantees of the local file system. The usage "
+"of the file content's hash checksum as the filename automatically fulfils "
+"the *efficiency* requirement. Assuming that the hashing algorithm used has "
+"no collisions, two objects with the same hash are guaranteed to have the "
+"same content and so therefore can be stored as a single object. Although the"
+" computation of a file's hash before storing it incurs a non-negligible "
+"overhead, the chosen hashing algorithm is fast enough that it justifies that"
+" cost given that it gives a significant reduction in required storage space "
+"due to the automatic and implicit data deduplication."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:163
+msgid ""
+"While the approach of the *scratch* and *loose* directories address the "
+"criteria of *concurrency* and *efficiency*, the solution is not *scalable*. "
+"Just as the :ref:`original design <internal-"
+"architecture:repository:original-design>`, this solution does not scale to "
+"file repositories of multiple millions of nodes, since every object is "
+"stored as an individual file on disk. As described there, this makes the "
+"repository impractical to backup since merely constructing the list of files"
+" present is an expensive operation. To tackle this problem, the disk object "
+"store implements the concept of packing. In this maintenance operation, the "
+"contents of all loose objects stored in the *loose* directory are "
+"concatenated into single files that are stored in the *packed* folder. The "
+"pack files have a configurable maximum size and once it is reached the next "
+"pack file is created, whose filenames are named by consecutive integers."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:170
+msgid ""
+"A `sqlite <https://sqlite.org/index.html>`_ database is used to track in "
+"which pack file each object is stored, the byte offset at which it starts "
+"and its total byte length. Such an index file is necessary once individual "
+"objects are packed into a smaller number of files, and to respect the "
+"*simplicity* requirement, a sqlite database was chosen, since it is "
+"serverless and efficient. The loose objects are concatenated in a random "
+"order, which is to say that the disk object store undertakes no effort to "
+"order objects according to their content size in any way, such as to align "
+"them with blocks on the file system, unlike some other key-value store "
+"solutions. Files of any size are treated equally and as such there is no "
+"optimization towards storing smaller files nor larger files. This is done "
+"intentionally because the disk object store is expected to be able to store "
+"files that are strongly heterogeneous in size and as such can not make "
+"optimizations for a particular range of file sizes."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:176
+msgid ""
+"Currently, the packing operation is seen as a maintenance operation, and "
+"therefore, unlike the writing of new *loose* objects, cannot be operated "
+"concurrently by multiple processes. Despite this current limitation, the "
+"packing mechanism satisfies the final *scalability* requirement. By reducing"
+" the total number of files and the packing strategy, the pack files can be "
+"copied to a backup copy very efficiently. Since new objects are concatenated"
+" to the end of existing pack files and existing pack files are in principle "
+"never touched after they have reached their maximum size (unless the pack "
+"files are forcefully repacked), backup up tools, such as `rsync "
+"<https://en.wikipedia.org/wiki/Rsync>`_, can reduce the transfer of content "
+"to the bare minimum."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:182
+msgid "The lifetime of a node"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:184
+msgid ""
+"Now that all the components are described, here we describe how they are "
+"employed throughout the lifetime of a node. When a new node instance is "
+"constructed, it will not yet have an instance of the "
+":class:`~aiida.repository.repository.Repository`. Instead, this is done "
+"lazily as soon as an operation on the file repository is executed. This is "
+"crucial for performance since node instances may often be initialized "
+"without their repository contents ever needing to be accessed and "
+"constructing the repository interface instances will have a non-negligible "
+"overhead. If the node is unstored the "
+":class:`~aiida.repository.repository.Repository` will be constructed with an"
+" instance of the "
+":class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` "
+"implementation. The advantage is that if the node object does go out of "
+"scope before it has been stored, the contents that may have been created in "
+"the repository will be automatically cleaned from the local file system."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:191
+msgid ""
+"When a node gets stored, the "
+":class:`~aiida.repository.repository.Repository` instance is replaced with a"
+" new instance, this time with the backend set to the "
+":class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`"
+" that is initialized to point to the *container* of the current profile. The"
+" contents of the sandbox repository are copied over to the disk object store"
+" through the :class:`~aiida.repository.repository.Repository` interface and "
+"at the end its contents are serialized. The serialized file hierarchy is "
+"then stored on the node itself in the ``repository_metadata`` column. This "
+"allows to reconstruct the :class:`~aiida.repository.repository.Repository` "
+"instance correctly once the node is reloaded from the database, by calling "
+"the :meth:`~aiida.repository.repository.Repository.from_serialized` class "
+"method while passing the stored ``repository_metadata``."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:200
+msgid "The original design"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:202
+msgid ""
+"The original file repository in AiiDA was implemented as a simple directory "
+"on the local file system. The files that belong to a node would be written "
+"*as is* to a subdirectory within that repository directory, without any "
+"compression or packing. The name of the directory was equal to the UUID of "
+"the node, guaranteeing that each subdirectory was unique, and the files of "
+"different nodes would not overwrite one another, even if they have identical"
+" names."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:206
+msgid ""
+"In anticipation of databases containing many nodes leading to many "
+"subdirectories, which would slow down the operation of finding the directory"
+" of a particular node, the repository was `sharded "
+"<https://en.wikipedia.org/wiki/Shard_(database_architecture)>`_. In the "
+"context of a file system, this means that instead of a flat structure of the"
+" file repository, the node directories are stored in a (nested) "
+"subdirectory. Which subdirectory is once again determined by the UUID: the "
+"first and second subdirectories are given by the first and second two "
+"characters, respectively. The remaining characters of the UUID form the name"
+" of the final subdirectory. For example, given the UUID "
+"``4802585e-18da-42e1-b063-7504585ea9af``, the relative path of the "
+"subdirectory would be ``48/02/585e-18da-42e1-b063-7504585ea9af``. With this "
+"structure, the file repository would contain at most 256 directories, ``00``"
+" through ``ff``, with the same applying to each one of those. Starting from "
+"the third level, however, the file hierarchy would once again be flat. A "
+"schematic overview of the resulting file hierarchy is shown in "
+":numref:`fig:internal-architecture:repository:design-original`."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:220
+msgid ""
+"Schematic representation of the original structure of the file repository. "
+"The files of each node are stored in a directory that is exclusive to that "
+"node, whose path is determined by the UUID of the node. The directory is "
+"sharded twice, using two consecutive characters of the start of the UUID to "
+"create two levels of subdirectories. This is done to limit the number of "
+"directories in any one level in order to make the looking up of a directory "
+"for a given node more efficient."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:227
+msgid "Limitations"
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:229
+msgid ""
+"While a simple and robust design, the original architecture of the file "
+"repository had various limitations, many of which would start to play a "
+"significant role for larger project that contain many files. The main "
+"limitation of the original design is that all files were stored as is, which"
+" eventually leads to a large number of files stored in a large number of "
+"subdirectories. On a file system, each file or directory requires an "
+"*inode*, which is label that the file system to be able to map the filepath "
+"to the actual location on disk. The number of available inodes on a file "
+"system are limited, and certain AiiDA projects were hitting these limits, "
+"making it impossible to write more files to disk, even though there might "
+"have been plenty of raw storage space left."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:234
+msgid ""
+"In addition, backing up a file repository with the original design was "
+"practically impossible. Due to the sheer number of files, even just "
+"determining the difference between the original and backup of a repository, "
+"for example using `rsync <https://en.wikipedia.org/wiki/Rsync>`_ could take "
+"days. And that is just computing the difference, let alone the time it would"
+" take to perform the actual backup."
+msgstr ""
+
+#: ../../source/internals/storage/repository.rst:238
+msgid ""
+"However, it wasn't merely the number of files that was problematic, but even"
+" the number of directories that typical repositories would contain, would "
+"already significantly slow down backup operations. Since the database kept "
+"no reference of which files and directories were stored in the file "
+"repository for any given node, the original design would always create a "
+"subdirectory in the file repository for any node, even if it contained no "
+"files whatsoever. Otherwise, it would have been impossible to know whether a"
+" node *really* did not contain any files, or if the directory in the file "
+"repository was accidentally mistaken. This approach did, however, lead to a "
+"large number of empty directories, as many nodes often contain no files at "
+"all, for example, base type data nodes."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:4
+msgid "``sqlite_zip`` (archive) format"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:6
+msgid ""
+"The :py:class:`~aiida.storage.sqlite_zip.backend.SqliteZipBackend` is the "
+"storage format used for the AiiDA archive, whose design draws from "
+"consideration outlined in :doc:`aep:005_exportformat/readme`."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:9
+msgid ""
+"An AiiDA archive is a single file format (with canonical extension "
+"``.aiida``), for long term storage of an AiiDA provenance graph. It provides"
+" a data storage backend, integrating a database and file repository."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:12
+msgid "The standard format is a ZIP archive, containing the following files:"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:14
+msgid ""
+"``metadata.json`` file containing information on the version of the archive."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:15
+msgid "``db.sqlite3`` file containing the AiiDA database."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:16
+msgid "``repo/`` directory containing the AiiDA file repository."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:22
+msgid "``sqlite_zip`` zip file format."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:24
+msgid ""
+"The central directory is written with the metadata and database records at "
+"the top of the file. Zip files are read first from the bottom, which "
+"contains the byte position of the start of the central directory, then "
+"scanning down the central directory to extract records for each file. When "
+"extracting the metadata/database only, one can simply scan for that record, "
+"then break and directly decompress the byte array for that file. In this "
+"way, we do not have to scan through all the records of the repository files"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:29
+msgid ""
+"As opposed to the :ref:`internal_architecture:storage:psql_dos`, this format"
+" is \"read-only\", since zip files cannot be modified once created."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:34
+msgid "metadata schema"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:36
+msgid ""
+"This file contains important information, and it is necessary for the "
+"correct interpretation of ``db.sqlite3```. This is used to avoid any "
+"incompatibilities among different versions of AiiDA."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:39
+msgid "Here is an example ``metadata.json``:"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:44
+msgid ""
+"At the beginning of the file, we see the version of the archive file (under "
+"``export_version``) and the version of the AiiDA code. New archive versions "
+"are introduced for several different reasons; this may generally be when:"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:47
+msgid "a change occurs in what can or cannot be exported for each entity,"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:48
+msgid "the database and/or archive schemes are updated or changed,"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:49
+msgid "or standardized exported property values are updated in AiiDA."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:52
+msgid ""
+"For archives of version 0.3 and older it is advisable that you manually try "
+"to convince yourself that the migration was completely successful. While all"
+" migrations are tested, trying to include reasonable edge-cases, the "
+"migrations involved from version 0.3 to 0.4 are intricate and the "
+"possibility of a missing edge-case test is quite real. It is worth noting "
+"that if you ever have an issue, please report it on `GitHub "
+"<https://www.github.com/aiidateam/aiida_core/issues/new>`_, join the `AiiDA "
+"mailing list <http://www.aiida.net/mailing-list/>`_, or use the `contact "
+"form <http://www.aiida.net/contact-new/>`_."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:57
+msgid ""
+"If you have migrated an archive file to the newest version, there may be an "
+"extra entry in ``metadata.json``. This simply states from which archive "
+"version the file was migrated."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:62
+msgid ""
+"If you supply an old archive file that the current AiiDA code does not "
+"support, ``verdi archive import`` will automatically try to migrate the "
+"archive by calling ``verdi archive migrate``."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:67
+msgid "repository format"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:69
+msgid ""
+"The repository is read by the "
+":py:class:`~aiida.storage.sqlite_zip.backend.ZipfileBackendRepository`."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:71
+msgid ""
+"The zip file should contain repository files with the key format: "
+"``repo/<sha256 hash>``, i.e. files named by the sha256 hash of the file "
+"contents, inside a ``repo`` directory."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:75
+msgid "database schema"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:77
+msgid ""
+"The database schema is intended to directly mirror that of the "
+":ref:`internal_architecture:storage:psql_dos`. The only differences are in "
+"the handling of certain data types by SQLite versus PostgreSQL:"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:80
+msgid "``UUID`` -> ``CHAR(32)``"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:81
+msgid "``DateTime`` -> ``TZDateTime``"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:82
+msgid "``JSONB`` -> ``JSON``"
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:84
+msgid "Also, `varchar_pattern_ops` indexes are not possible in SQLite."
+msgstr ""
