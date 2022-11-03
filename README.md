@@ -47,3 +47,8 @@ Now we have following language supported:
 - Chinese(simplified)
 
 To add a new language for the documentation, please request a new language in transifex and open an [issue](https://github.com/unkcpz/aiida-l10n-zh_CN/issues/new/choose).
+
+
+### New 
+
+- auto update .tx/config and open PR.
