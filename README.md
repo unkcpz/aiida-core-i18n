@@ -30,16 +30,6 @@ To download the newly translated files from transifex:
 tx pull --all
 ```
 
-Then commit the changes and push to the github. 
-The translated documentation is deploy by readthedocs once the develop branch of the repository is pushed to the github. 
-The version of the documentation is **NOT** correspond to the latest version of original docs but the lastet released one i.e. the `stable` version, 
-this is controled by the script to fetch the source docs (`aiida-core/docs/source/`) and the source code (for API documentation).
-We only fetch the depth=1 branch by:
-
-```bash
-git clone --single-branch --branch "$tag" --depth 1 $REMOTE
-```
-
 ## How to add support for a new language?
 
 Now we have following language supported:
