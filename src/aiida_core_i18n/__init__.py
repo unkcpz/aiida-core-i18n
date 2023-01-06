@@ -75,7 +75,7 @@ def po_translate(lines: typing.List[str]):
             translated = translate(inp_str)
             output_lines[ln_end] = f'msgstr "{translated}"'
             
-    print('\n'.join(output_lines))
+    # print('\n'.join(output_lines))
     return output_lines
     
             
