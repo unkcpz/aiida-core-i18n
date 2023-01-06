@@ -30,6 +30,16 @@ To download the newly translated files from transifex:
 tx pull --all
 ```
 
+The remote transifex contains the po files from the latest branch of `aiida-core` doc.
+
+Update the submodule `aiida-core` repo so the latest API doc will match with the latest branch of `aiida-core` (a bug in aiida-core `post-release` workflow that the it is not checkout to the latest commit of the `main` branch).
+
+```bash
+git submodule update --remote
+```
+
+Push to the remote repo and `ReadTheDocs` will compile the doc automatically.
+
 ## How to add support for a new language?
 
 Now we have following language supported:
