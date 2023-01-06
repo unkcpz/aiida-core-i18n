@@ -28,6 +28,9 @@ def translate(inp_str, target_lang="ZH"):
     """Call deepl API to tranlate and do post process"""
     translator = deepl.Translator(DEEPL_TOKEN)
     
+    # TODO: `` -> EDBS after translated, recover to ``
+    # EDBS for End Double BackSlash
+    
     try:
         translated = translator.translate_text(
             inp_str, 
