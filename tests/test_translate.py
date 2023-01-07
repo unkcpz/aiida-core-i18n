@@ -22,7 +22,6 @@ def test_str_pp(input, expected):
     
 with open(STATIC_PATH / "statics" / "origin_text.txt", "r") as fh:
     PO_STR = fh.read()
-    print(PO_STR)
 
 def test_po_translate(file_regression):
     """The actuall process of po file"""

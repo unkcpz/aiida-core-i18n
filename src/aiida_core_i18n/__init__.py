@@ -24,16 +24,19 @@ def str_pp(raw_str):
     
     return res.strip()
 
-def translate(inp_str, target_lang="ZH"):
+def translate(inp_str: str, target_lang="ZH"):
     """Call deepl API to tranlate and do post process"""
     translator = deepl.Translator(DEEPL_TOKEN)
     
-    # TODO: `` -> EDBS after translated, recover to ``
+    # `` -> EDBS after translated, recover to ``
     # EDBS for End Double BackSlash
+    
+    # substitute the `` with EDBS
+    tstr = inp_str.replace('``', 'EDBS')
     
     try:
         translated = translator.translate_text(
-            inp_str, 
+            tstr, 
             source_lang="EN", 
             target_lang=target_lang,
             # formality="more", # not supported by ZH
@@ -41,11 +44,16 @@ def translate(inp_str, target_lang="ZH"):
     except deepl.DeepLException as exc:
         return ""
     else:
-        res = str_pp(translated.text)
+        # substitue EDBS back to ``
+        tstr = translated.text
+        tstr = tstr.replace('EDBS', '``')
+        
+        res = str_pp(tstr)
         
         return res
 
 def po_translate(lines: typing.List[str]):
+    """Translate the po files line by line"""
     output_lines = [i for i in lines]
     for ln, line in enumerate(lines):
         if line.startswith("msgid "):
@@ -55,9 +63,6 @@ def po_translate(lines: typing.List[str]):
                     ln_end = ln_start + count
                     break
                 
-            # print(f"start: {ln_start}: {lines[ln_start]}")
-            # print(f"end: {ln_end}: {lines[ln_end]}")
-            
             # if translated, skip， otherwise will override the translated result
             if lines[ln_end] != 'msgstr ""':
                 continue
@@ -75,7 +80,6 @@ def po_translate(lines: typing.List[str]):
             translated = translate(inp_str)
             output_lines[ln_end] = f'msgstr "{translated}"'
             
-    # print('\n'.join(output_lines))
     return output_lines
     
             
