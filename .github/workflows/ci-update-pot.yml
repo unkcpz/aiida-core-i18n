@@ -1,0 +1,47 @@
+name: Update POT File
+
+on:
+  push:
+    paths:
+      # should be a file since it is a submodule
+      - aiida-core
+
+
+jobs:
+  update-pot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install aiida-core
+        run: |
+          pip install -e .[docs,tests,rest,atomic_tools]
+        working-directory: aiida-core
+
+      - name: Generate and update POT files
+        run: |
+          make -C docs/ gettext
+        working-directory: aiida-core
+
+      - name: Copy POT files to locale_sources
+        run: |
+          cp aiida-core/docs/build/locale/*.pot locale_sources/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update POT file
+          title: Update POT file
+          body: |
+            This pull request updates the POT file from the aiida-core submodule.
+          branch: update-pot-file-${{ github.sha }}
