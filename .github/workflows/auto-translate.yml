@@ -16,15 +16,32 @@ jobs:
 
       - name: Install tx client
         run: |
-          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- 1.6.10
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- v1.6.9
+          mv tx /usr/local/bin/tx
 
       - name: Fetch latest PO files from Transifex
+        # -a: --all: Fetch all translation files
+        # -t: pull translations
+        # -f: regardless of timestamp
         run: |
-          tx pull -a
+          tx pull -a -t -f
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
 
       - name: Run translation script
         run: |
           # Add your commands here to run the translation script
+          # demo using: .github/demo-404.po
+          cp .github/demo-404.po translations/zh_CN/404.po
+
+      - name: Pull again to sync metadata
+        # -a: --all: Fetch all translation files
+        # -t: pull translations
+        # -f: regardless of timestamp
+        run: |
+          tx pull -a -t -f
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
