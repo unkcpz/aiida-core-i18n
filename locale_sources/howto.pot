@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-21 00:55+0100\n"
+"POT-Creation-Date: 2023-12-21 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,43 +21,39 @@ msgid "How to inspect an archive"
 msgstr ""
 
 #: ../../source/howto/archive_profile.md:19
-msgid "This tutorial can be downloaded and run as a Jupyter Notebook: {nb-download}`archive_profile.ipynb` {octicon}`download`, together with the archive {download}`include/process.aiida`."
+msgid "This tutorial can be downloaded and run as a Jupyter Notebook: {nb-download}`archive_profile.ipynb` {octicon}`download`, together with the archive {download}`process.aiida`."
 msgstr ""
 
 #: ../../source/howto/archive_profile.md:22
-msgid "The AiiDA archive is a file format for long term storage of data from a particular profile."
+msgid "The AiiDA archive is a file format for long term storage of data from a particular profile. See {ref}`how-to:share:archives` for information on how to create and migrate an archive."
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:24
-msgid "See {ref}`how-to:share:archives` for information on how to create and migrate an archive. Once you have an archive at the latest version, you can inspect its contents in the same way you would with a standard AiiDA profile."
+#: ../../source/howto/archive_profile.md:25
+msgid "The easiest way to inspect the contents of an archive is to create a profile that \"mounts\" the archive as its data storage:"
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:27
-msgid "We first create a profile instance from the archive path:"
+#: ../../source/howto/archive_profile.md:31
+msgid "You can now inspect the contents of the `process.aiida` archive by using the `archive` profile in the same way you would a standard AiiDA profile. For example, you can start an interactive shell using `verdi -p archive shell` or if you are already in a notebook simply load the profile:"
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:37
-msgid "The {py:func}`~aiida.manage.configuration.profile_context` function works similarly to the {py:func}`~aiida.manage.configuration.load_profile` function, but is used within a context manager, that insures that the storage is properly closed when the context is exited. With this, we can load our archive as a profile:"
+#: ../../source/howto/archive_profile.md:40
+msgid "A profile using the `core.sqlite_zip` storage is read-only. It is therefore possible to query data, but trying to modify existing data or store new data will raise an exception."
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:46
-msgid "To directly access the storage backend, and view information about it, we can use:"
+#: ../../source/howto/archive_profile.md:44
+msgid "Just as with a normal profile, we can now use the {py:class}`~aiida.orm.QueryBuilder`, to [find and query for data](how-to:query):"
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:56
-msgid "This is directly equivalent to the command-line call:"
+#: ../../source/howto/archive_profile.md:52
+msgid "and also use {py:class}`~aiida.tools.visualization.graph.Graph`, to [visualize data provenance](how-to:data:visualise-provenance):"
 msgstr ""
 
-#: ../../source/howto/archive_profile.md:62
-msgid "Note, that once the context manager is exited, the storage is closed, and will except on further calls."
+#: ../../source/howto/archive_profile.md:64
+msgid "Once you are done inspecting the archive and you no longer want to keep the profile around, you can delete it:"
 msgstr ""
 
 #: ../../source/howto/archive_profile.md:68
-msgid "As per a standard profile, we can now use the {py:class}`~aiida.orm.QueryBuilder`, to [find and query for data](how-to:query):"
-msgstr ""
-
-#: ../../source/howto/archive_profile.md:76
-msgid "and also use {py:class}`~aiida.tools.visualization.graph.Graph`, to [visualize data provenance](how-to:data:visualise-provenance):"
+msgid "You will be prompted whether you also want to keep the data. If you want to keep the `process.aiida` archive file, select not to delete the data."
 msgstr ""
 
 #: ../../source/howto/cookbook.rst:5
@@ -102,6 +98,10 @@ msgstr ""
 
 #: ../../source/howto/cookbook.rst:112
 msgid "that you can then use, for instance, as follows:"
+msgstr ""
+
+#: ../../source/howto/data.rst:-1
+msgid "grouppath"
 msgstr ""
 
 #: ../../source/howto/data.rst:5
@@ -360,10 +360,6 @@ msgstr ""
 msgid "Organise groups in hierarchies"
 msgstr ""
 
-#: ../../source/howto/data.rst:395
-msgid "grouppath"
-msgstr ""
-
 #: ../../source/howto/data.rst:398
 msgid "Groups in AiiDA are inherently \"flat\", in that groups may only contain nodes and not other groups. However it is possible to construct *virtual* group hierarchies based on delimited group labels, using the :py:class:`~aiida.tools.groups.paths.GroupPath` utility."
 msgstr ""
@@ -529,94 +525,94 @@ msgid "Frequently Asked Questions"
 msgstr ""
 
 #: ../../source/howto/faq.rst:7
-msgid "If the problem you are facing is not addressed below, you can send an email to the `mailing list <http://www.aiida.net/mailing-list/>`_, or `open an issue on Github <https://github.com/aiidateam/aiida-core/issues/new/choose>`_ if you think it concerns a bug."
-msgstr ""
-
-#: ../../source/howto/faq.rst:11
-msgid "I have updated the version of AiiDA and now it is no longer working. What should I do?"
+msgid "If the problem you are facing is not addressed below, please refer to the `Discourse server <https://aiida.discourse.group/>`_. To file a bug report or open a feature request, please `open an issue on Github <https://github.com/aiidateam/aiida-core/issues/new/choose>`_."
 msgstr ""
 
 #: ../../source/howto/faq.rst:12
+msgid "I have updated the version of AiiDA and now it is no longer working. What should I do?"
+msgstr ""
+
+#: ../../source/howto/faq.rst:13
 msgid "First, make sure that your daemon is not running. You can check this with ``verdi daemon status``. If you find that your daemon was actually still running, that is likely the problem, so stop it first using ``verdi daemon stop``. It is very important that each time you want to :ref:`update your AiiDA installation<how-to:installation:update>`, you should *always* first finish all running processes and stop the daemon before doing so. Restart the daemon with ``verdi daemon start``."
 msgstr ""
 
-#: ../../source/howto/faq.rst:20
+#: ../../source/howto/faq.rst:21
 msgid "I get a :py:class:`~aiida.common.exceptions.MissingEntryPointError` or :py:class:`~aiida.common.exceptions.MultipleEntryPointError` exception, saying that a particular entry point cannot be found. How can I fix this?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:21
+#: ../../source/howto/faq.rst:22
 msgid "Often this is caused by an outdated entry point cache. This can happen for example when you have updated your AiiDA installation or installed a new plugin using ``pip install``. Make sure to also restart all daemons, to ensure that the changes are picked up by the daemons as well."
 msgstr ""
 
-#: ../../source/howto/faq.rst:27
+#: ../../source/howto/faq.rst:28
 msgid "I have updated the code of a :py:class:`~aiida.engine.WorkChain`, :py:class:`~aiida.engine.CalcJob` or whatever other Python code, but the daemon does not seem to pick up the changes?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:28
+#: ../../source/howto/faq.rst:29
 msgid "Each time that you change your code, you should restart the daemon for the changes to take effect. Each daemon worker actually is its own system process with its own Python interpreter instance, and since we don't support automated hot==swapping, the daemon workers will not automatically detect the changes in the code. Simply calling ``verdi daemon restart`` will do the trick."
 msgstr ""
 
-#: ../../source/howto/faq.rst:34
+#: ../../source/howto/faq.rst:35
 msgid "I have updated the code of a :py:class:`~aiida.engine.WorkChain`, :py:class:`~aiida.engine.CalcJob` or whatever other Python code, but my Python shell instance does not seem to pick up the changes?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:35
+#: ../../source/howto/faq.rst:36
 msgid "The ``verdi shell`` is its own Python interpreter and does not automatically detect code changes. Simply reloading your shell will solve the problem."
 msgstr ""
 
-#: ../../source/howto/faq.rst:40
+#: ../../source/howto/faq.rst:41
 msgid "Why are calculation jobs taking very long to run on remote machines even though the actual computation time should be fast?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:41
+#: ../../source/howto/faq.rst:42
 msgid "First, make sure that the calculation is not actually waiting in the queue of the scheduler, but it is actually running or has already completed. If it then still takes seemingly a lot of time for AiiDA to update your calculations, there are a couple of explanations. First, if you are running many processes, your daemon workers may simply be busy managing other calculations and workflows. If that is not the case, you may be witnessing the effects of the built-in throttling mechanisms of AiiDA's engine. To ensure that the AiiDA daemon does not overload remote computers or their schedulers, there are built-in limits to how often the daemon workers are allowed to open an SSH connection, or poll the scheduler. To determine the minimum transport and job polling interval, use ``verdi computer configure show <COMPUTER>`` and ``computer.get_minimum_job_poll_interval()``, respectively. You can lower these values using:"
 msgstr ""
 
-#: ../../source/howto/faq.rst:53
+#: ../../source/howto/faq.rst:54
 msgid "and"
 msgstr ""
 
-#: ../../source/howto/faq.rst:59
+#: ../../source/howto/faq.rst:60
 msgid "respectively. However, be careful, if you make these intervals too short, the daemon workers may spam the remote machine and/or scheduler, which could have adverse effects on the machine itself or can get your account banned, depending on the policy of the remote machine. An additional note of importance is that each interval is guaranteed to be respected per daemon worker individually, but not as a collective. That is to say, if the safe interval is set to 60 seconds, any single worker is guaranteed to open a connection to that machine at most once every minute, however, if you have multiple active daemon workers, the machine may be accessed more than once per minute."
 msgstr ""
 
-#: ../../source/howto/faq.rst:67
+#: ../../source/howto/faq.rst:68
 msgid "Why would a process that runs fine locally raise an exception when submitted to the daemon?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:68
+#: ../../source/howto/faq.rst:69
 msgid "This is almost always caused by an import issue. To determine exactly what might be going wrong, first :ref:`set the loglevel <intro:increase-logging-verbosity>` to ``DEBUG`` by executing the command:"
 msgstr ""
 
-#: ../../source/howto/faq.rst:75
+#: ../../source/howto/faq.rst:76
 msgid "Then restart the daemon with ``verdi daemon restart`` for the changes to take effect. Run the command ``verdi daemon logshow`` in a separate terminal to see the logging output of the daemon and then submit the problematic calculation or workflow again."
 msgstr ""
 
-#: ../../source/howto/faq.rst:78
+#: ../../source/howto/faq.rst:79
 msgid "If the root cause is indeed due to an import problem, it will probably appear as an ``ImportError`` exception in the daemon log. To solve these issues, make sure that all the Python code that is being run is properly importable, which means that it is part of the `PYTHONPATH <https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH>`_. Make sure that the PYTHONPATH is correctly defined automatically when starting your shell, so for example if you are using bash, add it to your ``.bashrc`` and completely reset daemon. For example, go to the directory that contains the file where you defined the process and run:"
 msgstr ""
 
-#: ../../source/howto/faq.rst:92
+#: ../../source/howto/faq.rst:93
 msgid "Why is caching not enabled by default?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:94
+#: ../../source/howto/faq.rst:95
 msgid "Caching is designed to work in an unobtrusive way and simply save time and valuable computational resources. However, this design is a double-egded sword, in that a user that might not be aware of this functionality, can be caught off guard by the results of their calculations."
 msgstr ""
 
-#: ../../source/howto/faq.rst:97
+#: ../../source/howto/faq.rst:98
 msgid "The caching mechanism comes with some limitations and caveats that are important to understand. Refer to the :ref:`topics:provenance:caching:limitations` section for more details."
 msgstr ""
 
-#: ../../source/howto/faq.rst:103
+#: ../../source/howto/faq.rst:104
 msgid "What happens when an SSH key pair expires for an MFA-enabled remote computer?"
 msgstr ""
 
-#: ../../source/howto/faq.rst:105
+#: ../../source/howto/faq.rst:106
 msgid "In some supercomputing centres, Multi-Factor Authentication (MFA) is required to connect to the remote computer. Often, when establishing a connection to such a computer, one needs to generate an SSH key pair with a limited lifetime. This is the case of Swiss National Supercomputing Centre (CSCS), for example."
 msgstr ""
 
-#: ../../source/howto/faq.rst:109
+#: ../../source/howto/faq.rst:110
 msgid "When the SSH key pair expires, AiiDA will fail to connect to the remote computer. This will cause all calculations submitted on that computer to pause. To restart them, one needs to generate a new SSH key pair and play the paused processes using ``verdi process play --all``. Typically, this is all one needs to do - AiiDA will re-establish the connection to the computer and will continue following the calculations."
 msgstr ""
 
@@ -773,74 +769,90 @@ msgid ":ref:`How-to configure caching <how-to:run-codes:caching>`"
 msgstr ""
 
 #: ../../source/howto/installation.rst:262
+msgid "Controlling warnings"
+msgstr ""
+
+#: ../../source/howto/installation.rst:264
+msgid "AiiDA may emit warnings for a variety of reasons, for example, warnings when a deprecated part of the code is used. These warnings are on by default as they provide the user with important information. The warnings can be turned off using the ``warnings.showdeprecations`` config option, for example:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:274
+msgid "The command above changes the option for the current profile. However, certain warnings are emitted before a profile can be loaded, for example, when certain modules are imported. To also silence these warnings, apply the option globally:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:282
+msgid "In addition to the config option, AiiDA also provides the dedicated environment variable ``AIIDA_WARN_v{version}`` for deprecation warnings. Here ``{version}`` is the version number in which the deprecated code will be removed, e.g., ``AIIDA_WARN_v3``. This environment variable can be used to enable deprecation warnings even if ``warnings.showdeprecations`` is turned off. This can be useful to temporarily enable deprecation warnings for a single command, e.g.:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:295
 msgid "Isolating multiple instances"
 msgstr ""
 
-#: ../../source/howto/installation.rst:263
+#: ../../source/howto/installation.rst:296
 msgid "An AiiDA instance is defined as the installed source code plus the configuration folder that stores the configuration files with all the configured profiles. It is possible to run multiple AiiDA instances on a single machine, simply by isolating the code and configuration in a virtual environment."
 msgstr ""
 
-#: ../../source/howto/installation.rst:266
+#: ../../source/howto/installation.rst:299
 msgid "To isolate the code, make sure to install AiiDA into a virtual environment, e.g., with conda or venv, as described :ref:`here <intro:get_started:setup>`. Whenever you activate this particular environment, you will be running the particular version of AiiDA (and all the plugins) that you installed specifically for it."
 msgstr ""
 
-#: ../../source/howto/installation.rst:269
+#: ../../source/howto/installation.rst:302
 msgid "This is separate from the configuration of AiiDA, which is stored in the configuration directory which is always named ``.aiida`` and by default is stored in the home directory. Therefore, the default path of the configuration directory is ``~/.aiida``. By default, each AiiDA instance (each installation) will store associated profiles in this folder. A best practice is to always separate the profiles together with the code to which they belong. The typical approach is to place the configuration folder in the virtual environment itself and have it automatically selected whenever the environment is activated."
 msgstr ""
 
-#: ../../source/howto/installation.rst:275
+#: ../../source/howto/installation.rst:308
 msgid "The location of the AiiDA configuration folder can be controlled with the ``AIIDA_PATH`` environment variable. This allows us to change the configuration folder automatically, by adding the following lines to the activation script of a virtual environment. For example, if the path of your virtual environment is ``/home/user/.virtualenvs/aiida``, add the following line:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:283
+#: ../../source/howto/installation.rst:316
 msgid "Make sure to reactivate the virtual environment, if it was already active, for the changes to take effect."
 msgstr ""
 
-#: ../../source/howto/installation.rst:287
+#: ../../source/howto/installation.rst:320
 msgid "For ``conda``, create a directory structure ``etc/conda/activate.d`` in the root folder of your conda environment (e.g. ``/home/user/miniconda/envs/aiida``), and place a file ``aiida-init.sh`` in that folder which exports the ``AIIDA_PATH``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:289
+#: ../../source/howto/installation.rst:322
 msgid "You can test that everything works by first echoing the environment variable with ``echo $AIIDA_PATH`` to confirm it prints the correct path. Finally, you can check that AiiDA know also properly realizes the new location for the configuration folder by calling ``verdi profile list``. This should display the current location of the configuration directory:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:298
+#: ../../source/howto/installation.rst:331
 msgid "The second line you will only see if you haven't yet setup a profile for this AiiDA instance. For information on setting up a profile, refer to :ref:`creating profiles<how-to:installation:profile>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:301
+#: ../../source/howto/installation.rst:334
 msgid "Besides a single path, the value of ``AIIDA_PATH`` can also be a colon-separated list of paths. AiiDA will go through each of the paths and check whether they contain a configuration directory, i.e., a folder with the name ``.aiida``. The first configuration directory that is encountered will be used as the configuration directory. If no configuration directory is found, one will be created in the last path that was considered. For example, the directory structure in your home folder ``~/`` might look like this::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:313
+#: ../../source/howto/installation.rst:346
 msgid "If you leave the ``AIIDA_PATH`` variable unset, the default location ``~/.aiida`` will be used. However, if you set:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:320
+#: ../../source/howto/installation.rst:353
 msgid "the configuration directory ``~/project_a/.aiida`` will be used."
 msgstr ""
 
-#: ../../source/howto/installation.rst:324
+#: ../../source/howto/installation.rst:357
 msgid "If there was no ``.aiida`` directory in ``~/project_a``, AiiDA would have created it for you, so make sure to set the ``AIIDA_PATH`` correctly."
 msgstr ""
 
-#: ../../source/howto/installation.rst:330
+#: ../../source/howto/installation.rst:363
 msgid "Daemon as a service"
 msgstr ""
 
-#: ../../source/howto/installation.rst:332
+#: ../../source/howto/installation.rst:365
 msgid "The daemon can be set up as a system service, such that it automatically starts at system startup. How to do this, is operating system specific. For Ubuntu, here is `a template for the service file <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/templates/aiida-daemon%40.service>`_ and `ansible instructions to install the service <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/tasks/aiida-daemon.yml>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:340
+#: ../../source/howto/installation.rst:373
 msgid "Tuning performance"
 msgstr ""
 
-#: ../../source/howto/installation.rst:342
+#: ../../source/howto/installation.rst:375
 msgid "AiiDA supports running hundreds of thousands of calculations and graphs with millions of nodes. However, optimal performance at that scale can require tweaking the AiiDA configuration to balance the CPU and disk load."
 msgstr ""
 
-#: ../../source/howto/installation.rst:345
+#: ../../source/howto/installation.rst:378
 msgid "Below, we share a few practical tips for assessing and tuning AiiDA performance. Further in-depth information is available in the dedicated :ref:`topic on performance<topics:performance>`."
 msgstr ""
 
@@ -848,15 +860,15 @@ msgstr ""
 msgid "Benchmark workflow engine performance"
 msgstr ""
 
-#: ../../source/howto/installation.rst:350
+#: ../../source/howto/installation.rst:383
 msgid "Download the :download:`benchmark script <include/scripts/performance_benchmark_base.py>` :fa:`download`, and run it in your AiiDA environment."
 msgstr ""
 
-#: ../../source/howto/installation.rst:369
+#: ../../source/howto/installation.rst:402
 msgid "The output above was generated on an AMD Ryzen 5 3600 6-Core processor (3.6 GHz, 4.2 GHz turbo boost) using AiiDA v2.2.0, and RabbitMQ and PostgreSQL running on the same machine. Here, 100 ``ArithmeticAddCalculation`` processes completed in ~25s, corresponding to 0.25 seconds per process."
 msgstr ""
 
-#: ../../source/howto/installation.rst:372
+#: ../../source/howto/installation.rst:405
 msgid "If you observe a significantly higher runtime, you may want to check whether any relevant component (CPU, disk, postgresql, rabbitmq) is congested."
 msgstr ""
 
@@ -864,15 +876,15 @@ msgstr ""
 msgid "Increase the number of daemon workers"
 msgstr ""
 
-#: ../../source/howto/installation.rst:376
+#: ../../source/howto/installation.rst:409
 msgid "By default, the AiiDA daemon only uses a single worker, i.e. a single operating system process. If ``verdi daemon status`` shows the daemon worker constantly at high CPU usage, you can use ``verdi daemon incr X`` to add ``X`` parallel daemon workers."
 msgstr ""
 
-#: ../../source/howto/installation.rst:379
+#: ../../source/howto/installation.rst:412
 msgid "Keep in mind that other processes need to run on your computer (e.g. rabbitmq, the PostgreSQL database, ...), i.e. it's a good idea to stop increasing the number of workers before you reach the number of cores of your CPU."
 msgstr ""
 
-#: ../../source/howto/installation.rst:381
+#: ../../source/howto/installation.rst:414
 msgid "To make the change permanent, set ::"
 msgstr ""
 
@@ -880,11 +892,11 @@ msgstr ""
 msgid "Increase the number of daemon worker slots"
 msgstr ""
 
-#: ../../source/howto/installation.rst:388
+#: ../../source/howto/installation.rst:421
 msgid "Each daemon worker accepts only a limited number of tasks at a time. If ``verdi daemon status`` constantly warns about a high percentage of the available daemon worker slots being used, you can increase the number of tasks handled by each daemon worker (thus increasing the workload per worker). Increasing it to 1000 should typically work."
 msgstr ""
 
-#: ../../source/howto/installation.rst:392
+#: ../../source/howto/installation.rst:425
 msgid "Set the corresponding config variable and restart the daemon ::"
 msgstr ""
 
@@ -892,11 +904,11 @@ msgstr ""
 msgid "Prevent your operating system from indexing the file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:399
+#: ../../source/howto/installation.rst:432
 msgid "Many Linux distributions include the ``locate`` command to quickly find files and folders, and run a daily cron job ``updatedb.mlocate`` to create the corresponding index. A large file repository can take a long time to index, up to the point where the hard drive is constantly indexing."
 msgstr ""
 
-#: ../../source/howto/installation.rst:402
+#: ../../source/howto/installation.rst:435
 msgid "In order to exclude the repository folder from indexing, add its path to the ``PRUNEPATH`` variable in the ``/etc/updatedb.conf`` configuration file (use ``sudo``)."
 msgstr ""
 
@@ -904,47 +916,47 @@ msgstr ""
 msgid "Move the Postgresql database to a fast disk (SSD), ideally on a large partition."
 msgstr ""
 
-#: ../../source/howto/installation.rst:406
+#: ../../source/howto/installation.rst:439
 msgid "Stop the AiiDA daemon and :ref:`back up your database <how-to:installation:backup>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:408
+#: ../../source/howto/installation.rst:441
 msgid "Find the data directory of your postgres installation (something like ``/var/lib/postgresql/9.6/main``, ``/scratch/postgres/9.6/main``, ...)."
 msgstr ""
 
-#: ../../source/howto/installation.rst:410
+#: ../../source/howto/installation.rst:443
 msgid "The best way is to become the postgres UNIX user and enter the postgres shell::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:416
+#: ../../source/howto/installation.rst:449
 msgid "If you are unable to enter the postgres shell, try looking for the ``data_directory`` variable in a file ``/etc/postgresql/9.6/main/postgresql.conf`` or similar."
 msgstr ""
 
-#: ../../source/howto/installation.rst:418
+#: ../../source/howto/installation.rst:451
 msgid "Stop the postgres database service::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:422
+#: ../../source/howto/installation.rst:455
 msgid "Copy all files and folders from the postgres ``data_directory`` to the new location::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:444
+#: ../../source/howto/installation.rst:477
 msgid "Point the ``data_directory`` variable in your postgres configuration file (e.g. ``/etc/postgresql/9.6/main/postgresql.conf``) to the new directory."
 msgstr ""
 
-#: ../../source/howto/installation.rst:446
+#: ../../source/howto/installation.rst:479
 msgid "Restart the database daemon::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:450
+#: ../../source/howto/installation.rst:483
 msgid "Finally, check that the data directory has indeed changed::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:456
+#: ../../source/howto/installation.rst:489
 msgid "and try a simple AiiDA query with the new database. If everything went fine, you can delete the old database location."
 msgstr ""
 
-#: ../../source/howto/installation.rst:459
+#: ../../source/howto/installation.rst:492
 msgid "If you're still encountering performance issues, the following tips can help with pinpointing performance bottlenecks."
 msgstr ""
 
@@ -952,207 +964,206 @@ msgstr ""
 msgid "Analyze the RabbitMQ message rate"
 msgstr ""
 
-#: ../../source/howto/installation.rst:463
+#: ../../source/howto/installation.rst:496
 msgid "If you're observing slow performance of the AiiDA engine, the `RabbitMQ management plugin <https://www.rabbitmq.com/management.html>`_ provides an intuitive dashboard that lets you monitor the message rate and check on what the AiiDA engine is up to."
 msgstr ""
 
-#: ../../source/howto/installation.rst:465
+#: ../../source/howto/installation.rst:498
 msgid "Enable the management plugin via something like::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:469
+#: ../../source/howto/installation.rst:502
 msgid "Then, navigate to http://localhost:15672/ and log in with ``guest``/``guest``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:475
+#: ../../source/howto/installation.rst:508
 msgid "Updating your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:477
+#: ../../source/howto/installation.rst:510
 msgid "Whenever updating your AiiDA installation, make sure you follow these instructions **very carefully**, even when merely upgrading the patch version! Failing to do so, may leave your installation in a broken state, or worse may even damage your data, potentially irreparably."
 msgstr ""
 
-#: ../../source/howto/installation.rst:480
+#: ../../source/howto/installation.rst:513
 msgid "Activate the Python environment where AiiDA is installed."
 msgstr ""
 
-#: ../../source/howto/installation.rst:481
+#: ../../source/howto/installation.rst:514
 msgid "Finish all running processes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:482
+#: ../../source/howto/installation.rst:515
 msgid "All finished processes will be automatically migrated, but it is not possible to resume unfinished processes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:483
+#: ../../source/howto/installation.rst:516
 msgid "Stop the daemon using ``verdi daemon stop``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:484
+#: ../../source/howto/installation.rst:517
 msgid ":ref:`Create a backup of your database and repository<how-to:installation:backup>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:488
+#: ../../source/howto/installation.rst:521
 msgid "Once you have migrated your database, you can no longer go back to an older version of ``aiida-core`` (unless you restore your database and repository from a backup)."
 msgstr ""
 
-#: ../../source/howto/installation.rst:490
+#: ../../source/howto/installation.rst:523
 msgid "Update your ``aiida-core`` installation."
 msgstr ""
 
-#: ../../source/howto/installation.rst:492
+#: ../../source/howto/installation.rst:525
 msgid "If you have installed AiiDA through ``conda`` simply run: ``conda update aiida-core``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:493
+#: ../../source/howto/installation.rst:526
 msgid "If you have installed AiiDA through ``pip`` simply run: ``pip install --upgrade aiida-core``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:494
+#: ../../source/howto/installation.rst:527
 msgid "If you have installed from the git repository using ``pip install -e .``, first delete all the ``.pyc`` files (``find . -name \"*.pyc\" -delete``) before updating your branch with ``git pull``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:497
+#: ../../source/howto/installation.rst:530
 msgid "Migrate your database with ``verdi -p <profile_name> storage migrate``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:497
+#: ../../source/howto/installation.rst:530
 msgid "Depending on the size of your database and the number of migrations to perform, data migration can take time, so please be patient."
 msgstr ""
 
-#: ../../source/howto/installation.rst:499
+#: ../../source/howto/installation.rst:532
 msgid "After the database migration finishes, you will be able to continue working with your existing data."
 msgstr ""
 
-#: ../../source/howto/installation.rst:502
+#: ../../source/howto/installation.rst:535
 msgid "If the update involved a change in the major version number of ``aiida-core``, expect backwards incompatible changes and check whether you also need to update installed plugin packages."
 msgstr ""
 
-#: ../../source/howto/installation.rst:505
+#: ../../source/howto/installation.rst:538
 msgid "Updating from 0.x.* to 1.*"
 msgstr ""
 
-#: ../../source/howto/installation.rst:506
+#: ../../source/howto/installation.rst:539
 msgid "`Additional instructions on how to migrate from 0.12.x versions <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#updating-from-0-12-to-1>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:507
+#: ../../source/howto/installation.rst:540
 msgid "`Additional instructions on how to migrate from versions 0.4 -- 0.11 <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#older-versions>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:508
+#: ../../source/howto/installation.rst:541
 msgid "For a list of breaking changes between the 0.x and the 1.x series of AiiDA, `see here <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#breaking-changes-from-0-12-to-1>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:511
+#: ../../source/howto/installation.rst:544
 msgid "Updating from 1.* to 2.*"
 msgstr ""
 
-#: ../../source/howto/installation.rst:513
+#: ../../source/howto/installation.rst:546
 msgid "See the :doc:`../reference/_changelog` for a list of breaking changes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:518
+#: ../../source/howto/installation.rst:551
 msgid "Backing up your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:520
+#: ../../source/howto/installation.rst:553
 msgid "A full backup of an AiiDA instance and AiiDA managed data requires a backup of:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:522
+#: ../../source/howto/installation.rst:555
 msgid "the AiiDA configuration folder, which is named ``.aiida``. The location of the folder is shown in the output of ``verdi status``. This folder contains, among other things, the ``config.json`` configuration file and log files."
 msgstr ""
 
-#: ../../source/howto/installation.rst:526
+#: ../../source/howto/installation.rst:559
 msgid "the data stored for each profile. Where the data is stored, depends on the storage backend used by each profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:529
-#: ../../source/howto/installation.rst:587
+#: ../../source/howto/installation.rst:562
+#: ../../source/howto/installation.rst:620
 msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:532
+#: ../../source/howto/installation.rst:565
 msgid "Before creating a backup, it is recommended to run ``verdi storage maintain``. This will optimize the storage which can significantly reduce the time required to create the backup. For optimal results, run ``verdi storage maintain --full``. Note that this requires the profile to not be in use by any other process."
 msgstr ""
 
 #: ../../source/howto/installation.rst:0
-#: ../../source/howto/installation.rst:0
 msgid "psql_dos"
 msgstr ""
 
-#: ../../source/howto/installation.rst:541
+#: ../../source/howto/installation.rst:574
 msgid "The ``psql_dos`` storage backend is the default backend for AiiDA. It stores its data in a PostgreSQL database and a file repository on the local filesystem. To fully backup the data stored for a profile, you should backup the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:545
-#: ../../source/howto/installation.rst:596
+#: ../../source/howto/installation.rst:578
+#: ../../source/howto/installation.rst:629
 msgid "**PostgreSQL database**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:547
+#: ../../source/howto/installation.rst:580
 msgid "To export the entire database, we recommend to use the `pg_dump <https://www.postgresql.org/docs/12/app-pgdump.html>`_ utility:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:553
+#: ../../source/howto/installation.rst:586
 msgid "The ``-W`` flag will ensure to prompt for the database password. The parameters between brackets should be replaced with the values that have been configured for the profile. You can retrieve these from the ``storage.config`` returned by the ``verdi profile show`` command."
 msgstr ""
 
-#: ../../source/howto/installation.rst:559
+#: ../../source/howto/installation.rst:592
 msgid "In order to avoid having to enter your database password each time you use the script, you can create a file ``.pgpass`` in your home directory containing your database credentials, as described `in the PostgreSQL documentation <https://www.postgresql.org/docs/12/libpq-pgpass.html>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:561
-#: ../../source/howto/installation.rst:605
+#: ../../source/howto/installation.rst:594
+#: ../../source/howto/installation.rst:638
 msgid "**File repository**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:563
+#: ../../source/howto/installation.rst:596
 msgid "The file repository is a directory on the local file system. The most efficient way to create a backup is to use the `rsync <https://en.wikipedia.org/wiki/Rsync>`_ utility. The path of the repository is shown in the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. To create a backup, simply run:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:576
+#: ../../source/howto/installation.rst:609
 msgid "Restoring your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:578
+#: ../../source/howto/installation.rst:611
 msgid "Restoring a backed up AiiDA installation requires:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:580
+#: ../../source/howto/installation.rst:613
 msgid "restoring the backed up ``.aiida`` folder, with at the very least the ``config.json`` file it contains. It should be placed in the path defined by the ``AIIDA_PATH`` environment variable. To test the restoration worked, run ``verdi profile list`` to verify that all profiles are displayed."
 msgstr ""
 
-#: ../../source/howto/installation.rst:584
+#: ../../source/howto/installation.rst:617
 msgid "restoring the data of each backed up profile. Like the backup procedure, this is dependent on the storage backend used by the profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:594
+#: ../../source/howto/installation.rst:627
 msgid "To fully backup the data stored for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:598
+#: ../../source/howto/installation.rst:631
 msgid "To restore the PostgreSQL database from the ``.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase. The backed up data can then be imported by calling:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:607
+#: ../../source/howto/installation.rst:640
 msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated by the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. Like the backing up process, we recommend using ``rsync`` for this:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:618
+#: ../../source/howto/installation.rst:651
 msgid "Managing multiple users"
 msgstr ""
 
-#: ../../source/howto/installation.rst:619
+#: ../../source/howto/installation.rst:652
 msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
 msgstr ""
 
-#: ../../source/howto/installation.rst:623
+#: ../../source/howto/installation.rst:656
 msgid "The typical setup involves each user individually installing AiiDA on their operating system account. Data can be shared between private AiiDA profiles through :ref:`AiiDA's export and import functionality <how-to:share:archives>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:626
+#: ../../source/howto/installation.rst:659
 msgid "Note that while the configuration file of an AiiDA instance contains access credentials (e.g. for the postgresql database or the rabbitmq service), AiiDA does not store sensitive data in the database or file repository, and AiiDA export archives never contain such data."
 msgstr ""
 
@@ -1192,85 +1203,89 @@ msgstr ""
 msgid "AiiDA comes with a command line interface called ``verdi``. The :ref:`reference:command-line` section gives an overview of all available commands. For more detailed information, refer to the topic section :ref:`topics:cli`."
 msgstr ""
 
-#: ../../source/howto/interact.rst:29
+#: ../../source/howto/interact.rst:27
+msgid "The ``verdi`` command line interface can also be explored as a `text-based user interface <https://en.wikipedia.org/wiki/Text-based_user_interface>`_ (TUI). It requires ``aiida-core`` to be installed with the ``tui`` extra (e.g. ``pip install aiida-core[tui]``). The TUI can then be launched with ``verdi tui``."
+msgstr ""
+
+#: ../../source/howto/interact.rst:35
 msgid "Scripts"
 msgstr ""
 
-#: ../../source/howto/interact.rst:31
+#: ../../source/howto/interact.rst:37
 msgid "AiiDA's Python API can be used in Python scripts mixed with any other Python code. The only requirement is that before the API is used an AiiDA profile is loaded. The recommended way of accomplishing this is to run the script through the command line interface:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:39
+#: ../../source/howto/interact.rst:45
 msgid "The ``verdi`` CLI will automatically load the default profile, before calling the actual script, passing any command line arguments that may have been specified."
 msgstr ""
 
-#: ../../source/howto/interact.rst:43
-#: ../../source/howto/interact.rst:99
+#: ../../source/howto/interact.rst:49
+#: ../../source/howto/interact.rst:105
 msgid "A :ref:`different profile can be selected <topics:cli:profile>` using the ``--profile`` option, just as for all other ``verdi`` commands."
 msgstr ""
 
-#: ../../source/howto/interact.rst:45
+#: ../../source/howto/interact.rst:51
 msgid "Alternatively, one can also add AiiDA's specific `shebang <https://en.wikipedia.org/wiki/Shebang_(Unix)>`_ to the top of the file."
 msgstr ""
 
-#: ../../source/howto/interact.rst:51
+#: ../../source/howto/interact.rst:57
 msgid "When a script starts with this shebang, when it is executed, it is automatically passed to ``verdi run`` just as if it would have been called through ``verdi run`` directly. This has the advantage that one no longer has to explicitly type ``verdi run`` when running the script, but can simply make it executable and execute it directly. The downside is that it does not allow to specify a particular profile, but it always loads the default profile."
 msgstr ""
 
-#: ../../source/howto/interact.rst:55
+#: ../../source/howto/interact.rst:61
 msgid "If, for whatever reason, ``verdi run`` nor the special shebang can be used, a profile can also be loaded directly through the API within the Python script itself:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:62
-#: ../../source/howto/interact.rst:113
+#: ../../source/howto/interact.rst:68
+#: ../../source/howto/interact.rst:119
 msgid "One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded."
 msgstr ""
 
-#: ../../source/howto/interact.rst:64
+#: ../../source/howto/interact.rst:70
 msgid "Within a script or Python instance, you can also switch to a different profile, or use one within a context manager:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:86
+#: ../../source/howto/interact.rst:92
 msgid "Interactive shells"
 msgstr ""
 
-#: ../../source/howto/interact.rst:88
+#: ../../source/howto/interact.rst:94
 msgid "AiiDA provides a Python API that can be used from an interactive shell, such as `IPython <https://ipython.org/>`_. The recommended way of starting an interactive shell session to work with AiiDA, is through the command line interface:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:95
+#: ../../source/howto/interact.rst:101
 msgid "This command will open a normal IPython shell but automatically loads the default AiiDA profile, which is required to use the Python API."
 msgstr ""
 
-#: ../../source/howto/interact.rst:101
+#: ../../source/howto/interact.rst:107
 msgid "In addition to automatically loading an AiiDA profile, certain modules from AiiDA's API that are used very often are automatically imported. The modules that are pre-loaded can be configured using the :ref:`reference:command-line:verdi-config` command."
 msgstr ""
 
-#: ../../source/howto/interact.rst:104
+#: ../../source/howto/interact.rst:110
 msgid "If, for whatever reason, you cannot use ``verdi shell``, a profile can also be loaded directly through the API within the shell itself:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:119
+#: ../../source/howto/interact.rst:125
 msgid "Interactive notebooks"
 msgstr ""
 
-#: ../../source/howto/interact.rst:121
+#: ../../source/howto/interact.rst:127
 msgid "Similar to :ref:`interactive shells <how-to:interact-shell>`, AiiDA is also directly compatbile with interactive Python notebooks, such as `Jupyter <https://jupyter.org/>`_. To use AiiDA's Python API in a notebook, first a profile has to be loaded:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:131
+#: ../../source/howto/interact.rst:137
 msgid "One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded. The same can be accomplished using the following magic statement:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:139
+#: ../../source/howto/interact.rst:145
 msgid "This magic line will replicate the same environment as :ref:`the interactive shell <how-to:interact-shell>` provided by ``verdi shell``. However, it does require some one-time installation, as detailed in the section on how to :ref:`intro:install:jupyter`."
 msgstr ""
 
-#: ../../source/howto/interact.rst:146
+#: ../../source/howto/interact.rst:152
 msgid "REST API"
 msgstr ""
 
-#: ../../source/howto/interact.rst:148
+#: ../../source/howto/interact.rst:154
 msgid "AiiDA ships with a built in REST API, that allows you to query the data of a particular profile. Refer to section :ref:`how-to:share:serve:launch` to learn how to start the REST API. The section :ref:`how-to:share:serve:query` provides information on how to interact with a running REST API."
 msgstr ""
 
@@ -2194,235 +2209,243 @@ msgstr ""
 msgid "Once you have *appended* the entity you want to query for to the :class:`~aiida.orm.querybuilder.QueryBuilder`, the next question is how to get the results. There are several ways to obtain data from a query:"
 msgstr ""
 
-#: ../../source/howto/query.rst:77
-msgid "In case you are working with a large dataset, you can also return your query as a generator:"
+#: ../../source/howto/query.rst:79
+msgid "If your query only has a single projection, use ``flat=True`` in the ``first`` and ``all`` methods to return a single value or a flat list, respectively."
 msgstr ""
 
-#: ../../source/howto/query.rst:85
+#: ../../source/howto/query.rst:81
+msgid "You can also return your query as a generator:"
+msgstr ""
+
+#: ../../source/howto/query.rst:88
 msgid "This will retrieve the data in batches, and you can start working with the data before the query has completely finished. For example, you can iterate over the results of your query in a for loop:"
 msgstr ""
 
-#: ../../source/howto/query.rst:96
+#: ../../source/howto/query.rst:98
+msgid "When looping over the result of a query, use the ``iterall`` (or ``iterdict``) generator instead of ``all`` (or ``dict``). This avoids loading the entire query result into memory, and it also delays committing changes made to AiiDA objects inside the loop until the end of the loop is reached. If an exception is raised before the loop ends, all changes are reverted."
+msgstr ""
+
+#: ../../source/howto/query.rst:106
 msgid "Filters"
 msgstr ""
 
-#: ../../source/howto/query.rst:98
+#: ../../source/howto/query.rst:108
 msgid "Usually you do not want to query for *all* entities of a certain class, but rather *filter* the results based on certain properties. Suppose you do not want all :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` data, but only those that are ``finished``:"
 msgstr ""
 
-#: ../../source/howto/query.rst:111
+#: ../../source/howto/query.rst:121
 msgid "You can apply multiple filters to one entity in a query. Say you are interested in all calculation jobs in your database that are ``finished`` **and** have ``exit_status == 0``:"
 msgstr ""
 
-#: ../../source/howto/query.rst:125
+#: ../../source/howto/query.rst:135
 msgid "In case you want to query for calculation jobs that satisfy one of these conditions, you can use the ``or`` operator:"
 msgstr ""
 
-#: ../../source/howto/query.rst:140
+#: ../../source/howto/query.rst:150
 msgid "If we had written ``and`` instead of ``or`` in the example above, we would have performed the exact same query as the previous one, because ``and`` is the default behavior if you provide several filters as key-value pairs in a dictionary to the ``filters`` argument. In case you want all calculation jobs with state ``finished`` or ``excepted``, you can also use the ``in`` operator:"
 msgstr ""
 
-#: ../../source/howto/query.rst:156
+#: ../../source/howto/query.rst:166
 msgid "Operator negations"
 msgstr ""
 
-#: ../../source/howto/query.rst:158
+#: ../../source/howto/query.rst:168
 msgid "A filter can be turned into its associated **negation** by adding an exclamation mark, ``!``, in front of the operator. So, to query for all calculation jobs that are not a ``finished`` or ``excepted`` state:"
 msgstr ""
 
-#: ../../source/howto/query.rst:173
+#: ../../source/howto/query.rst:183
 msgid "The above rule applies to all operators. For example, you can check non-equality with ``!==``, since this is the equality operator (``==``) with a negation prepended."
 msgstr ""
 
-#: ../../source/howto/query.rst:176
+#: ../../source/howto/query.rst:186
 msgid "A complete list of all available operators can be found in the :ref:`advanced querying section<topics:database:advancedquery:tables:operators>`."
 msgstr ""
 
-#: ../../source/howto/query.rst:181
+#: ../../source/howto/query.rst:191
 msgid "Relationships"
 msgstr ""
 
-#: ../../source/howto/query.rst:183
+#: ../../source/howto/query.rst:193
 msgid "It is possible to query for data based on its relationship to another entity in the database. Imagine you are not interested in the calculation jobs themselves, but in one of the outputs they create. You can build upon your initial query for all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database using the relationship of the output to the first step in the query:"
 msgstr ""
 
-#: ../../source/howto/query.rst:193
+#: ../../source/howto/query.rst:203
 msgid "In the first ``append`` call, we query for all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database, and *tag* this step with the *unique* identifier ``'calcjob'``. Next, we look for all ``Int`` nodes that are an output of the  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s found in the first step, using the ``with_incoming`` relationship argument. The ``Int`` node was created by the  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` and as such has an *incoming* create link."
 msgstr ""
 
-#: ../../source/howto/query.rst:197
+#: ../../source/howto/query.rst:207
 msgid "In the context of our query, we are building a *path* consisting of *vertices* (i.e. the entities we query for) connected by *edges* defined by the relationships between them. The complete set of all possible relationships you can use query for, as well as the entities that they connect to, can be found in the :ref:`advanced querying section<topics:database:advancedquery:tables:relationships>`."
 msgstr ""
 
-#: ../../source/howto/query.rst:202
+#: ../../source/howto/query.rst:212
 msgid "The ``tag`` identifier can be any alphanumeric string, it is simply a label used to refer to a previous vertex along the query path when defining a relationship."
 msgstr ""
 
-#: ../../source/howto/query.rst:207
+#: ../../source/howto/query.rst:217
 msgid "Projections"
 msgstr ""
 
-#: ../../source/howto/query.rst:209
+#: ../../source/howto/query.rst:219
 msgid "By default, the :class:`~aiida.orm.querybuilder.QueryBuilder` returns the instances of the entities corresponding to the final append to the query path. For example:"
 msgstr ""
 
-#: ../../source/howto/query.rst:218
+#: ../../source/howto/query.rst:228
 msgid "The above code snippet will return all ``Int`` nodes that are outputs of any  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`. However, you can also *project* other entities in the path by adding ``project='*'`` to the corresponding ``append()`` call:"
 msgstr ""
 
-#: ../../source/howto/query.rst:227
+#: ../../source/howto/query.rst:237
 msgid "This will return all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s that have an ``Int`` output node."
 msgstr ""
 
-#: ../../source/howto/query.rst:229
+#: ../../source/howto/query.rst:239
 msgid "However, in many cases we are not interested in the entities themselves, but rather their PK, UUID, *attributes* or some other piece of information stored by the entity. This can be achieved by providing the corresponding *column* to the ``project`` keyword argument:"
 msgstr ""
 
-#: ../../source/howto/query.rst:238
+#: ../../source/howto/query.rst:248
 msgid "In the above example, executing the query returns all *PK's* of the ``Int`` nodes which are outputs of all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database. Moreover, you can project more than one piece of information for one vertex by providing a list:"
 msgstr ""
 
-#: ../../source/howto/query.rst:247
+#: ../../source/howto/query.rst:257
 msgid "For the query above, ``qb.all()`` will return a list of lists, for which each element corresponds to one entity and contains two items: the PK of the ``Int`` node and its value. Finally, you can project information for multiple vertices along the query path:"
 msgstr ""
 
-#: ../../source/howto/query.rst:256
+#: ../../source/howto/query.rst:266
 msgid "All projections must start with one of the *columns* of the entities in the database, or project the instances themselves using ``'*'``. Examples of columns we have encountered so far are ``id``, ``uuid`` and ``attributes``. If the column is a dictionary, you can expand the dictionary values using a dot notation, as we have done in the previous example to obtain the ``attributes.value``. This can be used to project the values of nested dictionaries as well."
 msgstr ""
 
-#: ../../source/howto/query.rst:263
+#: ../../source/howto/query.rst:273
 msgid "Be aware that for consistency, ``QueryBuilder.all()`` / ``iterall()`` always returns a list of lists, even if you only project one property of a single entity. Use ``QueryBuilder.all(flat=True)`` to return the query result as a flat list in this case."
 msgstr ""
 
-#: ../../source/howto/query.rst:266
+#: ../../source/howto/query.rst:276
 msgid "As mentioned in the beginning, this section provides only a brief introduction to the :class:`~aiida.orm.querybuilder.QueryBuilder`'s basic functionality. To learn about more advanced queries, please see :ref:`the corresponding topics section<topics:database:advancedquery>`."
 msgstr ""
 
-#: ../../source/howto/query.rst:274
+#: ../../source/howto/query.rst:284
 msgid "Shortcuts"
 msgstr ""
 
-#: ../../source/howto/query.rst:276
+#: ../../source/howto/query.rst:286
 msgid "The :class:`~aiida.orm.querybuilder.QueryBuilder` is the generic way of querying for data in AiiDA. For certain common queries, shortcuts have been added to the AiiDA python API to save you a couple of lines of code."
 msgstr ""
 
-#: ../../source/howto/query.rst:282
+#: ../../source/howto/query.rst:292
 msgid "Incoming and outgoing links"
 msgstr ""
 
-#: ../../source/howto/query.rst:284
+#: ../../source/howto/query.rst:294
 msgid "The provenance graph in AiiDA is a :ref:`directed graph <topics:provenance:concepts>`. The vertices of the graph are the *nodes*, and the edges that connect them are called *links*. Since the graph is directed, any node can have *incoming* and *outgoing* links that connect it to neighboring nodes."
 msgstr ""
 
-#: ../../source/howto/query.rst:288
+#: ../../source/howto/query.rst:298
 msgid "To discover the neighbors of a given node, you can use the methods :meth:`~aiida.orm.nodes.links.NodeLinks.get_incoming` and :meth:`~aiida.orm.nodes.links.NodeLinks.get_outgoing`. They have the exact same interface but will return the neighbors connected to the current node with a link coming into it or with links going out of it, respectively. For example, for a given ``node``, to inspect all the neighboring nodes from which a link is incoming to the ``node``:"
 msgstr ""
 
-#: ../../source/howto/query.rst:296
+#: ../../source/howto/query.rst:306
 msgid "This will return an instance of the :class:`~aiida.orm.utils.links.LinkManager`. From that manager, you can request the results in a specific format. If you are only interested in the neighboring nodes themselves, you can call the :class:`~aiida.orm.utils.links.LinkManager.all_nodes` method:"
 msgstr ""
 
-#: ../../source/howto/query.rst:304
+#: ../../source/howto/query.rst:314
 msgid "This will return a list of :class:`~aiida.orm.nodes.node.Node` instances that correspond to the nodes that are neighbors of ``node``, where the link is going towards ``node``. Calling the :meth:`~aiida.orm.utils.links.LinkManager.all` method of the manager instead will return a list of :class:`~aiida.orm.utils.links.LinkTriple` named tuples. These tuples contain, in addition to the neighboring node, also the link label and the link type with which they are connected to the origin ``node``. For example, to list all the neighbors of a node from which a link is incoming:"
 msgstr ""
 
-#: ../../source/howto/query.rst:314
+#: ../../source/howto/query.rst:324
 msgid "Note that the :class:`~aiida.orm.utils.links.LinkManager` provides many convenience methods to get information from the neigboring nodes, such as :meth:`~aiida.orm.utils.links.LinkManager.all_link_labels` if you only need the list of link labels."
 msgstr ""
 
-#: ../../source/howto/query.rst:316
+#: ../../source/howto/query.rst:326
 msgid "The :meth:`~aiida.orm.nodes.links.NodeLinks.get_incoming` and :meth:`~aiida.orm.nodes.links.NodeLinks.get_outgoing` methods accept various arguments that allow one to filter what neighboring nodes should be matched:"
 msgstr ""
 
-#: ../../source/howto/query.rst:318
+#: ../../source/howto/query.rst:328
 msgid "``node_class``: accepts a subclass of :class:`~aiida.orm.nodes.node.Node`, only neighboring nodes with a class that matches this will be returned"
 msgstr ""
 
-#: ../../source/howto/query.rst:319
+#: ../../source/howto/query.rst:329
 msgid "``link_type``: accepts a value of :class:`~aiida.common.links.LinkType`, only neighboring nodes that are linked with this link type will be returned"
 msgstr ""
 
-#: ../../source/howto/query.rst:320
+#: ../../source/howto/query.rst:330
 msgid "``link_label_filter``: accepts a string  expression (with optional wildcards using the syntax of SQL ``LIKE`` patterns, see below), only neighboring nodes that are linked with a link label that matches the pattern will be returned"
 msgstr ""
 
-#: ../../source/howto/query.rst:322
+#: ../../source/howto/query.rst:332
 msgid "As an example:"
 msgstr ""
 
-#: ../../source/howto/query.rst:328
+#: ../../source/howto/query.rst:338
 msgid "will return only neighboring data nodes that are linked to the ``node`` with a link of type ``LinkType.INPUT_CALC`` and where the link label matches the pattern ``'output%node_'``. Reminder on the syntax of SQL `LIKE` patterns: the ``%`` character matches any string of zero or more characters, while the ``_`` character matches exactly one character. These two special characters can be escaped by prepending them with a backslash (note that when putting a backslash in a Python string you have to escape the backslash itself, so you will need two backslashes: e.g., to match exactly a link label ``a_b`` you need to pass ``link_label_filter='a\\\\_b'``)."
 msgstr ""
 
-#: ../../source/howto/query.rst:336
+#: ../../source/howto/query.rst:346
 msgid "Inputs and outputs of processes"
 msgstr ""
 
-#: ../../source/howto/query.rst:338
+#: ../../source/howto/query.rst:348
 msgid "The :meth:`~aiida.orm.nodes.links.NodeLinks.get_incoming` and :meth:`~aiida.orm.nodes.links.NodeLinks.get_outgoing` methods, described in the :ref:`previous section <how-to:query:shortcuts:incoming-outgoing>`, can be used to access all neighbors from a certain node and provide advanced filtering options. However, often one doesn't need this expressivity and simply wants to retrieve all neighboring nodes with a syntax that is as succint as possible. A prime example is to retrieve the *inputs* or *outputs* of :ref:`a process <topics:processes:concepts>`. Instead of using :meth:`~aiida.orm.nodes.links.NodeLinks.get_incoming` and :meth:`~aiida.orm.nodes.links.NodeLinks.get_outgoing`, to get the inputs and outputs of a ``process_node`` one can do:"
 msgstr ""
 
-#: ../../source/howto/query.rst:348
+#: ../../source/howto/query.rst:358
 msgid "These properties do not return the actual inputs and outputs directly, but instead return an instance of :class:`~aiida.orm.utils.managers.NodeLinksManager`. The reason is because through the manager, the inputs or outputs are accessible through their link label (that, for inputs and outputs of processes, is unique) and can be tab-completed. For example, if the ``process_node`` has an output with the label ``result``, it can be retrieved as:"
 msgstr ""
 
-#: ../../source/howto/query.rst:356
+#: ../../source/howto/query.rst:366
 msgid "The inputs or outputs can also be accessed through key dereferencing:"
 msgstr ""
 
-#: ../../source/howto/query.rst:362
+#: ../../source/howto/query.rst:372
 msgid "If there is no neighboring output with the given link label, a :class:`~aiida.common.exceptions.NotExistentAttributeError` or :class:`~aiida.common.exceptions.NotExistentKeyError` will be raised, respectively."
 msgstr ""
 
-#: ../../source/howto/query.rst:366
+#: ../../source/howto/query.rst:376
 msgid "The ``inputs`` and ``outputs`` properties are only defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s. This means that you cannot *chain* these calls, because an input or output of a process node is guaranteed to be a :class:`~aiida.orm.Data` node, which does not have inputs or outputs."
 msgstr ""
 
-#: ../../source/howto/query.rst:373
+#: ../../source/howto/query.rst:383
 msgid "Creator, caller and called"
 msgstr ""
 
-#: ../../source/howto/query.rst:375
+#: ../../source/howto/query.rst:385
 msgid "Similar to the ``inputs`` and ``outputs`` properties of process nodes, there are some more properties that make exploring the provenance graph easier:"
 msgstr ""
 
-#: ../../source/howto/query.rst:377
+#: ../../source/howto/query.rst:387
 msgid ":meth:`~aiida.orm.nodes.process.process.ProcessNode.called`: defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s and returns the list of process nodes called by this node. If this process node did not call any other processes, this property returns an empty list."
 msgstr ""
 
-#: ../../source/howto/query.rst:379
+#: ../../source/howto/query.rst:389
 msgid ":meth:`~aiida.orm.nodes.process.process.ProcessNode.caller`: defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s and returns the process node that called this node. If this node was not called by a process, this property returns ``None``."
 msgstr ""
 
-#: ../../source/howto/query.rst:381
+#: ../../source/howto/query.rst:391
 msgid ":meth:`~aiida.orm.Data.creator`: defined for :class:`~aiida.orm.Data` nodes and returns the process node that created it. If the node was not created by a process, this property returns ``None``."
 msgstr ""
 
-#: ../../source/howto/query.rst:386
+#: ../../source/howto/query.rst:396
 msgid "Using the ``creator`` and ``inputs`` properties, one can easily move *up* the provenance graph. For example, starting from some data node that represents the result of a long workflow, one can move up the provenance graph to find an initial input node of interest: ``result.creator.inputs.some_input.creator.inputs.initial_input``."
 msgstr ""
 
-#: ../../source/howto/query.rst:392
+#: ../../source/howto/query.rst:402
 msgid "Calculation job results"
 msgstr ""
 
-#: ../../source/howto/query.rst:394
+#: ../../source/howto/query.rst:404
 msgid ":class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s provide the :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property, that can give easy access to the results of the calculation job. The requirement is that the :class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` class that produced the node, defines a *default output node* in its spec. This node should be a :class:`~aiida.orm.nodes.data.dict.Dict` output that will always be created. An example is the :class:`~aiida.calculations.templatereplacer.TemplatereplacerCalculation` plugin, that has the ``output_parameters`` output that is specified as its default output node."
 msgstr ""
 
-#: ../../source/howto/query.rst:399
+#: ../../source/howto/query.rst:409
 msgid "The :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property will give direct easy access to all the keys within this dictionary output. For example, the following:"
 msgstr ""
 
-#: ../../source/howto/query.rst:406
+#: ../../source/howto/query.rst:416
 msgid "will return a list of all the keys in the output node. Individual keys can then be accessed through attribute dereferencing:"
 msgstr ""
 
-#: ../../source/howto/query.rst:413
+#: ../../source/howto/query.rst:423
 msgid "In an interactive shell, the available keys are also tab-completed. If you type ``node.res.`` followed by the tab key twice, a list of the available keys is printed."
 msgstr ""
 
-#: ../../source/howto/query.rst:418
+#: ../../source/howto/query.rst:428
 msgid "The :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property is really just a shortcut to quickly and easily access an attribute of the default output node of a calculation job. For example, if the default output node link label is ``output_parameters``, then ``node.res.some_key`` is exactly equivalent to ``node.outputs.output_parameters.dict.some_key``. That is to say, when using ``res``, one is accessing attributes of one of the output nodes, and not of the calculation job node itself."
 msgstr ""
 
@@ -3107,39 +3130,55 @@ msgstr ""
 msgid "In this example, caching is enabled by default, but explicitly disabled for calculations of the ``TemplatereplacerCalculation`` class, identified by its corresponding ``aiida.calculations:core.templatereplacer`` entry point string. It also shows how to enable caching for particular calculations (which has no effect here due to the profile-wide default)."
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:847
+#: ../../source/howto/run_codes.rst:849
+msgid "It is also possible to provide the full import path of the class in case it does not have a registered entry point. For example, if the class can be imported as ``from some.module.path import SomeClass``, it can be added as:"
+msgstr ""
+
+#: ../../source/howto/run_codes.rst:856
 msgid "To set multiple entry-points at once, use a ``,`` delimiter."
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:849
+#: ../../source/howto/run_codes.rst:858
+msgid "If a specified value for ``verdi config set enabled_for/disabled_for`` is an entry point that cannot be loaded, or is a path that cannot be improted, an error is raised."
+msgstr ""
+
+#: ../../source/howto/run_codes.rst:860
 msgid "For the available entry-points in your environment, you can list which are enabled/disabled using:"
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:861
+#: ../../source/howto/run_codes.rst:872
 msgid "For calculations which do not have an entry point, you need to specify the fully qualified Python name instead. For example, the ``seekpath_structure_analysis`` calcfunction defined in ``aiida_quantumespresso.workflows.functions.seekpath_structure_analysis`` is labelled as ``aiida_quantumespresso.workflows.functions.seekpath_structure_analysis.seekpath_structure_analysis``. From an existing :class:`~aiida.orm.CalculationNode`, you can get the identifier string through the ``process_type`` attribute."
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:865
+#: ../../source/howto/run_codes.rst:876
 msgid "The caching configuration also accepts ``*`` wildcards. For example, the following configuration disables caching for all calculation entry points."
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:880
+#: ../../source/howto/run_codes.rst:891
 msgid "Any entry with a wildcard is overridden by a more specific entry. The following configuration disables caching for all ``aiida.calculation`` entry points, except those of ``arithmetic``:"
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:902
+#: ../../source/howto/run_codes.rst:913
 msgid "Instance level"
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:904
+#: ../../source/howto/run_codes.rst:915
 msgid "Caching can be enabled or disabled on a case-by-case basis by using the :class:`~aiida.manage.caching.enable_caching` or :class:`~aiida.manage.caching.disable_caching` context manager, respectively, regardless of the profile settings:"
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:915
+#: ../../source/howto/run_codes.rst:926
 msgid "This affects only the current Python interpreter and won't change the behavior of the daemon workers. This means that this technique is only useful when using :py:class:`~aiida.engine.run`, and **not** with :py:class:`~aiida.engine.submit`."
 msgstr ""
 
-#: ../../source/howto/run_codes.rst:919
+#: ../../source/howto/run_codes.rst:929
+msgid "By default, the ``enable_caching`` context manager will just validate that the identifier is syntactically valid. It *does not* validate that the identifier points to a class or entry point that actually exists and can be imported or loaded. To make sure that the specified identifier is known to AiiDA, pass the ``strict=True`` keyword argument:"
+msgstr ""
+
+#: ../../source/howto/run_codes.rst:940
+msgid "When ``strict`` is set to ``True``, the function will raise a ``ValueError`` if the specified class or entry point cannot be imported or loaded."
+msgstr ""
+
+#: ../../source/howto/run_codes.rst:942
 msgid "Besides controlling which process classes are cached, it may be useful or necessary to control what already *stored* nodes are used as caching *sources*. Section :ref:`topics:provenance:caching:control-caching` provides details how AiiDA decides which stored nodes are equivalent to the node being stored and which are considered valid caching sources."
 msgstr ""
 
@@ -3999,86 +4038,94 @@ msgid "It is also possible to update the contents of one of the outputs returned
 msgstr ""
 
 #: ../../source/howto/workchains_restart.rst:276
-msgid "Error handling"
+msgid "Attaching outputs"
 msgstr ""
 
 #: ../../source/howto/workchains_restart.rst:278
-msgid "So far you have seen how easy it is to get a work chain up and running that will run a subprocess using the ``BaseRestartWorkChain``. However, the whole point of this exercise, as described in the introduction, was for the work chain to be able to deal with *failing* processes, yet in the previous example it finished without any problems."
-msgstr ""
-
-#: ../../source/howto/workchains_restart.rst:281
-msgid "What would have happened if the subprocess had failed?"
-msgstr ""
-
-#: ../../source/howto/workchains_restart.rst:283
-msgid "If the computed sum of the inputs ``x`` and ``y`` is negative, the ``ArithmeticAddCalculation`` fails with exit code ``410`` which corresponds to ``ERROR_NEGATIVE_NUMBER``."
+msgid "In a normal run, the ``results`` method is the last step in the outline of the ``BaseRestartWorkChain``. In this step, the outputs of the last completed calculation job are \"attached\" to the work chain itself. The attaching of the outputs is implemented by the :meth:`~aiida.engine.processes.workchains.restart.BaseRestartWorkChain._attach_outputs` method. If the outputs need to be attached at a point in the workflow other then the ``results`` step, this method can be called manually. An example would be to call it in a process handler that will abort the work chain. In this case the work chain will be stopped immediately and the ``results`` step would no longer be called."
 msgstr ""
 
 #: ../../source/howto/workchains_restart.rst:287
-msgid "The :ref:`exit code usage section<topics:processes:usage:exit_codes>`, for a more detailed explanation of exit codes."
+msgid "Error handling"
 msgstr ""
 
 #: ../../source/howto/workchains_restart.rst:289
+msgid "So far you have seen how easy it is to get a work chain up and running that will run a subprocess using the ``BaseRestartWorkChain``. However, the whole point of this exercise, as described in the introduction, was for the work chain to be able to deal with *failing* processes, yet in the previous example it finished without any problems."
+msgstr ""
+
+#: ../../source/howto/workchains_restart.rst:292
+msgid "What would have happened if the subprocess had failed?"
+msgstr ""
+
+#: ../../source/howto/workchains_restart.rst:294
+msgid "If the computed sum of the inputs ``x`` and ``y`` is negative, the ``ArithmeticAddCalculation`` fails with exit code ``410`` which corresponds to ``ERROR_NEGATIVE_NUMBER``."
+msgstr ""
+
+#: ../../source/howto/workchains_restart.rst:298
+msgid "The :ref:`exit code usage section<topics:processes:usage:exit_codes>`, for a more detailed explanation of exit codes."
+msgstr ""
+
+#: ../../source/howto/workchains_restart.rst:300
 msgid "Let's launch the work chain with inputs that will cause the calculation to fail, e.g. by making one of the operands negative, and see what happens:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:295
+#: ../../source/howto/workchains_restart.rst:306
 msgid "This time we will see that the work chain takes quite a different path:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:304
+#: ../../source/howto/workchains_restart.rst:315
 msgid "As expected, the ``ArithmeticAddCalculation`` failed this time with a ``410``. The work chain noticed the failure when inspecting the result of the subprocess in ``inspect_process``, and in keeping with its name and design, restarted the calculation. However, since the inputs were not changed, the calculation inevitably and wholly expectedly failed once more with the exact same error code. Unlike after the first iteration, however, the work chain did not restart again, but gave up and returned the exit code ``402`` itself, which stands for ``ERROR_SECOND_CONSECUTIVE_UNHANDLED_FAILURE``. As the name suggests, the work chain tried to run the subprocess but it failed twice in a row without the problem being *handled*. The obvious question now of course is: \"How exactly can we instruct the base work chain to handle certain problems?\""
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:311
+#: ../../source/howto/workchains_restart.rst:322
 msgid "Since the problems are necessarily dependent on the subprocess that the work chain will run, it cannot be implemented by the ``BaseRestartWorkChain`` class itself, but rather will have to be implemented by the subclass. If the subprocess fails, the ``BaseRestartWorkChain`` calls a set of *process handlers* in the ``inspect_process`` step. Each process handler gets passed the node of the subprocess that was just run, such that it can inspect the results and potentially fix any problems that it finds. To \"register\" a process handler for a base restart work chain implementation, you simply define a method that takes a node as its single argument and decorate it with the :func:`~aiida.engine.processes.workchains.utils.process_handler` decorator:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:341
+#: ../../source/howto/workchains_restart.rst:352
 msgid "The method name can be anything as long as it is a valid Python method name and does not overlap with one of the base work chain's methods. For better readability, it is, however, recommended to have the method name start with ``handle_``. In this example, we want to specifically check for a particular failure mode of the ``ArithmeticAddCalculation``, so we compare the :meth:`~aiida.orm.nodes.process.process.ProcessNode.exit_status` of the node with that of the spec of the process. If the exit code matches, we know that the problem was due to the sum being negative. Fixing this fictitious problem for this example is as simple as making sure that the inputs are all positive, which we can do by taking the absolute value of them. We assign the new values to the ``self.ctx.inputs`` just as where we defined the original inputs in the ``setup`` step. Finally, to indicate that we have handled the problem, we return an instance of :class:`~aiida.engine.processes.workchains.utils.ProcessHandlerReport`. This will instruct the work chain to restart the subprocess, taking the updated inputs from the context. With this simple addition, we can now launch the work chain again:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:358
+#: ../../source/howto/workchains_restart.rst:369
 msgid "This time around, although the first subprocess fails again with a ``410``, the new process handler is called. It \"fixes\" the inputs, and when the work chain restarts the subprocess with the new inputs it finishes successfully. With this simple process you can add as many process handlers as you would like to deal with any potential problem that might occur for the specific subprocess type of the work chain implementation. To make the code even more readable, the :func:`~aiida.engine.processes.workchains.utils.process_handler` decorator comes with various syntactic sugar. Instead of having a conditional at the start of each handler to compare the exit status of the node to a particular exit code of the subprocess, you can define it through the ``exit_codes`` keyword argument of the decorator:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:373
+#: ../../source/howto/workchains_restart.rst:384
 msgid "If the ``exit_codes`` keyword is defined, which can be either a single instance of :class:`~aiida.engine.processes.exit_code.ExitCode` or a list thereof, the process handler will only be called if the exit status of the node corresponds to one of those exit codes, otherwise it will simply be skipped."
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:376
+#: ../../source/howto/workchains_restart.rst:387
 msgid "Multiple process handlers"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:378
+#: ../../source/howto/workchains_restart.rst:389
 msgid "Since typically a base restart work chain implementation will have more than one process handler, one might want to control the order in which they are called. This can be done through the ``priority`` keyword:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:390
+#: ../../source/howto/workchains_restart.rst:401
 msgid "The process handlers with a higher priority will be called first. In this scenario, in addition to controlling the order with which the handlers are called, you may also want to stop the process handling once you have determined the problem. This can be achieved by setting the ``do_break`` argument of the ``ProcessHandler`` to ``True``:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:403
+#: ../../source/howto/workchains_restart.rst:414
 msgid "Finally, sometimes one detects a problem that simply cannot or should not be corrected by the work chain. In this case, the handler can signal that the work chain should abort by setting an :class:`~aiida.engine.processes.exit_code.ExitCode` instance on the ``exit_code`` argument of the ``ProcessHandler``:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:415
+#: ../../source/howto/workchains_restart.rst:426
 msgid "The base restart work chain will detect this exit code and abort the work chain, setting the corresponding status and message on the node as usual:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:423
+#: ../../source/howto/workchains_restart.rst:434
 msgid "With these basic tools, a broad range of use-cases can be addressed while preventing a lot of boilerplate code."
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:427
+#: ../../source/howto/workchains_restart.rst:438
 msgid "Handler overrides"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:429
+#: ../../source/howto/workchains_restart.rst:440
 msgid "It is possible to change the priority of handlers and enable/disable them without changing the source code of the work chain. These properties of the handlers can be controlled through the ``handler_overrides`` input of the work chain. This input takes a ``Dict`` node, that has the following form:"
 msgstr ""
 
-#: ../../source/howto/workchains_restart.rst:442
+#: ../../source/howto/workchains_restart.rst:453
 msgid "As you can see, the keys are the name of the handler to affect and the value is a dictionary that can take two keys: ``enabled`` and ``priority``. To enable or disable a handler, set ``enabled`` to ``True`` or ``False``, respectively. The ``priority`` key takes an integer and determines the priority of the handler. Note that the values of the ``handler_overrides`` are fully optional and will override the values configured by the process handler decorator in the source code of the work chain. The changes also only affect the work chain instance that receives the ``handler_overrides`` input, all other instances of the work chain that will be launched will be unaffected."
 msgstr ""
 
