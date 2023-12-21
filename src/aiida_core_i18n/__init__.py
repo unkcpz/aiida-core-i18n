@@ -52,10 +52,20 @@ def translate(inp_str: str, target_lang="ZH") -> str:
         
         return res
 
-def po_translate(lines: typing.List[str], override: bool = False) -> typing.List[str]:
+def po_translate(
+    lines: typing.List[str], 
+    max_chars: int = 100,
+    override: bool = False,
+) -> typing.List[str]:
     """Translate the po files line by line"""
     output_lines = [i for i in lines]
+    n_chars = 0
+
     for ln, line in enumerate(lines):
+        # if the translated characters exceed the limit, stop
+        if n_chars > max_chars:
+            break
+        
         if line.startswith("msgid "):
             ln_start = ln
             for count, inner_line in enumerate(lines[ln:]):
@@ -78,7 +88,14 @@ def po_translate(lines: typing.List[str], override: bool = False) -> typing.List
             if inp_str == "":
                 continue
             
-            translated = translate(inp_str)
+            try:
+                translated = translate(inp_str)
+            except Exception as exc:
+                print(f"Error: {exc} in translate {inp_str}")
+                continue
+            else:
+                n_chars += len(inp_str)
+
             output_lines[ln_end] = f'msgstr "{translated}"'
             
     return output_lines
