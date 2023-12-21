@@ -43,6 +43,8 @@ def translate(inp_str: str, target_lang="ZH") -> str:
         )
     except deepl.DeepLException:
         raise
+    except ValueError:
+        raise
     else:
         # substitue EDBS back to ``
         tstr = translated.text
@@ -58,7 +60,14 @@ def po_translate(
     override: bool = False,
 ) -> typing.List[str]:
     """Translate the po files line by line"""
-    output_lines = [i for i in lines]
+    # Clean the lines by striping the \n
+    lines = [l.rstrip('\n') for l in lines]
+
+    # The text file must be an empty line at the end
+    if lines[-1] != "":
+        lines.append("")
+
+    output_lines = lines.copy()
     n_chars = 0
 
     for ln, line in enumerate(lines):
@@ -72,21 +81,38 @@ def po_translate(
         
         # Process the lines between msgid and msgstr
         ln_start = ln
-        for count, inner_line in enumerate(lines[ln:]):
+        for c, inner_line in enumerate(lines[ln:]):
+            current_ln = ln_start + c
             if inner_line.startswith("msgstr "):
-                ln_end = ln_start + count
+                ln_msgstr = current_ln
+            if inner_line == "":
+                ln_end = current_ln
                 break
 
-        inp_lines = lines[ln_start:ln_end]
-        next_line = lines[ln_end].strip()
+        msgid_lines = lines[ln_start:ln_msgstr]
+        msgstr_lines = lines[ln_msgstr:ln_end]
+
+        # Skip empty msgid (the po file identifier)
+        if len(msgid_lines) == 1 and msgid_lines[0] == 'msgid ""':
+            continue
             
         # if translated, skip， otherwise the result will be overwritten
-        if next_line != 'msgstr ""' and not override:
+        print(msgid_lines)
+        print(msgstr_lines)
+
+        def is_translated(lines: typing.List[str]) -> bool:
+            """Check if the msgstr is translated"""
+            if len(lines) > 1:
+                return True
+            else:
+                return lines[0] != 'msgstr ""'
+
+        if is_translated(msgstr_lines) and not override:
             continue
             
         # convert to the oneliner string from multiple lines
-        if len(inp_lines) > 1:
-            inp_str = "".join([i.strip('"') for i in inp_lines[1:]])
+        if len(msgid_lines) > 1:
+            inp_str = "".join([i.strip('"') for i in msgid_lines[1:]])
         else:
             # get the string from double quotes
             inp_str = line.removeprefix('msgid "').removesuffix('"')
@@ -94,15 +120,20 @@ def po_translate(
         # Do nothing to empty str
         if inp_str == "":
             continue
-            
+
         try:
             translated = translate(inp_str)
-        except:
-            raise
+        except Exception as exc:
+            raise RuntimeError(f"Error when translate '{inp_str}'") from exc
         else:
             n_chars += len(inp_str)
 
-        output_lines[ln_end] = f'msgstr "{translated}"'
+        output_lines[ln_msgstr] = f'msgstr "{translated}"'
+
+        if len(msgstr_lines) > 1:
+            # if msgstr is multiple lines, remove the original lines
+            # this will happend when override is True
+            output_lines[ln_msgstr+1:ln_end] = [''] * (ln_end - ln_msgstr - 1)
             
     return output_lines
     

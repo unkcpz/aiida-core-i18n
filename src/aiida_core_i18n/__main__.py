@@ -23,12 +23,15 @@ def translate(po: pathlib.Path, max_chars: int, override: bool):
         lines = fh.readlines()
         
     # translate the file
-    translated_lines = po_translate(lines, max_chars=max_chars, override=override)
-    print(translated_lines[0:50])
-
+    try:
+        translated_lines = po_translate(lines, max_chars=max_chars, override=override)
+    except RuntimeError:
+        click.echo("ERROR: Please set the correct DEEPL_TOKEN environment variable")
+        return
+    
     # override original file
     with open(po, "w") as fh:
-        fh.writelines(translated_lines)
+        fh.write("\n".join(translated_lines))
 
 @cli.command()
 def status():

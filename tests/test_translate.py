@@ -50,10 +50,10 @@ def test_po_translate_override(pot_str, file_regression, monkeypatch, override: 
     
     lines = pot_str.splitlines()
     
-    translated_lines = po_translate(lines, override=override)
+    translated_lines = po_translate(lines, override=override, max_chars=500)
     file_regression.check('\n'.join(translated_lines))
 
-@pytest.mark.parametrize("max_chars", [3, 20, 100])
+@pytest.mark.parametrize("max_chars", [3, 20, 100, 500])
 def test_po_translate_max_chars(pot_str, file_regression, monkeypatch, max_chars: int):
     """Monkey patch the translate function to return the same string"""
 
