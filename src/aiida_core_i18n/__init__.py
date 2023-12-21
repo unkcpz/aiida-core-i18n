@@ -41,8 +41,8 @@ def translate(inp_str: str, target_lang="ZH") -> str:
             target_lang=target_lang,
             # formality="more", # not supported by ZH
         )
-    except deepl.DeepLException as exc:
-        return ""
+    except deepl.DeepLException:
+        raise
     else:
         # substitue EDBS back to ``
         tstr = translated.text
@@ -65,38 +65,44 @@ def po_translate(
         # if the translated characters exceed the limit, stop
         if n_chars > max_chars:
             break
-        
-        if line.startswith("msgid "):
-            ln_start = ln
-            for count, inner_line in enumerate(lines[ln:]):
-                if inner_line.startswith("msgstr "):
-                    ln_end = ln_start + count
-                    break
-                
-            # if translated, skip， otherwise the result will be overwritten
-            if lines[ln_end] != 'msgstr ""' and not override:
-                continue
-            
-            if ln_end - ln_start > 1:
-                # combine the string from multiple lines
-                inp_str = "".join([i.strip('"') for i in lines[ln_start+1:ln_end]])
-            else:
-                # get the string from double quotes
-                inp_str = line.removeprefix('msgid "').removesuffix('"')
-                
-            # Do nothing to empty str
-            if inp_str == "":
-                continue
-            
-            try:
-                translated = translate(inp_str)
-            except Exception as exc:
-                print(f"Error: {exc} in translate {inp_str}")
-                continue
-            else:
-                n_chars += len(inp_str)
 
-            output_lines[ln_end] = f'msgstr "{translated}"'
+        # msgid is the source english text
+        if not line.startswith("msgid "):
+            continue
+        
+        # Process the lines between msgid and msgstr
+        ln_start = ln
+        for count, inner_line in enumerate(lines[ln:]):
+            if inner_line.startswith("msgstr "):
+                ln_end = ln_start + count
+                break
+
+        inp_lines = lines[ln_start:ln_end]
+        next_line = lines[ln_end].strip()
+            
+        # if translated, skip， otherwise the result will be overwritten
+        if next_line != 'msgstr ""' and not override:
+            continue
+            
+        # convert to the oneliner string from multiple lines
+        if len(inp_lines) > 1:
+            inp_str = "".join([i.strip('"') for i in inp_lines[1:]])
+        else:
+            # get the string from double quotes
+            inp_str = line.removeprefix('msgid "').removesuffix('"')
+
+        # Do nothing to empty str
+        if inp_str == "":
+            continue
+            
+        try:
+            translated = translate(inp_str)
+        except:
+            raise
+        else:
+            n_chars += len(inp_str)
+
+        output_lines[ln_end] = f'msgstr "{translated}"'
             
     return output_lines
     

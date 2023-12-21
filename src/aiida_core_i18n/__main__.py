@@ -24,7 +24,7 @@ def translate(po: pathlib.Path, max_chars: int, override: bool):
         
     # translate the file
     translated_lines = po_translate(lines, max_chars=max_chars, override=override)
-    print(translated_lines)
+    print(translated_lines[0:50])
 
     # override original file
     with open(po, "w") as fh:
@@ -33,7 +33,21 @@ def translate(po: pathlib.Path, max_chars: int, override: bool):
 @cli.command()
 def status():
     """Show the status of the api translation limit"""
-    click.echo("Show the status")
+    import os
+    import deepl
+
+    DEEPL_TOKEN = os.environ.get("DEEPL_TOKEN")
+    if DEEPL_TOKEN is None:
+        click.echo("ERROR: Please set the DEEPL_TOKEN environment variable")
+        return
+
+    translator = deepl.Translator(DEEPL_TOKEN)
+    
+    usage = translator.get_usage()
+    
+    print(usage)
+
+
 
 if __name__ == '__main__':
     cli()

@@ -63,3 +63,10 @@ def test_po_translate_max_chars(pot_str, file_regression, monkeypatch, max_chars
 
     translated_lines = po_translate(lines, max_chars=max_chars)
     file_regression.check('\n'.join(translated_lines))
+
+def test_po_translate_raise_exception_when_no_auth_key(pot_str, monkeypatch):
+    """Test the exception when no auth key"""
+    monkeypatch.delenv("DEEPL_TOKEN", raising=False)
+    
+    with pytest.raises(Exception):
+        po_translate(pot_str.splitlines())
