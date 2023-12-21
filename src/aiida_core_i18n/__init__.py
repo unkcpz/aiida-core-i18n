@@ -97,9 +97,6 @@ def po_translate(
             continue
             
         # if translated, skip， otherwise the result will be overwritten
-        print(msgid_lines)
-        print(msgstr_lines)
-
         def is_translated(lines: typing.List[str]) -> bool:
             """Check if the msgstr is translated"""
             if len(lines) > 1:
