@@ -6,11 +6,11 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AiiDA 2.0\n"
+"Project-Id-Version: AiiDA 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 14:17+0000\n"
-"PO-Revision-Date: 2022-11-03 14:19+0000\n"
-"Language-Team: German (https://www.transifex.com/aiidateam/teams/98967/de/)\n"
+"POT-Creation-Date: 2023-12-21 00:18+0000\n"
+"PO-Revision-Date: 2023-12-21 01:39+0000\n"
+"Language-Team: German (https://app.transifex.com/aiidateam/teams/98967/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -279,56 +279,54 @@ msgstr ""
 msgid ""
 "In the following, we will go through a minimal example of creating an API "
 "that extends the AiiDA REST API by adding an endpoint ``/new-endpoint``. The"
-" endpoint will support two HTTP methods:"
+" endpoint implements a ``GET`` request that retrieves the latest created "
+"``Dict`` node and returns its ``id``, ``ctime`` in ISO 8601 format, and "
+"``attributes``."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:24
+#: ../../source/internals/rest_api.rst:26
 msgid ""
-"*GET*: retrieves the latest created Dict object and returns its ``id``, "
-"``ctime`` in ISO 8601 format, and ``attributes``."
-msgstr ""
-
-#: ../../source/internals/rest_api.rst:25
-msgid ""
-"*POST*: creates a ``Dict`` object with placeholder attributes, stores it, "
-"and returns its ``id``."
-msgstr ""
-
-#: ../../source/internals/rest_api.rst:27
-msgid "In order to achieve this, we will need to:"
+"The REST API is currently read-only and does not support end-points that "
+"create new data or mutate existing data in the database. See `this AiiDA "
+"enhancement proposal draft <https://github.com/aiidateam/AEP/pull/24>`_ for "
+"efforts in this direction."
 msgstr ""
 
 #: ../../source/internals/rest_api.rst:29
+msgid "In order to achieve this, we will need to:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:31
 msgid ""
 "Create the ``flask_restful.Resource`` class that will be bound to the new "
 "endpoint."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:30
+#: ../../source/internals/rest_api.rst:32
 msgid ""
 "Extend the :py:class:`~aiida.restapi.api.AiidaApi` class in order to "
 "register the new endpoint."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:31
+#: ../../source/internals/rest_api.rst:33
 msgid ""
 "(Optional) Extend the :py:class:`~aiida.restapi.api.App` class for "
 "additional customization."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:33
+#: ../../source/internals/rest_api.rst:35
 msgid "Let's start by putting the following code into a  file ``api.py``:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:37
+#: ../../source/internals/rest_api.rst:39
 msgid "We will now go through the previous code step by step."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:39
+#: ../../source/internals/rest_api.rst:41
 msgid "First things first: the imports."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:47
+#: ../../source/internals/rest_api.rst:49
 msgid ""
 "To start with, we import the base classes to be extended/employed: "
 "``AiidaApi`` and ``App``. For simplicity, it is advisable to import the "
@@ -339,29 +337,28 @@ msgid ""
 "through its built-in methods."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:51
+#: ../../source/internals/rest_api.rst:53
 msgid "Then we define a class representing the additional resource:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:91
+#: ../../source/internals/rest_api.rst:75
 msgid ""
-"The class ``NewResource`` contains two methods: ``get`` and ``post``. The "
-"names chosen for these functions are not arbitrary but fixed by ``Flask`` to"
-" individuate the functions that respond to HTTP request of type GET and "
-"POST, respectively. In other words, when the API receives a GET (POST) "
-"request to the URL ``new-endpoint``, the function ``NewResource.get()`` "
-"(``NewResource.post()``) will be executed. The HTTP response is constructed "
-"around the data returned by these functions. The data, which are packed as "
-"dictionaries, are serialized by Flask as a JSON stream of data. All the "
-"Python built-in types can be serialized by Flask (e.g. ``int``, ``float``, "
-"``str``, etc.), whereas for serialization of custom types we let you refer "
-"to the `Flask documentation <http://flask.pocoo.org/docs/>`_ . The "
-"documentation of Flask is the main source of information also for topics "
-"such as customization of HTTP responses, construction of custom URLs (e.g. "
-"accepting parameters), and more advanced serialization issues."
+"The class ``NewResource`` contains a single method ``get``. The name chosen "
+"for this method is not arbitrary but fixed by ``Flask`` which is called to "
+"respond to HTTP GET requests. In other words, when the API receives a GET "
+"request to the URL ``new-endpoint``, the function ``NewResource.get()`` is "
+"called. The HTTP response is constructed around the data returned by these "
+"functions. The data, which are packed as dictionaries, are serialized by "
+"Flask as a JSON stream of data. All the Python built-in types can be "
+"serialized by Flask (e.g. ``int``, ``float``, ``str``, etc.), whereas for "
+"serialization of custom types we let you refer to the `Flask documentation "
+"<http://flask.pocoo.org/docs/>`_ . The documentation of Flask is the main "
+"source of information also for topics such as customization of HTTP "
+"responses, construction of custom URLs (e.g. accepting parameters), and more"
+" advanced serialization issues."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:99
+#: ../../source/internals/rest_api.rst:83
 msgid ""
 "Whenever you face the need to handle errors, consider to use the AiiDA REST "
 "API-specific exceptions already defined in  "
@@ -369,21 +366,21 @@ msgid ""
 "slightly later in this section."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:102
+#: ../../source/internals/rest_api.rst:86
 msgid ""
 "Once the new resource is defined, we have to register it to the API by "
 "assigning it one (or more) endpoint(s). This is done in the ``__init__()`` "
 "of ``NewApi`` by means of the method ``add_resource()``:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:118
+#: ../../source/internals/rest_api.rst:102
 msgid ""
 "In our original intentions, the main (if not the only) purpose of overriding"
 " the ``__init__()`` method is to register new resources to the API. In fact,"
 " the general form of ``__init__()`` is meant to be:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:135
+#: ../../source/internals/rest_api.rst:119
 msgid ""
 "In the example, indeed, the only characteristic line is "
 ":python:`self.add_resource(NewResource, '/new-endpoint/', "
@@ -391,18 +388,18 @@ msgid ""
 " documented in `Flask <http://flask.pocoo.org/docs/>`_."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:138
+#: ../../source/internals/rest_api.rst:122
 msgid "Finally, the ``main`` code configures and runs the API:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:177
+#: ../../source/internals/rest_api.rst:161
 msgid ""
 "The `click package <https://click.palletsprojects.com/en/7.x/>`_ is used to "
 "provide a a nice command line interface to process the options and handle "
 "the default values to pass to the ``newendpoint`` function."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:179
+#: ../../source/internals/rest_api.rst:163
 msgid ""
 "The method ``run_api()`` accomplishes several functions: it couples the API "
 "to an instance of ``flask.Flask``, namely, the Flask fundamental class "
@@ -410,76 +407,77 @@ msgid ""
 "required, hooked up."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:182
+#: ../../source/internals/rest_api.rst:166
 msgid "It takes as inputs:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:184
-msgid ""
-"the classes representing the API and the application. We strongly suggest to"
-" pass to ``run_api()`` the :py:class:`aiida.restapi.api.App` class, "
-"inheriting from ``flask.Flask``, as it handles correctly AiiDA RESTApi-"
-"specific exceptions."
+#: ../../source/internals/rest_api.rst:169
+msgid "the classes representing the API and the application."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:187
+#: ../../source/internals/rest_api.rst:169
+msgid ""
+"We strongly suggest to pass to ``run_api()`` the "
+":py:class:`aiida.restapi.api.App` class, inheriting from ``flask.Flask``, as"
+" it handles correctly AiiDA RESTApi-specific exceptions."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:173
 msgid ""
 "positional arguments representing the command-line arguments/options, passed"
-" by the click function. Types, defaults and help strings can be set in the "
-"``@click.option`` definitions, and will be handled by the command line call."
+" by the click function."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:191
+#: ../../source/internals/rest_api.rst:172
+msgid ""
+"Types, defaults and help strings can be set in the ``@click.option`` "
+"definitions, and will be handled by the command line call."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:175
 msgid "A few more things before using the script:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:193
+#: ../../source/internals/rest_api.rst:177
 msgid ""
 "if you want to customize further the error handling, you can take "
 "inspiration by looking at the definition of ``App`` and create your derived "
 "class ``NewApp(App)``."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:196
+#: ../../source/internals/rest_api.rst:182
 msgid ""
 "the supported command line options are identical to those of ``verdi "
-"restapi``. Use ``verdi restapi --help`` for their full documentation. If you"
-" want to add more options or modify the existing ones, create you custom "
-"runner taking inspiration from ``run_api``."
+"restapi``."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:200
+#: ../../source/internals/rest_api.rst:181
+msgid ""
+"Use ``verdi restapi --help`` for their full documentation. If you want to "
+"add more options or modify the existing ones, create you custom runner "
+"taking inspiration from ``run_api``."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:184
 msgid "It is time to run ``api.py``. Type in a terminal"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:214
+#: ../../source/internals/rest_api.rst:198
 msgid ""
 "Let's use ``curl`` with the GET method to ask for the latest created node:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:220
+#: ../../source/internals/rest_api.rst:204
 msgid "The form of the output (and only the form) should resemble"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:233
+#: ../../source/internals/rest_api.rst:217
 msgid ""
 "whereas the actual values of the response dictionary as well as the internal"
 " structure of the attributes field will be in general very different."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:235
-msgid ""
-"Now, let us create a node through the POST method, and check it again "
-"through GET:"
-msgstr ""
-
-#: ../../source/internals/rest_api.rst:251
-msgid ""
-"The POST request triggers the creation of a new ``Dict`` node, as confirmed "
-"by the response to the GET request."
-msgstr ""
-
-#: ../../source/internals/rest_api.rst:253
+#: ../../source/internals/rest_api.rst:219
 msgid ""
 "As a final remark, there might be circumstances in which you do not want to "
 "use the internal werkzeug-based server. For example, you might want to run "
@@ -487,7 +485,7 @@ msgid ""
 "``configure_api`` to return a custom object ``api``:"
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:262
+#: ../../source/internals/rest_api.rst:228
 msgid ""
 "The ``app`` can be retrieved by ``api.app``. This snippet of code becomes "
 "the fundamental block of a *wsgi* file used by Apache as documented in  "
@@ -495,12 +493,38 @@ msgid ""
 "documentation of `mod_wsgi <https://modwsgi.readthedocs.io/>`_."
 msgstr ""
 
-#: ../../source/internals/rest_api.rst:267
+#: ../../source/internals/rest_api.rst:233
 msgid ""
 "Optionally, create a click option for the variable ``catch_internal_server``"
 " to be ``False`` in order to let exceptions (including python tracebacks) "
 "bubble up to the apache error log. This can be particularly useful when the "
 "``app`` is still under heavy development."
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:240
+msgid "Serving multiple profiles"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:242
+msgid ""
+"A single REST API instance can serve data from all profiles of an AiiDA "
+"instance. To maintain backwards compatibility, the new functionality needs "
+"to be explicitly enabled through the configuration:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:249
+msgid ""
+"After the REST API is restarted, it will now accept the profile query "
+"parameter, for example:"
+msgstr ""
+
+#: ../../source/internals/rest_api.rst:255
+msgid ""
+"If the specified profile is already loaded, the REST API functions exactly "
+"as without profile switching enabled. If another profile is specified, the "
+"REST API will first switch profiles before executing the request. If the "
+"profile parameter is specified in a request and the REST API does not have "
+"profile switching enabled, a 400 response is returned."
 msgstr ""
 
 #: ../../source/internals/storage/architecture.rst:4
@@ -740,7 +764,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/internals/storage/psql_dos.rst:24
-#: ../../source/internals/storage/sqlite_zip.rst:87
+#: ../../source/internals/storage/sqlite_zip.rst:88
 msgid "Tables"
 msgstr ""
 
@@ -775,75 +799,25 @@ msgstr ""
 msgid "``?`` indicate value types that are nullable."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-msgid "Columns:"
+#: ../../source/internals/storage/psql_dos.rst:40
+msgid ""
+"sqla-model:: ~aiida.storage.psql_dos.models.user.DbUser sqla-model:: "
+"~aiida.storage.psql_dos.models.node.DbNode sqla-model:: "
+"~aiida.storage.psql_dos.models.node.DbLink sqla-model:: "
+"~aiida.storage.psql_dos.models.group.DbGroup sqla-model:: "
+"~aiida.storage.psql_dos.models.group.DbGroupNode sqla-model:: "
+"~aiida.storage.psql_dos.models.computer.DbComputer sqla-model:: "
+"~aiida.storage.psql_dos.models.authinfo.DbAuthInfo sqla-model:: "
+"~aiida.storage.psql_dos.models.comment.DbComment sqla-model:: "
+"~aiida.storage.psql_dos.models.log.DbLog sqla-model:: "
+"~aiida.storage.psql_dos.models.settings.DbSetting"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-msgid "Constraints:"
-msgstr ""
-
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/psql_dos.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-#: ../../source/internals/storage/sqlite_zip.rst:0
-msgid "Indexes:"
-msgstr ""
-
-#: ../../source/internals/storage/psql_dos.rst:61
+#: ../../source/internals/storage/psql_dos.rst:52
 msgid "The many-to-one relationship"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:63
+#: ../../source/internals/storage/psql_dos.rst:54
 msgid ""
 "You can see an example of a many-to-one relationship between users and "
 "nodes: each node will have one and only one user that has created it, while "
@@ -853,43 +827,43 @@ msgid ""
 "ones that do will have only one and no more."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:66
+#: ../../source/internals/storage/psql_dos.rst:57
 msgid "The following entities have a many-to-one relationship:"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:68
+#: ../../source/internals/storage/psql_dos.rst:59
 msgid "Many `nodes` can be created by the same `user`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:69
+#: ../../source/internals/storage/psql_dos.rst:60
 msgid "Many `nodes` can point to the same `computer`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:70
+#: ../../source/internals/storage/psql_dos.rst:61
 msgid "Many `groups` can be created by the same `user`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:71
+#: ../../source/internals/storage/psql_dos.rst:62
 msgid "Many `authinfos` can be set for the same `user`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:72
+#: ../../source/internals/storage/psql_dos.rst:63
 msgid "Many `authinfos` can be set for the same `computer`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:73
+#: ../../source/internals/storage/psql_dos.rst:64
 msgid "Many `comments` can be created by the same `user`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:74
+#: ../../source/internals/storage/psql_dos.rst:65
 msgid "Many `comments` can be attached to the same `node`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:75
+#: ../../source/internals/storage/psql_dos.rst:66
 msgid "Many `logs` can be attached to the same `node`."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:77
+#: ../../source/internals/storage/psql_dos.rst:68
 msgid ""
 "The way to keep track of these relationships is by inserting a `foreign key`"
 " column in the table of the \"many\" entity that points to the corresponding"
@@ -898,11 +872,11 @@ msgid ""
 "id of the user that created each node."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:82
+#: ../../source/internals/storage/psql_dos.rst:73
 msgid "The many-to-many relationship"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:84
+#: ../../source/internals/storage/psql_dos.rst:75
 msgid ""
 "This type of relationship is a bit more difficult to track, since now both "
 "members can be related to more than one element. Recording this in the same "
@@ -913,26 +887,26 @@ msgid ""
 "related."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:88
+#: ../../source/internals/storage/psql_dos.rst:79
 msgid "There are only two many-to-many relationships in AiiDA:"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:92
+#: ../../source/internals/storage/psql_dos.rst:83
 msgid "Between groups and nodes"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:91
+#: ../../source/internals/storage/psql_dos.rst:82
 msgid ""
 "as specified before, many nodes can be inside the same group and a single "
 "node can belong to many different groups. This relationship is tracked in "
 "the **db_dbgroup_dbnodes** table."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:97
+#: ../../source/internals/storage/psql_dos.rst:88
 msgid "Between nodes themselves (Links)"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:95
+#: ../../source/internals/storage/psql_dos.rst:86
 msgid ""
 "nodes have what is known as a \"self-referencing relationship\", meaning "
 "that they can be connected among themselves. Indeed, this is one of the core"
@@ -940,23 +914,23 @@ msgid ""
 "in the **db_dblinks** table."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:100
+#: ../../source/internals/storage/psql_dos.rst:91
 msgid "Storage schema migrations"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:102
+#: ../../source/internals/storage/psql_dos.rst:93
 msgid ""
 "Migrations of the storage schema, to bring it inline with updates to the "
 "``aiida-core`` API, are implemented by "
-":py:class:`~aiida.storage.psql_dos.migrator.PsqlDostoreMigrator` , using "
+":py:class:`~aiida.storage.psql_dos.migrator.PsqlDosMigrator` , using "
 "`alembic <https://alembic.sqlalchemy.org>`_."
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:105
+#: ../../source/internals/storage/psql_dos.rst:96
 msgid "Legacy schema"
 msgstr ""
 
-#: ../../source/internals/storage/psql_dos.rst:107
+#: ../../source/internals/storage/psql_dos.rst:98
 msgid ""
 "The `psql_dos` storage format originates from the merging of the `django` "
 "and `sqlalchemy` backends, present in `aiida-core` version 1. Both backends "
@@ -1591,9 +1565,7 @@ msgid ""
 "migrations involved from version 0.3 to 0.4 are intricate and the "
 "possibility of a missing edge-case test is quite real. It is worth noting "
 "that if you ever have an issue, please report it on `GitHub "
-"<https://www.github.com/aiidateam/aiida_core/issues/new>`_, join the `AiiDA "
-"mailing list <http://www.aiida.net/mailing-list/>`_, or use the `contact "
-"form <http://www.aiida.net/contact-new/>`_."
+"<https://www.github.com/aiidateam/aiida_core/issues/new>`."
 msgstr ""
 
 #: ../../source/internals/storage/sqlite_zip.rst:57
@@ -1652,4 +1624,17 @@ msgstr ""
 
 #: ../../source/internals/storage/sqlite_zip.rst:84
 msgid "Also, `varchar_pattern_ops` indexes are not possible in SQLite."
+msgstr ""
+
+#: ../../source/internals/storage/sqlite_zip.rst:89
+msgid ""
+"sqla-model:: ~aiida.storage.sqlite_zip.models.DbUser sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbNode sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbLink sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbGroup sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbGroupNodes sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbComputer sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbAuthInfo sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbComment sqla-model:: "
+"~aiida.storage.sqlite_zip.models.DbLog"
 msgstr ""
