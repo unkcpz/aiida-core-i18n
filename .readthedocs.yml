@@ -8,12 +8,15 @@ formats: []
 
 # Set the version of Python and other tools you might need
 build:
-  os: ubuntu-20.04
+  apt_packages:
+    - graphviz
+  os: ubuntu-22.04
   tools:
     python: "3.10"
   jobs:
     pre_build:
-      - ln -s -r ./locales aiida-core/docs/source/locales
+      - for lang in $(ls translations); do mkdir -p aiida-core/docs/source/locales/${lang}; done
+      - for lang in $(ls translations); do ln -s -r translations/${lang} aiida-core/docs/source/locales/${lang}/LC_MESSAGES; done
 
 # Need to install the package itself such that the entry points are installed and the API doc can build properly
 python:
@@ -29,7 +32,7 @@ python:
 # Let the build fail if there are any warnings
 sphinx:
     builder: html
-    fail_on_warning: false
+    fail_on_warning: true
 
 search:
   ranking:
