@@ -3,6 +3,10 @@
 # This file is distributed under the same license as the AiiDA package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Jianxing Huang <jx.huang.x@gmail.com>, 2023
+# Jusong Yu <jusong.yeu@gmail.com>, 2023
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-21 00:18+0000\n"
 "PO-Revision-Date: 2023-12-21 01:39+0000\n"
+"Last-Translator: Jusong Yu <jusong.yeu@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +27,7 @@ msgstr ""
 #: ../../source/topics/provenance/concepts.rst:5
 #: ../../source/topics/workflows/concepts.rst:5
 msgid "Concepts"
-msgstr ""
+msgstr "概念"
 
 #: ../../source/topics/calculations/concepts.rst:7
 #: ../../source/topics/calculations/usage.rst:9
@@ -31,16 +36,18 @@ msgid ""
 "section<topics:processes:concepts>` for details) that *creates* new data. "
 "Currently, there are two ways of implementing a calculation process:"
 msgstr ""
+"算例是一个能够创建新数据的例程 (详情参见 :ref:`例程章节<topics:processes:concepts>` ) 。 "
+"当前，有两种算例的实现，分别是："
 
 #: ../../source/topics/calculations/concepts.rst:10
 #: ../../source/topics/processes/functions.rst:10
 msgid ""
 ":ref:`calculation function<topics:calculations:concepts:calcfunctions>`"
-msgstr ""
+msgstr ":ref:`算例函数 <topics:calculations:concepts:calcfunctions>`"
 
 #: ../../source/topics/calculations/concepts.rst:11
 msgid ":ref:`calculation job<topics:calculations:concepts:calcjobs>`"
-msgstr ""
+msgstr ":ref:`算例任务<topics:calculations:concepts:calcjobs>`"
 
 #: ../../source/topics/calculations/concepts.rst:13
 msgid ""
@@ -51,6 +58,7 @@ msgid ""
 "external codes that are optionally run on remote computing clusters, the "
 "calculation job is the better alternative."
 msgstr ""
+"前者是简单的将一个python函数转变为一个例程(process)，这适用于计算量不大且易于实现的python函数。对于复杂的计算任务，通常需要外部的计算软件参与，这些代码通常运行在远端的集群上，因此使用算例任务更为合适。"
 
 #: ../../source/topics/calculations/concepts.rst:17
 msgid ""
@@ -60,26 +68,29 @@ msgid ""
 ":ref:`calculation functions<topics:calculations:usage:calcfunctions>` and "
 ":ref:`calculation jobs<topics:calculations:usage:calcjobs>`."
 msgstr ""
+"下列章节将分别介绍两者，但是这里只是简单介绍概念而不深入详细的实现和使用细节。详细的内容请参考相应的进阶章节 "
+":ref:`算例函数<topics:calculations:usage:calcfunctions>` 和 :ref:`算例任务 "
+"<topics:calculations:usage:calcjobs>` 。"
 
 #: ../../source/topics/calculations/concepts.rst:24
 #: ../../source/topics/calculations/usage.rst:20
 msgid "Calculation functions"
-msgstr ""
+msgstr "算例函数(Calculation functions)"
 
 #: ../../source/topics/calculations/concepts.rst:26
 msgid "Consider the following computational task at hand:"
-msgstr ""
+msgstr "以下列计算任务为例："
 
 #: ../../source/topics/calculations/concepts.rst:29
 msgid ""
 "Given three integers, add the first two and then multiply the sum by the "
 "third."
-msgstr ""
+msgstr "给定三个整数，将前两者求和后与第三者相乘。"
 
 #: ../../source/topics/calculations/concepts.rst:31
 msgid ""
 "In plain python code, the solution would look something like the following:"
-msgstr ""
+msgstr "常规的python代码如下："
 
 #: ../../source/topics/calculations/concepts.rst:36
 msgid ""
@@ -94,6 +105,11 @@ msgid ""
 "graph<topics:provenance>` when executed. Updating the previous snippet with "
 "``calcfunction`` decorators yields:"
 msgstr ""
+"这些代码会直接得到想要的结果，但是，并没有关于运算过程的可验证性。结果与输入之间并没有保留运算关系。 为保留运算过程，我们使用 "
+":py:meth:`~aiida.engine.processes.functions.calcfunction`。  AiiDA的 "
+"``calcfunction`` 是一个 `装饰器 <https://docs.python.org/3/glossary.html#term-"
+"decorator>`_ 它将一个函数装饰成为一个算例例程，这使得其可以自动将得到结果的计算过程储存为一个 :ref:`可验证性图 "
+"<topics:provenance>` 。. 使用 ``calcfunction`` 装饰器更性上面代码片段后为:"
 
 #: ../../source/topics/calculations/concepts.rst:45
 msgid ""
@@ -109,6 +125,10 @@ msgid ""
 "only has to wrap them in the :py:class:`~aiida.orm.nodes.data.int.Int` node "
 "sub class, which makes them storable in the database:"
 msgstr ""
+"我们只需要简单的在每一个函数前增加 ``@calcfunction`` 装饰器。 增加的装饰器使得 AiiDA "
+"知晓被装饰的函数在执行后的可验证性需要被储存进可验证性图中 。 也就是执行函数后将输入和输出与一个算例节点连接。  "
+"新的代码块还涉及将输入和输出储存进可验证性图。之前的代码中，输入和输出都是普通的python整型数据结构，是无法作为节点自动存入可验证性图中的。为实现该特性，用户只需要将输入输出封装成"
+" :py:class:`~aiida.orm.nodes.data.int.Int`  类即可，这样他们就能够被储存进入数据库中了。"
 
 #: ../../source/topics/calculations/concepts.rst:55
 msgid ""
@@ -118,6 +138,9 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.int.Int` node that can be stored in the "
 "provenance graph, and contains the result of the computation."
 msgstr ""
+"前后函数中的的代码差异就只是输入被封装成了 :py:class:`~aiida.orm.nodes.data.int.Int` 类。 "
+"同样返回的结果也被封装成 :py:class:`~aiida.orm.nodes.data.int.Int` "
+"包含计算结果的节点，可以储存进可验证性图中。"
 
 #: ../../source/topics/calculations/concepts.rst:62
 #: ../../source/topics/workflows/concepts.rst:45
@@ -148,16 +171,22 @@ msgid ""
 "functions, refer to the :ref:`advanced "
 "section<topics:calculations:usage:calcfunctions>`."
 msgstr ""
+"因为函数 ``add`` 和 ``multiply`` 中的 ``x`` 和 ``y`` 都已经是 "
+":py:class:`~aiida.orm.nodes.data.int.Int` "
+"类的实例，因为所有的运算都已经重载，无需类型转换便可以用于AiiDA类( ``Int``, ``Float``, "
+"等)，他们等价于python本身的类型。需要清楚的记住只有 :py:class:`~aiida.orm.nodes.node.Node` "
+"的实例，或是其子类的实例可以被储存进数据库。有关如何从例程函数中返回可储存的结果，请参考 :ref:`进阶章节 "
+"<topics:calculations:usage:calcfunctions>`"
 
 #: ../../source/topics/calculations/concepts.rst:78
 msgid ""
 "With these trivial changes, the full provenance of the result produced by "
 "running the function is maintained and looks like the following:"
-msgstr ""
+msgstr "在这样简单的修改后，函数运行并产生结果的整个可验证性就被保留下来，如下所示："
 
 #: ../../source/topics/calculations/concepts.rst:83
 msgid "The provenance generated by the calcfunction example"
-msgstr ""
+msgstr "算例例子生成的可验证性图"
 
 #: ../../source/topics/calculations/concepts.rst:85
 msgid ""
@@ -169,6 +198,8 @@ msgid ""
 " launch functions that will return a tuple, which in addition to the "
 "results, also return the ``pk`` or the node associated with the process"
 msgstr ""
+"上面的例子展示了如何运行一个算例：简单的调用并运行。算例返回的结果就是对应函数的结果。然而用户可能还会想要得到有关算例节点的信息。下列代码块展示了如何用另外两个函数在运行的同时获得例程的"
+" ``pk`` 和节点信息。"
 
 #: ../../source/topics/calculations/concepts.rst:93
 msgid ""
@@ -179,11 +210,14 @@ msgid ""
 "refer to the section on :ref:`working with calculation "
 "functions<topics:calculations:usage:calcfunctions>`."
 msgstr ""
+"这是一个关于算例函数的一个简单概述。请从以下链接 :ref:`启动例程 <topics:processes:usage:launching>`` "
+"中获得有关如可启动例程的详细细节。如果你想要知晓有关如何实现一个算例函数并找到更为详细的示例，请参考章节 :ref:`算例函数的编写 "
+"<topics:calculations:usage:calcfunctions>`。 "
 
 #: ../../source/topics/calculations/concepts.rst:101
 #: ../../source/topics/calculations/usage.rst:64
 msgid "Calculation jobs"
-msgstr ""
+msgstr "算例任务(Calculation jobs)"
 
 #: ../../source/topics/calculations/concepts.rst:103
 msgid ""
@@ -201,6 +235,11 @@ msgid ""
 "on the big picture and explain in broad lines how a calculation job models "
 "the execution of an external code and what tasks it performs when launched."
 msgstr ""
+"在前面章节 :ref:`算例函数 <topics:calculations:concepts:calcfunctions>` "
+"，我们展示了如何将简单的python函数转换成一个例程，以使其在启动执行后，其结果能够自动记录在可验证性图中。然而并非所有计算过程都能够通过简单的python函数实现，而是通常涉及外部代码来实现。为了实现外部代码与内部引擎的接口"
+" AiiDA 引入了 :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` "
+"process 类 。 可以在 :ref:`后续章节 <topics:calculations:usage:calcjobs>` "
+"中找到关于如何实现与外部代码接口的细节和示例。这里，只关注算例任务的整体特征和使用场景，即如何通过算例任务来驱动外部代码的运行。"
 
 #: ../../source/topics/calculations/concepts.rst:109
 msgid ""
@@ -209,6 +248,7 @@ msgid ""
 "input file containing two integers, sums them and prints the result in the "
 "standard output using ``echo``, for example:"
 msgstr ""
+"为了展示算例任务是如何工作的，我们首先需要一份外部代码样例。我们假设一个外部代码是一个bash脚本，它读入一个包含两个整数的文件，并将他们求和后返回结果，如："
 
 #: ../../source/topics/calculations/concepts.rst:120
 msgid ""
@@ -235,16 +275,18 @@ msgid ""
 "functions<topics:calculations:concepts:calcfunctions>` described before, "
 "they can be run in an identical way."
 msgstr ""
+"因为 ``CalcJob`` 和前面所述的 :ref:`算例函数 "
+"<topics:calculations:concepts:calcfunctions>` 一样是一个例程，所以他们通过相同的方式运行。"
 
 #: ../../source/topics/calculations/concepts.rst:133
 msgid ""
 "the provenance generated by running the calculation job will look something "
 "like this:"
-msgstr ""
+msgstr "通过运行算例任务产生的可验证性图如下所示："
 
 #: ../../source/topics/calculations/concepts.rst:138
 msgid "The provenance generated by the calculation job example"
-msgstr ""
+msgstr "算例任务例子生成的可验证性图"
 
 #: ../../source/topics/calculations/concepts.rst:140
 msgid ""
@@ -277,10 +319,17 @@ msgid ""
 "addressed in :ref:`this "
 "section<topics:calculations:concepts:calcjobs_parsers>`."
 msgstr ""
+"这个算例任务生成两个输出，一个是包含了 ``x`` 和 ``y`` 求和结果的整数数据节点，和一个数据类型为 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData`  "
+"的节点，该节点包含了存放计算结果的文件夹。需要注意到的是，（除了 ``retrieved`` "
+"节点）所有的算例任务的计算结果都不是由其自身产生的，而是通过 :py:class:`~aiida.parsers.parser.Parser` "
+"类解析产生的。原则上解析的步骤不是必须的因此算例任务可以没有输出，但一定会有 ``retrieved``` "
+"数据节点。有关算例任务中结果解析器概念的详细内容请参考 :ref:`这里 "
+"<topics:calculations:concepts:calcjobs_parsers>`。"
 
 #: ../../source/topics/calculations/concepts.rst:155
 msgid "Transport tasks"
-msgstr ""
+msgstr "传输任务"
 
 #: ../../source/topics/calculations/concepts.rst:157
 msgid ""
@@ -289,32 +338,35 @@ msgid ""
 "performed quite some tasks. When a calculation job is launched, the engine "
 "will take it roughly through the following steps:"
 msgstr ""
+"AiiDA内部引擎执行了一系列工作，以实现可验证性图 "
+":numref:`fig_calculation_jobs_provenance_arithmetic_add` 。 "
+"当一个算例任务启动时，AiiDA内部引擎执行下列步骤："
 
 #: ../../source/topics/calculations/concepts.rst:160
 msgid ""
 "**Upload**: the calculation job implementation is used to transform the "
 "input nodes into the required input files, which are uploaded to a 'working'"
 " directory on the target machine"
-msgstr ""
+msgstr "**上传** : 算例任务会从输入节点得到输入文件，再将输入文件上传到目标计算机器的工作目录中"
 
 #: ../../source/topics/calculations/concepts.rst:161
 msgid ""
 "**Submit**: to execute the calculation, a job is submitted to the scheduler "
 "of the computer on which the input `code` is configured."
-msgstr ""
+msgstr "**提交** : 提交一个作业到作业调度工具到配置文件中 `code` 所在的计算机。 "
 
 #: ../../source/topics/calculations/concepts.rst:162
 msgid ""
 "**Update**: the engine will query the scheduler to check for the status of "
 "the calculation job"
-msgstr ""
+msgstr "**更新**: 内部引擎会不断查询作业系统以返回算例任务的状态。"
 
 #: ../../source/topics/calculations/concepts.rst:163
 msgid ""
 "**Retrieve**: once the job has finished, the engine will retrieve the output"
 " files, specified by the calculation plugin and store them in a node "
 "attached as an output node to the calculation"
-msgstr ""
+msgstr "**获取**: 一旦作业结束，引擎会取回输出文件，依据算例插件中定义的方式将输出结果储存在可验证性图的节点中。"
 
 #: ../../source/topics/calculations/concepts.rst:165
 msgid ""
@@ -336,7 +388,7 @@ msgstr ""
 
 #: ../../source/topics/calculations/concepts.rst:176
 msgid "Exponential backoff mechanism"
-msgstr ""
+msgstr "指数退让机制"
 
 #: ../../source/topics/calculations/concepts.rst:178
 msgid ""
@@ -357,6 +409,10 @@ msgid ""
 "output of ``verdi process list`` will give more information on why the task "
 "failed:"
 msgstr ""
+"当在远端机器执行算例的过程中，AiiDA引擎需要为每一个传输任务建立一条链接。当连接远端服务器时，所有服务器端的潜在问题都可能发生，这会导致算例任务失败。比如，远端计算资源可能宕机而导致结果无法获得，或者引擎所在的本地端可能无法连接网络。然而，这些问题都是不确定的。为了防止算例任务异常或一直无法连接，AiiDA使用了"
+" *指数退让策略* "
+"。当引擎执行了一个传输任务时遇到异常，算例任务不会直接失败，而是提交一个相同的任务后续重新执行。任务会自动重新加入作业系统直到其顺利结束。在连续5次尝试后，若任务还是失败，引擎会单纯的暂停算例任务而不是重新提交。``verdi"
+" process list`` 能够输出有关任务失败的更多信息："
 
 #: ../../source/topics/calculations/concepts.rst:197
 msgid ""
@@ -367,23 +423,25 @@ msgid ""
 " The engine will then automatically reschedule the task that failed last and"
 " the calculation job will continue where it left off."
 msgstr ""
+"当算例任务因为传输任务失败后且反复重试后依旧无法连接而暂停后，用户可以查看问题。如果发现问题是临时发生的，且问题被解决后，用户可以重新使用 "
+"``verdi process play`` 来恢复暂停的任务。AiiDA引擎会自动重新提交之前失败的任务，且暂停的算例任务会继续在停止的地方恢复执行。"
 
 #: ../../source/topics/calculations/concepts.rst:201
 msgid ""
 "This exponential backoff mechanism makes the engine very robust with respect"
 " to calculation jobs, reducing the loss of computational resources due to "
 "temporary problems to an absolute minimum."
-msgstr ""
+msgstr "该指数退让机制是的AiiDA内部引擎对于算例任务的稳健性提高，将临时问题发生所导致的计算资源浪费减少到最小。"
 
 #: ../../source/topics/calculations/concepts.rst:205
 msgid ""
 "The parameters, such as the delays between retries and the maximum number of"
 " retries, are currently not configurable, but they might be in the future."
-msgstr ""
+msgstr "当前有关该策略的设置参数如重试间隔延时和最大重试次数都不能够修改，但在未来可能会支持修改。"
 
 #: ../../source/topics/calculations/concepts.rst:210
 msgid "Parsers"
-msgstr ""
+msgstr "解析器"
 
 #: ../../source/topics/calculations/concepts.rst:211
 msgid ""
@@ -407,10 +465,18 @@ msgid ""
 " to specify it in the inputs, please refer to the :ref:`detailed parser "
 "section<topics:calculations:usage:calcjobs:parsers>`,"
 msgstr ""
+"前面章节阐述了 ``CalcJob`` 类函数接口连接AiiDA引擎和外部运行代码。算例任务插件还会告知引擎 :ref:`传输任务 "
+"<topics:calculations:concepts:calcjobs_transport_tasks>` "
+"该如何结束。如前所述，任务在输出文件获取后停止，这时引擎会在算例任务节点后增加标记为 ``retrieved`` 的 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData`  "
+"节点。这样算例任务就顺利完成了。然而用户通常还会想要将输出文件解析为特定的输出并表示为可验证性图中的节点。这可以通过 "
+":py:class:`~aiida.parsers.parser.Parser` "
+"类来实现并在算例任务的输入中指定。这样，引擎就会在任务成功结束并创建输出文件后调用解析器。解析器通过以下方式实现，在获取文件后解析并转换成输出节点。有关解析器的实现细节以及如何在算例任务输入中指定解析器，请参考"
+" :ref:`解析器详情章节 <topics:calculations:usage:calcjobs:parsers>` 。"
 
 #: ../../source/topics/calculations/index.rst:5
 msgid "Calculations"
-msgstr ""
+msgstr "算例"
 
 #: ../../source/topics/calculations/index.rst:7
 msgid ""
@@ -419,12 +485,14 @@ msgid ""
 "introductory guide to working with calculations can be found in :ref:`\"How "
 "to run external codes\"<how-to:plugin-codes>`."
 msgstr ""
+"本主题部分提供了关于AiiDA中算例概念的详细信息，以及关于如何使用它们的详细指南。关于如何使用算例的介绍性指南可以在 :ref:``如何运行外部代码 "
+"<how-to:plugin-codes>`` 中找到 。"
 
 #: ../../source/topics/calculations/usage.rst:5
 #: ../../source/topics/processes/usage.rst:5
 #: ../../source/topics/workflows/usage.rst:5
 msgid "Usage"
-msgstr ""
+msgstr "用法"
 
 #: ../../source/topics/calculations/usage.rst:7
 msgid ""
@@ -433,20 +501,22 @@ msgid ""
 "functions and calculation jobs is known and when one should use on or the "
 "other."
 msgstr ""
+"本章假设用户已知 :ref:``AiiDA基本概念 <topics:calculations:concepts>`` "
+"和算例函数和算例任务之间的区别，以及何时应该使用。"
 
 #: ../../source/topics/calculations/usage.rst:12
 msgid ":ref:`calculation function<topics:calculations:usage:calcfunctions>`"
-msgstr ""
+msgstr ":ref:`算例函数 <topics:calculations:usage:calcfunctions>`"
 
 #: ../../source/topics/calculations/usage.rst:13
 msgid ":ref:`calculation job<topics:calculations:usage:calcjobs>`"
-msgstr ""
+msgstr ":ref:`算例任务<topics:calculations:usage:calcjobs>`"
 
 #: ../../source/topics/calculations/usage.rst:15
 msgid ""
 "This section will provide detailed information and best practices on how to "
 "implement these two calculation types."
-msgstr ""
+msgstr "该章节提供了关于如何实现这两种算例的详细信息和案例。"
 
 #: ../../source/topics/calculations/usage.rst:22
 msgid ""
@@ -462,10 +532,15 @@ msgid ""
 " entails in terms of intended usage and limitations for calculation "
 "functions is the scope of this section."
 msgstr ""
+"章节 :ref:`算例函数及其概念 <topics:calculations:concepts:calcfunctions>` 已经描述了其使用目的: "
+"自动在可验证性图中记录算例的运行和运行所需的输入和产生的输出。之后的 The :ref:`例程函数章节 "
+"<topics:processes:functions>` "
+"详细描述了实现例程函数时候的规则和细节，如同工作函数，规则和实现同时适用于例程函数这一例程函数的子类。但是，算例函数这种 “算例型” "
+"的例程和工作函数这种“工作型” 的例程之间还是有些区别的。 就算例函数的预期使用和限制，还在本节描述。"
 
 #: ../../source/topics/calculations/usage.rst:28
 msgid "Creating data"
-msgstr ""
+msgstr "创建数据"
 
 #: ../../source/topics/calculations/usage.rst:29
 msgid ""
@@ -487,12 +562,18 @@ msgid ""
 " yourself**, or the engine will raise an exception, as shown in the "
 "following example:"
 msgstr ""
+"前面曾多次提到: 算例函数，如同所有的“算例型”例程一样，能够  “创建” 数据，但所谓的“创建”具体指什么？ "
+"在此处的上下文中，术语“创建”并不简单的描述通过交互式shell或脚本在可验证性图中创建数据节点。 "
+"而是指代了通过例程实现的计算中从一些数据产生新的数据的过程。这就是算例函数所实际产生的效果。它以一个或多个数据节点作为输入，并返回以这些输入作为操作对象的一个或多个数据节点作为输出。正如小节"
+" :ref:`技术细节 <topics:processes:functions>` "
+"所解释的，输出是通过从函数中返回数据节点的方式简单创建的。后端引擎会从函数中检查返回值并将返回节点连接在表示算例函数的算例节点上。为验证输出节点确实是“创建”的，AiiDA引擎会检查这个节点是没有被储存过的。因此，"
+" **不要手动储存你所创建的节点** 是很重要的，否则引擎会产生一个如下异常 :"
 
 #: ../../source/topics/calculations/usage.rst:42
 msgid ""
 "Because the returned node is already stored, the engine will raise the "
 "following exception:"
-msgstr ""
+msgstr "因为返回的节点已经储存，AiiDA引擎会产生一个如下异常 :"
 
 #: ../../source/topics/calculations/usage.rst:50
 msgid ""
@@ -500,7 +581,7 @@ msgid ""
 "created in the function body, is indistinguishable from a node that was "
 "already stored and had simply been loaded in the function body and returned,"
 " e.g.:"
-msgstr ""
+msgstr "该严格限制的原因是，节点需要在被创建后才会被储存，这有别与在函数体中或函数的返回中载入一个已经储存的节点，如 :"
 
 #: ../../source/topics/calculations/usage.rst:55
 msgid ""
@@ -509,6 +590,8 @@ msgid ""
 "to prevent this ambiguity that calculation functions require all returned "
 "output nodes to be *unstored*."
 msgstr ""
+"载入的节点会从算例函数中产生一个 `create` 连接，即便该节点不是由该函数创建的。正是为了避免这种模糊性，要求算例函数返回的所有输出节点都是 "
+"*未储存* 的。"
 
 #: ../../source/topics/calculations/usage.rst:58
 msgid ""
@@ -517,6 +600,8 @@ msgid ""
 "process, it *cannot* create new data. For more details refer to the "
 ":ref:`work function section<topics:workflows:usage:workfunctions>`."
 msgstr ""
+"注意到工作流函数有完全相反的要求，即所有函数返回的输出必须 *已经被储存* ，因为如一个“工作流”型的例程，它是 *不能* 创建新的数据的。详情请参考 "
+":ref:`工作流函数小节 <topics:workflows:usage:workfunctions>` 。"
 
 #: ../../source/topics/calculations/usage.rst:66
 msgid ""
@@ -532,11 +617,18 @@ msgid ""
 "because all the concepts explained there will apply also to calculation "
 "jobs."
 msgstr ""
+"为描述如何实现算例任务，我们继续章节 :ref:`算例任务的概念 <topics:calculations:concepts:calcjobs>` "
+"中展示的例子。例子中我们描述了对两个整数求和并通过简单的bash脚本实现的代码，以及 "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` "
+"类如何被用于在AiiDA中运行这段代码。因为该类是 "
+":py:class:`~aiida.engine.processes.process.Process` "
+"类的子类，则拥有它的全部性质。因此在继续之前阅读章节 :ref:`泛型例程 <topics:processes:usage>` "
+"也是很有用的。因为那里所描述的所有特性在此处算例任务中同样适用。"
 
 #: ../../source/topics/calculations/usage.rst:75
 #: ../../source/topics/workflows/usage.rst:150
 msgid "Define"
-msgstr ""
+msgstr "定义"
 
 #: ../../source/topics/calculations/usage.rst:76
 msgid ""
@@ -548,21 +640,26 @@ msgid ""
 "method of the ``CalcJob`` class, is the ``define`` class method. Here you "
 "define, what inputs it takes and what outputs it will generate."
 msgstr ""
+"要实现一个算例任务，使用者只需要继承 "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 例程类并实现 "
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define` "
+"方法。你可以使用认可python许可的类名。``CalcJob`` 中最重要的方法是 ``define`` "
+"类方法。在这个方法中，你定义了输入和算例运行产生的输出。"
 
 #: ../../source/topics/calculations/usage.rst:84
 msgid ""
 "As the snippet above demonstrates, the class method takes two arguments:"
-msgstr ""
+msgstr "如上面代码片段所展示的，该类方法接受两个参数 :"
 
 #: ../../source/topics/calculations/usage.rst:86
 msgid ""
 "``cls`` this is the reference of the class itself and is mandatory for any "
 "class method"
-msgstr ""
+msgstr "``cls`` 是指向该类自身的可以访问类的所有类方法的变量"
 
 #: ../../source/topics/calculations/usage.rst:87
 msgid "``spec`` which is the 'specification'"
-msgstr ""
+msgstr "``spec`` 是 “计算规格参数和详情” (specification)"
 
 #: ../../source/topics/calculations/usage.rst:90
 msgid ""
@@ -571,6 +668,8 @@ msgid ""
 "your calculation job. This will call the ``define`` method of the parent "
 "class, which is necessary for the calculation job to work properly"
 msgstr ""
+"请不要忘记在 ``define`` 方法的首行加入 ``super().define(spec)``  ，这里你需要用你自己的类名。这会调用 "
+"``define`` 方法的父类，使得算例任务可以正确工作。"
 
 #: ../../source/topics/calculations/usage.rst:93
 msgid ""
@@ -586,6 +685,11 @@ msgid ""
 "Since we expect integers, we specify that the valid type is the database "
 "storable :py:class:`~aiida.orm.nodes.data.int.Int` class."
 msgstr ""
+"正如其名所示， ``spec`` "
+"可以用于指定算例任务的性质。比如，它可以用于定义算例任务所需的输入。在我们的例子中，我们需要接受两个整数作为输入，所以我们通过调用 "
+"``spec.input()`` 定义这些 “规格参数”。 "
+"第一个参数是输入的名称。该名称之后会被用于在启动算例任务时输入的指定，还会被作为在可验证性图中连接算例节点的数据节点的标签。另外，正如我们在这里所用到的，你还可以指定特定输入允许的参数类型。因为我们在此处希望得到整形的变量，我们指定允许的类型是数据库可储存的"
+" :py:class:`~aiida.orm.nodes.data.int.Int` 类。"
 
 #: ../../source/topics/calculations/usage.rst:103
 msgid ""
@@ -597,11 +701,14 @@ msgid ""
 "``CalcJob``. For this reason, you **do not** again have to declare this "
 "input."
 msgstr ""
+"因为我们继承了 ``CalcJob`` 类并调用了它的 ``define`` 方法，这会同时继承其声明的端口(port)。 "
+"如果你查看类的实现，你会发现在基类 ``CalcJob`` 中已经定义了输入 ``code`` 以接受一个 ``Code`` 示例。这会指向用户在运行 "
+"``CalcJob`` 时所要使用的计算代码。因此， **请不要** 重复声明该输入。"
 
 #: ../../source/topics/calculations/usage.rst:108
 msgid ""
 "Next we should define what outputs we expect the calculation to produce:"
-msgstr ""
+msgstr "之后我们需要定义我们期望得到的算例输出 :"
 
 #: ../../source/topics/calculations/usage.rst:113
 msgid ""
@@ -615,10 +722,15 @@ msgid ""
 "functionality. Fore more details, please refer to the section on "
 ":ref:`process specifications<topics:processes:usage:spec>`."
 msgstr ""
+"如同输入，用户需要指定每个输出因有的节点类型。默认的，一个定义了的输出将会是 '必给的' "
+"(required)，意味着如果算例任务终止但没有得到输出，则例程(process)会被标记为失败。要指明一个输出不是必须的而是可选的，用户可以在 "
+"``spec.output`` 调用中使用 ``required=False``  。可以注意到，例程的规格详情以及其 "
+":py:meth:`~plumpy.ProcessSpec.input` 和 :py:meth:`~plumpy.ProcessSpec.output`"
+" 方法提供了许多功能。详情可以参考章节 :ref:`例程规格 <topics:processes:usage:spec>` 。"
 
 #: ../../source/topics/calculations/usage.rst:123
 msgid "Prepare"
-msgstr ""
+msgstr "准备"
 
 #: ../../source/topics/calculations/usage.rst:124
 msgid ""
@@ -629,23 +741,25 @@ msgid ""
 "let's consider what one typically does when manually preparing to run a "
 "computing job through a scheduler:"
 msgstr ""
+"通过例程的规格定义，我们能够知晓算例任务所期望的输入和将会产生的输出。剩下的任务就是告知引擎算例任务事实上需要如何运行。为了理解AiiDA引擎为了完成算例任务将会执行的步骤，我们来看一下当用户手动通过任务调度工具执行一个计算任务时会采取的具体步骤"
+" :"
 
 #: ../../source/topics/calculations/usage.rst:128
 msgid ""
 "Prepare a working directory in some scratch space on the machine where the "
 "job will run"
-msgstr ""
+msgstr "在计算资源的可用空间上，准备一个任务运行的工作文件夹"
 
 #: ../../source/topics/calculations/usage.rst:129
 msgid "Create the raw input files required by the executable"
-msgstr ""
+msgstr "创建可执行软件所需的的原始输入文件"
 
 #: ../../source/topics/calculations/usage.rst:130
 msgid ""
 "Create a launch script containing scheduler directives, loading of "
 "environment variables and finally calling the executable with certain "
 "command line parameters."
-msgstr ""
+msgstr "创建一个包含调度程序指令的启动脚本，加载环境变量，最后使用特定命令行参数调用可执行文件。"
 
 #: ../../source/topics/calculations/usage.rst:132
 msgid ""
@@ -656,6 +770,9 @@ msgid ""
 " method. The implementation of the ``ArithmeticAddCalculation`` that we are "
 "considering in the example looks like the following:"
 msgstr ""
+"所以我们要做的就是直到AiiDA引擎对指定算例任务完成这些步骤。由于这些步骤对每个计算是不同的，我们需要通过 "
+":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
+" 方法来实现这些步骤。在样例中展示的 ``ArithmeticAddCalculation`` 实现如下 :"
 
 #: ../../source/topics/calculations/usage.rst:139
 msgid ""
@@ -666,6 +783,8 @@ msgid ""
 "can be written to a sandbox folder that is passed in as the ``folder`` "
 "argument."
 msgstr ""
+"在我们逐行研究代码之前，让我们先描述一下这里发生的事情的全貌。该类方法的目的是帮助AiiDA引擎完成如上所述的准备和提交计算任务所需的三个步骤。所需的原始输入文件可以写入沙箱文件夹，该文件夹之后会以"
+" ``folder`` 参数传入。"
 
 #: ../../source/topics/calculations/usage.rst:145
 msgid ""
@@ -685,6 +804,12 @@ msgid ""
 ":ref:`provenance_exclude_list "
 "<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`."
 msgstr ""
+"``folder`` 参数指向本地文件系统上的一个临时沙箱文件夹，可用于将输入文件写入。在 ``prepare_for_submission`` "
+"方法返回后，引擎将获取这些文件并将它们复制到运行计算的工作目录中。在此基础上，这些文件还将被写入表示计算节点的文件存储库，用作保存详细的额外的可验证性。即使写在那里的信息应该是作为输入节点传递的节点内容的派生，我们仍然显式地存储它。有时，这并非预期的行为，例如出于效率或数据隐私的原因。因此可以使用各种列表来控制它，例如"
+" :ref:`local_copy_list "
+"<topics:calculations:usage:calcjobs:file_lists_local_copy>` 和 "
+":ref:`provenance_exclude_list "
+"<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>` 。"
 
 #: ../../source/topics/calculations/usage.rst:151
 msgid ""
@@ -694,24 +819,26 @@ msgid ""
 "should be returned from the method as the only value. In principle, this is "
 "what one **should do** in the ``prepare_for_submission`` method:"
 msgstr ""
+"所需的其他所有信息，如拷贝文件的指令和指令参数均通过 :py:class:`~aiida.common.datastructures.CalcInfo`"
+" 数据结构定义，这个值应该作为方法返回的唯一值。理论上，这是用户在方法 ``prepare_for_submission`` 中 **应该做的** :"
 
 #: ../../source/topics/calculations/usage.rst:154
 msgid ""
 "Writing raw inputs files required for the calculation to run to the "
 "``folder`` sandbox folder."
-msgstr ""
+msgstr "编写运行计算所需的原始输入文件到 ``folder`` 沙箱文件夹。"
 
 #: ../../source/topics/calculations/usage.rst:155
 msgid ""
 "Use a ``CalcInfo`` to instruct the engine which files to copy to the working"
 " directory"
-msgstr ""
+msgstr "使用 ``CalcInfo`` 告诉引擎将被复制到工作目录的文件"
 
 #: ../../source/topics/calculations/usage.rst:156
 msgid ""
 "Use a ``CalcInfo`` to tell which codes should run, using which command line "
 "parameters, such as standard input and output redirection."
-msgstr ""
+msgstr "使用 ``CalcInfo`` 来决定应运行的计算代码，以及使用哪些命令行参数，例如标准输入和输出重定向。"
 
 #: ../../source/topics/calculations/usage.rst:160
 msgid ""
@@ -722,6 +849,8 @@ msgid ""
 " on how to write the launch script such as what scheduler directives to "
 "write."
 msgstr ""
+"函数 ``prepare_for_submission`` "
+"中不需要自己编写任务提交脚本。引擎知道如何编写任务脚本，因为使用的计算代码在配置时已经关联到特定计算资源上，因此其上的任务调度工具也就被记录在计算代码中。这也就告知了AiiDA引擎有关如何编写任务提交脚本比如任务调度指令等的全部信息。"
 
 #: ../../source/topics/calculations/usage.rst:164
 msgid ""
@@ -737,6 +866,10 @@ msgid ""
 " that the dictionary returned by ``self.inputs`` will contain that input and"
 " of the correct type."
 msgstr ""
+"现在我们知道 ``prepare_for_submission`` 的预期功能，让我们逐行看看 ``ArithmeticAddCalculation``"
+" 的实现。此示例所需的输入文件包含作为输入传递的两个整数。 ``self.inputs`` 属性根据 ``define`` "
+"方法中定义的过程规范返回解析和验证好的输入的属性字典。这意味着用户不必自己验证输入。也就是说，如果输入被标记为必须的，以及某种指定类型，那么当我们运行 "
+"``prepare_for_submission`` 时，``self.inputs`` 返回的字典将确保包含正确类型的输入。"
 
 #: ../../source/topics/calculations/usage.rst:170
 msgid ""
@@ -746,6 +879,9 @@ msgid ""
 "space. We accomplish this by opening a filehandle to the input file in the "
 "sandbox folder and write the values of the two ``Int`` nodes to the file."
 msgstr ""
+"计算作业启动，两个输入 ``x`` 和 ``y`` "
+"会被传入，我们应确保输入文件只是包含一行两个数组的文本文件，这两个数字在一行上，被空间隔开。我们通过在沙箱文件夹中打开到输入文件的文件句柄并将两个 "
+"``Int`` 节点的值写入文件来实现此目的。"
 
 #: ../../source/topics/calculations/usage.rst:175
 msgid ""
@@ -755,6 +891,8 @@ msgid ""
 " will of course depend on the code for which the calculation job is being "
 "written."
 msgstr ""
+"这个输入文件的格式恰好是 :ref:`bash 脚本 <topics:calculations:concepts:calcjobs>` "
+"期望我们在本例中使用的格式。输入文件的确切数量及其内容当然将取决于为其编写算例任务的代码。"
 
 #: ../../source/topics/calculations/usage.rst:178
 msgid ""
@@ -765,31 +903,35 @@ msgid ""
 " the remote computer where the code will be executed. In this simple "
 "example, we define four simple attributes:"
 msgstr ""
+"写好输入文件后，我们现在必须创建一个 :py:class:`~aiida.common.datastructures.CalcInfo` "
+"的实例，该实例应该从方法返回。这个数据结构将精确地指示引擎如何执行计算代码，比如应该将哪些文件复制到将要执行代码的远程计算机。在这个简单的例子中，我们定义了四个简单的属性:"
 
 #: ../../source/topics/calculations/usage.rst:182
 msgid ""
 "``codes_info``: a list of :py:class:`~aiida.common.datastructures.CodeInfo` "
 "datastructures, that tell which codes to run consecutively during the job"
 msgstr ""
+"``codes_info``: 一个由数据结构 :py:class:`~aiida.common.datastructures.CodeInfo` "
+"构成的列表，用以告知任务运行期间要顺序执行的计算代码"
 
 #: ../../source/topics/calculations/usage.rst:183
 msgid ""
 "``local_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the local machine"
-msgstr ""
+msgstr "``local_copy_list``: 元组列表，指示要从本地计算机复制哪些文件到工作目录"
 
 #: ../../source/topics/calculations/usage.rst:184
 msgid ""
 "``remote_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the machine on which the job will run"
-msgstr ""
+msgstr "``remote_copy_list``: 一个元组列表，它指示要将哪些文件从运行任务的机器复制到工作目录"
 
 #: ../../source/topics/calculations/usage.rst:185
 msgid ""
 "``retrieve_list``: a list of tuples instructing which files should be "
 "retrieved from the working directory and stored in the local repository "
 "after the job has finished"
-msgstr ""
+msgstr "``retrieve_list``: 一个元组列表，指示应从工作目录检索哪些文件，并在作业完成后存储在本地存储库中"
 
 #: ../../source/topics/calculations/usage.rst:187
 msgid ""
@@ -807,6 +949,13 @@ msgid ""
 "to explicitly instruct the executable to read its input from the filename "
 "stored in the option ``input_filename``."
 msgstr ""
+"在本例中，我们只需要运行一个计算代码，因此 ``codes_info`` 列表有一个 ``CodeInfo`` "
+"数据结构。这个数据结构需要定义它需要运行哪些代码，这是传递给 ``CalcJob`` 的输入之一，并通过它的UUID来实现。通过 "
+"``stdout_name`` 属性，我们告诉引擎可执行文件的输出应该重定向到哪里。在本例中，它被设置为 ``output_filename`` "
+"选项的值。计算作业中有哪些选项可用，它们做什么以及如何设置这些选项，将在 :ref:`选项章节 "
+"<topics:calculations:usage:calcjobs:options>` 中进行说明。最后，``cmdline_params`` "
+"属性接受一个带有命令行参数的列表，这些命令行参数将放在启动脚本中可执行文件的 *后面* 。在这里，我们使用它显式地指示可执行文件从存储在选项 "
+"``input_filename`` 中的文件名中读取其输入。"
 
 #: ../../source/topics/calculations/usage.rst:197
 msgid ""
@@ -814,6 +963,8 @@ msgid ""
 "``self.options.input_filename``, this is also the filename we used when "
 "writing that very input file in the sandbox folder."
 msgstr ""
+"因为我们指示可执行文件应该从 ``self.options.input_filename`` "
+"读取输入，这也是我们在数据临时储存文件夹中编写输入文件时使用的文件名。"
 
 #: ../../source/topics/calculations/usage.rst:199
 msgid ""
@@ -823,6 +974,8 @@ msgid ""
 " in full in the :ref:`file lists "
 "section<topics:calculations:usage:calcjobs:file_lists>`."
 msgstr ""
+"最后，我们必须定义各种“文件列表”，这些“文件列表”告诉我们要将哪些文件从何处复制到何处，以及要检索哪些文件。在这里，我们将简要描述他们的预期目标。实现细节将在"
+" :ref:`文件列表章节 <topics:calculations:usage:calcjobs:file_lists>` 中详细描述。"
 
 #: ../../source/topics/calculations/usage.rst:203
 msgid ""
@@ -840,6 +993,12 @@ msgid ""
 "duplication, without losing provenance, because the data node itself will of"
 " course be recorded in the provenance graph."
 msgstr ""
+"本地复制列表用于指示引擎复制可能已经存储在数据库中的文件，例如  "
+":py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` 实例节点。您可以定义并传递为 "
+"``CalcJob`` "
+"的输入。你当然可以将它们的内容复制到沙箱文件夹中，这也会导致它们被写入工作目录。然而，这种方法的缺点是，写入到沙箱文件夹的所有内容也将被存储在 "
+"``CalcJobNode`` 的存储库中，它将代表可验证性图中的 ``CalcJob`` "
+"的执行节点。这将导致这些数据节点中包含的数据重复。通过不显式地将它们写入沙箱文件夹，您可以避免这种重复，而不会丢失可验证性，因为数据节点本身当然会被记录在可验证性图中。"
 
 #: ../../source/topics/calculations/usage.rst:209
 msgid ""
@@ -852,6 +1011,7 @@ msgid ""
 "working directory, without them having to be retrieved to the engine's "
 "machine in between."
 msgstr ""
+"远程复制列表有助于避免在运行引擎的计算机与执行计算作业的位置之间进行不必要的文件传输。例如，假设您已经在远程集群上完成了计算作业，现在想要启动第二个计算作业，这需要第一次运行的某些输出文件作为其输入。远程复制列表允许您准确指定要复制到远程工作目录的输出文件，而不必将它们检索到引擎的机器之间。"
 
 #: ../../source/topics/calculations/usage.rst:213
 msgid ""
@@ -861,6 +1021,9 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.folder.FolderData` data node and attached "
 "as an output to the ``CalcJobNode`` with the link label ``retrieved``."
 msgstr ""
+"最后，检索列表允许您指示引擎在作业终止后应从工作目录中检索哪些文件。这些文件将被下载到本地机器，存储在 "
+":py:class:`~aiiida.orm.nodes.data.folder.FolderData`数据节点中，并作为输出附加到``CalcJobNode``"
+" 的 ``retrieved`` 链接标签  。"
 
 #: ../../source/topics/calculations/usage.rst:218
 msgid ""
@@ -870,14 +1033,17 @@ msgid ""
 "the ``code`` input, the ``retrieved`` output is common for all calculation "
 "job implementations."
 msgstr ""
+"我们没有明确地将 ``retrieve`` 文件夹数据节点定义为上面显示的示例 ``ArithmeticAddCalculation`` "
+"实现中的输出。这是因为它已经由 ``CalcJob`` 基类定义。正如 ``code`` 输入一样， ``retrieve`` "
+"输出对于所有计算作业实现都是通用的。"
 
 #: ../../source/topics/calculations/usage.rst:226
 msgid "File lists"
-msgstr ""
+msgstr "文件列表"
 
 #: ../../source/topics/calculations/usage.rst:231
 msgid "Local copy list"
-msgstr ""
+msgstr "本地复制列表"
 
 #: ../../source/topics/calculations/usage.rst:232
 msgid ""
@@ -889,7 +1055,7 @@ msgstr ""
 msgid ""
 "`node uuid`: the node whose repository contains the file, typically a "
 "``SinglefileData`` or ``FolderData`` node"
-msgstr ""
+msgstr "`node uuid`: 其存储库包含文件的节点，通常是 ``SinglefileData`` 或 ``FolderData`` 节点"
 
 #: ../../source/topics/calculations/usage.rst:235
 msgid ""
@@ -909,6 +1075,8 @@ msgid ""
 "``SinglefileData`` node as input with the name ``pseudopotential``, to copy "
 "its contents one can specify:"
 msgstr ""
+"作为一个例子，考虑一个 ``CalcJob`` 实现，它接收一个名为 ``pseudopotential`` 的 ``SinglefileData`` "
+"节点作为输入，以复制其可以指定的内容:"
 
 #: ../../source/topics/calculations/usage.rst:244
 msgid ""
@@ -917,13 +1085,15 @@ msgid ""
 "instead, you need to transfer a specific file from a ``FolderData``, you can"
 " specify the explicit key of the file, like so:"
 msgstr ""
+"根据定义， ``SinglefileData`` 节点只包含一个文件，其相对路径由 ``filename`` 属性返回。相反，如果需要从 "
+"``FolderData`` 传输特定文件，则可以指定文件的显式键，如下所示:"
 
 #: ../../source/topics/calculations/usage.rst:251
 msgid ""
 "Note that the filenames in the relative source and target path need not be "
 "the same. This depends fully on how the files are stored in the node's "
 "repository and what files need to be written to the working directory."
-msgstr ""
+msgstr "请注意，相对源和目标路径中的文件名不必相同。这完全取决于文件如何存储在节点的存储库中以及需要将哪些文件写入工作目录。"
 
 #: ../../source/topics/calculations/usage.rst:254
 msgid ""
@@ -972,10 +1142,14 @@ msgid ""
 "particular input node is privacy sensitive and cannot be duplicated in the "
 "repository."
 msgstr ""
+"有人可能会想这个列表的目的是什么，因为可以很容易地使用普通的API把文件写到 ``folder`` "
+"沙箱文件夹。的确，通过这种方式文件将被复制到工作目录中，但是，它 **也** "
+"将复制到计算节点的存储库中。由于在本例中，它仅仅是一个已经是一个输入节点的一部分的文件的直接一对一的副本(以未更改的形式)，因此这种复制是不必要的，并给文件存储库增加了无用的权重。使用"
+" ``local_copy_list`` 可以防止这种不必要的文件内容重复。如果特定输入节点的内容是隐私敏感的，并且不能在存储库中复制，也可以使用它。"
 
 #: ../../source/topics/calculations/usage.rst:300
 msgid "Provenance exclude list"
-msgstr ""
+msgstr "可验证性排除列表"
 
 #: ../../source/topics/calculations/usage.rst:301
 msgid ""
@@ -996,35 +1170,43 @@ msgid ""
 "filepaths, relative to the base path of the ``folder`` sandbox folder, which"
 " *are not stored* in the file repository."
 msgstr ""
+":ref:`local_copy_list "
+"<topics:calculations:usage:calcjobs:file_lists_local_copy>` "
+"允许指示引擎将文件从输入文件写入工作目录，而不 *同时* "
+"复制到计算节点的文件存储库。正如在相应的部分中所讨论的，为了避免重复，或者当节点的数据是专有的或隐私敏感的，且不能在文件存储库中的任意位置重复时，这是有用的。然而，"
+" ``local_copy_list`` 的限制是，它只能针对单个文件的整体，不能用于写入 ``folder`` 沙箱文件夹的任意文件。为了完全控制 "
+"``folder`` 中的文件永久存储在计算节点文件存储库中，我们引入了 ``provenance_exclude_list``。这个 "
+":py:class:`~aiida.common.datastructures.CalcInfo` 属性是一个文件路径列表，相对于 ``folder``"
+" 沙箱文件夹的基本路径，它 *不存储* 在文件存储库中。"
 
 #: ../../source/topics/calculations/usage.rst:307
 msgid ""
 "Consider the following file structure as written by an implementation of "
 "``prepare_for_submission`` to the ``folder`` sandbox:"
-msgstr ""
+msgstr "下面是 ``prepare_for_submission`` 的实现的 ``folder`` 沙箱文件夹的文件结构："
 
 #: ../../source/topics/calculations/usage.rst:317
 msgid ""
 "Clearly, we do not want the ``personal.dat`` and ``secret.key`` files to end"
 " up permanently in the file repository. This can be achieved by defining:"
-msgstr ""
+msgstr "显然，我们不想要 ``personal.dat`` 和 ``secret.key`` 文件最终永久地保存在文件存储库中。这可以通过定义："
 
 #: ../../source/topics/calculations/usage.rst:324
 msgid ""
 "With this specification, the final contents of the repository of the "
 "calculation node will contain:"
-msgstr ""
+msgstr "有了这个规范，计算节点存储库的最终内容将包括:"
 
 #: ../../source/topics/calculations/usage.rst:335
 msgid "Remote copy list"
-msgstr ""
+msgstr "远程复制列表"
 
 #: ../../source/topics/calculations/usage.rst:336
 msgid ""
 "The remote copy list takes tuples of length three, each of which represents "
 "a file to be copied on the remote machine where the calculation will run, "
 "defined through the following items:"
-msgstr ""
+msgstr "远程复制列表采用长度为3的元组，每个元组表示要在运行计算的远程计算机上复制的文件，通过以下各项定义:"
 
 #: ../../source/topics/calculations/usage.rst:338
 msgid ""
@@ -1032,46 +1214,47 @@ msgid ""
 "file resides. For now the remote copy list can only copy files on the same "
 "machine where the job will run."
 msgstr ""
+"`computer uuid`: 这是源文件所在的 ``Computer`` 的UUID。目前，远程复制列表只能复制运行在同一台计算机上的文件。"
 
 #: ../../source/topics/calculations/usage.rst:339
 msgid ""
 "`source absolute path`: the absolute path of the source file on the remote "
 "machine"
-msgstr ""
+msgstr "`source absolute path`: 远程机器上源文件的绝对路径"
 
 #: ../../source/topics/calculations/usage.rst:340
 msgid ""
 "`target relative path`: the relative path within the working directory to "
 "which to copy the file"
-msgstr ""
+msgstr "`target relative path`: 要复制文件的工作目录中的相对路径"
 
 #: ../../source/topics/calculations/usage.rst:346
 msgid ""
 "Note that the source path can point to a directory, in which case its "
 "contents will be recursively copied in its entirety."
-msgstr ""
+msgstr "请注意，源路径可以指向目录，在这种情况下，其内容将以整体递归方式复制。"
 
 #: ../../source/topics/calculations/usage.rst:351
 msgid "Retrieve list"
-msgstr ""
+msgstr "检索列表"
 
 #: ../../source/topics/calculations/usage.rst:352
 msgid ""
 "The retrieve list is a list of instructions of what files and folders should"
 " be retrieved by the engine once a calculation job has terminated. Each "
 "instruction should have one of two formats:"
-msgstr ""
+msgstr "检索列表是一个指令列表，指示一旦计算作业终止，引擎应该检索哪些文件和文件夹。每个指令应该为以下两种格式之一:"
 
 #: ../../source/topics/calculations/usage.rst:355
 msgid ""
 "a string representing a relative filepath in the remote working directory"
-msgstr ""
+msgstr "表示远程工作目录中相对文件路径的字符串"
 
 #: ../../source/topics/calculations/usage.rst:356
 msgid ""
 "a tuple of length three that allows to control the name of the retrieved "
 "file or folder in the retrieved folder"
-msgstr ""
+msgstr "长度为3的元组，允许控制检索到的文件夹中的检索文件或文件夹的名称"
 
 #: ../../source/topics/calculations/usage.rst:358
 msgid ""
@@ -1084,31 +1267,34 @@ msgid ""
 "if the original folder structure should be (partially) kept, one should use "
 "the tuple format, which has the following format:"
 msgstr ""
+"检索列表可以包含任意数量的指令，并且可以同时使用两种格式。第一种格式显然是最简单的，但是，它需要知道要检索的文件或文件夹的确切名称，并且在检索时将忽略任何子目录。如果不知道确切的文件名，并且应该使用"
+" `glob patterns <https://en.wikipedia.org/wiki/Glob_%28programming%29>`_ "
+"，或者如果应该(部分)保留原始的文件夹结构，应该使用元组格式，它有以下格式:"
 
 #: ../../source/topics/calculations/usage.rst:362
 msgid ""
 "`source relative path`: the relative path, with respect to the working "
 "directory on the remote, of the file or directory to retrieve."
-msgstr ""
+msgstr "`source relative path`: 相对于要检索的文件或目录的远程工作目录的相对路径。"
 
 #: ../../source/topics/calculations/usage.rst:363
 msgid ""
 "`target relative path`: the relative path of the directory in the retrieved "
 "folder in to which the content of the source will be copied. The string "
 "``'.'`` indicates the top level in the retrieved folder."
-msgstr ""
+msgstr "*目标相对路径* ：检索到的文件夹中的目录的相对路径，源路径文件的内容将被复制到其中。字符串 ``'.'`` 表示检索到的文件夹的顶层。"
 
 #: ../../source/topics/calculations/usage.rst:364
 msgid ""
 "`depth`: the number of levels of nesting in the source path to maintain when"
 " copying, starting from the deepest file."
-msgstr ""
+msgstr "*深度* ：复制时要在源路径中的嵌套层次数，从最深的文件开始。"
 
 #: ../../source/topics/calculations/usage.rst:366
 msgid ""
 "To illustrate the various possibilities, consider the following example file"
 " hierarchy in the remote working directory:"
-msgstr ""
+msgstr "为了说明各种可能情况，考虑以下远端工作目录中的文件层次结构示例："
 
 #: ../../source/topics/calculations/usage.rst:377
 msgid ""
@@ -1117,31 +1303,33 @@ msgid ""
 "followed by a schematic depiction of the final file hierarchy that would be "
 "created in the retrieved folder."
 msgstr ""
+"下面，您将看到要检索的文件和文件夹的各种用例的示例。每个示例都以 ``retrieve_list`` "
+"的格式开始，然后是在检索到的文件夹中创建的最终文件层次结构的示意图。"
 
 #: ../../source/topics/calculations/usage.rst:381
 msgid "Explicit file or folder"
-msgstr ""
+msgstr "显式文件或文件夹"
 
 #: ../../source/topics/calculations/usage.rst:383
 msgid ""
 "Retrieving a single toplevel file or folder (with all its contents) where "
 "the final folder structure is not important."
-msgstr ""
+msgstr "检索单个顶层文件或文件夹(及其所有内容)，且其中最终的文件夹结构并不重要。"
 
 #: ../../source/topics/calculations/usage.rst:402
 msgid "Explicit nested file or folder"
-msgstr ""
+msgstr "显式嵌套的文件或文件夹"
 
 #: ../../source/topics/calculations/usage.rst:404
 msgid ""
 "Retrieving a single file or folder (with all its contents) that is located "
 "in a subdirectory in the remote working directory, where the final folder "
 "structure is not important."
-msgstr ""
+msgstr "检索位于远程工作目录的子目录中的单个文件或文件夹(及其所有内容)，且其不需要最终的文件夹结构"
 
 #: ../../source/topics/calculations/usage.rst:421
 msgid "Explicit nested file or folder keeping (partial) hierarchy"
-msgstr ""
+msgstr "显式嵌套的文件或文件夹，但保持(部分)层次结构"
 
 #: ../../source/topics/calculations/usage.rst:423
 msgid ""
@@ -1152,12 +1340,15 @@ msgid ""
 "following example shows that by specifying ``3``, the exact folder structure"
 " is kept:"
 msgstr ""
+"以下示例展示了如何控制检索到的文件的文件层次结构。通过改变元组的 ``depth`` "
+"参数，可以控制远程文件夹层次结构的哪一部分被保留。在这个例子中，远程文件夹层次结构的最大深度是 ``3``。下面的例子表明，通过指定 "
+"``3``，可以保持准确的文件夹结构:"
 
 #: ../../source/topics/calculations/usage.rst:436
 msgid ""
 "For ``depth=2``, only two levels of nesting are kept (including the file "
 "itself) and so the ``path`` folder is discarded."
-msgstr ""
+msgstr "对于 ``depth=2``，只保留了两层嵌套(包括文件本身)，因此 ``path`` 文件夹将被丢弃。"
 
 #: ../../source/topics/calculations/usage.rst:445
 msgid ""
@@ -1165,10 +1356,11 @@ msgid ""
 "element, all its contents will be retrieved. With ``depth=1``, only the "
 "first level ``sub`` is kept of the folder hierarchy."
 msgstr ""
+"这同样适用于目录。通过为第一个元素指定目录，将检索它的所有内容。使用 ``depth=1`` ，只有第一级 ``sub`` 被保存在文件夹层次结构中。"
 
 #: ../../source/topics/calculations/usage.rst:459
 msgid "Pattern matching"
-msgstr ""
+msgstr "模式匹配"
 
 #: ../../source/topics/calculations/usage.rst:461
 msgid ""
@@ -1194,7 +1386,7 @@ msgstr ""
 
 #: ../../source/topics/calculations/usage.rst:494
 msgid "Specific target directory"
-msgstr ""
+msgstr "特定的目标文件夹"
 
 #: ../../source/topics/calculations/usage.rst:496
 msgid ""
@@ -1208,10 +1400,14 @@ msgid ""
 "hierarchy and storing it locally in the ``target`` directory, one can do the"
 " following:"
 msgstr ""
+"所检索文件夹中所检索文件的最终文件夹层次结构不仅由远程工作目录的层次结构决定，而且还可以通过指令元组的第二和第三个元素进行控制。最后一个 "
+"``depth`` "
+"元素控制要维护的源的层次结构的级别，其中第二个元素指定要将远程文件检索到的已检索文件夹中的基本路径。例如，要检索一个嵌套的文件，维护远程层次结构并将其存储在本地的"
+" ``target`` 目录中，可以执行以下操作:"
 
 #: ../../source/topics/calculations/usage.rst:509
 msgid "The same applies for folders that are to be retrieved:"
-msgstr ""
+msgstr "这同样适用于要检索的文件夹:"
 
 #: ../../source/topics/calculations/usage.rst:520
 msgid ""
@@ -1220,10 +1416,11 @@ msgid ""
 " target relative path is also compatible with glob patterns in the source "
 "relative paths:"
 msgstr ""
+"注意，这里的 `target` 不是用来重命名检索到的文件或文件夹，而是表示要将源复制到的目录的路径。目标相对路径也与源相对路径中的glob模式兼容:"
 
 #: ../../source/topics/calculations/usage.rst:532
 msgid "Retrieve temporary list"
-msgstr ""
+msgstr "临时文件检索列表"
 
 #: ../../source/topics/calculations/usage.rst:534
 msgid ""
@@ -1303,7 +1500,7 @@ msgstr ""
 msgid ""
 "In the future, other methods for stashing may be implemented, such as "
 "placing all files in a (compressed) tarball or even stash files on tape."
-msgstr ""
+msgstr "将来，可能会实现其他的存储方法，比如将所有文件放在(压缩的)tarball中，甚至将文件存储在磁带上。"
 
 #: ../../source/topics/calculations/usage.rst:604
 msgid ""
@@ -1315,6 +1512,8 @@ msgid ""
 "the calculation job. This may cause files to be stashed for calculations "
 "that will later be considered to have failed."
 msgstr ""
+"如果为计算作业定义了 ``stash`` "
+"选项名称空间，守护进程将在检索文件之前执行存储操作。这意味着存储发生在解析输出文件之前(检索步骤之后)，这样文件的存储将独立于解析器将分配给计算作业的最终退出状态。这可能会导致文件被之后已经失败的计算存储起来。"
 
 #: ../../source/topics/calculations/usage.rst:608
 msgid ""
@@ -1333,7 +1532,7 @@ msgstr ""
 
 #: ../../source/topics/calculations/usage.rst:618
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: ../../source/topics/calculations/usage.rst:619
 msgid ""
@@ -1345,6 +1544,11 @@ msgid ""
 "once it is finished and special scheduler directives. The full list of "
 "available options are documented below as part of the ``CalcJob`` interface:"
 msgstr ""
+"除了所有进程都有的常见的元数据输入，例如 ``label`` 和 ``description`` ， "
+":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`  有一个额外的 "
+"``options`` "
+"输入。这些选项允许微妙地更改计算作业的行为，例如完成计算作业后应该使用哪个解析器，以及特殊的调度器指令。可用选项的完整列表在下面记录为 "
+"``CalcJob`` 接口的一部分:"
 
 #: ../../source/topics/calculations/usage.rst:628
 msgid ""
@@ -1526,7 +1730,7 @@ msgstr ""
 
 #: ../../source/topics/calculations/usage.rst:745
 msgid "Launch"
-msgstr ""
+msgstr "启动"
 
 #: ../../source/topics/calculations/usage.rst:747
 msgid ""
@@ -1544,10 +1748,15 @@ msgid ""
 " to be performed. The exception is of course when you want to run a "
 "calculation job locally for testing or demonstration purposes."
 msgstr ""
+"启动一个算例任务和启动任何其他列程类没有什么不同，所以请参考 :ref:`启动列程 <topics:processes:usage:launch>` "
+"一节。我们唯一应该注意的是，算例任务通常相当耗时。我们上面使用的简单示例当然会运行得很快，但是提交给调度器的典型的算例很可能需要花费更长的时间。因此，建议"
+" **提交** 算例，而不是运行它们。通过将它们提交给守护进程，你就可以直接释放python解释器的占用，整个进程将在必须执行的各种 "
+":ref:`传输任务 <topics:calculations:concepts:calcjobs_transport_tasks>` "
+"之间进行检查。当然，当您希望本地运行算例以进行测试或演示时除外。"
 
 #: ../../source/topics/calculations/usage.rst:758
 msgid "Dry run"
-msgstr ""
+msgstr "裸运行"
 
 #: ../../source/topics/calculations/usage.rst:759
 msgid ""
@@ -1559,6 +1768,8 @@ msgid ""
 "in the metadata of the inputs. If you are using the process builder, it is "
 "as simple as:"
 msgstr ""
+"当涉及到启动所有其他进程时，算例任务有一个额外的可选特性。未正确配置的算例任务可能会浪费计算资源，所以在实际提交作业之前，可能需要检查插件将写入的输入文件。通过简单地在输入的元数据中指定所谓的"
+" “裸运行” 是可能的。如果你正在使用过程构建器，只需简单使用："
 
 #: ../../source/topics/calculations/usage.rst:768
 msgid ""
@@ -1572,10 +1783,14 @@ msgid ""
 "``submit_test`` folder, which you allows you to perform multiple dry-runs "
 "without overwriting the previous results."
 msgstr ""
+"当您现在启动列程构建器时，引擎将执行正常算例运行的整个过程，只是它不会实际地将作业上传并提交到远程计算机。但是， "
+"``prepare_for_submission`` 方法将被调用。它写入输入文件夹的输入将存储在临时文件夹名为 ``submit_test`` "
+"，该文件夹将在当前工作目录中创建。每次执行裸运行时，将在 ``submit_test`` "
+"文件夹中创建一个新的子文件夹，您可以在不覆盖以前结果的情况下执行多次裸运行。"
 
 #: ../../source/topics/calculations/usage.rst:773
 msgid "Moreover, the following applies:"
-msgstr ""
+msgstr "此外，下列规则也适用:"
 
 #: ../../source/topics/calculations/usage.rst:775
 msgid ""
@@ -1583,6 +1798,8 @@ msgid ""
 "``dry_run`` flag set, you will get back its results, being always an empty "
 "dictionary ``{}``;"
 msgstr ""
+"当调用 :py:func:`~aiida.engine.launch.run` 进行计算时，设置了 ``dry_run`` "
+"标志，返回结果将始终是一个空字典 ``{}`` ；"
 
 #: ../../source/topics/calculations/usage.rst:778
 msgid ""
@@ -1593,6 +1810,9 @@ msgid ""
 "information on the dry-run output. In particular, it will have the following"
 " keys:"
 msgstr ""
+"如果你调用 :py:func:`~aiida.engine.launch.run_get_node` ，你会得到一个未存储的 "
+"``CalcJobNode`` 作为一个节点。在这种情况下，未存储的 ``CalcJobNode`` (让我们称它为 ``node`` "
+")将有一个额外的属性 ``node.dry_run_info`` 。这是一个字典，它包含关于裸运行输出的附加信息。特别地，它将有以下键："
 
 #: ../../source/topics/calculations/usage.rst:784
 msgid ""
@@ -1600,12 +1820,14 @@ msgid ""
 "folder where the files have been created, e.g.: "
 "``/home/user/submit_test/20190726-00019``"
 msgstr ""
+"``folder``： 在 ``submit_test`` 文件夹内创建文件的绝对路径，例如：  "
+"``/home/user/submit_test/20190726-00019``"
 
 #: ../../source/topics/calculations/usage.rst:787
 msgid ""
 "``script_filename``: the filename of the submission script that AiiDA "
 "generated in the folder, e.g.: ``_aiidasubmit.sh``"
-msgstr ""
+msgstr "`script_filename`： AiiDA在文件夹中生成的提交脚本的文件名，例如： `` _aiidassubmit .sh``"
 
 #: ../../source/topics/calculations/usage.rst:790
 msgid ""
@@ -1613,6 +1835,8 @@ msgid ""
 "function, this will be just forwarded to run and you will get back the "
 "unstored node (with the same properties as above)."
 msgstr ""
+"如果使用 :py:func:`~aiida.engine.launch.submit`  "
+"来提交裸运行，将只是转发运行，您将获得未存储的节点(与上面相同的属性)。"
 
 #: ../../source/topics/calculations/usage.rst:797
 msgid ""
@@ -1620,10 +1844,12 @@ msgid ""
 " run. If you do not want any nodes to be created during a dry run, simply "
 "set the metadata input ``store_provenance`` to ``False``."
 msgstr ""
+"默认情况下，可验证性的存储是开启的，这也适用于裸运行。如果您不希望在裸运行期间创建任何节点，只需将元数据输入 ``store_provenance`` "
+"设置为 ``False`` 。"
 
 #: ../../source/topics/calculations/usage.rst:804
 msgid "Parsing"
-msgstr ""
+msgstr "结果解析"
 
 #: ../../source/topics/calculations/usage.rst:805
 msgid ""
@@ -1642,6 +1868,14 @@ msgid ""
 " be a sub class of :py:class:`~aiida.parsers.parser.Parser` and calls its "
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method."
 msgstr ""
+"前面的部分详细解释了外部可执行文件的执行是如何通过 ``CalcJob`` "
+"类包装的，从而使其可由AiiDA的引擎运行。从在远程机器上准备输入文件的第一步，到检索相关文件并将它们存储在 "
+":py:class:`~aiida.orm.nodes.data.folder.FolderData`  节点，它被附加为 ``retrieved`` "
+"输出。这是 ``CalcJob`` 终止的 *必需的* 步骤，但通常我们 *希望* "
+"解析原始输出并将它们作为可查询的输出节点附加到计算作业节点。要在检索到计算作业的输出后自动触发对它的解析，需要指定 :ref:`解析器名称选项 "
+"<topics:calculations:usage:calcjobs:options>` "
+"。如果引擎发现指定了这个选项，它将加载相应的解析器类，该解析器类应是 :py:class:`~aiida.parsers.parser.Parser` "
+"的子类。并重载了它的 :py:meth:`~aiida.parsers.parser.Parser.parse`  方法。"
 
 #: ../../source/topics/calculations/usage.rst:811
 msgid ""
@@ -1652,6 +1886,9 @@ msgid ""
 "bash script that is wrapped by the ``ArithmeticAddCalculation`` discussed in"
 " the previous sections."
 msgstr ""
+"为了解释 ``Parser`` 类和 ``parse`` 方法的接口，让我们使用 "
+":py:class:`~aiida.parsers.plugins.arithmetic.add.ArithmeticAddParser` "
+"作为例子。这个解析器被设计来解析简单的bash脚本产生的输出，该脚本由前面讨论的 ``ArithmeticAddCalculation`` 包装。"
 
 #: ../../source/topics/calculations/usage.rst:818
 msgid ""
@@ -1667,27 +1904,33 @@ msgid ""
 "include ``**kwargs``, the reason for which will become clear later. The goal"
 " of the ``parse`` method is very simple:"
 msgstr ""
+"要创建新的解析器实现，只需创建一个新类，该类继承自 :py:class:`~aiida.parsers.parser.Parser` "
+"类。通常，任何有效的python类名都可以工作，但约定是始终使用 ``Parser`` 后缀，并使用与解析器设计的计算作业相同的名称。例如，这里我们为 "
+"``ArithmeticAddCalculation`` 实现了一个解析器，因此我们将其命名为 ``ArithmeticAddParser``，只是将 "
+"``Calculation`` 后缀替换为 ``Parser`` 。需要实现的唯一方法是 "
+":py:meth:`~aiida.parser.parser.parser` 方法。它的签名应该包括 ``**kwargs`` ，其原因稍后将会清楚。 "
+"``parse`` 方法的目标非常简单，即:"
 
 #: ../../source/topics/calculations/usage.rst:825
 msgid ""
 "Open and load the content of the output files generated by the calculation "
 "job and have been retrieved by the engine"
-msgstr ""
+msgstr "打开并加载由算例任务生成并已被引擎检索的输出文件的内容"
 
 #: ../../source/topics/calculations/usage.rst:826
 msgid ""
 "Create data nodes out of this raw data that are attached as output nodes"
-msgstr ""
+msgstr "从作为输出节点附加在原始创建的数据节点上"
 
 #: ../../source/topics/calculations/usage.rst:827
 msgid "Log human-readable warning messages in the case of worrying output"
-msgstr ""
+msgstr "在输出警告情况下，记录可读的警告消息"
 
 #: ../../source/topics/calculations/usage.rst:828
 msgid ""
 "Optionally return an :ref:`exit code<topics:processes:concepts:exit_codes>` "
 "to indicate that the results of the calculation was not successful"
-msgstr ""
+msgstr "可选地返回 :ref:`退出状态码 <topics:processes:concepts:exit_codes>`来表示计算结果不成功"
 
 #: ../../source/topics/calculations/usage.rst:830
 msgid ""
@@ -1697,6 +1940,7 @@ msgid ""
 "value, which becomes a very powerful approach for post-processing and "
 "analyses of big databases."
 msgstr ""
+"以不同形式添加原始输出数据作为输出节点的好处是，在这种形式下，内容变成可查询的。这允许查询产生具有特定值的特定输出的计算，这成为对大型数据库进行后处理和分析的一种非常强大的方法。"
 
 #: ../../source/topics/calculations/usage.rst:833
 msgid ""
@@ -1712,6 +1956,10 @@ msgid ""
 "integers. The parser opens this file, reads its content and tries to parse "
 "the sum from it:"
 msgstr ""
+"解析器的 ``retrieved`` 属性将返回 ``FolderData`` 节点，该节点应该由包含所有检索文件的引擎附加，如在 "
+":ref:`算例任务的准备步骤 <topics:calculations:usage:calcjobs:prepare>` 中使用 :ref:`检索列表"
+" <topics:calculations:usage:calcjobs:file_lists_retrieve>` "
+"指定的那样。此检索到的文件夹可用于打开和读取其中包含的文件的内容。在本例中，应该有一个单独的输出文件，它是通过对两个整数求和结果标准输出重定向的bash脚本的编写的。解析器打开这个文件，读取它的内容，并试图解析其中的和："
 
 #: ../../source/topics/calculations/usage.rst:844
 msgid ""
@@ -1729,6 +1977,11 @@ msgid ""
 "instruct the engine to set its exit status and exit message on the node of "
 "this calculation job."
 msgstr ""
+"请注意，这个解析操作封装在try-except块中，以捕获在无法读取输出文件时抛出的异常。如果异常未被捕获，引擎将捕获异常，并将相应计算的进程状态设置为"
+" ``Excepted`` 。请注意，在解析期间抛出的任何未捕获的异常都会发生这种情况。相反，我们捕获这些异常并返回一个退出代码，该退出代码通过通过 "
+"``self.exit_codes`` 引用来检索，例如本例中的 ``ERROR_READING_OUTPUT_FILE`` "
+"。该调用将检索在我们当前解析的 ``CalcJob`` "
+"上定义的相应退出代码。从解析器返回此退出代码将立即停止解析，并指示引擎在此计算作业的节点上设置其退出状态和退出消息。"
 
 #: ../../source/topics/calculations/usage.rst:851
 msgid ""
@@ -1741,6 +1994,10 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.int.Int` data node class, and register it "
 "as an output through the ``out`` method:"
 msgstr ""
+"``parse_stdout`` "
+"方法只是一个辅助函数，用于将数据的实际解析与主解析器代码分离开来。在这种情况下，解析变得简单，我们可以将其保存在主解析方法中，但这只是为了说明，以清晰起见，您可以完全自由地在"
+" ``parse`` 方法中组织代码。如果设法解析计算产生的和，则将其封装在相应的 "
+":py:class:`~aiida.orm.nodes.data.int.Int` 数据节点类中，并通过 ``out`` 方法将其注册为输出:"
 
 #: ../../source/topics/calculations/usage.rst:861
 msgid ""
@@ -1753,6 +2010,8 @@ msgid ""
 "what parts you would like to be queryable. However, we can give you some "
 "guidelines:"
 msgstr ""
+"注意，如果我们没有遇到任何问题，我们不需要返回任何东西。引擎会将此解释为计算成功完成。现在您可能会提出这样的问题：“应该解析原始数据的哪一部分，应该将其存储在哪种类型的数据节点中?”"
+" 一般来说，这不是一个容易回答的问题，因为它在很大程度上取决于计算产生的原始输出的类型，以及您希望可查询的部分。但是，我们可以给你一些方针:"
 
 #: ../../source/topics/calculations/usage.rst:867
 msgid ""
@@ -1763,6 +2022,10 @@ msgid ""
 "these nodes are stored as attributes in the database, which makes sure that "
 "they can be queried for."
 msgstr ""
+"将您可能想要查询的数据存储在轻量级数据节点中，例如 :py:class:`~aiida.orm.nodes.data.dict.Dict`， "
+":py:class:`~aiida.orm.nodes.data.list.List` 和 "
+":py:class:`~aiida.orm.nodes.data.structure.StructureData` "
+"。这些节点的内容作为属性存储在数据库中，这确保可以查询它们。"
 
 #: ../../source/topics/calculations/usage.rst:869
 msgid ""
@@ -1775,10 +2038,13 @@ msgid ""
 "data and therewith the provenance of your calculations, while keeping your "
 "database lean and fast!"
 msgstr ""
+"更大的数据集，比如大型(多维)数组，最好存储在 "
+":py:class:`~aiida.orm.nodes.data.array.array.ArrayData` "
+"或它的一个子类。如果将所有这些数据存储在数据库中，它将变得不必要地臃肿，因为您不太可能查询这些数据。相反，这些数组类型的数据节点将其大部分内容存储在存储库中。通过这种方式，您仍然可以保留数据和计算的可验证性，同时保持您的数据库精简和快速!"
 
 #: ../../source/topics/calculations/usage.rst:878
 msgid "Scheduler errors"
-msgstr ""
+msgstr "任务调度程序错误"
 
 #: ../../source/topics/calculations/usage.rst:880
 msgid ""
@@ -1810,78 +2076,82 @@ msgid ""
 "parser and output parser returning an exit code and what the final resulting"
 " exit code will be that is set on the node:"
 msgstr ""
+"注意，在上面给出的示例中，如果检测到调度器检测到问题，解析器立即返回。由于它返回 `None` "
+"，调度程序的退出码将被保留，并将是算例的最终退出码。但是，解析器不需要立即返回。它仍然可以尝试解析一些检索到的输出(如果有的话)。如果它发现了比通用调度程序错误更具体的问题，它总是可以返回自身的退出代码来覆盖它。解析器甚至可以返回"
+" ``ExitCode(0)` "
+"来将计算标记为成功完成，尽管已知调度器存在问题。下表总结了调度器解析器和输出解析器返回退出代码的可能场景，以及在节点上设置的最终结果退出代码是什么："
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Scenario**"
-msgstr ""
+msgstr "**场景**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Scheduler result**"
-msgstr ""
+msgstr "**调度程序结果**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Retrieved result**"
-msgstr ""
+msgstr "**结果检索结果**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Final result**"
-msgstr ""
+msgstr "**最终结果**"
 
 #: ../../source/topics/calculations/usage.rst:914
 msgid "Neither parser found any problem."
-msgstr ""
+msgstr "所有解析器均没有找到问题"
 
 #: ../../source/topics/calculations/usage.rst:914
 #: ../../source/topics/calculations/usage.rst:916
 #: ../../source/topics/calculations/usage.rst:919
 msgid "``None``"
-msgstr ""
+msgstr "``None``"
 
 #: ../../source/topics/calculations/usage.rst:914
 #: ../../source/topics/calculations/usage.rst:924
 msgid "``ExitCode(0)``"
-msgstr ""
+msgstr "``ExitCode(0)``"
 
 #: ../../source/topics/calculations/usage.rst:916
 msgid "Scheduler parser found an issue, but output parser does not override."
-msgstr ""
+msgstr "调度器解析器发现一个问题，但输出解析器没有将其覆盖。"
 
 #: ../../source/topics/calculations/usage.rst:916
 #: ../../source/topics/calculations/usage.rst:921
 #: ../../source/topics/calculations/usage.rst:924
 msgid "``ExitCode(100)``"
-msgstr ""
+msgstr "``ExitCode(100)``"
 
 #: ../../source/topics/calculations/usage.rst:919
 msgid "Only output parser found a problem."
-msgstr ""
+msgstr "只有输出解析器发现了问题。"
 
 #: ../../source/topics/calculations/usage.rst:919
 #: ../../source/topics/calculations/usage.rst:921
 msgid "``ExitCode(400)``"
-msgstr ""
+msgstr "``ExitCode(400)``"
 
 #: ../../source/topics/calculations/usage.rst:921
 msgid ""
 "Scheduler parser found an issue, but the output parser overrides with a more"
 " specific error code."
-msgstr ""
+msgstr "调度器解析器发现了一个问题，但输出解析器使用更具体的错误代码覆盖。"
 
 #: ../../source/topics/calculations/usage.rst:924
 msgid ""
 "Scheduler found issue but output parser overrides saying that despite that "
 "the calculation should be considered finished successfully."
-msgstr ""
+msgstr "调度器发现问题，但输出解析器将其重写，而计算应该被认为已成功完成。"
 
 #: ../../source/topics/cli.rst:5
 msgid "Command line interface"
-msgstr ""
+msgstr "命令行接口"
 
 #: ../../source/topics/cli.rst:7
 msgid ""
 "The command line interface utility for AiiDA is called ``verdi``. This "
 "section explains the basic concepts that apply to all ``verdi`` commands."
-msgstr ""
+msgstr "AiiDA的命令行接口实用程序称为 ``verdi`` 。本节解释适用于所有 ``verdi`` 命令的基本概念。"
 
 #: ../../source/topics/cli.rst:12
 msgid ""
@@ -1894,16 +2164,16 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:20
 msgid "Parameters"
-msgstr ""
+msgstr "参数"
 
 #: ../../source/topics/cli.rst:21
 msgid "Parameters to ``verdi`` commands come in two flavors:"
-msgstr ""
+msgstr "``verdi`` 命令的参数有两种方式："
 
 #: ../../source/topics/cli.rst:23
 msgid ""
 "Arguments: positional parameters, e.g. ``123`` in ``verdi process kill 123``"
-msgstr ""
+msgstr "参数：位置参数，例如 ``123`` in ``verdi process kill 123``"
 
 #: ../../source/topics/cli.rst:24
 msgid ""
@@ -1911,10 +2181,12 @@ msgid ""
 "followed by a value. E.g. ``verdi process list --limit 10`` or ``verdi "
 "process -h``."
 msgstr ""
+"选项： 由一个标志宣布(例如， ``-f`` 或 ``--flag`` )，后面可能跟着一个值，如， ``verdi process list "
+"--limit 10`` 或 ``verdi process -h`` 。"
 
 #: ../../source/topics/cli.rst:29
 msgid "Multi-value options"
-msgstr ""
+msgstr "多值选项"
 
 #: ../../source/topics/cli.rst:31
 msgid ""
@@ -1935,7 +2207,7 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:46
 msgid "Help strings"
-msgstr ""
+msgstr "帮助信息"
 
 #: ../../source/topics/cli.rst:47
 msgid ""
@@ -1957,7 +2229,7 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:65
 msgid "A list of the available options"
-msgstr ""
+msgstr "一个全部可用选项的列表"
 
 #: ../../source/topics/cli.rst:67
 msgid ""
@@ -1994,7 +2266,7 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:97
 msgid "Profile"
-msgstr ""
+msgstr "配置"
 
 #: ../../source/topics/cli.rst:98
 msgid ""
@@ -2056,7 +2328,7 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:142
 msgid "Identifiers"
-msgstr ""
+msgstr "身份信息（Identifiers）"
 
 #: ../../source/topics/cli.rst:144
 msgid ""
@@ -2153,43 +2425,43 @@ msgstr ""
 
 #: ../../source/topics/cli.rst:181
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: ../../source/topics/cli.rst:181
 msgid "LABEL"
-msgstr ""
+msgstr "LABEL"
 
 #: ../../source/topics/cli.rst:183 ../../source/topics/cli.rst:184
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: ../../source/topics/cli.rst:183
 msgid "12dfb104-7b2b-4bca-adc0-1e4fd4ffcc88"
-msgstr ""
+msgstr "12dfb104-7b2b-4bca-adc0-1e4fd4ffcc88"
 
 #: ../../source/topics/cli.rst:183
 msgid "group"
-msgstr ""
+msgstr "group"
 
 #: ../../source/topics/cli.rst:184
 msgid "11"
-msgstr ""
+msgstr "11"
 
 #: ../../source/topics/cli.rst:184
 msgid "deadbeef-62ba-444f-976d-31d925dac557"
-msgstr ""
+msgstr "deadbeef-62ba-444f-976d-31d925dac557"
 
 #: ../../source/topics/cli.rst:185
 msgid "12"
-msgstr ""
+msgstr "12"
 
 #: ../../source/topics/cli.rst:185
 msgid "3df34a1e-5215-4e1a-b626-7f75b9586ef5"
-msgstr ""
+msgstr "3df34a1e-5215-4e1a-b626-7f75b9586ef5"
 
 #: ../../source/topics/cli.rst:185
 msgid "deadbeef"
-msgstr ""
+msgstr "deadbeef"
 
 #: ../../source/topics/cli.rst:188
 msgid ""
@@ -2228,7 +2500,7 @@ msgstr ""
 
 #: ../../source/topics/daemon.rst:5
 msgid "Daemon"
-msgstr ""
+msgstr "守护进程"
 
 #: ../../source/topics/daemon.rst:7
 msgid ""
@@ -2334,7 +2606,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:5
 msgid "Data types"
-msgstr ""
+msgstr "数据类型"
 
 #: ../../source/topics/data_types.rst:7
 msgid ""
@@ -2640,7 +2912,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:87
 msgid "Base types"
-msgstr ""
+msgstr "基础类型"
 
 #: ../../source/topics/data_types.rst:89
 msgid ""
@@ -2777,7 +3049,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:232
 msgid "ArrayData"
-msgstr ""
+msgstr "数组结构（ArrayData）"
 
 #: ../../source/topics/data_types.rst:234
 msgid ""
@@ -2818,7 +3090,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:272
 msgid "XyData"
-msgstr ""
+msgstr "XyData"
 
 #: ../../source/topics/data_types.rst:274
 msgid ""
@@ -2847,7 +3119,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:297
 msgid "SinglefileData"
-msgstr ""
+msgstr "单一文件信息（SinglefileData）"
 
 #: ../../source/topics/data_types.rst:299
 msgid ""
@@ -2931,7 +3203,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:357
 msgid "FolderData"
-msgstr ""
+msgstr "文件夹数据（FolderData）"
 
 #: ../../source/topics/data_types.rst:359
 msgid ""
@@ -3037,7 +3309,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:467
 msgid "RemoteData"
-msgstr ""
+msgstr "远程数据（RemoteData）"
 
 #: ../../source/topics/data_types.rst:469
 msgid ""
@@ -3247,7 +3519,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:624
 msgid "Setup"
-msgstr ""
+msgstr "配置"
 
 #: ../../source/topics/data_types.rst:626
 msgid ""
@@ -3460,7 +3732,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:777
 msgid "StructureData"
-msgstr ""
+msgstr "结构数据（StructureData）"
 
 #: ../../source/topics/data_types.rst:779
 msgid ""
@@ -3527,19 +3799,19 @@ msgstr ""
 msgid ""
 "``xsf`` (format supported by e.g. XCrySDen and other visualization software;"
 " supports periodic cells)"
-msgstr ""
+msgstr "``xsf`` （被诸如XCrySDen等可视化软件支持的文件格式，支持周期性晶胞）"
 
 #: ../../source/topics/data_types.rst:843
 msgid ""
 "``xyz`` (classical xyz format, does not typically support periodic cells "
 "(even if the cell is indicated in the comment line)"
-msgstr ""
+msgstr "``xyz`` （经典的xyz格式，通常不支持周期性晶胞（即使在命令行中已指定了周期性））"
 
 #: ../../source/topics/data_types.rst:844
 msgid ""
 "``cif`` (export to CIF format, without symmetry reduction, i.e. always "
 "storing the structure as P1 symmetry)"
-msgstr ""
+msgstr "``cif`` （导出为CIF文件格式，不会损失对称性，即通常把结构以P1空间群来保存）"
 
 #: ../../source/topics/data_types.rst:846
 msgid "The node can be exported using the verdi CLI, for example:"
@@ -3554,7 +3826,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:858
 msgid "TrajectoryData"
-msgstr ""
+msgstr "构象数据（TrajectoryData）"
 
 #: ../../source/topics/data_types.rst:860
 msgid ""
@@ -3588,18 +3860,18 @@ msgstr ""
 #: ../../source/topics/data_types.rst:877
 #: ../../source/topics/data_types.rst:1135
 msgid "The following export formats are available:"
-msgstr ""
+msgstr "有以下可用导出文件类型:"
 
 #: ../../source/topics/data_types.rst:881
 msgid ""
 "``cif`` (export to CIF format, without symmetry reduction, i.e. always "
 "storing the structures as P1 symmetry)"
-msgstr ""
+msgstr "``cif`` （导出为CIF文件格式，不会推倒还原对称性，即通常把结构以P1空间群来保存）"
 
 #: ../../source/topics/data_types.rst:884
 #: ../../source/topics/data_types.rst:1177 ../../source/topics/database.rst:7
 msgid "Todo"
-msgstr ""
+msgstr "Todo"
 
 #: ../../source/topics/data_types.rst:886
 msgid "Think of more example use cases, see `#4529`_."
@@ -3607,7 +3879,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:893
 msgid "UpfData"
-msgstr ""
+msgstr "UpfData"
 
 #: ../../source/topics/data_types.rst:895
 msgid ""
@@ -3626,7 +3898,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:912
 msgid "KpointsData"
-msgstr ""
+msgstr "KpointsData"
 
 #: ../../source/topics/data_types.rst:914
 msgid ""
@@ -3667,13 +3939,13 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:945
 msgid "Automatic computation of k-point paths"
-msgstr ""
+msgstr "K-point路径的自动计算"
 
 #: ../../source/topics/data_types.rst:947
 msgid ""
 "AiiDA provides a number of tools and wrappers to automatically compute "
 "k-point paths given a cell or a crystal structure."
-msgstr ""
+msgstr "AiiDA提供一系列工具和包装以自动完成对给定晶格或者晶体结构的k-point路径的计算。"
 
 #: ../../source/topics/data_types.rst:949
 msgid ""
@@ -3686,11 +3958,11 @@ msgstr ""
 msgid ""
 "These methods are also conveniently exported directly as, e.g., "
 "``aiida.tools.get_kpoints_path``."
-msgstr ""
+msgstr "这些方法对我们来说也都可以很方便地访问，例如 ``aiida.tools.get_kpoints_path`` 。"
 
 #: ../../source/topics/data_types.rst:953
 msgid "The difference between the two methods is the following:"
-msgstr ""
+msgstr "两种方法的不同之处在于:"
 
 #: ../../source/topics/data_types.rst:955
 msgid ""
@@ -3713,7 +3985,7 @@ msgstr ""
 msgid ""
 "Depending on how the underlying code works, one method might be preferred on"
 " the other."
-msgstr ""
+msgstr "方法各自的优势取决于以下的代码如何工作。"
 
 #: ../../source/topics/data_types.rst:960
 msgid ""
@@ -3729,11 +4001,11 @@ msgstr ""
 msgid ""
 "Additional parameters are passed as ``kwargs`` to the underlying "
 "implementation, that often accepts a different number of parameters."
-msgstr ""
+msgstr "附加参数在下文中以 ``kwargs`` 形式传入，通常接受不同数目的参数。"
 
 #: ../../source/topics/data_types.rst:968
 msgid "Seekpath implementation"
-msgstr ""
+msgstr "Seekpath实现"
 
 #: ../../source/topics/data_types.rst:970
 msgid ""
@@ -3743,6 +4015,10 @@ msgid ""
 " available by default, in order to reduce the dependencies of AiiDA core, "
 "but can be easily installed using ``pip install seekpath``)."
 msgstr ""
+"当指定 ``method='seekpath'`` ，  `seekpath "
+"<https://github.com/giovannipizzi/seekpath/>`_ 库被用于生成路径。注意到这需要预先安装 "
+"``seekpath`` （为了减少 AiiDA core 的依赖默认是不提供的，但可以通过 ``pip install seekpath`` "
+"命令来快速安装）。"
 
 #: ../../source/topics/data_types.rst:973
 msgid ""
@@ -3753,22 +4029,28 @@ msgid ""
 "and for more general information to the `seekpath documentation "
 "<https://seekpath.readthedocs.io/>`_."
 msgstr ""
+"对各个接受参数的详细解释，请参阅以下方法的文档字符串：:py:func:`aiida.tools.data.array.kpoints.seekpath.get_explicit_kpoints_path`"
+" 和 :py:func:`aiida.tools.data.array.kpoints.seekpath.get_kpoints_path`, and "
+"for more general information to the `seekpath documentation "
+"<https://seekpath.readthedocs.io/>`_ 。"
 
 #: ../../source/topics/data_types.rst:975
 msgid ""
 "If you use this implementation, please cite the `Hinuma paper "
 "<https://doi.org/10.1016/j.commatsci.2016.10.015>`_::"
 msgstr ""
+"若你使用了这一实现，请引用  `Hinuma paper "
+"<https://doi.org/10.1016/j.commatsci.2016.10.015>`_::"
 
 #: ../../source/topics/data_types.rst:0
 msgid "Legacy implementation"
-msgstr ""
+msgstr "Legacy实现"
 
 #: ../../source/topics/data_types.rst:984
 msgid ""
 "This refers to the implementation that has been available since the early "
 "versions of AiiDA."
-msgstr ""
+msgstr "这一实现从早期版本的AiiDA开始便被支持。"
 
 #: ../../source/topics/data_types.rst:986
 msgid ""
@@ -3788,6 +4070,8 @@ msgid ""
 "(primitive and conventional) as described in the `Hinuma paper "
 "<https://doi.org/10.1016/j.commatsci.2016.10.015>`_."
 msgstr ""
+"我们因此建议用户使用seekpath实现，因为此实现可以自动正确识别标准化的晶体结构（元胞或常规），正如 `Hinuma paper "
+"<https://doi.org/10.1016/j.commatsci.2016.10.015>`_ 所描述的那样。"
 
 #: ../../source/topics/data_types.rst:992
 msgid ""
@@ -3798,28 +4082,37 @@ msgid ""
 "for more general information to the `seekpath documentation "
 "<https://seekpath.readthedocs.io/>`_."
 msgstr ""
+"对于接受参数的完整描述，请参阅以下方法的文档字符串： "
+":py:func:`aiida.tools.data.array.kpoints.legacy.get_explicit_kpoints_path` 和"
+" :py:func:`aiida.tools.data.array.kpoints.legacy.get_kpoints_path`, and for "
+"more general information to the `seekpath documentation "
+"<https://seekpath.readthedocs.io/>`_ 。"
 
 #: ../../source/topics/data_types.rst:994
 msgid ""
 "If you use this implementation, please cite the correct reference from the "
 "following ones:"
-msgstr ""
+msgstr "若你使用此实现，请正确引用以下的参考文献: "
 
 #: ../../source/topics/data_types.rst:996
 msgid ""
 "The 3D implementation is based on the `Setyawan paper "
 "<https://doi.org/10.1016/j.commatsci.2010.05.010>`_::"
 msgstr ""
+"The 3D implementation is based on the `Setyawan paper "
+"<https://doi.org/10.1016/j.commatsci.2010.05.010>`_::"
 
 #: ../../source/topics/data_types.rst:1003
 msgid ""
 "The 2D implementation is based on the `Ramirez paper "
 "<https://doi.org/10.1002/qua.560300306>`_::"
 msgstr ""
+"The 2D implementation is based on the `Ramirez paper "
+"<https://doi.org/10.1002/qua.560300306>`_::"
 
 #: ../../source/topics/data_types.rst:1013
 msgid "BandsData"
-msgstr ""
+msgstr "BandsData"
 
 #: ../../source/topics/data_types.rst:1015
 msgid ""
@@ -3863,7 +4156,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:0
 msgid "Plotting the band structure"
-msgstr ""
+msgstr "绘制能带结构图"
 
 #: ../../source/topics/data_types.rst:1074
 msgid ""
@@ -3873,7 +4166,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:1087
 msgid "The resulting band structure will look as follows"
-msgstr ""
+msgstr "得到的能带结构如下所示"
 
 #: ../../source/topics/data_types.rst:1093
 msgid ""
@@ -3899,10 +4192,13 @@ msgid ""
 "them. The intervals between the kpoints on the X axis are proportional to "
 "the cartesian distance between them."
 msgstr ""
+"第一种情形下，两个相邻的被分别标记为 ``X`` 和 ``Y`` 的k点看起来如同 ``X|Y`` "
+"；而第二种情形下，两者被分开到一定距离。这种距离的产生的原因如下。第一种情形下，绘图的方法发现了两个相邻的k点，并假设它们是能带结构中两个不连续的点（例如Gamma-X|Y-U）；第二种情形下，被标记为"
+" ``X`` 和 ``Y`` 的k点不再相邻，因而可以一确定距离被绘制出来。X轴上k点的间隔与它们笛卡尔坐标间的距离是等比例的。"
 
 #: ../../source/topics/data_types.rst:0
 msgid "Dealing with spins"
-msgstr ""
+msgstr "自旋的处理"
 
 #: ../../source/topics/data_types.rst:1120
 msgid ""
@@ -3915,7 +4211,7 @@ msgstr ""
 #: ../../source/topics/data_types.rst:1129
 msgid ""
 "Now the shape of the bands array becomes ``nspins * nkpoints * nstates``"
-msgstr ""
+msgstr "现在能带数组的大小变为 ``nspins * nkpoints * nstates`` "
 
 #: ../../source/topics/data_types.rst:1133
 msgid ""
@@ -3928,13 +4224,13 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:1137
 msgid "``agr``: export a Xmgrace .agr file with the band plot"
-msgstr ""
+msgstr "``agr`` : 导出一个包含能带图的Xmgrace .agr文件"
 
 #: ../../source/topics/data_types.rst:1138
 msgid ""
 "``agr_batch``: export a Xmgrace batch file together with an independent .dat"
 " file"
-msgstr ""
+msgstr "``agr_batch``: 导出一个Xmgrace批处理文件以及一个独立的 .dat 文件"
 
 #: ../../source/topics/data_types.rst:1139
 msgid ""
@@ -3963,6 +4259,8 @@ msgid ""
 "using the ``matplotlib`` module. All data is included in the same python "
 "file as a multiline string containing the data in json format."
 msgstr ""
+"``mpl_singlefile``: 导出一个python文件，执行后可由 ``matplotlib`` "
+"模块显示图线。全部的数据都存储为json格式并以一个多行字符串的形式被包含在同一个python文件中。"
 
 #: ../../source/topics/data_types.rst:1145
 msgid ""
@@ -3978,6 +4276,9 @@ msgid ""
 "it requires that you have LaTeX installed on your system to typeset the "
 "labels, as well as the ``dvipng`` binary."
 msgstr ""
+"``mpl_pdf``: 同上，但创建 .py 文件后将自动运行并将能带结构（以矢量图的形式）导出到一个 PDF 文件。**注意**：这需要你预先安装好"
+" ``matplotlib`` 模块。若 ``use_latex`` 为真，则需要预先将 LaTeX 和 ``dvipng`` "
+"二进制文件安装在系统中以排版其中的标签。"
 
 #: ../../source/topics/data_types.rst:1149
 msgid ""
@@ -3985,6 +4286,8 @@ msgid ""
 "the band structure in a PDF file (vectorial). **NOTE**: this format has the "
 "same dependencies as the ``mpl_pdf`` format above."
 msgstr ""
+"``mpl_png``: 同上，但在创建 .py 文件后将自动运行并将能带结构（以矢量图的形式）导出到一个 PDF 文件。**注意**：此格式与上述的 "
+"``mpl_pdf`` 格式具有相同的依赖要求。"
 
 #: ../../source/topics/data_types.rst:1152
 msgid ""
@@ -3993,6 +4296,9 @@ msgid ""
 " with :math:`\\Gamma` or ``K_1`` with :math:`K_{1}` for instance. This makes"
 " sense for some output formats (e.g. Xmgrace, Gnuplot, matplotlib)."
 msgstr ""
+"AiiDA提供一系列函数用于“美化”标签和能带结构（如果标签在数据节点中出现），举例的话也就是说，可以将 ``GAMMA`` 替换为 "
+":math:`\\Gamma` ，将 ``K_1`` 替换为 :math:`K_{1}` 。这对于一些文件输出格式生效（例如Xmgrace, "
+"Gnuplot, matplotlib等）。"
 
 #: ../../source/topics/data_types.rst:1155
 msgid ""
@@ -4004,7 +4310,7 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:1157
 msgid "The prettifiers should be chosen depending on two aspects:"
-msgstr ""
+msgstr "美化应依据两个方面选取："
 
 #: ../../source/topics/data_types.rst:1159
 msgid ""
@@ -4028,6 +4334,9 @@ msgid ""
 "parameter to the :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method."
 " Valid prettifiers include:"
 msgstr ""
+"大多数导出文件格式已预先确定最佳的美化方法，但若你需要将其修改，你可以向 "
+":py:meth:`~aiida.orm.nodes.data.data.Data.export()` 方法传入 ``prettify_format``"
+" 参数。有效的美化方法包括:"
 
 #: ../../source/topics/data_types.rst:1169
 msgid ""
@@ -4101,6 +4410,9 @@ msgid ""
 "data will typically be in a different .dat file). The return value of the "
 "function is a list of files that have been created."
 msgstr ""
+":py:meth:`~aiida.orm.nodes.data.data.Data.export()` "
+"方法需要一个文件名，并将结果写入该文件中。写入多于一个文件是可行的（例如若你需要生成gnuplot脚本，数据通常会导出为另一个不同的 .dat "
+"文件）。函数的返回值是创建文件的列表。"
 
 #: ../../source/topics/data_types.rst:1202
 msgid ""
@@ -4112,6 +4424,9 @@ msgid ""
 "export formats can be obtained calling ``Data.get_export_formats()`` method,"
 " that returns a list of strings with all valid formats."
 msgstr ""
+"导出文件的列表取决于具体的数据插件。导出格式通常由文件扩展名推测，但若不可用（或你希望选定特定的文件格式），则你可向 "
+":py:meth:`~aiida.orm.nodes.data.data.Data.export()` 传入一个附加的 ``fileformat`` "
+"参数。全部有效的格式可通过调用 ``Data.get_export_formats()`` 获得，这将返回一个包含全部有效格式的字符串列表。"
 
 #: ../../source/topics/data_types.rst:1206
 msgid ""
@@ -4124,6 +4439,10 @@ msgid ""
 "that should be created/needed: the keys are filenames, and the values are "
 "the files content."
 msgstr ""
+"若你不希望直接导出到文件，而是以字符串的形式得到文件内容，你可以调用 "
+":py:meth:`~aiida.orm.nodes.data.data.Data._exportcontent()` 方法，同样需要传入 "
+"``fileformat`` "
+"参数。返回值会是一个长度为2的元组：第一个元素是一个包含“主要”文件内容的字符串，第二个元素则是一个包含应被创建的附加文件列表的字典（可能为空），其键是文件名，值是文件内容。"
 
 #: ../../source/topics/data_types.rst:1212
 msgid "Adding support for custom data types"
@@ -4328,7 +4647,7 @@ msgstr ""
 
 #: ../../source/topics/database.rst:23
 msgid "Working with edges"
-msgstr ""
+msgstr "利用边"
 
 #: ../../source/topics/database.rst:25
 msgid ""
@@ -4434,7 +4753,7 @@ msgstr ""
 
 #: ../../source/topics/database.rst:96
 msgid "bool"
-msgstr ""
+msgstr "布尔值"
 
 #: ../../source/topics/database.rst:96
 msgid "b"
@@ -4516,19 +4835,19 @@ msgstr ""
 
 #: ../../source/topics/database.rst:145
 msgid "**Operator**"
-msgstr ""
+msgstr "**操作符**"
 
 #: ../../source/topics/database.rst:145
 msgid "**Datatype**"
-msgstr ""
+msgstr "**适用数据类型**"
 
 #: ../../source/topics/database.rst:145
 msgid "**Example**"
-msgstr ""
+msgstr "**用法举例**"
 
 #: ../../source/topics/database.rst:145
 msgid "Explanation"
-msgstr ""
+msgstr "释义"
 
 #: ../../source/topics/database.rst:147
 msgid "``==``"
@@ -4580,7 +4899,7 @@ msgstr ""
 
 #: ../../source/topics/database.rst:155 ../../source/topics/database.rst:160
 msgid "string"
-msgstr ""
+msgstr "string"
 
 #: ../../source/topics/database.rst:155
 msgid "``'name': {'like': 'label%'}``"
@@ -4610,7 +4929,7 @@ msgstr ""
 
 #: ../../source/topics/database.rst:162 ../../source/topics/database.rst:165
 msgid "list of expressions"
-msgstr ""
+msgstr "条件列表"
 
 #: ../../source/topics/database.rst:162
 msgid "``'id': {'or': [{'<': 12}, {'==': 199}]}``"
@@ -4650,7 +4969,7 @@ msgstr ""
 
 #: ../../source/topics/database.rst:170
 msgid "any"
-msgstr ""
+msgstr "任意"
 
 #: ../../source/topics/database.rst:170
 msgid "``'attributes.some_key': {'of_type': 'bool'}``"
@@ -4667,7 +4986,7 @@ msgstr ""
 #: ../../source/topics/database.rst:172 ../../source/topics/database.rst:174
 #: ../../source/topics/database.rst:176 ../../source/topics/database.rst:178
 msgid "lists"
-msgstr ""
+msgstr "列表"
 
 #: ../../source/topics/database.rst:172
 msgid "``'attributes.some_list': {'of_length': 4}``"
@@ -4734,19 +5053,19 @@ msgstr ""
 
 #: ../../source/topics/database.rst:193
 msgid "**Entity from**"
-msgstr ""
+msgstr "**实体来源**"
 
 #: ../../source/topics/database.rst:193
 msgid "**Entity to**"
-msgstr ""
+msgstr "**实体去向**"
 
 #: ../../source/topics/database.rst:193
 msgid "**Relationship**"
-msgstr ""
+msgstr "**关系**"
 
 #: ../../source/topics/database.rst:193
 msgid "**Explanation**"
-msgstr ""
+msgstr "**释义**"
 
 #: ../../source/topics/database.rst:195 ../../source/topics/database.rst:197
 #: ../../source/topics/database.rst:199 ../../source/topics/database.rst:201
@@ -4755,142 +5074,142 @@ msgstr ""
 #: ../../source/topics/database.rst:211 ../../source/topics/database.rst:213
 #: ../../source/topics/database.rst:219 ../../source/topics/database.rst:224
 msgid "Node"
-msgstr ""
+msgstr "Node"
 
 #: ../../source/topics/database.rst:195
 msgid "*with_outgoing*"
-msgstr ""
+msgstr "*with_outgoing*"
 
 #: ../../source/topics/database.rst:195
 msgid "One node as input of another node"
-msgstr ""
+msgstr "一个节点作为另一个节点的输入"
 
 #: ../../source/topics/database.rst:197
 msgid "*with_incoming*"
-msgstr ""
+msgstr "*with_incoming*"
 
 #: ../../source/topics/database.rst:197
 msgid "One node as output of another node"
-msgstr ""
+msgstr "一个节点作为另一个节点的输出"
 
 #: ../../source/topics/database.rst:199
 msgid "*with_descendants*"
-msgstr ""
+msgstr "*with_descendants*"
 
 #: ../../source/topics/database.rst:199
 msgid "One node as the ancestor of another node (Path)"
-msgstr ""
+msgstr "一个节点作为另一个节点的始祖（Path）"
 
 #: ../../source/topics/database.rst:201
 msgid "*with_ancestors*"
-msgstr ""
+msgstr "*with_ancestors*"
 
 #: ../../source/topics/database.rst:201
 msgid "One node as descendant of another node (Path)"
-msgstr ""
+msgstr "一个节点作为另一个节点的后代（Path）"
 
 #: ../../source/topics/database.rst:203 ../../source/topics/database.rst:205
 #: ../../source/topics/database.rst:215 ../../source/topics/database.rst:217
 msgid "Group"
-msgstr ""
+msgstr "Group"
 
 #: ../../source/topics/database.rst:203 ../../source/topics/database.rst:207
 #: ../../source/topics/database.rst:211 ../../source/topics/database.rst:219
 msgid "*with_node*"
-msgstr ""
+msgstr "*with_node*"
 
 #: ../../source/topics/database.rst:203
 msgid "The group of a node"
-msgstr ""
+msgstr "节点所在的组"
 
 #: ../../source/topics/database.rst:205 ../../source/topics/database.rst:217
 msgid "*with_group*"
-msgstr ""
+msgstr "*with_group*"
 
 #: ../../source/topics/database.rst:205
 msgid "The node is a member of a group"
-msgstr ""
+msgstr "组的成员节点"
 
 #: ../../source/topics/database.rst:207 ../../source/topics/database.rst:209
 msgid "Computer"
-msgstr ""
+msgstr "Computer"
 
 #: ../../source/topics/database.rst:207
 msgid "The computer of a node"
-msgstr ""
+msgstr "节点对应的计算机器"
 
 #: ../../source/topics/database.rst:209
 msgid "*with_computer*"
-msgstr ""
+msgstr "*with_computer*"
 
 #: ../../source/topics/database.rst:209
 msgid "The node of a computer"
-msgstr ""
+msgstr "计算机器包含的节点"
 
 #: ../../source/topics/database.rst:211 ../../source/topics/database.rst:213
 #: ../../source/topics/database.rst:215 ../../source/topics/database.rst:217
 #: ../../source/topics/database.rst:226 ../../source/topics/database.rst:228
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: ../../source/topics/database.rst:211
 msgid "The creator of a node is a user"
-msgstr ""
+msgstr "节点的创建用户"
 
 #: ../../source/topics/database.rst:213 ../../source/topics/database.rst:215
 #: ../../source/topics/database.rst:226
 msgid "*with_user*"
-msgstr ""
+msgstr "*with_user*"
 
 #: ../../source/topics/database.rst:213 ../../source/topics/database.rst:215
 #: ../../source/topics/database.rst:217
 msgid "The node was created by a user"
-msgstr ""
+msgstr "由用户创建的节点"
 
 #: ../../source/topics/database.rst:219
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: ../../source/topics/database.rst:219
 msgid "The log of a node"
-msgstr ""
+msgstr "节点的日志"
 
 #: ../../source/topics/database.rst:221
 msgid "Log Node"
-msgstr ""
+msgstr "Log Node"
 
 #: ../../source/topics/database.rst:221
 msgid "Node Comment"
-msgstr ""
+msgstr "Node Comment"
 
 #: ../../source/topics/database.rst:221
 msgid "*with_log* *with_node*"
-msgstr ""
+msgstr "*with_log* *with_node*"
 
 #: ../../source/topics/database.rst:221
 msgid "The node has a log The comment of a node"
-msgstr ""
+msgstr "包含日志的节点 节点的注释"
 
 #: ../../source/topics/database.rst:224 ../../source/topics/database.rst:226
 #: ../../source/topics/database.rst:228
 msgid "Comment"
-msgstr ""
+msgstr "Comment"
 
 #: ../../source/topics/database.rst:224 ../../source/topics/database.rst:228
 msgid "*with_comment*"
-msgstr ""
+msgstr "*with_comment*"
 
 #: ../../source/topics/database.rst:224
 msgid "The node has a comment"
-msgstr ""
+msgstr "包含注释的节点"
 
 #: ../../source/topics/database.rst:226
 msgid "The comment was created by a user"
-msgstr ""
+msgstr "用户创建的注释"
 
 #: ../../source/topics/database.rst:228
 msgid "The creator of a comment is a user"
-msgstr ""
+msgstr "创建注释的用户"
 
 #: ../../source/topics/database.rst:235
 msgid "Converting the QueryBuilder to/from a dictionary"
@@ -4955,6 +5274,8 @@ msgid ""
 "joining instructions, assuming there is a structure defined at index 2 of "
 "the path with tag \"struc1\"::"
 msgstr ""
+"你可以在列表中的当前节点前指定该节点作为另一个节点的输入或输出，被指定的节点可由一个整数或其类、类型来确定。以下的例子均为成功的连接操作，假设存在一个结构被定义为标记为“struc1”的结构的索引2"
+" ::"
 
 #: ../../source/topics/database.rst:310
 msgid "``query_dict['path'][<i>]['direction'] = integer``"
@@ -4983,7 +5304,7 @@ msgstr ""
 msgid ""
 "If you are using JSONB columns, you can also project a value stored inside "
 "the json::"
-msgstr ""
+msgstr "若你在使用JSONB列表，你也可以将存储在json中的数据映射::"
 
 #: ../../source/topics/database.rst:388
 msgid ""
@@ -5031,7 +5352,7 @@ msgstr ""
 
 #: ../../source/topics/index.rst:3
 msgid "Topics"
-msgstr ""
+msgstr "相关主题"
 
 #: ../../source/topics/performance.rst:5
 msgid "Performance"
@@ -5455,7 +5776,7 @@ msgstr ""
 
 #: ../../source/topics/plugins.rst:129
 msgid "``aiida.parsers``"
-msgstr ""
+msgstr "``aiida.parsers``"
 
 #: ../../source/topics/plugins.rst:131
 msgid ""
@@ -5518,7 +5839,7 @@ msgstr ""
 
 #: ../../source/topics/plugins.rst:197
 msgid "``aiida.cmdline``"
-msgstr ""
+msgstr "``aiida.cmdline``"
 
 #: ../../source/topics/plugins.rst:199
 msgid ""
@@ -6125,6 +6446,9 @@ msgid ""
 "This can be a local runner or one of the daemon runners in case of the "
 "daemon running the process."
 msgstr ""
+"所有可以通过AiiDA运行的事件都是:py:class:`~aiida.engine.processes.process.Process` 类的实例。 "
+"``Process`` 类包含了有关运行用户，运行方法，运行逻辑的所有信息。特别的，运行该例程的用户属于类 "
+":py:class:`~aiida.engine.runners.Runner` 的实例。该运行者可以是本地用户，也可是守护进程的的持有者。"
 
 #: ../../source/topics/processes/concepts.rst:12
 msgid ""
@@ -6146,22 +6470,25 @@ msgid ""
 "good thing to remember is that while it is running, we are dealing with the "
 "``Process`` and when it is finished we interact with the ``ProcessNode``."
 msgstr ""
+"其父类的分工是非常明确的。``Process`` 类描述了任务该如何运行，``ProcessNode`` "
+"类则用于在数据库中记录当时间运行时真实发生的过程。也就是说当事件运行时用户面对``Process``类，而事件运行结束后使用``ProcessNode``"
+" 进行交互。"
 
 #: ../../source/topics/processes/concepts.rst:24
 msgid "Process types"
-msgstr ""
+msgstr "例程类别"
 
 #: ../../source/topics/processes/concepts.rst:26
 msgid "Processes in AiiDA come in two flavors:"
-msgstr ""
+msgstr "AiiDA中的例程主要有以下两类："
 
 #: ../../source/topics/processes/concepts.rst:28
 msgid "Calculation-like"
-msgstr ""
+msgstr "算例类型"
 
 #: ../../source/topics/processes/concepts.rst:29
 msgid "Workflow-like"
-msgstr ""
+msgstr "工作流类型"
 
 #: ../../source/topics/processes/concepts.rst:31
 msgid ""
@@ -6181,66 +6508,68 @@ msgid ""
 "Currently, there are four types of processes in ``aiida-core`` and the "
 "following table shows with which node class it is represented in the "
 "provenance graph and what the process is used for."
-msgstr ""
+msgstr "当前， ``aiida-core`` 中有如下表中四类例程，表中还展示了不同的例程表示在可验证性图中的具体节点类型和例程的具体使用场景。"
 
 #: ../../source/topics/processes/concepts.rst:39
 msgid "Process class"
-msgstr ""
+msgstr "Process 类"
 
 #: ../../source/topics/processes/concepts.rst:39
 msgid "Node class"
-msgstr ""
+msgstr "Node 类"
 
 #: ../../source/topics/processes/concepts.rst:39
 msgid "Used for"
-msgstr ""
+msgstr "使用场景"
 
 #: ../../source/topics/processes/concepts.rst:41
 msgid ":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`"
 
 #: ../../source/topics/processes/concepts.rst:41
 msgid ":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`"
-msgstr ""
+msgstr ":py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`"
 
 #: ../../source/topics/processes/concepts.rst:41
 msgid "Calculations performed by external codes"
-msgstr ""
+msgstr "外部软件代码执行的算例"
 
 #: ../../source/topics/processes/concepts.rst:42
 msgid ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`"
 
 #: ../../source/topics/processes/concepts.rst:42
 msgid ":py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`"
-msgstr ""
+msgstr ":py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`"
 
 #: ../../source/topics/processes/concepts.rst:42
 msgid "Workflows that run multiple calculations"
-msgstr ""
+msgstr "多个算例组成的工作流"
 
 #: ../../source/topics/processes/concepts.rst:43
 #: ../../source/topics/processes/concepts.rst:44
 msgid ":py:class:`~aiida.engine.processes.functions.FunctionProcess`"
-msgstr ""
+msgstr ":py:class:`~aiida.engine.processes.functions.FunctionProcess`"
 
 #: ../../source/topics/processes/concepts.rst:43
 msgid ""
 ":py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`"
 msgstr ""
+":py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`"
 
 #: ../../source/topics/processes/concepts.rst:43
 msgid "Python functions decorated with the ``@calcfunction`` decorator"
-msgstr ""
+msgstr "``@calculation`` 装饰器装饰的python 函数"
 
 #: ../../source/topics/processes/concepts.rst:44
 msgid ""
 ":py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`"
 msgstr ""
+":py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`"
 
 #: ../../source/topics/processes/concepts.rst:44
 msgid "Python functions decorated with the ``@workfunction`` decorator"
-msgstr ""
+msgstr "``@workfunction`` 装饰器装饰的python 函数"
 
 #: ../../source/topics/processes/concepts.rst:47
 msgid ""
@@ -6261,10 +6590,13 @@ msgid ""
 ":py:func:`~aiida.engine.processes.functions.calcfunction` or "
 ":py:func:`~aiida.engine.processes.functions.workfunction` is run."
 msgstr ""
+"``FunctionProcess`` 不需要直接实现，而是通过在python函数前添加装饰器来动态的通过AiiDA引擎创建。比如创建 "
+":py:func:`~aiida.engine.processes.functions.calcfunction`  "
+":py:func:`~aiida.engine.processes.functions.workfunction` 。"
 
 #: ../../source/topics/processes/concepts.rst:57
 msgid "Process state"
-msgstr ""
+msgstr "例程的状态"
 
 #: ../../source/topics/processes/concepts.rst:58
 msgid ""
@@ -6277,38 +6609,41 @@ msgid ""
 "as its database record, under the ``process_state`` attribute. The process "
 "can be in one of six states:"
 msgstr ""
+"每个被执行的 ``Process`` 实例都有其不同时刻的状态。该性质告诉用户当前例程所处于的运行时状态。这个信息被储存在 ``Process`` "
+"实例中或工作流引擎中，这些状态通过 ``plumpy`` 库来变换。然而当 ``Process`` "
+"实例运行结束时他就‘死亡’了，因此我们这时还会将算例节点的状态信息按照 ``process_state`` 属性记录进数据库中。算例的状态有以下六种 :"
 
 #: ../../source/topics/processes/concepts.rst:65
 msgid "*Active*"
-msgstr ""
+msgstr "*Active*"
 
 #: ../../source/topics/processes/concepts.rst:65
 msgid "*Terminated*"
-msgstr ""
+msgstr "*Terminated*"
 
 #: ../../source/topics/processes/concepts.rst:67
 msgid "Created"
-msgstr ""
+msgstr "Created"
 
 #: ../../source/topics/processes/concepts.rst:67
 msgid "Killed"
-msgstr ""
+msgstr "Killed"
 
 #: ../../source/topics/processes/concepts.rst:68
 msgid "Running"
-msgstr ""
+msgstr "Running"
 
 #: ../../source/topics/processes/concepts.rst:68
 msgid "Excepted"
-msgstr ""
+msgstr "Excepted"
 
 #: ../../source/topics/processes/concepts.rst:69
 msgid "Waiting"
-msgstr ""
+msgstr "Waiting"
 
 #: ../../source/topics/processes/concepts.rst:69
 msgid "Finished"
-msgstr ""
+msgstr "Finished"
 
 #: ../../source/topics/processes/concepts.rst:72
 msgid ""
@@ -6328,6 +6663,12 @@ msgid ""
 "result of the process can also be considered to be successful, it was just "
 "executed without any problems."
 msgstr ""
+"左边列是三个‘激活’状态，右边列时三个‘结束’状态。一旦一个例程到达结束状态之一，其状态就会始终停留在那里。当例程被创建时，自动将其状态设置为 "
+"``Created`` 状态。一旦其被运行器选中并处于激活的状态，它就被转向 ``Running`` "
+"状态。如果一个例程等待其他的例程完成，也就是说，它等待完成时，它处于 ``Waiting`` 状态。 如果例程处于 ``Killed`` "
+"状态，说明用户通过指令终止了它的运行，也可能时父例程终止了它的运行。 ``Excepted`` "
+"状态则表示运行过程中抛出了没有捕获的异常，或例程没有如预期正常结束。 最后是 ``Finished`` "
+"状态，该状态表示例程成功运行。注意，这个状态并不代表例程的运行结果是正确可靠的，它只是代表了运行顺利结束，没有出错。"
 
 #: ../../source/topics/processes/concepts.rst:82
 msgid ""
@@ -6343,99 +6684,99 @@ msgstr ""
 
 #: ../../source/topics/processes/concepts.rst:88
 msgid "Property"
-msgstr ""
+msgstr "属性"
 
 #: ../../source/topics/processes/concepts.rst:88
 msgid "Meaning"
-msgstr ""
+msgstr "含义"
 
 #: ../../source/topics/processes/concepts.rst:90
 msgid "``process_state``"
-msgstr ""
+msgstr "``process_state``"
 
 #: ../../source/topics/processes/concepts.rst:90
 msgid "Returns the current process state"
-msgstr ""
+msgstr "返回当前例程状态"
 
 #: ../../source/topics/processes/concepts.rst:91
 msgid "``exit_status``"
-msgstr ""
+msgstr "``exit_status``"
 
 #: ../../source/topics/processes/concepts.rst:91
 msgid "Returns the exit status, or None if not set"
-msgstr ""
+msgstr "返回例程结束时的具体退出状态，如果没有设置则是 ``None``"
 
 #: ../../source/topics/processes/concepts.rst:92
 msgid "``exit_message``"
-msgstr ""
+msgstr "``exit_message``"
 
 #: ../../source/topics/processes/concepts.rst:92
 msgid "Returns the exit message, or None if not set"
-msgstr ""
+msgstr "返回退出信息，如果没有设置则为 ``None``"
 
 #: ../../source/topics/processes/concepts.rst:93
 msgid "``is_terminated``"
-msgstr ""
+msgstr "``is_terminated``"
 
 #: ../../source/topics/processes/concepts.rst:93
 msgid ""
 "Returns ``True`` if the process was either ``Killed``, ``Excepted``, or "
 "``Finished``"
-msgstr ""
+msgstr "如果例程是 ``Killed`` ， ``Excepted`` 或 ``Finished`` 状态之一，则返回 ``True``"
 
 #: ../../source/topics/processes/concepts.rst:94
 msgid "``is_killed``"
-msgstr ""
+msgstr "``is_killed``"
 
 #: ../../source/topics/processes/concepts.rst:94
 msgid "Returns ``True`` if the process is ``Killed``"
-msgstr ""
+msgstr "返回 ``True`` 如果例程的状态是 ``Killed``"
 
 #: ../../source/topics/processes/concepts.rst:95
 msgid "``is_excepted``"
-msgstr ""
+msgstr "``is_excepted``"
 
 #: ../../source/topics/processes/concepts.rst:95
 msgid "Returns ``True`` if the process is ``Excepted``"
-msgstr ""
+msgstr "返回 ``True`` 如果例程的状态是 ``Excepted``"
 
 #: ../../source/topics/processes/concepts.rst:96
 msgid "``is_finished``"
-msgstr ""
+msgstr "``is_finished``"
 
 #: ../../source/topics/processes/concepts.rst:96
 msgid "Returns ``True`` if the process is ``Finished``"
-msgstr ""
+msgstr "返回 ``True`` 如果例程的状态是 ``Finished``"
 
 #: ../../source/topics/processes/concepts.rst:97
 msgid "``is_finished_ok``"
-msgstr ""
+msgstr "``is_finished_ok``"
 
 #: ../../source/topics/processes/concepts.rst:97
 msgid ""
 "Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
 "equal to zero"
-msgstr ""
+msgstr "返回 ``True`` 如果例程的状态是 ``Finished`` 且 ``exit_status`` 的值为 ``0`` (零)"
 
 #: ../../source/topics/processes/concepts.rst:98
 msgid "``is_failed``"
-msgstr ""
+msgstr "``is_failed``"
 
 #: ../../source/topics/processes/concepts.rst:98
 msgid ""
 "Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is "
 "non-zero"
-msgstr ""
+msgstr "返回 ``True`` 如果例程的状态是 ``Finished`` 且 ``exit_status`` 的值非零"
 
 #: ../../source/topics/processes/concepts.rst:101
 msgid ""
 "When you load a calculation node from the database, you can use these "
 "property methods to inquire about its state and exit status."
-msgstr ""
+msgstr "当用户从数据库中加载这些算例节点，可以使用这些属性方法来查询算例的当前状态和退出状态。"
 
 #: ../../source/topics/processes/concepts.rst:107
 msgid "Process exit codes"
-msgstr ""
+msgstr "例程结束代码"
 
 #: ../../source/topics/processes/concepts.rst:109
 msgid ""
@@ -6467,7 +6808,7 @@ msgstr ""
 
 #: ../../source/topics/processes/concepts.rst:124
 msgid "Process lifetime"
-msgstr ""
+msgstr "例程运行的生命周期"
 
 #: ../../source/topics/processes/concepts.rst:126
 msgid ""
@@ -6478,7 +6819,7 @@ msgstr ""
 
 #: ../../source/topics/processes/concepts.rst:131
 msgid "Process and node distinction"
-msgstr ""
+msgstr "例程和其节点的区别"
 
 #: ../../source/topics/processes/concepts.rst:132
 msgid ""
@@ -6501,7 +6842,7 @@ msgstr ""
 
 #: ../../source/topics/processes/concepts.rst:140
 msgid "Process tasks"
-msgstr ""
+msgstr "例程任务"
 
 #: ../../source/topics/processes/concepts.rst:141
 msgid ""
@@ -6555,6 +6896,9 @@ msgid ""
 "the process was intentionally terminated (or unintentionally), the process "
 "will never continue running again."
 msgstr ""
+"每一个运行器守护进程有一个可并发任务数上限，该上限约束了同时可运行的任务数量，当一些任务运行时，其他任务处于队列中等待被执行。当一个例程的实际任务处于等待被执行的队列中时，尽管它的状态时"
+" activate "
+"且没有终止，它也没有被实际运行。这时，因为例程并没有被实际运行，也就是在内存中并没有一个运行器运行它，用户这时不能与其交互。同样的，当例程中的任务退出（有意或无意的），这个例程将不会继续运行。"
 
 #: ../../source/topics/processes/concepts.rst:164
 msgid "A systems modelling representation of submitting a process."
@@ -6562,7 +6906,7 @@ msgstr ""
 
 #: ../../source/topics/processes/concepts.rst:170
 msgid "Process checkpoints"
-msgstr ""
+msgstr "例程检查点"
 
 #: ../../source/topics/processes/concepts.rst:171
 msgid ""
@@ -6606,7 +6950,7 @@ msgstr ""
 
 #: ../../source/topics/processes/functions.rst:5
 msgid "Process functions"
-msgstr ""
+msgstr "例程函数"
 
 #: ../../source/topics/processes/functions.rst:7
 msgid ""
@@ -7059,7 +7403,7 @@ msgstr ""
 #: ../../source/topics/processes/functions.rst:333
 #: ../../source/topics/provenance/index.rst:5
 msgid "Provenance"
-msgstr ""
+msgstr "可验证性（Provenance）"
 
 #: ../../source/topics/processes/functions.rst:334
 msgid ""
@@ -7071,19 +7415,19 @@ msgstr ""
 
 #: ../../source/topics/processes/functions.rst:336
 msgid "Function name"
-msgstr ""
+msgstr "函数名"
 
 #: ../../source/topics/processes/functions.rst:337
 msgid "Function namespace"
-msgstr ""
+msgstr "函数命名空间"
 
 #: ../../source/topics/processes/functions.rst:338
 msgid "Function starting line number"
-msgstr ""
+msgstr "函数起始行号"
 
 #: ../../source/topics/processes/functions.rst:339
 msgid "Function source file"
-msgstr ""
+msgstr "函数源文件"
 
 #: ../../source/topics/processes/functions.rst:341
 msgid ""
@@ -7117,7 +7461,7 @@ msgstr ""
 
 #: ../../source/topics/processes/functions.rst:356
 msgid "Reproducibility guidelines"
-msgstr ""
+msgstr "如何保证重现性指南"
 
 #: ../../source/topics/processes/functions.rst:357
 msgid ""
@@ -7128,15 +7472,15 @@ msgstr ""
 
 #: ../../source/topics/processes/functions.rst:359
 msgid "Do not leak data into functions"
-msgstr ""
+msgstr "不要将数据泄漏到函数中"
 
 #: ../../source/topics/processes/functions.rst:360
 msgid "Limit importing of external code"
-msgstr ""
+msgstr "限制导入外部计算代码"
 
 #: ../../source/topics/processes/functions.rst:361
 msgid "Keep functions self-consistent and in separate files"
-msgstr ""
+msgstr "保持函数自洽并在单独的文件中"
 
 #: ../../source/topics/processes/functions.rst:363
 msgid ""
@@ -7175,7 +7519,7 @@ msgstr ""
 
 #: ../../source/topics/processes/index.rst:5
 msgid "Processes"
-msgstr ""
+msgstr "例程"
 
 #: ../../source/topics/processes/index.rst:7
 msgid ""
@@ -7219,11 +7563,11 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:21
 msgid "Defining processes"
-msgstr ""
+msgstr "定义例程"
 
 #: ../../source/topics/processes/usage.rst:26
 msgid "Process specification"
-msgstr ""
+msgstr "例程规格"
 
 #: ../../source/topics/processes/usage.rst:27
 msgid ""
@@ -7255,15 +7599,15 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:35
 msgid "``inputs``"
-msgstr ""
+msgstr "``inputs``"
 
 #: ../../source/topics/processes/usage.rst:36
 msgid "``outputs``"
-msgstr ""
+msgstr "``outputs``"
 
 #: ../../source/topics/processes/usage.rst:37
 msgid "``exit_codes``"
-msgstr ""
+msgstr "``exit_codes``"
 
 #: ../../source/topics/processes/usage.rst:39
 msgid ""
@@ -7280,7 +7624,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:49
 msgid "Ports and Port namespaces"
-msgstr ""
+msgstr "端口和端口命名空间"
 
 #: ../../source/topics/processes/usage.rst:50
 msgid ""
@@ -7349,7 +7693,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:106
 msgid "Validation and defaults"
-msgstr ""
+msgstr "自动校验和默认值"
 
 #: ../../source/topics/processes/usage.rst:107
 msgid ""
@@ -7366,19 +7710,19 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:112
 msgid "``default``"
-msgstr ""
+msgstr "``default``"
 
 #: ../../source/topics/processes/usage.rst:113
 msgid "``required``"
-msgstr ""
+msgstr "``required``"
 
 #: ../../source/topics/processes/usage.rst:114
 msgid "``valid_type``"
-msgstr ""
+msgstr "``valid_type``"
 
 #: ../../source/topics/processes/usage.rst:115
 msgid "``validator``"
-msgstr ""
+msgstr "``validator``"
 
 #: ../../source/topics/processes/usage.rst:117
 msgid ""
@@ -7454,7 +7798,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:166
 msgid "Dynamic namespaces"
-msgstr ""
+msgstr "动态命名空间"
 
 #: ../../source/topics/processes/usage.rst:167
 msgid ""
@@ -7489,7 +7833,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:184
 msgid "Non storable inputs"
-msgstr ""
+msgstr "不存取的输入"
 
 #: ../../source/topics/processes/usage.rst:185
 msgid ""
@@ -7687,7 +8031,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:293
 msgid "Process metadata"
-msgstr ""
+msgstr "例程元数据"
 
 #: ../../source/topics/processes/usage.rst:295
 msgid ""
@@ -7727,7 +8071,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:312
 msgid "Launching processes"
-msgstr ""
+msgstr "启动例程"
 
 #: ../../source/topics/processes/usage.rst:313
 msgid ""
@@ -7745,7 +8089,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:323
 msgid "Process launch"
-msgstr ""
+msgstr "例程启动"
 
 #: ../../source/topics/processes/usage.rst:325
 msgid ""
@@ -7755,19 +8099,19 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:328
 msgid ":py:func:`~aiida.engine.launch.run`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run`"
 
 #: ../../source/topics/processes/usage.rst:329
 msgid ":py:func:`~aiida.engine.launch.run_get_node`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run_get_node`"
 
 #: ../../source/topics/processes/usage.rst:330
 msgid ":py:func:`~aiida.engine.launch.run_get_pk`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.run_get_pk`"
 
 #: ../../source/topics/processes/usage.rst:331
 msgid ":py:func:`~aiida.engine.launch.submit`"
-msgstr ""
+msgstr ":py:func:`~aiida.engine.launch.submit`"
 
 #: ../../source/topics/processes/usage.rst:333
 msgid ""
@@ -7898,11 +8242,11 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:413
 msgid "Simply *calling* the function"
-msgstr ""
+msgstr "只需*调用*函数"
 
 #: ../../source/topics/processes/usage.rst:414
 msgid "Using the internal run method attributes"
-msgstr ""
+msgstr "使用内部运行方法的属性"
 
 #: ../../source/topics/processes/usage.rst:416
 msgid ""
@@ -7912,7 +8256,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:425
 msgid "Process builder"
-msgstr ""
+msgstr "例程构建器"
 
 #: ../../source/topics/processes/usage.rst:426
 msgid ""
@@ -8011,7 +8355,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:499
 msgid "Monitoring processes"
-msgstr ""
+msgstr "监控例程"
 
 #: ../../source/topics/processes/usage.rst:500
 msgid ""
@@ -8022,7 +8366,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:507
 msgid "verdi process list"
-msgstr ""
+msgstr "verdi process list"
 
 #: ../../source/topics/processes/usage.rst:508
 msgid ""
@@ -8098,7 +8442,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:578
 msgid "verdi process report"
-msgstr ""
+msgstr "verdi process report"
 
 #: ../../source/topics/processes/usage.rst:579
 msgid ""
@@ -8123,7 +8467,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:599
 msgid "verdi process status"
-msgstr ""
+msgstr "verdi process status"
 
 #: ../../source/topics/processes/usage.rst:600
 msgid ""
@@ -8149,7 +8493,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:619
 msgid "verdi process show"
-msgstr ""
+msgstr "verdi process show"
 
 #: ../../source/topics/processes/usage.rst:620
 msgid ""
@@ -8167,7 +8511,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:670
 msgid "Manipulating processes"
-msgstr ""
+msgstr "操控例程"
 
 #: ../../source/topics/processes/usage.rst:671
 msgid ""
@@ -8180,7 +8524,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:677
 msgid "verdi process pause/play/kill"
-msgstr ""
+msgstr "verdi process pause/play/kill"
 
 #: ../../source/topics/processes/usage.rst:678
 msgid ""
@@ -8190,15 +8534,15 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:680
 msgid "``verdi process pause``"
-msgstr ""
+msgstr "``verdi process pause``"
 
 #: ../../source/topics/processes/usage.rst:681
 msgid "``verdi process play``"
-msgstr ""
+msgstr "``verdi process play``"
 
 #: ../../source/topics/processes/usage.rst:682
 msgid "``verdi process kill``"
-msgstr ""
+msgstr "``verdi process kill``"
 
 #: ../../source/topics/processes/usage.rst:684
 msgid ""
@@ -8313,7 +8657,7 @@ msgstr ""
 #: ../../source/topics/processes/usage.rst:738
 #: ../../source/topics/workflows/usage.rst:608
 msgid "Footnotes"
-msgstr ""
+msgstr "脚注"
 
 #: ../../source/topics/processes/usage.rst:739
 msgid ""
@@ -8385,7 +8729,7 @@ msgstr ""
 
 #: ../../source/topics/provenance/caching.rst:24
 msgid "the content of the repository folder of the node"
-msgstr ""
+msgstr "节点的repository文件夹的内容"
 
 #: ../../source/topics/provenance/caching.rst:25
 msgid "the UUID of the computer, if the node is associated with one"
@@ -8416,7 +8760,7 @@ msgstr ""
 
 #: ../../source/topics/provenance/caching.rst:67
 msgid "Data nodes"
-msgstr ""
+msgstr "数据节点"
 
 #: ../../source/topics/provenance/caching.rst:69
 msgid ""
@@ -8658,7 +9002,7 @@ msgstr ""
 
 #: ../../source/topics/provenance/concepts.rst:8
 msgid "Nodes and links"
-msgstr ""
+msgstr "节点和连接"
 
 #: ../../source/topics/provenance/concepts.rst:10
 msgid ""
@@ -8671,14 +9015,14 @@ msgstr ""
 
 #: ../../source/topics/provenance/concepts.rst:14
 msgid "Processes come in two different forms:"
-msgstr ""
+msgstr "例程（process）有两种形式："
 
 #: ../../source/topics/provenance/concepts.rst:16
 msgid ""
 "**Calculations** are processes that are able to **create** new data. This is"
 " the case, for instance, for externals simulation codes, that generate new "
 "data"
-msgstr ""
+msgstr "**算例（Calculations）** 是能够 **产生** 新的数据的的例程，比如，使用外部代码，该类型例程能够产生新的结果数据"
 
 #: ../../source/topics/provenance/concepts.rst:17
 msgid ""
@@ -8688,47 +9032,52 @@ msgid ""
 "They can only return data that is already in the database (one typical case "
 "is to return data created by a calculation they called)."
 msgstr ""
+"**工作流（Workflows）** "
+"是**组合**了其他工作流或者其他算例的i例程，它是能够以逻辑流方式组合并调用其他例程的例程。工作流有数据输入，但不能够产生新的数据输出，它只能够返回已经储存在数据库中的数据（典型的情况是调用算例型例程并返回由其创建的数据）。"
+" "
 
 #: ../../source/topics/provenance/concepts.rst:19
 msgid ""
 "Data and processes are represented in the AiiDA provenance graph as the "
 "**nodes** of that graph. The graph edges are referred to as **links** and "
 "come in different forms:"
-msgstr ""
+msgstr "数据和例程在AiiDA的可验证性图中以 **节点** 的形式表示。图中的边被称作 **连接** ，有以下几种形式 :"
 
 #: ../../source/topics/provenance/concepts.rst:22
 msgid ""
 "**input** links: connect data nodes to the process nodes that used them as "
 "input, both calculations and workflows"
-msgstr ""
+msgstr "**输入(input)** 连接 : 从数据节点连接到例程节点，数据节点作为例程节点的输入，算例和工作流均支持该连接"
 
 #: ../../source/topics/provenance/concepts.rst:23
 msgid ""
 "**create** links: connect calculation nodes to the data nodes that they "
 "created"
-msgstr ""
+msgstr "**创建(create)** 连接: 从算例节点连接到数据节点，来表示其创建的数据来源"
 
 #: ../../source/topics/provenance/concepts.rst:24
 msgid ""
 "**return** links: connect workflow nodes to the data nodes that they "
 "returned"
-msgstr ""
+msgstr "**返回(return)** 连接: 从工作流节点连接到数据节点，表示工作流返回的数据"
 
 #: ../../source/topics/provenance/concepts.rst:25
 msgid ""
 "**call** links: connecting workflow nodes to the process nodes that they "
 "directly called, be it calculations or workflows"
 msgstr ""
+"**调用(call)** 连接: "
+"从工作流节点连接到例程节点用以表示工作流调用的例程，调用的例程可以是算例(calculations)也可是工作流(workflows)"
 
 #: ../../source/topics/provenance/concepts.rst:27
 msgid ""
 "Note that the **create** and **return** links are often collectively "
 "referred to as **output** links."
-msgstr ""
+msgstr "**创建(create)** 和 **返回(return)** 连接通常统称为 **输出(output)** 连接。"
 
 #: ../../source/topics/provenance/concepts.rst:31
 msgid "Data provenance and logical provenance"
-msgstr ""
+msgstr "数据可验证性和逻辑可验证性"
 
 #: ../../source/topics/provenance/concepts.rst:33
 msgid ""
@@ -8739,10 +9088,11 @@ msgid ""
 "retrace how a particular piece of data came into existence, thus ensuring "
 "its reproducibility."
 msgstr ""
+"AiiDA自动将流程实体储存在数据库中，并将实体连接成为有向图。有向图自动跟踪了数据如何从算例产生或从工作流中返回。通过跟踪数据的流向，用户总是可以清楚的回溯特定的数据是如何产生的，这保证了该数据的可重复性。"
 
 #: ../../source/topics/provenance/concepts.rst:37
 msgid "In particular, we define two types of provenance:"
-msgstr ""
+msgstr "特别的，我们定义了两种类型的可验证性："
 
 #: ../../source/topics/provenance/concepts.rst:39
 msgid ""
@@ -8754,6 +9104,10 @@ msgid ""
 "**directed acyclic graph** (DAG), i.e. its nodes are connected by directed "
 "edges and it does not contain any cycles."
 msgstr ""
+"其一为 **数据可验证性(data provenance)** ，考察图中只包含数据和算例的部分（不包含工作流），以及考察只有 "
+"**输入(input)** 和 **创建(create)** "
+"连接的部分。数据可验证性记录了关于该数据如何产生的整个完整流程。根据因果关系，数据的可验证性部分在图中是一个有向无环图 **directed "
+"acyclic graph** (DAG)，也就是说节点和节点之间直接通过有向边连接，且图中没有环。"
 
 #: ../../source/topics/provenance/concepts.rst:40
 msgid ""
@@ -8762,6 +9116,8 @@ msgid ""
 "them. The logical provenance is *not* acyclic, e.g. a workflow that acts as "
 "a filter can return one of its own inputs, directly introducing a cycle."
 msgstr ""
+"**逻辑可验证性(logical provenance)** 是图中只包含工作流和数据节点的部分，包含了 **输入** , **返回** , 和 "
+"**调用** 连接。逻辑可验证性部分是有环图，比如一个表示过滤器的工作流会返回它自身，这自动导致在图中引入了环。"
 
 #: ../../source/topics/provenance/concepts.rst:42
 msgid ""
@@ -8776,10 +9132,11 @@ msgid ""
 "the logical provenance can also show that the specific structure was not "
 "picked at random but via a specific workflow logic."
 msgstr ""
+"数据可验证性就是有关算例如何用特定输入产生数据的日志信息。单纯的数据可验证性就已经保证了流程的可重复性（用户可以使用算例的输入来产生完全相同的输出结果）。而逻辑可验证性提供了关于如何运行一个特定的算例的附加信息。想象这样一个情景，开始时你有100个晶体结构，你需要以一定条件筛选出一个，然后将其加入模拟。数据可验证性仅仅表示了你如何对选出的结构进行计算模拟，而逻辑可验证性添加了关于如何筛选该晶体构型的信息，因为该构型不是随机挑选，而是通过一定的工作逻辑和条件筛选得到。"
 
 #: ../../source/topics/provenance/concepts.rst:49
 msgid "Other entities"
-msgstr ""
+msgstr "其他实体"
 
 #: ../../source/topics/provenance/concepts.rst:51
 msgid ""
@@ -8790,6 +9147,10 @@ msgid ""
 "for organizational purposes) and the :py:class:`~aiida.orm.users.User` (to "
 "keep track of the user who first generated a given node, computer or group)."
 msgstr ""
+"除了上述节点（数据和例程），AiiDA还定义了一些其他相关实体比如  :py:class:`~aiida.orm.computers.Computer`"
+" （表示执行运算或储存数据的计算机，超算或者集群）， :py:class:`~aiida.orm.groups.Group` "
+"（用于组织数据的节点类型），和  :py:class:`~aiida.orm.users.User` "
+"（跟踪数据等节点的创建者，或组和用户节点的拥有者）。"
 
 #: ../../source/topics/provenance/concepts.rst:53
 msgid ""
@@ -8797,7 +9158,7 @@ msgid ""
 "provenance concepts above are actually implemented in AiiDA, with specific "
 "reference to the python classes that implement them and the class-"
 "inheritance relationships."
-msgstr ""
+msgstr "下列章节我们更加详细讲解上述提到的可验证性的概念在AiiDA中如何通过引用和继承特定的python类型来实现的。"
 
 #: ../../source/topics/provenance/consistency.rst:5
 msgid "Consistency"
@@ -9361,11 +9722,11 @@ msgstr ""
 #: ../../source/topics/provenance/implementation.rst:5
 #: ../../source/topics/workflows/concepts.rst:130
 msgid "Implementation"
-msgstr ""
+msgstr "实现"
 
 #: ../../source/topics/provenance/implementation.rst:8
 msgid "Graph nodes"
-msgstr ""
+msgstr "图的节点"
 
 #: ../../source/topics/provenance/implementation.rst:10
 msgid ""
@@ -9374,16 +9735,18 @@ msgid ""
 " of calculations or workflows, and **data nodes** (``Data``), that represent"
 " pieces of data."
 msgstr ""
+"AiiDA可验证图中的 **节点** 可以分类两大类：第一类是表示例程执行的 **例程节点** ( ``ProcessNode`` )， 和表示数据的 "
+"**数据节点**( ``Data`` )。"
 
 #: ../../source/topics/provenance/implementation.rst:12
 msgid "In particular, **process nodes** are divided into two sub categories:"
-msgstr ""
+msgstr "**例程节点** 被细分为两个小类："
 
 #: ../../source/topics/provenance/implementation.rst:14
 msgid ""
 "**calculation nodes** (``CalculationNode``): Represent code execution that "
 "creates new data. These are further subdivided in two subclasses:"
-msgstr ""
+msgstr "**算例节点** ( ``CalculationNode`` )： 用以表示创建数据的和储存用来运行的代码的信息。又被分为两个小类："
 
 #: ../../source/topics/provenance/implementation.rst:16
 msgid ""
@@ -9407,6 +9770,8 @@ msgid ""
 "optionally return the data created by the processes they called. These are "
 "further subdivided in two subclasses:"
 msgstr ""
+"**工作流节点** (``WorkflowNode``) "
+":表示了则和其他工作流或其他算例的一段python代码所代表的节点，该节点可以返回由其中调用的例程创建的数据。其又被细分为两个小类 :"
 
 #: ../../source/topics/provenance/implementation.rst:21
 msgid ""
@@ -9426,7 +9791,7 @@ msgstr ""
 
 #: ../../source/topics/provenance/implementation.rst:24
 msgid "The class hierarchy of the process nodes is shown in the figure below."
-msgstr ""
+msgstr "上述例程节点类的继承关系如下图所示。"
 
 #: ../../source/topics/provenance/implementation.rst:29
 msgid ""
@@ -9445,6 +9810,8 @@ msgid ""
 "operate on it. Often, the name of the subclass contains the word “Data” "
 "appended to it, but this is not a requirement. A few examples:"
 msgstr ""
+"对于数据节点，基础的数据类 ``Data`` "
+"被继承为能够提供数据操作和数据储存方式的子类。通常，这些子类的命名需要包含”Data“作为后缀，但这并非必须的，比如："
 
 #: ../../source/topics/provenance/implementation.rst:35
 msgid ""
@@ -9454,6 +9821,11 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.str.Str`, "
 ":py:class:`~aiida.orm.nodes.data.list.List`, ..."
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.float.Float`, "
+":py:class:`~aiida.orm.nodes.data.int.Int`, "
+":py:class:`~aiida.orm.nodes.data.bool.Bool`, "
+":py:class:`~aiida.orm.nodes.data.str.Str`, "
+":py:class:`~aiida.orm.nodes.data.list.List`, ..."
 
 #: ../../source/topics/provenance/implementation.rst:36
 msgid ""
@@ -9461,6 +9833,8 @@ msgid ""
 "value pairs - these are parameters of a general nature that do not need to "
 "belong to more specific data sub-classes"
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.dict.Dict`: "
+"表示字典型的键值对，这些都是基础类型，并不需要被继承为其他的子类来使用"
 
 #: ../../source/topics/provenance/implementation.rst:37
 msgid ""
@@ -9468,33 +9842,39 @@ msgid ""
 "crystal structure data (containing chemical symbols, atomic positions of the"
 " atoms, periodic cell for periodic structures, …)"
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.structure.StructureData`:  "
+"用以表示i晶体的结构数据（包含有元素符号，原子位置，对于周期性体系还有晶胞信息等）"
 
 #: ../../source/topics/provenance/implementation.rst:38
 msgid ""
 ":py:class:`~aiida.orm.nodes.data.array.array.ArrayData`: represents generic "
 "numerical arrays of data (python numpy arrays)"
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.array.array.ArrayData`: "
+"用以表示常规的数值数组（也就是python中的numpy数组）"
 
 #: ../../source/topics/provenance/implementation.rst:39
 msgid ""
 ":py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`: represents a "
 "numerical array of k-points data, is a sub-class of ``ArrayData``"
 msgstr ""
+":py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`: 用以表示k点数据的数组，是 "
+"``ArrayData`` 的子类"
 
 #: ../../source/topics/provenance/implementation.rst:41
 msgid "For more detailed information see :ref:`AiiDA data types <DataTypes>`."
-msgstr ""
+msgstr "更多相关信息请参考 :ref:`AiiDA 数据类型 <DataTypes>` 。"
 
 #: ../../source/topics/provenance/implementation.rst:43
 msgid ""
 "In the next section we introduce the links between nodes, creating the AiiDA"
 " graph, and then we show some examples to clarify what we introduced up to "
 "now."
-msgstr ""
+msgstr "接下来的章节，我们将介绍连接节点的连接，这样就创建了完整的AiiDA可验证性图，在往后，我们给出一些上述内容的例子。"
 
 #: ../../source/topics/provenance/implementation.rst:46
 msgid "Graph links"
-msgstr ""
+msgstr "图的连接"
 
 #: ../../source/topics/provenance/implementation.rst:48
 msgid ""
@@ -9505,6 +9885,9 @@ msgid ""
 "**calculation nodes** with squares and **workflow nodes** with diamond "
 "shapes."
 msgstr ""
+"例程节点与输入输出数据节点之间通过有向边连接。算例例程（calculation process）可以 *创建* 数据，而工作流例程（workflow "
+"process）只能调用例程并返回其创建的输出。请看以下图作为例子，我们将 **数据节点** 用圈来表示，**算例节点** 用正方形来表示 "
+"**工作流节点** 使用菱形表示。"
 
 #: ../../source/topics/provenance/implementation.rst:55
 msgid ""
@@ -9514,6 +9897,9 @@ msgid ""
 "The calculation *creates* a new **data node** (D\\ :sub:`2`\\) that is also "
 "*returned* by the **workflow node**."
 msgstr ""
+"一个工作流的简单可验证性图 (W\\ :sub:`1`) *调用* 算例 (C\\ :sub:`1`。 该工作流将一个 **数据节点** (D\\ "
+":sub:`1`\\) 作为输入，当算例调用时将其传入算例。该算例 **创建** 了一个新的 **数据节点**  (D\\ :sub:`2`\\) "
+"该节点被 **工作流节点** *返回* 。"
 
 #: ../../source/topics/provenance/implementation.rst:57
 msgid ""
@@ -9523,6 +9909,8 @@ msgid ""
 " has big consequences. By allowing workflow processes to *return* data, it "
 "can also *return* data that was among its inputs."
 msgstr ""
+"注意这里用不同类型的线段和命名区别两种到达 D\\ :sub:`2` 上的有向连接是有意的。因为算例 *创建* "
+"了新的数据，而工作流仅仅只是返回了数据。这个潜在的区别有重要的意义。因为工作流流程能够 *返回* 数据，它同样能够 *返回* 它的输入。"
 
 #: ../../source/topics/provenance/implementation.rst:64
 msgid ""
@@ -9531,6 +9919,8 @@ msgid ""
 ":sub:`3` to W\\ :sub:`1` and the return link from W\\ :sub:`1` to D\\ "
 ":sub:`3` introduce a cycle in the graph."
 msgstr ""
+"**工作流节点** 的可验证性图例中有三个 **数据节点** 作为输入，并*返回* 了其中一个输入。从输入 D\\ :sub:`3` 到 W\\ "
+":sub:`1` 的输入连接和从 W\\ :sub:`1` 到 D\\ :sub:`3` 的返回连接使得图形成了环。"
 
 #: ../../source/topics/provenance/implementation.rst:66
 msgid ""
@@ -9541,6 +9931,9 @@ msgid ""
 " and the **logical provenance**. With this division, the acyclicity of the "
 "graph is restored in the data provenance plane."
 msgstr ""
+"图中所示的情景 :numref:`fig_provenance_cycle` "
+"在可验证性图中引入了环，打破了DAG有向无环的特征。为了还能够储存有向无环图 （DAG）我们将整个图分割成两个部分: **数据可验证性** 和 "
+"**逻辑可验证性** 。 按照这种约定，无环图被保存在数据可验证性部分。"
 
 #: ../../source/topics/provenance/implementation.rst:70
 msgid ""
@@ -9550,10 +9943,11 @@ msgid ""
 "calculations and sub-workflows, that each may also call more sub-processes, "
 "to finally produce and return one or more data nodes as its result."
 msgstr ""
+"另外一个将可验证图分成这样两个部分的好处是，对于一个复杂的工作流，用户可以以不同的粒度来查看不同的部分。比有一个高度聚合的工作流，它调用了非常多的算例和子工作流，子工作流有可能调用许多的子流程，这些子流程返回一个或多个数据节点作为其结果，"
 
 #: ../../source/topics/provenance/implementation.rst:75
 msgid "Graph examples"
-msgstr ""
+msgstr "可验证图的例子"
 
 #: ../../source/topics/provenance/implementation.rst:77
 msgid ""
@@ -9563,6 +9957,8 @@ msgid ""
 "number `z`. This sequence as represented in the provenance graph would look "
 "something like what is shown in :numref:`fig_provenance_add_multiply_data`."
 msgstr ""
+"通过以上对AiiDA可验证性图的基础定义，我们来看以下例子。考虑这样一系列运算，首先将 两个数 `x` 和 `y` 相加，在将结果成上第三个数 `z` "
+"。这个运算过程表示成可验证性图如下图所示 :numref:`fig_provenance_add_multiply_data` 。"
 
 #: ../../source/topics/provenance/implementation.rst:84
 msgid ""
@@ -9573,6 +9969,10 @@ msgid ""
 "D\\ :sub:`4` then forms the input of C\\ :sub:`2`, which multiplies their "
 "values that *creates* the product, represented by D\\ :sub:`5`."
 msgstr ""
+"DAG 计算 `(x+y)*z`. 我们有两个简单的算例： C\\ :sub:`1` 表示求和而 C\\ :sub:`2` 表示乘法运算。两个数据节点 "
+"D\\ :sub:`1` 和 D\\ :sub:`2` 是 C\\ :sub:`1` 的输入，它会 *创建* 数据节点 D\\ :sub:`4`\\ 。"
+" 与数据节点 D\\ :sub:`3` 进行运算， D\\ :sub:`4` 成为算例 C\\ :sub:`2` 的输入，两者相乘并 *创建* "
+"乘积，表示为 D\\ :sub:`5` 数据节点。"
 
 #: ../../source/topics/provenance/implementation.rst:88
 msgid ""
@@ -9581,6 +9981,8 @@ msgid ""
 "a workflow that calls the two calculations in succession, as shown in "
 ":numref:`fig_provenance_add_multiply_full`."
 msgstr ""
+"在这个简单的例子中，没有外部流程来控制这些运算的顺序。而当引入工作流后，这两个算例按照顺序调用，我们得到如图所示的可验证性图 "
+":numref:`fig_provenance_add_multiply_full`."
 
 #: ../../source/topics/provenance/implementation.rst:94
 msgid ""
@@ -9592,6 +9994,11 @@ msgid ""
 ":sub:`2`\\). Calculation C\\ :sub:`2` *creates* data node D\\ :sub:`5`, "
 "which is finally *returned* by workflow W\\ :sub:`1`\\."
 msgstr ""
+"工作流执行了同样的运算 `(x+y)*z` 。此处，输入节点 D\\ :sub:`1`, D\\ :sub:`2` 和 D\\ :sub:`3` "
+"是工作流 W\\ :sub:`1` 的输入，该工作流节点使用 D\\ :sub:`1` and D\\ :sub:`2` *调用* 算例 C\\ "
+":sub:`1` 然后 *调用* 算例 C\\ :sub:`2` 使用 D\\ :sub:`3` 和 D\\ :sub:`4` (被 C\\ "
+":sub:`2`\\ *创建*)。 算例 C\\ :sub:`2` *创建* 数据节点 D\\ :sub:`5` ，最终作为返回值被工作流 W\\ "
+":sub:`1`\\ *返回* ."
 
 #: ../../source/topics/provenance/implementation.rst:98
 msgid ""
@@ -9600,6 +10007,9 @@ msgid ""
 "end up with the exact same graph as shown in "
 ":numref:`fig_provenance_add_multiply_data` (the **data provenance** graph)."
 msgstr ""
+"注意到，如果我们忽略图 :numref:`fig_provenance_add_multiply_full` "
+"中，工作流节点和与其相连的所有连接，将会得到与 :numref:`fig_provenance_add_multiply_data` "
+"完全相同的可验证性图（ **数据可验证** 图）。"
 
 #: ../../source/topics/provenance/index.rst:7
 msgid ""
@@ -9884,7 +10294,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:13
 msgid "PBSPro"
-msgstr ""
+msgstr "PBSPro"
 
 #: ../../source/topics/schedulers.rst:15
 msgid "The `PBSPro`_ scheduler is supported (tested: version 12.1)."
@@ -9894,7 +10304,7 @@ msgstr ""
 #: ../../source/topics/schedulers.rst:39 ../../source/topics/schedulers.rst:57
 #: ../../source/topics/schedulers.rst:86
 msgid "All the main features are supported with this scheduler."
-msgstr ""
+msgstr "该任务调度工具的主要特性均测试可用。"
 
 #: ../../source/topics/schedulers.rst:19 ../../source/topics/schedulers.rst:30
 #: ../../source/topics/schedulers.rst:59 ../../source/topics/schedulers.rst:88
@@ -9905,7 +10315,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:24
 msgid "SLURM"
-msgstr ""
+msgstr "SLURM"
 
 #: ../../source/topics/schedulers.rst:26
 msgid "The `SLURM`_ scheduler is supported (tested: version 2.5.4)."
@@ -9913,7 +10323,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:35
 msgid "SGE"
-msgstr ""
+msgstr "SGE"
 
 #: ../../source/topics/schedulers.rst:37
 msgid ""
@@ -9929,7 +10339,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:46
 msgid "LSF"
-msgstr ""
+msgstr "LSF"
 
 #: ../../source/topics/schedulers.rst:48
 msgid ""
@@ -9939,7 +10349,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:53
 msgid "Torque"
-msgstr ""
+msgstr "Torque"
 
 #: ../../source/topics/schedulers.rst:55
 msgid ""
@@ -9949,7 +10359,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:66
 msgid "Direct execution (bypassing schedulers)"
-msgstr ""
+msgstr "直接运行 (不通过任务管理系统)"
 
 #: ../../source/topics/schedulers.rst:68
 msgid ""
@@ -9989,7 +10399,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:94
 msgid "Job resources"
-msgstr ""
+msgstr "任务资源"
 
 #: ../../source/topics/schedulers.rst:96
 msgid ""
@@ -10035,7 +10445,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:132
 msgid "NodeNumberJobResource (PBS-like)"
-msgstr ""
+msgstr "NodeNumberJobResource (PBS-like)"
 
 #: ../../source/topics/schedulers.rst:134
 msgid ""
@@ -10058,7 +10468,7 @@ msgstr ""
 msgid ""
 "``res.num_mpiprocs_per_machine``: number of MPI processes to use on each "
 "machine"
-msgstr ""
+msgstr "``res.num_mpiprocs_per_machine``: 每台机器（节点）上运行的MPI进程的数量"
 
 #: ../../source/topics/schedulers.rst:140
 #: ../../source/topics/schedulers.rst:193
@@ -10090,7 +10500,7 @@ msgid ""
 "asks the scheduler to allocate 4 machines, with 16 MPI processes on each "
 "machine. This will automatically ask for a total of ``4*16=64`` total number"
 " of MPI processes."
-msgstr ""
+msgstr "向任务调度工具申请4台机器，每台机器16个MPI进程。这会自动请求总共 ``4*16=64`` 个的MPI进程。"
 
 #: ../../source/topics/schedulers.rst:156
 msgid ""
@@ -10130,7 +10540,7 @@ msgstr ""
 
 #: ../../source/topics/schedulers.rst:186
 msgid "ParEnvJobResource (SGE-like)"
-msgstr ""
+msgstr "ParEnvJobResource (SGE-like)"
 
 #: ../../source/topics/schedulers.rst:188
 msgid ""
@@ -10683,11 +11093,11 @@ msgstr ""
 
 #: ../../source/topics/workflows/concepts.rst:10
 msgid ":ref:`work functions<topics:workflows:concepts:workfunctions>`"
-msgstr ""
+msgstr ":ref:`工作函数（work functions）<topics:workflows:concepts:workfunctions>`"
 
 #: ../../source/topics/workflows/concepts.rst:11
 msgid ":ref:`work chains<topics:workflows:concepts:workchains>`"
-msgstr ""
+msgstr ":ref:`工作链（work chains）<topics:workflows:concepts:workchains>`"
 
 #: ../../source/topics/workflows/concepts.rst:13
 msgid ""
@@ -10700,6 +11110,9 @@ msgid ""
 "here on out, we will use the terms, workflows, work chains, and work "
 "functions interchangeably, as a *pars pro toto* and *totum pro parte*."
 msgstr ""
+"前一种较为简单，仅仅是对python函数的封装变换。这对那些并不是非常耗费计算量的工作流非常合适并且它能够容易的通过python函数实现。对于更为复杂的工作流，工作链（work"
+" chain）是更好的选择。通过将工作函数和工作链将流程连接，我们就定义出了作为的工作流。为了简单起见，我们这里在使用特定术语时对三者不作明显区分，好比"
+" *石头剪刀布* 和 *剪刀石头布* 。"
 
 #: ../../source/topics/workflows/concepts.rst:19
 msgid ""
@@ -10713,7 +11126,7 @@ msgstr ""
 #: ../../source/topics/workflows/concepts.rst:26
 #: ../../source/topics/workflows/usage.rst:21
 msgid "Work functions"
-msgstr ""
+msgstr "工作函数"
 
 #: ../../source/topics/workflows/concepts.rst:28
 msgid ""
@@ -10752,6 +11165,7 @@ msgid ""
 "Consider the following example, where we implement a function called "
 "``add_and_multiply`` that we decorate with the ``@workfunction`` decorator."
 msgstr ""
+"考虑下列例子，我们实现了一个叫做 ``add_and_multiply`` 的函数并使用 ``@workfunction`` 装饰器装饰它。"
 
 #: ../../source/topics/workflows/concepts.rst:54
 msgid ""
@@ -10761,10 +11175,11 @@ msgid ""
 "we look at the provenance graph generated by this example, we would see "
 "something like the following:"
 msgstr ""
+"不同于直接使用脚本来调用算例函数，此处我们通过工作流算例来调用算例函数，这会将第一个算例的结果作为中间结果传递给第二个算例。可以从这个例子的可验证性图中发现以下特点："
 
 #: ../../source/topics/workflows/concepts.rst:60
 msgid "The full provenance generated by the work function example"
-msgstr ""
+msgstr "所有的可验证性都被工作函数的例子中创建"
 
 #: ../../source/topics/workflows/concepts.rst:62
 msgid ""
@@ -10786,7 +11201,7 @@ msgstr ""
 msgid ""
 "The 'logical' provenance generated by the work function example, where only "
 "the workflow and data nodes, with their links, are shown"
-msgstr ""
+msgstr "工作函数例子中创建的“逻辑” 可验证性，只包含工作流节点和数据节点及其节点间的连接"
 
 #: ../../source/topics/workflows/concepts.rst:73
 msgid ""
@@ -10803,7 +11218,7 @@ msgstr ""
 msgid ""
 "The 'data' provenance generated by the work function example, where only the"
 " calculation and data nodes, with their links, are shown"
-msgstr ""
+msgstr "工作函数例子中的 ‘数据’ 可验证性图，图中只有算例节点和数据节点及其连线。"
 
 #: ../../source/topics/workflows/concepts.rst:82
 msgid ""
@@ -10814,6 +11229,8 @@ msgid ""
 "effectively 'hide' its internal parts in a transparent way, becomes "
 "invaluable."
 msgstr ""
+"在这个简单的例子中，选择可验证性图中所关注部分的强大功能用途并不明显。但是工作流可能变得及其复杂，并有许多嵌套，这时，将可验证性图中的某些部分组合成组，并有效的"
+" ‘隐藏’ 可验证性图中的部分就变得非常有用。"
 
 #: ../../source/topics/workflows/concepts.rst:85
 msgid ""
@@ -10826,19 +11243,22 @@ msgid ""
 "returning existing nodes, even one of its inputs, is perfectly fine. An "
 "example implementation might look like the following:"
 msgstr ""
+"工作函数除了拥有组合流程的功能，它还能用作过滤和选择函数。假设你想要执行从三个整数中选出并返回最大值的流程。我们不能使用算例 "
+"``calculation`` 来完成这个流程。因为这个流程返回了其中的输入节点，而没有创建新的数据，这在算例型中是禁止的。这时可以使用工作函数 "
+"``workfunction`` 返回已经存在的节点，即使这个节点是输入节点也无妨。例子如下："
 
 #: ../../source/topics/workflows/concepts.rst:94
 msgid ""
 "The work function above will return the input node ``x`` as one of its "
 "outputs as it has the highest value. The provenance of the execution of this"
 " select work function will look like the following:"
-msgstr ""
+msgstr "上述的工作函数返回输入节点中最大值 ``x`` 作为它的返回值。可验证性图则如下所示："
 
 #: ../../source/topics/workflows/concepts.rst:100
 msgid ""
 "The provenance generated by the work function that selects one of its input "
 "nodes"
-msgstr ""
+msgstr "选择并返回其输入节点的工作函数产生的可验证性图"
 
 #: ../../source/topics/workflows/concepts.rst:103
 msgid ""
@@ -10858,11 +11278,11 @@ msgstr ""
 #: ../../source/topics/workflows/concepts.rst:113
 #: ../../source/topics/workflows/usage.rst:129
 msgid "Work chains"
-msgstr ""
+msgstr "工作链"
 
 #: ../../source/topics/workflows/concepts.rst:116
 msgid "Why?"
-msgstr ""
+msgstr "为什么？"
 
 #: ../../source/topics/workflows/concepts.rst:118
 msgid ""
@@ -10877,6 +11297,11 @@ msgid ""
 " lost. There are no 'checkpoints', so to speak, by simply chaining work "
 "functions together."
 msgstr ""
+"现在，我们展示了如何简单使用 ``workfunctions`` "
+"来编写能够自动保留可验证性的工作流。不得不承认工作函数并不完美，且有其缺点。在求和后乘积这个简单的例子中，函数的运行时间非常短，但若有一个非常耗费资源和时间的计算，比如当你要运行一个真实的"
+" ``CalcJob`` "
+"，它会向作业调度工具提交任务并运行很长时间。在整个过程中的任何阶段因为任何原因工作流中断，则所有的流程都会丢失。单纯的将工作函数连接在一起，则整个过程中没有"
+" ‘检查点’。"
 
 #: ../../source/topics/workflows/concepts.rst:123
 msgid ""
@@ -10889,13 +11314,15 @@ msgid ""
 "chain, AiiDA provides the "
 ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class."
 msgstr ""
+"但不要担心！为了解决这一问题，AiiDA定义了工作链的概念。正如其名所述，该结构能够将工作流中的多个逻辑步骤以某种方式连接起来以保证在每个步骤成功完成后保存流程。因此，工作链是构建时间复杂计算任务的最好选择。为定义工作链，AiiDA提供了"
+" :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`  类。"
 
 #: ../../source/topics/workflows/concepts.rst:132
 msgid ""
 "If we were to reimplement our work function solution of the simple example "
 "problem of the previous section, but this time using a work chain, it would "
 "look something like the following:"
-msgstr ""
+msgstr "若我们用工作链来重新实现前面章节中通过工作函数构建的简单例子，我们将会由以下代码："
 
 #: ../../source/topics/workflows/concepts.rst:137
 msgid ""
@@ -10924,7 +11351,7 @@ msgstr ""
 msgid ""
 "The provenance generated by the work chain example calling calculation "
 "functions to perform the addition and multiplication."
-msgstr ""
+msgstr "调用算例函数执行加法和乘法的工作链产生的可验证性图。"
 
 #: ../../source/topics/workflows/concepts.rst:152
 msgid ""
@@ -10936,6 +11363,10 @@ msgid ""
 "represented explicitly by the calculation nodes of the ``add`` and "
 "``multiply`` calculation functions that are called."
 msgstr ""
+"正如你看到的，这里产生的可验证性图和用工作函数产生的图 "
+":numref:`fig_work_functions_provenance_add_multiply_full` "
+"是完全相同的，除了工作流节点上是工作链而不是工作函数。所有的数据可验证性都被工作链以加法算例和乘法算例的算例节点保留，算例节点是调用的 ``add`` "
+"和 ``multiply`` 算例函数。"
 
 #: ../../source/topics/workflows/concepts.rst:157
 msgid ""
@@ -10945,6 +11376,8 @@ msgid ""
 " calculations directly in the work chain outline steps itself, would result "
 "in a loss in the data provenance."
 msgstr ""
+"使用算例函数来计算加法和乘法并非意外而是有意为之。因为工作链是一个 “工作流型” 例程，它不能够 “创建” "
+"数据，如果只是在工作链的步骤中单纯调用python函数则会造成数据可验证性的丢失。"
 
 #: ../../source/topics/workflows/concepts.rst:160
 msgid ""
@@ -10953,17 +11386,19 @@ msgid ""
 "the previous implementation to perform the sum and product in the work chain"
 " outline steps itself, instead of calling the calculation functions."
 msgstr ""
+"为展示有关工作流流程不能够 *创建* "
+"数据和为何这样做会造成数据可验证性的丢失，我们将上述工作链中的步骤改为不调用和执行加法和乘法算例，而是直接在工作链中实现这两个步骤。"
 
 #: ../../source/topics/workflows/concepts.rst:165
 msgid "The resulting provenance would look like the following:"
-msgstr ""
+msgstr "可验证性的结果将如下所示："
 
 #: ../../source/topics/workflows/concepts.rst:170
 msgid ""
 "The provenance generated by the work chain example that computes the sum and"
 " product directly in its outline steps, instead of delegating it to "
 "calculation functions"
-msgstr ""
+msgstr "工作链生成的可验证性图，该工作链直接在内部实现并执行了流程提纲(outline) 中的加法和乘法步骤，而不是将他们作为算例函数来调用。"
 
 #: ../../source/topics/workflows/concepts.rst:172
 msgid ""
@@ -10998,10 +11433,12 @@ msgid ""
 "is better to implement it in explicit calculation processes, usually a "
 "separate calculation function."
 msgstr ""
+"需要记住，工作链中存在于流程提纲outline中的*任何算例* "
+"，都不会在可验证性图中展示，而是缩略成一个单一节点。丢失的数据可验证性是否相关则取决于使用场景和工作流的开发者。这两个例子阐释了AiiDA并不强制限制保留这些信息，而是允许用户选择在可验证性图中保留特定的可验证性。但是，宗旨是，若你希望尽量减少信息损失，并最少的隐藏可验证细节，则需要将运算步骤作为算例来指点再放置在工作函数或工作链中。对于真实的与数据可验证性相关的计算工作，通过算例例程来实现运算通常更为合理。"
 
 #: ../../source/topics/workflows/concepts.rst:185
 msgid "Advantages"
-msgstr ""
+msgstr "进阶"
 
 #: ../../source/topics/workflows/concepts.rst:186
 msgid ""
@@ -11051,7 +11488,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/concepts.rst:205
 msgid "When to use which"
-msgstr ""
+msgstr "When to use which"
 
 #: ../../source/topics/workflows/concepts.rst:206
 msgid ""
@@ -11072,7 +11509,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/index.rst:5
 msgid "Workflows"
-msgstr ""
+msgstr "工作流"
 
 #: ../../source/topics/workflows/index.rst:7
 msgid ""
@@ -11132,7 +11569,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:36
 msgid "Returning data"
-msgstr ""
+msgstr "返回数据"
 
 #: ../../source/topics/workflows/usage.rst:37
 msgid ""
@@ -11307,7 +11744,7 @@ msgstr ""
 msgid ""
 "We will now got through the implementation step-by-step and go into more "
 "detail on the interface and best practices."
-msgstr ""
+msgstr "我们现在将逐步完成实现，并详细介绍结构和最佳实践。"
 
 #: ../../source/topics/workflows/usage.rst:151
 msgid ""
@@ -11323,12 +11760,18 @@ msgid ""
 " potential exit codes it can return and the logical outline through which it"
 " will accomplish all this."
 msgstr ""
+"要实现一个新的工作链，只需创建一个 "
+":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` "
+"的子类。您可以为新类提供任何有效的python类名，但约定是将它以 ``WorkChain`` "
+"结尾，以便始终立即清楚它引用的内容。在创建了一个新的工作链类之后，第一个也是最重要的实现方法是 "
+":py:meth:`~aiida.engine.processes.process.Process.define` "
+"方法。这是一个类方法，允许开发人员定义工作链的特征，例如它需要什么输入，它可以生成什么输出，它可以返回什么样的退出码以及它将完成所有这些的逻辑大纲。"
 
 #: ../../source/topics/workflows/usage.rst:156
 msgid ""
 "To implement the ``define`` method, you have to start with the following "
 "three lines:"
-msgstr ""
+msgstr "要实现 ``define`` 方法，您必须从以下三行开始："
 
 #: ../../source/topics/workflows/usage.rst:164
 msgid ""
@@ -11344,16 +11787,22 @@ msgid ""
 "this case the "
 ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class."
 msgstr ""
+"这里，用工作链的实际名称替换 ``AddAndMultiplyWorkChain`` 。  ``classmethod`` 装饰器表示此方法是类方法 "
+"[＃f1]_ 而不是实例方法。第二行是方法签名，并指定它将接收类本身 ``cls`` 和 ``spec`` ，它们将是 "
+":py:class:`~aiida.engine.processes.process_spec.ProcessSpec` "
+"的一个实例。这是我们将用于定义工作链的输入，输出和其他相关属性的对象。第三行和最后一行非常重要，因为它将调用父类的 ``define`` "
+"方法，在本例中父类为 "
+":py:class:`~aiiida.engine.processes.workchains.workchain.WorkChain` 类。"
 
 #: ../../source/topics/workflows/usage.rst:172
 msgid ""
 "If you forget to call ``super`` in the ``define`` method, your work chain "
 "will fail miserably!"
-msgstr ""
+msgstr "如果你忘记在 ``define`` 方法中调用 ``super`` ，你的工作链就会失败！"
 
 #: ../../source/topics/workflows/usage.rst:178
 msgid "Inputs and outputs"
-msgstr ""
+msgstr "输入和输出"
 
 #: ../../source/topics/workflows/usage.rst:179
 msgid ""
@@ -11371,7 +11820,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:188
 msgid "Outline"
-msgstr ""
+msgstr "工作链大纲"
 
 #: ../../source/topics/workflows/usage.rst:189
 msgid ""
@@ -11398,31 +11847,32 @@ msgid ""
 "illustrate these constructs is by example. The currently available logical "
 "constructs for the work chain outline are:"
 msgstr ""
+"这个简单示例中的大纲并不特别有趣，因为它包含三个将按顺序执行的简单指令。但是，该大纲还支持各种逻辑结构，例如while循环，条件和返回语句。像往常一样，说明这些结构的最佳方法是举例。工作链大纲的当前可用逻辑结构是:"
 
 #: ../../source/topics/workflows/usage.rst:202
 msgid "``if``, ``elif``, ``else``"
-msgstr ""
+msgstr "``if``, ``elif``, ``else``"
 
 #: ../../source/topics/workflows/usage.rst:203
 msgid "``while``"
-msgstr ""
+msgstr "``while``"
 
 #: ../../source/topics/workflows/usage.rst:204
 msgid "``return``"
-msgstr ""
+msgstr "``return``"
 
 #: ../../source/topics/workflows/usage.rst:206
 msgid ""
 "To distinguish these constructs from the python builtins, they are suffixed "
 "with an underscore, like so ``while_``. To use these in your work chain "
 "design, you will have to import them:"
-msgstr ""
+msgstr "为了将这些结构区分python内置函数，它们的后缀为下划线，就像 ``while_`` 。要在工作链设计中使用它们，您必须导入它们:"
 
 #: ../../source/topics/workflows/usage.rst:213
 msgid ""
 "The following example shows how to use these logical constructs to define "
 "the outline of a work chain:"
-msgstr ""
+msgstr "以下示例显示如何使用这些逻辑结构来定义工作链的大纲:"
 
 #: ../../source/topics/workflows/usage.rst:233
 msgid ""
@@ -11437,6 +11887,10 @@ msgid ""
 "return a boolean; ``True`` when the condition holds and ``False`` otherwise."
 " The actual implementation of the outline steps themselves is now trivial:"
 msgstr ""
+"这是众所周知的FizzBuzz[＃f2]_ 问题的实现（以及极其拙劣的实现）。这个想法是程序应该按顺序打印从零到某个限制的数字，除非数字是三个 "
+"``Fizz`` 的倍数打印，五个 ``Buzz`` 的倍数和当它是两者的倍数时，程序应该打印 ``FizzBuzz`` "
+"。注意语法看起来非常像普通的python语法。条件中使用的方法（例如 ``while_`` 和 ``if_`` 构造的括号之间）应该返回一个布尔值; "
+"条件成立时为 ``True`` ，否则为 ``False`` 。大纲步骤本身的实际实施现在是无足轻重的:"
 
 #: ../../source/topics/workflows/usage.rst:259
 msgid ""
@@ -11453,6 +11907,8 @@ msgid ""
 "However, one can also go overboard and put too finely grained logical blocks"
 " into the outline, causing it to become bulky and difficult to understand."
 msgstr ""
+"这个例子的目的是为了表明，通过精心设计大纲，用户只需要查看大纲就可以了解 *工作链的作用以及* "
+"它是如何实现的。人们不应该看大纲步骤的具体实现，因为大纲本身捕获了所有重要信息。由于工作链的目标应该是执行一项定义明确的任务，因此大纲的目标是以一种清晰而短暂但不过度苛刻的方式捕获实现该目标所需的逻辑。大纲支持各种逻辑流构造，例如条件和while循环，因此在可能的情况下，此逻辑应在大纲中表示，而不是在大纲函数的主体中表示。然而，人们也可能过度使用，并将太细粒度的逻辑块放入大纲中，导致它变得笨重且难以理解。"
 
 #: ../../source/topics/workflows/usage.rst:265
 msgid ""
@@ -11463,6 +11919,8 @@ msgid ""
 "accomplish that goal. Converting the resulting flow diagram in a one-to-one "
 "fashion into an outline, often results in very reasonable outline designs."
 msgstr ""
+"设计大纲的一个好的经验法则如下: "
+"在开始设计工作链之前，要非常清楚地定义它应该执行的任务。一旦目标明确，绘制连接它们的必要步骤和逻辑决策的示意性框图，以实现该目标。将得到的流程图以一对一的方式转换为轮廓，通常会产生非常合理的大纲设计。"
 
 #: ../../source/topics/workflows/usage.rst:274
 msgid ""
@@ -11486,7 +11944,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:292
 msgid "Launching work chains"
-msgstr ""
+msgstr "启动工作链"
 
 #: ../../source/topics/workflows/usage.rst:294
 msgid ""
@@ -11508,7 +11966,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:305
 msgid "Context"
-msgstr ""
+msgstr "上下文（Context）"
 
 #: ../../source/topics/workflows/usage.rst:306
 msgid ""
@@ -11546,7 +12004,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:334
 msgid "Submitting sub processes"
-msgstr ""
+msgstr "提交子例程"
 
 #: ../../source/topics/workflows/usage.rst:335
 msgid ""
@@ -11586,7 +12044,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:361
 msgid "To context"
-msgstr ""
+msgstr "To context （转换为上下文）"
 
 #: ../../source/topics/workflows/usage.rst:362
 msgid ""
@@ -11595,6 +12053,7 @@ msgid ""
 "should wait for that process to finish before continuing the work chain. To "
 "illustrate how this works, consider the following minimal example:"
 msgstr ""
+"为了存储提交过程的未来(Future)效果，我们可以将其存储在具有特殊构造的上下文(context)中，该构造将告诉引擎它应该在继续工作链之前等待该例程完成。为了说明其工作原理，请考虑以下小示例："
 
 #: ../../source/topics/workflows/usage.rst:368
 msgid ""
@@ -11629,6 +12088,9 @@ msgid ""
 "not even a single step to follow, there is also nothing the work chain could"
 " do with the results of the sub process, so there is no point in waiting."
 msgstr ""
+"仅使用 ``ToContext`` 构造并不足以告诉引擎它应该等待子进程完成。在大纲中，**需要** "
+"至少有另一个步骤，以添加可等待的步骤。如果没有更多的步骤，根据大纲，引擎将其解释为正在完成的工作链，因此它不会等待子例程完成。这样想: "
+"如果没有一个单独的步骤要遵循，那么工作链对子例程的结果也无能为力，所以等待是没有意义的。"
 
 #: ../../source/topics/workflows/usage.rst:384
 msgid ""
@@ -11639,6 +12101,8 @@ msgid ""
 " finished before it can continue. To solve this problem, there is another "
 "way to add futures to the context:"
 msgstr ""
+"有时候人们不仅想要启动一个，而是同时启动多个并行运行的进程。使用上述机制，这是不可能的，因为在提交单个进程并返回 ``ToContext`` "
+"实例之后，工作链必须等待例程完成才能继续。要解决这个问题，还有另一种方法可以将未来结果添加到上下文中："
 
 #: ../../source/topics/workflows/usage.rst:391
 msgid ""
@@ -11657,6 +12121,14 @@ msgid ""
 "the context under the key that was used as the keyword argument in the "
 "``to_context`` call in the previous step."
 msgstr ""
+"在这里，我们在一个大纲步骤中在for循环中提交三个工作链，但是我们不是返回 ``ToContext`` 的实例，而是调用 "
+":meth:`~aiiida.engine.processes.workchains.workchain.WorkChain.to_context ` "
+"方法。这个方法与 ``ToContext`` "
+"类的语法完全相同，只是没有必要返回它的值，所以我们可以在一个大纲步骤中多次调用它。在AiiDA引擎下，其功能也与 ``ToContext`` 类相同。在"
+" ``submit_workchains`` 大纲步骤结束时，引擎将通过调用 ``to_context`` "
+"找到所添加的未来期望结果，并等待所有这些未来结果完成。这里的好处是这三个子工作链可以并行运行，一旦完成所有这些工作链，父工作链将进入下一步，即 "
+"``inspect_workchains`` 。在那里，我们可以在上下文的上下文中找到工作链的节点，该键在上一步的 ``to_context`` "
+"调用中用作关键字参数。"
 
 #: ../../source/topics/workflows/usage.rst:398
 msgid ""
@@ -11671,10 +12143,12 @@ msgid ""
 "that list as you submit them. How this can be achieved is explained in the "
 "next section."
 msgstr ""
+"由于我们不希望随后调用 ``to_context`` "
+"来覆盖以前的未来，我们必须创建唯一的键来存储它们。在这个例子中，我们选择使用for循环的索引。该名称没有任何意义，只需要保证唯一的密钥名称。这种模式通常会出现在您希望并行启动多个工作链或算例的位置，并且必须提供唯一的名称。但实质上，您实际上只是创建一个列表，最好能够在上下文中创建列表，并在提交时将未来结果添加到该列表中。如何实现这一点将在下一节中解释。"
 
 #: ../../source/topics/workflows/usage.rst:406
 msgid "Appending"
-msgstr ""
+msgstr "追加"
 
 #: ../../source/topics/workflows/usage.rst:407
 msgid ""
@@ -11684,6 +12158,9 @@ msgid ""
 "Consider the example from the previous section, but now we will use the "
 "``append_`` function instead:"
 msgstr ""
+"如果要将已提交的子例程的未来结果添加到上下文中，但将其附加到列表而不是将其分配给键，则可以使用 "
+":func:`~aiida.engine.processes.workchains.context.append_ ` "
+"函数。继续考虑上一节中的示例，现在我们将使用 ``append_`` 函数："
 
 #: ../../source/topics/workflows/usage.rst:413
 msgid ""
@@ -11721,7 +12198,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:434
 msgid "Reporting"
-msgstr ""
+msgstr "报告"
 
 #: ../../source/topics/workflows/usage.rst:435
 msgid ""
@@ -11732,6 +12209,9 @@ msgid ""
 "functions as a logger of sorts. It takes a single argument, a string, that "
 "is the message that needs to be reported:"
 msgstr ""
+"在执行 ``WorkChain`` 时，我们可能希望让用户及时了解其进度和发生的情况。为此，``WorkChain`` 实现了 "
+":py:meth:`~aiiida.engine.processes.process.Process.report` "
+"方法，该方法用作各种日志。它需要一个参数，一个字符串，即需要报告的消息:"
 
 #: ../../source/topics/workflows/usage.rst:444
 msgid ""
@@ -11747,6 +12227,10 @@ msgid ""
 " ``verdi process report``, so you never have to explicitly reference the "
 "work chain name, outline step name or date and time in the message itself."
 msgstr ""
+"这会将该消息发送到python的内部日志，这将导致它被默认的AiiDA日志拾取，但它也将触发数据库日志处理程序，该处理程序将消息存储在数据库中并将其链接到节点工作链。这允许"
+" ``verdi process report`` 命令检索所有那些使用 ``report`` "
+"方法为特定例程触发的消息。请注意，除了工作链的pk之外，report 方法还将自动记录工作链的名称以及触发报告消息的大纲步骤的名称。此信息将显示在 "
+"``verdi process report`` 的输出中，因此您无需在消息本身中明确引用工作链名称，大纲步骤名称或日期和时间。"
 
 #: ../../source/topics/workflows/usage.rst:449
 msgid ""
@@ -11754,11 +12238,11 @@ msgid ""
 "such has been designed to be read by humans only. That is to say, the report"
 " system is not designed to pass information programmatically by parsing the "
 "log messages."
-msgstr ""
+msgstr "值得注意的是，报告系统是一种日志，因此只能被设计为容易阅读的。也就是说，报告系统不是为了通过解析日志消息以编程方式传递信息而设计的。"
 
 #: ../../source/topics/workflows/usage.rst:455
 msgid "Aborting and exit codes"
-msgstr ""
+msgstr "终止和退出码"
 
 #: ../../source/topics/workflows/usage.rst:456
 msgid ""
@@ -11791,6 +12275,8 @@ msgid ""
 " can retrieve the corresponding exit code and abort the ``WorkChain`` by "
 "returning it:"
 msgstr ""
+"现在想象一下，在大纲中，我们启动算例并在下一步检查它是否成功完成。如果计算没有成功完成，下面的代码片段显示了如何检索相应的退出码并通过返回它来中止 "
+"``WorkChain`` :"
 
 #: ../../source/topics/workflows/usage.rst:485
 msgid ""
@@ -11870,7 +12356,7 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:531
 msgid "Modular workflow design"
-msgstr ""
+msgstr "模块化工作流设计"
 
 #: ../../source/topics/workflows/usage.rst:532
 msgid ""
@@ -11879,6 +12365,7 @@ msgid ""
 "exactly one task. These workflows can then be wrapped together by a "
 "\"parent\" workflow to create a larger logical unit."
 msgstr ""
+"在创建复杂工作流时，最好将它们分割成更小的模块部分。在最低级别，每个工作流应该只执行一个任务。然后，这些工作流可以由“父”工作流包装在一起，以创建更大的逻辑单元。"
 
 #: ../../source/topics/workflows/usage.rst:536
 msgid ""
@@ -11892,13 +12379,13 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:543
 msgid "Exposing inputs and outputs"
-msgstr ""
+msgstr "暴露输入和输出"
 
 #: ../../source/topics/workflows/usage.rst:544
 msgid ""
 "Consider the following example work chain, which simply takes a few inputs "
 "and returns them again as outputs:"
-msgstr ""
+msgstr "考虑以下示例工作链，它只需要几个输入并将它们作为输出再次返回:"
 
 #: ../../source/topics/workflows/usage.rst:549
 msgid ""
@@ -11906,6 +12393,7 @@ msgid ""
 "forwards its inputs to ``ChildWorkChain``, and forwards the outputs of the "
 "child to its outputs:"
 msgstr ""
+"作为第一个例子，我们将实现一个小型的封装的工作流，它只是将其输入转发到 ``ChildWorkChain`` ，并将后代的输出转发到它的输出："
 
 #: ../../source/topics/workflows/usage.rst:554
 msgid ""
@@ -11925,6 +12413,16 @@ msgid ""
 "added to the outputs of the parent work chain. This work chain can now be "
 "run in exactly the same way as the child itself:"
 msgstr ""
+"在这个简单的父工作链的 ``define`` 方法中，我们使用 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 "
+":meth:`~pumpmpy.process_spec.ProcessSpec.expose_outputs` "
+"。这将在父工作链中创建相应的输入和输出端口。此外，AiiDA还记得从该特定工作链类中暴露了哪些输入和输出。在 ``run_child`` "
+"方法中调用子进程时使用此方法。 "
+":meth:`~aiiida.engine.processes.process.Process.exposed_inputs`方法返回父工作链接收到的从子例程中暴露的输入的字典，因此可以用它将这些输入传递给子例程。最后，在"
+" ``finalize`` 方法中，我们使用 "
+":meth:`~aiiida.engine.processes.process.Process.exposed_outputs`来检索暴露给父例程的子例程的输出。使用"
+" :meth:`~aiiida.engine.processes.process.Process.out_many` "
+"，这些输出被添加到父工作链的输出中。现在，此工作链可以与子项本身完全相同的方式运行:"
 
 #: ../../source/topics/workflows/usage.rst:566
 msgid ""
@@ -11937,12 +12435,16 @@ msgid ""
 "two children, where the inputs and outputs which are not shared are stored. "
 "Our goal is that the workflow can be called as follows:"
 msgstr ""
+"接下来，我们将看到如何通过使用暴露功能的其他功能来创建更复杂的父工作链。以下工作链启动了两个子项。这些子项共享输入 ``a`` ，但有不同的 ``b``"
+" 和 ``c`` 。输出 ``e`` 将仅从第一个子项中获取，而 ``d`` 和 ``f`` "
+"同时从两个子项中获取。为了避免名称冲突，我们需要为两个子节点中的每一个创建一个 *命名空间* "
+"，其中存储未共享的输入和输出。我们的目标是可以按如下方式调用工作流程:"
 
 #: ../../source/topics/workflows/usage.rst:576
 msgid ""
 "This is achieved by the following workflow. In the next section, we will "
 "explain each of the steps."
-msgstr ""
+msgstr "这是通过以下工作流程实现的。在下一节中，我们将解释每个步骤。"
 
 #: ../../source/topics/workflows/usage.rst:582
 msgid ""
@@ -11955,6 +12457,11 @@ msgid ""
 "``include=['a']`` to :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs`,"
 " only the input ``a`` is exposed."
 msgstr ""
+"首先，我们希望在顶层公开 ``a`` 输入和 ``e`` 输出。为此，我们再次使用 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_outputs` ，但使用可选关键字 "
+"``include`` 。这指定了一个键列表，只显示该列表中的输入或输出。因此，通过将 ``include = ['a']`` 传递给 "
+":meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` ，只显示输入 ``a`` 。"
 
 #: ../../source/topics/workflows/usage.rst:587
 msgid ""
@@ -11965,6 +12472,9 @@ msgid ""
 "``exclude`` keyword, which specifies a list of keys that will not be "
 "exposed."
 msgstr ""
+"另外，我们希望暴露输入 ``b`` 和 ``c`` （输出 ``d`` 和 ``f`` ），但是在特定于两个子项中的每一个的命名空间中。为此，我们将 "
+"``namespace`` 参数传递给 expose 函数。但是，由于我们现在不应该再次暴露 ``a`` （ ``e`` ），我们使用 "
+"``exclude`` 关键字，它指定了一个不会暴露的键列表。"
 
 #: ../../source/topics/workflows/usage.rst:591
 msgid ""
@@ -11982,6 +12492,12 @@ msgid ""
 "``agglomerate=False``, as shown in the call to ``child_2``. Of course, we "
 "then need to explicitly pass the input ``a``."
 msgstr ""
+"在调用子项时，我们再次使用 :meth:`~aiida.engine.processes.process.Process.exposed_inputs`"
+" 方法来转发暴露的输入。由于输入 ``b`` 和 ``c`` 现在位于特定的命名空间中，我们需要将此命名空间作为附加参数传递。默认情况下， "
+":meth:`~aiida.engine.processes.process.Process.exposed_inputs` "
+"将搜索给定命名空间的所有父命名空间以搜索输入，如调用 ``child_1`` "
+"所示。如果多个名称空间中存在相同的输入键，则最低名称空间中的输入优先。也可以禁用此行为，而只搜索传递的显式命名空间。这是通过设置 "
+"``agglomerate=False`` 来完成的，如调用 ``child_2`` 所示。当然，我们需要显式传递输入 ``a`` 。"
 
 #: ../../source/topics/workflows/usage.rst:599
 msgid ""
@@ -11993,6 +12509,10 @@ msgid ""
 "outputs are returned by the "
 ":meth:`~aiida.engine.processes.process.Process.exposed_outputs` method."
 msgstr ""
+"最后，我们使用 :meth:`~aiida.engine.processes.process.Process.exposed_outputs` 和 "
+":meth:`~aiida .engine.processes.process.Process.out_many` 将子项们的输出转发给父项输出。同样，"
+" ``namespace`` 和 ``agglomerate`` 选项可用于决定 "
+":meth:`~aiida.engine.processes.process.Process.exposed_outputs` 方法返回哪些输出。"
 
 #: ../../source/topics/workflows/usage.rst:604
 msgid ""
@@ -12003,8 +12523,8 @@ msgstr ""
 
 #: ../../source/topics/workflows/usage.rst:609
 msgid "https://docs.python.org/3.5/library/functions.html#classmethod"
-msgstr ""
+msgstr "https://docs.python.org/3.5/library/functions.html#classmethod"
 
 #: ../../source/topics/workflows/usage.rst:610
 msgid "https://en.wikipedia.org/wiki/Fizz_buzz"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Fizz_buzz"
