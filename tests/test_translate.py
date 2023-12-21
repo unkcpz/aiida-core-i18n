@@ -1,9 +1,12 @@
 import pytest
 import pathlib
 
-from aiida_core_i18n import str_pp, po_translate
+from aiida_core_i18n import str_post_processing, po_translate
 
-STATIC_PATH = pathlib.Path(__file__).parent.resolve()
+@pytest.fixture(scope="function")
+def static_path() -> pathlib.Path:
+    """The path of this file"""
+    return pathlib.Path(__file__).parent.resolve()
 
 @pytest.mark.parametrize(
     ('input', 'expected'),
@@ -15,18 +18,37 @@ STATIC_PATH = pathlib.Path(__file__).parent.resolve()
         ("参见 :py:mod:`aiida.plugins`中的API文档。", "参见 :py:mod:`aiida.plugins`中的API文档。"),
     ]
 )
-def test_str_pp(input, expected):
+def test_str_post_processing(input: str, expected: str):
     """test post process the string for code snippet"""
-    got = str_pp(input)
+    got = str_post_processing(input)
     assert got == expected
     
-with open(STATIC_PATH / "statics" / "origin_text.txt", "r") as fh:
-    PO_STR = fh.read()
 
-def test_po_translate(file_regression):
-    """The actuall process of po file"""
-    lines = PO_STR.splitlines()
+@pytest.fixture(scope="function")
+def pot_str(static_path: pathlib.Path) -> str:
+    """Read the po file from statics"""
+    with open(static_path / "statics" / "origin_text.txt", "r") as fh:
+        s = fh.read()
+    return s
+
+@pytest.mark.apicall
+def test_po_translate_default(pot_str, file_regression):
+    """The actuall process of po file
+    This consumes ~ 500 characters of deepl API
+    """
+    lines = pot_str.splitlines()
     
     translated_lines = po_translate(lines)
     file_regression.check('\n'.join(translated_lines))
     
+@pytest.mark.parametrize("override", [True, False])
+def test_po_translate_override(pot_str, file_regression, monkeypatch, override: bool):
+    """Monkey patch the translate function to return the same string
+    In order to test the flow of po_translate
+    """
+    monkeypatch.setattr("aiida_core_i18n.translate", lambda x: x)
+    
+    lines = pot_str.splitlines()
+    
+    translated_lines = po_translate(lines, override=override)
+    file_regression.check('\n'.join(translated_lines))

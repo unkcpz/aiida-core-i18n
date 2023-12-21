@@ -1,0 +1,37 @@
+name: CI-i18n
+
+# workflow for translate script testing
+
+on:
+  pull_request:
+    paths_ignore:
+      - "translations/**"
+      - "locale_sources/**"
+      - aiida-core
+
+jobs:
+  auto-trans-tool-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install aiida-core-i18n
+        run: |
+          pip install -e .[dev]
+
+      - name: Run tests
+        run: |
+          pytest -k "not apicall" tests -v --cov
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          name: aiida-core-i18n
+          fail_ci_if_error: false  # don't fail job, if coverage upload fails

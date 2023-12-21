@@ -5,7 +5,7 @@ import os
 
 DEEPL_TOKEN = os.environ.get("DEEPL_TOKEN")
 
-def str_pp(raw_str):
+def str_post_processing(raw_str: str) -> str:
     """deepl zh_CN has problem when translate the `` in CJK from English,
     this method will handle the process of it to render code snippet.
     """
@@ -24,7 +24,7 @@ def str_pp(raw_str):
     
     return res.strip()
 
-def translate(inp_str: str, target_lang="ZH"):
+def translate(inp_str: str, target_lang="ZH") -> str:
     """Call deepl API to tranlate and do post process"""
     translator = deepl.Translator(DEEPL_TOKEN)
     
@@ -48,11 +48,11 @@ def translate(inp_str: str, target_lang="ZH"):
         tstr = translated.text
         tstr = tstr.replace('EDBS', '``')
         
-        res = str_pp(tstr)
+        res = str_post_processing(tstr)
         
         return res
 
-def po_translate(lines: typing.List[str]):
+def po_translate(lines: typing.List[str], override: bool = False) -> typing.List[str]:
     """Translate the po files line by line"""
     output_lines = [i for i in lines]
     for ln, line in enumerate(lines):
@@ -63,11 +63,12 @@ def po_translate(lines: typing.List[str]):
                     ln_end = ln_start + count
                     break
                 
-            # if translated, skip， otherwise will override the translated result
-            if lines[ln_end] != 'msgstr ""':
+            # if translated, skip， otherwise the result will be overwritten
+            if lines[ln_end] != 'msgstr ""' and not override:
                 continue
             
             if ln_end - ln_start > 1:
+                # combine the string from multiple lines
                 inp_str = "".join([i.strip('"') for i in lines[ln_start+1:ln_end]])
             else:
                 # get the string from double quotes
