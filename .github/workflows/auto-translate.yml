@@ -1,5 +1,9 @@
 name: Auto Translate
 
+# Run this workflow every month on the first day of the month, or manually
+# It will fetch the latest translations from Transifex, run the translation script, and open a PR.
+# Once the PR is merged, the translations will be synced to Transifex.
+
 on:
   schedule:
     - cron: "0 0 1 * *"
@@ -33,22 +37,6 @@ jobs:
           # Add your commands here to run the translation script
           # demo using: .github/demo-404.po
           cp .github/demo-404.po translations/zh_CN/404.po
-
-      - name: Push PO files to Transifex
-        # -t: push translations
-        run: |
-          tx push -t
-        env:
-          TX_TOKEN: ${{ secrets.TX_TOKEN }}
-
-      - name: Pull again to sync metadata
-        # -a: --all: Fetch all translation files
-        # -t: pull translations
-        # -f: regardless of timestamp
-        run: |
-          tx pull -a -t -f
-        env:
-          TX_TOKEN: ${{ secrets.TX_TOKEN }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
