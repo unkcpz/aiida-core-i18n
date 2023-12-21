@@ -1,0 +1,36 @@
+name: Auto Translate
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+  
+  
+jobs:
+  auto-translate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tx client
+        run: |
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- 1.6.10
+
+      - name: Fetch latest PO files from Transifex
+        run: |
+          tx pull -a
+
+      - name: Run translation script
+        run: |
+          # Add your commands here to run the translation script
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto-translate PO files"
+          branch: auto-translate
+          title: "Auto-translate PO files"
+          body: "This PR includes the latest translations from Transifex."
