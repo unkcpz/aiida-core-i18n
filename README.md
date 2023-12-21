@@ -1,5 +1,7 @@
 # aiida-core i18n localization documentation
 
+[![codecov](https://codecov.io/gh/unkcpz/aiida-core-i18n/branch/main/graph/badge.svg)](https://codecov.io/gh/unkcpz/aiida-core-i18n)
+
 This is the repository serves for the localization of [aiida-core documentation](https://aiida.readthedocs.io/projects/aiida-core/en/latest/index.html).
 You can also translate online at <https://www.transifex.com/aiidateam/aiida-core/dashboard/> and your changes will be reviewed as soon as possible.
 

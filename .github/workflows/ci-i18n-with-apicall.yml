@@ -1,0 +1,38 @@
+name: CI-i18n-with-apicall
+
+# workflow for translate script testing
+# with apicall testing, so runs scheduled on main branch or triggered manually
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"  # every month on the 1st
+  workflow_dispatch:
+
+jobs:
+  auto-trans-tool-test-with-apicall:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install aiida-core-i18n
+        run: |
+          pip install -e .[dev]
+
+      - name: Run tests
+        run: |
+          pytest -k "apicall" tests -v --cov
+        env:
+          DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          name: aiida-core-i18n
+          fail_ci_if_error: false  # don't fail job, if coverage upload fails
