@@ -1,0 +1,65 @@
+name: Push Translations
+
+# Only run this job on the main repository and not on forks
+# run when merge Auto-translate PO files PR
+
+on:
+  push:
+    paths:
+      - translations
+    branches:
+      - main
+
+jobs:
+  push-translate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tx client
+        run: |
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- v1.6.9
+          mv tx /usr/local/bin/tx
+
+      - name: Push PO files to Transifex
+        # -t: push translations
+        run: |
+          tx push -t
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+
+      - name: Pull again from transifex to sync metadata
+        # -a: --all: Fetch all translation files
+        # -t: pull translations
+        # -f: regardless of timestamp
+        run: |
+          tx pull -a -t -f
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto-translate PO files"
+          branch: auto-translate-${{ github.sha }}
+          title: "Auto-translate PO files"
+          body: "This PR includes the latest translations and sync from Transifex."
+          reviewers: unkcpz
+
+      - name: Auto approve
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: gh pr review --approve "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
