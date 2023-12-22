@@ -38,7 +38,7 @@ def translate(po: pathlib.Path, max_chars: int, override_translation: bool, over
     click.echo("Done")
 
 @cli.command()
-@click.option('-p', '--param', help='which information to show', type=click.Choice(['count', 'limit', 'verbose', 'valiable']), default='verbose')
+@click.option('-p', '--param', help='which information to show', type=click.Choice(['count', 'limit', 'verbose', 'avail']), default='verbose')
 def status(param: str):
     """Show the status of the api translation limit"""
     import os
@@ -59,12 +59,11 @@ def status(param: str):
         click.echo(usage.character.count)
     elif param == 'limit':
         click.echo(usage.character.limit)
-    elif param == 'valiable':
+    elif param == 'avail':
         click.echo(usage.character.limit - usage.character.count)
+    else:
+        click.echo("ERROR: Please set the correct parameter")
     
-    
-
-
 
 if __name__ == '__main__':
     cli()
