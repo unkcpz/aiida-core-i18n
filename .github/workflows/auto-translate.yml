@@ -5,6 +5,11 @@ name: Auto Translate
 # Once the PR is merged, the translations will be synced to Transifex.
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/auto-translate.yml
   schedule:
     - cron: "0 0 27,13 * *"
   workflow_dispatch:
@@ -34,7 +39,7 @@ jobs:
       - name: Set characters limit base on event
         id: set-limit
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "CHR_LIMIT=1000" >> $GITHUB_OUTPUT
           else;
             # otherwise use 80% of the api limit
@@ -50,6 +55,7 @@ jobs:
           python .github/scripts/translate.py --limit ${{ steps.set-limit.outputs.CHR_LIMIT }}} translations/zh_CN/
         env:
           DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+        if: github.event_name != 'pull_request'
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -61,3 +67,4 @@ jobs:
           body: "This PR includes the latest translations from bot script."
           reviewers: unkcpz
           delete-branch: true
+        if: github.event_name != 'pull_request'
