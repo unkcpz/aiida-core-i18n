@@ -22,6 +22,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install aiida-core-i18n
+        run: |
+          pip install -e .[dev]
+
       - name: Install tx client
         run: |
           curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- v1.6.9
@@ -40,8 +49,11 @@ jobs:
         id: set-limit
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "CHR_LIMIT=1000" >> $GITHUB_OUTPUT
-          else;
+            echo "CHR_LIMIT=2000" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "CHR_LIMIT=200" >> $GITHUB_OUTPUT
+          else
+            # for cron job, check the api limit and run as many characters as possible (40% of the api limit, twice a month)
             # otherwise use 80% of the api limit
             CHR_LIMIT=$(aiida-core-i18n status -p avail | awk '{print int($1*0.4)}')
             echo "Limiting to $CHR_LIMIT characters"
@@ -52,10 +64,9 @@ jobs:
 
       - name: Run translation script
         run: |
-          python .github/scripts/translate.py --limit ${{ steps.set-limit.outputs.CHR_LIMIT }}} translations/zh_CN/
+          python .github/scripts/translate.py --limit ${{ steps.set-limit.outputs.CHR_LIMIT }} translations/zh_CN/
         env:
           DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
-        if: github.event_name != 'pull_request'
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
