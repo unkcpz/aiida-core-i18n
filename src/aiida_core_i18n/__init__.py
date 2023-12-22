@@ -3,7 +3,9 @@ import typing
 import deepl
 import os
 
-DEEPL_TOKEN = os.environ.get("DEEPL_TOKEN")
+def get_env_deepl_token() -> str:
+    """Get the deepl token from the environment variable"""
+    return os.environ.get("DEEPL_TOKEN")
 
 def str_post_processing(raw_str: str) -> str:
     """deepl zh_CN has problem when translate the `` in CJK from English,
@@ -24,9 +26,9 @@ def str_post_processing(raw_str: str) -> str:
     
     return res.strip()
 
-def translate(inp_str: str, target_lang="ZH") -> str:
+def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str:
     """Call deepl API to tranlate and do post process"""
-    translator = deepl.Translator(DEEPL_TOKEN)
+    translator = deepl.Translator(get_env_deepl_token())
     
     # `` -> EDBS after translated, recover to ``
     # EDBS for End Double BackSlash
@@ -50,7 +52,10 @@ def translate(inp_str: str, target_lang="ZH") -> str:
         tstr = translated.text
         tstr = tstr.replace('EDBS', '``')
         
-        res = str_post_processing(tstr)
+        if post_processing:
+            res = str_post_processing(tstr)
+        else:
+            res = tstr
         
         return res
 

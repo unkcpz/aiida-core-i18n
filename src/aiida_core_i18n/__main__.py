@@ -3,7 +3,7 @@
 import click
 import pathlib
 
-from aiida_core_i18n import po_translate
+from aiida_core_i18n import po_translate, get_env_deepl_token
 
 @click.group()
 def cli():
@@ -44,12 +44,12 @@ def status(param: str):
     import os
     import deepl
 
-    DEEPL_TOKEN = os.environ.get("DEEPL_TOKEN")
-    if DEEPL_TOKEN is None:
-        click.echo("ERROR: Please set the DEEPL_TOKEN environment variable")
+    token = get_env_deepl_token()
+    if token is None:
+        click.echo("ERROR: Please set the 'DEEPL_TOKEN' environment variable")
         return
 
-    translator = deepl.Translator(DEEPL_TOKEN)
+    translator = deepl.Translator(token)
     
     usage = translator.get_usage()
 
