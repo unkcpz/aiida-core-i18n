@@ -50,5 +50,23 @@ def test_po_translate_override(pot_str, file_regression, monkeypatch, override: 
     
     lines = pot_str.splitlines()
     
-    translated_lines = po_translate(lines, override=override)
+    translated_lines = po_translate(lines, override=override, max_chars=500)
     file_regression.check('\n'.join(translated_lines))
+
+@pytest.mark.parametrize("max_chars", [3, 20, 100, 500])
+def test_po_translate_max_chars(pot_str, file_regression, monkeypatch, max_chars: int):
+    """Monkey patch the translate function to return the same string"""
+
+    monkeypatch.setattr("aiida_core_i18n.translate", lambda x: x)
+
+    lines = pot_str.splitlines()
+
+    translated_lines = po_translate(lines, max_chars=max_chars)
+    file_regression.check('\n'.join(translated_lines))
+
+def test_po_translate_raise_exception_when_no_auth_key(pot_str, monkeypatch):
+    """Test the exception when no auth key"""
+    monkeypatch.delenv("DEEPL_TOKEN", raising=False)
+    
+    with pytest.raises(Exception):
+        po_translate(pot_str.splitlines())
