@@ -27,8 +27,18 @@ def str_post_processing(raw_str: str) -> str:
 
     # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
     res = re.sub(r"``(.*?)\s+`__``", r"`\1`__ ", res, flags=re.ASCII)
+
+    # Strip the space in both ends, otherwise the next pp will be revert
+    res = res.strip()
+
+    # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
+    # :class: -> _space:class:
+    if res.startswith(":meth:"):
+        res = " " + res
+    if res.startswith(":class:"):
+        res = " " + res
     
-    return res.strip()
+    return res
 
 def met_skip_rule(inp_str: str) -> bool:
     """The rule when met, skip the translation
