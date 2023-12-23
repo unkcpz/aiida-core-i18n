@@ -22,8 +22,8 @@ def str_post_processing(raw_str: str) -> str:
     # for `{content}` make sure a space in front
     tstr = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`)(?<!:))(`\w.*?`))', r' \1', tstr, flags=re.ASCII)
     
-    # for ``{content}`` make sure a space in front
-    tstr = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', tstr, flags=re.ASCII)
+    ## for ``{content}`` make sure a space in front
+    #tstr = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', tstr, flags=re.ASCII)
 
     # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
     tstr = re.sub(r"``(.*?)\s+`__``", r"`\1`__ ", tstr, flags=re.ASCII)
@@ -31,14 +31,7 @@ def str_post_processing(raw_str: str) -> str:
     # Strip the space in both ends, otherwise the next pp will be revert
     tstr = tstr.strip()
 
-    # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
-    # :class: -> _space:class:
-    if tstr.startswith(":meth:") or tstr.startswith(":class:"):
-        res = " " + tstr
-    else:
-        res = tstr
-    
-    return res
+    return tstr
 
 def met_skip_rule(inp_str: str) -> bool:
     """The rule when met, skip the translation
@@ -75,12 +68,16 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     # For string contains part start with :meth:, :class:, :ref:
     # I want to protect the inline code snippet in the string
     # e.g. :meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用
+    # 5
+    # For string contains ``text`` I want to protect it as well
     
     for finder in [
         r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", # 1
         r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", # 2
         r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", # 3
         r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", # 4
+        r"(?:(?:(?<!`)(?<!:))(``.*?``))", # 5
+        r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", # 6
     ]:
         for m in re.finditer(finder, pstr, flags=re.ASCII):
             origin = m.group(1)
@@ -88,15 +85,15 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
             pstr = pstr.replace(f"{origin}", gaurd)
             pairs[origin] = gaurd
     
-    if '``' in pstr:
-        pstr = pstr.replace('``', 'EDBS')
-        pairs['``'] = 'EDBS'
-    
     return pstr, pairs
 
-def revert_protected(pstr: str, pairs: dict) -> str:
+def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
     """Revert the protected characters"""
     for origin, gaurd in pairs.items():
+        if lang == "ZH":
+            # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
+            origin = " " + origin
+        
         pstr = pstr.replace(gaurd, origin)
     
     return pstr
@@ -108,7 +105,6 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
         return inp_str
     
     translator = deepl.Translator(get_env_deepl_token())
-    
     
     # Replace in order to be translated
     tstr, pairs = replace_protected(inp_str)
@@ -138,6 +134,14 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
         # protect the string from translation, but also protect it from the post processing.
         # otherwise the post processing may change the string.
         tstr = revert_protected(tstr, pairs)
+
+        # lstrip the space in front of the string
+        # but need to add a space in front of the line if it is a :meth:/class:/ref: string
+        tstr = tstr.lstrip()
+        for prefix in [":meth:", ":class:", ":ref:"]:
+            if tstr.startswith(prefix):
+                tstr = " " + tstr
+                break
         
         return tstr
 
