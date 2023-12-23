@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     if len(files) < 2:
         print("No enough files to compare, exit")
-        exit(1)
+        exit(0)
 
     # compare the two files if the same remove the one with the latest date
     with open(files[0], "r") as fh0, open(files[1], "r") as fh1:
