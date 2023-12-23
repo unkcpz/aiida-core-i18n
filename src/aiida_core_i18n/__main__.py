@@ -5,7 +5,7 @@ import pathlib
 
 from aiida_core_i18n import po_translate, get_env_deepl_token
 
-@click.group()
+@click.group(context_settings={"help_option_names": ["-h", "--help"]})
 def cli():
     """CLI command: to run the translation using click"""
     pass
@@ -63,6 +63,21 @@ def status(param: str):
         click.echo(usage.character.limit - usage.character.count)
     else:
         click.echo("ERROR: Please set the correct parameter")
+
+@cli.command()
+@click.argument('string', type=str)
+@click.option('--target-lang', help='The target language', default='ZH', type=str)
+@click.option('--post-processing/--no-post-processing', help='Do post processing', default=True, type=bool)
+def deepl(string: str, target_lang: str, post_processing: bool):
+    """Translate the string"""
+    from aiida_core_i18n import translate
+    
+    # print the initial string
+    click.echo(f"Input: \n\t{string}")
+
+    # translate the string
+    res = translate(string, target_lang=target_lang, post_processing=post_processing)
+    click.echo(f"Output: \n\t{res}")
     
 
 if __name__ == '__main__':

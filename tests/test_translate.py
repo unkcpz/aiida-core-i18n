@@ -18,10 +18,22 @@ def static_path() -> pathlib.Path:
         ("参见 :py:mod:`aiida.plugins`中的API文档。", "参见 :py:mod:`aiida.plugins`中的API文档。"),
     ]
 )
-def test_str_post_processing(input: str, expected: str):
+def test_str_post_processing_legacy(input: str, expected: str):
     """test post process the string for code snippet"""
     got = str_post_processing(input)
     assert got == expected
+
+# new test_str_post_processing where the en_source is recorded with the date.
+@pytest.mark.parametrize(
+    ('input', 'expected'),
+    [
+        (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"),
+    ]
+)
+def test_str_post_processing(input: str, expected: str):
+    """test post process the string for code snippet"""
+    got = str_post_processing(input)
+    assert got == expected 
     
 
 @pytest.fixture(scope="function")
