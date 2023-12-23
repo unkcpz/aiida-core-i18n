@@ -24,6 +24,12 @@ def test_str_post_processing_legacy(input: str, expected: str):
     got = str_post_processing(input)
     assert got == expected
 
+def test_replace_protect():
+    from aiida_core_i18n import replace_protected
+    
+    inp_str = r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_"
+    print(replace_protected(inp_str))
+
 # new test_str_post_processing where the en_source is recorded with the date.
 @pytest.mark.parametrize(
     ('input', 'expected'),

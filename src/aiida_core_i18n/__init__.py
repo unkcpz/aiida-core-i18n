@@ -40,6 +40,10 @@ def met_skip_rule(inp_str: str) -> bool:
     
     return False
 
+def str2hash(inp_str: str) -> str:
+    """Convert the string to hash and keep 8 digits (capitalize)"""
+    return f"{hash(inp_str):X}"[:8]
+
 # We don't want to translate the code snippet, so we use
 # a special string to replace the `` in the code snippet to avoid
 # the translation.
@@ -48,6 +52,20 @@ def met_skip_rule(inp_str: str) -> bool:
 def replace_protected(inp_str: str) -> t.Tuple[str, dict[str, str]]:
     """Replace the protected characters"""
     pairs = {}
+    
+    # I have "`text1`_, `othertext2`_"
+    # -> "`hash(text1)`_, `hash(othertext2)`_" 
+    # using regex to do it
+    # I also want to output the pairs of the hash and the original text
+    # so I can revert it back later
+    # I use a dict to store the pairs
+    for m in re.finditer(r"(?:(?:(?<!`)(?<!:))`(\w.*?)`)", inp_str, flags=re.ASCII):
+        origin = m.group(1)
+        gaurd = f"`{str2hash(origin)}`"
+        inp_str = inp_str.replace(f"`{origin}`", gaurd)
+        pairs[origin] = gaurd
+    
+    
     pstr = inp_str.replace('``', 'EDBS')
     pairs['``'] = 'EDBS'
     
