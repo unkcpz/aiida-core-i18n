@@ -3,7 +3,9 @@ import typing
 import deepl
 import os
 
-DEEPL_TOKEN = os.environ.get("DEEPL_TOKEN")
+def get_env_deepl_token() -> str:
+    """Get the deepl token from the environment variable"""
+    return os.environ.get("DEEPL_TOKEN")
 
 def str_post_processing(raw_str: str) -> str:
     """deepl zh_CN has problem when translate the `` in CJK from English,
@@ -21,13 +23,33 @@ def str_post_processing(raw_str: str) -> str:
     
     # for ``{content}`` make sure a space in front
     res = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', add_space, flags=re.ASCII)
+
+    # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
+    res = re.sub(r"``(.*?)\s+`__``", r"`\1`__", res, flags=re.ASCII)
     
     return res.strip()
 
-def translate(inp_str: str, target_lang="ZH") -> str:
-    """Call deepl API to tranlate and do post process"""
-    translator = deepl.Translator(DEEPL_TOKEN)
+def met_skip_rule(inp_str: str) -> bool:
+    """The rule when met, skip the translation
+    """
+    # if string is a citation, skip (container link to a doi url)
+    # e.g. Martin        Uhrin, It is a great day, Computational Materials Science **187**, 110086 (2021); DOI: `10.1016/j.commatsci.2020.110086 <https://doi.org/10.1016/j.commatsci.2020.110086>`_
+    if re.match(r".*DOI: `.*? <https://doi.org/.*?>`_.*?", inp_str):
+        return True
     
+    return False
+
+def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str:
+    """Call deepl API to tranlate and do post process"""
+    # If the inp_str meet the skip rule, return the inp_str immediately
+    if met_skip_rule(inp_str):
+        return inp_str
+    
+    translator = deepl.Translator(get_env_deepl_token())
+    
+    # We don't want to translate the code snippet, so we use
+    # a special string to replace the `` in the code snippet to avoid
+    # the translation.
     # `` -> EDBS after translated, recover to ``
     # EDBS for End Double BackSlash
     
@@ -50,7 +72,10 @@ def translate(inp_str: str, target_lang="ZH") -> str:
         tstr = translated.text
         tstr = tstr.replace('EDBS', '``')
         
-        res = str_post_processing(tstr)
+        if post_processing:
+            res = str_post_processing(tstr)
+        else:
+            res = tstr
         
         return res
 
@@ -135,3 +160,24 @@ def po_translate(
     return output_lines
     
             
+def deepl_status(info: str = "verbose") -> int:
+    """Get the status of the deepl API"""
+    import deepl
+    token = get_env_deepl_token()
+    if token is None:
+        raise RuntimeError("Please set the 'DEEPL_TOKEN' environment variable")
+    
+    translator = deepl.Translator(token)
+    
+    usage = translator.get_usage()
+    
+    if info == "verbose":
+        return usage
+    elif info == "count":
+        return usage.character.count
+    elif info == "limit":
+        return usage.character.limit
+    elif info == "avail":
+        return usage.character.limit - usage.character.count
+    else:
+        raise ValueError("Please set the correct parameter")

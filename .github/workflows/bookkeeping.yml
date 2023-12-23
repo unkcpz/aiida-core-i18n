@@ -1,0 +1,53 @@
+name: bookkeeping CI
+
+# run scheduled translation on given strings 
+# make the record of the translation in the bookkeeping folder
+
+on:
+  push:
+    paths:
+      - "src/**"
+    branches:
+      - main
+  schedule:
+    # every week on Monday at 00:00 UTC
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+
+  bookkeeping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install aiida-core-i18n
+        run: |
+          pip install -e .
+
+      - name: Run bookkeeping
+        run: |
+          python -m aiida_core_i18n.bookkeeping
+        env:
+          DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+
+      - name: Make a PR for the bookkeeping
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update bookkeeping
+          title: Update bookkeeping
+          body: |
+            This pull request updates the bookkeeping file.
+          branch: update-bookkeeping-${{ github.sha }}
+          reviewers: unkcpz
+        if: github.event_name != 'push'
