@@ -41,28 +41,12 @@ def translate(po: pathlib.Path, max_chars: int, override_translation: bool, over
 @click.option('-p', '--param', help='which information to show', type=click.Choice(['count', 'limit', 'verbose', 'avail']), default='verbose')
 def status(param: str):
     """Show the status of the api translation limit"""
-    import os
-    import deepl
+    from aiida_core_i18n import deepl_status
 
-    token = get_env_deepl_token()
-    if token is None:
-        click.echo("ERROR: Please set the 'DEEPL_TOKEN' environment variable")
-        return
-
-    translator = deepl.Translator(token)
-    
-    usage = translator.get_usage()
-
-    if param == 'verbose':
-        click.echo(usage)
-    elif param == 'count':
-        click.echo(usage.character.count)
-    elif param == 'limit':
-        click.echo(usage.character.limit)
-    elif param == 'avail':
-        click.echo(usage.character.limit - usage.character.count)
-    else:
-        click.echo("ERROR: Please set the correct parameter")
+    try:
+        click.echo(deepl_status(param))
+    except ValueError as exc:
+        click.echo(f"ERROR: {exc}")
 
 @cli.command()
 @click.argument('string', type=str)
