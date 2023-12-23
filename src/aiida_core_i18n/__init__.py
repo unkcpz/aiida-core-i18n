@@ -2,6 +2,8 @@ import re
 import typing
 import deepl
 import os
+import typing as t
+import hashlib
 
 def get_env_deepl_token() -> str:
     """Get the deepl token from the environment variable"""
@@ -17,17 +19,26 @@ def str_post_processing(raw_str: str) -> str:
     # if \" {any_str} \" -> ``{any_str}``
     tstr = re.sub(r'(?<!\w)\"(.*?)\"', lambda m: f"``{m.group(1).strip()}``", tstr, flags=re.ASCII)
     
-    # Final process
     # for `{content}` make sure a space in front
-    add_space = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`)(?<!:))(`\w.*?`))', r' \1', tstr, flags=re.ASCII)
+    tstr = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`)(?<!:))(`\w.*?`))', r' \1', tstr, flags=re.ASCII)
     
     # for ``{content}`` make sure a space in front
-    res = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', add_space, flags=re.ASCII)
+    tstr = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', tstr, flags=re.ASCII)
 
     # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
-    res = re.sub(r"``(.*?)\s+`__``", r"`\1`__", res, flags=re.ASCII)
+    tstr = re.sub(r"``(.*?)\s+`__``", r"`\1`__ ", tstr, flags=re.ASCII)
+
+    # Strip the space in both ends, otherwise the next pp will be revert
+    tstr = tstr.strip()
+
+    # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
+    # :class: -> _space:class:
+    if tstr.startswith(":meth:") or tstr.startswith(":class:"):
+        res = " " + tstr
+    else:
+        res = tstr
     
-    return res.strip()
+    return res
 
 def met_skip_rule(inp_str: str) -> bool:
     """The rule when met, skip the translation
@@ -39,6 +50,44 @@ def met_skip_rule(inp_str: str) -> bool:
     
     return False
 
+def str2hash(inp_str: str) -> str:
+    """Convert the string to hash and keep 8 digits (capitalize)"""
+    return hashlib.md5(inp_str.encode()).hexdigest()[:8].upper()
+
+# We don't want to translate the code snippet, so we use
+# a special string to replace the `` in the code snippet to avoid
+# the translation.
+# `` -> EDBS after translated, recover to ``
+# EDBS for End Double BackSlash etc.
+def replace_protected(inp_str: str) -> t.Tuple[str, dict[str, str]]:
+    """Replace the protected characters"""
+    pairs = {}
+    
+    # I have "`text1`_, `othertext2`_"
+    # -> "hash(`text1`_), hash(`othertext2`_)" 
+    # using regex to do it
+    # I also want to output the pairs of the hash and the original text
+    # so I can revert it back later
+    # I use a dict to store the pairs
+    for m in re.finditer(r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", inp_str, flags=re.ASCII):
+        origin = m.group(1)
+        gaurd = f"{str2hash(origin)}"
+        inp_str = inp_str.replace(f"{origin}", gaurd)
+        pairs[origin] = gaurd
+    
+    
+    pstr = inp_str.replace('``', 'EDBS')
+    pairs['``'] = 'EDBS'
+    
+    return pstr, pairs
+
+def revert_protected(pstr: str, pairs: dict) -> str:
+    """Revert the protected characters"""
+    for origin, gaurd in pairs.items():
+        pstr = pstr.replace(gaurd, origin)
+    
+    return pstr
+
 def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str:
     """Call deepl API to tranlate and do post process"""
     # If the inp_str meet the skip rule, return the inp_str immediately
@@ -47,15 +96,10 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
     
     translator = deepl.Translator(get_env_deepl_token())
     
-    # We don't want to translate the code snippet, so we use
-    # a special string to replace the `` in the code snippet to avoid
-    # the translation.
-    # `` -> EDBS after translated, recover to ``
-    # EDBS for End Double BackSlash
     
-    # substitute the `` with EDBS
-    tstr = inp_str.replace('``', 'EDBS')
-    
+    # Replace in order to be translated
+    tstr, pairs = replace_protected(inp_str)
+
     try:
         translated = translator.translate_text(
             tstr, 
@@ -68,16 +112,21 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
     except ValueError:
         raise
     else:
-        # substitue EDBS back to ``
+        # Revert the protected characters
         tstr = translated.text
-        tstr = tstr.replace('EDBS', '``')
-        
+
         if post_processing:
-            res = str_post_processing(tstr)
+            tstr = str_post_processing(tstr)
         else:
-            res = tstr
+            tstr = tstr
+
+        # This should be after the post processing
+        # It is safe since that exactly we want to protect, not only
+        # protect the string from translation, but also protect it from the post processing.
+        # otherwise the post processing may change the string.
+        tstr = revert_protected(tstr, pairs)
         
-        return res
+        return tstr
 
 def po_translate(
     lines: typing.List[str], 
