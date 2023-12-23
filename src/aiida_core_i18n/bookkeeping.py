@@ -7,6 +7,7 @@ from datetime import datetime
 from aiida_core_i18n import translate
 
 # list of original strings (English)
+# TODO: can use origin_text.txt directly with turn off the post processing and string protection. Override all string at end to mimic the pure deepl translation call. Produce the file with the date as bookkeeping.
 inp_strs = [
     r"Please visit the `Discourse forum <https://aiida.discourse.group>`__.",
     r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",

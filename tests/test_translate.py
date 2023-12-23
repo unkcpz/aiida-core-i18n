@@ -24,11 +24,21 @@ def test_str_post_processing_legacy(input: str, expected: str):
     got = str_post_processing(input)
     assert got == expected
 
+    # apply the post processing again should not change the string
+    # For the cases like adding space
+    got = str_post_processing(got)
+    assert got == expected
+
 def test_replace_protect():
-    from aiida_core_i18n import replace_protected
+    from aiida_core_i18n import replace_protected, revert_protected
     
     inp_str = r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_"
-    print(replace_protected(inp_str))
+
+    pstr, pairs = replace_protected(inp_str)
+    pstr = revert_protected(pstr, pairs)
+
+    assert pstr == inp_str
+    
 
 # new test_str_post_processing where the en_source is recorded with the date.
 @pytest.mark.parametrize(
@@ -43,6 +53,8 @@ def test_str_post_processing(input: str, expected: str):
     """test post process the string for code snippet"""
     got = str_post_processing(input)
     assert got == expected 
+
+    # apply the post processing again should not change the string
     
 @pytest.mark.parametrize(
     ('input', 'expected'),
