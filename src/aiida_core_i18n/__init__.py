@@ -2,6 +2,7 @@ import re
 import typing
 import deepl
 import os
+import typing as t
 
 def get_env_deepl_token() -> str:
     """Get the deepl token from the environment variable"""
@@ -25,7 +26,7 @@ def str_post_processing(raw_str: str) -> str:
     res = re.sub(r'(?:(?:(?<!^)(?<!\s)(?<!`))(``\w.*?``))', r' \1', add_space, flags=re.ASCII)
 
     # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
-    res = re.sub(r"``(.*?)\s+`__``", r"`\1`__", res, flags=re.ASCII)
+    res = re.sub(r"``(.*?)\s+`__``", r"`\1`__ ", res, flags=re.ASCII)
     
     return res.strip()
 
@@ -39,6 +40,26 @@ def met_skip_rule(inp_str: str) -> bool:
     
     return False
 
+# We don't want to translate the code snippet, so we use
+# a special string to replace the `` in the code snippet to avoid
+# the translation.
+# `` -> EDBS after translated, recover to ``
+# EDBS for End Double BackSlash etc.
+def replace_protected(inp_str: str) -> t.Tuple[str, dict[str, str]]:
+    """Replace the protected characters"""
+    pairs = {}
+    pstr = inp_str.replace('``', 'EDBS')
+    pairs['``'] = 'EDBS'
+    
+    return pstr, pairs
+
+def revert_protected(pstr: str, pairs: dict) -> str:
+    """Revert the protected characters"""
+    for origin, gaurd in pairs.items():
+        pstr = pstr.replace(gaurd, origin)
+    
+    return pstr
+
 def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str:
     """Call deepl API to tranlate and do post process"""
     # If the inp_str meet the skip rule, return the inp_str immediately
@@ -47,15 +68,10 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
     
     translator = deepl.Translator(get_env_deepl_token())
     
-    # We don't want to translate the code snippet, so we use
-    # a special string to replace the `` in the code snippet to avoid
-    # the translation.
-    # `` -> EDBS after translated, recover to ``
-    # EDBS for End Double BackSlash
     
-    # substitute the `` with EDBS
-    tstr = inp_str.replace('``', 'EDBS')
-    
+    # Replace in order to be translated
+    tstr, pairs = replace_protected(inp_str)
+
     try:
         translated = translator.translate_text(
             tstr, 
@@ -68,9 +84,9 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
     except ValueError:
         raise
     else:
-        # substitue EDBS back to ``
+        # Revert the protected characters
         tstr = translated.text
-        tstr = tstr.replace('EDBS', '``')
+        tstr = revert_protected(tstr, pairs)
         
         if post_processing:
             res = str_post_processing(tstr)

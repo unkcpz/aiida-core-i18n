@@ -9,6 +9,7 @@ from aiida_core_i18n import translate
 # list of original strings (English)
 inp_strs = [
     r"Please visit the `Discourse forum <https://aiida.discourse.group>`__.",
+    r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",
 ]
 
 rec_folder = pathlib.Path(__file__).parent / "_bookkeeping"

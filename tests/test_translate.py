@@ -28,7 +28,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
 @pytest.mark.parametrize(
     ('input', 'expected'),
     [
-        (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"),
+        (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__ 。"),
     ]
 )
 def test_str_post_processing(input: str, expected: str):
