@@ -36,7 +36,11 @@ jobs:
 
       - name: Copy POT files to locale_sources
         run: |
-          cp aiida-core/docs/build/locale/*.pot locale_sources/
+          for file in aiida-core/docs/build/locale/*.pot; do
+            if [ "$file" != "aiida-core/docs/build/locale/reference.pot" ]; then
+              cp "$file" locale_sources/
+            fi
+          done
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
