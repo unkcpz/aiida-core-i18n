@@ -29,15 +29,30 @@ def test_str_post_processing_legacy(input: str, expected: str):
     got = str_post_processing(got)
     assert got == expected
 
-def test_replace_protect():
+@pytest.mark.parametrize(
+    "input",
+    [
+        r"`` this is a code block ``",
+        r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",
+        r"The :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>` is where the ",
+        r"As discussed in the :ref:`topic section <topics:provenance:caching:limitations>`",
+        r"This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.",
+    ]
+)
+def test_replace_protect(input: str):
     from aiida_core_i18n import replace_protected, revert_protected
     
-    inp_str = r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_"
+    pstr, pairs = replace_protected(input)
+    
+    # by check there are things in the examples that require protection
+    assert len(pairs) > 0, f"Nothing to protect in {input}"
 
-    pstr, pairs = replace_protected(inp_str)
+    # Add prefix and suffix to the string to mock the translation
+    pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
     pstr = revert_protected(pstr, pairs)
 
-    assert pstr == inp_str
+    
+    assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
 
 # new test_str_post_processing where the en_source is recorded with the date.
