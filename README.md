@@ -82,3 +82,12 @@ git clean -xfd
 cd aiida-core
 git clean -xfd
 ```
+
+## Override rules between remote and local translations
+
+The override behavior between remote transifex and local translated po files sometimes can be tricky.
+Rule of thumb, the remote has higher priority than the local one to override the translation.
+
+- If the translation is already in remote, the local translation still can override the remote one if the changes are new in timestamp.
+- If it is a empty translation (not translated at all), the remote will not be overridden to none.
+- **However**, not the same vice versa. If the remote translation is empty, the local translation will still be overridden by the remote empty text.
