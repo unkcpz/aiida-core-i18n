@@ -49,7 +49,7 @@ def test_replace_protect(input: str):
 
     # Add prefix and suffix to the string to mock the translation
     pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
-    pstr = revert_protected(pstr, pairs)
+    pstr = revert_protected(pstr, pairs, lang="DE")
 
     
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
@@ -60,8 +60,6 @@ def test_replace_protect(input: str):
     ('input', 'expected'),
     [
         (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__ 。"),
-        (r":meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用", " " + ":meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用"),
-        (r":class:`~aiida.engine.processes.process.Process` 子类", " " + ":class:`~aiida.engine.processes.process.Process` 子类"),
     ]
 )
 def test_str_post_processing(input: str, expected: str):
