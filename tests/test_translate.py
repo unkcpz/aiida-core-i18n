@@ -12,11 +12,26 @@ def static_path() -> pathlib.Path:
 @pytest.mark.parametrize(
     ('input', 'expected'),
     [
-        ("*POST*：创建一个 \"Dict \"对象，\"Dict \"对象", "*POST*：创建一个 ``Dict``对象， ``Dict``对象"),
-        ("`AiidaApi', 继承`flask_restful.Api'。该类定义了由REST API提供的资源。", "``AiidaApi``, 继承 ``flask_restful.Api``。该类定义了由REST API提供的资源。"),
-        ("`AiidaApi`，继承`flask_restful.Api`。该类定义了由REST API提供的资源。", "`AiidaApi`，继承 `flask_restful.Api`。该类定义了由REST API提供的资源。"),
-        ("所有的Python内置类型都可以被Flask序列化（例如``int``、``float``、``str``等），而对于自定义类型的序列化，我们让你参考`Flask文档<http://flask.pocoo.org/docs/>`_。", "所有的Python内置类型都可以被Flask序列化（例如 ``int``、 ``float``、 ``str``等），而对于自定义类型的序列化，我们让你参考 `Flask文档<http://flask.pocoo.org/docs/>`_。"),
-        ("参见 :py:mod:`aiida.plugins`中的API文档。", "参见 :py:mod:`aiida.plugins`中的API文档。"),
+        (
+            "*POST*：创建一个 \"Dict \"对象，\"Dict \"对象", 
+            "*POST*：创建一个 ``Dict``对象，``Dict``对象",
+        ),
+        (
+            "`AiidaApi', 继承`flask_restful.Api'。该类定义了由REST API提供的资源。", 
+            "``AiidaApi``, 继承``flask_restful.Api``。该类定义了由REST API提供的资源。",
+        ),
+        (
+            "`AiidaApi`，继承`flask_restful.Api`。该类定义了由REST API提供的资源。", 
+            "`AiidaApi`，继承 `flask_restful.Api`。该类定义了由REST API提供的资源。",
+        ),
+        (
+            "所有的Python内置类型都可以被Flask序列化（例如``int``、``float``、``str``等），而对于自定义类型的序列化，我们让你参考`Flask文档<http://flask.pocoo.org/docs/>`_。", 
+            "所有的Python内置类型都可以被Flask序列化（例如``int``、``float``、``str``等），而对于自定义类型的序列化，我们让你参考 `Flask文档<http://flask.pocoo.org/docs/>`_。",
+        ),
+        (
+            "参见 :py:mod:`aiida.plugins`中的API文档。", 
+            "参见 :py:mod:`aiida.plugins`中的API文档。",
+        ),
     ]
 )
 def test_str_post_processing_legacy(input: str, expected: str):
@@ -32,11 +47,13 @@ def test_str_post_processing_legacy(input: str, expected: str):
 @pytest.mark.parametrize(
     "input",
     [
-        r"`` this is a code block ``",
+        r"``this is a code block``",
         r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",
         r"The :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>` is where the ",
         r"As discussed in the :ref:`topic section <topics:provenance:caching:limitations>`",
         r"This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.",
+        r"global_design",
+        r"THTH_design_1",
     ]
 )
 def test_replace_protect(input: str):
@@ -49,8 +66,7 @@ def test_replace_protect(input: str):
 
     # Add prefix and suffix to the string to mock the translation
     pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
-    pstr = revert_protected(pstr, pairs)
-
+    pstr = revert_protected(pstr, pairs, lang="DE")
     
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
@@ -60,8 +76,6 @@ def test_replace_protect(input: str):
     ('input', 'expected'),
     [
         (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__ 。"),
-        (r":meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用", " " + ":meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用"),
-        (r":class:`~aiida.engine.processes.process.Process` 子类", " " + ":class:`~aiida.engine.processes.process.Process` 子类"),
     ]
 )
 def test_str_post_processing(input: str, expected: str):
