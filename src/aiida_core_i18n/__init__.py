@@ -31,14 +31,7 @@ def str_post_processing(raw_str: str) -> str:
     # Strip the space in both ends, otherwise the next pp will be revert
     tstr = tstr.strip()
 
-    # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
-    # :class: -> _space:class:
-    if tstr.startswith(":meth:") or tstr.startswith(":class:"):
-        res = " " + tstr
-    else:
-        res = tstr
-    
-    return res
+    return tstr
 
 def met_skip_rule(inp_str: str) -> bool:
     """The rule when met, skip the translation
@@ -94,9 +87,13 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     
     return pstr, pairs
 
-def revert_protected(pstr: str, pairs: dict) -> str:
+def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
     """Revert the protected characters"""
     for origin, gaurd in pairs.items():
+        if lang == "ZH":
+            # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
+            origin = " " + origin
+        
         pstr = pstr.replace(gaurd, origin)
     
     return pstr
@@ -108,7 +105,6 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
         return inp_str
     
     translator = deepl.Translator(get_env_deepl_token())
-    
     
     # Replace in order to be translated
     tstr, pairs = replace_protected(inp_str)
