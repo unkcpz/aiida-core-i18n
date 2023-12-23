@@ -59,25 +59,38 @@ def str2hash(inp_str: str) -> str:
 # the translation.
 # `` -> EDBS after translated, recover to ``
 # EDBS for End Double BackSlash etc.
-def replace_protected(inp_str: str) -> t.Tuple[str, dict[str, str]]:
+def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     """Replace the protected characters"""
     pairs = {}
     
+    # 1
     # I have "`text1`_, `othertext2`_"
     # -> "hash(`text1`_), hash(`othertext2`_)" 
     # using regex to do it
     # I also want to output the pairs of the hash and the original text
     # so I can revert it back later
     # I use a dict to store the pairs
-    for m in re.finditer(r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", inp_str, flags=re.ASCII):
-        origin = m.group(1)
-        gaurd = f"{str2hash(origin)}"
-        inp_str = inp_str.replace(f"{origin}", gaurd)
-        pairs[origin] = gaurd
+
+    # 2 - 4
+    # For string contains part start with :meth:, :class:, :ref:
+    # I want to protect the inline code snippet in the string
+    # e.g. :meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用
     
+    for finder in [
+        r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", # 1
+        r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", # 2
+        r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", # 3
+        r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", # 4
+    ]:
+        for m in re.finditer(finder, pstr, flags=re.ASCII):
+            origin = m.group(1)
+            gaurd = f"{str2hash(origin)}"
+            pstr = pstr.replace(f"{origin}", gaurd)
+            pairs[origin] = gaurd
     
-    pstr = inp_str.replace('``', 'EDBS')
-    pairs['``'] = 'EDBS'
+    if '``' in pstr:
+        pstr = pstr.replace('``', 'EDBS')
+        pairs['``'] = 'EDBS'
     
     return pstr, pairs
 
