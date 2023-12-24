@@ -22,8 +22,28 @@ code_snippet_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", True), # 2
     (r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", True), # 3
     (r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", True), # 4
+    (r"(?:(?:(?<!`)(?<!:))({ref}`.*?`))", True), # 5
     (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
 ]
+
+# 1
+# I have "`text1`_, `othertext2`_"
+# -> "hash(`text1`_), hash(`othertext2`_)" 
+# using regex to do it
+# I also want to output the pairs of the hash and the original text
+# so I can revert it back later
+# I use a dict to store the pairs
+
+# 2 - 4
+# For string contains part start with :meth:, :class:, :ref:
+# I want to protect the inline code snippet in the string
+# e.g. :meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用
+# 11
+# For string contains ``text`` I want to protect it as well
+    
+# 21
+# For string contains text_textp I want to protect it as well
+# Don't add a space in front
 
 terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))(\w+[-_]\w+))", False), # 21
@@ -40,25 +60,6 @@ terminology_protect_list = [
 def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     """Replace the protected characters"""
     pairs = {}
-    
-    # 1
-    # I have "`text1`_, `othertext2`_"
-    # -> "hash(`text1`_), hash(`othertext2`_)" 
-    # using regex to do it
-    # I also want to output the pairs of the hash and the original text
-    # so I can revert it back later
-    # I use a dict to store the pairs
-
-    # 2 - 4
-    # For string contains part start with :meth:, :class:, :ref:
-    # I want to protect the inline code snippet in the string
-    # e.g. :meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用
-    # 11
-    # For string contains ``text`` I want to protect it as well
-    
-    # 21
-    # For string contains text_textp I want to protect it as well
-    # Don't add a space in front
     
     for finder in code_snippet_protect_list + terminology_protect_list:
         space_in_front = finder[1]
