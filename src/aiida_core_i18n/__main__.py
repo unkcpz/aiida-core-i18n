@@ -53,6 +53,7 @@ def status(param: str):
 @click.option('--post-processing/--no-post-processing', help='Do post processing', default=True, type=bool)
 def deepl(string: str, target_lang: str, post_processing: bool):
     """Translate the string"""
+    from aiida_core_i18n import translate
     
     # print the initial string
     click.echo(f"Input: \n\t{string}")
