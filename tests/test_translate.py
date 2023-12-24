@@ -113,7 +113,7 @@ def test_po_translate_default(pot_str, file_regression):
     """The actuall process of po file
     This consumes ~ 500 characters of deepl API
     """
-    from aiida_core_i18n import deepl_status
+    from aiida_core_i18n.deepl_api import deepl_status
 
     # may not be enough for the whole file if so, fail the test
     # We need go and maybe change
