@@ -47,12 +47,13 @@ def test_str_post_processing_legacy(input: str, expected: str):
 @pytest.mark.parametrize(
     "input",
     [
-        r"``this is a code block``",
+        r"This is ``this is a code block``",
         r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",
         r"The :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>` is where the ",
         r"As discussed in the :ref:`topic section <topics:provenance:caching:limitations>`",
+        r"As discussed in the :py:ref:`topic section <topics:provenance:caching:limitations>`",
         r"This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.",
-        r"global_design",
+        r"This is global_design",
         r"THTH_design_1",
     ]
 )
@@ -67,7 +68,7 @@ def test_replace_protect(input: str):
     # Add prefix and suffix to the string to mock the translation
     pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
     pstr = revert_protected(pstr, pairs, lang="DE")
-    
+
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
 

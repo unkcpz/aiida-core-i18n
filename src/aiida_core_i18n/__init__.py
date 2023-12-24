@@ -68,29 +68,35 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     # For string contains part start with :meth:, :class:, :ref:
     # I want to protect the inline code snippet in the string
     # e.g. :meth:`ProcessNodeCaching.is_valid_cache <aiida.orm.nodes.process.process.ProcessNodeCaching.is_valid_cache>` 调用
-    # 5
+    # 11
     # For string contains ``text`` I want to protect it as well
     
+    # 21
+    # For string contains text_textp I want to protect it as well
+    # Don't add a space in front
+    
     for finder in [
-        r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", # 1
-        r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", # 2
-        r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", # 3
-        r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", # 4
-        r"(?:(?:(?<!`)(?<!:))(``.*?``))", # 5
-        r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", # 6
+        (r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", True), # 1
+        (r"(?:(?:(?<!`)(?<!:))(:py:.*?:`.*?`))", True), # 2
+        (r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", True), # 2
+        (r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", True), # 3
+        (r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", True), # 4
+        (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
+        (r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", False), # 21
     ]:
-        for m in re.finditer(finder, pstr, flags=re.ASCII):
+        space_in_front = finder[1]
+        for m in re.finditer(finder[0], pstr, flags=re.ASCII):
             origin = m.group(1)
             gaurd = f"{str2hash(origin)}"
             pstr = pstr.replace(f"{origin}", gaurd)
-            pairs[origin] = gaurd
+            pairs[origin] = (gaurd, space_in_front)
     
     return pstr, pairs
 
 def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
     """Revert the protected characters"""
-    for origin, gaurd in pairs.items():
-        if lang == "ZH":
+    for origin, (gaurd, space_in_front) in pairs.items():
+        if lang == "ZH" and space_in_front:
             # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
             origin = " " + origin
         
