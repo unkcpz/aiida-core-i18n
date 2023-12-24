@@ -3,7 +3,8 @@
 import click
 import pathlib
 
-from aiida_core_i18n import po_translate, get_env_deepl_token
+from aiida_core_i18n import po_translate, translate
+from aiida_core_i18n.deepl_api import deepl_status
 
 @click.group(context_settings={"help_option_names": ["-h", "--help"]})
 def cli():
@@ -41,8 +42,6 @@ def translate(po: pathlib.Path, max_chars: int, override_translation: bool, over
 @click.option('-p', '--param', help='which information to show', type=click.Choice(['count', 'limit', 'verbose', 'avail']), default='verbose')
 def status(param: str):
     """Show the status of the api translation limit"""
-    from aiida_core_i18n import deepl_status
-
     try:
         click.echo(deepl_status(param))
     except ValueError as exc:
@@ -54,7 +53,6 @@ def status(param: str):
 @click.option('--post-processing/--no-post-processing', help='Do post processing', default=True, type=bool)
 def deepl(string: str, target_lang: str, post_processing: bool):
     """Translate the string"""
-    from aiida_core_i18n import translate
     
     # print the initial string
     click.echo(f"Input: \n\t{string}")
