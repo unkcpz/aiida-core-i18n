@@ -23,7 +23,6 @@ code_snippet_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", True), # 3
     (r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", True), # 4
     (r"(?:(?:(?<!`)(?<!:))({ref}`.*?`))", True), # 5
-    (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
 ]
 
 # 1
@@ -46,6 +45,7 @@ code_snippet_protect_list = [
 # Don't add a space in front
 
 terminology_protect_list = [
+    (r"(?:(?:(?<!`)(?<!:))(``.*?``))", False), # 11
     (r"(?:(?:(?<!`)(?<!:))(\w+[-_]\w+))", False), # 21
     (r"(?:(?:(?<!`)(?<!:))([eE]ngine))", False), # 101
     (r"(?:(?:(?<!`)(?<!:))([wW]orkflow))", False), # 102
