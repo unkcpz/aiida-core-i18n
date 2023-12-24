@@ -33,6 +33,7 @@ terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))([eE]ntry\s+[pP]oint))", False), # 104
     (r"(?:(?:(?<!`)(?<!:))([pP]rovenance))", False), # 105
     (r"(?:(?:(?<!`)(?<!:))([pP]rovenance\s+[gG]raph))", False), # 106
+    (r"(?:(?:(?<!`)(?<!:))([iI]mport[s]?))", False), # 107
 ]
     
 

@@ -60,6 +60,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"Termi entry point", r"Termi Entry Point",
         r"Termi Node", r"Termi node",
         r"Mini-spec", r"Mini-Spec",
+        r"import", r"Import", r"imports", r"Imports",
     ]
 )
 def test_replace_protect(input: str):
