@@ -3,7 +3,7 @@ import typing as t
 import hashlib
 
 def met_skip_rule(inp_str: str) -> bool:
-    """The rule when met, skip the translation
+    """The rule when met, skip the translation of the entire string
     """
     # if string is a citation, skip (container link to a doi url)
     # e.g. Martin        Uhrin, It is a great day, Computational Materials Science **187**, 110086 (2021); DOI: `10.1016/j.commatsci.2020.110086 <https://doi.org/10.1016/j.commatsci.2020.110086>`_
@@ -16,11 +16,26 @@ def str2hash(inp_str: str) -> str:
     """Convert the string to hash and keep 8 digits (capitalize)"""
     return hashlib.md5(inp_str.encode()).hexdigest()[:8].upper()
 
-# We don't want to translate the code snippet, so we use
-# a special string to replace the `` in the code snippet to avoid
-# the translation.
-# `` -> EDBS after translated, recover to ``
-# EDBS for End Double BackSlash etc.
+code_snippet_protect_list = [
+    (r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", True), # 1
+    (r"(?:(?:(?<!`)(?<!:))(:py:.*?:`.*?`))", True), # 2
+    (r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", True), # 2
+    (r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", True), # 3
+    (r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", True), # 4
+    (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
+]
+
+terminology_protect_list = [
+    (r"(?:(?:(?<!`)(?<!:))(\w+[-_]\w+))", False), # 21
+    (r"(?:(?:(?<!`)(?<!:))([eE]ngine))", False), # 101
+    (r"(?:(?:(?<!`)(?<!:))([wW]orkflow))", False), # 102
+    (r"(?:(?:(?<!`)(?<!:))([nN]ode))", False), # 103
+    (r"(?:(?:(?<!`)(?<!:))([eE]ntry\s+[pP]oint))", False), # 104
+    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance))", False), # 105
+    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance\s+[gG]raph))", False), # 106
+]
+    
+
 def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     """Replace the protected characters"""
     pairs = {}
@@ -44,15 +59,7 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     # For string contains text_textp I want to protect it as well
     # Don't add a space in front
     
-    for finder in [
-        (r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", True), # 1
-        (r"(?:(?:(?<!`)(?<!:))(:py:.*?:`.*?`))", True), # 2
-        (r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", True), # 2
-        (r"(?:(?:(?<!`)(?<!:))(:class:`.*?`))", True), # 3
-        (r"(?:(?:(?<!`)(?<!:))(:ref:`.*?`))", True), # 4
-        (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
-        (r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", False), # 21
-    ]:
+    for finder in code_snippet_protect_list + terminology_protect_list:
         space_in_front = finder[1]
         for m in re.finditer(finder[0], pstr, flags=re.ASCII):
             origin = m.group(1)

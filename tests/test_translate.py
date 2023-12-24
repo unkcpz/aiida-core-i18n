@@ -55,6 +55,11 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.",
         r"This is global_design",
         r"THTH_design_1",
+        r"Termi workflow", r"Termi Workflow",
+        r"Termi Engine", r"Termi engine",
+        r"Termi entry point", r"Termi Entry Point",
+        r"Termi Node", r"Termi node",
+        r"Mini-spec", r"Mini-Spec",
     ]
 )
 def test_replace_protect(input: str):
