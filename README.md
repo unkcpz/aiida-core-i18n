@@ -55,13 +55,13 @@ Link the translations to the `aiida-core/docs/source`.
 
 ```
 for lang in $(ls translations); do mkdir -p aiida-core/docs/source/locales/${lang}; done
-for lang in $(ls translations); do ln -s -r translations/${lang} aiida-core/docs/source/locales/${lang}/LC_MESSAGES; done
+for lang in $(ls translations); do ln -s translations/${lang} aiida-core/docs/source/locales/${lang}/LC_MESSAGES; done
 ```
 
 Install the dependencies for the sphinx build and the `aiida-core` APIDOC build.
 
 ```
-pip install -U -e "aiida-core[docs,tests,rest,atomic_tools]"
+python -m pip install -U -e "aiida-core[docs,tests,rest,atomic_tools]"
 ```
 
 Build it! (Replace the language with the target language you want to build, currently only `zh_CN` and `de` are supported)

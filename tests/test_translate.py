@@ -47,13 +47,19 @@ def test_str_post_processing_legacy(input: str, expected: str):
 @pytest.mark.parametrize(
     "input",
     [
-        r"``this is a code block``",
+        r"This is ``this is a code block``",
         r"AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_",
         r"The :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>` is where the ",
         r"As discussed in the :ref:`topic section <topics:provenance:caching:limitations>`",
+        r"As discussed in the :py:ref:`topic section <topics:provenance:caching:limitations>`",
         r"This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.",
-        r"global_design",
+        r"This is global_design",
         r"THTH_design_1",
+        r"Termi workflow", r"Termi Workflow",
+        r"Termi Engine", r"Termi engine",
+        r"Termi entry point", r"Termi Entry Point",
+        r"Termi Node", r"Termi node",
+        r"Mini-spec", r"Mini-Spec",
     ]
 )
 def test_replace_protect(input: str):
@@ -67,7 +73,7 @@ def test_replace_protect(input: str):
     # Add prefix and suffix to the string to mock the translation
     pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
     pstr = revert_protected(pstr, pairs, lang="DE")
-    
+
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
 
@@ -112,7 +118,7 @@ def test_po_translate_default(pot_str, file_regression):
     """The actuall process of po file
     This consumes ~ 500 characters of deepl API
     """
-    from aiida_core_i18n import deepl_status
+    from aiida_core_i18n.deepl_api import deepl_status
 
     # may not be enough for the whole file if so, fail the test
     # We need go and maybe change
