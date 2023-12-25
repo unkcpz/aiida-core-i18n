@@ -51,12 +51,13 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"Termi Engine", r"Termi engine",
         r"Termi entry point", r"Termi Entry Point",
         r"Termi Node", r"Termi node",
-        r"Mini-spec", r"Mini-Spec",
+        r"Mini_spec", r"Mini_Spec",
         r"import", r"Import", r"imports", r"Imports",
-        r"{ref}`how-to:use:me",
+        r"{ref}`how-to:use:me`",
         r"|aiida-core|: The main Python package",
         r"During \"full\" maintenance",
         r"`aiida-core` is protected."
+        r"Termi schema", r"Termi Schema",
     ]
 )
 def test_replace_protect(input: str):
