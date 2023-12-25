@@ -8,6 +8,13 @@ on:
     paths:
       - "tests/statics/origin_text"
       - "src/**"
+  push:
+    paths:
+      - "tests/statics/origin_text"
+      - "src/**"
+      - "translations/**"
+    branches:
+      - main
   schedule:
     - cron: "0 0 1 * *"  # every month on the 1st
   workflow_dispatch:
@@ -40,3 +47,4 @@ jobs:
         with:
           name: aiida-core-i18n
           fail_ci_if_error: false  # don't fail job, if coverage upload fails
+        if: github.event_name != 'pull_request'
