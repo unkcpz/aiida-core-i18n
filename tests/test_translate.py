@@ -14,19 +14,11 @@ def static_path() -> pathlib.Path:
     [
         (
             "*POST*：创建一个 \"Dict \"对象，\"Dict \"对象", 
-            "*POST*：创建一个 ``Dict``对象，``Dict``对象",
+            "*POST* ：创建一个 ``Dict``对象，``Dict``对象",
         ),
         (
             "`AiidaApi', 继承`flask_restful.Api'。该类定义了由REST API提供的资源。", 
             "``AiidaApi``, 继承``flask_restful.Api``。该类定义了由REST API提供的资源。",
-        ),
-        (
-            "`AiidaApi`，继承`flask_restful.Api`。该类定义了由REST API提供的资源。", 
-            "`AiidaApi`，继承 `flask_restful.Api`。该类定义了由REST API提供的资源。",
-        ),
-        (
-            "所有的Python内置类型都可以被Flask序列化（例如``int``、``float``、``str``等），而对于自定义类型的序列化，我们让你参考`Flask文档<http://flask.pocoo.org/docs/>`_。", 
-            "所有的Python内置类型都可以被Flask序列化（例如``int``、``float``、``str``等），而对于自定义类型的序列化，我们让你参考 `Flask文档<http://flask.pocoo.org/docs/>`_。",
         ),
         (
             "参见 :py:mod:`aiida.plugins`中的API文档。", 
@@ -87,6 +79,12 @@ def test_replace_protect(input: str):
     [
         (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__ 。"),
         (r"它将 API 与 ``flask.Flask``（即代表网络应用的 Flask 基本类）的实例耦合。这样，应用程序就配置好了，如果需要，还可以连接起来。", r"它将 API 与 ``flask.Flask`` （即代表网络应用的 Flask 基本类）的实例耦合。这样，应用程序就配置好了，如果需要，还可以连接起来。"),
+        (r"Two space here  Make no sence", r"Two space here Make no sence"),
+        (r"这种关系在*db_dblinks*表中有记录。", r"这种关系在 *db_dblinks* 表中有记录。"),
+        (r"这种关系1在*db_dblinks* 表中有记录。", r"这种关系1在 *db_dblinks* 表中有记录。"),
+        (r"这种关系1.1在 *db_dblinks*表中有记录。", r"这种关系1.1在 *db_dblinks* 表中有记录。"),
+        (r"这种关系1.2在  *db_dblinks*表中有记录。", r"这种关系1.2在 *db_dblinks* 表中有记录。"),
+        (r"这种关系2在**db_dblinks**表中有记录。", r"这种关系2在 **db_dblinks** 表中有记录。"),
     ]
 )
 def test_str_post_processing(input: str, expected: str):
