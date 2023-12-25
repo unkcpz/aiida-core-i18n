@@ -13,6 +13,11 @@ on:
   schedule:
     - cron: "0 0 27,13 * *"
   workflow_dispatch:
+    inputs:
+      limit:
+        description: "Character limit for translation"
+        required: false
+        default: 2000
   
 jobs:
   auto-translate:
@@ -49,7 +54,7 @@ jobs:
         id: set-limit
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "CHR_LIMIT=2000" >> $GITHUB_OUTPUT
+            echo "CHR_LIMIT=${{ github.event.inputs.limit }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
             echo "CHR_LIMIT=200" >> $GITHUB_OUTPUT
           else
