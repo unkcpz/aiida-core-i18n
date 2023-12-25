@@ -19,6 +19,9 @@ def str_post_processing(raw_str: str) -> str:
     # r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。" -> r"请访问 `话语论坛 <https://aiida.discourse.group>`__。"
     tstr = re.sub(r"``(.*?)\s+`__``", r"`\1`__ ", tstr, flags=re.ASCII)
 
+    # fix issue 102
+    tstr = tstr.replace("``（", "`` （")
+
     # Strip the space in both ends, otherwise the next pp will be revert
     tstr = tstr.strip()
 
