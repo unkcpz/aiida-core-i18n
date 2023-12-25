@@ -84,6 +84,7 @@ def test_replace_protect(input: str):
     ('input', 'expected'),
     [
         (r"请访问 ``话语论坛 <https://aiida.discourse.group> `__``。", r"请访问 `话语论坛 <https://aiida.discourse.group>`__ 。"),
+        (r"它将 API 与 ``flask.Flask``（即代表网络应用的 Flask 基本类）的实例耦合。这样，应用程序就配置好了，如果需要，还可以连接起来。", r"它将 API 与 ``flask.Flask`` （即代表网络应用的 Flask 基本类）的实例耦合。这样，应用程序就配置好了，如果需要，还可以连接起来。"),
     ]
 )
 def test_str_post_processing(input: str, expected: str):
