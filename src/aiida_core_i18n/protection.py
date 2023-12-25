@@ -47,6 +47,7 @@ code_snippet_protect_list = [
 
 terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))(``.*?``))", False), # 11
+    (r"(?:(?:(?<!`)(?<!:))(\|.*?\|))", False), # 12
     (r"(?:(?:(?<!`)(?<!:))(\w+[-_]\w+))", False), # 21
     (r"(?:(?:(?<!`)(?<!:))([eE]ngine))", False), # 101
     (r"(?:(?:(?<!`)(?<!:))([wW]orkflow))", False), # 102

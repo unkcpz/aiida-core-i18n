@@ -62,6 +62,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"Mini-spec", r"Mini-Spec",
         r"import", r"Import", r"imports", r"Imports",
         r"{ref}`how-to:use:me",
+        r"|aiida-core|: The main Python package",
     ]
 )
 def test_replace_protect(input: str):
