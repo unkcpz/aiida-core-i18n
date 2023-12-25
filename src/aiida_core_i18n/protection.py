@@ -55,8 +55,8 @@ terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))([wW]orkflow))", False), # 102
     (r"(?:(?:(?<!`)(?<!:))([nN]ode))", False), # 103
     (r"(?:(?:(?<!`)(?<!:))([eE]ntry\s+[pP]oint))", False), # 104
-    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance))", False), # 105
-    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance\s+[gG]raph))", False), # 106
+    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance\s+[gG]raph))", False), # 105
+    (r"(?:(?:(?<!`)(?<!:))([pP]rovenance))", False), # 106
     (r"(?:(?:(?<!`)(?<!:))([iI]mport[s]?))", False), # 107
     (r"(?:(?:(?<!`)(?<!:))([sS]chema?))", False), # 108
 ]
