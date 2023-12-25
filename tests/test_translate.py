@@ -64,6 +64,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"{ref}`how-to:use:me",
         r"|aiida-core|: The main Python package",
         r"During \"full\" maintenance",
+        r"`aiida-core` is protected."
     ]
 )
 def test_replace_protect(input: str):
@@ -80,6 +81,26 @@ def test_replace_protect(input: str):
 
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
+@pytest.mark.parametrize(
+    "input",
+    [
+        r"`aiida core` is not protected."
+    ]
+)
+def test_replace_protect_not(input: str):
+    from aiida_core_i18n import replace_protected, revert_protected
+    
+    pstr, pairs = replace_protected(input)
+    
+    # by check there are things in the examples that require protection
+    with pytest.raises(AssertionError):
+        assert len(pairs) > 0, f"Nothing to protect in {input}"
+
+    # Add prefix and suffix to the string to mock the translation
+    pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
+    pstr = revert_protected(pstr, pairs, lang="DE")
+
+    assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
 
 # new test_str_post_processing where the en_source is recorded with the date.
 @pytest.mark.parametrize(
