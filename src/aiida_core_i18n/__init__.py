@@ -46,7 +46,7 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
         # lstrip the space in front of the string
         # but need to add a space in front of the line if it is a :meth:/class:/ref: string
         tstr = tstr.lstrip()
-        for prefix in [":meth:", ":class:", ":ref:"]:
+        for prefix in [":meth:", ":class:", ":ref:", ":py:"]:
             if tstr.startswith(prefix):
                 tstr = " " + tstr
                 break
