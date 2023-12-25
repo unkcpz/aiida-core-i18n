@@ -1411,7 +1411,7 @@ msgid ""
 "objects are stored in a flat manner where the filename, that functions as "
 "the unique key, is based on a randomly generated UUID, as shown in "
 ":numref:`fig:internal-architecture:repository:design-sandbox`."
-msgstr ""
+msgstr "`disk object store`_ (:class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`) 和 scratch sandbox (:class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend`) 实现了抽象存储库后台接口。后一种实现方式只是使用本地文件系统上的临时 scratch 文件夹来实现接口，以存储文件内容。文件对象以扁平方式存储，其中作为唯一密钥的文件名基于随机生成的 UUID，如 :numref:`fig:internal-architecture:repository:design-sandbox` 所示。"
 
 #: ../../source/internals/storage/repository.rst:122
 msgid ""
@@ -1423,7 +1423,7 @@ msgid ""
 "local file system. Since these sandbox repositories are intended to have "
 "very short lifetimes and contain relatively few objects, the typical "
 "drawbacks of a flat file store do not apply."
-msgstr ""
+msgstr "文件存储库后端 :class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` 实现创建的文件结构。文件以完全扁平的结构存储，文件名由随机生成的 UUID 决定。这是在本地文件系统中写入和读取文件的最有效方法。由于这些沙盒存储库的生命周期很短，包含的对象也相对较少，因此平面文件存储的典型缺点并不适用。"
 
 #: ../../source/internals/storage/repository.rst:127
 msgid ""
@@ -1442,11 +1442,11 @@ msgid ""
 "repository. Only when the node gets stored, are the files copied to the "
 "permanent backend file repository (such as the "
 ":class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`)."
-msgstr ""
+msgstr "该沙箱实现的简单扁平结构不应成为限制因素，因为该后端只能用于短期临时文件存储库。用例是为未存储的 node 提供文件存储库。在交互式 shell 会话中创建的新 node 实例通常在存储前就会被丢弃，因此 important 不仅要尽可能高效地创建新文件，还要在删除 node 后高效地删除文件。磁盘对象存储区没有针对高效的临时对象删除进行优化，而是以软删除的方式实现对象删除，实际删除应在维护操作期间进行，如打包松散对象。这就是为什么一个新的 node 实例在实例化后会获得一个类：`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` 的存储库实例。只有当 node 被存储时，文件才会被复制到永久的后端文件存储库（如 :class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`）。"
 
 #: ../../source/internals/storage/repository.rst:137
 msgid "The disk object store"
-msgstr ""
+msgstr "磁盘对象存储"
 
 #: ../../source/internals/storage/repository.rst:139
 msgid ""
@@ -1466,7 +1466,7 @@ msgid ""
 ":ref:`internal-architecture:repository:original-design`. A schematic "
 "overview of the folder structure of a disk object store *container* is shown"
 " in :numref:`fig:internal-architecture:repository:design-dos`."
-msgstr ""
+msgstr "磁盘对象存储空间是从零开始设计的，目的是满足上一节所述文件存储库的技术要求。概念很简单：文件存储库由 *容器* 表示，容器是本地文件系统中的一个目录，包含所有文件内容。当文件写入容器时，首先会写入 *scratch* 目录。一旦这一操作成功完成，文件就会被移动到 *loose* 目录中。之所以称为 *loose* ，是因为该目录中的每个文件都是作为一个单独的或 *loose* 对象存储的。对象的名称是根据其内容计算出来的哈希值，目前使用的是 `sha256 algorithm <https://en.wikipedia.org/wiki/SHA-2>`_。如 :ref:`internal-architecture:repository:original-design` 所述， *loose* 目录会根据对象哈希值的前两个字符进行一级分片，以便提高对象查找的性能。磁盘对象存储 *container* 的文件夹结构 schematic 概览见 :numref:`fig:internal-architecture:repository:design-dos`。"
 
 #: ../../source/internals/storage/repository.rst:153
 msgid ""
@@ -1476,7 +1476,7 @@ msgid ""
 "sandbox folder and then moved atomically to the *loose* directory. During "
 "maintenance operations, *loose* files can be concatenated to pack files that"
 " are stored in the *packed* directory."
-msgstr ""
+msgstr "Schematic 表示 `disk object store <https://pypi.org/project/disk-objectstore/>`_ 软件包 *容器* 中的文件层次结构。将文件写入容器时，它们首先被写入 *scratch* 沙盒文件夹，然后被原子移动到 *loose* 目录。在维护操作过程中， *loose* 文件可与存储在 *packed* 目录中的打包文件连接。"
 
 #: ../../source/internals/storage/repository.rst:157
 msgid ""
@@ -1494,7 +1494,7 @@ msgid ""
 "overhead, the chosen hashing algorithm is fast enough that it justifies that"
 " cost given that it gives a significant reduction in required storage space "
 "due to the automatic and implicit data deduplication."
-msgstr ""
+msgstr "在资源库中创建新文件时，先将文件写入从头沙盒文件夹，然后再原子移动到 *松散* 对象目录，这种方法直接满足了 *并发* 的要求。通过依赖操作系统的 *原子* 文件移动操作，所有 *松散* 对象都能在本地文件系统的原子性保证范围内得到保护，避免数据损坏。使用文件内容的哈希校验和作为文件名，可自动满足 *效率* 要求。假设所使用的哈希算法没有碰撞，两个具有相同哈希值的对象就能保证具有相同的内容，因此可以作为单一对象进行存储。虽然在存储文件之前计算文件的哈希值会产生不可忽略的开销，但所选的哈希算法速度足够快，而且由于自动和隐式重复数据删除功能，所需的存储空间也大大减少，因此这一开销是值得的。"
 
 #: ../../source/internals/storage/repository.rst:163
 msgid ""
@@ -1511,7 +1511,7 @@ msgid ""
 "concatenated into single files that are stored in the *packed* folder. The "
 "pack files have a configurable maximum size and once it is reached the next "
 "pack file is created, whose filenames are named by consecutive integers."
-msgstr ""
+msgstr "虽然 *scratch* 和 *loose* 目录的方法满足了 *并发* 和 *效率* 的标准，但该解决方案并不具备 *可扩展性* 。正如 :ref:`original design <internal-architecture:repository:original-design>`，由于每个对象都作为单独文件存储在磁盘上，因此该解决方案无法扩展到数百万个 node 文件的文件库。如上文所述，这使得备份文件库变得不切实际，因为仅仅构建文件列表就是一项昂贵的操作。为了解决这个问题，磁盘对象存储库采用了打包的概念。在此维护操作中，存储在 *loose* 目录中的所有松散对象的内容都会被串联成单个文件，存储在 *packed* 文件夹中。打包文件有一个可配置的最大大小，一旦达到该大小，就会创建下一个打包文件，文件名由连续的整数命名。"
 
 #: ../../source/internals/storage/repository.rst:170
 msgid ""
@@ -1529,7 +1529,7 @@ msgid ""
 "intentionally because the disk object store is expected to be able to store "
 "files that are strongly heterogeneous in size and as such can not make "
 "optimizations for a particular range of file sizes."
-msgstr ""
+msgstr "`sqlite <https://sqlite.org/index.html>`_ 数据库用于跟踪每个对象存储在哪个打包文件中、开始的字节偏移量以及总字节长度。一旦单个对象被打包到数量较少的文件中，这样的索引文件就是必要的。为了满足 *简单* 的要求，我们选择了 sqlite 数据库，因为它无服务器且高效。松散的对象是以随机顺序串联起来的，也就是说，磁盘对象存储空间不会像其他一些键值存储解决方案那样，根据对象内容的大小对其进行任何排序，例如将其与文件系统中的块对齐。任何大小的文件都一视同仁，因此不会对存储小文件或大文件进行优化。这样做是有意为之，因为我们希望磁盘对象存储能够存储大小各异的文件，因此无法针对特定范围的文件大小进行优化。"
 
 #: ../../source/internals/storage/repository.rst:176
 msgid ""
@@ -1544,11 +1544,11 @@ msgid ""
 "files are forcefully repacked), backup up tools, such as `rsync "
 "<https://en.wikipedia.org/wiki/Rsync>`_, can reduce the transfer of content "
 "to the bare minimum."
-msgstr ""
+msgstr "目前，打包操作被视为一种维护操作，因此与写入新的 *松散* 对象不同，不能由多个进程同时进行。尽管目前存在这种限制，打包机制还是满足了最终的 *可扩展性* 要求。通过减少文件总数和打包策略，打包文件可以非常高效地复制到备份副本中。由于新对象会被连接到现有打包文件的末尾，而现有打包文件在达到最大大小后原则上不会再被触及（除非打包文件被强制重新打包），因此备份工具（如 `rsync <https://en.wikipedia.org/wiki/Rsync>`_）可以将内容传输减少到最低限度。"
 
 #: ../../source/internals/storage/repository.rst:182
 msgid "The lifetime of a node"
-msgstr ""
+msgstr "node 的使用寿命"
 
 #: ../../source/internals/storage/repository.rst:184
 msgid ""
@@ -1567,7 +1567,7 @@ msgid ""
 "implementation. The advantage is that if the node object does go out of "
 "scope before it has been stored, the contents that may have been created in "
 "the repository will be automatically cleaned from the local file system."
-msgstr ""
+msgstr "在介绍了所有组件之后，下面我们将介绍在 node 的整个生命周期中如何使用这些组件。当构建一个新的 node 实例时，它还没有 :class:`~aiida.repository.repository.Repository` 实例。相反，在文件存储库上执行操作时，会立即创建一个 :class:`~aiida.repository.repository.Repository` 实例。这一点对性能至关重要，因为 node 实例在初始化时往往不需要访问其存储库内容，而构建存储库接口实例会产生不可忽略的开销。如果 node 未存储，:class:`~aiida.repository.repository.Repository` 将使用 :class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` 实现的实例来构建。这样做的好处是，如果 node 对象在被存储之前就退出了作用域，那么在存储库中创建的内容将自动从本地文件系统中清除。"
 
 #: ../../source/internals/storage/repository.rst:191
 msgid ""
@@ -1584,11 +1584,11 @@ msgid ""
 "instance correctly once the node is reloaded from the database, by calling "
 "the :meth:`~aiida.repository.repository.Repository.from_serialized` class "
 "method while passing the stored ``repository_metadata``."
-msgstr ""
+msgstr "当存储 node 时，:class:`~aiida.repository.repository.Repository` 实例会被一个新实例取代，这次后端设置为 :class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`，初始化后指向当前配置文件的 *容器* 。沙盒存储库的内容通过 :class:`~aiida.repository.repository.Repository` 接口复制到磁盘对象存储库，最后对其内容进行序列化。序列化后的文件层次结构将存储在 node 本身的 ``repository_metadata`` 列中。这样，一旦 node 从数据库中重新加载，就可以通过调用 :meth:`~aiida.repository.repository.Repository.from_serialized` 类方法并传递存储的 ``repository_metadata`` 来正确重建 :class:`~aiida.repository.repository.Repository` 实例。"
 
 #: ../../source/internals/storage/repository.rst:200
 msgid "The original design"
-msgstr ""
+msgstr "原始设计"
 
 #: ../../source/internals/storage/repository.rst:202
 msgid ""
@@ -1599,7 +1599,7 @@ msgid ""
 "the node, guaranteeing that each subdirectory was unique, and the files of "
 "different nodes would not overwrite one another, even if they have identical"
 " names."
-msgstr ""
+msgstr "AiiDA 最初的文件存储库是作为本地文件系统上的一个简单目录实现的。属于node的文件会被原封不动地写入存储库目录下的一个子目录，不会进行任何压缩或打包。该目录的名称等于 node 的 UUID，确保每个子目录都是唯一的，不同 node 的文件即使名称相同，也不会相互覆盖。"
 
 #: ../../source/internals/storage/repository.rst:206
 msgid ""
@@ -1620,7 +1620,7 @@ msgid ""
 "the third level, however, the file hierarchy would once again be flat. A "
 "schematic overview of the resulting file hierarchy is shown in "
 ":numref:`fig:internal-architecture:repository:design-original`."
-msgstr ""
+msgstr "考虑到包含许多 node 的数据库会导致许多子目录，从而减慢查找特定 node 目录的操作速度，存储库采用了 `sharded <https://en.wikipedia.org/wiki/Shard_(database_architecture)>`_。在文件系统中，这意味着 node 目录不是以平面结构存储在文件存储库中，而是存储在（嵌套的）子目录中。哪个子目录再次由 UUID 决定：第一个和第二个子目录分别由第一个和第二个两个字符给出。UUID 的其余字符构成最终子目录的名称。例如，UUID 为 ``4802585e-18da-42e1-b063-7504585ea9af``，子目录的相对路径就是 ``48/02/585e-18da-42e1-b063-7504585ea9af``。在这种结构下，文件存储库最多包含 256 个目录，从 ``00`` 到 ``ff``，每个目录都是一样的。不过，从第三层开始，文件层次结构将再次扁平化。文件层次结构的 schematic概览见 :numref:`fig:internal-architecture:repository:design-original`。"
 
 #: ../../source/internals/storage/repository.rst:220
 msgid ""
