@@ -57,6 +57,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"|aiida-core|: The main Python package",
         r"During \"full\" maintenance",
         r"`aiida-core` is protected."
+        r"Termi schema", r"Termi Schema",
     ]
 )
 def test_replace_protect(input: str):
