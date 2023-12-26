@@ -32,16 +32,13 @@ def translate(inp_str: str, target_lang="ZH", post_processing: bool=True) -> str
         # Revert the protected characters
         tstr = translated.text
 
+        tstr = revert_protected(tstr, pairs)
+
+        # Conduct the post processing
         if post_processing:
             tstr = str_post_processing(tstr)
         else:
             tstr = tstr
-
-        # This should be after the post processing
-        # It is safe since that exactly we want to protect, not only
-        # protect the string from translation, but also protect it from the post processing.
-        # otherwise the post processing may change the string.
-        tstr = revert_protected(tstr, pairs)
 
         # lstrip the space in front of the string
         # but need to add a space in front of the line if it is a :meth:/class:/ref: string
