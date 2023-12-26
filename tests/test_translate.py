@@ -66,6 +66,7 @@ def test_replace_protect(input: str):
     from aiida_core_i18n import replace_protected, revert_protected
     
     pstr, pairs = replace_protected(input)
+    print(pstr)
     
     # by check there are things in the examples that require protection
     assert len(pairs) > 0, f"Nothing to protect in {input}"
