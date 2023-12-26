@@ -80,8 +80,8 @@ def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
     """Revert the protected characters"""
     for origin, (gaurd, space_in_front) in pairs.items():
         if lang == "ZH" and space_in_front:
-            # Add a space in front if string start with :meth: like ":meth: {context}" -> "_space:meth: {context}"
-            origin = " " + origin
+            # Add a space in front and behind after revert protection's snippet back e.g. {context}" -> "_space:meth: {context}_space"
+            origin = " " + origin + " "
         
         pstr = pstr.replace(gaurd, origin)
     
