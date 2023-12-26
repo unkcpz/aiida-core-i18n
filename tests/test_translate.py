@@ -58,6 +58,8 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"During \"full\" maintenance",
         r"`aiida-core` is protected."
         r"Termi schema", r"Termi Schema",
+        r"If you stop the container (`docker stop` or simply)",
+        r"If you stop the container (`docker stop more` or simply)",
     ]
 )
 def test_replace_protect(input: str):
@@ -77,7 +79,7 @@ def test_replace_protect(input: str):
 @pytest.mark.parametrize(
     "input",
     [
-        r"`aiida core` is not protected."
+        r"`aiida `uo` core` is not protected."
     ]
 )
 def test_replace_protect_not(input: str):
