@@ -47,7 +47,7 @@ code_snippet_protect_list = [
 # Don't add a space in front
 
 terminology_protect_list = [
-    (r"(?:(?:(?<!`)(?<!:))(`\w+\s(?:\w+\s)?\w+`))", False), # 10
+    (r"(?:(?:(?<!`)(?<!:))(`[^\s+]`))", False), # 10
     (r"(?:(?:(?<!`)(?<!:))(``.*?``))", False), # 11
     (r"(?:(?:(?<!`)(?<!:))(\|.*?\|))", False), # 12
     (r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", False), # 21
