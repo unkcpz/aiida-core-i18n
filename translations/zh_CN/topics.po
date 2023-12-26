@@ -611,7 +611,7 @@ msgstr ""
 msgid ""
 "Because the returned node is already stored, the engine will raise the "
 "following exception:"
-msgstr ""
+msgstr "由于返回的 node 已经存储，engine 将引发以下异常："
 
 #: ../../source/topics/calculations/usage.rst:50
 msgid ""
@@ -619,7 +619,7 @@ msgid ""
 "created in the function body, is indistinguishable from a node that was "
 "already stored and had simply been loaded in the function body and returned,"
 " e.g.:"
-msgstr ""
+msgstr "之所以如此严格，是因为在函数体中创建后存储的 node 与已经存储并在函数体中加载后返回的 node 是没有区别的，例如"
 
 #: ../../source/topics/calculations/usage.rst:55
 msgid ""
@@ -627,7 +627,7 @@ msgid ""
 "function, even though it was not really created by it at all. It is exactly "
 "to prevent this ambiguity that calculation functions require all returned "
 "output nodes to be *unstored*."
-msgstr ""
+msgstr "加载的 node 也会从计算函数中获得一个 `create` 链接，尽管它实际上根本不是由计算函数创建的。正是为了防止出现这种含糊不清的情况，计算函数要求所有返回的输出 node 必须 *未存储* 。"
 
 #: ../../source/topics/calculations/usage.rst:58
 msgid ""
@@ -635,7 +635,7 @@ msgid ""
 "outputs that it returns **have to be stored**, because as a 'workflow'-like "
 "process, it *cannot* create new data. For more details refer to the "
 ":ref:`work function section<topics:workflows:usage:workfunctions>`."
-msgstr ""
+msgstr "请注意，工作函数的要求恰恰相反，它返回的所有输出 **必须存储** ，因为作为一个类似于 ``workflow``的进程，它 **不能** 创建新数据。更多详情请参考 :ref:`work function section<topics:workflows:usage:workfunctions>` 。"
 
 #: ../../source/topics/calculations/usage.rst:66
 msgid ""
@@ -650,12 +650,12 @@ msgid ""
 "with :ref:`generic processes<topics:processes:usage>` before continuing, "
 "because all the concepts explained there will apply also to calculation "
 "jobs."
-msgstr ""
+msgstr "为了解释如何执行计算作业，我们将继续以 :ref:`concept of the calculation job<topics:calculations:concepts:calcjobs>` 为例。在那里，我们描述了一个以简单 bash 脚本实现的两个整数相加的代码，以及如何使用 :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 类通过 AiiDA 运行该代码。由于它是 :py:class:`~aiida.engine.processes.process.Process` 类的子类，因此共享其所有属性。在继续阅读之前，请先阅读有关 :ref:`generic processes<topics:processes:usage>` 的章节，这将是非常有价值的，因为那里解释的所有概念也适用于计算作业。"
 
 #: ../../source/topics/calculations/usage.rst:75
 #: ../../source/topics/workflows/usage.rst:150
 msgid "Define"
-msgstr ""
+msgstr "定义"
 
 #: ../../source/topics/calculations/usage.rst:76
 msgid ""
@@ -666,22 +666,22 @@ msgid ""
 "You can pick any name that is a valid python class name. The most important "
 "method of the ``CalcJob`` class, is the ``define`` class method. Here you "
 "define, what inputs it takes and what outputs it will generate."
-msgstr ""
+msgstr "要执行计算作业，只需将 :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 进程类子类化，并执行 :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define` 方法即可。你可以选择任何有效的 python 类名。 ``CalcJob`` 类中最重要的 important 方法是 ``define`` 类方法。您可以在这里定义它的输入和输出。"
 
 #: ../../source/topics/calculations/usage.rst:84
 msgid ""
 "As the snippet above demonstrates, the class method takes two arguments:"
-msgstr ""
+msgstr "如上图所示，类方法需要两个参数："
 
 #: ../../source/topics/calculations/usage.rst:86
 msgid ""
 "``cls`` this is the reference of the class itself and is mandatory for any "
 "class method"
-msgstr ""
+msgstr "``cls`` 这是类本身的引用，对于任何类方法都是强制性的"
 
 #: ../../source/topics/calculations/usage.rst:87
 msgid "``spec`` which is the 'specification'"
-msgstr ""
+msgstr "``spec`` 是 "规范"
 
 #: ../../source/topics/calculations/usage.rst:90
 msgid ""
@@ -689,7 +689,7 @@ msgid ""
 "the ``define`` method, where you replace the class name with the name of "
 "your calculation job. This will call the ``define`` method of the parent "
 "class, which is necessary for the calculation job to work properly"
-msgstr ""
+msgstr "不要忘记在 ``define`` 方法的第一行添加 ``super().define(spec)`` 行，并用计算作业的名称替换类名称。这将调用父类的 ``define`` 方法，这是计算作业正常工作所必需的"
 
 #: ../../source/topics/calculations/usage.rst:93
 msgid ""
@@ -704,7 +704,7 @@ msgid ""
 "done here, you can specify which types are valid for that particular input. "
 "Since we expect integers, we specify that the valid type is the database "
 "storable :py:class:`~aiida.orm.nodes.data.int.Int` class."
-msgstr ""
+msgstr "顾名思义， ``spec`` 可用来指定计算作业的属性。例如，它可以用来定义计算作业的输入。在我们的示例中，我们需要传递两个整数作为输入，因此我们在规范中调用 ``spec.input()`` 来定义这两个整数。第一个参数是输入的名称。这个名称将在以后启动计算作业时用于指定输入，同时也将用作连接 provenance graph 中数据 node 和计算 node 的链接标签。此外，正如我们在这里所做的，可以指定哪些类型对特定输入有效。由于我们希望输入整数，因此指定有效类型为数据库可存储的 :py:class:`~aiida.orm.nodes.data.int.Int` 类。"
 
 #: ../../source/topics/calculations/usage.rst:103
 msgid ""
@@ -715,12 +715,12 @@ msgid ""
 "reference the code that the user wants to run when he launches the "
 "``CalcJob``. For this reason, you **do not** again have to declare this "
 "input."
-msgstr ""
+msgstr "由于我们是 ``CalcJob`` 的子类并调用了它的 ``define`` 方法，因此它也将继承它所声明的端口。如果查看一下实现，就会发现基类 ``CalcJob`` 已经定义了一个接收 ``Code`` 实例的输入 ``code`` 。当用户启动 ``CalcJob`` 时，它将引用用户希望运行的代码。因此，您***不必再次声明此输入。"
 
 #: ../../source/topics/calculations/usage.rst:108
 msgid ""
 "Next we should define what outputs we expect the calculation to produce:"
-msgstr ""
+msgstr "接下来，我们应该定义我们希望计算产生哪些输出结果："
 
 #: ../../source/topics/calculations/usage.rst:113
 msgid ""
@@ -733,11 +733,11 @@ msgid ""
 ":py:meth:`~plumpy.ProcessSpec.output` methods provide a lot more "
 "functionality. Fore more details, please refer to the section on "
 ":ref:`process specifications<topics:processes:usage:spec>`."
-msgstr ""
+msgstr "与输入一样，我们也可以指定每个输出的 node 类型。默认情况下，已定义的输出将是 ``必填``，这意味着如果计算作业结束时没有附加输出，进程将被标记为失败。要表示输出是可选的，可以在 ``spec.output`` 调用中使用 ``required=False`` 。请注意，进程规范及其 :py:meth:`~plumpy.ProcessSpec.input` 和 :py:meth:`~plumpy.ProcessSpec.output` 方法提供了更多的功能。更多详情，请参阅 :ref:`process specifications<topics:processes:usage:spec>` 章节。"
 
 #: ../../source/topics/calculations/usage.rst:123
 msgid "Prepare"
-msgstr ""
+msgstr "准备"
 
 #: ../../source/topics/calculations/usage.rst:124
 msgid ""
@@ -747,24 +747,24 @@ msgid ""
 "run. To understand what the engine would have to do to accomplish this, "
 "let's consider what one typically does when manually preparing to run a "
 "computing job through a scheduler:"
-msgstr ""
+msgstr "现在，我们已经通过流程规范定义了计算作业所期望的输入和将创建的输出。剩下的最后一项任务是指导 engine 如何实际运行计算作业。为了了解 engine 要完成这项任务需要做些什么，让我们考虑一下通过调度程序手动准备运行计算作业时通常要做的事情："
 
 #: ../../source/topics/calculations/usage.rst:128
 msgid ""
 "Prepare a working directory in some scratch space on the machine where the "
 "job will run"
-msgstr ""
+msgstr "在运行任务的计算机上的某个抓取空间中准备一个工作目录"
 
 #: ../../source/topics/calculations/usage.rst:129
 msgid "Create the raw input files required by the executable"
-msgstr ""
+msgstr "创建可执行文件所需的原始输入文件"
 
 #: ../../source/topics/calculations/usage.rst:130
 msgid ""
 "Create a launch script containing scheduler directives, loading of "
 "environment variables and finally calling the executable with certain "
 "command line parameters."
-msgstr ""
+msgstr "创建一个包含调度指令的启动脚本，加载环境变量，最后使用某些命令行参数调用可执行文件。"
 
 #: ../../source/topics/calculations/usage.rst:132
 msgid ""
@@ -774,7 +774,7 @@ msgid ""
 ":py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 " method. The implementation of the ``ArithmeticAddCalculation`` that we are "
 "considering in the example looks like the following:"
-msgstr ""
+msgstr "因此，我们现在需要做的就是指示 engine 如何完成这些特定计算任务。由于这些指令将取决于计算，因此我们将使用 :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` 方法来实现。我们在示例中考虑的 ``ArithmeticAddCalculation`` 实现如下："
 
 #: ../../source/topics/calculations/usage.rst:139
 msgid ""
@@ -784,7 +784,7 @@ msgid ""
 "calculation job, as described above. The raw input files that are required "
 "can be written to a sandbox folder that is passed in as the ``folder`` "
 "argument."
-msgstr ""
+msgstr "在逐行阅读代码之前，让我们先描述一下这里发生的大事。本方法的目的是帮助 engine 完成上述准备提交计算作业所需的三个步骤。所需的原始输入文件可以写入作为 ``folder`` 参数传递的沙盒文件夹中。"
 
 #: ../../source/topics/calculations/usage.rst:145
 msgid ""
@@ -803,7 +803,7 @@ msgid ""
 "<topics:calculations:usage:calcjobs:file_lists_local_copy>` and "
 ":ref:`provenance_exclude_list "
 "<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`."
-msgstr ""
+msgstr "``folder`` 参数指向本地文件系统上的临时沙盒文件夹，可用于写入输入文件。 ``prepare_for_submission`` 方法返回后，engine 将把这些内容复制到运行计算的工作目录中。此外，这些文件还将写入代表计算的 node 的文件存储库，作为 provenance 的额外措施。尽管写入的信息应该是作为输入 node 传递的 node 内容的派生形式，但由于它是派生形式，我们还是会明确存储这些信息。有时，出于效率或数据隐私等原因，这种行为并不可取，因此可以使用 :ref:`local_copy_list <topics:calculations:usage:calcjobs:file_lists_local_copy>` 和 :ref:`provenance_exclude_list <topics:calculations:usage:calcjobs:file_lists_provenance_exclude>` 等各种列表来控制。"
 
 #: ../../source/topics/calculations/usage.rst:151
 msgid ""
@@ -812,7 +812,7 @@ msgid ""
 ":py:class:`~aiida.common.datastructures.CalcInfo` datastructure, which "
 "should be returned from the method as the only value. In principle, this is "
 "what one **should do** in the ``prepare_for_submission`` method:"
-msgstr ""
+msgstr "所有其他所需的信息，如复制哪些文件的指令和使用哪些命令行选项，都是通过 :py:class:`~aiida.common.datastructures.CalcInfo` 数据结构定义的，它应作为唯一的值从方法中返回。原则上，这就是 ``prepare_for_submission`` 方法**应该做的事情："
 
 #: ../../source/topics/calculations/usage.rst:154
 msgid ""
