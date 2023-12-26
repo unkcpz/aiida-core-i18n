@@ -17,7 +17,6 @@ def str2hash(inp_str: str) -> str:
     return hashlib.md5(inp_str.encode()).hexdigest()[:8].upper()
 
 code_snippet_protect_list = [
-    (r"(?:(?:(?<!`)(?<!:))(`\w.*?`_))", False), # 1
     (r"(?:(?:(?<!`)(?<!:))(\\\"\w.*?\\\"))", False), # 1.1
     (r"(?:(?:(?<!`)(?<!:))(:py:.*?:`.*?`))", True), # 2
     (r"(?:(?:(?<!`)(?<!:))(:meth:`.*?`))", True), # 2
@@ -47,8 +46,8 @@ code_snippet_protect_list = [
 # Don't add a space in front
 
 terminology_protect_list = [
+    (r"(?:(?:(?<!`)(?<!:))(``[^\s+].*?[^\s+]``))", True), # 10
     (r"(?:(?:(?<!`)(?<!:))(`[^\s+].*?[^\s+]`))", False), # 11
-    (r"(?:(?:(?<!`)(?<!:))(``.*?``))", True), # 11
     (r"(?:(?:(?<!`)(?<!:))(\|.*?\|))", False), # 12
     (r"(?:(?:(?<!`)(?<!:))(\w+_\w+))", False), # 21
     (r"(?:(?:(?<!`)(?<!:))([eE]ngine))", False), # 101
@@ -76,7 +75,7 @@ def replace_protected(pstr: str) -> t.Tuple[str, dict[str, str]]:
     
     return pstr, pairs
 
-def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
+def _revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
     """Revert the protected characters"""
     for origin, (gaurd, space_in_front) in pairs.items():
         if lang == "ZH" and space_in_front:
@@ -84,5 +83,17 @@ def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
             origin = " " + origin + " "
         
         pstr = pstr.replace(gaurd, origin)
+    
+    return pstr
+
+def revert_protected(pstr: str, pairs: dict, lang: str="ZH") -> str:
+    """Apply the _revert_protected until the string is not changed"""
+    while True:
+        pstr_new = _revert_protected(pstr, pairs, lang=lang)
+        
+        if pstr_new == pstr:
+            break
+        else:
+            pstr = pstr_new
     
     return pstr
