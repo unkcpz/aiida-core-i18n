@@ -76,6 +76,28 @@ def test_replace_protect(input: str):
     pstr = revert_protected(pstr, pairs, lang="DE")
 
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
+
+@pytest.skip("Not implemented yet")
+@pytest.mark.parametrize(
+    "input",
+    [
+        r"The inputs and output that we define are essentially determined by the sub process that the work chain will be running. Since the ``ArithmeticAddCalculation`` requires the inputs ``x`` and ``y``, and produces the ``sum`` as output, we `mirror` those in the specification of the work chain, otherwise we wouldn't be able to pass the necessary inputs. Finally, we define the logical outline, which if you look closely, resembles the logical flow chart presented in :numref:`workflow-error-handling-flow-loop` a lot. We start by *setting up* the work chain and then enter a loop: *while* the subprocess has not yet finished successfully *and* we haven't exceeded the maximum number of iterations, we *run* another instance of the process and then *inspect* the results. The while conditions are implemented in the ``should_run_process`` outline step. When the process finishes successfully or we have to abandon, we report the *results*. Now unlike with normal work chain implementations, we *do not* have to implement these outline steps ourselves. They have already been implemented by the ``BaseRestartWorkChain`` so that we don't have to. This is why the base restart work chain is so useful, as it saves us from writing and repeating a lot of `boilerplate code <https://en.wikipedia.org/wiki/Boilerplate_code>`__."
+    ]
+)
+def test_a_huge_nested_replace_protect(input: str):
+    from aiida_core_i18n import replace_protected, revert_protected
+    
+    pstr, pairs = replace_protected(input)
+    print(pstr)
+    
+    # by check there are things in the examples that require protection
+    assert len(pairs) > 0, f"Nothing to protect in {input}"
+
+    # Add prefix and suffix to the string to mock the translation
+    pstr = " IGOTTRANSASWELL " + pstr + " IAMTRANS"
+    pstr = revert_protected(pstr, pairs, lang="DE")
+
+    assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
     
 @pytest.mark.parametrize(
     "input",
