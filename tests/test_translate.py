@@ -77,7 +77,6 @@ def test_replace_protect(input: str):
 
     assert pstr == f" IGOTTRANSASWELL {input} IAMTRANS"
 
-@pytest.skip("Not implemented yet")
 @pytest.mark.parametrize(
     "input",
     [
