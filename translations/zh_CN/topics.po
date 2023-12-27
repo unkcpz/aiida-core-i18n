@@ -870,19 +870,19 @@ msgstr ""
 msgid ""
 "Writing raw inputs files required for the calculation to run to the "
 "``folder`` sandbox folder."
-msgstr ""
+msgstr "将计算运行所需的原始输入文件写入 ``folder`` 沙盒文件夹。"
 
 #: ../../source/topics/calculations/usage.rst:155
 msgid ""
 "Use a ``CalcInfo`` to instruct the engine which files to copy to the working"
 " directory"
-msgstr ""
+msgstr "使用 ``CalcInfo`` 指示 engine 将哪些文件复制到工作目录中"
 
 #: ../../source/topics/calculations/usage.rst:156
 msgid ""
 "Use a ``CalcInfo`` to tell which codes should run, using which command line "
 "parameters, such as standard input and output redirection."
-msgstr ""
+msgstr "使用 ``CalcInfo`` 命令行参数(如标准输入和输出重定向)来指示应运行哪些代码。"
 
 #: ../../source/topics/calculations/usage.rst:160
 msgid ""
@@ -892,7 +892,7 @@ msgid ""
 "scheduler is to be used. This gives the engine all the necessary information"
 " on how to write the launch script such as what scheduler directives to "
 "write."
-msgstr ""
+msgstr "``prepare_for_submission`` 不必自己编写提交脚本。engine 知道如何编写脚本，因为要使用的代码已在特定计算机上进行了配置，其中定义了要使用的调度程序。这就为 engine 提供了如何编写启动脚本的所有必要信息，例如要编写哪些调度程序指令。"
 
 #: ../../source/topics/calculations/usage.rst:164
 msgid ""
@@ -907,7 +907,7 @@ msgid ""
 " type, by the time we get to the ``prepare_for_submission`` it is guaranteed"
 " that the dictionary returned by ``self.inputs`` will contain that input and"
 " of the correct type."
-msgstr ""
+msgstr "既然我们已经知道了 ``prepare_for_submission`` 的预期功能，下面就让我们逐行看看 ``ArithmeticAddCalculation`` 是如何实现的。本示例计算所需的输入文件将包括作为输入传递的两个整数。根据 ``define`` 方法中定义的流程规范， ``self.inputs`` 属性会返回一个属性字典，其中包含经过解析和验证的输入。这意味着您不必亲自验证输入。也就是说，如果一个输入被标记为必填，并具有某种类型，那么当我们进入 ``prepare_for_submission`` 时，就可以保证 ``self.inputs`` 返回的字典将包含该输入，并且类型正确。"
 
 #: ../../source/topics/calculations/usage.rst:170
 msgid ""
@@ -916,7 +916,7 @@ msgid ""
 " simply a text file with these two numbers on a single line, separated by a "
 "space. We accomplish this by opening a filehandle to the input file in the "
 "sandbox folder and write the values of the two ``Int`` nodes to the file."
-msgstr ""
+msgstr "根据计算作业启动时传递的两个输入 ``x`` and ``y`` ，我们现在应该生成输入文件，即一个简单的文本文件，将这两个数字写在一行中，并用空格隔开。为此，我们将在沙盒文件夹中打开一个指向输入文件的文件句柄，并将两个 ``Int`` node 的值写入该文件。"
 
 #: ../../source/topics/calculations/usage.rst:175
 msgid ""
@@ -925,7 +925,7 @@ msgid ""
 "are using in this example. The exact number of input files and their content"
 " will of course depend on the code for which the calculation job is being "
 "written."
-msgstr ""
+msgstr "这个输入文件的格式恰好是我们在本例中使用的 :ref:`bash script<topics:calculations:concepts:calcjobs>` 所期望的格式。当然，输入文件的确切数量及其内容将取决于为其编写计算作业的代码。"
 
 #: ../../source/topics/calculations/usage.rst:178
 msgid ""
@@ -935,32 +935,32 @@ msgid ""
 "needs to be done to execute the code, such as what files should be copied to"
 " the remote computer where the code will be executed. In this simple "
 "example, we define four simple attributes:"
-msgstr ""
+msgstr "写入输入文件后，我们现在必须创建一个 :py:class:`~aiida.common.datastructures.CalcInfo` 的实例，该实例应从方法中返回。该数据结构将准确地指示 engine 执行代码所需的操作，例如应将哪些文件复制到执行代码的远程计算机。在这个简单的示例中，我们定义了四个简单的属性："
 
 #: ../../source/topics/calculations/usage.rst:182
 msgid ""
 "``codes_info``: a list of :py:class:`~aiida.common.datastructures.CodeInfo` "
 "datastructures, that tell which codes to run consecutively during the job"
-msgstr ""
+msgstr "``codes_info`` ： :py:class:`~aiida.common.datastructures.CodeInfo` 数据结构列表，用于说明在工作中要连续运行哪些代码"
 
 #: ../../source/topics/calculations/usage.rst:183
 msgid ""
 "``local_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the local machine"
-msgstr ""
+msgstr "``local_copy_list`` ：指示将哪些文件从本地计算机复制到工作目录的图元列表"
 
 #: ../../source/topics/calculations/usage.rst:184
 msgid ""
 "``remote_copy_list``: a list of tuples that instruct what files to copy to "
 "the working directory from the machine on which the job will run"
-msgstr ""
+msgstr "``remote_copy_list`` ：指示将哪些文件从运行任务的计算机复制到工作目录的图元列表"
 
 #: ../../source/topics/calculations/usage.rst:185
 msgid ""
 "``retrieve_list``: a list of tuples instructing which files should be "
 "retrieved from the working directory and stored in the local repository "
 "after the job has finished"
-msgstr ""
+msgstr "``retrieve_list`` ：一个图元列表，指示在任务完成后，应从工作目录中检索哪些文件并将其存储在本地存储库中"
 
 #: ../../source/topics/calculations/usage.rst:187
 msgid ""
@@ -977,14 +977,14 @@ msgid ""
 "will be placed *after* the executable in the launch script. Here we use it "
 "to explicitly instruct the executable to read its input from the filename "
 "stored in the option ``input_filename``."
-msgstr ""
+msgstr "在本例中，我们只需要运行一个代码，因此 ``codes_info`` 列表只有一个 ``CodeInfo`` 数据结构。该数据结构需要定义它需要运行的代码(这是传递给 ``CalcJob`` 的输入之一)，并通过其 UUID 来实现。通过 ``stdout_name`` 属性，我们可以告诉 engine 应将可执行文件的输出重定向到哪里。在本例中，它被设置为 ``output_filename`` 选项的值。 :ref:`section on options<topics:calculations:usage:calcjobs:options>` 将解释计算作业中有哪些选项、这些选项的作用以及如何设置这些选项。最后， ``cmdline_params`` 属性包含一个命令行参数列表，这些参数将放在启动脚本中可执行文件的*后。在这里，我们用它来明确指示可执行文件从存储在选项 ``input_filename`` 中的文件名中读取输入。"
 
 #: ../../source/topics/calculations/usage.rst:197
 msgid ""
 "Since we instruct the executable should read the input from "
 "``self.options.input_filename``, this is also the filename we used when "
 "writing that very input file in the sandbox folder."
-msgstr ""
+msgstr "由于我们指示可执行文件从 ``self.options.input_filename`` 读取输入，因此这也是我们在沙盒文件夹中编写输入文件时使用的文件名。"
 
 #: ../../source/topics/calculations/usage.rst:199
 msgid ""
@@ -993,7 +993,7 @@ msgid ""
 " describe their intended goals. The implementation details will be described"
 " in full in the :ref:`file lists "
 "section<topics:calculations:usage:calcjobs:file_lists>`."
-msgstr ""
+msgstr "最后，我们必须定义各种 \``file lists\``，这些 \``file lists\`` 可以告诉我们从哪里复制哪些文件到哪里，以及检索哪些文件。在此，我们将简要介绍它们的预期目标。具体实现细节将在 :ref:`file lists section<topics:calculations:usage:calcjobs:file_lists>` 中详细介绍。"
 
 #: ../../source/topics/calculations/usage.rst:203
 msgid ""
@@ -1010,7 +1010,7 @@ msgid ""
 "By not writing them explicitly to the sandbox folder, you avoid this "
 "duplication, without losing provenance, because the data node itself will of"
 " course be recorded in the provenance graph."
-msgstr ""
+msgstr "本地复制列表用于指示 engine 复制您可能已经存储在数据库中的文件，例如 :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` nodes 实例，您可以将其定义并作为 ``CalcJob`` 的输入传递。当然，你也可以将它们复制到 ``folder`` 沙盒文件夹中，这样也可以将它们写入工作目录。但这种方法的缺点是，写入沙盒文件夹的所有内容也将存储在 ``CalcJobNode`` 的存储库中，而 ``CalcJobNode`` 将代表 provenance graph 中 ``CalcJob`` 的执行。这将导致这些数据 node 中所含数据的重复。如果不将它们明确写入沙盒文件夹，就可以避免这种重复，同时不会丢失 provenance，因为数据 node 本身当然会记录在 provenance graph 中。"
 
 #: ../../source/topics/calculations/usage.rst:209
 msgid ""
@@ -1022,7 +1022,7 @@ msgid ""
 "allows you to specify exactly what output files to copy to the remote "
 "working directory, without them having to be retrieved to the engine's "
 "machine in between."
-msgstr ""
+msgstr "远程复制列表可以避免在 engine 运行的机器和执行计算作业的机器之间进行不必要的文件传输。例如，假设您已经在远程集群上完成了一个计算作业，现在想要启动第二个计算作业，而第二个计算作业需要将第一次运行的某些输出文件作为输入。通过远程拷贝列表，您可以准确指定要拷贝到远程工作目录的输出文件，而无需在这之间将它们检索到 engine 的机器上。"
 
 #: ../../source/topics/calculations/usage.rst:213
 msgid ""
@@ -1031,7 +1031,7 @@ msgid ""
 " These files will be downloaded to the local machine, stored in a "
 ":py:class:`~aiida.orm.nodes.data.folder.FolderData` data node and attached "
 "as an output to the ``CalcJobNode`` with the link label ``retrieved``."
-msgstr ""
+msgstr "最后，检索列表允许您指示 engine 在任务结束后从工作目录中检索哪些文件。这些文件将下载到本地计算机，存储在 :py:class:`~aiida.orm.nodes.data.folder.FolderData` 数据 node 中，并作为输出附加到 ``CalcJobNode`` ，链接标签为 ``retrieved`` 。"
 
 #: ../../source/topics/calculations/usage.rst:218
 msgid ""
@@ -1040,46 +1040,46 @@ msgid ""
 " is because this is already defined by the ``CalcJob`` base class. Just as "
 "the ``code`` input, the ``retrieved`` output is common for all calculation "
 "job implementations."
-msgstr ""
+msgstr "在上图的 ``ArithmeticAddCalculation`` 实现示例中，我们没有将 ``retrieved`` 文件夹数据 node 明确定义为输出。这是因为 ``CalcJob`` 基类已对此进行了定义。与 ``code`` 输入一样， ``retrieved`` 输出也是所有计算作业实现的共同点。"
 
 #: ../../source/topics/calculations/usage.rst:226
 msgid "File lists"
-msgstr ""
+msgstr "文件列表"
 
 #: ../../source/topics/calculations/usage.rst:231
 msgid "Local copy list"
-msgstr ""
+msgstr "本地副本列表"
 
 #: ../../source/topics/calculations/usage.rst:232
 msgid ""
 "The local copy list takes tuples of length three, each of which represents a"
 " file or directory to be copied, defined through the following items:"
-msgstr ""
+msgstr "本地复制列表包含长度为 3 的元组，每个元组代表一个要复制的文件或目录，通过以下项目定义："
 
 #: ../../source/topics/calculations/usage.rst:234
 msgid ""
 "`node uuid`: the node whose repository contains the file, typically a "
 "``SinglefileData`` or ``FolderData`` node"
-msgstr ""
+msgstr "`node uuid`：存储库中包含文件的 node，通常是 ``SinglefileData`` 或 ``FolderData`` node"
 
 #: ../../source/topics/calculations/usage.rst:235
 msgid ""
 "`source relative path`: the relative path of the file or directory within "
 "the node repository"
-msgstr ""
+msgstr "`source relative path`：node 资源库中文件或目录的相对路径"
 
 #: ../../source/topics/calculations/usage.rst:236
 msgid ""
 "`target relative path`: the relative path within the working directory to "
 "which to copy the file or directory contents"
-msgstr ""
+msgstr "`target relative path`：要复制文件或目录内容的工作目录中的相对路径"
 
 #: ../../source/topics/calculations/usage.rst:238
 msgid ""
 "As an example, consider a ``CalcJob`` implementation that receives a "
 "``SinglefileData`` node as input with the name ``pseudopotential``, to copy "
 "its contents one can specify:"
-msgstr ""
+msgstr "举例来说， ``CalcJob`` 执行程序在接收到名称为 ``pseudopotential`` 的 ``SinglefileData`` node 输入后，可以指定复制其内容："
 
 #: ../../source/topics/calculations/usage.rst:244
 msgid ""
@@ -1087,14 +1087,14 @@ msgid ""
 "relative path of which is returned by the ``filename`` attribute. If "
 "instead, you need to transfer a specific file from a ``FolderData``, you can"
 " specify the explicit key of the file, like so:"
-msgstr ""
+msgstr "根据定义， ``SinglefileData`` node 只包含一个文件，其相对路径由 ``filename`` 属性返回。如果需要从 ``FolderData`` 传输一个特定文件，可以像这样指定文件的显式密钥："
 
 #: ../../source/topics/calculations/usage.rst:251
 msgid ""
 "Note that the filenames in the relative source and target path need not be "
 "the same. This depends fully on how the files are stored in the node's "
 "repository and what files need to be written to the working directory."
-msgstr ""
+msgstr "请注意，相对源路径和目标路径中的文件名不必相同。这完全取决于文件在 node 资源库中的存储方式，以及哪些文件需要写入工作目录。"
 
 #: ../../source/topics/calculations/usage.rst:254
 msgid ""
@@ -1102,32 +1102,32 @@ msgid ""
 "the `source relative path`. For example, imagine we have a `FolderData` node"
 " that is passed as the `folder` input, which has the following repository "
 "virtual hierarchy:"
-msgstr ""
+msgstr "要复制源 node 目录的内容，只需将其定义为 `source relative path`。例如，假设我们有一个作为 `folder` 输入传递的 `FolderData` node，其存储库虚拟层次结构如下："
 
 #: ../../source/topics/calculations/usage.rst:263
 msgid ""
 "If the entire content needs to be copied over, specify the "
 "``local_copy_list`` as follows:"
-msgstr ""
+msgstr "如果需要复制整个内容，请按如下方式指定 ``local_copy_list`` ："
 
 #: ../../source/topics/calculations/usage.rst:269
 msgid ""
 "The ``'.'`` here indicates that the entire contents need to be copied over. "
 "Alternatively, one can specify a sub directory, e.g.:"
-msgstr ""
+msgstr "这里的 ``'.'`` 表示需要复制全部内容。或者，也可以指定一个子目录，例如"
 
 #: ../../source/topics/calculations/usage.rst:276
 msgid ""
 "Finally, the `target relative path` can be used to write the contents of the"
 " source repository to a particular sub directory in the working directory. "
 "For example, the following statement:"
-msgstr ""
+msgstr "最后，`target relative path` 可用于将源代码库的内容写入工作目录中的特定子目录。例如，下面的语句"
 
 #: ../../source/topics/calculations/usage.rst:283
 msgid ""
 "will result in the following file hierarchy in the working directory of the "
 "calculation:"
-msgstr ""
+msgstr "将导致计算工作目录中的文件层次结构如下："
 
 #: ../../source/topics/calculations/usage.rst:291
 msgid ""
@@ -1142,11 +1142,11 @@ msgid ""
 " duplication of file content. It can also be used if the content of a "
 "particular input node is privacy sensitive and cannot be duplicated in the "
 "repository."
-msgstr ""
+msgstr "我们可能会想，既然可以使用普通 API 将文件写入 ``folder`` 沙盒文件夹，那么列表的目的何在？的确，通过这种方式，文件会被复制到工作目录，但同时也会被复制到计算库 node。由于在这种情况下，它只是对文件的直接一对一复制，而文件已经是输入 node 的一部分(未改动的形式)，因此这种复制是不必要的，而且会增加文件库的无用重量。使用 ``local_copy_list`` 可以防止文件内容不必要的重复。如果特定输入 node 的内容对隐私敏感，且不能在存储库中复制，也可以使用该功能。"
 
 #: ../../source/topics/calculations/usage.rst:300
 msgid "Provenance exclude list"
-msgstr ""
+msgstr "Provenance 排除列表"
 
 #: ../../source/topics/calculations/usage.rst:301
 msgid ""
@@ -1166,83 +1166,83 @@ msgid ""
 ":py:class:`~aiida.common.datastructures.CalcInfo` attribute is a list of "
 "filepaths, relative to the base path of the ``folder`` sandbox folder, which"
 " *are not stored* in the file repository."
-msgstr ""
+msgstr " :ref:`local_copy_list <topics:calculations:usage:calcjobs:file_lists_local_copy>` 允许指示 engine 将输入文件中的文件写入工作目录，而不会同时将这些文件复制到计算 node 的文件库中。正如相应章节所讨论的，这对于避免重复或 node 的数据属于专有或隐私敏感数据且不能在文件库中任意复制的情况非常有用。然而， ``local_copy_list`` 的局限性在于，它只能完全针对单个文件，不能用于写入 ``folder`` 沙盒文件夹的任意文件。为了全面控制 ``folder`` 中的哪些文件被永久存储在计算 node 文件存储库中，引入了 ``provenance_exclude_list`` 。此 :py:class:`~aiida.common.datastructures.CalcInfo` 属性是相对于 ``folder`` 沙盒文件夹基本路径的文件路径列表，这些文件 *不存储* 在文件存储库中。"
 
 #: ../../source/topics/calculations/usage.rst:307
 msgid ""
 "Consider the following file structure as written by an implementation of "
 "``prepare_for_submission`` to the ``folder`` sandbox:"
-msgstr ""
+msgstr "请看以下由 ``prepare_for_submission`` 实现写入 ``folder`` 沙盒的文件结构："
 
 #: ../../source/topics/calculations/usage.rst:317
 msgid ""
 "Clearly, we do not want the ``personal.dat`` and ``secret.key`` files to end"
 " up permanently in the file repository. This can be achieved by defining:"
-msgstr ""
+msgstr "显然，我们不希望 ``personal.dat`` 和 ``secret.key`` 文件最终永久保存在文件库中。这可以通过定义"
 
 #: ../../source/topics/calculations/usage.rst:324
 msgid ""
 "With this specification, the final contents of the repository of the "
 "calculation node will contain:"
-msgstr ""
+msgstr "有了这一规范，计算 node 资源库的最终内容将包括"
 
 #: ../../source/topics/calculations/usage.rst:335
 msgid "Remote copy list"
-msgstr ""
+msgstr "远程复制列表"
 
 #: ../../source/topics/calculations/usage.rst:336
 msgid ""
 "The remote copy list takes tuples of length three, each of which represents "
 "a file to be copied on the remote machine where the calculation will run, "
 "defined through the following items:"
-msgstr ""
+msgstr "远程复制列表包含长度为 3 的元组，每个元组代表一个要在远程机器上复制的文件，计算将在远程机器上进行，具体定义如下："
 
 #: ../../source/topics/calculations/usage.rst:338
 msgid ""
 "`computer uuid`: this is the UUID of the ``Computer`` on which the source "
 "file resides. For now the remote copy list can only copy files on the same "
 "machine where the job will run."
-msgstr ""
+msgstr "`computer uuid`：这是源文件所在的 ``Computer`` 的 UUID。目前，远程拷贝列表只能拷贝运行任务的同一台机器上的文件。"
 
 #: ../../source/topics/calculations/usage.rst:339
 msgid ""
 "`source absolute path`: the absolute path of the source file on the remote "
 "machine"
-msgstr ""
+msgstr "`source absolute path`：远程计算机上源文件的绝对路径"
 
 #: ../../source/topics/calculations/usage.rst:340
 msgid ""
 "`target relative path`: the relative path within the working directory to "
 "which to copy the file"
-msgstr ""
+msgstr "`target relative path`：要将文件复制到的工作目录中的相对路径"
 
 #: ../../source/topics/calculations/usage.rst:346
 msgid ""
 "Note that the source path can point to a directory, in which case its "
 "contents will be recursively copied in its entirety."
-msgstr ""
+msgstr "请注意，源路径可以指向一个目录，在这种情况下，其内容将被全部递归复制。"
 
 #: ../../source/topics/calculations/usage.rst:351
 msgid "Retrieve list"
-msgstr ""
+msgstr "检索列表"
 
 #: ../../source/topics/calculations/usage.rst:352
 msgid ""
 "The retrieve list is a list of instructions of what files and folders should"
 " be retrieved by the engine once a calculation job has terminated. Each "
 "instruction should have one of two formats:"
-msgstr ""
+msgstr "检索列表是一个指令列表，说明计算作业结束后，engine 应检索哪些文件和文件夹。每条指令有两种格式："
 
 #: ../../source/topics/calculations/usage.rst:355
 msgid ""
 "a string representing a relative filepath in the remote working directory"
-msgstr ""
+msgstr "字符串，表示远程工作目录中的相对文件路径"
 
 #: ../../source/topics/calculations/usage.rst:356
 msgid ""
 "a tuple of length three that allows to control the name of the retrieved "
 "file or folder in the retrieved folder"
-msgstr ""
+msgstr "长度为 3 的元组，用于控制检索文件夹中的检索文件或文件夹的名称"
 
 #: ../../source/topics/calculations/usage.rst:358
 msgid ""
@@ -1254,32 +1254,32 @@ msgid ""
 "<https://en.wikipedia.org/wiki/Glob_%28programming%29>`_ should be used, or "
 "if the original folder structure should be (partially) kept, one should use "
 "the tuple format, which has the following format:"
-msgstr ""
+msgstr "检索列表可以包含任意数量的指令，并且可以同时使用两种格式。第一种格式显然是最简单的，但需要知道要检索的文件或文件夹的确切名称，此外，在检索时将忽略任何子目录。如果不知道确切的文件名，需要使用 `glob patterns <https://en.wikipedia.org/wiki/Glob_%28programming%29>`_，或者需要(部分)保留原始文件夹结构，则应使用元组格式，其格式如下："
 
 #: ../../source/topics/calculations/usage.rst:362
 msgid ""
 "`source relative path`: the relative path, with respect to the working "
 "directory on the remote, of the file or directory to retrieve."
-msgstr ""
+msgstr "`source relative path`：要检索的文件或目录与远程工作目录的相对路径。"
 
 #: ../../source/topics/calculations/usage.rst:363
 msgid ""
 "`target relative path`: the relative path of the directory in the retrieved "
 "folder in to which the content of the source will be copied. The string "
 "``'.'`` indicates the top level in the retrieved folder."
-msgstr ""
+msgstr "``target relative path`：将源内容复制到的检索文件夹中目录的相对路径。字符串 ````.'`` 表示检索文件夹的顶层。"
 
 #: ../../source/topics/calculations/usage.rst:364
 msgid ""
 "`depth`: the number of levels of nesting in the source path to maintain when"
 " copying, starting from the deepest file."
-msgstr ""
+msgstr "`depth`：从最深的文件开始复制时，要保持的源路径嵌套层数。"
 
 #: ../../source/topics/calculations/usage.rst:366
 msgid ""
 "To illustrate the various possibilities, consider the following example file"
 " hierarchy in the remote working directory:"
-msgstr ""
+msgstr "为了说明各种可能性，请看远程工作目录中的以下文件层次结构示例："
 
 #: ../../source/topics/calculations/usage.rst:377
 msgid ""
@@ -1287,32 +1287,32 @@ msgid ""
 "be retrieved. Each example starts with the format of the ``retrieve_list``, "
 "followed by a schematic depiction of the final file hierarchy that would be "
 "created in the retrieved folder."
-msgstr ""
+msgstr "下面是要检索的文件和文件夹的各种用例。每个示例都以 ``retrieve_list`` 的格式开头，然后以 schematic 描述在检索的文件夹中创建的最终文件层次结构。"
 
 #: ../../source/topics/calculations/usage.rst:381
 msgid "Explicit file or folder"
-msgstr ""
+msgstr "明确文件或文件夹"
 
 #: ../../source/topics/calculations/usage.rst:383
 msgid ""
 "Retrieving a single toplevel file or folder (with all its contents) where "
 "the final folder structure is not important."
-msgstr ""
+msgstr "检索单个顶层文件或文件夹(及其所有内容)，最终文件夹结构不是 important。"
 
 #: ../../source/topics/calculations/usage.rst:402
 msgid "Explicit nested file or folder"
-msgstr ""
+msgstr "显式嵌套文件或文件夹"
 
 #: ../../source/topics/calculations/usage.rst:404
 msgid ""
 "Retrieving a single file or folder (with all its contents) that is located "
 "in a subdirectory in the remote working directory, where the final folder "
 "structure is not important."
-msgstr ""
+msgstr "检索位于远程工作目录子目录中的单个文件或文件夹(及其所有内容)，最终文件夹结构不 important。"
 
 #: ../../source/topics/calculations/usage.rst:421
 msgid "Explicit nested file or folder keeping (partial) hierarchy"
-msgstr ""
+msgstr "显式嵌套文件或文件夹保持(部分)层次结构"
 
 #: ../../source/topics/calculations/usage.rst:423
 msgid ""
@@ -1322,50 +1322,50 @@ msgid ""
 "example, the maximum depth of the remote folder hierarchy is ``3``. The "
 "following example shows that by specifying ``3``, the exact folder structure"
 " is kept:"
-msgstr ""
+msgstr "下面的示例展示了如何控制检索文件的文件层次结构。通过更改元组中的 ``depth`` 参数，可以控制远程文件夹层次结构的哪一部分被保留。在给出的示例中，远程文件夹层次结构的最大深度为 ``3``. The following example shows that by specifying ``3`` ，因此会保留确切的文件夹结构："
 
 #: ../../source/topics/calculations/usage.rst:436
 msgid ""
 "For ``depth=2``, only two levels of nesting are kept (including the file "
 "itself) and so the ``path`` folder is discarded."
-msgstr ""
+msgstr "对于 0EEEE13EE，只保留两级嵌套(包括文件本身)，因此 ``path`` 文件夹被丢弃。"
 
 #: ../../source/topics/calculations/usage.rst:445
 msgid ""
 "The same applies for directories. By specifying a directory for the first "
 "element, all its contents will be retrieved. With ``depth=1``, only the "
 "first level ``sub`` is kept of the folder hierarchy."
-msgstr ""
+msgstr "目录也是如此。通过为第一个元素指定一个目录，将检索到该目录的所有内容。如果使用 ``depth=1`` ，则只保留文件夹层次结构的第一层 ``sub`` 。"
 
 #: ../../source/topics/calculations/usage.rst:459
 msgid "Pattern matching"
-msgstr ""
+msgstr "模式匹配"
 
 #: ../../source/topics/calculations/usage.rst:461
 msgid ""
 "If the exact file or folder name is not known beforehand, glob patterns can "
 "be used. In the following examples, all files that match ``*c.txt`` in the "
 "directory ``path/sub`` will be retrieved."
-msgstr ""
+msgstr "如果事先不知道确切的文件或文件夹名称，可以使用 glob 模式。在下面的示例中，将检索 ``path/sub`` 目录中与 ``*c.txt`` 匹配的所有文件。"
 
 #: ../../source/topics/calculations/usage.rst:464
 msgid "To maintain the folder structure set ``depth`` to ``None``:"
-msgstr ""
+msgstr "为保持文件夹结构，将 ``depth`` 设置为 ``None`` ："
 
 #: ../../source/topics/calculations/usage.rst:474
 msgid ""
 "Alternatively, the ``depth`` can be used to specify the number of levels of "
 "nesting that should be kept. For example, ``depth=0`` instructs to copy the "
 "matched files without any subfolders:"
-msgstr ""
+msgstr "另外， ``depth`` 也可用于指定应保留的嵌套层数。例如， ``depth=0`` 指示复制匹配的文件，但不包含任何子文件夹："
 
 #: ../../source/topics/calculations/usage.rst:483
 msgid "and ``depth=2`` will keep two levels in the final filepath:"
-msgstr ""
+msgstr "和 ``depth=2`` 将在最终文件路径中保留两级："
 
 #: ../../source/topics/calculations/usage.rst:494
 msgid "Specific target directory"
-msgstr ""
+msgstr "特定目标目录"
 
 #: ../../source/topics/calculations/usage.rst:496
 msgid ""
@@ -1378,11 +1378,11 @@ msgid ""
 "retrieved. For example, to retrieve a nested file, maintaining the remote "
 "hierarchy and storing it locally in the ``target`` directory, one can do the"
 " following:"
-msgstr ""
+msgstr "检索文件夹中检索文件的最终文件夹层次结构不仅由远程工作目录的层次结构决定，还可以通过指令图元的第二和第三元素进行控制。最后的 ``depth`` 元素控制源代码的层次结构，其中第二个元素指定检索文件夹中的基本路径，远程文件应检索到该路径中。例如，要检索嵌套文件，保持远程层次结构并将其本地存储在 ``target`` 目录中，可以采用以下方法："
 
 #: ../../source/topics/calculations/usage.rst:509
 msgid "The same applies for folders that are to be retrieved:"
-msgstr ""
+msgstr "这同样适用于要检索的文件夹："
 
 #: ../../source/topics/calculations/usage.rst:520
 msgid ""
@@ -1390,11 +1390,11 @@ msgid ""
 "but indicates the path of the directory into which the source is copied. The"
 " target relative path is also compatible with glob patterns in the source "
 "relative paths:"
-msgstr ""
+msgstr "请注意，此处的 `target` 并非用于重命名检索到的文件或文件夹，而是表示将源文件复制到其中的目录路径。目标相对路径也与源相对路径中的 glob 模式兼容："
 
 #: ../../source/topics/calculations/usage.rst:532
 msgid "Retrieve temporary list"
-msgstr ""
+msgstr "检索临时列表"
 
 #: ../../source/topics/calculations/usage.rst:534
 msgid ""
@@ -1410,7 +1410,7 @@ msgid ""
 "list is identical to that of the normal :ref:`retrieve "
 "list<topics:calculations:usage:calcjobs:file_lists_retrieve>`, but it is "
 "added to the ``calc_info`` under the ``retrieve_temporary_list`` attribute:"
-msgstr ""
+msgstr "请注意，正如 :ref:`'prepare' section<topics:calculations:usage:calcjobs:prepare>` 中所述，engine 根据 '检索列表' 检索的所有文件都存储在 ``retrieved`` 文件夹数据 node 中。这意味着您为已完成的计算作业检索的任何文件都将存储在您的存储库中。如果要检索大文件，这会导致存储库大幅增长。但通常情况下，您可能只需要这些检索文件中包含的部分信息。为了解决这个常见问题，我们提出了 '检索临时列表' 的概念。检索临时列表的规格与普通 :ref:`retrieve list<topics:calculations:usage:calcjobs:file_lists_retrieve>` 相同，但它被添加到 ``calc_info`` 的 ``retrieve_temporary_list`` 属性下："
 
 #: ../../source/topics/calculations/usage.rst:546
 msgid ""
@@ -1422,13 +1422,13 @@ msgid ""
 "argument to the ``parse`` method of the "
 ":ref:`parser<topics:calculations:usage:calcjobs:parsers>`, if one was "
 "specified for the calculation job:"
-msgstr ""
+msgstr "唯一不同的是，检索列表中的文件将永久保存在检索的 :py:class:`~aiida.orm.nodes.data.folder.FolderData` node 中，而检索临时列表中的文件将保存在临时沙盒文件夹中。如果为计算任务指定了 ``retrieved_temporary_folder`` 关键字参数，则该文件夹将传递给 :ref:`parser<topics:calculations:usage:calcjobs:parsers>` 的 ``parse`` 方法："
 
 #: ../../source/topics/calculations/usage.rst:556
 msgid ""
 "The parser implementation can then parse these files and store the relevant "
 "information as output nodes."
-msgstr ""
+msgstr "然后，解析器就可以解析这些文件，并将相关信息存储为输出 nodes。"
 
 #: ../../source/topics/calculations/usage.rst:560
 msgid ""
@@ -1436,7 +1436,7 @@ msgid ""
 "that represents the `absolute` filepath to the temporary folder. You can "
 "access its contents with the ``os`` standard library module or convert it "
 "into a ``pathlib.Path``."
-msgstr ""
+msgstr "``kwargs['retrieved_temporary_folder']`` 的类型是简单的 ``str`` ，表示临时文件夹的 `absolute` 文件路径。您可以使用 ``os`` 标准库模块访问其内容，或将其转换为 ``pathlib.Path`` 文件。"
 
 #: ../../source/topics/calculations/usage.rst:563
 msgid ""
@@ -1444,11 +1444,11 @@ msgid ""
 "sandbox folder with the temporarily retrieved files. The concept of the "
 "``retrieve_temporary_list`` is essentially that the files will be available "
 "during parsing and will be destroyed immediately afterwards."
-msgstr ""
+msgstr "解析器结束后，engine 会自动清理沙盒文件夹中临时获取的文件。 ``retrieve_temporary_list`` 的基本概念是，文件在解析过程中可用，解析结束后立即销毁。"
 
 #: ../../source/topics/calculations/usage.rst:569
 msgid "Stashing on the remote"
-msgstr ""
+msgstr "藏在遥控器上"
 
 #: ../../source/topics/calculations/usage.rst:573
 msgid ""
@@ -1459,7 +1459,7 @@ msgid ""
 "regularly, but they need to be kept on the remote machine and not retrieved."
 " Examples are files that are necessary to restart a calculation but are too "
 "big to be retrieved and stored permanently in the local file repository."
-msgstr ""
+msgstr "``stash`` 选项命名空间允许用户指定将计算作业创建的某些文件和/或文件夹存放在运行作业的远程计算机上。如果这些文件和/或文件夹需要在定期清理划痕空间的机器上存储较长时间，但又需要保留在远程机器上而无法检索，那么这个选项就非常有用。例如，重新启动计算所需的文件，但这些文件太大，无法检索并永久保存在本地文件库中。"
 
 #: ../../source/topics/calculations/usage.rst:577
 msgid ""
@@ -1468,13 +1468,13 @@ msgid ""
 " option. Using the ``COPY`` mode, the target path defines another location "
 "(on the same filesystem as the calculation) to copy the files to, and is set"
 " through the ``stash.target_base`` option, for example:"
-msgstr ""
+msgstr "需要存储的文件/文件夹通过 ``stash.source_list`` 选项指定其在工作目录中的相对文件路径。使用 ``COPY`` 模式时，目标路径定义了要将文件复制到的另一个位置(与计算位于同一文件系统中)，例如通过 ``stash.target_base`` 选项进行设置："
 
 #: ../../source/topics/calculations/usage.rst:600
 msgid ""
 "In the future, other methods for stashing may be implemented, such as "
 "placing all files in a (compressed) tarball or even stash files on tape."
-msgstr ""
+msgstr "今后还可能采用其他匿藏方法，例如将所有文件放在一个(压缩的)压缩包中，甚至将文件匿藏在磁带上。"
 
 #: ../../source/topics/calculations/usage.rst:604
 msgid ""
@@ -1485,7 +1485,7 @@ msgid ""
 "stashed independent of the final exit status that the parser will assign to "
 "the calculation job. This may cause files to be stashed for calculations "
 "that will later be considered to have failed."
-msgstr ""
+msgstr "如果为计算作业定义了 ``stash`` 选项命名空间，守护进程将在检索文件前执行存储操作。这意味着存储操作会在解析输出文件(发生在检索步骤之后)之前进行，因此文件的存储与解析器分配给计算作业的最终退出状态无关。这可能会导致后来被视为失败的计算文件被存储。"
 
 #: ../../source/topics/calculations/usage.rst:608
 msgid ""
@@ -1494,17 +1494,17 @@ msgid ""
 "``RemoteStashFolderData`` node. Just like the ``remote_folder`` node, this "
 "represents a location or files on a remote machine and so is equivalent to a"
 " \"symbolic link\"."
-msgstr ""
+msgstr "藏匿的文件和文件夹由输出 node 表示，该输出通过标签 ``remote_stash`` 连接到计算 node，即 ``RemoteStashFolderData`` node。与 ``remote_folder`` node 一样，它代表远程计算机上的位置或文件，因此相当于 \``symbolic link\``。"
 
 #: ../../source/topics/calculations/usage.rst:613
 msgid ""
 "AiiDA does not actually control the files in the remote stash, and so the "
 "contents may disappear at some point."
-msgstr ""
+msgstr "AiiDA 并不实际控制远程存储库中的文件，因此文件内容可能会在某些时候消失。"
 
 #: ../../source/topics/calculations/usage.rst:618
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: ../../source/topics/calculations/usage.rst:619
 msgid ""
@@ -1515,7 +1515,7 @@ msgid ""
 " behavior of the calculation job, for example which parser should be used "
 "once it is finished and special scheduler directives. The full list of "
 "available options are documented below as part of the ``CalcJob`` interface:"
-msgstr ""
+msgstr "除了所有进程都有的 ``label`` 和 ``description`` 等常用元数据输入外， :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 还增加了一个名为 ``options`` 的输入。这些选项可以微妙地改变计算作业的行为，例如，计算作业完成后应使用哪个解析器，以及特殊的调度程序指令。作为 ``CalcJob`` 接口的一部分，可用选项的完整列表记录如下："
 
 #: ../../source/topics/calculations/usage.rst:628
 msgid ""
@@ -1524,17 +1524,17 @@ msgid ""
 "the job. It corresponds to the ``--requeue`` option in SLURM, and the ``-r``"
 " option in SGE, LSF, and PBS. The following two conditions must be met in "
 "order for this to work well with AiiDA:"
-msgstr ""
+msgstr "``rerunnable`` 选项使调度程序能够在计算失败(例如由于 node 故障或无法启动作业)时重新启动计算。它与 SLURM 中的 ``--requeue`` 选项和 SGE、LSF 和 PBS 中的 ``-r`` 选项相对应。必须满足以下两个条件，AiiDA 才能正常工作："
 
 #: ../../source/topics/calculations/usage.rst:630
 msgid "the scheduler assigns the same job-id to the restarted job"
-msgstr ""
+msgstr "调度程序会为重新启动的作业分配相同的作业 ID"
 
 #: ../../source/topics/calculations/usage.rst:631
 msgid ""
 "the code produces the same results if it has already partially run before "
 "(not every scheduler may produce this situation)"
-msgstr ""
+msgstr "如果代码已经部分运行过，则会产生相同的结果(并非每个调度程序都会产生这种情况)"
 
 #: ../../source/topics/calculations/usage.rst:633
 msgid ""
@@ -1542,11 +1542,11 @@ msgid ""
 " we cannot say conclusively when it will work -- do your own testing! It has"
 " been tested on a cluster using SLURM, but that does not guarantee other "
 "SLURM clusters behave in the same way."
-msgstr ""
+msgstr "由于这取决于调度程序、其配置和所使用的代码，我们无法断言它何时会工作--请自行测试！我们已在使用 SLURM 的集群上进行了测试，但这并不保证其他 SLURM 集群也会以同样的方式运行。"
 
 #: ../../source/topics/calculations/usage.rst:639
 msgid "Controlling MPI"
-msgstr ""
+msgstr "控制 MPI"
 
 #: ../../source/topics/calculations/usage.rst:641
 msgid ""
@@ -1556,11 +1556,11 @@ msgid ""
 "parallel computing architectures. AiiDA implements support for running "
 "calculation jobs with or without MPI enabled. There are a number of settings"
 " that can be used to control when and how MPI is used."
-msgstr ""
+msgstr "`Message Passing Interface <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ (MPI)是一种标准化、可移植的消息传递标准，设计用于并行计算架构。AiiDA 支持在启用或不启用 MPI 的情况下运行计算作业。有许多设置可以用来控制何时以及如何使用 MPI。"
 
 #: ../../source/topics/calculations/usage.rst:648
 msgid "The ``Computer``"
-msgstr ""
+msgstr "``Computer``"
 
 #: ../../source/topics/calculations/usage.rst:650
 msgid ""
@@ -1574,11 +1574,11 @@ msgid ""
 "mpi.org/en/v5.0.x/index.html>`_ installed, it can be set to ``mpirun``. If "
 "the ``Computer`` does not specify an MPI command, then enabling MPI for a "
 "calculation job is ineffective."
-msgstr ""
+msgstr "每个计算作业都在计算资源上执行，计算资源由 :class:`~aiida.orm.computers.Computer` 类的实例建模。如果计算机支持使用 MPI 运行，则使用的命令存储在安装的 ``mpirun_command`` attribute, which is retrieved and set using the :meth:`~aiida.orm.computers.Computer.get_mpirun_command` and :meth:`~aiida.orm.computers.Computer.get_mpirun_command`, respectively. For example, if the computer has `OpenMPI <https://docs.open-mpi.org/en/v5.0.x/index.html>`_ 中，可以设置为 ``mpirun`` 。如果 ``Computer`` 没有指定 MPI 命令，那么为计算作业启用 MPI 将不起作用。"
 
 #: ../../source/topics/calculations/usage.rst:658
 msgid "The ``Code``"
-msgstr ""
+msgstr "``Code``"
 
 #: ../../source/topics/calculations/usage.rst:662
 msgid ""
@@ -1591,12 +1591,12 @@ msgid ""
 "be run with or without MPI, setting the ``with_mpi`` attribute can be "
 "skipped. It will default to ``None``, leaving the question of whether to run"
 " with or without MPI up to the ``CalcJob`` plugin or user input."
-msgstr ""
+msgstr "当创建代码时，你可以通过设置 ``with_mpi`` 属性为 ``True`` 或 ``False`` ，告诉AiiDA它应该作为MPI程序运行。从 AiiDA 2.3 起，这是控制 MPI 行为的 **推荐** 方式。属性可以通过 Python API 设置为 ``AbstractCode(with_mpi=with_mpi)`` 或通过 ``verdi code create`` CLI 命令的 ``--with-mpi`` / ``--no-with-mpi`` 选项设置。如果代码可以使用或不使用 MPI 运行，则可以跳过设置 ``with_mpi`` 属性。它将默认为 ``None`` ，由 ``CalcJob`` 插件或用户输入来决定使用或不使用 MPI。"
 
 #: ../../source/topics/calculations/usage.rst:671
 #: ../../source/topics/calculations/usage.rst:733
 msgid "The ``CalcJob`` implementation"
-msgstr ""
+msgstr "``CalcJob`` 实现"
 
 #: ../../source/topics/calculations/usage.rst:673
 msgid ""
@@ -1613,7 +1613,7 @@ msgid ""
 "that this setting is fully optional; if the code could be run either way, it"
 " is best not to set it and leave it up to the ``Code`` or the "
 "``metadata.options.withmpi`` input."
-msgstr ""
+msgstr "``CalcJob`` 实现通过从 :meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` 方法返回的 :class:`~aiida.common.datastructures.CalcInfo` 对象指示 AiiDA 如何运行代码。每运行一个代码(通常只有一个)， :class:`~aiida.common.datastructures.CodeInfo` 对象就会被添加到 ``CalcInfo.codes_info`` 属性的列表中。如果插件开发人员知道被封装的可执行文件 *始终* 是 MPI 程序(没有可用的序列版本)或 *从未* 是 MPI 程序，他们可以将 ``CodeInfo`` 的 ``withmpi`` 属性分别设置为 ``True`` 或 ``False`` 。请注意，这一设置完全是可选的；如果代码可以在两种情况下运行，最好不要设置，而是由 ``Code`` 或 ``metadata.options.withmpi`` 输入决定。"
 
 #: ../../source/topics/calculations/usage.rst:680
 msgid ""
@@ -1622,25 +1622,25 @@ msgid ""
 ":ref:`metadata option<topics:calculations:usage:calcjobs:mpi:calcjob-"
 "inputs>`. This can be accomplished by changing the default in the process "
 "specification:"
-msgstr ""
+msgstr "在执行运行单一代码的 ``CalcJob`` 时，可考虑通过 :ref:`metadata option<topics:calculations:usage:calcjobs:mpi:calcjob-inputs>` 指定启用或禁用 MPI。这可以通过更改进程规范中的默认值来实现："
 
 #: ../../source/topics/calculations/usage.rst:692
 msgid ""
 "The advantage over using the ``CodeInfo.withmpi`` attribute is that the "
 "default of the metadata option can be introspected programmatically from the"
 " process spec, and so is more visible to the user."
-msgstr ""
+msgstr "与使用 ``CodeInfo.withmpi`` 属性相比，它的优势在于元数据选项的默认值可以通过程序从流程规范中反省，因此对用户来说更直观。"
 
 #: ../../source/topics/calculations/usage.rst:694
 msgid ""
 "Naturally, this approach is not viable for calculation jobs that run "
 "multiple codes that are different in whether they require MPI or not. In "
 "this case, one should resort to using the ``CodeInfo.withmpi`` attribute."
-msgstr ""
+msgstr "当然，这种方法不适用于运行多个代码的计算作业，因为这些代码在是否需要 MPI 方面各不相同。在这种情况下，应该使用 ``CodeInfo.withmpi`` 属性。"
 
 #: ../../source/topics/calculations/usage.rst:700
 msgid "The ``CalcJob`` inputs"
-msgstr ""
+msgstr "``CalcJob`` 输入"
 
 #: ../../source/topics/calculations/usage.rst:702
 msgid ""
@@ -1650,13 +1650,13 @@ msgid ""
 "enabled or disabled, explicitly set this option to ``True`` or ``False``, "
 "respectively. For example, the following instructs to run all codes in the "
 "calculation job with MPI enabled:"
-msgstr ""
+msgstr "最后，可以使用 ``withmpi`` :ref:`metadata option<topics:calculations:usage:calcjobs:options>` 按实例控制 MPI 设置。如果要启用或禁用 MPI，请将该选项分别显式设置为 ``True`` 或 ``False`` 。例如，下面的指令将在启用 MPI 的情况下运行计算作业中的所有代码："
 
 #: ../../source/topics/calculations/usage.rst:718
 msgid ""
 "The default for this option is set to ``False`` on the base ``CalcJob`` "
 "implementation, but it will be overruled if explicitly defined."
-msgstr ""
+msgstr "在 ``CalcJob`` 基本实现中，该选项的默认设置为 ``False`` ，但如果明确定义，该选项将被覆盖。"
 
 #: ../../source/topics/calculations/usage.rst:722
 msgid ""
@@ -1665,25 +1665,25 @@ msgid ""
 "setting, this option should not be used, and instead MPI should be "
 "controlled :ref:`through the code input "
 "<topics:calculations:usage:calcjobs:mpi:code>`."
-msgstr ""
+msgstr "为 ``withmpi`` 选项设置的值将应用于所有代码。如果计算作业运行多个代码，且每个代码需要不同的 MPI 设置，则不应使用此选项，而应控制 MPI 为 :ref:`through the code input <topics:calculations:usage:calcjobs:mpi:code>` 。"
 
 #: ../../source/topics/calculations/usage.rst:728
 msgid "Conflict resolution"
-msgstr ""
+msgstr "解决冲突"
 
 #: ../../source/topics/calculations/usage.rst:730
 msgid ""
 "As described above, MPI can be enabled or disabled for a calculation job on "
 "a number of levels:"
-msgstr ""
+msgstr "如上所述，MPI 可以在多个级别上为计算作业启用或禁用："
 
 #: ../../source/topics/calculations/usage.rst:732
 msgid "The ``Code`` input"
-msgstr ""
+msgstr "``Code`` 输入"
 
 #: ../../source/topics/calculations/usage.rst:734
 msgid "The ``metadata.options.withmpi`` input"
-msgstr ""
+msgstr "``metadata.options.withmpi`` 输入"
 
 #: ../../source/topics/calculations/usage.rst:736
 msgid ""
@@ -1693,11 +1693,11 @@ msgid ""
 "conflict, one has to change the ``Code`` or ``metadata.options.withmpi`` "
 "input. If none of the values are explicitly defined, the value specified by "
 "the default of ``metadata.options.withmpi`` is taken."
-msgstr ""
+msgstr "如果这些值中的任何一个被明确设置为 ``True`` 或 ``False`` F，则 MPI 将被启用或禁用。如果指定了多个值，但它们并不等同，则会出现 ``RuntimeError`` 。根据冲突情况，必须更改 ``Code`` 或 ``metadata.options.withmpi`` 输入。如果没有明确定义任何值，则使用默认值 ``metadata.options.withmpi`` 。"
 
 #: ../../source/topics/calculations/usage.rst:745
 msgid "Launch"
-msgstr ""
+msgstr "启动"
 
 #: ../../source/topics/calculations/usage.rst:747
 msgid ""
@@ -1714,11 +1714,11 @@ msgid ""
 "tasks<topics:calculations:concepts:calcjobs_transport_tasks>` that will have"
 " to be performed. The exception is of course when you want to run a "
 "calculation job locally for testing or demonstration purposes."
-msgstr ""
+msgstr "启动计算作业与启动其他进程类并无不同，请参考 :ref:`launching processes<topics:processes:usage:launch>` 章节。唯一需要注意的是，计算作业通常会耗费大量时间。我们上面使用的微不足道的示例当然会运行得很快，但提交给调度程序的典型计算作业很可能需要更长的时间，而不仅仅是几秒钟。因此，我们强烈建议 **提交** 计算作业，而不是运行它们。将计算作业提交给守护进程后，就可以直接释放解释器，并在必须执行的各种 :ref:`transport tasks<topics:calculations:concepts:calcjobs_transport_tasks>` 之间对进程进行检查点。当然，为测试或演示目的而在本地运行计算作业的情况除外。"
 
 #: ../../source/topics/calculations/usage.rst:758
 msgid "Dry run"
-msgstr ""
+msgstr "试运行"
 
 #: ../../source/topics/calculations/usage.rst:759
 msgid ""
@@ -1729,7 +1729,7 @@ msgid ""
 "submitting the job. A so-called dry-run is possible by simply specifying it "
 "in the metadata of the inputs. If you are using the process builder, it is "
 "as simple as:"
-msgstr ""
+msgstr "与其他所有进程相比，计算作业在启动时还有一个额外的功能。由于配置不正确的计算作业可能会浪费计算资源，因此在实际提交作业之前，可能需要检查插件将写入的输入文件。只需在输入的元数据中指定，就可以进行所谓的 ``干运行``。如果使用流程生成器，则只需"
 
 #: ../../source/topics/calculations/usage.rst:768
 msgid ""
@@ -1742,18 +1742,18 @@ msgid ""
 "time you perform a dry-run, a new sub folder will be created in the "
 "``submit_test`` folder, which you allows you to perform multiple dry-runs "
 "without overwriting the previous results."
-msgstr ""
+msgstr "现在，当您启动流程生成器时，engine 将执行正常计算作业运行的整个流程，但实际上它不会上传作业并将其提交到远程计算机。但是，将调用 ``prepare_for_submission`` 方法。写入输入文件夹的输入将存储在当前工作目录下创建的名为 ``submit_test`` 的临时文件夹中。每次执行模拟运行时，都会在 ``submit_test`` 文件夹中创建一个新的子文件夹，这样就可以执行多次模拟运行，而不会覆盖之前的结果。"
 
 #: ../../source/topics/calculations/usage.rst:773
 msgid "Moreover, the following applies:"
-msgstr ""
+msgstr "此外，以下情况也适用："
 
 #: ../../source/topics/calculations/usage.rst:775
 msgid ""
 "when calling :py:func:`~aiida.engine.launch.run` for a calculation with the "
 "``dry_run`` flag set, you will get back its results, being always an empty "
 "dictionary ``{}``;"
-msgstr ""
+msgstr "当调用 :py:func:`~aiida.engine.launch.run` 进行设置了 ``dry_run`` 标志的计算时，返回的结果总是空字典 ``{}`` ；"
 
 #: ../../source/topics/calculations/usage.rst:778
 msgid ""
@@ -1763,38 +1763,38 @@ msgid ""
 "``node.dry_run_info``. This is a dictionary that contains additional "
 "information on the dry-run output. In particular, it will have the following"
 " keys:"
-msgstr ""
+msgstr "如果调用 :py:func:`~aiida.engine.launch.run_get_node` ，将返回未存储的 ``CalcJobNode`` ，即 node。在这种情况下，未存储的 ``CalcJobNode`` (我们称之为 ``node`` )将有一个附加属性 ``node.dry_run_info`` 。这是一个字典，包含有关干运行输出的附加信息。特别是，它将包含以下键："
 
 #: ../../source/topics/calculations/usage.rst:784
 msgid ""
 "``folder``: the absolute path to the folder within the ``submit_test`` "
 "folder where the files have been created, e.g.: "
 "``/home/user/submit_test/20190726-00019``"
-msgstr ""
+msgstr "``folder`` ： ``submit_test`` 文件夹内创建文件所在文件夹的绝对路径，例如 ``/home/user/submit_test/20190726-00019``"
 
 #: ../../source/topics/calculations/usage.rst:787
 msgid ""
 "``script_filename``: the filename of the submission script that AiiDA "
 "generated in the folder, e.g.: ``_aiidasubmit.sh``"
-msgstr ""
+msgstr "``script_filename``: the filename of the submission script that AiiDA generated in the folder, e.g.: ``_aiidasubmit.sh``"
 
 #: ../../source/topics/calculations/usage.rst:790
 msgid ""
 "if you send a dry-run to the :py:func:`~aiida.engine.launch.submit` "
 "function, this will be just forwarded to run and you will get back the "
 "unstored node (with the same properties as above)."
-msgstr ""
+msgstr "如果向 :py:func:`~aiida.engine.launch.submit` 函数发送干运行，则该函数将被转发为运行，并返回未存储的 node(属性如上)。"
 
 #: ../../source/topics/calculations/usage.rst:797
 msgid ""
 "By default the storing of provenance is enabled and this goes also for a dry"
 " run. If you do not want any nodes to be created during a dry run, simply "
 "set the metadata input ``store_provenance`` to ``False``."
-msgstr ""
+msgstr "默认情况下，provenance 的存储是启用的，这也适用于模拟运行。如果不想在模拟运行时创建任何 node，只需将元数据输入 ``store_provenance`` 设置为 ``False`` 。"
 
 #: ../../source/topics/calculations/usage.rst:804
 msgid "Parsing"
-msgstr ""
+msgstr "解析"
 
 #: ../../source/topics/calculations/usage.rst:805
 msgid ""
@@ -1812,7 +1812,7 @@ msgid ""
 " option specified, it will load the corresponding parser class, which should"
 " be a sub class of :py:class:`~aiida.parsers.parser.Parser` and calls its "
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method."
-msgstr ""
+msgstr "前面的章节详细解释了如何用 ``CalcJob`` 类封装外部可执行文件，使其可由 AiiDA 的 engine 运行。从第一步在远程机器上准备输入文件，到检索相关文件并将其存储在 :py:class:`~aiida.orm.nodes.data.folder.FolderData` node 中，并作为 ``retrieved`` 输出附加。这是 ``CalcJob`` 终止的最后 *必要* 步骤，但我们通常 *喜欢* 解析原始输出，并将其作为可查询的输出 node 附加到计算作业 node。要在检索到计算作业的输出后自动触发解析，可以指定 :ref:`parser name option<topics:calculations:usage:calcjobs:options>` 。如果 engine 发现指定了该选项，它将加载相应的解析器类(应为 :py:class:`~aiida.parsers.parser.Parser` 的子类)并调用其 :py:meth:`~aiida.parsers.parser.Parser.parse` 方法。"
 
 #: ../../source/topics/calculations/usage.rst:811
 msgid ""
@@ -1822,7 +1822,7 @@ msgid ""
 "example. This parser is designed to parse the output produced by the simple "
 "bash script that is wrapped by the ``ArithmeticAddCalculation`` discussed in"
 " the previous sections."
-msgstr ""
+msgstr "为了解释 ``Parser`` 类的接口和 ``parse`` 方法，让我们以 :py:class:`~aiida.parsers.plugins.arithmetic.add.ArithmeticAddParser` 为例。该解析器旨在解析由简单的 bash 脚本产生的输出，该脚本由前几节讨论的 ``ArithmeticAddCalculation`` 封装。"
 
 #: ../../source/topics/calculations/usage.rst:818
 msgid ""
@@ -1837,28 +1837,28 @@ msgid ""
 ":py:meth:`~aiida.parsers.parser.Parser.parse` method. Its signature should "
 "include ``**kwargs``, the reason for which will become clear later. The goal"
 " of the ``parse`` method is very simple:"
-msgstr ""
+msgstr "要创建新的解析器实现，只需创建一个子类 :py:class:`~aiida.parsers.parser.Parser` 的新类即可。像往常一样，任何有效的 python 类名都可以，但约定俗成的做法是始终使用后缀 ``Parser`` ，并使用与设计解析器的计算作业相同的名称。例如，在这里我们为 ``ArithmeticAddCalculation`` 实现一个解析器，因此我们将其命名为 ``ArithmeticAddParser`` ，只是将后缀 ``Calculation`` 替换为 ``Parser`` 。唯一需要实现的方法是 :py:meth:`~aiida.parsers.parser.Parser.parse` 方法。其签名应包括 ``**kwargs`` ，原因稍后会清楚地说明。 ``parse`` 方法的目标非常简单："
 
 #: ../../source/topics/calculations/usage.rst:825
 msgid ""
 "Open and load the content of the output files generated by the calculation "
 "job and have been retrieved by the engine"
-msgstr ""
+msgstr "打开并加载 engine 提取的由计算任务生成的输出文件内容"
 
 #: ../../source/topics/calculations/usage.rst:826
 msgid ""
 "Create data nodes out of this raw data that are attached as output nodes"
-msgstr ""
+msgstr "从原始数据中创建数据 node，作为输出 node 附上"
 
 #: ../../source/topics/calculations/usage.rst:827
 msgid "Log human-readable warning messages in the case of worrying output"
-msgstr ""
+msgstr "在输出令人担忧的情况下，记录人类可读的警告信息"
 
 #: ../../source/topics/calculations/usage.rst:828
 msgid ""
 "Optionally return an :ref:`exit code<topics:processes:concepts:exit_codes>` "
 "to indicate that the results of the calculation was not successful"
-msgstr ""
+msgstr "可选择返回 :ref:`exit code<topics:processes:concepts:exit_codes>` 表示计算结果不成功"
 
 #: ../../source/topics/calculations/usage.rst:830
 msgid ""
@@ -1867,7 +1867,7 @@ msgid ""
 "to query for calculations that produced specific outputs with a certain "
 "value, which becomes a very powerful approach for post-processing and "
 "analyses of big databases."
-msgstr ""
+msgstr "将不同形式的原始输出数据添加为输出 nodes 的优势在于，这种形式的内容可以查询。这样就可以查询产生特定值的特定输出的计算结果，这对于大型数据库的后处理和分析来说是一种非常强大的方法。"
 
 #: ../../source/topics/calculations/usage.rst:833
 msgid ""
@@ -1882,7 +1882,7 @@ msgid ""
 "redirecting the standard output of the bash script that added the two "
 "integers. The parser opens this file, reads its content and tries to parse "
 "the sum from it:"
-msgstr ""
+msgstr "解析器的 ``retrieved`` 属性将返回 engine 本应附加的 ``FolderData`` node，其中包含所有检索到的文件，如 :ref:`preparation step of the calculation job<topics:calculations:usage:calcjobs:prepare>` 中的 :ref:`retrieve list<topics:calculations:usage:calcjobs:file_lists_retrieve>` 所指定。可以使用检索到的文件夹打开并读取其中包含的文件内容。在本例中，应该有一个输出文件，该文件是通过重定向添加两个整数的 bash 脚本的标准输出而写成的。解析器将打开该文件，读取其内容并尝试解析和："
 
 #: ../../source/topics/calculations/usage.rst:844
 msgid ""
@@ -1899,7 +1899,7 @@ msgid ""
 "this exit code from the parser will stop the parsing immediately and will "
 "instruct the engine to set its exit status and exit message on the node of "
 "this calculation job."
-msgstr ""
+msgstr "请注意，该解析操作被包裹在一个 try-except 块中，以捕获无法读取输出文件时抛出的异常。如果无法捕获异常，engine 将捕获异常，并将相应计算的进程状态设置为 ``Excepted`` 。请注意，在解析过程中抛出的任何未捕获异常都会发生这种情况。相反，我们会捕获这些异常并返回一个退出代码，通过 ``self.exit_codes`` 属性引用其标签(如本例中的 ``ERROR_READING_OUTPUT_FILE`` )即可获取该退出代码。该调用将检索当前正在解析的 ``CalcJob`` 上定义的相应退出代码。从解析器返回此退出代码将立即停止解析，并指示 engine 在此计算作业的 node 上设置其退出状态和退出信息。"
 
 #: ../../source/topics/calculations/usage.rst:851
 msgid ""
@@ -1911,7 +1911,7 @@ msgid ""
 " produced by the calculation, we wrap it in the appropriate "
 ":py:class:`~aiida.orm.nodes.data.int.Int` data node class, and register it "
 "as an output through the ``out`` method:"
-msgstr ""
+msgstr "``parse_stdout`` 方法只是一个小的实用程序函数，用于将数据的实际解析与主解析器代码分开。在本例中，解析过程非常简单，我们不妨将其保留在主方法中，但这只是为了说明，为了清晰起见，你完全可以在 ``parse`` 方法中自由组织代码。如果我们设法解析了计算产生的总和，我们就将其封装在相应的 :py:class:`~aiida.orm.nodes.data.int.Int` 数据 node 类中，并通过 ``out`` 方法将其注册为输出："
 
 #: ../../source/topics/calculations/usage.rst:861
 msgid ""
@@ -1923,7 +1923,7 @@ msgid ""
 "depend on the type of raw output that is produced by the calculation and "
 "what parts you would like to be queryable. However, we can give you some "
 "guidelines:"
-msgstr ""
+msgstr "请注意，如果我们没有遇到任何问题，则不必返回任何信息。engine 会将此理解为计算已成功完成。现在您可以提出一个问题：\``what part of the raw data should I parse and in what types of data nodes should I store it?\``.一般来说，这个问题不容易回答，因为这在很大程度上取决于计算产生的原始输出类型以及您希望查询的部分。不过，我们可以为您提供一些指导："
 
 #: ../../source/topics/calculations/usage.rst:867
 msgid ""
@@ -1933,7 +1933,7 @@ msgid ""
 ":py:class:`~aiida.orm.nodes.data.structure.StructureData`. The contents of "
 "these nodes are stored as attributes in the database, which makes sure that "
 "they can be queried for."
-msgstr ""
+msgstr "将可能需要查询的数据存储在轻量级数据 node 中，如 :py:class:`~aiida.orm.nodes.data.dict.Dict` 、 :py:class:`~aiida.orm.nodes.data.list.List` 和 :py:class:`~aiida.orm.nodes.data.structure.StructureData` 。这些 node 的内容作为属性存储在数据库中，从而确保可以对其进行查询。"
 
 #: ../../source/topics/calculations/usage.rst:869
 msgid ""
@@ -1945,11 +1945,11 @@ msgid ""
 "the bulk of their content in the repository. This way you still keep the "
 "data and therewith the provenance of your calculations, while keeping your "
 "database lean and fast!"
-msgstr ""
+msgstr "大型数据集，如大型(多维)数组，最好存储在 :py:class:`~aiida.orm.nodes.data.array.array.ArrayData` 或其子类中。如果将所有这些数据都存储在数据库中，数据库就会变得不必要地臃肿，因为查询这些数据的可能性很小。相反，这些数组类型的数据 node 会将其大部分内容存储在存储库中。这样，您仍然可以保留数据以及计算的 provenance 数据，同时保持数据库的精简和快速！"
 
 #: ../../source/topics/calculations/usage.rst:878
 msgid "Scheduler errors"
-msgstr ""
+msgstr "调度程序错误"
 
 #: ../../source/topics/calculations/usage.rst:880
 msgid ""
@@ -1964,7 +1964,7 @@ msgid ""
 "job node. The output parser, if defined in the inputs, can inspect the exit "
 "status on the node and decide to keep it or override it with a different, "
 "potentially more useful, exit code."
-msgstr ""
+msgstr "除了输出解析器，调度程序插件还可以通过实施 :meth:`~aiida.schedulers.scheduler.Scheduler.parse_output` 方法，对作业调度程序生成的输出进行解析。如果调度程序插件执行了该方法，则会解析调度程序生成的输出(写入 stdout 和 stderr 文件描述符以及详细作业信息命令的输出)。如果解析器检测到已知问题，如内存不足(OOM)或超时(OOW)错误，计算作业 node 将已设置相应的退出代码。输出解析器(如果在输入中定义)可以检查 node 上的退出状态，并决定保留该退出状态或使用其他可能更有用的退出代码覆盖该退出状态。"
 
 #: ../../source/topics/calculations/usage.rst:903
 msgid ""
@@ -1980,79 +1980,79 @@ msgid ""
 "The following table summarizes the possible scenarios of the scheduler "
 "parser and output parser returning an exit code and what the final resulting"
 " exit code will be that is set on the node:"
-msgstr ""
+msgstr "请注意，在上面的示例中，如果解析器检测到调度程序检测到问题，就会立即返回。由于它返回 `None`，调度程序的退出代码将被保留，并成为计算作业的最终退出代码。但是，解析器不必立即返回。它仍可尝试解析检索到的部分输出(如果有的话)。如果它发现了比一般调度程序错误更具体的问题，可以返回一个自己的退出代码来覆盖它。解析器甚至可以返回 ``ExitCode(0)`` ，将计算标记为成功完成，尽管调度程序已确定存在问题。下表总结了调度程序解析器和输出解析器返回退出代码的可能情况，以及在 node 上设置的最终退出代码："
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Scenario**"
-msgstr ""
+msgstr "**情景**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Scheduler result**"
-msgstr ""
+msgstr "**日程安排结果**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Retrieved result**"
-msgstr ""
+msgstr "**检索结果**"
 
 #: ../../source/topics/calculations/usage.rst:912
 msgid "**Final result**"
-msgstr ""
+msgstr "**最终结果**"
 
 #: ../../source/topics/calculations/usage.rst:914
 msgid "Neither parser found any problem."
-msgstr ""
+msgstr "两个解析器都没有发现问题。"
 
 #: ../../source/topics/calculations/usage.rst:914
 #: ../../source/topics/calculations/usage.rst:916
 #: ../../source/topics/calculations/usage.rst:919
 msgid "``None``"
-msgstr ""
+msgstr "``None``"
 
 #: ../../source/topics/calculations/usage.rst:914
 #: ../../source/topics/calculations/usage.rst:924
 msgid "``ExitCode(0)``"
-msgstr ""
+msgstr "``ExitCode(0)``"
 
 #: ../../source/topics/calculations/usage.rst:916
 msgid "Scheduler parser found an issue, but output parser does not override."
-msgstr ""
+msgstr "调度程序解析器发现了一个问题，但输出解析器没有覆盖。"
 
 #: ../../source/topics/calculations/usage.rst:916
 #: ../../source/topics/calculations/usage.rst:921
 #: ../../source/topics/calculations/usage.rst:924
 msgid "``ExitCode(100)``"
-msgstr ""
+msgstr "``ExitCode(100)``"
 
 #: ../../source/topics/calculations/usage.rst:919
 msgid "Only output parser found a problem."
-msgstr ""
+msgstr "只有输出解析器发现了问题。"
 
 #: ../../source/topics/calculations/usage.rst:919
 #: ../../source/topics/calculations/usage.rst:921
 msgid "``ExitCode(400)``"
-msgstr ""
+msgstr "``ExitCode(400)``"
 
 #: ../../source/topics/calculations/usage.rst:921
 msgid ""
 "Scheduler parser found an issue, but the output parser overrides with a more"
 " specific error code."
-msgstr ""
+msgstr "调度程序解析器发现问题，但输出解析器用更具体的错误代码覆盖。"
 
 #: ../../source/topics/calculations/usage.rst:924
 msgid ""
 "Scheduler found issue but output parser overrides saying that despite that "
 "the calculation should be considered finished successfully."
-msgstr ""
+msgstr "调度程序发现了问题，但输出解析器覆盖说，尽管如此，计算仍应视为成功完成。"
 
 #: ../../source/topics/cli.rst:5
 msgid "Command line interface"
-msgstr ""
+msgstr "命令行界面"
 
 #: ../../source/topics/cli.rst:7
 msgid ""
 "The command line interface utility for AiiDA is called ``verdi``. This "
 "section explains the basic concepts that apply to all ``verdi`` commands."
-msgstr ""
+msgstr "AiiDA 的命令行界面工具称为 ``verdi`` 。本节将解释适用于所有 ``verdi`` 命令的基本概念。"
 
 #: ../../source/topics/cli.rst:12
 msgid ""
@@ -2061,135 +2061,135 @@ msgid ""
 "(TUI). It requires ``aiida-core`` to be installed with the ``tui`` extra "
 "(e.g. ``pip install aiida-core[tui]``). The TUI can then be launched with "
 "``verdi tui``."
-msgstr ""
+msgstr "``verdi`` command line interface can also be explored as a `text-based user interface <https://en.wikipedia.org/wiki/Text-based_user_interface>`_(TUI)。它要求 ``aiida-core`` 与 ``tui`` 额外安装(如 ``pip install aiida-core[tui]`` )。然后可以使用 ``verdi tui`` 启动 TUI。"
 
 #: ../../source/topics/cli.rst:20
 msgid "Parameters"
-msgstr ""
+msgstr "参数"
 
 #: ../../source/topics/cli.rst:21
 msgid "Parameters to ``verdi`` commands come in two flavors:"
-msgstr ""
+msgstr "``verdi`` 命令的参数有两种："
 
 #: ../../source/topics/cli.rst:23
 msgid ""
 "Arguments: positional parameters, e.g. ``123`` in ``verdi process kill 123``"
-msgstr ""
+msgstr "参数：位置参数，例如 ``verdi process kill 123`` 中的 ``123``"
 
 #: ../../source/topics/cli.rst:24
 msgid ""
 "Options: announced by a flag (e.g. ``-f`` or ``--flag``), potentially "
 "followed by a value. E.g. ``verdi process list --limit 10`` or ``verdi "
 "process -h``."
-msgstr ""
+msgstr "选项：用标志(如 ``-f`` 或 ``--flag`` )表示，后面可能跟一个值。例如 ``verdi process list --limit 10`` 或 ``verdi process -h`` 。"
 
 #: ../../source/topics/cli.rst:29
 msgid "Multi-value options"
-msgstr ""
+msgstr "多值选项"
 
 #: ../../source/topics/cli.rst:31
 msgid ""
 "Some ``verdi`` commands provide *options* that can take multiple values. "
 "This allows to avoid repetition and e.g. write::"
-msgstr ""
+msgstr "某些 ``verdi`` 命令提供的 *选项* 可以有多个值。这样可以避免重复，例如写入：："
 
 #: ../../source/topics/cli.rst:36
 msgid "instead of the more lengthy::"
-msgstr ""
+msgstr "而不是更冗长的：......："
 
 #: ../../source/topics/cli.rst:40
 msgid ""
 "Note the use of the so-called 'endopts' marker ``--`` that is necessary to "
 "mark the end of the ``-N`` option and distinguish it from the "
 "``archive.aiida`` argument."
-msgstr ""
+msgstr "注意使用所谓的 ``endopts``标记 ``--`` ，这是标记 ``-N`` 选项结束并将其与 ``archive.aiida`` 参数区分开所必需的。"
 
 #: ../../source/topics/cli.rst:46
 msgid "Help strings"
-msgstr ""
+msgstr "帮助字符串"
 
 #: ../../source/topics/cli.rst:47
 msgid ""
 "Append the ``--help`` option to any verdi (sub-)command to get help on how "
 "to use it. For example, ``verdi process kill --help`` shows::"
-msgstr ""
+msgstr "在任何 verdi(子)命令后加上 ``--help`` 选项，即可获得如何使用该命令的帮助。例如， ``verdi process kill --help`` 显示：："
 
 #: ../../source/topics/cli.rst:61
 msgid "All help strings consist of three parts:"
-msgstr ""
+msgstr "所有帮助字符串都由三部分组成："
 
 #: ../../source/topics/cli.rst:63
 msgid "A ``Usage:`` line describing how to invoke the command"
-msgstr ""
+msgstr "描述如何调用命令的 ``Usage:`` 行"
 
 #: ../../source/topics/cli.rst:64
 msgid "A description of the command's functionality"
-msgstr ""
+msgstr "命令功能说明"
 
 #: ../../source/topics/cli.rst:65
 msgid "A list of the available options"
-msgstr ""
+msgstr "可用选项列表"
 
 #: ../../source/topics/cli.rst:67
 msgid ""
 "The ``Usage:`` line encodes information on the command's parameters, e.g.:"
-msgstr ""
+msgstr "``Usage:`` 行对命令参数信息进行了编码，例如"
 
 #: ../../source/topics/cli.rst:69
 msgid "``[OPTIONS]``: this command takes one (or more) options"
-msgstr ""
+msgstr "``[OPTIONS]`` ： 该命令有一个(或多个)选项"
 
 #: ../../source/topics/cli.rst:70
 msgid ""
 "``PROCESSES``: this command *requires* a process as a positional argument"
-msgstr ""
+msgstr "``PROCESSES`` ：该命令 *要求* 进程作为位置参数"
 
 #: ../../source/topics/cli.rst:71
 msgid ""
 "``[PROCESSES]``: this command takes a process as an *optional* positional "
 "argument"
-msgstr ""
+msgstr "``[PROCESSES]`` ：该命令将进程作为 *可选* 位置参数"
 
 #: ../../source/topics/cli.rst:72
 msgid ""
 "``[PROCESSES]...``: this command takes one or more processes as *optional* "
 "positional arguments"
-msgstr ""
+msgstr "``[PROCESSES]...`` ：该命令将一个或多个进程作为 *可选* 位置参数"
 
 #: ../../source/topics/cli.rst:74
 msgid ""
 "Multi-value options are followed by ``...`` in the help string and the "
 "``Usage:`` line of the corresponding command will contain the 'endopts' "
 "marker. For example::"
-msgstr ""
+msgstr "在帮助字符串中，多值选项后跟 ``...`` ，相应命令的 ``Usage:`` 行将包含 'endopts' 标记。例如::"
 
 #: ../../source/topics/cli.rst:97
 msgid "Profile"
-msgstr ""
+msgstr "简介"
 
 #: ../../source/topics/cli.rst:98
 msgid ""
 "AiiDA supports multiple profiles per installation, one of which is marked as"
 " the default and used unless another profile is requested. Show the current "
 "default profile using::"
-msgstr ""
+msgstr "AiiDA 支持每个安装多个配置文件，其中一个被标记为默认配置文件，除非要求使用另一个配置文件。使用: 显示当前默认配置文件："
 
 #: ../../source/topics/cli.rst:103
 msgid ""
 "In order to use a different profile, pass the ``-p/--profile`` option to any"
 " ``verdi`` command, for example::"
-msgstr ""
+msgstr "要使用不同的配置文件，请在任何 ``verdi`` 命令中加入 ``-p/--profile`` 选项，例如：："
 
 #: ../../source/topics/cli.rst:107
 msgid ""
 "Note that the specified profile will be used for this and *only* this "
 "command. Use ``verdi profile setdefault`` in order to permanently change the"
 " default profile."
-msgstr ""
+msgstr "请注意，指定的配置文件将用于此命令，且 *仅* 用于此命令。要永久更改默认配置文件，请使用 ``verdi profile setdefault`` 。"
 
 #: ../../source/topics/cli.rst:114
 msgid "Verbosity"
-msgstr ""
+msgstr "动词性"
 
 #: ../../source/topics/cli.rst:115
 msgid ""
@@ -2205,41 +2205,41 @@ msgid ""
 "The ``REPORT`` level is a log level that is defined and added by AiiDA that "
 "sits between the ``INFO`` and ``WARNING`` level, and is the default log "
 "level."
-msgstr ""
+msgstr "全部 ``verdi`` commands have the ``-v/--verbosity`` option, which allows to control the verbosity of the output that is printed by the command. The option takes a value that is known as the log level and all messages that are emitted with an inferior log level will be suppressed. The valid values in order of increasing log level are: ``NOTSET`, `DEBUG`, `INFO`, `REPORT`, `WARNING`, `ERROR` and `CRITICAL`. For example, if the log level is set to ``ERROR``, only messages with the ``ERROR`` and ``CRITICAL`` level will be shown. The choice for these log level values comes directly from `Python``s built-in logging module <https://docs.python.org/3/library/logging.html>`_. ``REPORT`` 级别是 AiiDA 定义和添加的日志级别，位于 ``INFO`` 和 ``WARNING`` 级别之间，是默认日志级别。"
 
 #: ../../source/topics/cli.rst:122
 msgid ""
 "The verbosity option is case-insensitive, i.e., ``--verbosity debug`` and "
 "``--verbosity DEBUG`` are identical. The option can be passed at any "
 "subcommand level, for example:"
-msgstr ""
+msgstr "动词选项不区分大小写，即 ``--verbosity debug`` 和 ``--verbosity DEBUG`` 完全相同。该选项可以在任何子命令级传递，例如"
 
 #: ../../source/topics/cli.rst:129
 msgid "is identical to"
-msgstr ""
+msgstr "与"
 
 #: ../../source/topics/cli.rst:135
 msgid ""
 "When the option is specified multiple times, only the last value will be "
 "considered. If the `--verbosity` option is specified, it overrides the log "
 "level of all the loggers configured by AiiDA, e.g. `logging.aiida_loglevel`."
-msgstr ""
+msgstr "当多次指定该选项时，只会考虑最后一个值。如果指定了 `--verbosity` 选项，它将覆盖 AiiDA 配置的所有日志记录器的日志级别，例如 `logging.aiida_loglevel`。"
 
 #: ../../source/topics/cli.rst:142
 msgid "Identifiers"
-msgstr ""
+msgstr "标识符"
 
 #: ../../source/topics/cli.rst:144
 msgid ""
 "When working with AiiDA entities, you need a way to *refer* to them on the "
 "command line. Any entity in AiiDA can be addressed via three identifiers:"
-msgstr ""
+msgstr "当使用 AiiDA 实体时，你需要一种在命令行中*引用它们的方法。AiiDA 中的任何实体都可以通过三个标识符来处理："
 
 #: ../../source/topics/cli.rst:147
 msgid ""
 "\"Primary Key\" (PK): An integer, e.g. ``723``, identifying your entity "
 "within your database (automatically assigned)"
-msgstr ""
+msgstr "\``Primary Key\`` (PK)：一个整数，例如 ``723`` ，用于在数据库中标识您的实体(自动分配)"
 
 #: ../../source/topics/cli.rst:148
 msgid ""
@@ -2247,25 +2247,25 @@ msgid ""
 "<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>`_"
 " (UUID): A string, e.g. ``ce81c420-7751-48f6-af8e-eb7c6a30cec3`` identifying"
 " your entity globally (automatically assigned)"
-msgstr ""
+msgstr "de9afb72 (uuid)：一个字符串，例如 ``ce81c420-7751-48f6-af8e-eb7c6a30cec3`` ，在全球范围内标识您的实体(自动分配)"
 
 #: ../../source/topics/cli.rst:149
 msgid ""
 "Label: A human-readable string, e.g. ``test_calculation`` (manually "
 "assigned)"
-msgstr ""
+msgstr "标签：人类可读字符串，如 ``test_calculation`` (手动分配)。"
 
 #: ../../source/topics/cli.rst:153
 msgid ""
 "PKs are easy to type and work as long as you stay within your database. "
 "**When sharing data with others, however, always use UUIDs.**"
-msgstr ""
+msgstr "PK 易于键入，只要不超出数据库范围即可使用。不过，在与他人共享数据时，一定要使用 UUID。"
 
 #: ../../source/topics/cli.rst:156
 msgid ""
 "Any ``verdi`` command that expects an identifier as a paramter will accept "
 "PKs, UUIDs and labels."
-msgstr ""
+msgstr "任何需要将标识符作为参数的 ``verdi`` 命令都将接受 PK、UUID 和标签。"
 
 #: ../../source/topics/cli.rst:158
 msgid ""
@@ -2274,118 +2274,118 @@ msgid ""
 "identifier from its content, which can fail in edge cases (see "
 ":ref:`topics:cli:identifier_resolution` for details). You can take the "
 "following precautions in order to avoid such edge cases:"
-msgstr ""
+msgstr "几乎在所有情况下，这都能正常工作。由于命令行参数是以字符串形式传递的，AiiDA 需要根据其内容推断标识符的类型，这在边缘情况下可能会失败(详见 :ref:`topics:cli:identifier_resolution` )。你可以采取以下预防措施来避免这种边缘情况："
 
 #: ../../source/topics/cli.rst:162
 msgid "PK: no precautions needed"
-msgstr ""
+msgstr "PK：无需采取预防措施"
 
 #: ../../source/topics/cli.rst:163
 msgid ""
 "UUID: no precautions needed for full UUIDs. Partial UUIDs should include at "
 "least one non-numeric character or dash"
-msgstr ""
+msgstr "UUID：完整的 UUID 无需采取任何预防措施。部分 UUID 应至少包括一个非数字字符或破折号"
 
 #: ../../source/topics/cli.rst:164
 msgid ""
 "Label: add an exclamation mark ``!`` at the end of the identifier in order "
 "to force interpretation as a label"
-msgstr ""
+msgstr "标签：在标识符末尾添加感叹号 ``!``，以便强制解释为标签"
 
 #: ../../source/topics/cli.rst:170
 msgid "Implementation of identifier resolution"
-msgstr ""
+msgstr "实施标识符决议"
 
 #: ../../source/topics/cli.rst:172
 msgid "The logic for deducing the identifier type is as follows:"
-msgstr ""
+msgstr "推导标识符类型的逻辑如下："
 
 #: ../../source/topics/cli.rst:174
 msgid "Try interpreting the identifier as a PK (integer)"
-msgstr ""
+msgstr "尝试将标识符解释为 PK(整数)"
 
 #: ../../source/topics/cli.rst:175
 msgid ""
 "If this fails, try interpreting the identifier as a UUID (full or partial)"
-msgstr ""
+msgstr "如果失败，请尝试将标识符解释为 UUID(完整或部分标识符)"
 
 #: ../../source/topics/cli.rst:176
 msgid "If this fails, interpret the identifier as a label"
-msgstr ""
+msgstr "如果失败，则将标识符解释为标签"
 
 #: ../../source/topics/cli.rst:178
 msgid ""
 "The following example illustrates edge cases that can arise in this logic:"
-msgstr ""
+msgstr "下面的例子说明了这种逻辑可能出现的边缘情况："
 
 #: ../../source/topics/cli.rst:181
 msgid "PK"
-msgstr ""
+msgstr "PK"
 
 #: ../../source/topics/cli.rst:181
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: ../../source/topics/cli.rst:181
 msgid "LABEL"
-msgstr ""
+msgstr "标签"
 
 #: ../../source/topics/cli.rst:183 ../../source/topics/cli.rst:184
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: ../../source/topics/cli.rst:183
 msgid "12dfb104-7b2b-4bca-adc0-1e4fd4ffcc88"
-msgstr ""
+msgstr "12dfb104-7b2b-4bca-adc0-1e4fd4ffcc88"
 
 #: ../../source/topics/cli.rst:183
 msgid "group"
-msgstr ""
+msgstr "组"
 
 #: ../../source/topics/cli.rst:184
 msgid "11"
-msgstr ""
+msgstr "11"
 
 #: ../../source/topics/cli.rst:184
 msgid "deadbeef-62ba-444f-976d-31d925dac557"
-msgstr ""
+msgstr "deadbeef-62ba-444f-976d-31d925dac557"
 
 #: ../../source/topics/cli.rst:185
 msgid "12"
-msgstr ""
+msgstr "12"
 
 #: ../../source/topics/cli.rst:185
 msgid "3df34a1e-5215-4e1a-b626-7f75b9586ef5"
-msgstr ""
+msgstr "3df34a1e-5215-4e1a-b626-7f75b9586ef5"
 
 #: ../../source/topics/cli.rst:185
 msgid "deadbeef"
-msgstr ""
+msgstr "deadbeef"
 
 #: ../../source/topics/cli.rst:188
 msgid ""
 "trying to identify the first entity by its partial UUID ``12`` would match "
 "the third entity by its PK instead"
-msgstr ""
+msgstr "如果试图通过部分 UUID ``12`` 来识别第一个实体，则会通过 PK 来匹配第三个实体"
 
 #: ../../source/topics/cli.rst:189
 msgid ""
 "trying to identify the second entity by its label ``10`` would match the "
 "first entity by its PK instead"
-msgstr ""
+msgstr "如果试图通过标签 ``10`` 来识别第二个实体，则会通过 PK 来匹配第一个实体"
 
 #: ../../source/topics/cli.rst:190
 msgid ""
 "trying to identify the third entity by its label ``deadbeef`` would match "
 "the second entity on its partial UUID ``deadbeef`` instead"
-msgstr ""
+msgstr "试图通过标签 ``deadbeef`` 识别第三个实体时，会根据第二个实体的部分 UUID ``deadbeef`` 与之匹配"
 
 #: ../../source/topics/cli.rst:192
 msgid ""
 "The ambiguity between a partial UUID and a PK can always be resolved by "
 "including a longer substring of the UUID, eventually rendering the "
 "identifier no longer a valid PK."
-msgstr ""
+msgstr "部分 UUID 和 PK 之间的歧义总是可以通过加入 UUID 的更长子串来解决，最终使标识符不再是有效的 PK。"
 
 #: ../../source/topics/cli.rst:194
 msgid ""
@@ -2395,11 +2395,11 @@ msgid ""
 "any type guessing is done, AiiDA checks for the presence of this marker and,"
 " if found, will interpret the identifier as a label. I.e. to solve ambiguity"
 " examples mentioned above, one would pass ``10!`` and ``deadbeef!``."
-msgstr ""
+msgstr "如果标签也是有效 PK 或(部分)UUID，则需要不同的解决方案。针对这种情况， ``verdi`` 保留了一个特殊字符，即感叹号 ``!``, that can be appended to the identifier. Before any type guessing is done, AiiDA checks for the presence of this marker and, if found, will interpret the identifier as a label. I.e. to solve ambiguity examples mentioned above, one would pass ``10!`` 和 ``deadbeef!`` 。"
 
 #: ../../source/topics/daemon.rst:5
 msgid "Daemon"
-msgstr ""
+msgstr "守护神"
 
 #: ../../source/topics/daemon.rst:7
 msgid ""
@@ -2410,18 +2410,18 @@ msgid ""
 ":ref:`launching <topics:processes:usage:launching>` section for details on "
 "the difference between *run* and *submit*), the daemon can handle multiple "
 "processes asynchronously."
-msgstr ""
+msgstr "AiiDA 提供了一个在后台运行的守护进程，它处理任何提交的新进程(即计算和 workflow，参见 :ref:`process concepts <topics:processes:concepts>` )。运行一个进程会阻塞当前的 Python 解释器(关于 *run* 和 *submit* 的区别，参见 :ref:`launching <topics:processes:usage:launching>` 部分)，与此不同的是，守护进程可以异步处理多个进程。"
 
 #: ../../source/topics/daemon.rst:10
 msgid "The daemon concept in AiiDA consists of multiple *system processes*."
-msgstr ""
+msgstr "AiiDA 中的守护进程概念由多个 *系统进程* 组成。"
 
 #: ../../source/topics/daemon.rst:14
 msgid ""
 "System processes, here, refers to processes that are run by the operating "
 "system, not to the AiiDA specific collective term for all calculations and "
 "workflows."
-msgstr ""
+msgstr "这里的 '系统进程' 指的是操作系统运行的进程，而不是 AiiDA 对所有计算和 workflow 的特定统称。"
 
 #: ../../source/topics/daemon.rst:16
 msgid ""
@@ -2433,18 +2433,18 @@ msgid ""
 " and run them to completion. If a daemon worker dies, the daemon will "
 "automatically revive it. When the daemon is requested to stop, it will send "
 "a signal to all workers to shut them down before shutting down itself."
-msgstr ""
+msgstr "启动守护进程时，后台将启动一个系统进程，该进程将无限期运行，直至停止。该守护进程负责启动并监控一个或多个守护进程 *工作者* 。每个守护进程 Worker 都是另一个系统进程，它连接到 RabbitMQ 以检索已提交的计算和 workflow，并将其运行至完成。如果守护进程工作者死亡，守护进程将自动恢复。当守护进程被要求停止时，它将向所有 Worker 发送信号以关闭它们，然后再关闭自己。"
 
 #: ../../source/topics/daemon.rst:22
 msgid ""
 "In summary: AiiDA's daemon consists of a single system process running in "
 "the background (the daemon) that manages one or more system processes that "
 "handle all submitted calculations and workflows (the daemon workers)."
-msgstr ""
+msgstr "总结：AiiDA的守护进程由一个在后台运行的系统进程(守护进程)组成，它管理一个或多个系统进程，这些进程处理所有提交的计算和workflow(守护进程工作者)。"
 
 #: ../../source/topics/daemon.rst:29
 msgid "Client"
-msgstr ""
+msgstr "客户"
 
 #: ../../source/topics/daemon.rst:31
 msgid ""
@@ -2454,23 +2454,23 @@ msgid ""
 ":func:`aiida.engine.get_daemon_client` utility function can be used to "
 "construct it. In order to control the daemon for the current default "
 "profile:"
-msgstr ""
+msgstr "Python API 提供了与守护进程交互的 :class:`~aiida.engine.daemon.client.DaemonClient` 类。可以直接为给定的配置文件构建该类，也可以使用 :func:`aiida.engine.get_daemon_client` 工具函数来构建该类。为了控制当前默认配置文件的守护进程，可以使用"
 
 #: ../../source/topics/daemon.rst:40
 msgid "It is also possible to explicitly specify a profile:"
-msgstr ""
+msgstr "也可以明确指定一个配置文件："
 
 #: ../../source/topics/daemon.rst:46
 msgid "The daemon can be started and stopped through the client:"
-msgstr ""
+msgstr "守护进程可通过客户端启动和停止："
 
 #: ../../source/topics/daemon.rst:54
 msgid "The main methods of interest for interacting with the daemon are:"
-msgstr ""
+msgstr "与守护进程交互的主要方法有"
 
 #: ../../source/topics/daemon.rst:56
 msgid ":meth:`~aiida.engine.daemon.client.DaemonClient.start_daemon`"
-msgstr ""
+msgstr " :meth:`~aiida.engine.daemon.client.DaemonClient.start_daemon`"
 
 #: ../../source/topics/daemon.rst:57
 msgid ":meth:`~aiida.engine.daemon.client.DaemonClient.restart_daemon`"
