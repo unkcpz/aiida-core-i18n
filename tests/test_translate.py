@@ -62,6 +62,7 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"`aiida` and `core` is protected.",
         r"The process function is protected.",
         r"The processes is protected.",
+        r"The 'quote' is protected.",
     ]
 )
 def test_replace_protect(input: str):
@@ -105,6 +106,7 @@ def test_a_huge_nested_replace_protect(input: str):
     "input",
     [
         r"`aiida-core ` is not protected."
+        r"the 'quote without space' is not protected.",
     ]
 )
 def test_replace_protect_not(input: str):
