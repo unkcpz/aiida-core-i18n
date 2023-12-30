@@ -61,6 +61,8 @@ terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))([iI]mport[s]?))", False), # 107
     (r"(?:(?:(?<!`)(?<!:))([sS]chema?))", False), # 108
     (r"(?:(?:(?<!`)(?<!:))([sS]hell))", False), # 109
+    (r"(?:(?:(?<!`)(?<!:))([pP]rocess\s?function))", False), # 110
+    (r"(?:(?:(?<!`)(?<!:))([pP]rocess(es)?))", False), # 111
 ]
     
 

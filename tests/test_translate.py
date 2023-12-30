@@ -60,6 +60,8 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"`aiida core` is protected.",
         r"Termi schema", r"Termi Schema",
         r"`aiida` and `core` is protected.",
+        r"The process function is protected.",
+        r"The processes is protected.",
     ]
 )
 def test_replace_protect(input: str):
