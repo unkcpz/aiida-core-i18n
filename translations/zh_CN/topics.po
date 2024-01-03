@@ -8594,7 +8594,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:106
 msgid "Validation and defaults"
-msgstr ""
+msgstr "验证和默认值"
 
 #: ../../source/topics/processes/usage.rst:107
 msgid ""
@@ -8607,23 +8607,23 @@ msgid ""
 "attributes in common, for example related to the concept of validation and "
 "default values. All three have the following attributes (with the exception "
 "of the ``OutputPort`` not having a ``default`` attribute):"
-msgstr ""
+msgstr "在上一节中，我们看到 ``ProcessSpec`` 使用 ``PortNamespace`` 、 ``InputPort`` 和 ``OutputPort`` 来定义 ``Process`` 的输入和输出结构。允许端口嵌套的基本概念是， ``PortNamespace`` 、 ``InputPort`` 和 ``OutputPort`` 都是 :py:class:`~plumpy.ports.Port` 的子类。作为同一个类的不同子类，它们有更多的共同属性，例如与验证和默认值概念相关的属性。三者都具有以下属性( ``OutputPort`` 没有 ``default`` 属性除外)："
 
 #: ../../source/topics/processes/usage.rst:112
 msgid "``default``"
-msgstr ""
+msgstr "``default``"
 
 #: ../../source/topics/processes/usage.rst:113
 msgid "``required``"
-msgstr ""
+msgstr "``required``"
 
 #: ../../source/topics/processes/usage.rst:114
 msgid "``valid_type``"
-msgstr ""
+msgstr "``valid_type``"
 
 #: ../../source/topics/processes/usage.rst:115
 msgid "``validator``"
-msgstr ""
+msgstr "``validator``"
 
 #: ../../source/topics/processes/usage.rst:117
 msgid ""
@@ -8632,14 +8632,14 @@ msgid ""
 "altered without limit as long as it is within the ``define`` method of the "
 "corresponding ``Process``. An example input port that explicitly sets all "
 "these attributes is the following:"
-msgstr ""
+msgstr "这些属性可以在创建端口时设置，也可以在事后设置，只要规范尚未封存，也就是说，只要在相应 ``Process`` 的 ``define`` 方法中，就可以无限制地修改这些属性。下面是一个明确设置所有这些属性的输入端口示例："
 
 #: ../../source/topics/processes/usage.rst:124
 msgid ""
 "Here we define an input named ``positive_number`` that should be of type "
 "``Int`` or ``Float`` and should pass the test of the ``is_number_positive`` "
 "validator. If no value is passed, the default will be used."
-msgstr ""
+msgstr "在这里，我们定义了一个名为 ``positive_number`` 的输入，其类型应为 ``Int`` 或 ``Float`` ，并应通过 ``is_number_positive`` 验证器的测试。如果没有输入值，将使用默认值。"
 
 #: ../../source/topics/processes/usage.rst:129
 msgid ""
@@ -8654,7 +8654,7 @@ msgid ""
 "lambda that returns a node instance as done in the example above. This will "
 "return a new instance of the node with the given value, each time the "
 "process is instantiated."
-msgstr ""
+msgstr "在 python 中，避免为函数参数设置可变的默认值( `since they are instantiated at function definition and reused for each invocation <https://docs.python.org/3/reference/compound_stmts.html#function-definitions>`_ )是一种很好的做法。如果在函数调用之间改变默认值，可能会导致意想不到的结果。在 AiiDA 中，node(包括存储的和未存储的)被认为是 *可变的* ，因此**不应该被用作 process 端口的默认值。不过，可以使用 lambda 返回一个 node 实例，如上例所示。这样，每次实例化 process 时，都会用给定的值返回一个新的 node 实例。"
 
 #: ../../source/topics/processes/usage.rst:135
 msgid ""
@@ -8663,12 +8663,12 @@ msgid ""
 "returned, the value is considered to be valid. To signal that the value is "
 "invalid and to have a validation error raised, simply return a string with "
 "the validation error message, for example:"
-msgstr ""
+msgstr "请注意，验证器只是一个自由函数，它只接受一个参数，即需要验证的值。如果不返回任何参数，则认为该值有效。如果要提示值无效并引发验证错误，只需返回一个包含验证错误信息的字符串即可，例如"
 
 #: ../../source/topics/processes/usage.rst:145
 msgid ""
 "The ``valid_type`` can define a single type, or a tuple of valid types."
-msgstr ""
+msgstr "``valid_type`` 可以定义单个类型，也可以定义多个有效类型。"
 
 #: ../../source/topics/processes/usage.rst:149
 msgid ""
@@ -8677,7 +8677,7 @@ msgid ""
 " this would raise validation error. This is accomplished by automatically "
 "adding the ``NoneType`` to the ``valid_type`` tuple. Ports that do not "
 "define a ``valid_type`` are not affected."
-msgstr ""
+msgstr "如果一个端口通过 ``required=False`` 被标记为可选端口并定义了 ``valid_type`` ，那么该端口也将接受 ``None`` 作为值，而在此之前这将导致验证错误。这是通过在 ``valid_type`` 元组中自动添加 ``NoneType`` 来实现的。未定义 ``valid_type`` 的端口不受影响。"
 
 #: ../../source/topics/processes/usage.rst:155
 msgid ""
@@ -8685,7 +8685,7 @@ msgid ""
 "implies that the input is not required and as such specifying "
 "``required=False`` is not necessary in that case. It was added to the "
 "example above simply for clarity."
-msgstr ""
+msgstr "请注意，默认情况下所有端口都是必需的，但指定默认值意味着输入不是必需的，因此在这种情况下不必指定 ``required=False`` 。在上面的示例中添加该值只是为了清晰起见。"
 
 #: ../../source/topics/processes/usage.rst:158
 msgid ""
@@ -8695,11 +8695,11 @@ msgid ""
 "corresponding exception will be thrown and the process instantiation will "
 "fail. When the outputs fail to be validated, likewise an exception will be "
 "thrown and the process state will be set to ``Excepted``."
-msgstr ""
+msgstr "在 process 的实例化过程中和最终完成时，将分别根据相应端口的规范对输入或输出值进行验证。如果输入无效，将产生相应的异常，process 的实例化将失败。当输出验证失败时，同样会产生异常，process 的状态将被设置为 ``Excepted`` 。"
 
 #: ../../source/topics/processes/usage.rst:166
 msgid "Dynamic namespaces"
-msgstr ""
+msgstr "动态命名空间"
 
 #: ../../source/topics/processes/usage.rst:167
 msgid ""
@@ -8711,7 +8711,7 @@ msgid ""
 " ``default`` for a ``PortNamespace`` if all it does is contain "
 "``InputPorts``, ``OutputPorts`` or other ``PortNamespaces``. The answer to "
 "this question lies in the ``PortNamespace`` attribute ``dynamic``."
-msgstr ""
+msgstr "在上一节中，我们描述了与验证有关的各种属性，并声称所有端口变体都具有这些属性，但我们只明确讨论了 ``InputPort`` 和 ``OutputPort`` 。但这一说法仍然正确， ``PortNamespace`` 具有相同的属性。如果 ``PortNamespace`` 只包含 ``InputPorts`` 、 ``OutputPorts`` 或其他 ``PortNamespaces`` 属性，那么您可能会问 ``valid_type`` 或 ``default`` 对 ``PortNamespace`` 有什么意义。这个问题的答案就在 ``PortNamespace`` 属性 ``dynamic`` 中。"
 
 #: ../../source/topics/processes/usage.rst:172
 msgid ""
@@ -8730,11 +8730,11 @@ msgid ""
 " The values that will eventually be passed to the port namespace will then "
 "be validated according to these rules exactly as a value for a regular input"
 " port would be."
-msgstr ""
+msgstr "通常，在设计 ``Process`` 的规格时，我们无法准确知道我们希望将哪些输入传递给 process。但是，根据 ``InputPort`` 和 ``OutputPort`` 的概念，我们**需要确切地知道我们至少期望多少个值，因为它们确实需要定义。这就是 ``PortNamespace`` 的 ``dynamic`` 属性的作用所在。默认情况下，该属性被设置为 ``False`` ，但将其设置为 ``True`` 后，就表示该命名空间可接受的值的数量在定义规范时是未知的。这就解释了 ``valid_type`` 、 ``validator`` 和 ``default`` 属性在 ``PortNamespace`` 中的含义。如果将命名空间标记为动态命名空间，则可能仍需限制可接受的值集，这可以通过指定有效 类型和或验证器来实现。最终传递到端口命名空间的值将根据这些规则进行验证，就像普通输入端口的值一样。"
 
 #: ../../source/topics/processes/usage.rst:184
 msgid "Non storable inputs"
-msgstr ""
+msgstr "不可储存的投入"
 
 #: ../../source/topics/processes/usage.rst:185
 msgid ""
@@ -8745,7 +8745,7 @@ msgid ""
 "cases where you might want to pass an input to a process, whose provenance "
 "you do not care about and therefore would want to pass a non-database "
 "storable type anyway."
-msgstr ""
+msgstr "原则上，输入和输出的唯一有效类型应该是 :py:class:`~aiida.orm.nodes.data.data.Data` node 的实例或其子类之一，因为这是唯一可以作为 process 的输入或输出记录在 provenance graph 中的数据类型。不过，在某些情况下，您可能希望将输入传递给 process，而您并不关心 process 的 provenance，因此无论如何都希望传递一种非数据库可存储的类型。"
 
 #: ../../source/topics/processes/usage.rst:190
 msgid ""
@@ -8754,7 +8754,7 @@ msgid ""
 "provenance. There are legitimate reasons to break it regardless, but make "
 "sure you think about the implications and whether you are really willing to "
 "lose the information."
-msgstr ""
+msgstr "AiiDA 允许你打破 provenance 的限制，但总是试图敦促和引导你保留 provenance 的方向。无论如何，都有合理的理由打破它，但一定要考虑其影响，以及你是否真的愿意失去信息。"
 
 #: ../../source/topics/processes/usage.rst:193
 msgid ""
@@ -8764,11 +8764,11 @@ msgid ""
 " a node in the provenance graph and linked to the process node. This allows "
 "one to pass any normal value that one would also be able to pass to a normal"
 " function."
-msgstr ""
+msgstr "在这种情况下， ``InputPort`` 的属性为 ``non_db`` 。默认情况下，该属性被设置为 ``False`` ，但通过将其设置为 ``True`` ，我们可以指出传递给端口的值不应作为 node 保存在 provenance graph 中，并与 process node 相链接。这样就可以传递任何正常值，而这些值也可以传递给正常函数。"
 
 #: ../../source/topics/processes/usage.rst:201
 msgid "Automatic input serialization"
-msgstr ""
+msgstr "自动输入序列化"
 
 #: ../../source/topics/processes/usage.rst:203
 msgid ""
@@ -8778,7 +8778,7 @@ msgid ""
 "process specification, which does the conversion automatically. This "
 "function, passed as ``serializer`` parameter to ``spec.input``, is invoked "
 "if the given input is not ``None`` *and* not already an AiiDA type."
-msgstr ""
+msgstr "通常情况下，Python 数据类型的输入在传递给 process 之前需要转换为相应的 AiiDA 类型。手动操作会很麻烦，因此可以在定义 process 时定义一个函数，自动完成转换。这个函数作为 ``spec.input`` 的 ``serializer`` 参数传递，如果给定的输入不是 ``None`` *and* 不是 AiiDA 类型，它就会被调用。"
 
 #: ../../source/topics/processes/usage.rst:207
 msgid ""
@@ -8786,7 +8786,7 @@ msgid ""
 "serialization function should return an AiiDA data type. For ``non_db`` "
 "inputs, the function must be idempotent because it might be applied more "
 "than once."
-msgstr ""
+msgstr "对于存储在数据库( ``non_db=False`` )中的输入，序列化函数应返回 AiiDA 数据类型。对于 ``non_db`` 输入，函数必须是幂等的，因为它可能会被应用多次。"
 
 #: ../../source/topics/processes/usage.rst:210
 msgid ""
@@ -8794,7 +8794,7 @@ msgid ""
 " simply returns the given inputs. The "
 ":func:`~aiida.orm.nodes.data.base.to_aiida_type` function is used as "
 "serialization function."
-msgstr ""
+msgstr "下面的示例工作链接收三个输入 ``a``、``b``、``c``，并简单地返回给定的输入。使用 :func:`~aiida.orm.nodes.data.base.to_aiida_type` 函数作为序列化函数。"
 
 #: ../../source/topics/processes/usage.rst:216
 msgid ""
@@ -8803,13 +8803,13 @@ msgid ""
 ":func:`~aiida.orm.nodes.data.base.to_aiida_type` function. Note that the "
 "module which defines the corresponding AiiDA type must be loaded for it to "
 "be recognized by :func:`~aiida.orm.nodes.data.base.to_aiida_type`."
-msgstr ""
+msgstr "这个工作链现在可以用本地 Python 类型调用，这些类型会被 :func:`~aiida.orm.nodes.data.base.to_aiida_type` 函数自动转换为 AiiDA 类型。请注意，必须加载定义相应 AiiDA 类型的模块才能被 :func:`~aiida.orm.nodes.data.base.to_aiida_type` 识别。"
 
 #: ../../source/topics/processes/usage.rst:222
 msgid ""
 "Of course, you can also use the serialization feature to perform a more "
 "complex serialization of the inputs."
-msgstr ""
+msgstr "当然，您也可以使用序列化功能对输入进行更复杂的序列化。"
 
 #: ../../source/topics/processes/usage.rst:229
 msgid ""
@@ -8822,7 +8822,7 @@ msgid ""
 "status, `is a common concept in programming "
 "<https://en.wikipedia.org/wiki/Exit_status>`_ and a standard way for "
 "programs to communicate the result of their execution."
-msgstr ""
+msgstr "任何 ``Process`` 都很可能有一种或多种预期故障模式。为了向调用者明确说明出了什么问题， ``Process`` 支持设置 ``exit_status`` 。 ``exit_status`` 是一个正整数，是 process node 的一个属性，按照惯例，当它为零时表示 process 成功，而任何其他值都表示失败。 `is a common concept in programming <https://en.wikipedia.org/wiki/Exit_status>`_ 这种以正整数作为退出状态的退出代码概念，是程序交流执行结果的标准方式。"
 
 #: ../../source/topics/processes/usage.rst:234
 msgid ""
@@ -8831,7 +8831,7 @@ msgid ""
 "positive non-zero integer, a string label to reference it and a more "
 "detailed description of the problem that triggers the exit code. Consider "
 "the following example:"
-msgstr ""
+msgstr "``Process`` 的潜在退出代码可以通过 ``ProcessSpec`` 进行定义，就像输入和输出一样。任何退出代码都由一个正非零整数、一个用于引用的字符串标签以及触发退出代码的问题的详细描述组成。请看下面的例子："
 
 #: ../../source/topics/processes/usage.rst:243
 msgid ""
@@ -8839,7 +8839,7 @@ msgid ""
 "exit message ``the work chain had an identity crisis``. The string "
 "``ERROR_I_AM_A_TEAPOT`` is a label that the developer can use to reference "
 "this particular exit code somewhere in the ``Process`` code itself."
-msgstr ""
+msgstr "这定义了 ``Process`` 的退出代码，退出状态为 ``418`` ，退出信息为 ``the work chain had an identity crisis`` 。字符串 ``ERROR_I_AM_A_TEAPOT`` 是一个标签，开发人员可以用它来引用 ``Process`` 代码中的特定退出代码。"
 
 #: ../../source/topics/processes/usage.rst:246
 msgid ""
@@ -8848,7 +8848,7 @@ msgid ""
 "``exit_message`` attributes of the node. Assume for example that we ran a "
 "``Process`` that threw the exit code described above, the caller would be "
 "able to do the following:"
-msgstr ""
+msgstr "只要 ``Process`` 通过特定错误代码退出，调用者就可以通过 node 的 ``exit_status`` 和 ``exit_message`` 属性对其进行反省。例如，假设我们运行的 ``Process`` 抛出了上述退出代码，调用者可以执行以下操作："
 
 #: ../../source/topics/processes/usage.rst:257
 msgid ""
@@ -8857,43 +8857,43 @@ msgid ""
 "way of communicating specific errors to a non-human than parsing text-based "
 "logs or reports. Additionally, the exit codes make it very easy to query for"
 " failed processes with specific error codes."
-msgstr ""
+msgstr "这非常有用，因为调用者现在可以根据 ``exit_status`` ，以编程方式决定如何继续。与解析基于文本的日志或报告相比，这种向非人类传达特定错误的方式要强大得多。此外，退出代码使查询带有特定错误代码的失败 processes 变得非常容易。"
 
 #: ../../source/topics/processes/usage.rst:263
 msgid ""
 "Additional documentation, specific to certain process types, can be found in"
 " the following sections:"
-msgstr ""
+msgstr "有关特定 process 型号的其他文档，请参阅以下章节："
 
 #: ../../source/topics/processes/usage.rst:265
 msgid ":ref:`Process functions<topics:processes:functions:exit_codes>`"
-msgstr ""
+msgstr " :ref:`Process functions<topics:processes:functions:exit_codes>`"
 
 #: ../../source/topics/processes/usage.rst:266
 msgid ":ref:`Work functions<topics:workflows:usage:workfunctions:exit_codes>`"
-msgstr ""
+msgstr " :ref:`Work functions<topics:workflows:usage:workfunctions:exit_codes>`"
 
 #: ../../source/topics/processes/usage.rst:267
 msgid ":ref:`CalcJob parsers<topics:calculations:usage:calcjobs:parsers>`"
-msgstr ""
+msgstr " :ref:`CalcJob parsers<topics:calculations:usage:calcjobs:parsers>`"
 
 #: ../../source/topics/processes/usage.rst:268
 msgid ""
 ":ref:`Workchain exit code "
 "specification<topics:workflows:usage:workchains:define_exit_codes>`"
-msgstr ""
+msgstr " :ref:`Workchain exit code specification<topics:workflows:usage:workchains:define_exit_codes>`"
 
 #: ../../source/topics/processes/usage.rst:269
 msgid ":ref:`External code plugins<how-to:plugin-codes:parsing:errors>`"
-msgstr ""
+msgstr " :ref:`External code plugins<how-to:plugin-codes:parsing:errors>`"
 
 #: ../../source/topics/processes/usage.rst:270
 msgid ":ref:`Restart workchains<how-to:restart-workchain>`"
-msgstr ""
+msgstr " :ref:`Restart workchains<how-to:restart-workchain>`"
 
 #: ../../source/topics/processes/usage.rst:275
 msgid "Exit code conventions"
-msgstr ""
+msgstr "退出代码惯例"
 
 #: ../../source/topics/processes/usage.rst:276
 msgid ""
@@ -8906,33 +8906,33 @@ msgid ""
 "guidelines since it will improve the interoperability of your code with "
 "other existing plugins. The following integer ranges are reserved or "
 "suggested:"
-msgstr ""
+msgstr "原则上，对退出代码的退出状态的唯一限制是它应该是一个正整数或零。不过，为了有效使用退出代码，在决定使用何种整数时，有一些指导原则和约定。请注意，由于以下规则是 *指导原则* ，因此您可以选择忽略它们，目前 engine 不会抱怨，但将来可能会发生变化。无论如何，我们建议您遵守这些准则，因为这将提高您的代码与其他现有插件的互操作性。保留或建议使用以下整数范围："
 
 #: ../../source/topics/processes/usage.rst:282
 msgid "0 -  99: Reserved for internal use by `aiida-core`"
-msgstr ""
+msgstr "0 - 99:保留供 `aiida-core` 内部使用"
 
 #: ../../source/topics/processes/usage.rst:283
 msgid ""
 "100 - 199: Reserved for errors parsed from scheduler output of calculation "
 "jobs (note: this is not yet implemented)"
-msgstr ""
+msgstr "100 - 199:为从计算作业的调度程序输出中解析出的错误预留(注：尚未实施)"
 
 #: ../../source/topics/processes/usage.rst:284
 msgid "200 - 299: Suggested to be used for process input validation errors"
-msgstr ""
+msgstr "200 - 299：建议用于 process 输入验证错误"
 
 #: ../../source/topics/processes/usage.rst:285
 msgid "300 - 399: Suggested for critical process errors"
-msgstr ""
+msgstr "300 - 399:建议用于处理关键的 process 错误"
 
 #: ../../source/topics/processes/usage.rst:287
 msgid "For any other exit codes, one can use the integers from 400 and up."
-msgstr ""
+msgstr "对于其他退出代码，可以使用 400 及以上的整数。"
 
 #: ../../source/topics/processes/usage.rst:293
 msgid "Process metadata"
-msgstr ""
+msgstr "Process 元数据"
 
 #: ../../source/topics/processes/usage.rst:295
 msgid ""
@@ -8943,22 +8943,22 @@ msgid ""
 "slightly modify the behavior of the process or allow to set attributes on "
 "the process node that represents its execution. The following metadata "
 "inputs are available for *all* process classes:"
-msgstr ""
+msgstr "每个 process 除了通过其 process 规范定义的正常输入外，还可以使用可选的 'metadata'。这些元数据与输入的不同之处在于，它们不是 node ，不会在执行的 process 的 provenance graph 中显示为输入。相反，这些输入数据可稍微修改 process 的行为，或允许在代表其执行的 process node 上设置属性。以下元数据输入适用于 * 所有 process 类别："
 
 #: ../../source/topics/processes/usage.rst:300
 msgid "``label``: will set the label on the ``ProcessNode``"
-msgstr ""
+msgstr "``label`` ：将在 ``ProcessNode`` 上设置标签"
 
 #: ../../source/topics/processes/usage.rst:301
 msgid "``description``: will set the description on the ``ProcessNode``"
-msgstr ""
+msgstr "``description`` ：将在 ``ProcessNode`` 上设置说明"
 
 #: ../../source/topics/processes/usage.rst:302
 msgid ""
 "``store_provenance``: boolean flag, by default ``True``, that when set to "
 "``False``, will ensure that the execution of the process **is not** stored "
 "in the provenance graph"
-msgstr ""
+msgstr "``store_provenance`` ：布尔标志，默认为 ``True`` ，设置为 ``False`` 时，将确保 process 的执行 **不** 存储在 provenance graph 中。"
 
 #: ../../source/topics/processes/usage.rst:304
 msgid ""
@@ -8968,11 +8968,11 @@ msgid ""
 " them in a dictionary under the key ``metadata`` in the inputs when "
 "launching the process. How a process can be launched is explained the "
 "following section."
-msgstr ""
+msgstr " :py:class:`~aiida.engine.processes.process.Process` 类的子类可指定更多的元数据输入，详情请参阅其特定文档。要将这些元数据选项传递给 process，只需在启动 process 时将它们传递到输入关键字 ``metadata`` 下的字典中即可。下文将解释如何启动 process。"
 
 #: ../../source/topics/processes/usage.rst:312
 msgid "Launching processes"
-msgstr ""
+msgstr "启动 processes"
 
 #: ../../source/topics/processes/usage.rst:313
 msgid ""
@@ -8986,33 +8986,33 @@ msgid ""
 "those if it has to restart. Running processes can be useful for trivial "
 "computational tasks, such as simple calcfunctions or workfunctions, or for "
 "debugging and testing purposes."
-msgstr ""
+msgstr "任何 process 都可以通过 'running' 或 'submitting' 启动。运行指的是在当前的 python 解释器中以阻塞方式运行 process，而提交指的是通过 RabbitMQ 将其发送给守护进程工作者。对于长时间运行的 process，如计算作业或复杂的 workflow，建议最好将其提交给守护进程。这样做的额外好处是，它将直接将控制权交还给您的解释器，并允许守护进程在检查点期间保存中间进度，并在需要重新启动时从这些进度重新加载 process。运行 processes 可用于琐碎的计算任务，如简单的 calcfunctions 或 workfunctions，或用于调试和测试目的。"
 
 #: ../../source/topics/processes/usage.rst:323
 msgid "Process launch"
-msgstr ""
+msgstr "Process 发射"
 
 #: ../../source/topics/processes/usage.rst:325
 msgid ""
 "To launch a process, one can use the free functions that can be imported "
 "from the :py:mod:`aiida.engine` module. There are four different functions:"
-msgstr ""
+msgstr "要启动 process，可以使用 :py:mod:`aiida.engine` 模块中的 import 免费功能。共有四种不同的功能："
 
 #: ../../source/topics/processes/usage.rst:328
 msgid ":py:func:`~aiida.engine.launch.run`"
-msgstr ""
+msgstr " :py:func:`~aiida.engine.launch.run`"
 
 #: ../../source/topics/processes/usage.rst:329
 msgid ":py:func:`~aiida.engine.launch.run_get_node`"
-msgstr ""
+msgstr " :py:func:`~aiida.engine.launch.run_get_node`"
 
 #: ../../source/topics/processes/usage.rst:330
 msgid ":py:func:`~aiida.engine.launch.run_get_pk`"
-msgstr ""
+msgstr " :py:func:`~aiida.engine.launch.run_get_pk`"
 
 #: ../../source/topics/processes/usage.rst:331
 msgid ":py:func:`~aiida.engine.launch.submit`"
-msgstr ""
+msgstr " :py:func:`~aiida.engine.launch.submit`"
 
 #: ../../source/topics/processes/usage.rst:333
 msgid ""
@@ -9022,21 +9022,21 @@ msgid ""
 "interpreter, until the process is terminated. Submitting to the daemon, in "
 "contrast, means that the process will be sent to the daemon for execution, "
 "and the interpreter is released straight away."
-msgstr ""
+msgstr "顾名思义，前三者将 'run' process，后者将 'submit' process 发送给守护进程。运行意味着 process 将在启动它的同一解释器中执行，阻塞解释器，直到 process 终止。相反，向守护进程提交意味着 process 将被发送到守护进程执行，解释器将被直接释放。"
 
 #: ../../source/topics/processes/usage.rst:337
 msgid ""
 "All functions have the exact same interface ``launch(process, inputs)`` "
 "where:"
-msgstr ""
+msgstr "所有功能的接口都与 ``launch(process, inputs)`` 完全相同："
 
 #: ../../source/topics/processes/usage.rst:339
 msgid "``process`` is the process class or process function to launch"
-msgstr ""
+msgstr "``process`` 是 process 级或 process function，用于发射"
 
 #: ../../source/topics/processes/usage.rst:340
 msgid "``inputs`` the inputs dictionary to pass to the process."
-msgstr ""
+msgstr "``inputs`` 将输入字典传递给 process。"
 
 #: ../../source/topics/processes/usage.rst:344
 msgid ""
@@ -9049,7 +9049,7 @@ msgid ""
 "of the process. For example, the ``submit`` method defines the ``wait`` "
 "keyword. If the process being launched *also* defines an input named "
 "``wait``, the launcher method cannot tell them apart."
-msgstr ""
+msgstr "在 AiiDA v2.5 之前，输入只能作为关键字参数传递。现在仍然支持这种行为，例如，可以将 process 作为 ``launch(process, **inputs)`` 或 ``launch(process, input_a=value_a, input_b=value_b)`` 启动。不过，现在推荐的方法是使用作为第二个位置参数传递的输入字典。原因是某些启动器自己定义的参数可能与 process 的输入重叠。例如， ``submit`` 方法定义了 ``wait`` 关键字。如果被启动的 process 也**定义了名为 ``wait`` 的输入，启动器方法就无法将它们区分开来。"
 
 #: ../../source/topics/processes/usage.rst:351
 msgid ""
@@ -9058,14 +9058,14 @@ msgid ""
 ":py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` "
 "process, which takes two :py:class:`~aiida.orm.nodes.data.int.Int` nodes as "
 "inputs under the name ``x`` and ``y`` [#f1]_, we would do the following:"
-msgstr ""
+msgstr "可以传递哪些输入取决于要启动的 process 类。例如，当我们要运行一个 :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` process 的实例时，它需要两个 :py:class:`~aiida.orm.nodes.data.int.Int` node 作为输入，名称分别为 ``x`` 和 ``y`` [#f1]_ ，我们将执行以下操作："
 
 #: ../../source/topics/processes/usage.rst:357
 msgid ""
 "The function will submit the calculation to the daemon and immediately "
 "return control to the interpreter, returning the node that is used to "
 "represent the process in the provenance graph."
-msgstr ""
+msgstr "该函数将向守护进程提交计算，并立即将控制权返回给解释器，同时返回用于表示 provenance graph 中的 process 的 node。"
 
 #: ../../source/topics/processes/usage.rst:360
 msgid ""
@@ -9074,7 +9074,7 @@ msgid ""
 "entry point<how-to:plugin-codes:entry-points>` or b) :ref:`including its "
 "module path<how-to:faq:process-not-importable-daemon>` in the ``PYTHONPATH``"
 " that the daemon workers will have."
-msgstr ""
+msgstr "要使 process 可以提交，类或函数需要在守护进程环境中 import 可用，方法是：a) 赋予其 :ref:`associated entry point<how-to:plugin-codes:entry-points>` 或 b) 在守护进程工作者将拥有的 ``PYTHONPATH`` 中赋予其 :ref:`including its module path<how-to:faq:process-not-importable-daemon>` 。"
 
 #: ../../source/topics/processes/usage.rst:364
 msgid ""
@@ -9090,18 +9090,18 @@ msgid ""
 "and collect the returned nodes in a list. You can then pass them to "
 ":func:`aiida.engine.launch.await_processes` which will return once all "
 "processes have terminated:"
-msgstr ""
+msgstr "调用 ``submit`` 时，使用 ``wait=True`` 等待 process 完成后再返回 node。这对于交互式笔记本中的教程和演示非常有用，因为在 process 完成之前，用户不应继续操作。当然，也可以使用 ``run`` (见下文)，但如果解释器意外关闭，process 就会丢失。如果使用 ``submit`` ，process 就会由守护进程运行，守护进程会保存检查点，以便在出现问题时可以随时重启。如果需要并行启动多个 process，并希望等待所有 process 运行完毕，只需使用 ``submit`` 和默认的 ``wait=False`` ，并在列表中收集返回的 node。然后，您可以将它们传递给 :func:`aiida.engine.launch.await_processes`，一旦所有 process 都结束，它就会返回："
 
 #: ../../source/topics/processes/usage.rst:383
 msgid ""
 "The ``await_processes`` function will loop every ``wait_interval`` seconds "
 "and check whether all processes (represented by the ``ProcessNode`` in the "
 "``nodes`` list) have terminated."
-msgstr ""
+msgstr "``await_processes`` 函数将每 ``wait_interval`` 秒循环一次，检查所有 processes(由 ``nodes`` 列表中的 ``ProcessNode`` 表示)是否都已终止。"
 
 #: ../../source/topics/processes/usage.rst:386
 msgid "The ``run`` function is called identically:"
-msgstr ""
+msgstr "``run`` 函数的调用方式相同："
 
 #: ../../source/topics/processes/usage.rst:391
 msgid ""
@@ -9112,7 +9112,7 @@ msgid ""
 "which is a dictionary of the nodes that were produced as outputs. If you "
 "would still like to have the process node or the pk of the process node you "
 "can use one of the following variants:"
-msgstr ""
+msgstr "但它不会将 process 提交给守护进程，而是在当前解释器中执行，阻塞解释器直到 process 终止。 ``run`` 函数的返回值也***不是代表已执行的 process 的 node，而是 process 返回的结果，即作为输出产生的 node 的字典。如果您仍想获得 process node 或 process node 的 pk，可以使用以下变体之一："
 
 #: ../../source/topics/processes/usage.rst:398
 msgid ""
@@ -9122,7 +9122,7 @@ msgid ""
 ":py:func:`~aiida.engine.launch.run_get_pk` methods. This is a handy "
 "shortcut, as now you can choose to use any of the three variants with just a"
 " single import:"
-msgstr ""
+msgstr "最后， :py:func:`~aiida.engine.launch.run` 启动器有两个属性 ``get_node`` 和 ``get_pk`` ，它们是 :py:func:`~aiida.engine.launch.run_get_node` 和 :py:func:`~aiida.engine.launch.run_get_pk` 方法的简单代理。这是一个方便的快捷方式，因为现在只需一个 import 就可以选择使用这三种变体中的任何一种："
 
 #: ../../source/topics/processes/usage.rst:404
 msgid ""
@@ -9130,7 +9130,7 @@ msgid ""
 " is useful to define them in a dictionary and use the python syntax ``**`` "
 "that automatically expands it into keyword argument and value pairs. The "
 "examples used above would look like the following:"
-msgstr ""
+msgstr "如果要启动一个 process 类，需要更多输入，通常可以在字典中定义这些输入，并使用 python 语法 ``**`` ，自动将其展开为关键字参数和值对。上面使用的示例如下："
 
 #: ../../source/topics/processes/usage.rst:410
 msgid ""
@@ -9139,25 +9139,25 @@ msgid ""
 "functions<topics:workflows:concepts:workfunctions>`, can be launched like "
 "any other process as explained above. Process functions have two additional "
 "methods of being launched:"
-msgstr ""
+msgstr "如上所述，Process function，即 :ref:`calculation functions<topics:calculations:concepts:calcfunctions>` 和 :ref:`work functions<topics:workflows:concepts:workfunctions>` ，可以像其他 process 一样发射。Process function 还有两种发射方法："
 
 #: ../../source/topics/processes/usage.rst:413
 msgid "Simply *calling* the function"
-msgstr ""
+msgstr "只需 *调用* 函数"
 
 #: ../../source/topics/processes/usage.rst:414
 msgid "Using the internal run method attributes"
-msgstr ""
+msgstr "使用内部运行方法属性"
 
 #: ../../source/topics/processes/usage.rst:416
 msgid ""
 "Using a calculation function to add two numbers as an example, these two "
 "methods look like the following:"
-msgstr ""
+msgstr "以两个数字相加的计算函数为例，这两种方法如下："
 
 #: ../../source/topics/processes/usage.rst:425
 msgid "Process builder"
-msgstr ""
+msgstr "Process 建设者"
 
 #: ../../source/topics/processes/usage.rst:426
 msgid ""
@@ -9177,7 +9177,7 @@ msgid ""
 "take the "
 ":py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` as "
 "an example::"
-msgstr ""
+msgstr "正如 :ref:`previous section<topics:processes:usage:spec>` 中所解释的， :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` 和 :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` 的输入在 :py:meth:`~aiida.engine.processes.process.Process.define` 方法中定义。要想知道它们的输入是什么，就必须阅读实现方法，如果您不是开发人员，这可能会很烦人。为了简化 process，这两个 process 类提供了一个名为 ``process 生成器``的工具。process 生成器本质上是一个工具，可以帮助你为要运行的特定 process 类构建输入。要为特定的 ``CalcJob`` 或 ``WorkChain`` 实现获取 *生成器* ，您所需要的只是类本身，可分别通过 :py:class:`~aiida.plugins.factories.CalculationFactory` 和 :py:class:`~aiida.plugins.factories.WorkflowFactory` 加载。让我们以 :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` 为例：："
 
 #: ../../source/topics/processes/usage.rst:436
 msgid ""
@@ -9189,7 +9189,7 @@ msgid ""
 "tailored for the ``ArithmeticAddCalculation``. The builder will help you in "
 "defining the inputs that the ``ArithmeticAddCalculation`` requires and has a"
 " few handy tools to simplify this process."
-msgstr ""
+msgstr "字符串 ``core.arithmetic.add`` 是 ``ArithmeticAddCalculation`` 的 entry point，将其传递给 ``CalculationFactory`` 将返回相应的类。调用该类的 ``get_builder`` 方法将返回一个为 ``ArithmeticAddCalculation`` 量身定制的 :py:class:`~aiida.engine.processes.builder.ProcessBuilder` 类实例。生成器将帮助您定义 ``ArithmeticAddCalculation`` 所需的输入，并提供一些方便的工具来简化这一过程 process。"
 
 #: ../../source/topics/processes/usage.rst:440
 msgid ""
@@ -9199,7 +9199,7 @@ msgid ""
 " shown. Each input of the builder can also show additional information about"
 " what sort of input it expects. In an interactive shell, you can get this "
 "information to display as follows::"
-msgstr ""
+msgstr "要想知道生成器提供了哪些输入，只需使用制表符完成。在交互式 python shell 中，只需键入 ``builder.`` 并按下 tab 键，就会显示所有可用输入的完整列表。生成器的每个输入还可以显示有关其期望输入类型的附加信息。在交互式 shell 中，可以显示如下信息：："
 
 #: ../../source/topics/processes/usage.rst:455
 msgid ""
@@ -9209,7 +9209,7 @@ msgid ""
 " default value has been defined, that will also be displayed. The ``non_db``"
 " attribute defines whether that particular input will be stored as a proper "
 "input node in the database, if the process is submitted."
-msgstr ""
+msgstr "在 ``Docstring`` 中，你将看到一个 ``help`` 字符串，其中包含有关输入端口的更详细信息。此外，它还将显示 ``valid_type`` ，定义后可显示预期的数据类型。如果定义了默认值，也会显示出来。如果提交了 process， ``non_db`` 属性将定义特定输入是否将作为正确输入 node 保存在数据库中。"
 
 #: ../../source/topics/processes/usage.rst:460
 msgid ""
