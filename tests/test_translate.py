@@ -63,6 +63,9 @@ def test_str_post_processing_legacy(input: str, expected: str):
         r"The process function is protected.",
         r"The processes is protected.",
         r"The 'quote' is protected.",
+        r"The verdi is protected.",
+        r"builder is protected.",
+        r"The double colon :: is protected.",
     ]
 )
 def test_replace_protect(input: str):
