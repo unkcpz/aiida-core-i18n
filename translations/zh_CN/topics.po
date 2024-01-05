@@ -9363,14 +9363,14 @@ msgid ""
 "Defining an input through the builder is as simple as assigning a value to "
 "the attribute. The following example shows how to set the ``parameters`` "
 "input, as well as the ``description`` and ``label`` metadata inputs::"
-msgstr ""
+msgstr "通过 builder 定义输入只需为属性赋值即可。下面的示例显示了如何设置 ``parameters`` 输入以及 ``description`` 和 ``label`` 元数据输入::"
 
 #: ../../source/topics/processes/usage.rst:468
 msgid ""
 "If you evaluate the ``builder`` instance, simply by typing the variable name"
 " and hitting enter, the current values of the builder's inputs will be "
 "displayed::"
-msgstr ""
+msgstr "如果对 ``builder`` 实例进行评估，只需键入变量名并点击回车键，就会显示 builder 输入端的当前值::"
 
 #: ../../source/topics/processes/usage.rst:481
 msgid ""
@@ -13368,13 +13368,13 @@ msgid ""
 "when executed, is shown in "
 ":numref:`fig_work_chains_provenance_add_multiply_workchain_full`. For "
 "convenience we copy the snippet here once more:"
-msgstr ""
+msgstr "让我们继续看 :ref:`concept of workchains<topics:workflows:concepts:workchains>` 章节中的示例，我们将两个整数相加，然后将结果与第三个整数相乘。我们在代码片段中提供了一个非常简单的实现方法，执行后生成的 provenance graph 如 :numref:`fig_work_chains_provenance_add_multiply_workchain_full` 所示。为方便起见，我们在此再次复制该代码片段："
 
 #: ../../source/topics/workflows/usage.rst:144
 msgid ""
 "We will now got through the implementation step-by-step and go into more "
 "detail on the interface and best practices."
-msgstr ""
+msgstr "现在，我们将逐步介绍实施过程，并更详细地介绍界面和最佳做法。"
 
 #: ../../source/topics/workflows/usage.rst:151
 msgid ""
@@ -13389,13 +13389,13 @@ msgid ""
 "work chain, such as what inputs it takes, what outputs it can generate, what"
 " potential exit codes it can return and the logical outline through which it"
 " will accomplish all this."
-msgstr ""
+msgstr "要实现新的工作链，只需创建一个子类 :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` 的新类。你可以给这个新类起任何有效的 python 类名，但惯例是让它以 ``WorkChain`` 结尾，这样就能立即明确它引用了什么。创建新的工作链类后，首先要实现的也是最重要的 important 方法是 :py:meth:`~aiida.engine.processes.process.Process.define` 方法。这是一个类方法，允许开发人员定义工作链的特征，例如它接受哪些输入、可以产生哪些输出、可以返回哪些潜在的退出代码以及完成所有这些工作的逻辑大纲。"
 
 #: ../../source/topics/workflows/usage.rst:156
 msgid ""
 "To implement the ``define`` method, you have to start with the following "
 "three lines:"
-msgstr ""
+msgstr "要实现 ``define`` 方法，必须从以下三行开始："
 
 #: ../../source/topics/workflows/usage.rst:164
 msgid ""
@@ -13410,17 +13410,17 @@ msgid ""
 "important, as it will call the ``define`` method of the parent class, in "
 "this case the "
 ":py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class."
-msgstr ""
+msgstr "将 ``AddAndMultiplyWorkChain`` 替换为工作链的实际名称。 ``@classmethod`` 修饰符表明该方法是类方法 [#f1]_ 而不是实例方法。第二行是方法签名，并指定它将接收类本身 ``cls`` 和 :py:class:`~aiida.engine.processes.process_spec.ProcessSpec` 的实例 ``spec`` 。我们将用这个对象来定义工作链的输入、输出和其他相关属性。第三行也是最后一行非常重要，因为它将调用父类(这里是 :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` 类)的 ``define`` 方法。"
 
 #: ../../source/topics/workflows/usage.rst:172
 msgid ""
 "If you forget to call ``super`` in the ``define`` method, your work chain "
 "will fail miserably!"
-msgstr ""
+msgstr "如果您忘记在 ``define`` 方法中调用 ``super`` ，您的工作链就会彻底失败！"
 
 #: ../../source/topics/workflows/usage.rst:178
 msgid "Inputs and outputs"
-msgstr ""
+msgstr "输入和输出"
 
 #: ../../source/topics/workflows/usage.rst:179
 msgid ""
@@ -13434,11 +13434,11 @@ msgid ""
 "functionality, such as adding help string, validation and more, all of which"
 " is documented in detail in the section on :ref:`ports and port "
 "namespace<topics:processes:usage:ports_portnamespaces>`."
-msgstr ""
+msgstr "完成这些手续后，就可以开始通过 ``spec`` 定义工作链的有趣属性了。在示例中，你可以看到方法 :py:meth:`~plumpy.ProcessSpec.input` 是如何用于定义多个输入端口的，这些端口准确记录了工作链期望的输入。同样， :py:meth:`~plumpy.ProcessSpec.output` 也被调用来指示工作链将产生一个标签为 ``result`` 的输出。这两种端口创建方法支持更多的功能，如添加帮助字符串、验证等，所有这些将在 :ref:`ports and port namespace<topics:processes:usage:ports_portnamespaces>` 章节中详细介绍。"
 
 #: ../../source/topics/workflows/usage.rst:188
 msgid "Outline"
-msgstr ""
+msgstr "概要"
 
 #: ../../source/topics/workflows/usage.rst:189
 msgid ""
@@ -13454,7 +13454,7 @@ msgid ""
 " chain class. For that same reason, their implementation should take "
 "``self`` as its one and only argument, as demonstrated in the example "
 "snippet."
-msgstr ""
+msgstr "大纲使工作链有别于其他 processes。它是一种定义高级逻辑的方法，用于编码工作链所需的 workflow。大纲是通过 :py:meth:`~plumpy.WorkChainSpec.outline` 在 ``define`` 方法中定义的。工作链将执行一系列指令，每条指令都作为工作链类的一个方法来实现。在上面的简单示例中，大纲由三条简单指令组成：8e726e8d、 ``multiply`` 、B190f140。由于这些指令是作为实例方法实现的，因此在前缀中使用 ``cls.`` 表示它们实际上是工作链类的方法。出于同样的原因，它们的实现应将 ``self`` 作为唯一参数，如示例代码段所示。"
 
 #: ../../source/topics/workflows/usage.rst:197
 msgid ""
@@ -13464,32 +13464,32 @@ msgid ""
 "while-loops, conditionals and return statements. As usual, the best way to "
 "illustrate these constructs is by example. The currently available logical "
 "constructs for the work chain outline are:"
-msgstr ""
+msgstr "这个简单示例中的大纲并不特别有趣，因为它由三条按顺序执行的简单指令组成。不过，大纲还支持各种逻辑结构，如 while-loop、条件和返回语句。与往常一样，说明这些结构的最佳方法是举例说明。工作链大纲目前可用的逻辑结构有"
 
 #: ../../source/topics/workflows/usage.rst:202
 msgid "``if``, ``elif``, ``else``"
-msgstr ""
+msgstr "``if`` 、 ``elif`` 、 ``else``"
 
 #: ../../source/topics/workflows/usage.rst:203
 msgid "``while``"
-msgstr ""
+msgstr "``while``"
 
 #: ../../source/topics/workflows/usage.rst:204
 msgid "``return``"
-msgstr ""
+msgstr "``return``"
 
 #: ../../source/topics/workflows/usage.rst:206
 msgid ""
 "To distinguish these constructs from the python builtins, they are suffixed "
 "with an underscore, like so ``while_``. To use these in your work chain "
 "design, you will have to import them:"
-msgstr ""
+msgstr "为了将这些结构体与 python 内置程序区分开来，它们的后缀是下划线，如 ``while_`` 。要在工作链设计中使用这些结构体，必须先将它们添加到 import："
 
 #: ../../source/topics/workflows/usage.rst:213
 msgid ""
 "The following example shows how to use these logical constructs to define "
 "the outline of a work chain:"
-msgstr ""
+msgstr "下面的示例展示了如何使用这些逻辑结构定义工作链的大纲："
 
 #: ../../source/topics/workflows/usage.rst:233
 msgid ""
@@ -13503,7 +13503,7 @@ msgid ""
 "parentheses of the ``while_`` and ``if_`` constructs) for example should "
 "return a boolean; ``True`` when the condition holds and ``False`` otherwise."
 " The actual implementation of the outline steps themselves is now trivial:"
-msgstr ""
+msgstr "这是众所周知的 FizzBuzz [#f2]_ 问题的一个实现(而且是一个极其拙劣的实现)。其原理是，程序应该依次打印从 0 到某个极限值的数字，但如果数字是 3 的倍数，则打印 ``Fizz`` ；如果是 5 的倍数，则打印 ``Buzz`` ；如果是两者的倍数，则打印 ``FizzBuzz`` 。请注意，这些语法与普通的 python 语法非常相似。例如，条件中使用的方法( ``while_`` 和 ``if_`` 结构的括号之间)应返回布尔值；条件成立时返回 ``True`` ，否则返回 ``False`` 。大纲步骤本身的实际执行现在变得微不足道："
 
 #: ../../source/topics/workflows/usage.rst:259
 msgid ""
@@ -13519,7 +13519,7 @@ msgid ""
 "expressed in the outline and not in the body of the outline functions. "
 "However, one can also go overboard and put too finely grained logical blocks"
 " into the outline, causing it to become bulky and difficult to understand."
-msgstr ""
+msgstr "本例旨在说明，对于设计良好的大纲，用户只需查看大纲，就能很好地了解工作链的 **工作内容和** 工作方式。用户不需要查看大纲步骤的执行情况，因为大纲本身已经包含了所有 important 信息。由于工作链的目标应该是执行一项非常明确的任务，因此大纲的目标是以清晰、简短但不过于简洁的方式捕获实现该目标所需的逻辑。大纲支持各种逻辑流程结构，如条件和 while 循环，因此应尽可能在大纲中而不是在大纲函数的正文中表达这些逻辑。不过，也可以过分夸张，在大纲中加入过于精细的逻辑块，导致大纲变得臃肿难懂。"
 
 #: ../../source/topics/workflows/usage.rst:265
 msgid ""
@@ -13529,7 +13529,7 @@ msgid ""
 "necessary steps and logical decisions that connect them, in order to "
 "accomplish that goal. Converting the resulting flow diagram in a one-to-one "
 "fashion into an outline, often results in very reasonable outline designs."
-msgstr ""
+msgstr "在设计大纲时，一个好的经验法则如下：在开始设计工作链之前，要非常明确地定义工作链应该执行的任务。目标明确后，绘制 schematic 方框图，将必要的步骤和逻辑决策连接起来，以完成该目标。将得到的流程图以一对一的方式转换成大纲，往往能得到非常合理的设计大纲。"
 
 #: ../../source/topics/workflows/usage.rst:274
 msgid ""
@@ -13542,18 +13542,18 @@ msgid ""
 "the :py:meth:`~aiida.engine.processes.process.Process.exit_codes` property. "
 "This returns an attribute dictionary where the exit code labels map to their"
 " corresponding exit code. For example, with the following process spec:"
-msgstr ""
+msgstr "除了输入、输出和大纲之外，工作链还有一个属性是通过其 process 规范指定的。任何工作链都可能有一种到多种失效模式，这些模式由 :ref:`exit codes<topics:processes:usage:exit_codes>` 建模。工作链可以随时停止，只需从大纲方法返回一个退出代码即可。要检索规范中定义的退出代码，可以使用 :py:meth:`~aiida.engine.processes.process.Process.exit_codes` 属性。该属性会返回一个属性字典，其中的退出代码标签会映射到相应的退出代码。例如，使用以下 process 规范："
 
 #: ../../source/topics/workflows/usage.rst:286
 msgid ""
 "To see how exit codes can be used to terminate the execution of work chains "
 "gracefully, refer to the section "
 ":ref:`topics:workflows:usage:workchains:aborting_and_exit_codes`."
-msgstr ""
+msgstr "要了解如何使用退出代码优雅地终止工作链的执行，请参阅 :ref:`topics:workflows:usage:workchains:aborting_and_exit_codes` 部分。"
 
 #: ../../source/topics/workflows/usage.rst:292
 msgid "Launching work chains"
-msgstr ""
+msgstr "启动工作链"
 
 #: ../../source/topics/workflows/usage.rst:294
 msgid ""
@@ -13571,11 +13571,11 @@ msgid ""
 " path. Additionally, make sure that the definition of the work chain **is "
 "not in the same file from which you submit it**, or the engine won't be able"
 " to load it."
-msgstr ""
+msgstr "启动工作链的规则与任何其他 process 的规则相同，详见 :ref:`this section<topics:processes:usage:launching>` 。除了这些基本规则外，向守护进程提交工作链还有一个特殊之处。在向守护进程提交 ``WorkChain`` 或任何其他 process 时，您需要确保守护进程能在需要加载该类时找到它。通过插件系统以指定的 entry point 注册类是确保守护进程能够找到它的一种方法。不过，如果您只是有一个测试类，而不想费力为其创建 entry point，则应确保您定义类的模块位于 python 路径中。此外，请确保工作链定义 **不在您提交** 的同一文件中，否则 engine 将无法加载它。"
 
 #: ../../source/topics/workflows/usage.rst:305
 msgid "Context"
-msgstr ""
+msgstr "背景"
 
 #: ../../source/topics/workflows/usage.rst:306
 msgid ""
@@ -13586,7 +13586,7 @@ msgid ""
 " sorts of data. The engine will ensure that its contents are saved and "
 "persisted in between steps and when the daemon shuts down or restarts. A "
 "trivial example of this would be the following:"
-msgstr ""
+msgstr "在导言部分介绍的最简单的工作链示例中，我们已经看到上下文是如何在工作链执行过程中用于持久化信息并在大纲步骤之间传递信息的。上下文本质上是一个数据容器，与可容纳各种数据的字典非常相似。engine 将确保其内容在步骤之间以及守护进程关闭或重启时得到保存和持久化。下面是一个微不足道的例子："
 
 #: ../../source/topics/workflows/usage.rst:319
 msgid ""
@@ -13596,11 +13596,11 @@ msgid ""
 "would be a valid key for a normal python dictionary. In the second outline "
 "step ``step_two``, we can verify that the string was successfully persisted,"
 " by checking the value stored in the context ``self.ctx.some_variable``."
-msgstr ""
+msgstr "在 ``step_one`` 大纲步骤中，我们在上下文中存储了字符串 ``'store me in the context'`` ，它的地址为 ``self.ctx`` ，键值为 ``some_variable`` 。请注意，您可以使用任何可以作为普通 python 字典有效键的东西作为键。在第二个大纲步骤 ``step_two`` 中，我们可以通过检查存储在上下文 ``self.ctx.some_variable`` 中的值来验证字符串是否被成功持久化。"
 
 #: ../../source/topics/workflows/usage.rst:325
 msgid "Any data that is stored in the context **has** to be serializable."
-msgstr ""
+msgstr "存储在上下文中的任何数据***必须是可序列化的。"
 
 #: ../../source/topics/workflows/usage.rst:327
 msgid ""
@@ -13609,11 +13609,11 @@ msgid ""
 " context really becomes crucial when you want to submit a calculation or "
 "another work chain from within the work chain. How this is accomplished, we "
 "will show in the next section."
-msgstr ""
+msgstr "这只是一个介绍上下文概念的简单示例，但它确实是工作链中更重要的 important 部分之一。如果要在工作链中提交计算或另一个工作链，上下文就变得至关重要。如何实现这一点，我们将在下一节中介绍。"
 
 #: ../../source/topics/workflows/usage.rst:334
 msgid "Submitting sub processes"
-msgstr ""
+msgstr "提交子 processes"
 
 #: ../../source/topics/workflows/usage.rst:335
 msgid ""
@@ -13626,13 +13626,13 @@ msgid ""
 ":py:class:`~aiida.engine.processes.process.Process` class provides its own "
 ":py:meth:`~aiida.engine.processes.process.Process.submit` method. If you do,"
 " you will be greeted with the exception:"
-msgstr ""
+msgstr "``WorkChain`` 的主要任务之一是启动其他 processes，如 ``CalcJob`` 或另一个 ``WorkChain`` 。如何提交 processes 已在 :ref:`another section<topics:processes:usage:launch>` 中说明，可通过使用 :py:func:`~aiida.engine.launch.submit` 发射功能完成。但是，从工作链中提交子 process 时， **不应使用该功能** 。相反， :py:class:`~aiida.engine.processes.process.Process` 类提供了自己的 :py:meth:`~aiida.engine.processes.process.Process.submit` 方法。如果这样做，您将遇到异常："
 
 #: ../../source/topics/workflows/usage.rst:345
 msgid ""
 "The only change you have to make is to replace the top-level ``submit`` "
 "method with the built-in method of the process class:"
-msgstr ""
+msgstr "您唯一需要做的改动就是将顶层的 ``submit`` 方法替换为 process 类的内置方法："
 
 #: ../../source/topics/workflows/usage.rst:353
 msgid ""
@@ -13649,11 +13649,11 @@ msgid ""
 " the outline, where we can analyse the results. The snippet above already "
 "revealed that this is accomplished by returning an instance of the "
 "``ToContext`` class."
-msgstr ""
+msgstr "``self.submit`` 方法的界面与全局 ``aiida.engine.launch.submit`` 启动程序完全相同。调用 ``submit`` 方法时，会创建 process 并提交给守护进程，但此时尚未完成。因此， ``submit`` 调用返回的值并不是提交的 process 的结果，而是 process node，它代表了 process 在 provenance graph 中的执行情况，并充当了 *未来* 的角色。我们需要以某种方式告诉工作链，它应该等待子 process 执行完毕并解决未来问题后再继续工作。为此，必须将控制权交还给 engine，当 process 完成后，engine 就可以调用大纲中的下一步，我们就可以分析结果了。上面的代码段已经表明，这是通过返回 ``ToContext`` 类的实例来实现的。"
 
 #: ../../source/topics/workflows/usage.rst:361
 msgid "To context"
-msgstr ""
+msgstr "背景"
 
 #: ../../source/topics/workflows/usage.rst:362
 msgid ""
@@ -13661,7 +13661,7 @@ msgid ""
 "the context with a special construct that will tell the engine that it "
 "should wait for that process to finish before continuing the work chain. To "
 "illustrate how this works, consider the following minimal example:"
-msgstr ""
+msgstr "为了存储提交的 process 的未来，我们可以在上下文中使用一个特殊结构体来存储它，该结构体将告诉 engine，在继续工作链之前，它应该等待该 process 完成。为说明其工作原理，请看下面的最小示例："
 
 #: ../../source/topics/workflows/usage.rst:368
 msgid ""
@@ -13683,7 +13683,7 @@ msgid ""
 "method. At this point we are sure that the process, a work chain in this "
 "case, has terminated its execution, although not necessarily successful, and"
 " we can continue the logic of the work chain."
-msgstr ""
+msgstr "如上一节所述，为要提交的给定 process 调用 ``self.submit`` 将返回一个 future。要将这个未来添加到上下文中，我们不能像在 :ref:`context section<topics:workflows:usage:workchains:context>` 中解释的那样直接访问上下文，而是需要使用类 :py:class:`~aiida.engine.processes.workchains.context.ToContext` 。该类必须从 ``aiida.engine`` 模块中 import。要将 future 添加到上下文中，只需构造一个 ``ToContext`` 的实例，将 future 作为关键字参数传递，然后从大纲步骤返回即可。本例中使用的关键字 ``workchain`` 将是用于在执行结束后在上下文中存储 node 的关键字。返回 ``ToContext`` 实例向 engine 发出信号，表明它必须等待其中包含的期货执行完毕，将其 node 保存在上下文中指定的键下，然后继续执行大纲中的下一步。在本例中，这就是 ``inspect_workchain`` 方法。至此，我们可以确定 process(本例中的工作链)已经结束执行，虽然不一定成功，但我们可以继续工作链的逻辑。"
 
 #: ../../source/topics/workflows/usage.rst:379
 msgid ""
@@ -13695,7 +13695,7 @@ msgid ""
 "wait for the sub process to finish. Think about it like this: if there is "
 "not even a single step to follow, there is also nothing the work chain could"
 " do with the results of the sub process, so there is no point in waiting."
-msgstr ""
+msgstr "仅使用 ``ToContext`` 结构不足以告诉 engine 应该等待子 process 完成。大纲中***需要至少有另一个步骤来跟随添加可等待程序的步骤。如果根据大纲，没有其他步骤，engine 就会认为工作链已经完成，因此不会等待子 process 完成。可以这样想：如果连一个步骤都没有，那么工作链也无法对子 process 的结果做任何处理，因此也就没有等待的必要了。"
 
 #: ../../source/topics/workflows/usage.rst:384
 msgid ""
@@ -13705,7 +13705,7 @@ msgid ""
 "the ``ToContext`` instance, the work chain has to wait for the process to be"
 " finished before it can continue. To solve this problem, there is another "
 "way to add futures to the context:"
-msgstr ""
+msgstr "有时，我们希望同时启动多个 processes 并行运行。如果使用上述机制，这将无法实现，因为在提交单个 process 并返回 ``ToContext`` 实例后，工作链必须等待 process 完成后才能继续。为了解决这个问题，还有一种方法可以在上下文中添加期货："
 
 #: ../../source/topics/workflows/usage.rst:391
 msgid ""
@@ -13723,7 +13723,7 @@ msgid ""
 "``inspect_workchains``. There we can find the nodes of the work chains in "
 "the context under the key that was used as the keyword argument in the "
 "``to_context`` call in the previous step."
-msgstr ""
+msgstr "在这里，我们在一个大纲步骤中的 for 循环中提交了三个工作链，但我们并没有返回 ``ToContext`` 的实例，而是调用了 :meth:`~aiida.engine.processes.workchains.workchain.WorkChain.to_context` 方法。该方法的语法与 ``ToContext`` 类完全相同，只是不需要返回其值，因此我们可以在一个大纲步骤中多次调用该方法。其内部功能也与 ``ToContext`` 类相同。在 ``submit_workchains`` 大纲步骤结束时，engine 将找到通过调用 ``to_context`` 添加的期货，并等待它们全部完成。好在这三个子工作链可以并行运行，一旦全部完成，父工作链将进入下一步，即 ``inspect_workchains`` 。在那里，我们可以在上下文中找到工作链的 nodes ，该关键字在上一步的 ``to_context`` 调用中被用作关键字参数。"
 
 #: ../../source/topics/workflows/usage.rst:398
 msgid ""
@@ -13737,11 +13737,11 @@ msgid ""
 " to be able to create a list in the context and simply append the future to "
 "that list as you submit them. How this can be achieved is explained in the "
 "next section."
-msgstr ""
+msgstr "由于我们不希望 ``to_context`` 的后续调用覆盖之前的未来调用，因此必须创建唯一的键来存储它们。在本例中，我们选择使用 for 循环的索引。名称没有任何意义，只是为了保证键名的唯一性。这种模式经常出现在需要并行启动多个工作链或计算的情况下，因此必须使用唯一的名称。然而，从本质上讲，您实际上只是在创建一个列表，最好是能够在上下文中创建一个列表，并在提交时简单地将未来附加到该列表中。下一节将解释如何实现这一点。"
 
 #: ../../source/topics/workflows/usage.rst:406
 msgid "Appending"
-msgstr ""
+msgstr "追加"
 
 #: ../../source/topics/workflows/usage.rst:407
 msgid ""
@@ -13750,7 +13750,7 @@ msgid ""
 ":func:`~aiida.engine.processes.workchains.context.append_` function. "
 "Consider the example from the previous section, but now we will use the "
 "``append_`` function instead:"
-msgstr ""
+msgstr "如果要将已提交的子 process 的未来添加到上下文中，但要将其追加到列表中，而不是分配给某个键，则可以使用 :func:`~aiida.engine.processes.workchains.context.append_` 函数。请看上一节的示例，现在我们将使用 ``append_`` 函数："
 
 #: ../../source/topics/workflows/usage.rst:413
 msgid ""
@@ -13767,28 +13767,28 @@ msgid ""
 "not just limited to the ``to_context`` method. You can also use it in "
 "exactly the same way with ``ToContext`` to append a process to a list in the"
 " context in multiple outline steps."
-msgstr ""
+msgstr "请注意，在 ``submit_workchains`` 步骤中，我们不再需要根据索引生成唯一键，而只需将 future 包入 ``append_`` 函数，并将其赋值给通用键 ``workchains`` 。engine 将看到 ``append_`` 函数，它不会将与 future 对应的 node 分配给键 ``workchains`` ，而是将其附加到存储在该键下的列表中。如果列表尚不存在，则会自动创建。现在， ``self.ctx.workchains`` 包含一个已完成工作链 node 的列表，顺序与插入时相同，因此在 ``inspect_workchains`` 步骤中，我们只需遍历该列表即可访问所有工作链。请注意， ``append_`` 的使用不仅限于 ``to_context`` 方法。您还可以使用与 ``ToContext`` 完全相同的方法，在多个大纲步骤中将 process 附加到上下文中的列表。"
 
 #: ../../source/topics/workflows/usage.rst:421
 msgid "Nested context keys"
-msgstr ""
+msgstr "嵌套上下文键"
 
 #: ../../source/topics/workflows/usage.rst:423
 msgid ""
 "To simplify the organization of the context, the keys may contain dots "
 "``.``, transparently creating namespaces in the process. As an example "
 "compare the following to the parallel submission example above:"
-msgstr ""
+msgstr "为简化上下文的组织结构，键可能包含点 ``.``，从而在 process 中透明地创建命名空间。例如，将以下内容与上述并行提交示例进行比较："
 
 #: ../../source/topics/workflows/usage.rst:429
 msgid ""
 "This allows to create intuitively grouped and easily accessible structures "
 "of child calculations or workchains."
-msgstr ""
+msgstr "这样就可以创建直观分组且易于访问的子计算或工作链结构。"
 
 #: ../../source/topics/workflows/usage.rst:434
 msgid "Reporting"
-msgstr ""
+msgstr "报告"
 
 #: ../../source/topics/workflows/usage.rst:435
 msgid ""
@@ -13798,7 +13798,7 @@ msgid ""
 ":py:meth:`~aiida.engine.processes.process.Process.report` method, which "
 "functions as a logger of sorts. It takes a single argument, a string, that "
 "is the message that needs to be reported:"
-msgstr ""
+msgstr "在 ``WorkChain`` 执行过程中，我们可能希望让用户了解其进度和发生的情况。为此， ``WorkChain`` 实现了 :py:meth:`~aiida.engine.processes.process.Process.report` 方法，该方法的功能类似于日志记录器。它只接受一个参数，即需要报告的信息字符串："
 
 #: ../../source/topics/workflows/usage.rst:444
 msgid ""
@@ -13813,7 +13813,7 @@ msgid ""
 "the report message was fired. This information will show up in the output of"
 " ``verdi process report``, so you never have to explicitly reference the "
 "work chain name, outline step name or date and time in the message itself."
-msgstr ""
+msgstr "这将把消息发送到 python 的内部日志记录器，使其被默认的 AiiDA 日志记录器接收，但同时也会触发数据库日志处理程序，将消息存储到数据库中，并将其链接到工作链的 node。这样， ``verdi process report`` 命令就可以检索所有使用 ``report`` 方法触发的特定 process 消息。请注意，报告方法除了记录工作链的 pk 外，还会自动记录工作链名称和触发报告消息的大纲步骤名称。这些信息将显示在 ``verdi process report`` 的输出中，因此您无需在信息中明确引用工作链名称、大纲步骤名称或日期和时间。"
 
 #: ../../source/topics/workflows/usage.rst:449
 msgid ""
@@ -13821,11 +13821,11 @@ msgid ""
 "such has been designed to be read by humans only. That is to say, the report"
 " system is not designed to pass information programmatically by parsing the "
 "log messages."
-msgstr ""
+msgstr "import 需要注意的是，报告系统是一种日志记录形式，因此只能由人工读取。也就是说，报告系统不是通过解析日志信息来传递信息的。"
 
 #: ../../source/topics/workflows/usage.rst:455
 msgid "Aborting and exit codes"
-msgstr ""
+msgstr "中止和退出代码"
 
 #: ../../source/topics/workflows/usage.rst:456
 msgid ""
@@ -13840,7 +13840,7 @@ msgid ""
 "because it allows a workflow designer to easily exit from a work chain and "
 "use the return value to communicate programmatically the reason for the work"
 " chain stopping."
-msgstr ""
+msgstr "在每个大纲步骤结束时，engine 将检查返回值。如果检测到非零整数值，engine 将把它解释为退出代码，并停止执行工作链，同时将其 process 状态设置为 ``Finished`` 。此外，整数返回值将被设置为工作链的 ``exit_status`` ，与 ``Finished`` process 状态相结合，表示工作链被认为是 ``Failed`` ，如 :ref:`process state <topics:processes:concepts:state>` 部分所述。这一点非常有用，因为它允许 workflow 设计人员轻松退出工作链，并使用返回值以编程方式说明工作链停止的原因。"
 
 #: ../../source/topics/workflows/usage.rst:461
 msgid ""
@@ -13848,7 +13848,7 @@ msgid ""
 "<topics:workflows:usage:workchains:define_exit_codes>` through the process "
 "specification of the work chain. Consider the following example work chain "
 "that defines such an exit code:"
-msgstr ""
+msgstr "我们假设您已经阅读了 :ref:`section on how to define exit codes <topics:workflows:usage:workchains:define_exit_codes>` 至 process 工作链规范。请看下面的工作链示例，它定义了这样一个退出代码："
 
 #: ../../source/topics/workflows/usage.rst:468
 msgid ""
@@ -13857,7 +13857,7 @@ msgid ""
 "calculation did not finish successfully, the following snippet shows how you"
 " can retrieve the corresponding exit code and abort the ``WorkChain`` by "
 "returning it:"
-msgstr ""
+msgstr "现在设想一下，我们在大纲中启动计算，并在下一步检查计算是否成功完成。如果计算没有成功完成，下面的代码段展示了如何获取相应的退出代码，并通过返回退出代码来终止 ``WorkChain`` ："
 
 #: ../../source/topics/workflows/usage.rst:485
 msgid ""
@@ -13874,7 +13874,7 @@ msgid ""
 "the :py:class:`~aiida.engine.processes.exit_code.ExitCode` class, will cause"
 " the work chain to be aborted and the ``exit_status`` and ``exit_message`` "
 "to be set on the node, which were defined in the spec."
-msgstr ""
+msgstr "在 ``inspect_calculation`` 大纲中，我们将检索上一步中提交并添加到上下文中的计算，并通过属性 ``is_finished_ok`` 检查计算是否成功完成。如果返回 ``False`` ，在本例中我们只需触发一条报告消息，并返回与标签 ``ERROR_CALCULATION_FAILED`` 相对应的退出代码。请注意，可以通过 ``WorkChain`` 属性 ``exit_codes`` 获取具体的退出代码。这将返回为该 ``WorkChain`` 定义的退出代码集合，然后可以通过将其作为属性访问来检索任何特定的退出代码。返回的退出代码将是 :py:class:`~aiida.engine.processes.exit_code.ExitCode` 类的实例，它将导致工作链中止，并在 node 上设置规格中定义的 ``exit_status`` 和 ``exit_message`` 。"
 
 #: ../../source/topics/workflows/usage.rst:493
 msgid ""
@@ -13887,7 +13887,7 @@ msgid ""
 " spec and retrieve it through the ``self.exit_codes`` collection, as that "
 "makes it easily retrievable through the spec by the caller of the work "
 "chain."
-msgstr ""
+msgstr "``self.exit_codes.ERROR_CALCULATION_FAILED`` 符号只是语法糖，用于检索规范中定义的带有该错误标签的 ``ExitCode`` 实例。直接构建自己的 ``ExitCode`` 并从大纲步骤中返回，在中止工作链执行和设置退出状态和消息方面具有完全相同的效果。不过，我们强烈建议通过规范定义退出代码，并通过 ``self.exit_codes`` 集合获取它，因为这样工作链的调用者就可以很容易地通过规范获取它。"
 
 #: ../../source/topics/workflows/usage.rst:497
 msgid ""
@@ -13898,20 +13898,20 @@ msgid ""
 " code, simply call the "
 ":meth:`~aiida.engine.processes.exit_code.ExitCode.format` method and pass "
 "the parameters as keyword arguments:"
-msgstr ""
+msgstr "``ExitCode`` 的 ``message`` 属性也可以是包含占位符的字符串。当退出代码的信息足以通用于各种情况，但用户希望将退出信息参数化时，这种方法就非常有用。要将退出代码的模板信息具体化，只需调用 :meth:`~aiida.engine.processes.exit_code.ExitCode.format` 方法并将参数作为关键字参数传递即可："
 
 #: ../../source/topics/workflows/usage.rst:506
 msgid ""
 "This concept can also be applied within the scope of a process. In the "
 "process spec, we can declare a generic exit code whose exact message should "
 "depend on one or multiple parameters:"
-msgstr ""
+msgstr "这一概念也可应用于 process 的范围内。在 process 规范中，我们可以声明一个通用退出代码，其确切信息取决于一个或多个参数："
 
 #: ../../source/topics/workflows/usage.rst:513
 msgid ""
 "Through the ``self.exit_codes`` collection of a ``WorkChain``, this generic "
 "can be easily customized as follows:"
-msgstr ""
+msgstr "通过 ``WorkChain`` 的 ``self.exit_codes`` 集合，可以方便地对该通用型进行如下定制："
 
 #: ../../source/topics/workflows/usage.rst:520
 msgid ""
@@ -13919,7 +13919,7 @@ msgid ""
 "``self.exit_codes.ERROR_INVALID_PARAMETER`` simply returns an instance of "
 "``ExitCode``, which we then call ``format`` on with the substitution "
 "parameters."
-msgstr ""
+msgstr "这与之前的示例没有什么不同，因为 ``self.exit_codes.ERROR_INVALID_PARAMETER`` 只是返回一个 ``ExitCode`` 的实例，然后我们在该实例上调用 ``format`` 并加上替换参数。"
 
 #: ../../source/topics/workflows/usage.rst:522
 msgid ""
@@ -13933,11 +13933,11 @@ msgid ""
 "however, is a perfect way. The parent work chain can easily request the exit"
 " status of the child work chain through the ``exit_status`` property, and "
 "based on its value determine how to proceed."
-msgstr ""
+msgstr "总之，使用退出代码中止工作链执行的最大好处是，退出状态现在可以通过编程方式使用，例如由父工作链使用。想象一下，父工作链提交了这个工作链。终止执行后，父工作链想知道子工作链的情况。如 :ref:`report<topics:workflows:usage:workchains:reporting>` 章节所述，不应使用工作链的报告信息。而退出状态则是一个完美的方法。父工作链可以通过 ``exit_status`` 属性轻松请求子工作链的退出状态，并根据其值决定如何继续。"
 
 #: ../../source/topics/workflows/usage.rst:531
 msgid "Modular workflow design"
-msgstr ""
+msgstr "模块化 workflow 设计"
 
 #: ../../source/topics/workflows/usage.rst:532
 msgid ""
@@ -13945,7 +13945,7 @@ msgid ""
 "smaller, modular parts. At the lowest level, each workflow should perform "
 "exactly one task. These workflows can then be wrapped together by a "
 "\"parent\" workflow to create a larger logical unit."
-msgstr ""
+msgstr "在创建复杂的 workflow 时，最好将其拆分成较小的模块化部分。在最底层，每个 workflow 应准确执行一项任务。然后，这些 workflow 可以通过 \``parent\`` workflow 封装在一起，创建一个更大的逻辑单元。"
 
 #: ../../source/topics/workflows/usage.rst:536
 msgid ""
@@ -13955,24 +13955,24 @@ msgid ""
 "*expose* the ports of another process class. This can be another "
 "``WorkChain`` implementation, a ``CalcJob`` or even a process function (a "
 "``calcfunction`` or ``workfunction``)."
-msgstr ""
+msgstr "为了使这种方法易于管理，需要尽可能简单地将多个 workflow 粘合到一个更大的父 workflow 中。AiiDA 提供的简化工具之一就是 *暴露* 另一个 process 类的端口。这可以是另一个 ``WorkChain`` 实现、 ``CalcJob`` 甚至 process function( ``calcfunction`` 或 ``workfunction`` )。"
 
 #: ../../source/topics/workflows/usage.rst:543
 msgid "Exposing inputs and outputs"
-msgstr ""
+msgstr "公开输入和输出"
 
 #: ../../source/topics/workflows/usage.rst:544
 msgid ""
 "Consider the following example work chain, which simply takes a few inputs "
 "and returns them again as outputs:"
-msgstr ""
+msgstr "请看下面的工作链示例，它只是简单地接收一些输入，然后将它们作为输出再次返回："
 
 #: ../../source/topics/workflows/usage.rst:549
 msgid ""
 "As a first example, we will implement a thin wrapper workflow, which simply "
 "forwards its inputs to ``ChildWorkChain``, and forwards the outputs of the "
 "child to its outputs:"
-msgstr ""
+msgstr "作为第一个例子，我们将实现一个薄包装器 workflow，它只需将输入转发到 ``ChildWorkChain`` ，并将子节点的输出转发到它的输出端："
 
 #: ../../source/topics/workflows/usage.rst:554
 msgid ""
@@ -13991,7 +13991,7 @@ msgid ""
 ":meth:`~aiida.engine.processes.process.Process.out_many`, these outputs are "
 "added to the outputs of the parent work chain. This work chain can now be "
 "run in exactly the same way as the child itself:"
-msgstr ""
+msgstr "在这个简单父工作链的 ``define`` 方法中，我们使用了 :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 :meth:`~plumpy.process_spec.ProcessSpec.expose_outputs` 。这将在父工作链中创建相应的输入和输出端口。此外，AiiDA 还会记住特定工作链类的输入和输出。这将在调用 ``run_child`` 方法中的子工作链时使用。 :meth:`~aiida.engine.processes.process.Process.exposed_inputs` 方法会返回一个字典，其中包含父类接收到的子类暴露的输入，因此可以将这些输入传递给子类。最后，在 ``finalize`` 方法中，我们使用 :meth:`~aiida.engine.processes.process.Process.exposed_outputs` 来检索子代暴露给父代的输出。使用 :meth:`~aiida.engine.processes.process.Process.out_many` 将这些输出添加到父工作链的输出中。现在，该工作链的运行方式与子代工作链完全相同："
 
 #: ../../source/topics/workflows/usage.rst:566
 msgid ""
@@ -14003,13 +14003,13 @@ msgid ""
 " to avoid name conflicts, we need to create a *namespace* for each of the "
 "two children, where the inputs and outputs which are not shared are stored. "
 "Our goal is that the workflow can be called as follows:"
-msgstr ""
+msgstr "接下来，我们将看到如何通过使用 ``暴露``功能的附加功能来创建更复杂的父工作链。下面的工作链启动了两个子工作链。这两个子代共享输入 ``a``，但有不同的 ``b`` 和 ``c``。输出 ``e`` 只取自第一个子代，而 ``d`` 和 ``f`` 则取自两个子代。为了避免名称冲突，我们需要为两个子代分别创建一个 *名称空间* ，用于存储不共享的输入和输出。我们的目标是 workflow 可以按如下方式调用："
 
 #: ../../source/topics/workflows/usage.rst:576
 msgid ""
 "This is achieved by the following workflow. In the next section, we will "
 "explain each of the steps."
-msgstr ""
+msgstr "这是通过下面的 workflow 实现的。在下一节中，我们将对每个步骤进行说明。"
 
 #: ../../source/topics/workflows/usage.rst:582
 msgid ""
@@ -14021,7 +14021,7 @@ msgid ""
 " or outputs which are in that list will be exposed. So by passing "
 "``include=['a']`` to :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs`,"
 " only the input ``a`` is exposed."
-msgstr ""
+msgstr "首先，我们要在顶层公开 ``a`` 输入和 ``e`` 输出。为此，我们再次使用 :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 和 :meth:`~plumpy.process_spec.ProcessSpec.expose_outputs` ，但要加上可选关键字 ``include`` 。这指定了一个键列表，只有该列表中的输入或输出才会被暴露。因此，将 ``include=['a']`` 传递到 :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` 后，只有输入 ``a`` 被公开。"
 
 #: ../../source/topics/workflows/usage.rst:587
 msgid ""
@@ -14031,7 +14031,7 @@ msgid ""
 "However, since we now shouldn't expose ``a`` (``e``) again, we use the "
 "``exclude`` keyword, which specifies a list of keys that will not be "
 "exposed."
-msgstr ""
+msgstr "此外，我们希望公开输入 ``b`` 和 ``c`` (输出 ``d`` 和 ``f``)，但这两个子代分别使用特定的命名空间。为此，我们将 ``namespace`` 参数传递给 expose 函数。不过，由于我们现在不应该再暴露 ``a`` (``e``)，所以我们使用了 ``exclude`` 关键字，它指定了一个不会被暴露的键的列表。"
 
 #: ../../source/topics/workflows/usage.rst:591
 msgid ""
@@ -14048,7 +14048,7 @@ msgid ""
 "explicit namespace that was passed. This is done by setting "
 "``agglomerate=False``, as shown in the call to ``child_2``. Of course, we "
 "then need to explicitly pass the input ``a``."
-msgstr ""
+msgstr "在调用子代时，我们再次使用 :meth:`~aiida.engine.processes.process.Process.exposed_inputs` 方法转发暴露的输入。由于输入 ``b`` 和 ``c`` 现在位于特定的命名空间中，我们需要将该命名空间作为附加参数传递。默认情况下， :meth:`~aiida.engine.processes.process.Process.exposed_inputs` 会搜索给定命名空间的所有父命名空间以查找输入，如 ``child_1`` 的调用所示。如果多个命名空间中存在相同的输入键，则最低命名空间中的输入优先。也可以禁用这种行为，而只在传递的显式命名空间中搜索。这可以通过设置 ``agglomerate=False`` 来实现，如 ``child_2`` 的调用所示。当然，我们还需要明确传递输入 ``a``。"
 
 #: ../../source/topics/workflows/usage.rst:599
 msgid ""
@@ -14059,19 +14059,19 @@ msgid ""
 "``namespace`` and ``agglomerate`` options can be used to select which "
 "outputs are returned by the "
 ":meth:`~aiida.engine.processes.process.Process.exposed_outputs` method."
-msgstr ""
+msgstr "最后，我们使用 :meth:`~aiida.engine.processes.process.Process.exposed_outputs` 和 :meth:`~aiida.engine.processes.process.Process.out_many` 将子代的输出转发到父代的输出。同样，可以使用 ``namespace`` 和 ``agglomerate`` 选项来选择 :meth:`~aiida.engine.processes.process.Process.exposed_outputs` 方法返回哪些输出。"
 
 #: ../../source/topics/workflows/usage.rst:604
 msgid ""
 "For further practical examples of creating workflows, see the :ref:`how to "
 "write workflows<how-to:write-workflows>` and :ref:`how to write error "
 "resistant workflows <how-to:restart-workchain>` sections."
-msgstr ""
+msgstr "有关创建 workflow 的更多实例，请参阅 :ref:`how to write workflows<how-to:write-workflows>` 和 :ref:`how to write error resistant workflows <how-to:restart-workchain>` 章节。"
 
 #: ../../source/topics/workflows/usage.rst:609
 msgid "https://docs.python.org/3.5/library/functions.html#classmethod"
-msgstr ""
+msgstr "https://docs.python.org/3.5/library/functions.html#classmethod"
 
 #: ../../source/topics/workflows/usage.rst:610
 msgid "https://en.wikipedia.org/wiki/Fizz_buzz"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Fizz_buzz"
