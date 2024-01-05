@@ -69,6 +69,8 @@ terminology_protect_list = [
     (r"(?:(?:(?<!`)(?<!:))([vV]erdi))", False), # 112
     (r"(?:(?:(?<!`)(?<!:))([aA]iiDA))", False), # 113
     (r"(?:(?:(?<!`)(?<!:))([bB]uilder))", False), # 114
+    (r"(?:(?:(?<!`)(?<!:))([oO]utline))", False), # 115
+    (r"(?:(?:(?<!`)(?<!:))([cC]ontext))", False), # 116
 ]
     
 
