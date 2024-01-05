@@ -2,10 +2,10 @@
 
 [![codecov](https://codecov.io/gh/unkcpz/aiida-core-i18n/branch/main/graph/badge.svg)](https://codecov.io/gh/unkcpz/aiida-core-i18n)
 
-| Language     | Build status |
-| ----------- | ----------- |
-| zh_CN (Simplified, China)    | [![Documentation Status](https://readthedocs.org/projects/aiida-core-zh-cn/badge/?version=latest)](https://aiida.readthedocs.io/projects/aiida-core/zh-cn/latest/?badge=latest)  |
-| de (German Standard)   | [![Documentation Status](https://readthedocs.org/projects/aiida-core-de/badge/?version=latest)](https://aiida-core-de.readthedocs.io/de/latest/?badge=latest) |
+| Language     | Build status | Translation status |
+| ----------- | ----------- | ----------- | 
+| zh_CN (Simplified, China)    | [![Documentation Status](https://readthedocs.org/projects/aiida-core-zh-cn/badge/?version=latest)](https://aiida.readthedocs.io/projects/aiida-core/zh-cn/latest/?badge=latest)  | Done |
+| de (German Standard)   | [![Documentation Status](https://readthedocs.org/projects/aiida-core-de/badge/?version=latest)](https://aiida-core-de.readthedocs.io/de/latest/?badge=latest) | Planing |
 
 
 This is the repository that serves for the localization of [aiida-core documentation](https://aiida.readthedocs.io/projects/aiida-core/en/latest/index.html).
