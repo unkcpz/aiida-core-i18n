@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 15:17+0000\n"
+"POT-Creation-Date: 2024-02-12 15:02+0000\n"
 "PO-Revision-Date: 2023-12-21 01:39+0000\n"
 "Last-Translator: Jusong Yu <jusong.yeu@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/aiidateam/teams/98967/zh_CN/)\n"
@@ -5480,11 +5480,28 @@ msgstr ""
 "最后，需要使用 ``aiida.calculations.monitors`` 组中的 entry point 声明监控器。下一节将介绍如何使用 "
 "entry point 将其分配给计算作业。"
 
-#: ../../source/howto/run_codes.rst:589
+#: ../../source/howto/run_codes.rst:590
+msgid ""
+"Monitors can also attach outputs to the calculation that it is monitoring. "
+"This can be useful to report outputs while the calculation is running that "
+"should still be stored permanently in the provenance graph. In the following"
+" example, a simple monitor is implemented that returns a "
+"``CalcJobMonitorResult`` that defines a dictionary of output nodes:"
+msgstr "监控器还可以将输出附加到正在监控的计算中。这对于在计算运行时报告应永久保存在 provenance graph 中的输出非常有用。在下面的示例中，实现了一个简单的监控器，它返回一个定义了输出 nodes 字典的 ``CalcJobMonitorResult`` ："
+
+#: ../../source/howto/run_codes.rst:611
+msgid ""
+"Once the monitor returns, the engine will loop over the nodes in the "
+"``outputs`` dictionary and attach them to the calculation node. Note that "
+"the ``CalcJob`` class of course needs to specify this output port in the "
+"output namespace, otherwise an exception is raised."
+msgstr "监视器返回后，engine 将循环访问 ``outputs`` 字典中的 node，并将其连接到计算 node。请注意， ``CalcJob`` 类当然需要在输出命名空间中指定该输出端口，否则会引发异常。"
+
+#: ../../source/howto/run_codes.rst:616
 msgid "How to assign a monitor"
 msgstr "如何分配监视器"
 
-#: ../../source/howto/run_codes.rst:591
+#: ../../source/howto/run_codes.rst:618
 msgid ""
 "A monitor can be assigned to a calculation job by adding it to the "
 "`monitors` input. It takes a dictionary of monitors, where each monitor is "
@@ -5492,7 +5509,7 @@ msgid ""
 msgstr ""
 "通过在 `monitors` 输入中添加监视器，可将其分配给计算作业。它使用监视器字典，其中每个监视器由 `Dict` node 定义，键如下："
 
-#: ../../source/howto/run_codes.rst:600
+#: ../../source/howto/run_codes.rst:627
 msgid ""
 "The `entry_point` key is required and should contain an entry point that "
 "refers to a monitor function registered in the `aiida.calculations.monitors`"
@@ -5501,13 +5518,13 @@ msgstr ""
 "需要使用 `entry_point` 键，该键应包含 entry point，该 entry point 指向在 "
 "`aiida.calculations.monitors` 组中注册的监控器功能。可以为一个计算分配多个监控器："
 
-#: ../../source/howto/run_codes.rst:611
+#: ../../source/howto/run_codes.rst:638
 msgid ""
 "Note that the keys used in the `monitors` input can be any valid attribute "
 "name and does not influence the behavior whatsoever."
 msgstr "请注意，`monitors` 输入中使用的键可以是任何有效的属性名称，不会影响任何行为。"
 
-#: ../../source/howto/run_codes.rst:613
+#: ../../source/howto/run_codes.rst:640
 msgid ""
 "If a monitor supports additional custom keyword arguments, these should be "
 "passed as a dictionary under the ``kwargs`` key. For example, if the monitor"
@@ -5517,17 +5534,17 @@ msgstr ""
 "如果监视器支持额外的自定义关键字参数，则应在 ``kwargs`` 关键字下以字典形式传递这些参数。例如，如果监控程序接受关键字 "
 "``custom_keyword`` 的布尔值，则可按如下方式指定："
 
-#: ../../source/howto/run_codes.rst:623
+#: ../../source/howto/run_codes.rst:650
 msgid ""
 "If a keyword is specified that is not declared explicitly by the monitor, "
 "the validation of the ``CalcJob`` will fail."
 msgstr "如果指定的关键字未在监控程序中明确声明，则 ``CalcJob`` 的验证将失败。"
 
-#: ../../source/howto/run_codes.rst:627
+#: ../../source/howto/run_codes.rst:654
 msgid "Monitor execution order"
 msgstr "监控执行顺序"
 
-#: ../../source/howto/run_codes.rst:628
+#: ../../source/howto/run_codes.rst:655
 msgid ""
 "By default, the monitors are executed in alphabetical order based on their "
 "keys in the ``monitors`` input namespace. The order can be controlled using "
@@ -5536,7 +5553,7 @@ msgstr ""
 "默认情况下，监控程序会根据 ``monitors`` 输入名称空间中的键按字母顺序执行。可以使用 ``monitors`` 输入中的 "
 "``priority`` 键来控制顺序。"
 
-#: ../../source/howto/run_codes.rst:638
+#: ../../source/howto/run_codes.rst:665
 msgid ""
 "Higher priorities will be executed first. It is not necessary to define a "
 "priority for all monitors, in the absence of a priority, a priority of 0 is "
@@ -5546,11 +5563,11 @@ msgstr ""
 "优先级较高的将优先执行。无需为所有监视器定义优先级，如果没有优先级，则假定优先级为 0。对于优先级相同的监视器，其顺序仍按字母顺序排列，以其在 "
 "``monitors`` 输入名称空间中的键为准。"
 
-#: ../../source/howto/run_codes.rst:644
+#: ../../source/howto/run_codes.rst:671
 msgid "Monitor execution frequency"
 msgstr "监控执行频率"
 
-#: ../../source/howto/run_codes.rst:645
+#: ../../source/howto/run_codes.rst:672
 msgid ""
 "By default, all monitors are executed during each scheduler update cycle. "
 "This interval is controlled by the ``minimum_scheduler_poll_interval`` "
@@ -5565,7 +5582,7 @@ msgstr ""
 "``get_minimum_job_poll_interval`` 和 ``set_minimum_job_poll_interval`` "
 "进行检索和设置。可以通过在监控输入定义中为 ``minimum_poll_interval`` 键设置更大的间隔来降低监控执行频率："
 
-#: ../../source/howto/run_codes.rst:655
+#: ../../source/howto/run_codes.rst:682
 msgid ""
 "The engine will guarantee that the interval between calls of the monitor is "
 "at least the value specified by ``minimum_poll_interval``. Due to a number "
@@ -5576,11 +5593,11 @@ msgstr ""
 "engine 将确保调用监控器的时间间隔至少为 ``minimum_poll_interval`` 所指定的值。不过，由于 ``CalcJob`` "
 "管道中还存在一些其他间隔，因此监控器调用之间的有效间隔可能会大于该值。"
 
-#: ../../source/howto/run_codes.rst:660
+#: ../../source/howto/run_codes.rst:687
 msgid "Advanced functionality"
 msgstr "高级功能"
 
-#: ../../source/howto/run_codes.rst:662
+#: ../../source/howto/run_codes.rst:689
 msgid ""
 "The most simple implementation of a monitor simply returns a string. This is"
 " interpreted by the engine that the job should be killed and the string "
@@ -5593,11 +5610,11 @@ msgstr ""
 ":class:`~aiida.engine.processes.calcjobs.monitors.CalcJobMonitorResult` "
 "的实例来控制这种行为。"
 
-#: ../../source/howto/run_codes.rst:667
+#: ../../source/howto/run_codes.rst:694
 msgid "Disable parsing of retrieved files"
 msgstr "禁用检索文件的解析功能"
 
-#: ../../source/howto/run_codes.rst:669
+#: ../../source/howto/run_codes.rst:696
 msgid ""
 "By default, when a job is stopped through a monitor, the engine will still "
 "retrieve and parse the files. To skip the parsing of the retrieved files, "
@@ -5606,11 +5623,11 @@ msgstr ""
 "默认情况下，当通过监视器停止作业时，engine 仍将检索和解析文件。要跳过检索文件的解析，请将 "
 "``CalcJobMonitorResult.parse`` 设置为 ``False`` ："
 
-#: ../../source/howto/run_codes.rst:680
+#: ../../source/howto/run_codes.rst:707
 msgid "Disable retrieving of files"
 msgstr "禁止检索文件"
 
-#: ../../source/howto/run_codes.rst:682
+#: ../../source/howto/run_codes.rst:709
 msgid ""
 "By default, when a job is stopped through a monitor, the engine will still "
 "retrieve the files from the remote working directory. To skip the file "
@@ -5619,17 +5636,17 @@ msgstr ""
 "默认情况下，当通过监视器停止作业时，engine 仍会从远程工作目录检索文件。要跳过文件检索，请将 "
 "``CalcJobMonitorResult.retrieve`` 设置为 ``False`` ："
 
-#: ../../source/howto/run_codes.rst:692
+#: ../../source/howto/run_codes.rst:719
 msgid ""
 "Note that in this case ``parse`` should also be set to ``False`` since the "
 "engine cannot parse files that have not been retrieved."
 msgstr "请注意，在这种情况下， ``parse`` 也应设置为 ``False`` ，因为 engine 无法解析尚未检索的文件。"
 
-#: ../../source/howto/run_codes.rst:695
+#: ../../source/howto/run_codes.rst:722
 msgid "Disable overriding of parse exit code"
 msgstr "禁用覆盖解析退出代码"
 
-#: ../../source/howto/run_codes.rst:697
+#: ../../source/howto/run_codes.rst:724
 msgid ""
 "By default, when a job is stopped through a monitor, the engine will set the"
 " exit code ``STOPPED_BY_MONITOR``. This overrides any exit code that may be "
@@ -5641,11 +5658,11 @@ msgstr ""
 "。如果调用了解析器，该代码将覆盖解析器可能返回的任何退出代码。要保留解析器的退出代码，请将 "
 "``CalcJobMonitorResult.override_exit_code`` 设置为 ``False`` ："
 
-#: ../../source/howto/run_codes.rst:709
+#: ../../source/howto/run_codes.rst:736
 msgid "Disable a monitor"
 msgstr "禁用显示器"
 
-#: ../../source/howto/run_codes.rst:711
+#: ../../source/howto/run_codes.rst:738
 msgid ""
 "By default, when a monitor returns anything other than ``None``, the engine "
 "will immediately kill the job. In certain use-cases, a monitor may want to "
@@ -5660,16 +5677,16 @@ msgstr ""
 ":class:`~aiida.engine.processes.calcjobs.monitors.CalcJobMonitorAction` 的 "
 "``DISABLE_SELF`` 选项："
 
-#: ../../source/howto/run_codes.rst:722
+#: ../../source/howto/run_codes.rst:749
 msgid ""
 "All other monitors, if defined, will continue to be invoked by the engine."
 msgstr "所有其他监视器(如果已定义)将继续由 engine 调用。"
 
-#: ../../source/howto/run_codes.rst:725
+#: ../../source/howto/run_codes.rst:752
 msgid "Disable all monitors"
 msgstr "禁用所有显示器"
 
-#: ../../source/howto/run_codes.rst:727
+#: ../../source/howto/run_codes.rst:754
 msgid ""
 "By default, when a monitor returns anything other than ``None``, the engine "
 "will immediately kill the job. In certain use-cases, a monitor may want to "
@@ -5688,11 +5705,11 @@ msgstr ""
 ":class:`~aiida.engine.processes.calcjobs.monitors.CalcJobMonitorAction` 的 "
 "``DISABLE_ALL`` 选项："
 
-#: ../../source/howto/run_codes.rst:744
+#: ../../source/howto/run_codes.rst:771
 msgid "How to save compute time with caching"
 msgstr "如何利用缓存节省计算时间"
 
-#: ../../source/howto/run_codes.rst:746
+#: ../../source/howto/run_codes.rst:773
 msgid ""
 "Over the course of a project, you may end up re-running the same "
 "calculations multiple times - be it because two workflows include the same "
@@ -5702,7 +5719,7 @@ msgstr ""
 "在项目过程中，您可能会多次重复运行相同的计算--可能是因为两个 workflow 包含相同的计算，也可能是因为需要重新启动因基础设施问题而失败的 "
 "workflow。"
 
-#: ../../source/howto/run_codes.rst:748
+#: ../../source/howto/run_codes.rst:775
 msgid ""
 "Since AiiDA stores the full provenance of each calculation, it can detect "
 "whether a calculation has been run before and, instead of running it again, "
@@ -5712,7 +5729,7 @@ msgstr ""
 "由于AiiDA存储了每个计算的全部provenance，它可以检测到一个计算是否已经被运行过，而不是再次运行，只是重复使用它的输出，从而节省宝贵的计算资源。这就是AiiDA的"
 " **缓存** 。"
 
-#: ../../source/howto/run_codes.rst:751
+#: ../../source/howto/run_codes.rst:778
 msgid ""
 "With caching enabled, AiiDA searches the database for a calculation of the "
 "same :ref:`hash<topics:provenance:caching:hashing>`. If found, AiiDA creates"
@@ -5724,7 +5741,7 @@ msgstr ""
 "计算。如果找到，AiiDA 会创建计算 node 及其结果的副本，从而确保结果 provenance graph 与是否启用缓存无关(参见 "
 ":numref:`fig_caching`)。"
 
-#: ../../source/howto/run_codes.rst:759
+#: ../../source/howto/run_codes.rst:786
 msgid ""
 "When reusing the results of a calculation **C** for a new calculation "
 "**C'**, AiiDA simply makes a copy of the result nodes and links them up as "
@@ -5736,7 +5753,7 @@ msgstr ""
 "node，并像往常一样将它们连接起来。这张图描述了相同的输入 node **D1** 被用于两个计算，但输入 node **D1'** 与 **D1**"
 " 具有相同的 *hash* 也会触发缓存。"
 
-#: ../../source/howto/run_codes.rst:762
+#: ../../source/howto/run_codes.rst:789
 msgid ""
 "Caching happens on the *calculation* level (no caching at the workflow "
 "level, see :ref:`topics:provenance:caching:limitations`). By default, both "
@@ -5749,17 +5766,17 @@ msgstr ""
 "后都会进入缓存。例外和被杀死的计算 *不* 进入缓存(更多详情请参见 :ref:`topics:provenance:caching:control-"
 "caching` )。"
 
-#: ../../source/howto/run_codes.rst:769
+#: ../../source/howto/run_codes.rst:796
 msgid "How to enable caching"
 msgstr "如何启用缓存"
 
-#: ../../source/howto/run_codes.rst:771
+#: ../../source/howto/run_codes.rst:798
 msgid ""
 "Caching is **not** enabled by default, see :ref:`the faq <how-"
 "to:faq:caching-not-enabled>`."
 msgstr "默认情况下未启用缓存，请参见 :ref:`the faq <how-to:faq:caching-not-enabled>` 。"
 
-#: ../../source/howto/run_codes.rst:773
+#: ../../source/howto/run_codes.rst:800
 msgid ""
 "Caching is controlled on a per-profile level via the :ref:`verdi config cli "
 "<how-to:installation:configure:options>`."
@@ -5767,16 +5784,16 @@ msgstr ""
 "缓存通过 :ref:`verdi config cli <how-to:installation:configure:options>` "
 "按配置文件级别进行控制。"
 
-#: ../../source/howto/run_codes.rst:775
+#: ../../source/howto/run_codes.rst:802
 msgid "View your current caching configuration:"
 msgstr "查看当前缓存配置："
 
-#: ../../source/howto/run_codes.rst:786
+#: ../../source/howto/run_codes.rst:813
 msgid ""
 "Enable caching for your current profile or globally (for all profiles):"
 msgstr "为当前配置文件或全局(所有配置文件)启用缓存："
 
-#: ../../source/howto/run_codes.rst:805
+#: ../../source/howto/run_codes.rst:832
 msgid ""
 "Configuring caching via the ``cache_config.yml`` is deprecated as of AiiDA "
 "1.6.0. Existing ``cache_config.yml`` files will be migrated to the central "
@@ -5785,7 +5802,7 @@ msgstr ""
 "从 AiiDA 1.6.0 起，通过 ``cache_config.yml`` 配置缓存已被弃用。现有的 ``cache_config.yml`` "
 "文件将自动迁移到中央 ``config.json`` 文件。"
 
-#: ../../source/howto/run_codes.rst:809
+#: ../../source/howto/run_codes.rst:836
 msgid ""
 "From this point onwards, when you launch a new calculation, AiiDA will "
 "compare its hash (a fixed size string, unique for a calulation's type and "
@@ -5798,17 +5815,17 @@ msgstr ""
 ":ref:`topics:provenance:caching:hashing` "
 ")和其他已经存在于你数据库中的计算。如果找到相同哈希值的其他计算，AiiDA 将重复使用其结果而不重复实际计算。"
 
-#: ../../source/howto/run_codes.rst:814
+#: ../../source/howto/run_codes.rst:841
 msgid ""
 "In contrast to caching, hashing **is** enabled by default, i.e. hashes for "
 "all your calculations will already have been computed."
 msgstr "与缓存不同的是，默认情况下***启用哈希算法，也就是说，所有计算的哈希值都已计算完毕。"
 
-#: ../../source/howto/run_codes.rst:819
+#: ../../source/howto/run_codes.rst:846
 msgid "How to configure caching"
 msgstr "如何配置缓存"
 
-#: ../../source/howto/run_codes.rst:821
+#: ../../source/howto/run_codes.rst:848
 msgid ""
 "The caching mechanism can be configured on a process class level, meaning "
 "the rules will automatically be applied to all instances of the given class,"
@@ -5817,11 +5834,11 @@ msgid ""
 msgstr ""
 "缓存机制可以在进程类级别进行配置，这意味着这些规则将自动应用于给定类的所有实例；也可以在每个实例级别进行配置，这意味着可以在启动单个进程实例时对其进行控制。"
 
-#: ../../source/howto/run_codes.rst:824
+#: ../../source/howto/run_codes.rst:851
 msgid "Class level"
 msgstr "班级级别"
 
-#: ../../source/howto/run_codes.rst:826
+#: ../../source/howto/run_codes.rst:853
 msgid ""
 "Besides the on/off switch set by ``caching.default_enabled``, caching can be"
 " controlled at the level of specific calculations using their corresponding "
@@ -5831,7 +5848,7 @@ msgstr ""
 "除了 ``caching.default_enabled`` 设置的开/关开关外，还可以使用相应的 entry point 字符串(参见 ``verdi"
 " plugin list aiida.calculations`` 的输出)在特定计算层面控制缓存："
 
-#: ../../source/howto/run_codes.rst:844
+#: ../../source/howto/run_codes.rst:871
 msgid ""
 "In this example, caching is enabled by default, but explicitly disabled for "
 "calculations of the ``TemplatereplacerCalculation`` class, identified by its"
@@ -5843,7 +5860,7 @@ msgstr ""
 "``aiida.calculations:core.templatereplacer`` entry point "
 "字符串标识)明确禁用了缓存。它还显示了如何为特定计算启用缓存(由于是整个配置文件的默认设置，因此在这里没有影响)。"
 
-#: ../../source/howto/run_codes.rst:849
+#: ../../source/howto/run_codes.rst:876
 msgid ""
 "It is also possible to provide the full import path of the class in case it "
 "does not have a registered entry point. For example, if the class can be "
@@ -5852,11 +5869,11 @@ msgstr ""
 "如果类没有注册 entry point，也可以提供类的完整 import 路径。例如，如果类的 import 地址为 ``from "
 "some.module.path import SomeClass`` ，则可添加为"
 
-#: ../../source/howto/run_codes.rst:856
+#: ../../source/howto/run_codes.rst:883
 msgid "To set multiple entry-points at once, use a ``,`` delimiter."
 msgstr "要同时设置多个入口点，请使用 ``,`` 分隔符。"
 
-#: ../../source/howto/run_codes.rst:858
+#: ../../source/howto/run_codes.rst:885
 msgid ""
 "If a specified value for ``verdi config set enabled_for/disabled_for`` is an"
 " entry point that cannot be loaded, or is a path that cannot be improted, an"
@@ -5865,13 +5882,13 @@ msgstr ""
 "如果 ``verdi config set enabled_for/disabled_for`` 的指定值是无法加载的 entry "
 "point，或者是无法改进的路径，则会出错。"
 
-#: ../../source/howto/run_codes.rst:860
+#: ../../source/howto/run_codes.rst:887
 msgid ""
 "For the available entry-points in your environment, you can list which are "
 "enabled/disabled using:"
 msgstr "对于环境中的可用入口点，您可以使用以下命令列出已启用/禁用的入口点："
 
-#: ../../source/howto/run_codes.rst:872
+#: ../../source/howto/run_codes.rst:899
 msgid ""
 "For calculations which do not have an entry point, you need to specify the "
 "fully qualified Python name instead. For example, the "
@@ -5889,13 +5906,13 @@ msgstr ""
 " 。从现有的 :class:`~aiida.orm.CalculationNode` 中，您可以通过 ``process_type`` "
 "属性获得标识符字符串。"
 
-#: ../../source/howto/run_codes.rst:876
+#: ../../source/howto/run_codes.rst:903
 msgid ""
 "The caching configuration also accepts ``*`` wildcards. For example, the "
 "following configuration disables caching for all calculation entry points."
 msgstr "缓存配置也接受 ``*`` 通配符。例如，以下配置禁用了所有计算 entry point 的缓存。"
 
-#: ../../source/howto/run_codes.rst:891
+#: ../../source/howto/run_codes.rst:918
 msgid ""
 "Any entry with a wildcard is overridden by a more specific entry. The "
 "following configuration disables caching for all ``aiida.calculation`` entry"
@@ -5904,11 +5921,11 @@ msgstr ""
 "任何带通配符的条目都会被更具体的条目覆盖。以下配置禁用了除 ``arithmetic`` 以外的所有 ``aiida.calculation`` "
 "entry point 的缓存："
 
-#: ../../source/howto/run_codes.rst:913
+#: ../../source/howto/run_codes.rst:940
 msgid "Instance level"
 msgstr "实例级别"
 
-#: ../../source/howto/run_codes.rst:915
+#: ../../source/howto/run_codes.rst:942
 msgid ""
 "Caching can be enabled or disabled on a case-by-case basis by using the "
 ":class:`~aiida.manage.caching.enable_caching` or "
@@ -5918,7 +5935,7 @@ msgstr ""
 "无论配置文件设置如何，都可以分别使用 :class:`~aiida.manage.caching.enable_caching` 或 "
 ":class:`~aiida.manage.caching.disable_caching` 上下文管理器逐个启用或禁用缓存："
 
-#: ../../source/howto/run_codes.rst:926
+#: ../../source/howto/run_codes.rst:953
 msgid ""
 "This affects only the current Python interpreter and won't change the "
 "behavior of the daemon workers. This means that this technique is only "
@@ -5928,7 +5945,7 @@ msgstr ""
 "这只会影响当前的 Python 解释器，而不会改变守护进程工作者的行为。这意味着只有在使用 :py:class:`~aiida.engine.run` "
 "时，此技术才有用，而***使用 :py:class:`~aiida.engine.submit` 时则无效。"
 
-#: ../../source/howto/run_codes.rst:929
+#: ../../source/howto/run_codes.rst:956
 msgid ""
 "By default, the ``enable_caching`` context manager will just validate that "
 "the identifier is syntactically valid. It *does not* validate that the "
@@ -5940,7 +5957,7 @@ msgstr ""
 "point 是否实际存在，是否可以被 imported 或加载。要确保 AiiDA 知道指定的标识符，请传递 ``strict=True`` "
 "关键字参数："
 
-#: ../../source/howto/run_codes.rst:940
+#: ../../source/howto/run_codes.rst:967
 msgid ""
 "When ``strict`` is set to ``True``, the function will raise a ``ValueError``"
 " if the specified class or entry point cannot be imported or loaded."
@@ -5948,7 +5965,7 @@ msgstr ""
 "当 ``strict`` 设置为 ``True`` 时，如果指定的类或 entry point 无法被 imported 或加载，函数将引发 "
 "``ValueError`` 错误。"
 
-#: ../../source/howto/run_codes.rst:942
+#: ../../source/howto/run_codes.rst:969
 msgid ""
 "Besides controlling which process classes are cached, it may be useful or "
 "necessary to control what already *stored* nodes are used as caching "
