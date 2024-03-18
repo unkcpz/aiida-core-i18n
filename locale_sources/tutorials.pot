@@ -1,0 +1,573 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014-2020, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-18 15:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/tutorials/basic.md:22
+#: ../../source/tutorials/index.rst:15
+msgid "Basic tutorial"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:24
+msgid "The goal of this tutorial is to give you an idea of how AiiDA helps you in executing data-driven workflows. At the end of this tutorial, you will know how to:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:27
+msgid "Store data in the database and subsequently retrieve it."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:28
+msgid "Decorate a Python function such that its inputs and outputs are automatically tracked."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:29
+msgid "Run and monitor the status of processes."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:30
+msgid "Explore and visualize the provenance graph."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:33
+msgid "If you are working on your own machine, note that the tutorial assumes that you have a working AiiDA installation and have set up your AiiDA profile in the current Python environment. If this is not the case, consult the {ref}`getting started page<intro:get_started>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:38
+msgid "This tutorial can be downloaded and run as a Jupyter Notebook: {nb-download}`basic.ipynb` {octicon}`download`"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:67
+msgid "Provenance"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:69
+msgid "Before we dive in, we need to briefly introduce one of the most important concepts for AiiDA: *provenance*. An AiiDA database does not only contain the results of your calculations, but also their inputs and each step that was executed to obtain them. All of this information is stored in the form of a *directed acyclic graph* (DAG). As an example, {numref}`fig_intro_workchain_graph` shows the provenance of the calculations of this tutorial."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:80
+msgid "Provenance Graph of a basic AiiDA WorkChain."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:83
+msgid "In the provenance graph, you can see different types of *nodes* represented by different shapes. The green ellipses are `Data` nodes, the blue ellipse is a `Code` node, and the rectangles represent *processes*, i.e. the calculations performed in your *workflow*."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:86
+msgid "The provenance graph allows us to not only see what data we have, but also how it was produced. During this tutorial, we will be using AiiDA to generate the provenance graph in {numref}`fig_intro_workchain_graph` step by step."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:89
+msgid "Data nodes"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:91
+msgid "Before running any calculations, let's create and store a *data node*. AiiDA ships with an interactive IPython shell that has many basic AiiDA classes pre-loaded. To start the IPython shell, simply type in the terminal:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:99
+msgid "AiiDA implements data node types for the most common types of data (int, float, str, etc.), which you can extend with your own (composite) data node types if needed. For this tutorial, we'll keep it very simple, and start by initializing an `Int` node and assigning it to the `node` variable:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:108
+msgid "We can check the contents of the `node` variable like this:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:114
+msgid "Quite a bit of information on our freshly created node is returned:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:116
+msgid "The data node is of the type `Int`"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:117
+msgid "The node has the *universally unique identifier* (**UUID**) `eac48d2b-ae20-438b-aeab-2d02b69eb6a8`"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:118
+msgid "The node is currently not stored in the database `(unstored)`"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:119
+msgid "The integer value of the node is `2`"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:121
+msgid "Let's store the node in the database:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:127
+msgid "As you can see, the data node has now been assigned a *primary key* (**PK**), a number that identifies the node in your database `(pk: 1)`. The PK and UUID both reference the node with the only difference that the PK is unique *for your local database only*, whereas the UUID is a globally unique identifier and can therefore be used between *different* databases. Use the PK only if you are working within a single database, i.e. in an interactive session and the UUID in all other cases."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:132
+msgid "The PK numbers shown throughout this tutorial assume that you start from a completely empty database. It is possible that the nodes' PKs will be different for your database!"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:135
+msgid "The UUIDs are generated randomly and are, therefore, **guaranteed** to be different."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:138
+msgid "Next, let's leave the IPython shell by typing `exit()` and then enter. Back in the terminal, use the `verdi` command line interface (CLI) to check the data node we have just created:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:145
+msgid "Once again, we can see that the node is of type `Int`, has PK = 1, and UUID = `eac48d2b-ae20-438b-aeab-2d02b69eb6a8`. Besides this information, the `verdi node show` command also shows the (empty) `label` and `description`, as well as the time the node was created (`ctime`) and last modified (`mtime`)."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:149
+msgid "AiiDA already provides many standard data types, but you can also {ref}`create your own<topics:data_types:plugin>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:152
+msgid "Calculation functions"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:154
+msgid "Once your data is stored in the database, it is ready to be used for some computational task. For example, let's say you want to multiply two `Int` data nodes. The following Python function:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:163
+msgid "will give the desired result when applied to two `Int` nodes, but the calculation will not be stored in the provenance graph. However, we can use a [Python decorator](https://docs.python.org/3/glossary.html#term-decorator) provided by AiiDA to automatically make it part of the provenance graph. Start up the AiiDA IPython shell again using `verdi shell` and execute the following code snippet:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:175
+msgid "This converts the `multiply` function into an AiIDA *calculation function*, the most basic execution unit in AiiDA. Next, load the `Int` node you have created in the previous section using the `load_node` function and the PK of the data node:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:182
+msgid "Of course, we need another integer to multiply with the first one. Let's create a new `Int` data node and assign it to the variable `y`:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:189
+msgid "Now it's time to multiply the two numbers!"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:195
+msgid "Success! The `calcfunction`-decorated `multiply` function has multiplied the two `Int` data nodes and returned a new `Int` data node whose value is the product of the two input nodes. Note that by executing the `multiply` function, all input and output nodes are automatically stored in the database:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:203
+msgid "We had not yet stored the data node assigned to the `y` variable, but by providing it as an input argument to the `multiply` function, it was automatically stored with PK = 2. Similarly, the returned `Int` node with value 6 has been stored with PK = 4."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:206
+msgid "Let's once again leave the IPython shell with `exit()` and look for the process we have just run using the `verdi` CLI:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:212
+msgid "The returned list will be empty, but don't worry! By default, `verdi process list` only returns the *active* processes. If you want to see *all* processes (i.e. also the processes that are *terminated*), simply add the `-a` option:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:220
+msgid "We can see that our `multiply` calcfunction was created 1 minute ago, assigned the PK 3, and has `Finished`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:222
+msgid "As a final step, let's have a look at the provenance of this simple calculation. The provenance graph can be automatically generated using the verdi CLI. Let's generate the provenance graph for the `multiply` calculation function we have just run with PK = 3:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:230
+msgid "The command will write the provenance graph to a `.pdf` file. Use your favorite PDF viewer to have a look. It should look something like the graph shown below."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:236
+msgid "Provenance graph of the `multiply` calculation function."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:254
+msgid "Remember that the PK of the `CalcJob` can be different for your database."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:259
+msgid "CalcJobs"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:261
+msgid "When running calculations that require an external code or run on a remote machine, a simple calculation function is no longer sufficient. For this purpose, AiiDA provides the `CalcJob` process class."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:264
+msgid "To run a `CalcJob`, you need to set up two things: a `code` that is going to implement the desired calculation and a `computer` for the calculation to run on."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:266
+msgid "If you're running this tutorial in the Quantum Mobile VM or on Binder, these have been pre-configured for you. If you're running on your own machine, you can follow the instructions in the panel below."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:269
+msgid "More details for how to {ref}`run external codes <how-to:run-codes>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+msgid "Install localhost computer and code"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:274
+msgid "Let's begin by setting up the computer using the ``verdi computer`` subcommand:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:281
+msgid "The first commands sets up the computer with the following options:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:283
+msgid "*label* (`-L`): tutor"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:284
+msgid "*hostname* (`-H`): localhost"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:285
+msgid "*transport* (`-T`): local"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:286
+msgid "*scheduler* (`-S`): direct"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:287
+msgid "*work-dir* (`-w`): The `work` subdirectory of the current directory"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:289
+msgid "The second command *configures* the computer with a minimum interval between connections (`--safe-interval`) of 1 second. For both commands, the *non-interactive* option (`-n`) is added to not prompt for extra input."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:292
+msgid "Next, let's set up the code we're going to use for the tutorial:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:298
+msgid "This command sets up a code with *label* `add` on the *computer* `tutor`, using the *plugin* `core.arithmetic.add`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:310
+msgid "A typical real-world example of a computer is a remote supercomputing facility. Codes can be anything from a Python script to powerful *ab initio* codes such as Quantum Espresso or machine learning tools like Tensorflow. Let's have a look at the codes that are available to us:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:318
+msgid "You can see a single code `add@tutor`, with PK = 5, in the printed list. This code allows us to add two integers together. The `add@tutor` identifier indicates that the code with label `add` is run on the computer with label `tutor`. To see more details about the computer, you can use the following `verdi` command:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:327
+msgid "We can see that the *Work directory* has been set up as the `work` subdirectory of the current directory. This is the directory in which the calculations running on the `tutor` computer will be executed."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:331
+msgid "You may have noticed that the PK of the `tutor` computer is 1, same as the `Int` node we created at the start of this tutorial. This is because different entities, such as nodes, computers and groups, are stored in different tables of the database. So, the PKs for each entity type are unique for each database, but entities of different types can have the same PK within one database."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:336
+msgid "Let's now start up the `verdi shell` again and load the `add@tutor` code using its label:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:343
+msgid "Every code has a convenient tool for setting up the required input, called the *builder*. It can be obtained by using the `get_builder` method:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:351
+msgid "Using the builder, you can easily set up the calculation by directly providing the input arguments. Let's use the `Int` node that was created by our previous `calcfunction` as one of the inputs and a new node as the second input:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:360
+msgid "In case that your nodes' PKs are different and you don't remember the PK of the output node from the previous calculation, check the provenance graph you generated earlier and use the UUID of the output node instead:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:367
+msgid "Note that you don't have to provide the entire UUID to load the node. As long as the first part of the UUID is unique within your database, AiiDA will find the node you are looking for."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:371
+msgid "One nifty feature of the builder is the ability to use tab completion for the inputs. Try it out by typing `builder.` + `<TAB>` in the verdi shell."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:375
+msgid "To execute the `CalcJob`, we use the `run` function provided by the AiiDA engine, and wait for the process to complete:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:381
+msgid "Besides the sum of the two `Int` nodes, the calculation function also returns two other outputs: one of type `RemoteData` and one of type `FolderData`. See the {ref}`topics section on calculation jobs <topics:calculations:usage:calcfunctions>` for more details. Now, exit the IPython shell and once more check for *all* processes:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:389
+msgid "You should now see two processes in the list. One is the `multiply` calcfunction you ran earlier, the second is the `ArithmeticAddCalculation` CalcJob that you have just run. Grab the PK of the `ArithmeticAddCalculation`, and generate the provenance graph. The result should look like the graph shown below."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:418
+msgid "You can see more details on any process, including its inputs and outputs, using the verdi shell:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:424
+msgid "Workflows"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:426
+msgid "So far we have executed each process manually. AiiDA allows us to automate these steps by linking them together in a *workflow*, whose provenance is stored to ensure reproducibility. For this tutorial we have prepared a basic `WorkChain` that is already implemented in `aiida-core`. You can see the code below:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+msgid "MultiplyAddWorkChain code"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:438
+msgid "First, we recognize the `multiply` function we have used earlier, decorated as a `calcfunction`. The `define` class method specifies the `input` and `output` of the `WorkChain`, as well as the `outline`, which are the steps of the workflow. These steps are provided as methods of the `MultiplyAddWorkChain` class."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:503
+msgid "Besides WorkChain's, workflows can also be implemented as {ref}`work functions <topics:workflows:concepts:workfunctions>`. These are ideal for workflows that are not very computationally intensive and can be easily implemented in a Python function."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:507
+msgid "Let's run the `WorkChain` above!"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:509
+msgid "Start up the `verdi shell` and load the `MultiplyAddWorkChain` using the `WorkflowFactory`:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:516
+msgid "The `WorkflowFactory` loads workflows based on their {ref}`entry point <topics:plugins:entrypoints>`, e.g. `'core.arithmetic.multiply_add'` in this case. The entry point mechanism allows AiiDA to automatically discover workflows provided by  `aiida-core` and {ref}`AiiDA plugins <how-to:plugins-install>`, and display them to the user, e.g. via `verdi plugin list aiida.workflows`. Pass the entry point as an argument to display detailed information, e.g. via `verdi plugin list aiida.workflows core.arithmetic.multiply_add`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:519
+msgid "Similar to a `CalcJob`, the `WorkChain` input can be set up using a builder:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:531
+msgid "Once the `WorkChain` input has been set up, we run it with the AiiDA engine:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:538
+msgid "Now quickly leave the IPython shell and check the process list:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+#: ../../source/tutorials/basic.md:609
+msgid "Submitting to the daemon"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:546
+msgid "If instead we had submitted to the daemon (see {ref}`tutorial:daemon`), we would see the the process status of the workchain and its dependants:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:566
+msgid "We can see that the `MultiplyAddWorkChain` is currently waiting for its *child process*, the `ArithmeticAddCalculation`, to finish. Check the process list again for *all* processes (You should know how by now!). After about half a minute, all the processes should be in the `Finished` state. The `verdi process status` command prints a *hierarchical* overview of the processes called by the work chain:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:575
+msgid "The bracket `[3:result]` indicates the current step in the outline of the {py:class}`~aiida.workflows.arithmetic.multiply_add.MultiplyAddWorkChain` (step 3, with name `result`). The `process status` is particularly useful for debugging complex work chains, since it helps pinpoint where a problem occurred."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:578
+msgid "We can now generate the full provenance graph for the `WorkChain` with:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:604
+msgid "Look familiar? The provenance graph should be similar to the one we showed at the start of this tutorial ({numref}`fig_intro_workchain_graph`)."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:611
+msgid "When we used the `run` command in the previous sections, the IPython shell was blocked while it was waiting for the `CalcJob` to finish. This is not a problem when we're simply adding two number together, but if we want to run multiple calculations that take hours or days, this is no longer practical. Instead, we are going to *submit* the `CalcJob` to the AiiDA *daemon*. The daemon is a program that runs in the background and manages submitted calculations until they are *terminated*. Let's first check the status of the daemon using the `verdi` CLI:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:621
+msgid "If the daemon is running, the output will be something like the following:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:633
+msgid "In this case, let's stop it for now:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:639
+msgid "Next, let's *submit* the `CalcJob` we ran previously. Start the `verdi shell` and execute the Python code snippet below. This follows all the steps we did previously, but now uses the `submit` function instead of `run`:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:654
+msgid "When using `submit` the calculation job is not run in the local interpreter but is sent off to the daemon and you get back control instantly. Instead of the *result* of the calculation, it returns the node of the `CalcJob` that was just submitted:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:661
+msgid "Let's exit the IPython shell and have a look at the process list:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:667
+msgid "You should see the `CalcJob` you have just submitted, with the state `Created`:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:679
+msgid "The `CalcJob` process is now waiting to be picked up by a daemon runner, but the daemon is currently disabled. Let's start it up (again):"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:686
+msgid "Now you can either use `verdi process list` to follow the execution of the `CalcJob`, or `watch` its progress:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:692
+msgid "Let's wait for the `CalcJob` to complete and then use `verdi process list -a` to see all processes we have run so far:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:708
+msgid "Next Steps"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:710
+msgid "Congratulations! You have completed the first step to becoming an AiiDA expert."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:712
+msgid "We have compiled how-to guides that are especially relevant for the following use cases:"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+msgid "Run pure Python lightweight computations"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:718
+msgid "Designing a workflow"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:719
+msgid "After reading the {ref}`Basic Tutorial <tutorial:basic>`, you may want to learn about how to encode the logic of a typical scientific workflow in the {ref}`writing workflows how-to <how-to:write-workflows>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:721
+msgid "Reusable data types"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:722
+msgid "If you have a certain input or output data type, which you use often, then you may wish to turn it into its own {ref}`data plugin <topics:data_types:plugin>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:724
+msgid "Finding and querying for your data"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:725
+#: ../../source/tutorials/basic.md:758
+msgid "Once you have run multiple computations, the {ref}`find and query data how-to <how-to:query>` can show you how to efficiently explore your data. The data lineage can also be visualised as a {ref}`provenance graph <how-to:data:visualise-provenance>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:727
+#: ../../source/tutorials/basic.md:760
+msgid "Sharing your data"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:728
+#: ../../source/tutorials/basic.md:761
+msgid "You can export all or part of your data to file with the {ref}`export/import functionality<how-to:share:archives>` or you can even serve your data over HTTP(S) using the {ref}`AiiDA REST API <how-to:share:serve>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:730
+msgid "Sharing your workflows"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:731
+msgid "Once you have a working computation workflow, you may also wish to {ref}`package it into a python module <how-to:plugins-develop>` for others to use."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+msgid "Run compute-intensive codes"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:736
+#: ../../source/tutorials/basic.md:753
+msgid "Working with external codes"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:737
+#: ../../source/tutorials/basic.md:754
+msgid "Existing calculation plugins, for interfacing with external codes, are available on the [aiida plugin registry](https://aiidateam.github.io/aiida-registry/). If none meet your needs, then the {ref}`external codes how-to <how-to:plugin-codes>` can show you how to create your own calculation plugin."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:740
+msgid "Tuning performance"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:741
+msgid "To optimise the performance of AiiDA for running many concurrent computations see the {ref}`tuning performance how-to <how-to:installation:performance>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:743
+msgid "Saving computational resources"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:744
+msgid "AiiDA can cache and reuse the outputs of identical computations, as described in the {ref}`caching how-to <how-to:run-codes:caching>`."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:0
+msgid "Run computations on High Performance Computers"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:749
+msgid "Connecting to supercomputers"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:750
+msgid "To setup up a computer which can communicate with a high-performance computer over SSH, see the {ref}`how-to for running external codes <how-to:run-codes>`, or add a {ref}`custom transport <topics:transport:develop_plugin>`. AiiDA has pre-written scheduler plugins to work with LSF, PBSPro, SGE, Slurm and Torque."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:757
+msgid "Exploring your data"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:763
+msgid "Sharing your calculation plugin"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:764
+msgid "Once you have a working plugin, you may also wish to {ref}`package it into a python module <how-to:plugins-develop>` for others to use."
+msgstr ""
+
+#: ../../source/tutorials/basic.md:771
+msgid "Todo"
+msgstr ""
+
+#: ../../source/tutorials/basic.md:772
+msgid "Add to \"Connecting to supercomputers\": , or you can add a {ref}`custom scheduler <topics:schedulers:develop_plugin>`."
+msgstr ""
+
+#: ../../source/tutorials/index.rst:27
+#: ../../source/tutorials/index.rst:35
+msgid "Additional tutorials"
+msgstr ""
+
+#: ../../source/tutorials/index.rst:5
+msgid "Tutorials"
+msgstr ""
+
+#: ../../source/tutorials/index.rst:7
+msgid "For new users, it is recommended to start with the :ref:`basic tutorial <tutorial:basic>`."
+msgstr ""
+
+#: ../../source/tutorials/index.rst:17
+msgid "First time users: Get your feet wet with AiiDA!"
+msgstr ""
+
+#: ../../source/tutorials/index.rst:24
+msgid "This tutorial provides an introductory overview of AiiDA, demonstrating how calculations and workflows are run and how the data they generate is automatically stored in a provenance graph."
+msgstr ""
+
+#: ../../source/tutorials/index.rst:29
+msgid "`Additional tutorials <https://aiida-tutorials.readthedocs.io/en/latest/>`_"
+msgstr ""
+
+#: ../../source/tutorials/index.rst:31
+msgid "These tutorials were part of in-person hands-on workshops that have been organized since 2016. In addition to tutorials, they include Youtube videos of recorded presentations and demonstrations by the AiiDA team."
+msgstr ""
