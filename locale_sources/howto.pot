@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-18 15:20+0000\n"
+"POT-Creation-Date: 2024-04-15 16:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -788,71 +788,71 @@ msgstr ""
 msgid "Isolating multiple instances"
 msgstr ""
 
-#: ../../source/howto/installation.rst:296
-msgid "An AiiDA instance is defined as the installed source code plus the configuration folder that stores the configuration files with all the configured profiles. It is possible to run multiple AiiDA instances on a single machine, simply by isolating the code and configuration in a virtual environment."
-msgstr ""
-
-#: ../../source/howto/installation.rst:299
-msgid "To isolate the code, make sure to install AiiDA into a virtual environment, e.g., with conda or venv, as described :ref:`here <intro:get_started:setup>`. Whenever you activate this particular environment, you will be running the particular version of AiiDA (and all the plugins) that you installed specifically for it."
+#: ../../source/howto/installation.rst:297
+msgid "An AiiDA instance is defined by its configuration directory, which is always named ``.aiida``. It contains the configuration file, which holds all the profile information, daemon log files, and `PID files <https://en.wikipedia.org/wiki/Process_identifier>`_."
 msgstr ""
 
 #: ../../source/howto/installation.rst:302
-msgid "This is separate from the configuration of AiiDA, which is stored in the configuration directory which is always named ``.aiida`` and by default is stored in the home directory. Therefore, the default path of the configuration directory is ``~/.aiida``. By default, each AiiDA instance (each installation) will store associated profiles in this folder. A best practice is to always separate the profiles together with the code to which they belong. The typical approach is to place the configuration folder in the virtual environment itself and have it automatically selected whenever the environment is activated."
+msgid "Depending on the storage backend, a profile's data is typically also stored in this directory. However, this is not necessarily always the case, as often the data location can be configured, and some storage backends use a database service that stores the data elsewhere on disk."
 msgstr ""
 
-#: ../../source/howto/installation.rst:308
-msgid "The location of the AiiDA configuration folder can be controlled with the ``AIIDA_PATH`` environment variable. This allows us to change the configuration folder automatically, by adding the following lines to the activation script of a virtual environment. For example, if the path of your virtual environment is ``/home/user/.virtualenvs/aiida``, add the following line:"
+#: ../../source/howto/installation.rst:305
+msgid "The location of the configuration directory is determined as follows:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:307
+msgid "1. First, the ``AIIDA_PATH`` environment variables is checked, which can be a colon-separated list of directories. The first directory that points to an existing configuration directory is selected. If no existing directories are found, the last directory defined in the variable is used and the configuration directory is created there if it did not already exist. 2. If the ``AIIDA_PATH`` is not defined, the current working directory is checked, going up the hierarchy until the first existing configuration directory is encountered. 3. If no existing configuration directory is found yet, the ``.aiida`` directory in the user's home folder is used, and is created automatically if it does not already exist."
+msgstr ""
+
+#: ../../source/howto/installation.rst:314
+msgid "Examples"
 msgstr ""
 
 #: ../../source/howto/installation.rst:316
-msgid "Make sure to reactivate the virtual environment, if it was already active, for the changes to take effect."
+msgid "Consider the following directory structure::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:320
-msgid "For ``conda``, create a directory structure ``etc/conda/activate.d`` in the root folder of your conda environment (e.g. ``/home/user/miniconda/envs/aiida``), and place a file ``aiida-init.sh`` in that folder which exports the ``AIIDA_PATH``."
+#: ../../source/howto/installation.rst:330
+msgid "The following table shows the configuration directory that is selected given a certain ``AIIDA_PATH`` variable and the current working directory:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:322
-msgid "You can test that everything works by first echoing the environment variable with ``echo $AIIDA_PATH`` to confirm it prints the correct path. Finally, you can check that AiiDA know also properly realizes the new location for the configuration folder by calling ``verdi profile list``. This should display the current location of the configuration directory:"
+#: ../../source/howto/installation.rst:333
+msgid "Variables"
 msgstr ""
 
-#: ../../source/howto/installation.rst:331
-msgid "The second line you will only see if you haven't yet setup a profile for this AiiDA instance. For information on setting up a profile, refer to :ref:`creating profiles<how-to:installation:profile>`."
+#: ../../source/howto/installation.rst:333
+msgid "Configuration directory"
 msgstr ""
 
-#: ../../source/howto/installation.rst:334
-msgid "Besides a single path, the value of ``AIIDA_PATH`` can also be a colon-separated list of paths. AiiDA will go through each of the paths and check whether they contain a configuration directory, i.e., a folder with the name ``.aiida``. The first configuration directory that is encountered will be used as the configuration directory. If no configuration directory is found, one will be created in the last path that was considered. For example, the directory structure in your home folder ``~/`` might look like this::"
+#: ../../source/howto/installation.rst:335
+msgid "``AIIDA_PATH = '~/project_b/'`` ``AIIDA_PATH = '~/project_b/.aiida'`` ``AIIDA_PATH = '~/project_a/.aiida:~/project_b/.aiida'`` ``AIIDA_PATH = '~/project_a/subfolder:~/project_a/.aiida:'`` ``CWD = '~/project_a/subfolder`` ``CWD = '~/project_b/subfolder`` ``CWD = '~/project_c/subfolder``"
+msgstr ""
+
+#: ../../source/howto/installation.rst:335
+msgid "``~/project_b/.aiida`` ``~/project_b/.aiida`` ``~/project_a/.aiida`` ``~/project_a/subfolder/.aiida`` ``~/project_a/subfolder/.aiida`` ``~/project_b/.aiida`` ``~/.aiida``"
 msgstr ""
 
 #: ../../source/howto/installation.rst:346
-msgid "If you leave the ``AIIDA_PATH`` variable unset, the default location ``~/.aiida`` will be used. However, if you set:"
+msgid "The output of ``verdi status`` contains the location of the matched configuration directory."
 msgstr ""
 
-#: ../../source/howto/installation.rst:353
-msgid "the configuration directory ``~/project_a/.aiida`` will be used."
-msgstr ""
-
-#: ../../source/howto/installation.rst:357
-msgid "If there was no ``.aiida`` directory in ``~/project_a``, AiiDA would have created it for you, so make sure to set the ``AIIDA_PATH`` correctly."
-msgstr ""
-
-#: ../../source/howto/installation.rst:363
+#: ../../source/howto/installation.rst:352
 msgid "Daemon as a service"
 msgstr ""
 
-#: ../../source/howto/installation.rst:365
+#: ../../source/howto/installation.rst:354
 msgid "The daemon can be set up as a system service, such that it automatically starts at system startup. How to do this, is operating system specific. For Ubuntu, here is `a template for the service file <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/templates/aiida-daemon%40.service>`_ and `ansible instructions to install the service <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/tasks/aiida-daemon.yml>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:373
+#: ../../source/howto/installation.rst:362
 msgid "Tuning performance"
 msgstr ""
 
-#: ../../source/howto/installation.rst:375
+#: ../../source/howto/installation.rst:364
 msgid "AiiDA supports running hundreds of thousands of calculations and graphs with millions of nodes. However, optimal performance at that scale can require tweaking the AiiDA configuration to balance the CPU and disk load."
 msgstr ""
 
-#: ../../source/howto/installation.rst:378
+#: ../../source/howto/installation.rst:367
 msgid "Below, we share a few practical tips for assessing and tuning AiiDA performance. Further in-depth information is available in the dedicated :ref:`topic on performance<topics:performance>`."
 msgstr ""
 
@@ -860,15 +860,15 @@ msgstr ""
 msgid "Benchmark workflow engine performance"
 msgstr ""
 
-#: ../../source/howto/installation.rst:383
+#: ../../source/howto/installation.rst:372
 msgid "Download the :download:`benchmark script <include/scripts/performance_benchmark_base.py>` :fa:`download`, and run it in your AiiDA environment."
 msgstr ""
 
-#: ../../source/howto/installation.rst:402
+#: ../../source/howto/installation.rst:391
 msgid "The output above was generated on an AMD Ryzen 5 3600 6-Core processor (3.6 GHz, 4.2 GHz turbo boost) using AiiDA v2.2.0, and RabbitMQ and PostgreSQL running on the same machine. Here, 100 ``ArithmeticAddCalculation`` processes completed in ~25s, corresponding to 0.25 seconds per process."
 msgstr ""
 
-#: ../../source/howto/installation.rst:405
+#: ../../source/howto/installation.rst:394
 msgid "If you observe a significantly higher runtime, you may want to check whether any relevant component (CPU, disk, postgresql, rabbitmq) is congested."
 msgstr ""
 
@@ -876,15 +876,15 @@ msgstr ""
 msgid "Increase the number of daemon workers"
 msgstr ""
 
-#: ../../source/howto/installation.rst:409
+#: ../../source/howto/installation.rst:398
 msgid "By default, the AiiDA daemon only uses a single worker, i.e. a single operating system process. If ``verdi daemon status`` shows the daemon worker constantly at high CPU usage, you can use ``verdi daemon incr X`` to add ``X`` parallel daemon workers."
 msgstr ""
 
-#: ../../source/howto/installation.rst:412
+#: ../../source/howto/installation.rst:401
 msgid "Keep in mind that other processes need to run on your computer (e.g. rabbitmq, the PostgreSQL database, ...), i.e. it's a good idea to stop increasing the number of workers before you reach the number of cores of your CPU."
 msgstr ""
 
-#: ../../source/howto/installation.rst:414
+#: ../../source/howto/installation.rst:403
 msgid "To make the change permanent, set ::"
 msgstr ""
 
@@ -892,11 +892,11 @@ msgstr ""
 msgid "Increase the number of daemon worker slots"
 msgstr ""
 
-#: ../../source/howto/installation.rst:421
+#: ../../source/howto/installation.rst:410
 msgid "Each daemon worker accepts only a limited number of tasks at a time. If ``verdi daemon status`` constantly warns about a high percentage of the available daemon worker slots being used, you can increase the number of tasks handled by each daemon worker (thus increasing the workload per worker). Increasing it to 1000 should typically work."
 msgstr ""
 
-#: ../../source/howto/installation.rst:425
+#: ../../source/howto/installation.rst:414
 msgid "Set the corresponding config variable and restart the daemon ::"
 msgstr ""
 
@@ -904,11 +904,11 @@ msgstr ""
 msgid "Prevent your operating system from indexing the file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:432
+#: ../../source/howto/installation.rst:421
 msgid "Many Linux distributions include the ``locate`` command to quickly find files and folders, and run a daily cron job ``updatedb.mlocate`` to create the corresponding index. A large file repository can take a long time to index, up to the point where the hard drive is constantly indexing."
 msgstr ""
 
-#: ../../source/howto/installation.rst:435
+#: ../../source/howto/installation.rst:424
 msgid "In order to exclude the repository folder from indexing, add its path to the ``PRUNEPATH`` variable in the ``/etc/updatedb.conf`` configuration file (use ``sudo``)."
 msgstr ""
 
@@ -916,47 +916,47 @@ msgstr ""
 msgid "Move the Postgresql database to a fast disk (SSD), ideally on a large partition."
 msgstr ""
 
-#: ../../source/howto/installation.rst:439
+#: ../../source/howto/installation.rst:428
 msgid "Stop the AiiDA daemon and :ref:`back up your database <how-to:installation:backup>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:441
+#: ../../source/howto/installation.rst:430
 msgid "Find the data directory of your postgres installation (something like ``/var/lib/postgresql/9.6/main``, ``/scratch/postgres/9.6/main``, ...)."
 msgstr ""
 
-#: ../../source/howto/installation.rst:443
+#: ../../source/howto/installation.rst:432
 msgid "The best way is to become the postgres UNIX user and enter the postgres shell::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:449
+#: ../../source/howto/installation.rst:438
 msgid "If you are unable to enter the postgres shell, try looking for the ``data_directory`` variable in a file ``/etc/postgresql/9.6/main/postgresql.conf`` or similar."
 msgstr ""
 
-#: ../../source/howto/installation.rst:451
+#: ../../source/howto/installation.rst:440
 msgid "Stop the postgres database service::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:455
+#: ../../source/howto/installation.rst:444
 msgid "Copy all files and folders from the postgres ``data_directory`` to the new location::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:477
+#: ../../source/howto/installation.rst:466
 msgid "Point the ``data_directory`` variable in your postgres configuration file (e.g. ``/etc/postgresql/9.6/main/postgresql.conf``) to the new directory."
 msgstr ""
 
-#: ../../source/howto/installation.rst:479
+#: ../../source/howto/installation.rst:468
 msgid "Restart the database daemon::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:483
+#: ../../source/howto/installation.rst:472
 msgid "Finally, check that the data directory has indeed changed::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:489
+#: ../../source/howto/installation.rst:478
 msgid "and try a simple AiiDA query with the new database. If everything went fine, you can delete the old database location."
 msgstr ""
 
-#: ../../source/howto/installation.rst:492
+#: ../../source/howto/installation.rst:481
 msgid "If you're still encountering performance issues, the following tips can help with pinpointing performance bottlenecks."
 msgstr ""
 
@@ -964,128 +964,128 @@ msgstr ""
 msgid "Analyze the RabbitMQ message rate"
 msgstr ""
 
-#: ../../source/howto/installation.rst:496
+#: ../../source/howto/installation.rst:485
 msgid "If you're observing slow performance of the AiiDA engine, the `RabbitMQ management plugin <https://www.rabbitmq.com/management.html>`_ provides an intuitive dashboard that lets you monitor the message rate and check on what the AiiDA engine is up to."
 msgstr ""
 
-#: ../../source/howto/installation.rst:498
+#: ../../source/howto/installation.rst:487
 msgid "Enable the management plugin via something like::"
 msgstr ""
 
-#: ../../source/howto/installation.rst:502
+#: ../../source/howto/installation.rst:491
 msgid "Then, navigate to http://localhost:15672/ and log in with ``guest``/``guest``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:508
+#: ../../source/howto/installation.rst:497
 msgid "Updating your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:510
+#: ../../source/howto/installation.rst:499
 msgid "Whenever updating your AiiDA installation, make sure you follow these instructions **very carefully**, even when merely upgrading the patch version! Failing to do so, may leave your installation in a broken state, or worse may even damage your data, potentially irreparably."
 msgstr ""
 
-#: ../../source/howto/installation.rst:513
+#: ../../source/howto/installation.rst:502
 msgid "Activate the Python environment where AiiDA is installed."
 msgstr ""
 
-#: ../../source/howto/installation.rst:514
+#: ../../source/howto/installation.rst:503
 msgid "Finish all running processes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:515
+#: ../../source/howto/installation.rst:504
 msgid "All finished processes will be automatically migrated, but it is not possible to resume unfinished processes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:516
+#: ../../source/howto/installation.rst:505
 msgid "Stop the daemon using ``verdi daemon stop``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:517
+#: ../../source/howto/installation.rst:506
 msgid ":ref:`Create a backup of your database and repository<how-to:installation:backup>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:521
+#: ../../source/howto/installation.rst:510
 msgid "Once you have migrated your database, you can no longer go back to an older version of ``aiida-core`` (unless you restore your database and repository from a backup)."
 msgstr ""
 
-#: ../../source/howto/installation.rst:523
+#: ../../source/howto/installation.rst:512
 msgid "Update your ``aiida-core`` installation."
 msgstr ""
 
-#: ../../source/howto/installation.rst:525
+#: ../../source/howto/installation.rst:514
 msgid "If you have installed AiiDA through ``conda`` simply run: ``conda update aiida-core``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:526
+#: ../../source/howto/installation.rst:515
 msgid "If you have installed AiiDA through ``pip`` simply run: ``pip install --upgrade aiida-core``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:527
+#: ../../source/howto/installation.rst:516
 msgid "If you have installed from the git repository using ``pip install -e .``, first delete all the ``.pyc`` files (``find . -name \"*.pyc\" -delete``) before updating your branch with ``git pull``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:530
+#: ../../source/howto/installation.rst:519
 msgid "Migrate your database with ``verdi -p <profile_name> storage migrate``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:530
+#: ../../source/howto/installation.rst:519
 msgid "Depending on the size of your database and the number of migrations to perform, data migration can take time, so please be patient."
 msgstr ""
 
-#: ../../source/howto/installation.rst:532
+#: ../../source/howto/installation.rst:521
 msgid "After the database migration finishes, you will be able to continue working with your existing data."
 msgstr ""
 
-#: ../../source/howto/installation.rst:535
+#: ../../source/howto/installation.rst:524
 msgid "If the update involved a change in the major version number of ``aiida-core``, expect backwards incompatible changes and check whether you also need to update installed plugin packages."
 msgstr ""
 
-#: ../../source/howto/installation.rst:538
+#: ../../source/howto/installation.rst:527
 msgid "Updating from 0.x.* to 1.*"
 msgstr ""
 
-#: ../../source/howto/installation.rst:539
+#: ../../source/howto/installation.rst:528
 msgid "`Additional instructions on how to migrate from 0.12.x versions <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#updating-from-0-12-to-1>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:540
+#: ../../source/howto/installation.rst:529
 msgid "`Additional instructions on how to migrate from versions 0.4 -- 0.11 <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#older-versions>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:541
+#: ../../source/howto/installation.rst:530
 msgid "For a list of breaking changes between the 0.x and the 1.x series of AiiDA, `see here <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#breaking-changes-from-0-12-to-1>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:544
+#: ../../source/howto/installation.rst:533
 msgid "Updating from 1.* to 2.*"
 msgstr ""
 
-#: ../../source/howto/installation.rst:546
+#: ../../source/howto/installation.rst:535
 msgid "See the :doc:`../reference/_changelog` for a list of breaking changes."
 msgstr ""
 
-#: ../../source/howto/installation.rst:551
+#: ../../source/howto/installation.rst:540
 msgid "Backing up your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:553
+#: ../../source/howto/installation.rst:542
 msgid "A full backup of an AiiDA instance and AiiDA managed data requires a backup of:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:555
+#: ../../source/howto/installation.rst:544
 msgid "the AiiDA configuration folder, which is named ``.aiida``. The location of the folder is shown in the output of ``verdi status``. This folder contains, among other things, the ``config.json`` configuration file and log files."
 msgstr ""
 
-#: ../../source/howto/installation.rst:559
+#: ../../source/howto/installation.rst:548
 msgid "the data stored for each profile. Where the data is stored, depends on the storage backend used by each profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:562
-#: ../../source/howto/installation.rst:620
+#: ../../source/howto/installation.rst:551
+#: ../../source/howto/installation.rst:609
 msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:565
+#: ../../source/howto/installation.rst:554
 msgid "Before creating a backup, it is recommended to run ``verdi storage maintain``. This will optimize the storage which can significantly reduce the time required to create the backup. For optimal results, run ``verdi storage maintain --full``. Note that this requires the profile to not be in use by any other process."
 msgstr ""
 
@@ -1093,77 +1093,77 @@ msgstr ""
 msgid "psql_dos"
 msgstr ""
 
-#: ../../source/howto/installation.rst:574
+#: ../../source/howto/installation.rst:563
 msgid "The ``psql_dos`` storage backend is the default backend for AiiDA. It stores its data in a PostgreSQL database and a file repository on the local filesystem. To fully backup the data stored for a profile, you should backup the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:578
-#: ../../source/howto/installation.rst:629
+#: ../../source/howto/installation.rst:567
+#: ../../source/howto/installation.rst:618
 msgid "**PostgreSQL database**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:580
+#: ../../source/howto/installation.rst:569
 msgid "To export the entire database, we recommend to use the `pg_dump <https://www.postgresql.org/docs/12/app-pgdump.html>`_ utility:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:586
+#: ../../source/howto/installation.rst:575
 msgid "The ``-W`` flag will ensure to prompt for the database password. The parameters between brackets should be replaced with the values that have been configured for the profile. You can retrieve these from the ``storage.config`` returned by the ``verdi profile show`` command."
 msgstr ""
 
-#: ../../source/howto/installation.rst:592
+#: ../../source/howto/installation.rst:581
 msgid "In order to avoid having to enter your database password each time you use the script, you can create a file ``.pgpass`` in your home directory containing your database credentials, as described `in the PostgreSQL documentation <https://www.postgresql.org/docs/12/libpq-pgpass.html>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:594
-#: ../../source/howto/installation.rst:638
+#: ../../source/howto/installation.rst:583
+#: ../../source/howto/installation.rst:627
 msgid "**File repository**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:596
+#: ../../source/howto/installation.rst:585
 msgid "The file repository is a directory on the local file system. The most efficient way to create a backup is to use the `rsync <https://en.wikipedia.org/wiki/Rsync>`_ utility. The path of the repository is shown in the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. To create a backup, simply run:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:609
+#: ../../source/howto/installation.rst:598
 msgid "Restoring your installation"
 msgstr ""
 
-#: ../../source/howto/installation.rst:611
+#: ../../source/howto/installation.rst:600
 msgid "Restoring a backed up AiiDA installation requires:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:613
+#: ../../source/howto/installation.rst:602
 msgid "restoring the backed up ``.aiida`` folder, with at the very least the ``config.json`` file it contains. It should be placed in the path defined by the ``AIIDA_PATH`` environment variable. To test the restoration worked, run ``verdi profile list`` to verify that all profiles are displayed."
 msgstr ""
 
-#: ../../source/howto/installation.rst:617
+#: ../../source/howto/installation.rst:606
 msgid "restoring the data of each backed up profile. Like the backup procedure, this is dependent on the storage backend used by the profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:627
+#: ../../source/howto/installation.rst:616
 msgid "To fully backup the data stored for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:631
+#: ../../source/howto/installation.rst:620
 msgid "To restore the PostgreSQL database from the ``.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase. The backed up data can then be imported by calling:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:640
+#: ../../source/howto/installation.rst:629
 msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated by the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. Like the backing up process, we recommend using ``rsync`` for this:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:651
+#: ../../source/howto/installation.rst:640
 msgid "Managing multiple users"
 msgstr ""
 
-#: ../../source/howto/installation.rst:652
+#: ../../source/howto/installation.rst:641
 msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
 msgstr ""
 
-#: ../../source/howto/installation.rst:656
+#: ../../source/howto/installation.rst:645
 msgid "The typical setup involves each user individually installing AiiDA on their operating system account. Data can be shared between private AiiDA profiles through :ref:`AiiDA's export and import functionality <how-to:share:archives>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:659
+#: ../../source/howto/installation.rst:648
 msgid "Note that while the configuration file of an AiiDA instance contains access credentials (e.g. for the postgresql database or the rabbitmq service), AiiDA does not store sensitive data in the database or file repository, and AiiDA export archives never contain such data."
 msgstr ""
 
@@ -2114,7 +2114,7 @@ msgid "A package can also be installed from the source code. For example, if the
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:30
-msgid "If your daemon was running when installing or updating a plugin package, make sure to restart it with the ``--reset`` flag for changes to take effect:"
+msgid "If you installed or updated a plugin package while your daemon was running, be sure to restart it so that the changes take effect:"
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:36
