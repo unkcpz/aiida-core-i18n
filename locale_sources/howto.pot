@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AiiDA 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-18 15:20+0000\n"
+"POT-Creation-Date: 2024-04-23 09:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -616,6 +616,14 @@ msgstr ""
 msgid "When the SSH key pair expires, AiiDA will fail to connect to the remote computer. This will cause all calculations submitted on that computer to pause. To restart them, one needs to generate a new SSH key pair and play the paused processes using ``verdi process play --all``. Typically, this is all one needs to do - AiiDA will re-establish the connection to the computer and will continue following the calculations."
 msgstr ""
 
+#: ../../source/howto/faq.rst:116
+msgid "How to back up AiiDA data?"
+msgstr ""
+
+#: ../../source/howto/faq.rst:118
+msgid "The most convenient way to back up an AiiDA profile is to use the ``verdi --profile <name> storage backup`` command. For more information, see :ref:`how-to:installation:backup`."
+msgstr ""
+
 #: ../../source/howto/index.rst:3
 msgid "How-To Guides"
 msgstr ""
@@ -1065,27 +1073,46 @@ msgid "See the :doc:`../reference/_changelog` for a list of breaking changes."
 msgstr ""
 
 #: ../../source/howto/installation.rst:551
-msgid "Backing up your installation"
+msgid "Backing up your data"
 msgstr ""
 
-#: ../../source/howto/installation.rst:553
-msgid "A full backup of an AiiDA instance and AiiDA managed data requires a backup of:"
+#: ../../source/howto/installation.rst:554
+msgid "General information"
 msgstr ""
 
-#: ../../source/howto/installation.rst:555
-msgid "the AiiDA configuration folder, which is named ``.aiida``. The location of the folder is shown in the output of ``verdi status``. This folder contains, among other things, the ``config.json`` configuration file and log files."
-msgstr ""
-
-#: ../../source/howto/installation.rst:559
-msgid "the data stored for each profile. Where the data is stored, depends on the storage backend used by each profile."
+#: ../../source/howto/installation.rst:556
+msgid "The most convenient way to back up the data of a single AiiDA profile is to use"
 msgstr ""
 
 #: ../../source/howto/installation.rst:562
-#: ../../source/howto/installation.rst:620
-msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
+msgid "This command automatically manages a subfolder structure of previous backups, and new backups are done in an efficient way (using ``rsync`` hard-link functionality to the previous backup). The command backs up everything that's needed to restore the profile later:"
 msgstr ""
 
 #: ../../source/howto/installation.rst:565
+msgid "the AiiDA configuration file ``.aiida/config.json``, from which other profiles are removed (see ``verdi status`` for exact location);"
+msgstr ""
+
+#: ../../source/howto/installation.rst:566
+msgid "all the data of the backed up profile (which depends on the storage backend)."
+msgstr ""
+
+#: ../../source/howto/installation.rst:568
+msgid "The specific procedure of the command and whether it even is implemented depends on the storage backend."
+msgstr ""
+
+#: ../../source/howto/installation.rst:571
+msgid "The ``verdi storage backup`` command is implemented in a way to be as safe as possible to use when AiiDA is running, meaning that it will most likely produce an uncorrupted backup even when data is being modified. However, the exact conditions depend on the specific storage backend and to err on the safe side, only perform a backup when the profile is not in use."
+msgstr ""
+
+#: ../../source/howto/installation.rst:574
+msgid "Storage backend specific information"
+msgstr ""
+
+#: ../../source/howto/installation.rst:576
+msgid "Alternatively to the CLI command, one can also manually create a backup. This requires a backup of the configuration file  ``.aiida/config.json`` and the storage backend. The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
+msgstr ""
+
+#: ../../source/howto/installation.rst:578
 msgid "Before creating a backup, it is recommended to run ``verdi storage maintain``. This will optimize the storage which can significantly reduce the time required to create the backup. For optimal results, run ``verdi storage maintain --full``. Note that this requires the profile to not be in use by any other process."
 msgstr ""
 
@@ -1093,77 +1120,85 @@ msgstr ""
 msgid "psql_dos"
 msgstr ""
 
-#: ../../source/howto/installation.rst:574
+#: ../../source/howto/installation.rst:587
 msgid "The ``psql_dos`` storage backend is the default backend for AiiDA. It stores its data in a PostgreSQL database and a file repository on the local filesystem. To fully backup the data stored for a profile, you should backup the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:578
-#: ../../source/howto/installation.rst:629
+#: ../../source/howto/installation.rst:591
+#: ../../source/howto/installation.rst:643
 msgid "**PostgreSQL database**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:580
+#: ../../source/howto/installation.rst:593
 msgid "To export the entire database, we recommend to use the `pg_dump <https://www.postgresql.org/docs/12/app-pgdump.html>`_ utility:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:586
+#: ../../source/howto/installation.rst:599
 msgid "The ``-W`` flag will ensure to prompt for the database password. The parameters between brackets should be replaced with the values that have been configured for the profile. You can retrieve these from the ``storage.config`` returned by the ``verdi profile show`` command."
 msgstr ""
 
-#: ../../source/howto/installation.rst:592
+#: ../../source/howto/installation.rst:605
 msgid "In order to avoid having to enter your database password each time you use the script, you can create a file ``.pgpass`` in your home directory containing your database credentials, as described `in the PostgreSQL documentation <https://www.postgresql.org/docs/12/libpq-pgpass.html>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:594
-#: ../../source/howto/installation.rst:638
+#: ../../source/howto/installation.rst:607
+#: ../../source/howto/installation.rst:654
 msgid "**File repository**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:596
+#: ../../source/howto/installation.rst:609
 msgid "The file repository is a directory on the local file system. The most efficient way to create a backup is to use the `rsync <https://en.wikipedia.org/wiki/Rsync>`_ utility. The path of the repository is shown in the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. To create a backup, simply run:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:609
-msgid "Restoring your installation"
+#: ../../source/howto/installation.rst:622
+msgid "Restoring data from a backup"
 msgstr ""
 
-#: ../../source/howto/installation.rst:611
-msgid "Restoring a backed up AiiDA installation requires:"
+#: ../../source/howto/installation.rst:624
+msgid "Restoring a backed up AiiDA profile requires:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:613
-msgid "restoring the backed up ``.aiida`` folder, with at the very least the ``config.json`` file it contains. It should be placed in the path defined by the ``AIIDA_PATH`` environment variable. To test the restoration worked, run ``verdi profile list`` to verify that all profiles are displayed."
+#: ../../source/howto/installation.rst:626
+msgid "restoring the profile information in the AiiDA ``config.json`` file. Simply copy the`profiles` entry from the backed up `config.json`to the one of the running AiiDA instance (see `verdi status` for exact location). Some information (e.g. the database parameters) might need to be updated."
 msgstr ""
 
-#: ../../source/howto/installation.rst:617
-msgid "restoring the data of each backed up profile. Like the backup procedure, this is dependent on the storage backend used by the profile."
+#: ../../source/howto/installation.rst:630
+msgid "restoring the data of of the backed up profile according to the ``config.json`` entry. Like the backup procedure, this is dependent on the storage backend used by the profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:627
-msgid "To fully backup the data stored for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
+#: ../../source/howto/installation.rst:633
+msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``. To test if the restoration worked, run ``verdi -p <profile-name> status`` to verify that AiiDA can successfully connect to the data storage."
 msgstr ""
 
-#: ../../source/howto/installation.rst:631
-msgid "To restore the PostgreSQL database from the ``.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase. The backed up data can then be imported by calling:"
+#: ../../source/howto/installation.rst:641
+msgid "To restore the backed up data for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:640
-msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated by the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. Like the backing up process, we recommend using ``rsync`` for this:"
-msgstr ""
-
-#: ../../source/howto/installation.rst:651
-msgid "Managing multiple users"
+#: ../../source/howto/installation.rst:645
+msgid "To restore the PostgreSQL database from the ``db.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase. The backed up data can then be imported by calling:"
 msgstr ""
 
 #: ../../source/howto/installation.rst:652
-msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
+msgid "where the parameters need to match with the corresponding AiiDA `config.json` profile entry."
 msgstr ""
 
 #: ../../source/howto/installation.rst:656
+msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated in AiiDA `config.json` (or the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command). Like the backing up process, we recommend using ``rsync`` for this:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:667
+msgid "Managing multiple users"
+msgstr ""
+
+#: ../../source/howto/installation.rst:668
+msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
+msgstr ""
+
+#: ../../source/howto/installation.rst:672
 msgid "The typical setup involves each user individually installing AiiDA on their operating system account. Data can be shared between private AiiDA profiles through :ref:`AiiDA's export and import functionality <how-to:share:archives>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:659
+#: ../../source/howto/installation.rst:675
 msgid "Note that while the configuration file of an AiiDA instance contains access credentials (e.g. for the postgresql database or the rabbitmq service), AiiDA does not store sensitive data in the database or file repository, and AiiDA export archives never contain such data."
 msgstr ""
 
@@ -1950,150 +1985,174 @@ msgid "AiiDA's fixtures"
 msgstr ""
 
 #: ../../source/howto/plugins_develop.rst:159
-msgid "Many tests require a full AiiDA environment to be set up before the test starts, e.g. some AiiDA data nodes. The pytest library has the concept of `fixtures`_ for encapsulating code you would like to run before a test starts. AiiDA ships with a number of fixtures in :py:mod:`aiida.manage.tests.pytest_fixtures` that take care of setting up the test environment for you (for more details, see :ref:`topics:plugins:testfixtures`)."
+msgid "Many tests require a full AiiDA environment to be set up before the test starts, e.g. some AiiDA data nodes. The pytest library has the concept of `fixtures`_ for encapsulating code you would like to run before a test starts. AiiDA ships with a number of fixtures in :py:mod:`aiida.tools.pytest_fixtures` that take care of setting up the test environment for you (for more details, see :ref:`topics:plugins:testfixtures`)."
 msgstr ""
 
 #: ../../source/howto/plugins_develop.rst:163
 msgid "In order to make these fixtures available to your tests, create a ``conftest.py`` (see also `pytest docs <conftest_>`_) at the root level of your plugin package as follows::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:181
-msgid "You can now start writing tests e.g. in a ``tests/test_calculations.py`` file::"
+#: ../../source/howto/plugins_develop.rst:169
+msgid "By importing AiiDA's fixtures, the ``aiida_profile`` fixture gets used automatically, which takes care that a test profile is created and loaded. The profile (and configuration directory in which it is hosted) is only temporary and is automatically removed after the test session finished. This ensures that any production profiles on the system are not affected by the tests."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:201
+#: ../../source/howto/plugins_develop.rst:173
+msgid "Other fixtures have to be explicitly used in a test to be of use. They usually allow creating some resources that are required by the test, such as a ``Code`` node:"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:188
+msgid "def test_calculation(aiida_code_installed):"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:177
+msgid "\"\"\"Test running a calculation using a ``CalcJob`` plugin.\"\"\" from aiida.engine import run"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:180
+msgid "code = aiida_code_installed(default_calc_job_plugin='core.arithmetic.add', filepath_executable='/bin/bash') builder = code.get_builder() builder.x = orm.Int(1) builder.y = orm.Int(2)"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:185
+msgid "results, node = run.get_node(builder)"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:187
+msgid "assert node.is_finished_ok assert results['sum'] == 3"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:190
 msgid "In order to run your tests, simply type ``pytest`` at the root level or your package. pytest automatically discovers and executes files, classes and function names starting with the word ``test``."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:211
+#: ../../source/howto/plugins_develop.rst:200
 msgid "Documenting a plugin package"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:213
+#: ../../source/howto/plugins_develop.rst:202
 msgid "AiiDA plugin packages are python packages, and general `best practises for writing python documentation <https://docs.python-guide.org/writing/documentation/>`_ apply."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:215
+#: ../../source/howto/plugins_develop.rst:204
 msgid "In the following, we mention a few hints that apply specifically to AiiDA plugins."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:218
+#: ../../source/howto/plugins_develop.rst:207
 msgid "Repository-level documentation"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:220
+#: ../../source/howto/plugins_develop.rst:209
 msgid "Since the source code of most AiiDA plugins is hosted on GitHub, the first contact of a new user with your plugin package is likely the landing page of your GitHub repository."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:222
+#: ../../source/howto/plugins_develop.rst:211
 msgid "Make sure to have a useful ``README.md``, describing what your plugin does and how to install it."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:223
+#: ../../source/howto/plugins_develop.rst:212
 msgid "Leaving a contact email and adding a license is also a good idea."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:224
+#: ../../source/howto/plugins_develop.rst:213
 msgid "Make sure the information in the ``pyproject.toml`` file is correct and up to date (in particular the version number), since this information is used to advertise your package on the AiiDA plugin registry."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:227
+#: ../../source/howto/plugins_develop.rst:216
 msgid "Source-code-level documentation"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:229
+#: ../../source/howto/plugins_develop.rst:218
 msgid "Source-code level documentations matters both for users of your plugin's python API and, particularly, for attracting contributions from others."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:231
+#: ../../source/howto/plugins_develop.rst:220
 msgid "When adding new types of calculations or workflows, make sure to use `docstrings <https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring>`_, and use the ``help`` argument to document input ports and output ports. Users of your plugin can then inspect which inputs the calculations/workflows expect and which outputs they produce directly through the ``verdi`` cli. For example, try::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:238
+#: ../../source/howto/plugins_develop.rst:227
 msgid "Documentation website"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:240
+#: ../../source/howto/plugins_develop.rst:229
 msgid "For simple plugins, a well-written ``README.md`` can be a good start. Once the README grows out of proportion, you may want to consider creating a dedicated documentation website."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:243
+#: ../../source/howto/plugins_develop.rst:232
 msgid "The `Sphinx <http://www.sphinx-doc.org/en/master/>`_ tool makes it very easy to create documentation websites for python packages, and the `ReadTheDocs <http://readthedocs.org/>`_ service will host your sphinx documentation online for free. The `aiida-diff demo plugin <aiida-diff_>`_ comes with a full template for a sphinx-based documentation, including a mix of manually written pages and an automatically generated documentation of your plugin's python API. See the `developer guide of aiida-diff <https://aiida-diff.readthedocs.io/en/latest/developer_guide/index.html>`_ for instructions on how to build it."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:247
+#: ../../source/howto/plugins_develop.rst:236
 msgid "AiiDA provides a sphinx extension for inserting automatically generated documentations of ``Process`` classes (calculations and workflows) into your sphinx documentation (analogous to the information displayed by ``verdi plugin list``). Enable the extension by adding ``aiida.sphinxext`` to the list of ``extensions`` in your ``docs/conf.py`` file. You can now use the ``aiida-process``, ``aiida-calcjob`` or ``aiida-workchain`` directives in your ReST files like so::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:255
+#: ../../source/howto/plugins_develop.rst:244
 msgid "Here,"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:257
+#: ../../source/howto/plugins_develop.rst:246
 msgid "``MyWorkChain`` is the name of the workchain to be documented."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:258
+#: ../../source/howto/plugins_develop.rst:247
 msgid "``:module:`` is the python module from which the workchain can be imported."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:259
+#: ../../source/howto/plugins_develop.rst:248
 msgid "``:hide-unstored-inputs:`` hides workchain inputs that are not stored in the database (shown by default)."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:263
+#: ../../source/howto/plugins_develop.rst:252
 msgid "The ``aiida-workchain`` directive is hooked into ``sphinx.ext.autodoc``, i.e. it is used automatically by the generic ``automodule``, ``autoclass`` directives when applied to workchain classes."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:270
+#: ../../source/howto/plugins_develop.rst:259
 msgid "Publishing a plugin package"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:272
+#: ../../source/howto/plugins_develop.rst:261
 msgid "AiiDA plugin packages are published on the `AiiDA plugin registry <registry_>`_ and the `python package index (PyPI) <pypi_>`_."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:274
+#: ../../source/howto/plugins_develop.rst:263
 msgid "Before publishing your plugin, make sure your plugin comes with:"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:276
+#: ../../source/howto/plugins_develop.rst:265
 msgid "a ``pyproject.toml`` file with the plugin metadata and for installing your plugin via ``pip``"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:277
+#: ../../source/howto/plugins_develop.rst:266
 msgid "a license"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:279
+#: ../../source/howto/plugins_develop.rst:268
 msgid "For examples of these files, see the `aiida-diff demo plugin <aiida-diff_>`_."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:284
+#: ../../source/howto/plugins_develop.rst:273
 msgid "Publishing on the plugin registry"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:286
+#: ../../source/howto/plugins_develop.rst:275
 msgid "The `AiiDA plugin registry <registry_>`_ aims to be the home for all publicly available AiiDA plugins. It collects information on the type of plugins provided by your package, which AiiDA versions it is compatible with, etc."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:289
+#: ../../source/howto/plugins_develop.rst:278
 msgid "In order to register your plugin package, simply go to the `plugin registry <registry_>`_ and follow the instructions in the README."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:293
+#: ../../source/howto/plugins_develop.rst:282
 msgid "The plugin registry reads the metadata of your plugin from the ``pyproject.toml`` file in your plugin repository."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:296
+#: ../../source/howto/plugins_develop.rst:285
 msgid "We encourage you to **get your plugin package listed as soon as possible**, both in order to reserve the plugin name and to inform others of the ongoing development."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:299
+#: ../../source/howto/plugins_develop.rst:288
 msgid "Publishing on PyPI"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:301
+#: ../../source/howto/plugins_develop.rst:290
 msgid "For distributing AiiDA plugin packages, we recommend to follow the `guidelines for packaging python projects <packaging_>`_, which include making the plugin available on the `python package index <PyPI_>`_. This makes it possible for users to simply ``pip install aiida-myplugin``."
 msgstr ""
 
@@ -2114,7 +2173,7 @@ msgid "A package can also be installed from the source code. For example, if the
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:30
-msgid "If your daemon was running when installing or updating a plugin package, make sure to restart it with the ``--reset`` flag for changes to take effect:"
+msgid "If you installed or updated a plugin package while your daemon was running, be sure to restart it so that the changes take effect:"
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:36
