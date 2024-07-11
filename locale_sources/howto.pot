@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AiiDA 2.5\n"
+"Project-Id-Version: AiiDA 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-18 15:20+0000\n"
+"POT-Creation-Date: 2024-07-11 14:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,6 +100,30 @@ msgstr ""
 msgid "that you can then use, for instance, as follows:"
 msgstr ""
 
+#: ../../source/howto/daemon.rst:5
+msgid "How to manage the daemon"
+msgstr ""
+
+#: ../../source/howto/daemon.rst:7
+msgid "The AiiDA daemon process runs in the background and takes care of processing your submitted calculations and workflows, checking their status, retrieving their results once they are finished and storing them in the AiiDA database."
+msgstr ""
+
+#: ../../source/howto/daemon.rst:9
+msgid "The AiiDA daemon is controlled using three simple commands:"
+msgstr ""
+
+#: ../../source/howto/daemon.rst:11
+msgid "``verdi daemon start``: start the daemon"
+msgstr ""
+
+#: ../../source/howto/daemon.rst:12
+msgid "``verdi daemon status``: check the status of the daemon"
+msgstr ""
+
+#: ../../source/howto/daemon.rst:13
+msgid "``verdi daemon stop``: stop the daemon"
+msgstr ""
+
 #: ../../source/howto/data.rst:-1
 msgid "grouppath"
 msgstr ""
@@ -152,371 +176,395 @@ msgstr ""
 msgid "If none of the currently available data types, as listed by ``verdi plugin list``, seem to fit your needs, you can also create your own custom type. For details refer to the next section :ref:`\"How to add support for custom data types\"<topics:data_types:plugin>`."
 msgstr ""
 
-#: ../../source/howto/data.rst:85
-msgid "Provenance"
+#: ../../source/howto/data.rst:84
+msgid "Dumping data to disk"
 msgstr ""
 
-#: ../../source/howto/data.rst:87
-msgid "While AiiDA will automatically keep the provenance of data that is created by it through calculations and workflows, this is clearly not the case when creating data nodes manually, as described in the previous section. Typically, the manual creation of data happens at the beginning of a project when data from external databases is imported as a starting point for further calculations. To still keep some form of provenance, the :class:`~aiida.orm.Data` base class allows to record the _source_ of the data it contains. When constructing a new data node, of any type, you can pass a dictionary with information of the source under the ``source`` keyword argument:"
+#: ../../source/howto/data.rst:88
+msgid "It is now possible to dump your executed workflows to disk in a hierarchical directory tree structure. This can be particularly useful if one is not yet familiar with the ``QueryBuilder`` or wants to quickly explore input/output files using existing shell scripts or common terminal utilities, such as ``grep``. The dumping can be achieved with the command:"
 msgstr ""
 
 #: ../../source/howto/data.rst:96
-msgid "Once stored, this data can always be retrieved through the ``source`` property:"
+msgid "For our beloved ``MultiplyAddWorkChain``, we obtain the following:"
 msgstr ""
 
-#: ../../source/howto/data.rst:102
-msgid "The following list shows all the keys that are allowed to be set in the ``source`` dictionary:"
+#: ../../source/howto/data.rst:126
+msgid "The ``README.md`` file provides a description of the directory structure, as well as useful information about the top-level process. Further, numbered subdirectories are created for each step of the workflow, resulting in the ``01-multiply`` and ``02-ArithmeticAddCalculation`` folders. The raw calculation input and output files ``aiida.in`` and ``aiida.out`` of the ``ArithmeticAddCalculation`` are placed in ``inputs`` and ``outputs``. In addition, these also contain the submission script ``_aiidasubmit.sh``, as well as the scheduler stdout and stderr, ``_scheduler-stdout.txt`` and ``_scheduler-stderr.txt``, respectively. Lastly, the source code of the ``multiply`` ``calcfunction`` presenting the first step of the workflow is contained in the ``source_file``."
 msgstr ""
 
-#: ../../source/howto/data.rst:104
-msgid "``db_name``: The name of the external database."
-msgstr ""
-
-#: ../../source/howto/data.rst:105
-msgid "``db_uri``: The base URI of the external database."
-msgstr ""
-
-#: ../../source/howto/data.rst:106
-msgid "``uri``: The exact URI of where the data can be retrieved. Ideally this is a persistent URI."
-msgstr ""
-
-#: ../../source/howto/data.rst:107
-msgid "``id``: The external ID with which the data is identified in the external database."
-msgstr ""
-
-#: ../../source/howto/data.rst:108
-msgid "``version``: The version of the data, if any."
-msgstr ""
-
-#: ../../source/howto/data.rst:109
-msgid "``extras``: Optional dictionary with other fields for source description."
-msgstr ""
-
-#: ../../source/howto/data.rst:110
-msgid "``source_md5``: MD5 checksum of the data."
-msgstr ""
-
-#: ../../source/howto/data.rst:111
-msgid "``description``: Human-readable free form description of the data's source."
-msgstr ""
-
-#: ../../source/howto/data.rst:112
-msgid "``license``: A string with the type of license that applies to the data, if any."
-msgstr ""
-
-#: ../../source/howto/data.rst:114
-msgid "If any other keys are defined, an exception will be raised by the constructor."
-msgstr ""
-
-#: ../../source/howto/data.rst:120
-msgid "Organizing data"
-msgstr ""
-
-#: ../../source/howto/data.rst:125
-msgid "How to group nodes"
-msgstr ""
-
-#: ../../source/howto/data.rst:127
-msgid "AiiDA's database is great for automatically storing all your data, but sometimes it can be tricky to navigate this flat data store. To create some order in this mass of data, you can *group* sets of nodes together, just as you would with files in folders on your filesystem. A folder, in this analogy, is represented by the :py:class:`~aiida.orm.groups.Group` class. Each group instance can hold any amount of nodes and any node can be contained in any number of groups. A typical use case is to store all nodes that share a common property in a single group."
-msgstr ""
-
-#: ../../source/howto/data.rst:133
-msgid "Below we show how to perform a typical set of operations one may want to perform with groups."
-msgstr ""
-
-#: ../../source/howto/data.rst:136
-msgid "Create a new group"
+#: ../../source/howto/data.rst:134
+msgid "Upon having a closer look at the directory, we also find the hidden ``.aiida_node_metadata.yaml`` files, which are created for every ``ProcessNode`` and contain additional information about the ``Node``, the ``User``, and the ``Computer``, as well as the ``.aiida`` subdirectory with machine-readable AiiDA-internal data in JSON format."
 msgstr ""
 
 #: ../../source/howto/data.rst:138
-#: ../../source/howto/data.rst:202
-#: ../../source/howto/data.rst:220
-#: ../../source/howto/data.rst:254
-#: ../../source/howto/data.rst:272
-#: ../../source/howto/data.rst:295
-msgid "From the command line interface:"
+msgid "Since child processes are explored recursively, arbitrarily complex, nested workflows can be dumped. As already seen above, the ``-p`` flag allows to specify a custom dumping path. If none is provided, it is automatically generated from the ``process_label`` (or ``process_type``) and the ``pk``. In addition, the command provides the ``-o`` flag to overwrite existing directories, the ``-f`` flag to dump all files for each ``CalculationNode`` of the workflow in a flat directory structure, and the ``--include-inputs/--exclude-inputs`` (``--include-outputs/--exclude-outputs``) flags to also dump additional node inputs (outputs) of each ``CalculationNode`` of the workflow into ``node_inputs`` (``node_outputs``) subdirectories. For a full list of available options, call :code:`verdi process dump --help`."
 msgstr ""
 
-#: ../../source/howto/data.rst:144
-#: ../../source/howto/data.rst:227
-#: ../../source/howto/data.rst:261
-#: ../../source/howto/data.rst:302
-msgid "From the Python interface:"
+#: ../../source/howto/data.rst:149
+msgid "Provenance"
 msgstr ""
 
-#: ../../source/howto/data.rst:155
-msgid "List available groups"
+#: ../../source/howto/data.rst:151
+msgid "While AiiDA will automatically keep the provenance of data that is created by it through calculations and workflows, this is clearly not the case when creating data nodes manually, as described in the previous section. Typically, the manual creation of data happens at the beginning of a project when data from external databases is imported as a starting point for further calculations. To still keep some form of provenance, the :class:`~aiida.orm.Data` base class allows to record the _source_ of the data it contains. When constructing a new data node, of any type, you can pass a dictionary with information of the source under the ``source`` keyword argument:"
 msgstr ""
 
-#: ../../source/howto/data.rst:157
-msgid "Example:"
+#: ../../source/howto/data.rst:160
+msgid "Once stored, this data can always be retrieved through the ``source`` property:"
 msgstr ""
 
-#: ../../source/howto/data.rst:163
-msgid "Groups come in different types, indicated by their type string. By default ``verdi group list`` only shows groups of the type *core*. In case you want to show groups of another type use ``-T/--type-string`` option. If you want to show groups of all types, use the ``-a/--all-types`` option."
+#: ../../source/howto/data.rst:166
+msgid "The following list shows all the keys that are allowed to be set in the ``source`` dictionary:"
 msgstr ""
 
 #: ../../source/howto/data.rst:168
-msgid "For example, to list groups of type ``core.auto``, use:"
+msgid "``db_name``: The name of the external database."
+msgstr ""
+
+#: ../../source/howto/data.rst:169
+msgid "``db_uri``: The base URI of the external database."
+msgstr ""
+
+#: ../../source/howto/data.rst:170
+msgid "``uri``: The exact URI of where the data can be retrieved. Ideally this is a persistent URI."
+msgstr ""
+
+#: ../../source/howto/data.rst:171
+msgid "``id``: The external ID with which the data is identified in the external database."
+msgstr ""
+
+#: ../../source/howto/data.rst:172
+msgid "``version``: The version of the data, if any."
+msgstr ""
+
+#: ../../source/howto/data.rst:173
+msgid "``extras``: Optional dictionary with other fields for source description."
 msgstr ""
 
 #: ../../source/howto/data.rst:174
-msgid "Similarly, we can use the ``type_string`` key to filter groups with the ``QueryBuilder``:"
+msgid "``source_md5``: MD5 checksum of the data."
 msgstr ""
 
-#: ../../source/howto/data.rst:185
-msgid "Add nodes to a group"
+#: ../../source/howto/data.rst:175
+msgid "``description``: Human-readable free form description of the data's source."
 msgstr ""
 
-#: ../../source/howto/data.rst:186
-msgid "Once the ``test_group`` has been created, we can add nodes to it. For example, to add a node with ``pk=1`` to the group we could either use the command line interface:"
+#: ../../source/howto/data.rst:176
+msgid "``license``: A string with the type of license that applies to the data, if any."
 msgstr ""
 
-#: ../../source/howto/data.rst:194
-msgid "Or the Python interface:"
+#: ../../source/howto/data.rst:178
+msgid "If any other keys are defined, an exception will be raised by the constructor."
 msgstr ""
 
-#: ../../source/howto/data.rst:201
-msgid "Show information about a group"
+#: ../../source/howto/data.rst:184
+msgid "Organizing data"
+msgstr ""
+
+#: ../../source/howto/data.rst:189
+msgid "How to group nodes"
+msgstr ""
+
+#: ../../source/howto/data.rst:191
+msgid "AiiDA's database is great for automatically storing all your data, but sometimes it can be tricky to navigate this flat data store. To create some order in this mass of data, you can *group* sets of nodes together, just as you would with files in folders on your filesystem. A folder, in this analogy, is represented by the :py:class:`~aiida.orm.groups.Group` class. Each group instance can hold any amount of nodes and any node can be contained in any number of groups. A typical use case is to store all nodes that share a common property in a single group."
+msgstr ""
+
+#: ../../source/howto/data.rst:197
+msgid "Below we show how to perform a typical set of operations one may want to perform with groups."
+msgstr ""
+
+#: ../../source/howto/data.rst:200
+msgid "Create a new group"
+msgstr ""
+
+#: ../../source/howto/data.rst:202
+#: ../../source/howto/data.rst:266
+#: ../../source/howto/data.rst:284
+#: ../../source/howto/data.rst:318
+#: ../../source/howto/data.rst:336
+#: ../../source/howto/data.rst:359
+msgid "From the command line interface:"
+msgstr ""
+
+#: ../../source/howto/data.rst:208
+#: ../../source/howto/data.rst:291
+#: ../../source/howto/data.rst:325
+#: ../../source/howto/data.rst:366
+msgid "From the Python interface:"
 msgstr ""
 
 #: ../../source/howto/data.rst:219
+msgid "List available groups"
+msgstr ""
+
+#: ../../source/howto/data.rst:221
+msgid "Example:"
+msgstr ""
+
+#: ../../source/howto/data.rst:227
+msgid "Groups come in different types, indicated by their type string. By default ``verdi group list`` only shows groups of the type *core*. In case you want to show groups of another type use ``-T/--type-string`` option. If you want to show groups of all types, use the ``-a/--all-types`` option."
+msgstr ""
+
+#: ../../source/howto/data.rst:232
+msgid "For example, to list groups of type ``core.auto``, use:"
+msgstr ""
+
+#: ../../source/howto/data.rst:238
+msgid "Similarly, we can use the ``type_string`` key to filter groups with the ``QueryBuilder``:"
+msgstr ""
+
+#: ../../source/howto/data.rst:249
+msgid "Add nodes to a group"
+msgstr ""
+
+#: ../../source/howto/data.rst:250
+msgid "Once the ``test_group`` has been created, we can add nodes to it. For example, to add a node with ``pk=1`` to the group we could either use the command line interface:"
+msgstr ""
+
+#: ../../source/howto/data.rst:258
+msgid "Or the Python interface:"
+msgstr ""
+
+#: ../../source/howto/data.rst:265
+msgid "Show information about a group"
+msgstr ""
+
+#: ../../source/howto/data.rst:283
 msgid "Remove nodes from a group"
 msgstr ""
 
-#: ../../source/howto/data.rst:235
+#: ../../source/howto/data.rst:299
 msgid "Alternatively, you might want to remove *all* nodes from the group. In the command line you just need to add ``-c/--clear`` option to ``verdi group remove-nodes ..``"
 msgstr ""
 
-#: ../../source/howto/data.rst:243
+#: ../../source/howto/data.rst:307
 msgid "In the Python interface you can use ``.clear()`` method to achieve the same goal:"
 msgstr ""
 
-#: ../../source/howto/data.rst:253
+#: ../../source/howto/data.rst:317
 msgid "Rename a group"
 msgstr ""
 
-#: ../../source/howto/data.rst:271
+#: ../../source/howto/data.rst:335
 msgid "Delete a group"
 msgstr ""
 
-#: ../../source/howto/data.rst:280
+#: ../../source/howto/data.rst:344
 msgid "Any deletion operation related to groups, by default, will not affect the nodes themselves. For example if you delete a group, the nodes that belonged to the group will remain in the database. The same happens if you remove nodes from the group -- they will remain in the database but won't belong to the group anymore."
 msgstr ""
 
-#: ../../source/howto/data.rst:284
+#: ../../source/howto/data.rst:348
 msgid "If you also wish to delete the nodes, when deleting the group, use the ``--delete-nodes`` option:"
 msgstr ""
 
-#: ../../source/howto/data.rst:291
+#: ../../source/howto/data.rst:355
 msgid "Copy one group into another"
 msgstr ""
 
-#: ../../source/howto/data.rst:292
+#: ../../source/howto/data.rst:356
 msgid "This operation will copy the nodes of the source group into the destination group. If the destination group does not yet exist, it will be created automatically."
 msgstr ""
 
-#: ../../source/howto/data.rst:314
+#: ../../source/howto/data.rst:378
 msgid "Examples for using groups"
 msgstr ""
 
-#: ../../source/howto/data.rst:316
+#: ../../source/howto/data.rst:380
 msgid "In this section, we will provide some practical examples of how one can use Groups to structure and organize the nodes in the database."
 msgstr ""
 
-#: ../../source/howto/data.rst:321
+#: ../../source/howto/data.rst:385
 msgid "Group structures with a similar property"
 msgstr ""
 
-#: ../../source/howto/data.rst:323
+#: ../../source/howto/data.rst:387
 msgid "Suppose, we wanted to group all structures for which the computed bandgap is higher than ``1.0 eV`` in a group named ``promising_structures``, one could use the following approach:"
 msgstr ""
 
-#: ../../source/howto/data.rst:339
+#: ../../source/howto/data.rst:403
 msgid "Any node can be included in a group only once and if it is added again, it is simply ignored. This means that add_nodes can be safely called multiple times, and only nodes that weren't already part of the group, will be added."
 msgstr ""
 
-#: ../../source/howto/data.rst:344
+#: ../../source/howto/data.rst:408
 msgid "Use grouped data for further processing"
 msgstr ""
 
-#: ../../source/howto/data.rst:346
+#: ../../source/howto/data.rst:410
 msgid "Here we demonstrate how to submit calculations for structures that all belong to a group named ``promising_structures``:"
 msgstr ""
 
-#: ../../source/howto/data.rst:362
+#: ../../source/howto/data.rst:426
 msgid "Note, however, that one can also use ``group.nodes`` to access the nodes of the group. To achieve the same result as above one would need to do something as follows:"
 msgstr ""
 
-#: ../../source/howto/data.rst:378
+#: ../../source/howto/data.rst:442
 msgid "To find all structures that have a property ``property_a`` with a value lower than ``1`` and also belong to the ``promising_structures`` group, one could build a query as follows:"
 msgstr ""
 
-#: ../../source/howto/data.rst:388
+#: ../../source/howto/data.rst:452
 msgid "The return value of ``qb.all(flat=True)`` would contain all the structures matching the above mentioned criteria."
 msgstr ""
 
-#: ../../source/howto/data.rst:393
+#: ../../source/howto/data.rst:457
 msgid "Organise groups in hierarchies"
 msgstr ""
 
-#: ../../source/howto/data.rst:398
+#: ../../source/howto/data.rst:462
 msgid "Groups in AiiDA are inherently \"flat\", in that groups may only contain nodes and not other groups. However it is possible to construct *virtual* group hierarchies based on delimited group labels, using the :py:class:`~aiida.tools.groups.paths.GroupPath` utility."
 msgstr ""
 
-#: ../../source/howto/data.rst:401
+#: ../../source/howto/data.rst:465
 msgid ":py:class:`~aiida.tools.groups.paths.GroupPath` is designed to work in much the same way as Python's :py:class:`pathlib.Path`, whereby paths are denoted by forward slash characters '/' in group labels."
 msgstr ""
 
-#: ../../source/howto/data.rst:403
+#: ../../source/howto/data.rst:467
 msgid "For example say we have the groups:"
 msgstr ""
 
-#: ../../source/howto/data.rst:415
+#: ../../source/howto/data.rst:479
 msgid "We can also access them from the command-line as:"
 msgstr ""
 
-#: ../../source/howto/data.rst:428
+#: ../../source/howto/data.rst:492
 msgid "Or from the python interface:"
 msgstr ""
 
-#: ../../source/howto/data.rst:438
+#: ../../source/howto/data.rst:502
 msgid "The ``GroupPath`` can be constructed using indexing or \"divisors\":"
 msgstr ""
 
-#: ../../source/howto/data.rst:446
+#: ../../source/howto/data.rst:510
 msgid "Using the :py:func:`~aiida.tools.groups.paths.GroupPath.browse` attribute, you can also construct the paths as preceding attributes. This is useful in interactive environments, whereby available paths will be shown in the tab-completion:"
 msgstr ""
 
-#: ../../source/howto/data.rst:454
+#: ../../source/howto/data.rst:518
 msgid "To check the existence of a path element:"
 msgstr ""
 
-#: ../../source/howto/data.rst:461
+#: ../../source/howto/data.rst:525
 msgid "A group may be \"virtual\", in which case its label does not directly relate to a group, or the group can be retrieved with the :py:func:`~aiida.tools.groups.paths.GroupPath.get_group` method:"
 msgstr ""
 
-#: ../../source/howto/data.rst:474
+#: ../../source/howto/data.rst:538
 msgid "Groups can be created and destroyed:"
 msgstr ""
 
-#: ../../source/howto/data.rst:486
+#: ../../source/howto/data.rst:550
 msgid "To traverse paths, use the :py:func:`~aiida.tools.groups.paths.GroupPath.children` attribute - for recursive traversal, use :py:func:`~aiida.tools.groups.paths.GroupPath.walk`:"
 msgstr ""
 
-#: ../../source/howto/data.rst:497
+#: ../../source/howto/data.rst:561
 msgid "You can also traverse directly through the nodes of a path, optionally filtering by node class and any other filters allowed by the :ref:`QueryBuilder <how-to:query>`:"
 msgstr ""
 
-#: ../../source/howto/data.rst:511
+#: ../../source/howto/data.rst:575
 msgid "Finally, you can also specify the ``Group`` subclasses (as discussed above):"
 msgstr ""
 
-#: ../../source/howto/data.rst:522
+#: ../../source/howto/data.rst:586
 msgid "A :py:class:`~aiida.tools.groups.paths.GroupPath` instance will only recognise groups of the instantiated ``cls`` type. The default ``cls`` is ``aiida.orm.Group``:"
 msgstr ""
 
-#: ../../source/howto/data.rst:538
+#: ../../source/howto/data.rst:602
 msgid "Deleting data"
 msgstr ""
 
-#: ../../source/howto/data.rst:540
+#: ../../source/howto/data.rst:604
 msgid "By default, every time you run or submit a new calculation, AiiDA will create for you new nodes in the database, and will never replace or delete data. There are cases, however, when it might be useful to delete nodes that are not useful anymore, for instance test runs or incorrect/wrong data and calculations. For this case, AiiDA provides the ``verdi node delete`` command and the :py:func:`~aiida.tools.graph.deletions.delete_nodes` function, to remove the nodes from the provenance graph."
 msgstr ""
 
-#: ../../source/howto/data.rst:545
+#: ../../source/howto/data.rst:609
 msgid "Once the data is deleted, there is no way to recover it (unless you made a backup)."
 msgstr ""
 
-#: ../../source/howto/data.rst:547
+#: ../../source/howto/data.rst:611
 msgid "Critically, note that even if you ask to delete only one node, ``verdi node delete`` will typically delete a number of additional linked nodes, in order to preserve a consistent state of the provenance graph. For instance, if you delete an input of a calculation, AiiDA will delete also the calculation itself (as otherwise you would be effectively changing the inputs to that calculation in the provenance graph). The full set of consistency rules are explained in detail :ref:`here <topics:provenance:consistency>`."
 msgstr ""
 
-#: ../../source/howto/data.rst:551
+#: ../../source/howto/data.rst:615
 msgid "Therefore: always check the output of ``verdi node delete`` to make sure that it is not deleting more than you expect. You can also use the ``--dry-run`` flag of ``verdi node delete`` to see what the command would do without performing any actual operation."
 msgstr ""
 
-#: ../../source/howto/data.rst:554
+#: ../../source/howto/data.rst:618
 msgid "In addition, there are a number of additional rules that are not mandatory to ensure consistency, but can be toggled by the user. For instance, you can set ``--create-forward`` if, when deleting a calculation, you want to delete also the data it produced (using instead ``--no-create-forward`` will delete the calculation only, keeping the output data: note that this effectively strips out the provenance information of the output data). The full list of these flags is available from the help command ``verdi node delete -h``."
 msgstr ""
 
-#: ../../source/howto/data.rst:566
+#: ../../source/howto/data.rst:630
 msgid "Deleting computers"
 msgstr ""
 
-#: ../../source/howto/data.rst:567
+#: ../../source/howto/data.rst:631
 msgid "To delete a computer, you can use ``verdi computer delete``. This command is mostly useful if, right after creating a computer, you realise that there was an error and you want to remove it. In particular, note that ``verdi computer delete`` will prevent execution if the computer has been already used by at least one node. In this case, you will need to use ``verdi node delete`` to delete first the corresponding nodes."
 msgstr ""
 
-#: ../../source/howto/data.rst:572
+#: ../../source/howto/data.rst:636
 msgid "Deleting mutable data"
 msgstr ""
 
-#: ../../source/howto/data.rst:573
+#: ../../source/howto/data.rst:637
 msgid "A subset of data in AiiDA is mutable also after storing a node, and is used as a convenience for the user to tag/group/comment on data. This data can be safely deleted at any time. This includes, notably:"
 msgstr ""
 
-#: ../../source/howto/data.rst:577
+#: ../../source/howto/data.rst:641
 msgid "*Node extras*: These can be deleted using :py:attr:`Node.base.extras <aiida.orm.extras.EntityExtras>`."
 msgstr ""
 
-#: ../../source/howto/data.rst:578
+#: ../../source/howto/data.rst:642
 msgid "*Node comments*: These can be removed using :py:attr:`Node.base.comments <aiida.orm.nodes.comments.NodeComments>`."
 msgstr ""
 
-#: ../../source/howto/data.rst:579
+#: ../../source/howto/data.rst:643
 msgid "*Groups*: These can be deleted using :py:meth:`Group.objects.delete() <aiida.orm.groups.GroupCollection.delete>`. This command will only delete the group, not the nodes contained in the group."
 msgstr ""
 
-#: ../../source/howto/data.rst:583
+#: ../../source/howto/data.rst:647
 msgid "Completely deleting an AiiDA profile"
 msgstr ""
 
-#: ../../source/howto/data.rst:584
+#: ../../source/howto/data.rst:648
 msgid "If you don't want to selectively delete some nodes, but instead want to delete a whole AiiDA profile altogether, use the ``verdi profile delete`` command. This command will delete both the file repository and the database."
 msgstr ""
 
-#: ../../source/howto/data.rst:589
+#: ../../source/howto/data.rst:653
 msgid "It is not possible to restore a deleted profile unless it was previously backed up!"
 msgstr ""
 
-#: ../../source/howto/data.rst:594
+#: ../../source/howto/data.rst:658
 msgid "Transferring data"
 msgstr ""
 
-#: ../../source/howto/data.rst:598
+#: ../../source/howto/data.rst:662
 msgid "This feature is still in beta version and its API might change in the near future. It is therefore not recommended that you rely on it for your public/production workflows."
 msgstr ""
 
-#: ../../source/howto/data.rst:601
+#: ../../source/howto/data.rst:665
 msgid "Moreover, feedback on its implementation is much appreciated (at https://github.com/aiidateam/aiida-core/issues/4811)."
 msgstr ""
 
-#: ../../source/howto/data.rst:603
+#: ../../source/howto/data.rst:667
 msgid "When a calculation job is launched, AiiDA will create a :py:class:`~aiida.orm.RemoteData` node that is attached as an output node to the calculation node with the label ``remote_folder``. The input files generated by the ``CalcJob`` plugin are copied to this remote folder and, since the job is executed there as well, the code will produce its output files in that same remote folder also. Since the :py:class:`~aiida.orm.RemoteData` node only explicitly stores the filepath on the remote computer, and not its actual contents, it functions more or less like a symbolic link. That means that if the remote folder gets deleted, there will be no way to retrieve its contents. The ``CalcJob`` plugin can for that reason specify some files that should be :ref:`retrieved<topics:calculations:usage:calcjobs:file_lists_retrieve>` and stored locally in a :py:class:`~aiida.orm.nodes.data.folder.FolderData` node for safekeeing, which is attached to the calculation node as an output with the label ``retrieved_folder``."
 msgstr ""
 
-#: ../../source/howto/data.rst:609
+#: ../../source/howto/data.rst:673
 msgid "Although the :ref:`retrieve_list<topics:calculations:usage:calcjobs:file_lists_retrieve>` allows to specify what output files are to be retrieved locally, this has to be done *before* the calculation is submitted. In order to provide more flexibility in deciding what files of completed calculation jobs are to be stored locally, even after it has terminated, AiiDA ships with a the :py:class:`~aiida.calculations.transfer.TransferCalculation` plugin. This calculation plugin enables to retrieve files from a remote machine and save them in a local :py:class:`~aiida.orm.nodes.data.folder.FolderData`. The specifications of what to copy are provided through an input of type"
 msgstr ""
 
-#: ../../source/howto/data.rst:623
+#: ../../source/howto/data.rst:687
 msgid "The ``'source/path/filename'`` and ``'target/path/filename'`` are both relative paths (to their respective folders). The ``node_keyname`` is a string that will be used when providing the source :py:class:`~aiida.orm.RemoteData` node to the calculation. You also need to provide the computer between which the transfer will occur:"
 msgstr ""
 
-#: ../../source/howto/data.rst:634
+#: ../../source/howto/data.rst:698
 msgid "The variable ``source_node`` here corresponds to the ``RemoteData`` node whose contents need to be retrieved. Finally, you just run or submit the calculation as you would do with any other:"
 msgstr ""
 
-#: ../../source/howto/data.rst:642
+#: ../../source/howto/data.rst:706
 msgid "You can also use this to copy local files into a new :py:class:`~aiida.orm.RemoteData` folder. For this you first have to adapt the instructions to set ``'retrieve_files'`` to ``False`` and use a ``'local_files'`` list instead of the ``'symlink_files'``:"
 msgstr ""
 
-#: ../../source/howto/data.rst:654
+#: ../../source/howto/data.rst:718
 msgid "It is also relevant to note that, in this case, the ``source_node`` will be of type :py:class:`~aiida.orm.nodes.data.folder.FolderData` so you will have to manually select the computer to where you want to copy the files. You can do this by looking at your available computers running ``verdi computer list`` and using the label shown to load it with :py:func:`~aiida.orm.load_computer`:"
 msgstr ""
 
-#: ../../source/howto/data.rst:661
+#: ../../source/howto/data.rst:725
 msgid "Both when uploading or retrieving, you can copy multiple files by appending them to the list of the ``local_files`` or ``symlink_files`` keys in the instructions input, respectively. It is also possible to copy files from any number of nodes by providing several ``source_node`` s, each with a different ``'node_keyname'``. The target node will always be one (so you can *\"gather\"* files in a single call, but not *\"distribute\"* them)."
 msgstr ""
 
@@ -616,6 +664,14 @@ msgstr ""
 msgid "When the SSH key pair expires, AiiDA will fail to connect to the remote computer. This will cause all calculations submitted on that computer to pause. To restart them, one needs to generate a new SSH key pair and play the paused processes using ``verdi process play --all``. Typically, this is all one needs to do - AiiDA will re-establish the connection to the computer and will continue following the calculations."
 msgstr ""
 
+#: ../../source/howto/faq.rst:116
+msgid "How to back up AiiDA data?"
+msgstr ""
+
+#: ../../source/howto/faq.rst:118
+msgid "The most convenient way to back up an AiiDA profile is to use the ``verdi --profile <name> storage backup`` command. For more information, see :ref:`how-to:installation:backup`."
+msgstr ""
+
 #: ../../source/howto/index.rst:3
 msgid "How-To Guides"
 msgstr ""
@@ -633,7 +689,7 @@ msgid "Creating profiles"
 msgstr ""
 
 #: ../../source/howto/installation.rst:15
-msgid "Each AiiDA installation can have multiple profiles, each of which can have its own individual database and file repository to store the contents of the :ref:`provenance graph<topics:provenance:concepts>`. Profiles allow you to run multiple projects completely independently from one another with just a single AiiDA installation and at least one profile is required to run AiiDA. A new profile can be created using :ref:`verdi quicksetup<reference:command-line:verdi-quicksetup>` or :ref:`verdi setup<reference:command-line:verdi-setup>`, which works similar to the former but gives more control to the user."
+msgid "Each AiiDA installation can have multiple profiles, each of which can have its own individual database and file repository to store the contents of the :ref:`provenance graph<topics:provenance:concepts>`. Profiles allow you to run multiple projects completely independently from one another with just a single AiiDA installation and at least one profile is required to run AiiDA. A new profile can be created using :ref:`verdi presto<reference:command-line:verdi-presto>` or :ref:`verdi profile setup<reference:command-line:verdi-profile>`, which works similar to the former but gives more control to the user."
 msgstr ""
 
 #: ../../source/howto/installation.rst:20
@@ -793,7 +849,7 @@ msgid "An AiiDA instance is defined as the installed source code plus the config
 msgstr ""
 
 #: ../../source/howto/installation.rst:299
-msgid "To isolate the code, make sure to install AiiDA into a virtual environment, e.g., with conda or venv, as described :ref:`here <intro:get_started:setup>`. Whenever you activate this particular environment, you will be running the particular version of AiiDA (and all the plugins) that you installed specifically for it."
+msgid "To isolate the code, make sure to install AiiDA into a virtual environment, e.g., with conda or venv. Whenever you activate this particular environment, you will be running the particular version of AiiDA (and all the plugins) that you installed specifically for it."
 msgstr ""
 
 #: ../../source/howto/installation.rst:302
@@ -1024,7 +1080,7 @@ msgstr ""
 msgid "If you have installed from the git repository using ``pip install -e .``, first delete all the ``.pyc`` files (``find . -name \"*.pyc\" -delete``) before updating your branch with ``git pull``."
 msgstr ""
 
-#: ../../source/howto/installation.rst:530
+#: ../../source/howto/installation.rst:529
 msgid "Migrate your database with ``verdi -p <profile_name> storage migrate``."
 msgstr ""
 
@@ -1065,27 +1121,46 @@ msgid "See the :doc:`../reference/_changelog` for a list of breaking changes."
 msgstr ""
 
 #: ../../source/howto/installation.rst:551
-msgid "Backing up your installation"
+msgid "Backing up your data"
 msgstr ""
 
-#: ../../source/howto/installation.rst:553
-msgid "A full backup of an AiiDA instance and AiiDA managed data requires a backup of:"
+#: ../../source/howto/installation.rst:554
+msgid "General information"
 msgstr ""
 
-#: ../../source/howto/installation.rst:555
-msgid "the AiiDA configuration folder, which is named ``.aiida``. The location of the folder is shown in the output of ``verdi status``. This folder contains, among other things, the ``config.json`` configuration file and log files."
-msgstr ""
-
-#: ../../source/howto/installation.rst:559
-msgid "the data stored for each profile. Where the data is stored, depends on the storage backend used by each profile."
+#: ../../source/howto/installation.rst:556
+msgid "The most convenient way to back up the data of a single AiiDA profile is to use"
 msgstr ""
 
 #: ../../source/howto/installation.rst:562
-#: ../../source/howto/installation.rst:620
-msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
+msgid "This command automatically manages a subfolder structure of previous backups, and new backups are done in an efficient way (using ``rsync`` hard-link functionality to the previous backup). The command backs up everything that's needed to restore the profile later:"
 msgstr ""
 
 #: ../../source/howto/installation.rst:565
+msgid "the AiiDA configuration file ``.aiida/config.json``, from which other profiles are removed (see ``verdi status`` for exact location);"
+msgstr ""
+
+#: ../../source/howto/installation.rst:566
+msgid "all the data of the backed up profile (which depends on the storage backend)."
+msgstr ""
+
+#: ../../source/howto/installation.rst:568
+msgid "The specific procedure of the command and whether it even is implemented depends on the storage backend."
+msgstr ""
+
+#: ../../source/howto/installation.rst:571
+msgid "The ``verdi storage backup`` command is implemented in a way to be as safe as possible to use when AiiDA is running, meaning that it will most likely produce an uncorrupted backup even when data is being modified. However, the exact conditions depend on the specific storage backend and to err on the safe side, only perform a backup when the profile is not in use."
+msgstr ""
+
+#: ../../source/howto/installation.rst:574
+msgid "Storage backend specific information"
+msgstr ""
+
+#: ../../source/howto/installation.rst:576
+msgid "Alternatively to the CLI command, one can also manually create a backup. This requires a backup of the configuration file  ``.aiida/config.json`` and the storage backend. The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``."
+msgstr ""
+
+#: ../../source/howto/installation.rst:578
 msgid "Before creating a backup, it is recommended to run ``verdi storage maintain``. This will optimize the storage which can significantly reduce the time required to create the backup. For optimal results, run ``verdi storage maintain --full``. Note that this requires the profile to not be in use by any other process."
 msgstr ""
 
@@ -1093,77 +1168,85 @@ msgstr ""
 msgid "psql_dos"
 msgstr ""
 
-#: ../../source/howto/installation.rst:574
+#: ../../source/howto/installation.rst:587
 msgid "The ``psql_dos`` storage backend is the default backend for AiiDA. It stores its data in a PostgreSQL database and a file repository on the local filesystem. To fully backup the data stored for a profile, you should backup the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:578
-#: ../../source/howto/installation.rst:629
+#: ../../source/howto/installation.rst:591
+#: ../../source/howto/installation.rst:643
 msgid "**PostgreSQL database**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:580
+#: ../../source/howto/installation.rst:593
 msgid "To export the entire database, we recommend to use the `pg_dump <https://www.postgresql.org/docs/12/app-pgdump.html>`_ utility:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:586
+#: ../../source/howto/installation.rst:599
 msgid "The ``-W`` flag will ensure to prompt for the database password. The parameters between brackets should be replaced with the values that have been configured for the profile. You can retrieve these from the ``storage.config`` returned by the ``verdi profile show`` command."
 msgstr ""
 
-#: ../../source/howto/installation.rst:592
+#: ../../source/howto/installation.rst:605
 msgid "In order to avoid having to enter your database password each time you use the script, you can create a file ``.pgpass`` in your home directory containing your database credentials, as described `in the PostgreSQL documentation <https://www.postgresql.org/docs/12/libpq-pgpass.html>`_."
 msgstr ""
 
-#: ../../source/howto/installation.rst:594
-#: ../../source/howto/installation.rst:638
+#: ../../source/howto/installation.rst:607
+#: ../../source/howto/installation.rst:654
 msgid "**File repository**"
 msgstr ""
 
-#: ../../source/howto/installation.rst:596
+#: ../../source/howto/installation.rst:609
 msgid "The file repository is a directory on the local file system. The most efficient way to create a backup is to use the `rsync <https://en.wikipedia.org/wiki/Rsync>`_ utility. The path of the repository is shown in the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. To create a backup, simply run:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:609
-msgid "Restoring your installation"
+#: ../../source/howto/installation.rst:622
+msgid "Restoring data from a backup"
 msgstr ""
 
-#: ../../source/howto/installation.rst:611
-msgid "Restoring a backed up AiiDA installation requires:"
+#: ../../source/howto/installation.rst:624
+msgid "Restoring a backed up AiiDA profile requires:"
 msgstr ""
 
-#: ../../source/howto/installation.rst:613
-msgid "restoring the backed up ``.aiida`` folder, with at the very least the ``config.json`` file it contains. It should be placed in the path defined by the ``AIIDA_PATH`` environment variable. To test the restoration worked, run ``verdi profile list`` to verify that all profiles are displayed."
+#: ../../source/howto/installation.rst:626
+msgid "restoring the profile information in the AiiDA ``config.json`` file. Simply copy the`profiles` entry from the backed up ``config.json`` to the one of the running AiiDA instance (see ``verdi status`` for exact location). Some information (e.g. the database parameters) might need to be updated."
 msgstr ""
 
-#: ../../source/howto/installation.rst:617
-msgid "restoring the data of each backed up profile. Like the backup procedure, this is dependent on the storage backend used by the profile."
+#: ../../source/howto/installation.rst:630
+msgid "restoring the data of of the backed up profile according to the ``config.json`` entry. Like the backup procedure, this is dependent on the storage backend used by the profile."
 msgstr ""
 
-#: ../../source/howto/installation.rst:627
-msgid "To fully backup the data stored for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
+#: ../../source/howto/installation.rst:633
+msgid "The panels below provide instructions for storage backends provided by ``aiida-core``. To determine what storage backend a profile uses, call ``verdi profile show``. To test if the restoration worked, run ``verdi -p <profile-name> status`` to verify that AiiDA can successfully connect to the data storage."
 msgstr ""
 
-#: ../../source/howto/installation.rst:631
-msgid "To restore the PostgreSQL database from the ``.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase. The backed up data can then be imported by calling:"
+#: ../../source/howto/installation.rst:641
+msgid "To restore the backed up data for a profile using the ``core.psql_dos`` backend, you should restore the associated database and file repository."
 msgstr ""
 
-#: ../../source/howto/installation.rst:640
-msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated by the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command. Like the backing up process, we recommend using ``rsync`` for this:"
-msgstr ""
-
-#: ../../source/howto/installation.rst:651
-msgid "Managing multiple users"
+#: ../../source/howto/installation.rst:645
+msgid "To restore the PostgreSQL database from the ``db.psql`` file that was backed up, first you should create an empty database following the instructions described in :ref:`the installation guide <installation:guide-complete:create-profile:core-psql-dos>`. The backed up data can then be imported by calling:"
 msgstr ""
 
 #: ../../source/howto/installation.rst:652
-msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
+msgid "where the parameters need to match with the corresponding AiiDA `config.json` profile entry."
 msgstr ""
 
 #: ../../source/howto/installation.rst:656
+msgid "To restore the file repository, simply copy the directory that was backed up to the location indicated in AiiDA `config.json` (or the ``storage.config.repository_uri`` key returned by the ``verdi profile show`` command). Like the backing up process, we recommend using ``rsync`` for this:"
+msgstr ""
+
+#: ../../source/howto/installation.rst:667
+msgid "Managing multiple users"
+msgstr ""
+
+#: ../../source/howto/installation.rst:668
+msgid "AiiDA currently does not support multiple users running concurrently on the same AiiDA profile. While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally. In particular, there is currently no permission system in place to limit the operations that can be performed by a given user."
+msgstr ""
+
+#: ../../source/howto/installation.rst:672
 msgid "The typical setup involves each user individually installing AiiDA on their operating system account. Data can be shared between private AiiDA profiles through :ref:`AiiDA's export and import functionality <how-to:share:archives>`."
 msgstr ""
 
-#: ../../source/howto/installation.rst:659
+#: ../../source/howto/installation.rst:675
 msgid "Note that while the configuration file of an AiiDA instance contains access credentials (e.g. for the postgresql database or the rabbitmq service), AiiDA does not store sensitive data in the database or file repository, and AiiDA export archives never contain such data."
 msgstr ""
 
@@ -1270,22 +1353,34 @@ msgid "Interactive notebooks"
 msgstr ""
 
 #: ../../source/howto/interact.rst:127
-msgid "Similar to :ref:`interactive shells <how-to:interact-shell>`, AiiDA is also directly compatbile with interactive Python notebooks, such as `Jupyter <https://jupyter.org/>`_. To use AiiDA's Python API in a notebook, first a profile has to be loaded:"
+msgid "Similar to :ref:`interactive shells <how-to:interact-shell>`, AiiDA is also directly compatbile with interactive Python notebooks, such as `Jupyter <https://jupyter.org/>`_. To install the required Python packages, install ``aiida-core`` with the ``notebook`` extra, e.g. run:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:137
+#: ../../source/howto/interact.rst:134
+msgid "You should now be able to start a Jupyter notebook server:"
+msgstr ""
+
+#: ../../source/howto/interact.rst:140
+msgid "To use AiiDA's Python API in a notebook, first a profile has to be loaded:"
+msgstr ""
+
+#: ../../source/howto/interact.rst:149
 msgid "One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded. The same can be accomplished using the following magic statement:"
 msgstr ""
 
-#: ../../source/howto/interact.rst:145
-msgid "This magic line will replicate the same environment as :ref:`the interactive shell <how-to:interact-shell>` provided by ``verdi shell``. However, it does require some one-time installation, as detailed in the section on how to :ref:`intro:install:jupyter`."
+#: ../../source/howto/interact.rst:157
+msgid "This magic line replicates the same environment as :ref:`the interactive shell <how-to:interact-shell>` provided by ``verdi shell``."
 msgstr ""
 
-#: ../../source/howto/interact.rst:152
+#: ../../source/howto/interact.rst:159
+msgid "It is also possible to run ``verdi`` commands inside the notebook, for example:"
+msgstr ""
+
+#: ../../source/howto/interact.rst:170
 msgid "REST API"
 msgstr ""
 
-#: ../../source/howto/interact.rst:154
+#: ../../source/howto/interact.rst:172
 msgid "AiiDA ships with a built in REST API, that allows you to query the data of a particular profile. Refer to section :ref:`how-to:share:serve:launch` to learn how to start the REST API. The section :ref:`how-to:share:serve:query` provides information on how to interact with a running REST API."
 msgstr ""
 
@@ -1950,150 +2045,174 @@ msgid "AiiDA's fixtures"
 msgstr ""
 
 #: ../../source/howto/plugins_develop.rst:159
-msgid "Many tests require a full AiiDA environment to be set up before the test starts, e.g. some AiiDA data nodes. The pytest library has the concept of `fixtures`_ for encapsulating code you would like to run before a test starts. AiiDA ships with a number of fixtures in :py:mod:`aiida.manage.tests.pytest_fixtures` that take care of setting up the test environment for you (for more details, see :ref:`topics:plugins:testfixtures`)."
+msgid "Many tests require a full AiiDA environment to be set up before the test starts, e.g. some AiiDA data nodes. The pytest library has the concept of `fixtures`_ for encapsulating code you would like to run before a test starts. AiiDA ships with a number of fixtures in :py:mod:`aiida.tools.pytest_fixtures` that take care of setting up the test environment for you (for more details, see :ref:`topics:plugins:testfixtures`)."
 msgstr ""
 
 #: ../../source/howto/plugins_develop.rst:163
 msgid "In order to make these fixtures available to your tests, create a ``conftest.py`` (see also `pytest docs <conftest_>`_) at the root level of your plugin package as follows::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:181
-msgid "You can now start writing tests e.g. in a ``tests/test_calculations.py`` file::"
+#: ../../source/howto/plugins_develop.rst:169
+msgid "By importing AiiDA's fixtures, the ``aiida_profile`` fixture gets used automatically, which takes care that a test profile is created and loaded. The profile (and configuration directory in which it is hosted) is only temporary and is automatically removed after the test session finished. This ensures that any production profiles on the system are not affected by the tests."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:201
+#: ../../source/howto/plugins_develop.rst:173
+msgid "Other fixtures have to be explicitly used in a test to be of use. They usually allow creating some resources that are required by the test, such as a ``Code`` node:"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:176
+msgid "def test_calculation(aiida_code_installed):"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:177
+msgid "\"\"\"Test running a calculation using a ``CalcJob`` plugin.\"\"\" from aiida.engine import run"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:180
+msgid "code = aiida_code_installed(default_calc_job_plugin='core.arithmetic.add', filepath_executable='/bin/bash') builder = code.get_builder() builder.x = orm.Int(1) builder.y = orm.Int(2)"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:185
+msgid "results, node = run.get_node(builder)"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:187
+msgid "assert node.is_finished_ok assert results['sum'] == 3"
+msgstr ""
+
+#: ../../source/howto/plugins_develop.rst:190
 msgid "In order to run your tests, simply type ``pytest`` at the root level or your package. pytest automatically discovers and executes files, classes and function names starting with the word ``test``."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:211
+#: ../../source/howto/plugins_develop.rst:200
 msgid "Documenting a plugin package"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:213
+#: ../../source/howto/plugins_develop.rst:202
 msgid "AiiDA plugin packages are python packages, and general `best practises for writing python documentation <https://docs.python-guide.org/writing/documentation/>`_ apply."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:215
+#: ../../source/howto/plugins_develop.rst:204
 msgid "In the following, we mention a few hints that apply specifically to AiiDA plugins."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:218
+#: ../../source/howto/plugins_develop.rst:207
 msgid "Repository-level documentation"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:220
+#: ../../source/howto/plugins_develop.rst:209
 msgid "Since the source code of most AiiDA plugins is hosted on GitHub, the first contact of a new user with your plugin package is likely the landing page of your GitHub repository."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:222
+#: ../../source/howto/plugins_develop.rst:211
 msgid "Make sure to have a useful ``README.md``, describing what your plugin does and how to install it."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:223
+#: ../../source/howto/plugins_develop.rst:212
 msgid "Leaving a contact email and adding a license is also a good idea."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:224
+#: ../../source/howto/plugins_develop.rst:213
 msgid "Make sure the information in the ``pyproject.toml`` file is correct and up to date (in particular the version number), since this information is used to advertise your package on the AiiDA plugin registry."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:227
+#: ../../source/howto/plugins_develop.rst:216
 msgid "Source-code-level documentation"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:229
+#: ../../source/howto/plugins_develop.rst:218
 msgid "Source-code level documentations matters both for users of your plugin's python API and, particularly, for attracting contributions from others."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:231
+#: ../../source/howto/plugins_develop.rst:220
 msgid "When adding new types of calculations or workflows, make sure to use `docstrings <https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring>`_, and use the ``help`` argument to document input ports and output ports. Users of your plugin can then inspect which inputs the calculations/workflows expect and which outputs they produce directly through the ``verdi`` cli. For example, try::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:238
+#: ../../source/howto/plugins_develop.rst:227
 msgid "Documentation website"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:240
+#: ../../source/howto/plugins_develop.rst:229
 msgid "For simple plugins, a well-written ``README.md`` can be a good start. Once the README grows out of proportion, you may want to consider creating a dedicated documentation website."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:243
+#: ../../source/howto/plugins_develop.rst:232
 msgid "The `Sphinx <http://www.sphinx-doc.org/en/master/>`_ tool makes it very easy to create documentation websites for python packages, and the `ReadTheDocs <http://readthedocs.org/>`_ service will host your sphinx documentation online for free. The `aiida-diff demo plugin <aiida-diff_>`_ comes with a full template for a sphinx-based documentation, including a mix of manually written pages and an automatically generated documentation of your plugin's python API. See the `developer guide of aiida-diff <https://aiida-diff.readthedocs.io/en/latest/developer_guide/index.html>`_ for instructions on how to build it."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:247
+#: ../../source/howto/plugins_develop.rst:236
 msgid "AiiDA provides a sphinx extension for inserting automatically generated documentations of ``Process`` classes (calculations and workflows) into your sphinx documentation (analogous to the information displayed by ``verdi plugin list``). Enable the extension by adding ``aiida.sphinxext`` to the list of ``extensions`` in your ``docs/conf.py`` file. You can now use the ``aiida-process``, ``aiida-calcjob`` or ``aiida-workchain`` directives in your ReST files like so::"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:255
+#: ../../source/howto/plugins_develop.rst:244
 msgid "Here,"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:257
+#: ../../source/howto/plugins_develop.rst:246
 msgid "``MyWorkChain`` is the name of the workchain to be documented."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:258
+#: ../../source/howto/plugins_develop.rst:247
 msgid "``:module:`` is the python module from which the workchain can be imported."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:259
+#: ../../source/howto/plugins_develop.rst:248
 msgid "``:hide-unstored-inputs:`` hides workchain inputs that are not stored in the database (shown by default)."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:263
+#: ../../source/howto/plugins_develop.rst:252
 msgid "The ``aiida-workchain`` directive is hooked into ``sphinx.ext.autodoc``, i.e. it is used automatically by the generic ``automodule``, ``autoclass`` directives when applied to workchain classes."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:270
+#: ../../source/howto/plugins_develop.rst:259
 msgid "Publishing a plugin package"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:272
+#: ../../source/howto/plugins_develop.rst:261
 msgid "AiiDA plugin packages are published on the `AiiDA plugin registry <registry_>`_ and the `python package index (PyPI) <pypi_>`_."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:274
+#: ../../source/howto/plugins_develop.rst:263
 msgid "Before publishing your plugin, make sure your plugin comes with:"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:276
+#: ../../source/howto/plugins_develop.rst:265
 msgid "a ``pyproject.toml`` file with the plugin metadata and for installing your plugin via ``pip``"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:277
+#: ../../source/howto/plugins_develop.rst:266
 msgid "a license"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:279
+#: ../../source/howto/plugins_develop.rst:268
 msgid "For examples of these files, see the `aiida-diff demo plugin <aiida-diff_>`_."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:284
+#: ../../source/howto/plugins_develop.rst:273
 msgid "Publishing on the plugin registry"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:286
+#: ../../source/howto/plugins_develop.rst:275
 msgid "The `AiiDA plugin registry <registry_>`_ aims to be the home for all publicly available AiiDA plugins. It collects information on the type of plugins provided by your package, which AiiDA versions it is compatible with, etc."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:289
+#: ../../source/howto/plugins_develop.rst:278
 msgid "In order to register your plugin package, simply go to the `plugin registry <registry_>`_ and follow the instructions in the README."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:293
+#: ../../source/howto/plugins_develop.rst:282
 msgid "The plugin registry reads the metadata of your plugin from the ``pyproject.toml`` file in your plugin repository."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:296
+#: ../../source/howto/plugins_develop.rst:285
 msgid "We encourage you to **get your plugin package listed as soon as possible**, both in order to reserve the plugin name and to inform others of the ongoing development."
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:299
+#: ../../source/howto/plugins_develop.rst:288
 msgid "Publishing on PyPI"
 msgstr ""
 
-#: ../../source/howto/plugins_develop.rst:301
+#: ../../source/howto/plugins_develop.rst:290
 msgid "For distributing AiiDA plugin packages, we recommend to follow the `guidelines for packaging python projects <packaging_>`_, which include making the plugin available on the `python package index <PyPI_>`_. This makes it possible for users to simply ``pip install aiida-myplugin``."
 msgstr ""
 
@@ -2114,7 +2233,7 @@ msgid "A package can also be installed from the source code. For example, if the
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:30
-msgid "If your daemon was running when installing or updating a plugin package, make sure to restart it with the ``--reset`` flag for changes to take effect:"
+msgid "If you installed or updated a plugin package while your daemon was running, be sure to restart it so that the changes take effect:"
 msgstr ""
 
 #: ../../source/howto/plugins_install.rst:36
@@ -3889,7 +4008,7 @@ msgid "install ``libffi`` (``sudo apt-get install libffi-dev`` under Ubuntu)"
 msgstr ""
 
 #: ../../source/howto/ssh.rst:272
-msgid "install the ``ssh_kerberos`` extra during the installation of aiida-core (see :ref:`intro:install:setup`)."
+msgid "install the ``ssh_kerberos`` extra during the installation of aiida-core (see :ref:`installation:guide-complete:python-package:optional-requirements`)."
 msgstr ""
 
 #: ../../source/howto/ssh.rst:274

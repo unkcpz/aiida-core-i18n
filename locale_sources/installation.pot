@@ -1,0 +1,1146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014-2020, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved
+# This file is distributed under the same license as the AiiDA package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AiiDA 2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-11 14:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/installation/docker.rst:5
+#: ../../source/installation/index.rst:64
+msgid "Docker"
+msgstr ""
+
+#: ../../source/installation/docker.rst:7
+msgid "The AiiDA team maintains a number of `Docker <https://www.docker.com/>`_ images on `Docker Hub <https://hub.docker.com/r/aiidateam>`_. These images contain a fully pre-configured AiiDA environment which make it easy to get started using AiiDA if you are familiar with Docker."
+msgstr ""
+
+#: ../../source/installation/docker.rst:10
+msgid "Currently, there are three image variants:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:15
+msgid "aiida-core-base"
+msgstr ""
+
+#: ../../source/installation/docker.rst:19
+msgid "This is the base image. It comes just with the ``aiida-core`` package installed. It expects that the RabbitMQ and PostgreSQL services are provided."
+msgstr ""
+
+#: ../../source/installation/docker.rst:24
+msgid "aiida-core-with-services"
+msgstr ""
+
+#: ../../source/installation/docker.rst:28
+msgid "This images builds on top of ``aiida-core-base`` but also installs RabbitMQ and PostgreSQL as services inside the image. This image is therefore complete and ready to be used."
+msgstr ""
+
+#: ../../source/installation/docker.rst:32
+msgid "aiida-core-dev"
+msgstr ""
+
+#: ../../source/installation/docker.rst:36
+msgid "This image builds on top of ``aiida-core-with-services`` with the only difference that the ``aiida-core`` package is installed from source in editable mode. This makes this image suitable for development of the ``aiida-core`` package."
+msgstr ""
+
+#: ../../source/installation/docker.rst:41
+msgid "Start a container"
+msgstr ""
+
+#: ../../source/installation/docker.rst:43
+msgid "To start a container from an image, run:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:49
+msgid "In this example, the ``aiida-core-with-services`` image is started where ``latest`` refers to the latest tag. The ``--name`` option is optional but is recommended as it makes it easier to restart the same container at a later point in time. The ``-it`` option is used to run the container in interactive mode and to allocate a pseudo-TTY. After the container start up has finished, a bash shell inside the container is opened."
+msgstr ""
+
+#: ../../source/installation/docker.rst:54
+msgid "An AiiDA profile is automatically created when the container is started. By default the profile is created using the ``core.psql_dos`` storage plugin and a default user is created. See section :ref:`container configuration <installation:docker:container-configuration>` how to customize certain parts of this setup."
+msgstr ""
+
+#: ../../source/installation/docker.rst:58
+msgid "To confirm that everything is up and running as required, run:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:64
+msgid "which should show something like::"
+msgstr ""
+
+#: ../../source/installation/docker.rst:73
+msgid "If all checks show green check marks, the container is ready to go. The container can be shut down by typing ``exit`` or pressing ``CTRL+d``. The container can be restarted at a later time, see :ref:`restarting a container <installation:docker:restarting-container>` for details. Any data that was created in a previous session is still available."
+msgstr ""
+
+#: ../../source/installation/docker.rst:80
+msgid "When the container is not just stopped but *deleted*, any data stored in the container, including the data stored in the profile's storage, is permanently localhost To ensure the data is not lost, it should be persisted on a volume that is mounted to the container. Refer to the section on :ref:`persisting data <installation:docker:persisting-data>` for more details."
+msgstr ""
+
+#: ../../source/installation/docker.rst:88
+msgid "Restarting a container"
+msgstr ""
+
+#: ../../source/installation/docker.rst:90
+msgid "After shutting down a container, it can be restarted with:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:96
+msgid "The name ``aiida`` here is the reference given with the ``--name`` option when the container was originally created. To open an interactive bash shell inside the container, run:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:107
+msgid "Persisting data"
+msgstr ""
+
+#: ../../source/installation/docker.rst:109
+msgid "The preferred way to persistently store data across Docker containers is to `create a volume <https://docs.docker.com/storage/volumes/>`__. To create a simple volume, run:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:116
+msgid "In this case, one needs to specifically mount the volume the very first time that the container is created:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:122
+msgid "By mounting the volume, any data that gets stored in the ``/home/aiida`` path within the container is stored in the ``container-home-data`` volume and therefore persists even if the container is deleted."
+msgstr ""
+
+#: ../../source/installation/docker.rst:124
+msgid "When installing packages with pip, use the ``--user`` flag to store the Python packages installed in the mounted volume (if you mount the home specifically to a volume as mentioned above) permanently. The packages will be installed in the ``/home/aiida/.local`` directory of the container, which is mounted on the ``container-home-data`` volume."
+msgstr ""
+
+#: ../../source/installation/docker.rst:127
+msgid "You can also mount a folder in the container to a local directory, please refer to the `Docker documentation <https://docs.docker.com/storage/bind-mounts/>`__ for more information."
+msgstr ""
+
+#: ../../source/installation/docker.rst:133
+msgid "Container configuration"
+msgstr ""
+
+#: ../../source/installation/docker.rst:135
+msgid "Upon container creation, the following environment variables can be set to configure the default profile that is created:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:137
+msgid "``AIIDA_PROFILE_NAME``: the name of the profile to be created (default: ``default``)"
+msgstr ""
+
+#: ../../source/installation/docker.rst:138
+msgid "``AIIDA_USER_EMAIL``: the email of the default user to be created (default: ``aiida@localhost``)"
+msgstr ""
+
+#: ../../source/installation/docker.rst:139
+msgid "``AIIDA_USER_FIRST_NAME``: the first name of the default user to be created (default: ``Giuseppe``)"
+msgstr ""
+
+#: ../../source/installation/docker.rst:140
+msgid "``AIIDA_USER_LAST_NAME``: the last name of the default user to be created (default: ``Verdi``)"
+msgstr ""
+
+#: ../../source/installation/docker.rst:141
+msgid "``AIIDA_USER_INSTITUTION``: the institution of the default user to be created (default: ``Khedivial``)"
+msgstr ""
+
+#: ../../source/installation/docker.rst:143
+msgid "These environment variables can be set when starting the container with the ``-e`` option."
+msgstr ""
+
+#: ../../source/installation/docker.rst:147
+msgid "The ``AIIDA_CONFIG_FILE`` variable points to a path inside the container. Therefore, if you want to use a custom configuration file, it needs to be mounted from the host path to the container path."
+msgstr ""
+
+#: ../../source/installation/docker.rst:153
+msgid "Container backup"
+msgstr ""
+
+#: ../../source/installation/docker.rst:155
+msgid "To backup the data of AiiDA, you can follow the instructions in the `Backup and restore <backup_and_restore>`__ section. However, Docker provides a convenient way to backup the container data by taking a snapshot of the entire container or the mounted volume(s)."
+msgstr ""
+
+#: ../../source/installation/docker.rst:158
+msgid "The following is adapted from the `Docker documentation <https://docs.docker.com/desktop/backup-and-restore/>`__. If you don't have a volume mounted to the container, you can backup the whole container by committing the container to an image:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:165
+msgid "The above command will create from the container ``aiida`` a new image named ``aiida-container-backup``, containing all the data and modifications made in the container. The container can then be exported to a tarball and for it to be stored permanently:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:172
+msgid "To restore the container, pull the image, or load from the tarball:"
+msgstr ""
+
+#: ../../source/installation/docker.rst:178
+msgid "This creates a container that can then be started with ``docker start``."
+msgstr ""
+
+#: ../../source/installation/docker.rst:180
+msgid "Any `named volumes <https://docs.docker.com/storage/volumes/#backup-a-containerhttps://docs.docker.com/storage/#more-details-about-mount-types>`__, can be backed up independently. Refer to `Backup, restore, or migrate data volumes <https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes>`__ for more information."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:5
+#: ../../source/installation/index.rst:37
+msgid "Complete installation guide"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:7
+msgid "The :ref:`quick installation guide <installation:guide-quick>` is designed to make the setup as simple and portable as possible. However, the resulting setup has some :ref:`limitations <installation:guide-quick:limitations>` concerning the available functionality and performance. This guide provides detailed information and instructions to set up a feature-complete and performant installation."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:11
+msgid "Setting up a working installation of AiiDA, involves the following steps:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:13
+msgid ":ref:`Install the Python Package <installation:guide-complete:python-package>`"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:14
+msgid ":ref:`(Optional) RabbitMQ <installation:guide-complete:rabbitmq>`"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:15
+msgid ":ref:`Create a profile <installation:guide-complete:create-profile>`"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:21
+msgid "Install Python Package"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:24
+msgid "AiiDA requires a recent version of Python. Please refer to the `Python Package Index (PyPI) <https://pypi.org/project/aiida-core/>`_ for the minimum required version."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:27
+msgid "To install AiiDA, the ``aiida-core`` Python package needs to be installed which can be done in a number of ways:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "pip"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:34
+msgid "Installing ``aiida-core`` from PyPI."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:36
+#: ../../source/installation/guide_complete.rst:70
+msgid "Install `pip <https://pip.pypa.io/en/stable/installation/>`_."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:37
+#: ../../source/installation/guide_complete.rst:71
+msgid "Install ``aiida-core``:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "conda"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:45
+msgid "Installing ``aiida-core`` using Conda."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:47
+#: ../../source/installation/guide_complete.rst:122
+msgid "Install `conda <https://conda.io/projects/conda/en/latest/user-guide/install/index.html>`_."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:49
+msgid "Create an environment and install ``aiida-core``:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:56
+msgid "As of conda v23.10, the `dependency solver <https://conda.org/blog/2023-11-06-conda-23-10-0-release/#with-this-23100-release-we-are-changing-the-default-solver-of-conda-to-conda-libmamba-solver-->`_ has been significantly improved. If you are experiencing long installation times, you may want to consider updating conda."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "source"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:61
+msgid "Installing ``aiida-core`` directory from source."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:63
+msgid "Install `git <https://www.git-scm.com/book/en/v2/Getting-Started-Installing-Git>`_"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:64
+msgid "Clone the repository from Github"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:78
+msgid "The ``-e`` flag installs the package in editable mode which is recommended for development. Any changes made to the source files are automatically picked up by the installation."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:85
+msgid "Optional requirements"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:87
+msgid "The ``aiida-core`` Python package defines a number of optional requirements, subdivided in the following categories:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:89
+msgid "``atomic_tools`` : Requirements to deal with atomic data and structures"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:90
+msgid "``docs`` : Requirements to build the documentation"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:91
+msgid "``notebook`` : Requirements to run AiiDA in Jupyter notebooks"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:92
+msgid "``pre-commit`` :  Requirements to automatically format and lint source code for development"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:93
+msgid "``rest`` : Requirements to run the REST API"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:94
+msgid "``ssh_kerberos`` : Requirements for enabling SSH authentication through Kerberos"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:95
+msgid "``tests`` : Requirements to run the test suite"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:96
+msgid "``tui`` : Requirements to provide a textual user interface (TUI)"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:98
+msgid "These optional requirements can be installed using pip by adding them as comma separated list, for example:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:108
+msgid "RabbitMQ"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:110
+msgid "`RabbitMQ <https://www.rabbitmq.com/>`_ is an optional but recommended service for AiiDA. It is a messsage broker that is required to run AiiDA's daemon. The daemon is a system process that runs in the background that manages one or multiple daemon workers that can run AiiDA processes. This way, the daemon helps AiiDA to scale as it is possible to run many processes in parallel on the daemon workers instead of blockingly in a single Python interpreter. To facilitate communication with the daemon workers, RabbitMQ is required."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:116
+msgid "Although it is possible to run AiiDA without a daemon it does provide significant benefits and therefore it is recommended to install RabbitMQ."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:124
+msgid "Create an environment and install ``aiida-core.services``:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:132
+msgid "The ``aiida-core.services`` package ensures that RabbitMQ is installed in the conda environment. However, it is not a _service_, in the sense that it is not automatically started, but has to be started manually."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:139
+msgid "Note that this has to be done each time after the machine has been rebooted. The server can be stopped with:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "Ubuntu"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:149
+msgid "Install RabbitMQ through the ``apt`` package manager:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:155
+msgid "This should automatically install startup scripts such that the server is automatically started when the machine boots."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "MacOS X"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:160
+msgid "Install `Homebrew <https://docs.brew.sh/Installation>`."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:162
+msgid "Install RabbitMQ:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:171
+msgid "The service has to manually be started each time the machine reboots."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:0
+msgid "Other"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:175
+msgid "For all other cases, please refer to the `official documentation <https://www.rabbitmq.com/docs/download>`_ of RabbitMQ."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:182
+msgid "Create a profile"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:184
+msgid "After the ``aiida-core`` package is installed, a profile needs to be created. A profile defines where the data generated by AiiDA is to be stored. The data storage can be customized through plugins and so the required configuration changes based on the selected storage plugin."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:188
+msgid "To create a new profile, run:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:194
+msgid "where ``<storage_entry_point>`` is the entry point name of the storage plugin selected for the profile. To list the available storage plugins, run:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:201
+msgid "AiiDA ships with a number of storage plugins and it is recommended to select one of the following:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:206
+msgid "core.sqlite_dos"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:210
+msgid "Use this for use-cases to explore AiiDA where performance is not critical."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:212
+msgid "This storage plugin does not require any services, making it easy to install and use."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:216
+msgid "Create a core.sqlite_dos profile"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:224
+msgid "core.psql_dos"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:228
+msgid "Use this for production work where database performance is important."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:230
+msgid "This storage plugin uses PostgreSQL for the database and provides the greatest performance."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:234
+msgid "Create a core.psql_dos profile"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:245
+msgid "See the :ref:`topic on storage <topics:storage>` to see a more detailed overview of the storage plugins provided by ``aiida-core`` with their strengths and weaknesses."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:247
+msgid "Other packages may provide additional storage plugins, which are also installable through ``verdi profile setup``."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:253
+msgid "Common options"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:255
+msgid "The exact options available for the ``verdi profile setup`` command depend on the selected storage plugin, but there are a number of common options and functionality:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:257
+msgid "``--profile``: The name of the profile."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:258
+msgid "``--set-as-default``: Whether the new profile should be defined as the new default."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:259
+msgid "``--email``: Email for the default user that is created."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:260
+msgid "``--first-name``: First name for the default user that is created."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:261
+msgid "``--last-name``: Last name for the default user that is created."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:262
+msgid "``--institution``: Institution for the default user that is created."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:263
+msgid "``--use-rabbitmq/--no-use-rabbitmq``: Whether to configure the RabbitMQ broker. Required to enable the daemon and submitting processes to it. The default is ``--use-rabbitmq``, in which case the command tries to connect to RabbitMQ running on the localhost with default connection parameters. If this fails, a warning is issued and the profile is configured without a broker. Once the profile is created, RabbitMQ can still be enabled through ``verdi profile configure-rabbitmq`` which allows to customize the connection parameters."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:268
+msgid "``--non-interactive``: By default, the command prompts to specify a value for all options. Alternatively, the ``--non-interactive`` flag can be specified, in which case the command never prompts and the options need to be specified directly on the command line. This is useful when using ``verdi profile setup`` is used in non-interactive environments, such as scripts."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:271
+msgid "``--config``: Instead of passing all options through command line options, the value can be defined in a YAML file and pass its filepath through this option."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:277
+msgid "``core.sqlite_dos``"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:279
+msgid "This storage plugin uses `SQLite <https://sqlite.org/>`_ and the `disk-objectstore <https://disk-objectstore.readthedocs.io/en/latest/>`_ to store data. The ``disk-objectstore`` is a Python package that is automatically installed as a dependency when installing ``aiida-core``, which was covered in the :ref:`Python package installation section <installation:guide-complete:python-package>`. The installation instructions for SQLite depend on your system; please visit the `SQLite website <https://www.sqlite.org/download.html>`_ for details."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:283
+msgid "Once the prerequisistes are met, create a profile with:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:289
+msgid "The options specific to the ``core.sqlite_dos`` storage plugin are:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:291
+msgid "``--filepath``: Filepath of the directory in which to store data for this backend."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:297
+msgid "``core.psql_dos``"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:299
+msgid "This storage plugin uses `PostgreSQL <https://www.postgresql.org/>`_ and the `disk-objectstore <https://disk-objectstore.readthedocs.io/en/latest/>`_ to store data. The ``disk-objectstore`` is a Python package that is automatically installed as a dependency when installing ``aiida-core``, which was covered in the :ref:`Python package installation section <installation:guide-complete:python-package>`. The storage plugin can connect to a PostgreSQL instance running on the localhost or on a server that can be reached over the internet. Instructions for installing PostgreSQL is beyond the scope of this guide."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:306
+msgid "The creation of the PostgreSQL user and database as explained below is implemented in an automated way in the ``verdi presto`` command. Instead of performing the steps below manually and running ``verdi profile setup core.psql_dos`` manually, it is possible to run:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:313
+msgid "Before creating a profile, a database (and optionally a custom database user) has to be created. First, connect to PostgreSQL using ``psql``, the `native command line client for PostgreSQL <https://www.postgresql.org/docs/current/app-psql.html>`_:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:320
+msgid "If PostgreSQL is installed on the localhost, ``<hostname>`` can be replaced with ``localhost``, and the default ``<username>`` is ``postgres``. While possible to use the ``postgres`` default user for the AiiDA profile, it is recommended to create a custom user:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:327
+msgid "replacing ``<password>`` with a secure password. The name ``aiida-user`` is just an example name and can be customized. Note the selected username and password as they are needed when creating the profile later on."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:331
+msgid "After the user has been created, create a database:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:337
+msgid "Again, the selected database name ``aiida-database`` is purely an example and can be customized. Make sure that the ``OWNER`` is set to the user that was created in the previous step. Next, grant all privileges on this database to the user:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:345
+msgid "After the database has been created, the interactive ``psql`` shell can be closed. To test if the database was created successfully, run the following command:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:352
+msgid "replacing ``<database>`` and ``<username>`` with the chosen names for the database and user in the previous steps, and providing the chosen password when prompted."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:354
+msgid "Once the database has been created, create a profile with:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:360
+msgid "The options specific to the ``core.psql_dos`` storage plugin are:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:362
+msgid "``--database-engine``   The engine to use to connect to the database."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:363
+msgid "``--database-hostname`` The hostname of the PostgreSQL server."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:364
+msgid "``--database-port``     The port of the PostgreSQL server."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:365
+msgid "``--database-username`` The username with which to connect to the PostgreSQL server."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:366
+msgid "``--database-password`` The password with which to connect to the PostgreSQL server."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:367
+msgid "``--database-name``     The name of the database in the PostgreSQL server."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:368
+msgid "``--repository-uri``    URI to the file repository."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:374
+msgid "Validate installation"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:376
+msgid "Once a profile has been created, validate that everything is correctly set up with:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:382
+msgid "The output should look something like the following::"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:391
+msgid "If no lines show red crosses, AiiDA has been correctly installed and is ready to go. When a new profile is created, the daemon will not yet be running, but it can be started using:"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:400
+msgid "The storage information depends on the storage plugin that was selected. The broker may be shown as not having been configured which occurs for profiles created with the :ref:`quick installation method <installation:guide-quick>`. This is fine, however, :ref:`some functionality is not supported <installation:guide-quick:limitations>` for broker-less profiles."
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:405
+msgid "Not all green?"
+msgstr ""
+
+#: ../../source/installation/guide_complete.rst:408
+msgid "If the status reports any problems, please refer to the :ref:`troubleshooting section <installation:troubleshooting>`."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:5
+msgid "Quick installation guide"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:7
+msgid "First, install the ``aiida-core`` Python package:"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:15
+msgid "AiiDA requires a recent version of Python. Please refer to the `Python Package Index <https://pypi.org/project/aiida-core/>`_ for the minimum required version."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:18
+msgid "Next, set up a profile where all data is stored:"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:24
+msgid "Verify that the installation was successful:"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:30
+msgid "If none of the lines show a red cross, indicating a problem, the installation was successful and you are good to go."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:32
+msgid "What next?"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:35
+msgid "If you are a new user, we recommend to start with the :ref:`basic tutorial <tutorial:basic>`. Alternatively, check out the :ref:`next steps guide <tutorial:next-steps>`."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:38
+msgid "Problems during installation?"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:41
+msgid "If you encountered any issues, please refer to the :ref:`troubleshooting section <installation:troubleshooting>`."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:45
+msgid "Not all AiiDA functionality is supported by the quick installation. Please refer to the :ref:`section below <installation:guide-quick:limitations>` for more information."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:52
+msgid "Quick install limitations"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:55
+msgid "Functionality"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:57
+msgid "Part of AiiDA's functionality requires a `message broker <https://en.wikipedia.org/wiki/Message_broker>`_, with the default implementation using `RabbitMQ <https://www.rabbitmq.com/>`_. The message broker is used to allow communication with the :ref:`daemon <topics:daemon>`. Since RabbitMQ is a separate service and is not always trivial to install, the quick installation guide sets up a profile that does not require it. As a result, the daemon cannot be started and processes cannot be submitted to it but can only be run locally."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:63
+msgid "The ``verdi presto`` command automatically checks if RabbitMQ is running on the localhost. If it can successfully connect, it configures the profile with the message broker and therefore the daemon functionality will be available."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:67
+msgid "The connection parameters of RabbitMQ can be (re)configured after the profile is set up with ``verdi profile configure-rabbitmq``. This can be useful when the RabbitMQ setup is different from the default that AiiDA checks for and the automatic configuration of ``verdi presto`` failed."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:72
+msgid "Performance"
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:74
+msgid "The quick installation guide by default creates a profile that uses `SQLite <https://www.sqlite.org/>`_ for the database. Since SQLite does not require running a service, it is easy to install and use on essentially any system. However, for certain use cases it is not going to be the most performant solution. AiiDA also supports `PostgreSQL <https://www.postgresql.org/>`_ which is often going to be more performant compared to SQLite."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:80
+msgid "If a PostgreSQL service is available, run ``verdi presto --use-postgres`` to set up a profile that uses PostgreSQL instead of SQLite. The command tries to connect to the service and automatically create a user account and database to use for the new profile. AiiDA provides defaults that work for most setups where PostgreSQL is installed on the localhost. Should this fail, the connection parameters can be customized using the ``--postgres-hostname``, ``--postgres-port``, ``--postgres-username``, ``--postgres-password`` options."
+msgstr ""
+
+#: ../../source/installation/guide_quick.rst:85
+msgid "Please refer to the :ref:`complete installation guide <installation:guide-complete>` for instructions to set up a feature-complete and performant installation."
+msgstr ""
+
+#: ../../source/installation/index.rst:14
+msgid "Installation"
+msgstr ""
+
+#: ../../source/installation/index.rst:19
+msgid "Quick install"
+msgstr ""
+
+#: ../../source/installation/index.rst:23
+msgid "Install AiiDA in the most simple way that should work on most systems. Choose this method if you are new to AiiDA and simply want to try it out."
+msgstr ""
+
+#: ../../source/installation/index.rst:28
+msgid "To the quick installation guide"
+msgstr ""
+
+#: ../../source/installation/index.rst:41
+msgid "Install AiiDA with full control over the configuration. Choose this method if you are an advanced user or you want to optimize the setup for your system."
+msgstr ""
+
+#: ../../source/installation/index.rst:46
+msgid "To the complete installation guide"
+msgstr ""
+
+#: ../../source/installation/index.rst:57
+msgid "Preinstalled environments"
+msgstr ""
+
+#: ../../source/installation/index.rst:59
+msgid "Instead of installing AiiDA manually, there are also solutions that provide an environment with AiiDA and its requirements installed and pre-configured:"
+msgstr ""
+
+#: ../../source/installation/index.rst:68
+msgid "AiiDA provides a number of Docker containers that come with the batteries included. This is a great option if you are already familiar with Docker."
+msgstr ""
+
+#: ../../source/installation/index.rst:73
+msgid "To the Docker installation guide"
+msgstr ""
+
+#: ../../source/installation/index.rst:82
+msgid "Virtual machine"
+msgstr ""
+
+#: ../../source/installation/index.rst:86
+msgid "Quantum Mobile is a Virtual Machine for computational materials science. It comes with AiiDA installed as well as several materials simulation codes."
+msgstr ""
+
+#: ../../source/installation/index.rst:91
+msgid "To the Quantum Mobile website"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:5
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:7
+msgid "If you experience any problems, first check that all services are up and running:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:20
+msgid "In the example output, all service have a green check mark and so should be running as expected. If all services are up and running and you are still experiencing problems or if you have trouble with the installation of aiida-core and related services, consider the commonly encountered problems below. In case you are still experiencing problems, you can request support by opening a post on the `Discourse server <https://aiida.discourse.group/>`_."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:27
+msgid "Installation issues"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:32
+msgid "RabbitMQ incompatibility"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:34
+msgid "RabbitMQ v3.5 and older are `end-of-life <https://www.rabbitmq.com/versions.html>`_ and are not supported in any way. For RabbitMQ v3.8.15 and up, AiiDA is not compatible with the default configuration of the server. When AiiDA is run with an incompatible version of RabbitMQ, the following warning will be displayed:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:44
+msgid "There are two possible solutions:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:46
+msgid "Configure the RabbitMQ server to set a long time for the ``consumer_timeout`` parameter."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:47
+msgid "Downgrade the RabbitMQ server to v3.8.14 or earlier"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:0
+msgid "Configuring"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:53
+msgid "Newer versions of RabbitMQ can be made compatible with AiiDA, but the server will have to be configured. Note that for this administrator access will most likely be required. The name and location of the configuration file depends on the operating system (see the `RabbitMQ documentation <https://www.rabbitmq.com/configure.html#config-location>`_ for details). It is possible that the configuration file does not yet exist, in which case it should be created."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:58
+msgid "Add the ``consumer_timeout`` parameter to the config file and give it a sufficiently large number:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:64
+msgid "For AiiDA to operately safely, this value should be larger than the longest expected run time of any AiiDA workflow or calculation. The suggested number of 10,000 hours should typically be sufficient. See the `RabbitMQ documentation on timeouts <https://www.rabbitmq.com/consumers.html#acknowledgement-timeout>`_ for more details and how with advanced configuration the consumer timeout can even be completely disabled."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:68
+msgid "Note that when you have properly configured RabbitMQ, AiiDA will continue to emit the warning because it can only check the version. To suppress the warning set the ``warnings.rabbitmq_version`` to ``False``:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:0
+msgid "Downgrading"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:77
+msgid "Downgrading the RabbitMQ server will be dependent on the operating system and/or on how the server was installed. Please refer to the `RabbitMQ installation documentation <https://www.rabbitmq.com/download.html>`_ for instructions."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:80
+msgid "Further details are maintained on `this wiki page <https://github.com/aiidateam/aiida-core/wiki/RabbitMQ-version-to-use>`_ of the repository."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:84
+msgid "numpy dependency"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:86
+msgid "On a clean Ubuntu 16.04 install the pip install command ``pip install -e aiida-core`` may fail due to a problem with dependencies on the ``numpy`` package. In this case you may be presented with a message like the following:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:94
+msgid "To fix this, simply install ``numpy`` individually through pip in your virtual env, i.e.:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:100
+msgid "followed by executing the original install command once more:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:106
+msgid "This should fix the dependency error."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:109
+msgid "Database installation and location"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:111
+msgid "If the installation fails while installing the packages related to the database, you may have not installed or set up the database libraries."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:113
+msgid "In particular, on Mac OS X, if you installed the binary package of PostgreSQL, it is possible that the PATH environment variable is not set correctly, and you get a \"Error: pg_config executable not found.\" error. In this case, discover where the binary is located, then add a line to your ``~/.bashrc`` file similar to the following:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:120
+msgid "and then open a new bash shell. Some possible paths can be found at this `Stackoverflow link`_ and a non-exhaustive list of possible paths is the following (version number may change):"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:123
+msgid "``/Applications/Postgres93.app/Contents/MacOS/bin``"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:124
+msgid "``/Applications/Postgres.app/Contents/Versions/9.3/bin``"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:125
+msgid "``/Library/PostgreSQL/9.3/bin/pg_config``"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:127
+msgid "Similarly, if the package installs but then errors occur during the first of AiiDA (with ``Symbol not found`` errors or similar), you may need to point to the path where the dynamical libraries are. A way to do it is to add a line similar to the following to the ``~/.bashrc`` and then open a new shell:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:134
+msgid "(you should of course adapt the path to the PostgreSQL libraries)."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:142
+msgid "Autodetection of the PostgreSQL setup"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:144
+msgid "Sometimes AiiDA fails to autodetect the local configuration of PostgreSQL when running ``verdi presto --use-postgres``. In that case try to:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:147
+msgid "Create the database manually in PostgreSQL (see :ref:`here<installation:guide-complete:create-profile:core-psql-dos>`)."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:148
+msgid "Then run the full ``verdi profile setup core.psql_dos``."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:152
+msgid "RabbitMQ Installation (Unix)"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:154
+msgid "If in ``verdi status`` RabbitMQ is not connected, first check that RabbitMQ is actually running:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:164
+msgid "By default, AiiDA profiles are configured to connect to RabbitMQ *via* ``amqp://guest:guest@127.0.0.1:5672``, hence this port should be open for connections. In Linux / Mac OSX you can also check which ports a PID has open using:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:176
+msgid "If a connection cannot be found, try starting ``rabbitmq-server`` in non-detached mode. If you encounter an output similar to that below, it may be that your versions of RabbitMQ and erlang (the programming language which RabbitMQ is written in) are incompatible."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:207
+msgid "You can check your version of erlang using:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:214
+msgid "and your version of rabbitmq-server with:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:221
+msgid "Then see `RabbitMQ Erlang Version Requirements <https://www.rabbitmq.com/which-erlang.html>`__, to check if these are compatible, and reinstall as appropriate."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:223
+msgid "See also the `RabbitMQ Troubleshooting <https://www.rabbitmq.com/troubleshooting.html>`__ for further information."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:226
+msgid "Ensuring a UTF-8 locale"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:228
+msgid "For some reasons, on some machines (notably often on Mac OS X) there is no default locale defined, and when you run ``verdi setup`` for the first time it fails (see also `this issue`_ of django). Run in your terminal (or maybe even better, add to your ``.bashrc``, but then remember to open a new shell window!):"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:236
+msgid "and then run ``verdi setup`` again."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:241
+msgid "Possible Ubuntu dependencies"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:243
+msgid "Several users reported the need to install also ``libpq-dev`` (header files for libpq5 - PostgreSQL library):"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:249
+msgid "But under Ubuntu 12.04 this is not needed."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:252
+msgid "verdi not in PATH"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:254
+msgid "Installing the ``aiida-core`` python package *should* add the ``verdi`` CLI to your ``PATH`` automatically."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:256
+msgid "If the ``verdi`` executable is not available in your terminal, the folder where ``pip`` places binaries may not be added to your ``PATH``"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:258
+msgid "For Linux systems, this folder is usually something like ``~/.local/bin``:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:264
+msgid "For Mac OS X systems, the path to add is usually ``~/Library/Python/2.7/bin``:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:270
+msgid "After updating your ``PATH``, the ``verdi`` command should be available."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:274
+msgid "A preprequisite for ``verdi`` to work is that the ``aiida`` python package is importable. Test this by opening a ``python`` or ``ipython`` shell and typing:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:281
+msgid "If you get an ``ImportError`` (and you are in the environment where AiiDA was installed), you can add it to the ``PYTHONPATH`` manually:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:289
+msgid "Configuring remote SSH computers"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:292
+msgid "ssh_kerberos installation"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:294
+msgid "When installing the ``ssh_kerberos`` *optional* requirement through Anaconda you may encounter the following error on Ubuntu machines:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:300
+msgid "This is related to an open issue in anaconda `ContinuumIO/anaconda-issues#686`_. A potential solution is to run the following command:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:310
+msgid "Output from .bashrc and/or .bash_profile on remote computers"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:314
+msgid "This also applies to computers configured via ``local`` transport."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:316
+msgid "When connecting to remote computers, AiiDA (like other codes as ``sftp``) can get confused if you have code in your ``.bashrc`` or ``.bash_profile`` that produces output or e.g. runs commands like ``clean`` that require a terminal."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:318
+msgid "For instance, if you add a ``echo \"a\"`` in your ``.bashrc`` and then try to SFTP a file from it, you will get an error like ``Received message too long 1091174400``."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:320
+msgid "If you still want to have code that needs an interactive shell (``echo``, ``clean``, ...), but you want to disable it for non-interactive shells, put at the top of your file a guard like this:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:329
+msgid "Everything below this will not be executed in a non-interactive shell."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:333
+msgid "Still, you might want to have some code on top, like e.g. setting the PATH or similar, if this needs to be run also in the case of non-interactive shells."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:335
+msgid "To test if a the computer does not produce spurious output, run (after configuring):"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:341
+msgid "which checks and, in case of problems, suggests how to solve the problem."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:345
+msgid "If the methods explained above do not work, you can configure AiiDA to not use a login shell when connecting to your computer, which may prevent the spurious output from being printed: During ``verdi computer configure``, set ``-no-use-login-shell`` or when asked to use a login shell, set it to ``False``. Note, however, that this may result in a slightly different environment, since `certain startup files are only sourced for login shells <https://unix.stackexchange.com/a/46856/155909>`_."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:354
+msgid "Improvements for dependencies"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:357
+msgid "Activating the ASE visualizer"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:359
+msgid "Within a virtual environment, attempt to visualize a structure with ``ase`` (either from the shell, or using the command ``verdi data core.structure show --format=ase <PK>``), might end up with the following error message::"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:363
+msgid "The issue is that ``pygtk`` is currently not pip-installable. One has to install it separately and create the appropriate bindings manually in the virtual environment. You can follow the following procedure to get around this issue:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:366
+msgid "Install the ``python-gtk2`` package. Under Ubuntu, do:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:372
+msgid "Create the ``lib/python2.7/dist-packages`` folder within your virtual environment:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:379
+msgid "where ``<AIIDA_VENV_FOLDER>`` is the virtual environment folder you have created during the installation process."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:382
+msgid "Create several symbolic links from this folder, pointing to a number of files in ``/usr/lib/python2.7/dist-packages/``:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:394
+msgid "After that, ``verdi data core.structure show --format=ase <PK>`` should work."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:397
+msgid "Use in ipython/jupyter"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:399
+msgid "In order to use the AiiDA objects and functions in Jupyter, this latter has to be instructed to use the iPython kernel installed in the AiiDA virtual environment. This happens by default if you install AiiDA with ``pip`` including the ``notebook`` option, and run Jupyter from the AiiDA virtual environment."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:402
+msgid "If for any reason, you do not want to install Jupyter in the virtual environment, you might consider to install it out of the virtual environment, if not already done:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:408
+msgid "Then, activate the AiiDA virtual environment:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:414
+msgid "and setup the AiiDA iPython kernel:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:421
+msgid "where you have chosen a meaningful name for the new kernel."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:423
+msgid "Finally, start a Jupyter server:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:429
+msgid "and from the newly opened browser tab select ``New -> <aiida.kernel.name>``"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:434
+msgid "Increasing the logging verbosity"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:436
+msgid "By default, the logging level of AiiDA is minimal to avoid too much noise in the logfiles. Only warnings and errors are logged to the daemon log files, while info and debug messages are discarded."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:439
+msgid "If you are experiencing a problem, you can increase the default minimum logging level of AiiDA messages, with:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:445
+msgid "You might also be interested in reviewing the circus log messages (the ``circus`` library is the daemonizer that manages the daemon runners),"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:451
+msgid "however those messages are usually only relevant to debug AiiDA internals."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:453
+msgid "For each profile that runs a daemon, there are two unique logfiles, one for AiiDA log messages (named ``aiida-<profile_name>.log``) and one for the circus logs (named ``circus-<profile_name>.log``). Those files can be found in the ``~/.aiida/daemon/log`` folder."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:456
+msgid "After restarting the daemon (``verdi daemon restart``), the number of messages logged will increase significantly and may help in determining the source of the problem."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:460
+msgid "Besides ``DEBUG``, you can also use the levels defined in the `standard Python logging module <https://docs.python.org/3/library/logging.html#logging-levels>`_. In addition to those, AiiDA defines the custom ``REPORT`` level, which, with a value of ``23``, is more verbose than the ``WARNING`` level, but less verbose than ``INFO``. The ``REPORT`` level is AiiDA's default logging level."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:464
+msgid "When the problem is solved, we suggest to reset the default logging level, with:"
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:471
+msgid "to avoid too much noise in the logfiles."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:475
+msgid "It is also possible to temporarily change the log level for ``verdi`` commands using the ``--v/--verbosity`` options (see :ref:`this section <topics:cli:verbosity>` for more details)."
+msgstr ""
+
+#: ../../source/installation/troubleshooting.rst:477
+msgid "The config options set for the current profile can be viewed using"
+msgstr ""
