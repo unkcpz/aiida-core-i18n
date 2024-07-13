@@ -148,7 +148,7 @@ msgstr ""
 #: ../../source/topics/calculations/concepts.rst:60
 #: ../../source/topics/workflows/concepts.rst:43
 msgid "Function argument casting"
-msgstr ""
+msgstr "函数参数转换"
 
 #: ../../source/topics/calculations/concepts.rst:63
 #: ../../source/topics/workflows/concepts.rst:46
@@ -1003,7 +1003,7 @@ msgid ""
 "will be placed *after* the executable in the launch script. Here we use it "
 "to explicitly instruct the executable to read its input from the filename "
 "stored in the option ``input_filename``."
-msgstr ""
+msgstr "有关将输入文件复制到工作目录的顺序，请参阅 :ref:`topics:calculations:usage:calcjobs:file-copy-order` 。在本例中，我们只需要运行一个代码，因此 ``codes_info`` 列表只有一个 ``CodeInfo`` 数据结构。该数据结构需要定义它需要运行的代码，即传递给 ``CalcJob`` 的输入之一，并通过其 UUID 来实现。通过 ``stdout_name`` 属性，我们可以告诉 engine 应将可执行文件的输出重定向到哪里。在本例中，它被设置为 ``output_filename`` 选项的值。 :ref:`section on options<topics:calculations:usage:calcjobs:options>` 将解释计算作业中有哪些选项、这些选项的作用以及如何设置这些选项。最后， ``cmdline_params`` 属性包含一个命令行参数列表，这些参数将放在启动脚本中可执行文件的*后。在这里，我们用它来明确指示可执行文件从存储在选项 ``input_filename`` 中的文件名中读取输入。"
 
 #: ../../source/topics/calculations/usage.rst:198
 msgid ""
@@ -1548,29 +1548,29 @@ msgstr ""
 
 #: ../../source/topics/calculations/usage.rst:571
 msgid "Controlling order of file copying"
-msgstr ""
+msgstr "控制文件复制顺序"
 
 #: ../../source/topics/calculations/usage.rst:575
 msgid "Input files can come from three sources in a calculations job:"
-msgstr ""
+msgstr "在计算工作中，输入文件可以来自三个来源："
 
 #: ../../source/topics/calculations/usage.rst:577
 msgid ""
 "Sandbox: files that are written by the ``CalcJob`` plugin in the "
 ":meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`"
 " to the sandbox folder"
-msgstr ""
+msgstr "沙盒：由 :meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` 中的 ``CalcJob`` 插件写入沙盒文件夹的文件"
 
 #: ../../source/topics/calculations/usage.rst:578
 msgid ""
 "Local: files of input nodes that are defined through the ``local_copy_list``"
-msgstr ""
+msgstr "本地：通过 ``local_copy_list`` 定义的输入 node 文件"
 
 #: ../../source/topics/calculations/usage.rst:579
 msgid ""
 "Remote: files of ``RemoteData`` input nodes that are defined through the "
 "``remote_copy_list``"
-msgstr ""
+msgstr "远程：通过 ``remote_copy_list`` 定义的 ``RemoteData`` 输入 node 文件"
 
 #: ../../source/topics/calculations/usage.rst:581
 msgid ""
@@ -1580,7 +1580,7 @@ msgid ""
 ":class:`~aiida.common.datastructures.CalcInfo` which takes a list of "
 ":class:`~aiida.common.datastructures.FileCopyOperation` instances, for "
 "example:"
-msgstr ""
+msgstr "默认情况下，这些文件的复制顺序依次为沙盒、本地和远程。例如，可以通过 :class:`~aiida.common.datastructures.CalcInfo` 的 ``file_copy_operation_order`` 属性来控制顺序，该属性接收 :class:`~aiida.common.datastructures.FileCopyOperation` 实例的列表："
 
 #: ../../source/topics/calculations/usage.rst:606
 msgid "Stashing on the remote"
@@ -5169,14 +5169,14 @@ msgstr ""
 
 #: ../../source/topics/data_types.rst:1380
 msgid "Fields"
-msgstr ""
+msgstr "字段"
 
 #: ../../source/topics/data_types.rst:1384
 msgid ""
 "The attributes of new data types may be exposed to end users by explicitly "
 "defining each attribute field under the ``__qb_fields__`` class attribute of"
 " the new data class."
-msgstr ""
+msgstr "新数据类型的属性可通过在新数据类型的 ``__qb_fields__`` 类属性下明确定义每个属性字段的方式向最终用户公开。"
 
 #: ../../source/topics/data_types.rst:1404
 msgid ""
@@ -5190,7 +5190,7 @@ msgid ""
 "to:query:filters:programmatic>` and :ref:`projections<how-"
 "to:query:projections:programmatic>` when using AiiDA's "
 ":py:class:`~aiida.orm.querybuilder.QueryBuilder`."
-msgstr ""
+msgstr "``aiida.orm.fields`` 的内部机制将把 ``frontend_key`` 动态添加到新数据类型的 ``fields`` 属性中。 ``fields`` 的构造遵循继承规则，因此除了自身的字段外， ``NewData.fields`` 还将继承其父代的字段，并按照继承树一直继承到根 ``Entity`` 祖先。这提高了新数据类型的可用性，例如，终端用户在使用 AiiDA 的 :py:class:`~aiida.orm.querybuilder.QueryBuilder` 时，可以通过编程定义 :ref:`filters<how-to:query:filters:programmatic>` 和 :ref:`projections<how-to:query:projections:programmatic>` 。"
 
 #: ../../source/topics/data_types.rst:1408
 msgid ""
@@ -5201,7 +5201,7 @@ msgid ""
 " class in queries, the logical operators available to the user will depend "
 "on the flavor of :py:class:`~aiida.orm.fields.QbField` assigned to the "
 "field."
-msgstr ""
+msgstr " :py:meth:`~aiida.orm.fields.add_field` 将返回与 ``dtype`` 参数定义的字段类型相关的 :py:class:`~aiida.orm.fields.QbField` 类型，字段类型可以是原始类型或 ``typing`` 模块类型提示，例如 ``Dict[str, Any]`` 。在查询中使用数据类时，用户可用的逻辑运算符将取决于分配给字段的 :py:class:`~aiida.orm.fields.QbField` 类型。"
 
 #: ../../source/topics/database.rst:5
 msgid "Database"
@@ -5628,7 +5628,7 @@ msgstr "筛选应包含特定值的列表。"
 
 #: ../../source/topics/database.rst:181
 msgid "Logical expression syntax"
-msgstr ""
+msgstr "逻辑表达式语法"
 
 #: ../../source/topics/database.rst:184
 msgid ""
@@ -5638,14 +5638,14 @@ msgid ""
 " type. When using the autocompletion feature in constructing query "
 "expressions, only operations associated with the type of the queried field "
 "will be presented."
-msgstr ""
+msgstr "在 :ref:`filters<how-to:query:filters:programmatic>` 和 :ref:`projections<how-to:query:projections:programmatic>` 的新逻辑表达式语法中，上述操作按类型分布。在使用自动完成功能构建查询表达式时，将只显示与查询字段类型相关的操作。"
 
 #: ../../source/topics/database.rst:187
 msgid ""
 "For example, ``Node.fields.uuid`` is a string type, and as such, "
 "``Node.fields.uuid.`` will, in addition to ``==`` and ``in_``, only suggest "
 "``like`` and ``ilike``."
-msgstr ""
+msgstr "例如， ``Node.fields.uuid`` 是字符串类型，因此，除了 ``==`` 和 ``in_`` 外， ``Node.fields.uuid.`` 只建议使用 ``like`` 和 ``ilike`` 。"
 
 #: ../../source/topics/database.rst:190
 msgid ""
@@ -5653,18 +5653,18 @@ msgid ""
 "to:query:filters:operator-negations>` all operators can be turned into their"
 " associated negation (``NOT`` operator) by adding a ``!`` in front of the "
 "operator."
-msgstr ""
+msgstr "正如 :ref:`section about operator negations<how-to:query:filters:operator-negations>` 中提到的，所有运算符都可以通过在运算符前添加 ``!`` 变为相关的否定运算符( ``NOT`` 运算符)。"
 
 #: ../../source/topics/database.rst:192
 msgid "Programmatic filter negation"
-msgstr ""
+msgstr "程序化过滤否定"
 
 #: ../../source/topics/database.rst:195
 msgid ""
 "In the new logical expression syntax, negation is defined with ``~``, such "
 "that ``~(Node.fields.some_field < 1)`` is equivalent to "
 "``Node.fields.some_field >= 1``."
-msgstr ""
+msgstr "在新的逻辑表达式语法中，否定用 ``~`` 定义，例如 ``~(Node.fields.some_field < 1)`` 等同于 ``Node.fields.some_field >= 1`` 。"
 
 #: ../../source/topics/database.rst:198
 msgid ""
@@ -6687,7 +6687,7 @@ msgid ""
 "Just by adding this line, the fixtures that are provided by the "
 ":mod:`~aiida.tools.pytest_fixtures` module are automatically imported. The "
 "module provides the following fixtures:"
-msgstr ""
+msgstr "只需添加这一行，:mod:`~aiida.tools.pytest_fixtures` 模块提供的固定装置就会自动 imported。该模块提供以下固定装置："
 
 #: ../../source/topics/plugins.rst:352
 msgid ""
@@ -6735,7 +6735,7 @@ msgid ""
 ":ref:`aiida_config <topics:plugins:testfixtures:aiida-config>`: Return the "
 ":class:`~aiida.manage.configuration.config.Config` instance that is used for"
 " the test session"
-msgstr ""
+msgstr " :ref:`aiida_config <topics:plugins:testfixtures:aiida-config>` ：返回测试会话使用的 :class:`~aiida.manage.configuration.config.Config` 实例"
 
 #: ../../source/topics/plugins.rst:358
 msgid ""
@@ -6751,7 +6751,7 @@ msgid ""
 ":ref:`postgres_cluster <topics:plugins:testfixtures:postgres-cluster>`: "
 "Create a temporary and isolated PostgreSQL cluster using ``pgtest`` and "
 "cleanup after the yielder"
-msgstr ""
+msgstr " :ref:`postgres_cluster <topics:plugins:testfixtures:postgres-cluster>` ：使用 ``pgtest`` 创建临时和隔离的 PostgreSQL 群集，并在生成器之后进行清理"
 
 #: ../../source/topics/plugins.rst:360
 msgid ""
@@ -6794,7 +6794,7 @@ msgstr ""
 msgid ""
 ":ref:`aiida_code <topics:plugins:testfixtures:aiida-code>`: Setup a "
 ":class:`~aiida.orm.nodes.data.code.abstract.AbstractCode` instance"
-msgstr ""
+msgstr " :ref:`aiida_code <topics:plugins:testfixtures:aiida-code>` ：设置 :class:`~aiida.orm.nodes.data.code.abstract.AbstractCode` 实例"
 
 #: ../../source/topics/plugins.rst:365
 msgid ""
@@ -6802,7 +6802,7 @@ msgid ""
 "installed>`: Setup a "
 ":class:`~aiida.orm.nodes.data.code.installed.InstalledCode` instance on a "
 "given computer"
-msgstr ""
+msgstr " :ref:`aiida_code_installed <topics:plugins:testfixtures:aiida-code-installed>` :在指定计算机上设置 :class:`~aiida.orm.nodes.data.code.installed.InstalledCode` 实例"
 
 #: ../../source/topics/plugins.rst:366
 msgid ""
@@ -6857,7 +6857,7 @@ msgid ""
 " will be removed in the future. Some fixtures have analogs in "
 ":mod:`aiida.tools.pytest_fixtures` that are drop-in replacements, but in "
 "general, there are differences in the interface and functionality."
-msgstr ""
+msgstr "在 v2.6 之前，测试夹具位于 :mod:`aiida.manage.tests.pytest_fixtures`. This module is now deprecated and will be removed in the future. Some fixtures have analogs in :mod:`aiida.tools.pytest_fixtures` 中，可直接替换，但总的来说，界面和功能上存在差异。"
 
 #: ../../source/topics/plugins.rst:382
 msgid "``aiida_manager``"
@@ -6899,7 +6899,7 @@ msgstr "包含配置文件的 ``.aiida`` 临时配置文件夹"
 #: ../../source/topics/plugins.rst:405
 msgid ""
 "A temporary test profile configured with ``core.sqlite_dos`` storage backend"
-msgstr ""
+msgstr "使用 ``core.sqlite_dos`` 存储后端配置的临时测试配置文件"
 
 #: ../../source/topics/plugins.rst:409
 msgid ""
@@ -6908,7 +6908,7 @@ msgid ""
 "installed. Since the functionality of PostgreSQL is not needed for most "
 "common test cases, this choice makes it easier to start writing and running "
 "tests."
-msgstr ""
+msgstr "该配置文件使用 ``core.sqlite_dos`` 而不是标准的 ``core.psql_dos`` 存储插件，因为它不需要安装 PostgreSQL。由于大多数常见测试用例都不需要 PostgreSQL 的功能，这一选择使编写和运行测试变得更加容易。"
 
 #: ../../source/topics/plugins.rst:412
 msgid ""
@@ -6924,7 +6924,7 @@ msgid ""
 "functionality that requires a broker is not available, such as running the "
 "daemon and submitting processes to the daemon. If that functionality is "
 "required, a profile should be created and loaded that configures a broker."
-msgstr ""
+msgstr "该配置文件没有将 RabbitMQ 配置为代理，因为大多数对插件有用的测试用例都不需要它。不过，这意味着任何需要代理的功能都不可用，例如运行守护进程和向守护进程提交 processes。如果需要该功能，则应创建并加载配置文件以配置代理。"
 
 #: ../../source/topics/plugins.rst:421
 msgid ""
@@ -6988,7 +6988,7 @@ msgstr "请注意，上述配置实际上并不实用，实际配置取决于所
 
 #: ../../source/topics/plugins.rst:505
 msgid "``aiida_config``"
-msgstr ""
+msgstr "``aiida_config``"
 
 #: ../../source/topics/plugins.rst:507
 msgid ""
@@ -7015,7 +7015,7 @@ msgid ""
 "Note that this is only useful if the storage configuration needs to be "
 "customized. If any configuration works, simply use the ``aiida_profile`` "
 "fixture straight away."
-msgstr ""
+msgstr "请注意，这只有在需要自定义存储配置时才有用。如果任何配置都能正常工作，只需直接使用 ``aiida_profile`` 灯具即可。"
 
 #: ../../source/topics/plugins.rst:541
 msgid "``postgres_cluster``"
@@ -7118,18 +7118,18 @@ msgstr ""
 
 #: ../../source/topics/plugins.rst:678
 msgid "``aiida_code``"
-msgstr ""
+msgstr "``aiida_code``"
 
 #: ../../source/topics/plugins.rst:680
 msgid ""
 "This fixture is useful if a test requires an "
 ":class:`~aiida.orm.nodes.data.code.abstract.AbstractCode` instance. For "
 "example:"
-msgstr ""
+msgstr "如果测试需要 :class:`~aiida.orm.nodes.data.code.abstract.AbstractCode` 实例，则此夹具非常有用。例如"
 
 #: ../../source/topics/plugins.rst:699
 msgid "``aiida_code_installed``"
-msgstr ""
+msgstr "``aiida_code_installed``"
 
 #: ../../source/topics/plugins.rst:701
 msgid ""
@@ -8011,19 +8011,19 @@ msgstr "请注意，输入 **必须作为关键字参数传递** ，因为它们
 
 #: ../../source/topics/processes/functions.rst:100
 msgid "Variadic positional arguments are now supported"
-msgstr ""
+msgstr "现在支持多变位置参数"
 
 #: ../../source/topics/processes/functions.rst:103
 msgid ""
 "Variadic positional arguments can be used in case the function should accept"
 " a list of inputs of unknown length."
-msgstr ""
+msgstr "如果函数需要接受长度未知的输入列表，则可以使用变量位置参数。"
 
 #: ../../source/topics/processes/functions.rst:105
 msgid ""
 "Consider the example of a calculation function that computes the average of "
 "a number of ``Int`` nodes:"
-msgstr ""
+msgstr "以计算 ``Int`` nodes 的平均值的计算函数为例进行说明："
 
 #: ../../source/topics/processes/functions.rst:110
 msgid ""
@@ -8238,7 +8238,7 @@ msgstr ""
 
 #: ../../source/topics/processes/functions.rst:221
 msgid "Outputs with nested namespaces"
-msgstr ""
+msgstr "嵌套名称空间的输出"
 
 #: ../../source/topics/processes/functions.rst:224
 msgid "Outputs can be attached with nested namespaces in the output labels:"
@@ -8808,7 +8808,7 @@ msgstr "``valid_type`` 可以定义单个类型，也可以定义多个有效类
 
 #: ../../source/topics/processes/usage.rst:147
 msgid "Optional ports can now accept ``None``"
-msgstr ""
+msgstr "可选端口现在可接受 ``None``"
 
 #: ../../source/topics/processes/usage.rst:150
 msgid ""
@@ -9308,7 +9308,7 @@ msgstr ""
 
 #: ../../source/topics/processes/usage.rst:363
 msgid "Waiting on a process"
-msgstr ""
+msgstr "等待 process"
 
 #: ../../source/topics/processes/usage.rst:366
 msgid ""
@@ -10009,11 +10009,11 @@ msgid ""
 "hash of any node. In order to figure out why a calculation is *not* being "
 "reused, the :meth:`~aiida.orm.nodes.caching.NodeCaching.get_objects_to_hash`"
 " method may be useful:"
-msgstr ""
+msgstr "一旦 node 被存储到数据库中，它的哈希值就会被存储到 ``_aiida_hash`` 额外值中，该额外值将用于查找匹配的 node。如果数据库中已经存在具有相同哈希值的同类 node，则视为缓存匹配。您可以使用 :meth:`~aiida.orm.nodes.caching.NodeCaching.get_hash` 方法检查任何 node 的哈希值。为了找出某个计算**未被重用的原因， :meth:`~aiida.orm.nodes.caching.NodeCaching.get_objects_to_hash` 方法可能很有用："
 
 #: ../../source/topics/provenance/caching.rst:60
 msgid "Version information removed from hash computation"
-msgstr ""
+msgstr "从哈希计算中移除版本信息"
 
 #: ../../source/topics/provenance/caching.rst:63
 msgid ""
@@ -10032,7 +10032,7 @@ msgid ""
 "in code are going to be ``CalcJob`` and ``Parser`` plugins. See :ref:`this "
 "section <topics:provenance:caching:control-hashing:calcjobs-parsers>` on a "
 "mechanism to control the caching of ``CalcJob`` plugins."
-msgstr ""
+msgstr "在 v2.6 之前，用于计算 ``ProcessNode`` 的哈希值的对象包括 ``version`` 属性。该属性存储了创建时 ``aiida-core`` 和插件包(如果相关)已安装版本的字典。在首次引入缓存机制时，我们有意将此信息添加到哈希值中，以确保安全并尽可能防止误报。然而，这样做的局限性太大了，因为这意味着每次更新 ``aiida-core`` 或插件包的版本时，所有现有的有效缓存源基本上都会失效。即使运行一个完全相同的 process，它的哈希值也会不同，这完全是因为版本信息不同。因此，从版本 2.6 开始，版本信息不再是哈希计算的一部分。因代码更改而导致误报的最可能来源是 ``CalcJob`` 和 ``Parser`` 插件。有关控制 ``CalcJob`` 插件缓存的机制，请参见 :ref:`this section <topics:provenance:caching:control-hashing:calcjobs-parsers>` 。"
 
 #: ../../source/topics/provenance/caching.rst:76
 msgid "Controlling hashing"
@@ -10065,7 +10065,7 @@ msgid ""
 "Include extra information in computing the hash by overriding the "
 ":meth:`~aiida.orm.nodes.caching.NodeCaching.get_objects_to_hash` method. Use"
 " the ``super()`` method, and then append to the list of objects to hash."
-msgstr ""
+msgstr "通过覆盖 :meth:`~aiida.orm.nodes.caching.NodeCaching.get_objects_to_hash` 方法，在计算哈希值时包含额外信息。使用 ``super()`` 方法，然后追加到要散列的对象列表中。"
 
 #: ../../source/topics/provenance/caching.rst:89
 msgid ""
@@ -10092,11 +10092,11 @@ msgstr ""
 
 #: ../../source/topics/provenance/caching.rst:101
 msgid "Calculation jobs and parsers"
-msgstr ""
+msgstr "计算工作和解析器"
 
 #: ../../source/topics/provenance/caching.rst:103
 msgid "Resetting the calculation job cache"
-msgstr ""
+msgstr "重置计算作业缓存"
 
 #: ../../source/topics/provenance/caching.rst:106
 msgid ""
@@ -10104,25 +10104,25 @@ msgid ""
 "significantly, it can be the case that for identical inputs, significantly "
 "different outputs are expected The following non-exhaustive list provides "
 "some examples:"
-msgstr ""
+msgstr "当 ``CalcJob`` 或 ``Parser`` 插件的实现发生重大变化时，可能会出现输入相同，但输出却大相径庭的情况："
 
 #: ../../source/topics/provenance/caching.rst:109
 msgid ""
 "The ``CalcJob.prepare_for_submission`` changes input files that are written "
 "independent of input nodes"
-msgstr ""
+msgstr "``CalcJob.prepare_for_submission`` 可更改独立于输入 nodes 写入的输入文件"
 
 #: ../../source/topics/provenance/caching.rst:110
 msgid ""
 "The ``Parser`` adds an output node for identical output files produced by "
 "the calculation"
-msgstr ""
+msgstr "``Parser`` 为计算产生的相同输出文件增加了一个输出 node"
 
 #: ../../source/topics/provenance/caching.rst:111
 msgid ""
 "The ``Parser`` changes an existing output node even for identical output "
 "files produced by the calculation"
-msgstr ""
+msgstr "即使计算产生的输出文件完全相同， ``Parser`` 也会更改现有输出 node"
 
 #: ../../source/topics/provenance/caching.rst:113
 msgid ""
@@ -10134,7 +10134,7 @@ msgid ""
 "computed hash for its nodes. This allows a plugin developer to invalidate "
 "the cache of existing nodes by simply incrementing this attribute, for "
 "example:"
-msgstr ""
+msgstr "在这种情况下，有关 ``CalcJob`` 插件的现有完成 node 应作为缓存源失效，因为它们可能构成误报。因此， ``CalcJob`` 和 ``Parser`` 基类都有 ``CACHE_VERSION`` 类属性。默认情况下，它被设置为 ``None`` ，但当设置为整数时，它将被包含在其 nodes 的计算哈希值中。这样，插件开发人员只需增加该属性，就能使现有 node 的缓存失效："
 
 #: ../../source/topics/provenance/caching.rst:124
 msgid ""
@@ -10142,7 +10142,7 @@ msgid ""
 "all that matters is that changing it, invalidates the existing cache. To "
 "keep things simple, it is recommended to treat it as a counter and simply "
 "increment it by 1 each time."
-msgstr ""
+msgstr "请注意， ``CACHE_VERSION`` 的确切值其实并不重要，重要的是更改它将使现有缓存失效。为了简单起见，建议将其视为一个计数器，每次只需递增 1 即可。"
 
 #: ../../source/topics/provenance/caching.rst:131
 msgid "Controlling Caching"
@@ -10206,7 +10206,7 @@ msgid ""
 "From the result, only those nodes are returned where the property "
 ":attr:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` returns "
 "``True``."
-msgstr ""
+msgstr "结果中，只有属性 :attr:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` 返回 ``True`` 的 nodes 才会被返回。"
 
 #: ../../source/topics/provenance/caching.rst:151
 msgid ""
@@ -10215,7 +10215,7 @@ msgid ""
 "in the caching mechanism. By default, for all nodes, the property returns "
 "``True``. However, this can be changed on a per-node basis, by setting it to"
 " ``False``"
-msgstr ""
+msgstr "因此，属性 :attr:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` 可以控制存储的 node 是否能在缓存机制中用作 `source`。默认情况下，对于所有 node，该属性都返回 ``True`` 。不过，可以根据每个 node 的情况进行更改，将其设置为 ``False``"
 
 #: ../../source/topics/provenance/caching.rst:160
 msgid ""
@@ -10247,7 +10247,7 @@ msgid ""
 ":meth:`~aiida.engine.processes.process.Process.is_valid_cache` method, it is"
 " called, passing the node as an argument. If that returns ``True``, the node"
 " is considered to be a valid caching source."
-msgstr ""
+msgstr " :class:`~aiida.engine.processes.process.Process` 类重载了 :attr:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` 属性，以便对作为缓存源的 process nodes 进行更精细的控制。如果基类的 :attr:`~aiida.orm.nodes.caching.NodeCaching.is_valid_cache` 或 :meth:`~aiida.orm.nodes.process.process.ProcessNode.is_finished` 返回 ``False`` ，则 process node 不是有效源。同样，如果无法通过 :meth:`~aiida.orm.nodes.process.process.ProcessNode.process_class` 从 node 加载 process 类，则 node 也不是有效的缓存源。最后，如果相关的 process 类实现了 :meth:`~aiida.engine.processes.process.Process.is_valid_cache` 方法，则会调用该方法，并将 node 作为参数传递。如果返回 ``True`` ，则认为 node 是有效的缓存源。"
 
 #: ../../source/topics/provenance/caching.rst:175
 msgid ""
@@ -12445,7 +12445,7 @@ msgid ""
 "complete:create-profile:core-psql-dos` for details). Once created, a profile"
 " can be created using the database with the command ``verdi profile setup "
 "core.psql_dos``."
-msgstr ""
+msgstr "尝试使用 ``verdi presto --use-postgres`` 命令自动创建 PostgreSQL 数据库。某些系统需要 root 访问权限才能这样做，如果无法获得 root 访问权限，命令就会失败。在这种情况下，应手动创建数据库(详见 :ref:`installation:guide-complete:create-profile:core-psql-dos` )。创建完成后，可使用 ``verdi profile setup core.psql_dos`` 命令使用数据库创建配置文件。"
 
 #: ../../source/topics/storage.rst:134
 msgid "``core.sqlite_dos``"
